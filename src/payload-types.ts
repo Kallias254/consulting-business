@@ -156,7 +156,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'scholarHero';
     richText?: {
       root: {
         type: string;
@@ -198,7 +198,54 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | {
+        cards?:
+          | {
+              title: string;
+              subtitle?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              highlight?: boolean | null;
+              buttonLabel?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'scholarCards';
+      }
+    | {
+        steps?:
+          | {
+              title: string;
+              description: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'scholarMethodology';
+      }
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -1086,6 +1133,35 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        scholarCards?:
+          | T
+          | {
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    subtitle?: T;
+                    description?: T;
+                    highlight?: T;
+                    buttonLabel?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        scholarMethodology?:
+          | T
+          | {
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T

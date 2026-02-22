@@ -1,4 +1,6 @@
 import React from 'react'
+import { MantineProvider } from '@mantine/core'
+import { theme } from '@/theme'
 
 import { HeaderThemeProvider } from './HeaderTheme'
 import { ThemeProvider } from './Theme'
@@ -8,7 +10,11 @@ export const Providers: React.FC<{
 }> = ({ children }) => {
   return (
     <ThemeProvider>
-      <HeaderThemeProvider>{children}</HeaderThemeProvider>
+      <HeaderThemeProvider>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
+          {children}
+        </MantineProvider>
+      </HeaderThemeProvider>
     </ThemeProvider>
   )
 }

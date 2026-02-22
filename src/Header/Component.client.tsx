@@ -6,8 +6,8 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
 
-import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import { LogoutButton } from '@/components/ui/LogoutButton'
 
 interface HeaderClientProps {
   data: Header
@@ -29,13 +29,41 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  // Hide global header in portal routes to avoid duplication with AppShell
+  const isPortal = pathname.startsWith('/researcher') || 
+                   pathname.startsWith('/admin/command') || 
+                   pathname.startsWith('/dashboard')
+
+  if (isPortal) return null
+
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-dark-forest/90 backdrop-blur-md" {...(theme ? { 'data-theme': theme } : {})}>
+      <div className="container py-4 flex justify-between items-center">
+        <Link className="flex items-center gap-2 group" href="/">
+          <span className="text-burnished-gold text-2xl group-hover:scale-110 transition-transform">◈</span>
+          <span className="font-display text-xl tracking-tighter text-parchment uppercase">Scientist / aaS</span>
         </Link>
-        <HeaderNav data={data} />
+        
+        <div className="flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-3 font-sans text-[8px] text-deep-green/40 tracking-[0.25em] uppercase">
+            <span>GATEWAY_STATUS:</span>
+            <span className="w-1 h-1 bg-sage rounded-full shadow-[0_0_8px_var(--color-sage)]"></span>
+            <span className="text-sage font-bold">OPTIMAL</span>
+          </div>
+          
+          <HeaderNav data={data} />
+          
+          <div className="flex items-center gap-3">
+            <Link 
+              href="/dashboard" 
+              className="hidden sm:inline-flex px-4 py-1.5 border border-burnished-gold/30 text-burnished-gold font-sans text-[9px] font-bold tracking-widest uppercase transition-all hover:bg-burnished-gold hover:text-dark-forest"
+            >
+              PORTAL_
+            </Link>
+            <div className="h-4 w-px bg-white/10 hidden sm:block" />
+            <LogoutButton />
+          </div>
+        </div>
       </div>
     </header>
   )
