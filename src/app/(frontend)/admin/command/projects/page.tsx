@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   Container, 
   Stack, 
@@ -76,6 +77,12 @@ const activeProjects = [
 ];
 
 export default function ActiveProjectsPage() {
+  const router = useRouter();
+
+  const handleRowClick = (projectId: string) => {
+    router.push(`/admin/command/projects/${projectId}`);
+  };
+
   return (
     <Container size="xl" fluid>
       <Stack gap={40}>
@@ -102,7 +109,7 @@ export default function ActiveProjectsPage() {
         </Box>
 
         {/* 2. Filters & Controls */}
-        <Paper withBorder p="md" bg="rgba(14, 29, 22, 0.4)" radius={0}>
+        <Paper withBorder p="md" bg="rgba(14, 29, 22, 0.4)" radius={0} style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
           <Group grow>
             <TextInput 
               placeholder="Search by project ID, title, or client..." 
@@ -129,7 +136,7 @@ export default function ActiveProjectsPage() {
         </Paper>
 
         {/* 3. Project Ledger */}
-        <Paper withBorder radius={0} p={0} bg="transparent">
+        <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
           <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
             <Table.Thead bg="rgba(14, 29, 22, 0.6)">
               <Table.Tr>
@@ -144,7 +151,11 @@ export default function ActiveProjectsPage() {
             </Table.Thead>
             <Table.Tbody>
               {activeProjects.map((project) => (
-                <Table.Tr key={project.id}>
+                <Table.Tr 
+                  key={project.id} 
+                  onClick={() => handleRowClick(project.id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <Table.Td>
                     <Text ff="var(--font-body)" size="xs" c="parchment">{project.id}</Text>
                   </Table.Td>
@@ -194,14 +205,7 @@ export default function ActiveProjectsPage() {
                     </Group>
                   </Table.Td>
                   <Table.Td>
-                    <Group gap="xs">
-                      <Tooltip label="View Full Ledger">
-                        <ActionIcon variant="subtle" color="deep-green.3"><IconExternalLink size={16} /></ActionIcon>
-                      </Tooltip>
-                      <Tooltip label="Project Comms">
-                        <ActionIcon variant="subtle" color="deep-green.3"><IconMessageCircle size={16} /></ActionIcon>
-                      </Tooltip>
-                    </Group>
+                    <ActionIcon variant="subtle" color="deep-green.3"><IconExternalLink size={16} /></ActionIcon>
                   </Table.Td>
                 </Table.Tr>
               ))}
@@ -211,7 +215,7 @@ export default function ActiveProjectsPage() {
 
         {/* 4. Workforce Distribution */}
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)">
+          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
             <Title order={5} ff="var(--font-display)" c="burnished-gold" mb="xl" style={{ textTransform: 'uppercase' }}>
               Workforce Allocation
             </Title>
@@ -232,7 +236,7 @@ export default function ActiveProjectsPage() {
             </Stack>
           </Paper>
 
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)">
+          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
             <Title order={5} ff="var(--font-display)" c="burnished-gold" mb="xl" style={{ textTransform: 'uppercase' }}>
               Niche Concentration
             </Title>

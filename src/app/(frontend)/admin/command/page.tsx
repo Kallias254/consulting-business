@@ -44,7 +44,7 @@ export default function BlessingQueuePage() {
               </Text>
             </Box>
             <Group gap="xl">
-              <Paper withBorder p="md" bg="black" style={{ border: '1px solid var(--mantine-color-burnished-gold-0)' }}>
+              <Paper withBorder p="md" bg="black" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
                 <Group gap="lg">
                   <Box>
                     <Text ff="var(--font-body)" size="7px" c="burnished-gold" style={{ letterSpacing: '1px' }}>PENDING_APPROVAL</Text>
@@ -62,7 +62,7 @@ export default function BlessingQueuePage() {
         </Box>
 
         {/* 2. Priority List */}
-        <Paper withBorder radius={0} p={0} bg="transparent">
+        <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
           <Box p="xl" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-3)' }}>
             <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
               High-Priority Review List
@@ -146,7 +146,7 @@ export default function BlessingQueuePage() {
 
         {/* 3. Operational Metadata */}
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)">
+          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
             <Group justify="space-between" mb="md">
               <Text ff="var(--font-body)" size="xs" c="burnished-gold">SYSTEM_INTEGRITY</Text>
               <IconFileCertificate size={16} color="var(--mantine-color-burnished-gold-7)" />
@@ -155,7 +155,7 @@ export default function BlessingQueuePage() {
             <Progress value={100} color="sage" size="xs" radius={0} />
           </Paper>
           
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)">
+          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
             <Group justify="space-between" mb="md">
               <Text ff="var(--font-body)" size="xs" c="burnished-gold">LIAISON_WORKLOAD</Text>
               <IconBolt size={16} color="var(--mantine-color-burnished-gold-7)" />
@@ -164,7 +164,7 @@ export default function BlessingQueuePage() {
             <Progress value={65} color="burnished-gold" size="xs" radius={0} />
           </Paper>
 
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)">
+          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
             <Group justify="space-between" mb="md">
               <Text ff="var(--font-body)" size="xs" c="burnished-gold">FINANCIAL_PULSE</Text>
               <IconArrowNarrowRight size={16} color="var(--mantine-color-burnished-gold-7)" />
