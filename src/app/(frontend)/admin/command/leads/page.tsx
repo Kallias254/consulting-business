@@ -233,7 +233,8 @@ export default function LeadsPage() {
             h={50}
             leftSection={<IconRocket size={20} />}
             onClick={() => {
-              alert('LEAD PROMOTED // CLIENT NOTIFIED // PROJECT INFRASTRUCTURE DEPLOYED');
+              alert('LEAD PROMOTED // INITIALIZING PROJECT ALPHA // REDIRECTING TO COMMAND LEDGER');
+              router.push('/admin/command/projects/PRJ-7792');
               closePromote();
             }}
           >
