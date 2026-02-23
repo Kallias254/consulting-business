@@ -1,9 +1,8 @@
 import type { TextField } from '@payloadcms/plugin-form-builder/types'
 import type { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form'
 
-import { Label } from '@/components/ui/label'
-import { Textarea as TextAreaComponent } from '@/components/ui/textarea'
 import React from 'react'
+import { Textarea as MantineTextarea, InputWrapper, Text } from '@mantine/core'
 
 import { Error } from '../Error'
 import { Width } from '../Width'
@@ -15,26 +14,33 @@ export const Textarea: React.FC<
     rows?: number
   }
 > = ({ name, defaultValue, errors, label, register, required, rows = 3, width }) => {
+  const error = errors[name]?.message as string
+
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
-        {label}
-
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
-      </Label>
-
-      <TextAreaComponent
-        defaultValue={defaultValue}
+      <InputWrapper
+        label={
+          <>
+            {label}
+            {required && (
+              <Text component="span" c="red" ml={4}>*</Text> // Mantine's way to indicate required
+            )}
+          </>
+        }
+        error={error}
         id={name}
-        rows={rows}
-        {...register(name, { required: required })}
-      />
-
+        required={required}
+      >
+        <MantineTextarea
+          defaultValue={defaultValue}
+          id={name}
+          rows={rows}
+          {...register(name, { required: required })}
+          error={!!error} // Mantine's Textarea takes a boolean for error state
+        />
+      </InputWrapper>
       {errors[name] && <Error name={name} />}
     </Width>
   )
 }
+

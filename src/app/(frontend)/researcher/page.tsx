@@ -106,11 +106,11 @@ export default function ResearcherDashboardPage() {
           <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
             <Table.Thead bg="parchment.0">
               <Table.Tr>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">UNIT_ID</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">PROJECT / TASK</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">PRIORITY</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">PROGRESS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">ACTIONS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">UNIT_ID</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PROJECT / TASK</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PRIORITY</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PROGRESS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">ACTIONS</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
@@ -165,13 +165,13 @@ export default function ResearcherDashboardPage() {
         </Paper>
 
         {/* 4. Researcher Guidance Section */}
-        <Paper withBorder p={40} radius={0} bg="deep-green.9">
+        <Paper withBorder p={40} radius={0} bg="parchment.0">
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={60}>
             <Stack gap="md">
-              <Title order={4} ff="var(--font-display)" c="parchment" style={{ textTransform: 'uppercase' }}>
+              <Title order={4} ff="var(--font-display)" c="deep-green.9" style={{ textTransform: 'uppercase' }}>
                 Principal Guidance
               </Title>
-              <Text size="sm" c="parchment" opacity={0.7} style={{ lineHeight: 1.6 }}>
+              <Text size="sm" c="deep-green.7" style={{ lineHeight: 1.6 }}>
                 &quot;Team, focus on the methodology refactor for PRJ-8104 this week. Micah is looking for perfectly typeset R-plots before the Friday pulse. Maintain SHA-256 integrity on all uploads.&quot;
               </Text>
               <Group mt="md">
@@ -180,19 +180,19 @@ export default function ResearcherDashboardPage() {
                 </Button>
               </Group>
             </Stack>
-            <Box style={{ border: '1px solid var(--mantine-color-deep-green-7)', padding: '24px' }}>
+            <Box style={{ border: '1px solid var(--mantine-color-parchment-2)', padding: '24px' }}>
               <Group justify="space-between" mb="md">
-                <Text ff="var(--font-body)" size="xs" c="burnished-gold">PRODUCTION_METRICS</Text>
+                <Text ff="var(--font-body)" size="xs" c="burnished-gold.8">PRODUCTION_METRICS</Text>
                 <Badge color="sage" radius={0} size="xs">ACTIVE</Badge>
               </Group>
               <Stack gap="xs">
                 <Group justify="space-between">
                   <Text size="xs" c="dimmed">Avg. Typeset Velocity:</Text>
-                  <Text size="xs" ff="var(--font-body)" c="parchment">2.4s</Text>
+                  <Text size="xs" ff="var(--font-body)" c="deep-green.9">2.4s</Text>
                 </Group>
                 <Group justify="space-between">
                   <Text size="xs" c="dimmed">Commit Success Rate:</Text>
-                  <Text size="xs" ff="var(--font-body)" c="parchment">100%</Text>
+                  <Text size="xs" ff="var(--font-body)" c="deep-green.9">100%</Text>
                 </Group>
               </Stack>
             </Box>

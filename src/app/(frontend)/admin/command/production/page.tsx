@@ -38,17 +38,17 @@ Preliminary data suggests a significant correlation between...`);
   return (
     <Box style={{ height: 'calc(100vh - 160px)', display: 'flex', flexDirection: 'column' }}>
       {/* 1. Technical Sub-Header */}
-      <Paper withBorder p="md" radius={0} bg="black" mb="xs" style={{ border: '1px solid var(--mantine-color-deep-green-7)' }}>
+      <Paper withBorder p="md" radius={0} bg="black" mb="xs" style={{ border: '1px solid #2A2D31' }}>
         <Group justify="space-between">
           <Group gap="xl">
             <Group gap="xs">
               <IconTerminal2 size={18} color="var(--mantine-color-burnished-gold-7)" />
-              <Text ff="var(--font-body)" size="xs" fw={700} c="parchment">ENGINE_STATUS: OPERATIONAL</Text>
+              <Text ff="var(--font-body)" size="xs" fw={700} c="#E1E1E1">ENGINE_STATUS: OPERATIONAL</Text>
             </Group>
-            <Divider orientation="vertical" h={20} color="deep-green.7" />
+            <Divider orientation="vertical" h={20} color="#2A2D31" />
             <Group gap="md">
-              <Text ff="var(--font-body)" size="xs" c="deep-green.3">PROJECT_ID:</Text>
-              <Text ff="var(--font-body)" size="xs" c="parchment">PRJ-7792-ALPHA</Text>
+              <Text ff="var(--font-body)" size="xs" c="dimmed">PROJECT_ID:</Text>
+              <Text ff="var(--font-body)" size="xs" c="#E1E1E1">PRJ-7792-ALPHA</Text>
             </Group>
           </Group>
 
@@ -67,13 +67,13 @@ Preliminary data suggests a significant correlation between...`);
       </Paper>
 
       {/* 2. Dual-Pane Editor Workspace */}
-      <Box style={{ flex: 1, display: 'flex', gap: '1px', background: 'var(--mantine-color-deep-green-7)', overflow: 'hidden', border: '1px solid var(--mantine-color-deep-green-7)' }}>
+      <Box style={{ flex: 1, display: 'flex', gap: '1px', background: '#2A2D31', overflow: 'hidden', border: '1px solid #2A2D31' }}>
         {/* Left Pane: Editor */}
         <Box style={{ flex: 1, background: '#050A08', display: 'flex', flexDirection: 'column' }}>
-          <Box p="xs" bg="rgba(14, 29, 22, 0.6)" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-8)' }}>
+          <Box p="xs" bg="#0A0B0C" style={{ borderBottom: '1px solid #2A2D31' }}>
             <Group justify="space-between">
               <Group gap="xs">
-                <IconCode size={14} color="var(--mantine-color-deep-green-3)" />
+                <IconCode size={14} color="var(--mantine-color-gray-6)" />
                 <Text ff="var(--font-body)" size="7px" c="dimmed" style={{ letterSpacing: '1px' }}>SOURCE_EDITOR (MARKDOWN)</Text>
               </Group>
             </Group>
@@ -88,7 +88,7 @@ Preliminary data suggests a significant correlation between...`);
               input: {
                 flex: 1,
                 padding: '30px',
-                color: 'var(--mantine-color-parchment-0)',
+                color: '#E1E1E1',
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.85rem',
                 lineHeight: 1.8,
@@ -102,7 +102,7 @@ Preliminary data suggests a significant correlation between...`);
 
         {/* Right Pane: Preview */}
         <Box style={{ flex: 1, background: '#1a1a1a', display: 'flex', flexDirection: 'column' }}>
-          <Box p="xs" bg="rgba(14, 29, 22, 0.2)" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-8)' }}>
+          <Box p="xs" bg="#0A0B0C" style={{ borderBottom: '1px solid #2A2D31' }}>
             <Group justify="space-between">
               <Group gap="xs">
                 <IconEye size={14} color="var(--mantine-color-burnished-gold-7)" />

@@ -1,13 +1,7 @@
 'use client'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import React, { useState } from 'react'
+import { Select } from '@mantine/core'
 
 import type { Theme } from './types'
 
@@ -18,12 +12,12 @@ export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
   const [value, setValue] = useState('')
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
-    if (themeToSet === 'auto') {
+  const onThemeChange = (themeToSet: string | null) => { // Mantine's Select onChange can return null
+    if (themeToSet === 'auto' || themeToSet === null) {
       setTheme(null)
       setValue('auto')
     } else {
-      setTheme(themeToSet)
+      setTheme(themeToSet as Theme) // Cast back to Theme
       setValue(themeToSet)
     }
   }
@@ -33,19 +27,30 @@ export const ThemeSelector: React.FC = () => {
     setValue(preference ?? 'auto')
   }, [])
 
+  const data = [
+    { value: 'auto', label: 'Auto' },
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+  ];
+
   return (
-    <Select onValueChange={onThemeChange} value={value}>
-      <SelectTrigger
-        aria-label="Select a theme"
-        className="w-auto bg-transparent gap-2 pl-0 md:pl-3 border-none"
-      >
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="auto">Auto</SelectItem>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-      </SelectContent>
-    </Select>
+    <Select
+      value={value}
+      onChange={onThemeChange}
+      data={data}
+      placeholder="Theme"
+      aria-label="Select a theme"
+      variant="unstyled" // To match the original unstyled appearance
+      size="xs" // Adjust size as needed
+      styles={{
+        input: {
+          paddingLeft: 0,
+          paddingRight: 0,
+          backgroundColor: 'transparent',
+          border: 'none',
+          fontSize: 'var(--mantine-font-size-xs)', // Adjust font size as needed
+        },
+      }}
+    />
   )
 }

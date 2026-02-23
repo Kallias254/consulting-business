@@ -61,11 +61,11 @@ export default function ManuscriptHistoryPage() {
               <Table verticalSpacing="md" horizontalSpacing="xl" highlightOnHover>
                 <Table.Thead bg="parchment.0">
                   <Table.Tr>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">REV_ID</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">IDENTIFIER</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">DATE</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">STATUS</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed"></Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">REV_ID</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">IDENTIFIER</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">DATE</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">STATUS</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed"></Table.Th>
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
@@ -140,7 +140,7 @@ export default function ManuscriptHistoryPage() {
                   <Text size="xs" fw={700} c="deep-green">Final Pass Active</Text>
                 </Timeline.Item>
 
-                <Timeline.Item bullet={<IconLock size={14} />} title="Journal Submission" bulletSize={16}>
+                <Timeline.Item bullet={<IconLock size={14} />} title="Journal Submission" >
                   <Text size="xs" c="dimmed">Phase 5: Pending</Text>
                 </Timeline.Item>
               </Timeline>

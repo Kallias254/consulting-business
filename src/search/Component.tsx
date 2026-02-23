@@ -1,6 +1,5 @@
 'use client'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { TextInput, VisuallyHidden } from '@mantine/core'
 import React, { useState, useEffect } from 'react'
 import { useDebounce } from '@/utilities/useDebounce'
 import { useRouter } from 'next/navigation'
@@ -22,15 +21,16 @@ export const Search: React.FC = () => {
           e.preventDefault()
         }}
       >
-        <Label htmlFor="search" className="sr-only">
-          Search
-        </Label>
-        <Input
+        <VisuallyHidden>
+          <label htmlFor="search">Search</label>
+        </VisuallyHidden>
+        <TextInput
           id="search"
           onChange={(event) => {
             setValue(event.target.value)
           }}
           placeholder="Search"
+          aria-label="Search" // Added for explicit accessibility
         />
         <button type="submit" className="sr-only">
           submit
@@ -39,3 +39,4 @@ export const Search: React.FC = () => {
     </div>
   )
 }
+

@@ -55,11 +55,11 @@ export default function MicroTaskLedgerPage() {
             <Table.Thead bg="parchment.0">
               <Table.Tr>
                 <Table.Th w={40}><Checkbox radius={0} color="sage" /></Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">TASK_ID</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">TYPE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">OBJECTIVE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">PROJECT</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="dimmed">STATUS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">TASK_ID</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">TYPE</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">OBJECTIVE</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PROJECT</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">STATUS</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>

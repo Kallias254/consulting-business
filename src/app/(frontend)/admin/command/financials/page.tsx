@@ -141,13 +141,13 @@ export default function FinancialsPage() {
           <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
             <Table.Thead bg="rgba(14, 29, 22, 0.6)">
               <Table.Tr>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">INV_ID</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">PROJECT_CLIENT</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">GROSS_FEE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">NET_FEE_3%</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">RESEARCHER_75%</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">AGENCY_25%</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">STATUS</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>INV_ID</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>PROJECT_CLIENT</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>GROSS_FEE</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>NET_FEE_3%</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>RESEARCHER_75%</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>AGENCY_25%</Table.Th>
+                <Table.Th ff="var(--font-body)" c="deep-green.3" style={{ fontSize: 'var(--mantine-font-size-xs)' }}>STATUS</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>

@@ -42,11 +42,8 @@ export const ScholarMethodologyBlock: React.FC<ScholarMethodologyProps> = ({ ste
               <Box 
                 key={index}
                 p={48}
-                style={{
-                  borderRight: index < steps.length - 1 ? '1px solid var(--mantine-color-deep-green-7)' : 'none',
-                  borderBottom: { base: index < steps.length - 1 ? '1px solid var(--mantine-color-deep-green-7)' : 'none', md: 'none' },
-                  position: 'relative'
-                }}
+                pos="relative"
+                className={index < steps.length - 1 ? 'border-b md:border-b-0 md:border-r border-[var(--mantine-color-deep-green-7)]' : ''}
               >
                 <Text 
                   pos="absolute" 

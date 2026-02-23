@@ -17,13 +17,17 @@ export const FooterClient: React.FC<{ data: FooterType }> = ({ data }) => {
 
   if (isResearcher) {
     return (
-      <footer className="mt-auto border-t border-deep-green/30 bg-dark-forest text-parchment py-12">
+      <footer 
+        className="mt-auto border-t border-parchment bg-parchment text-deep-green py-12"
+        data-mantine-color-scheme="light"
+        data-theme="light"
+      >
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-2">
               <Link className="flex items-center gap-2 mb-6" href="/">
-                <span className="text-sage text-2xl">◈</span>
-                <span className="font-display text-xl tracking-tighter uppercase">Faculty of Research</span>
+                <span className="text-deep-green text-2xl">◈</span>
+                <span className="font-display text-xl tracking-tighter uppercase text-deep-green">Faculty of Research</span>
               </Link>
               <p className="font-sans text-[10px] text-deep-green/60 leading-relaxed max-w-sm uppercase tracking-wider">
                 This environment is optimized for technical drafting and manuscript preparation. 
@@ -33,9 +37,9 @@ export const FooterClient: React.FC<{ data: FooterType }> = ({ data }) => {
             <div>
               <h4 className="font-sans text-[10px] text-burnished-gold uppercase tracking-[0.2em] mb-6">Lab_Resources</h4>
               <nav className="flex flex-col gap-3">
-                <Link href="/methodology" className="font-sans text-[10px] text-parchment/40 hover:text-burnished-gold uppercase transition-colors">Methodology_Docs</Link>
-                <Link href="/researcher/drafts" className="font-sans text-[10px] text-parchment/40 hover:text-burnished-gold uppercase transition-colors">Active_Drafts</Link>
-                <Link href="/researcher/vault" className="font-sans text-[10px] text-parchment/40 hover:text-burnished-gold uppercase transition-colors">The_Vault</Link>
+                <Link href="/methodology" className="font-sans text-[10px] text-deep-green/40 hover:text-burnished-gold uppercase transition-colors">Methodology_Docs</Link>
+                <Link href="/researcher/drafts" className="font-sans text-[10px] text-deep-green/40 hover:text-burnished-gold uppercase transition-colors">Active_Drafts</Link>
+                <Link href="/dashboard/vault" className="font-sans text-[10px] text-deep-green/40 hover:text-burnished-gold uppercase transition-colors">The_Vault</Link>
               </nav>
             </div>
             <div>
@@ -47,7 +51,7 @@ export const FooterClient: React.FC<{ data: FooterType }> = ({ data }) => {
               </div>
             </div>
           </div>
-          <div className="border-t border-deep-green/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="border-t border-deep-green/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="font-sans text-[10px] text-deep-green/40 uppercase tracking-[0.2em]">
               © 2026 FACULTY OF RESEARCH // MS-LAB-7 // ALL_RIGHTS_RESERVED
             </div>
@@ -112,7 +116,7 @@ export const FooterClient: React.FC<{ data: FooterType }> = ({ data }) => {
                 <span className="font-display text-xl tracking-tighter uppercase text-deep-green">Scientist Portal</span>
               </Link>
               <p className="font-serif text-sm text-deep-green/70 leading-relaxed italic">
-                "Excellence in academic intelligence through sovereign infrastructure and faculty-led oversight."
+                &quot;Excellence in academic intelligence through sovereign infrastructure and faculty-led oversight.&quot;
               </p>
             </div>
             <div>

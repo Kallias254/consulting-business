@@ -74,10 +74,10 @@ export default function DataValidationPage() {
               <Table verticalSpacing="md" horizontalSpacing="xl">
                 <Table.Thead bg="parchment.0">
                   <Table.Tr>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">VARIABLE</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">N</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">DISTRIBUTION</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">STATUS</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">VARIABLE</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">N</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">DISTRIBUTION</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">STATUS</Table.Th>
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>

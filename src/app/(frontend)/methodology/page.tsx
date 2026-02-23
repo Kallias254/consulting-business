@@ -135,7 +135,7 @@ export default function MethodologyPage() {
       {/* 3. The "Engine Room" Visualization */}
       <Box component="section" py={120} bg="deep-green.9">
         <Container size="xl">
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={80} align="center">
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={80} >
             <Stack gap="xl">
               <Badge color="burnished-gold" variant="filled" radius={0} size="sm">Technical Advantage</Badge>
               <Title order={2} ff="var(--font-display)" c="parchment" size="3rem" style={{ textTransform: 'uppercase' }}>

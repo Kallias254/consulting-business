@@ -66,9 +66,9 @@ export default function ScientistPortalOverview() {
           </SimpleGrid>
         </Card>
 
-        <SimpleGrid cols={{ base: 1, lg: 3 }} spacing="xl" align="start">
+        <SimpleGrid cols={{ base: 1, lg: 3 }} spacing="xl" >
           {/* 2. The Manuscript Ledger (Table based, high density) */}
-          <Box span={{ lg: 2 }} style={{ gridColumn: 'span 2' }}>
+          <Box style={{ gridColumn: 'span 2' }}>
             <Card withBorder p={0} radius={0}>
               <Box p="xl" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-1)' }}>
                 <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
@@ -78,10 +78,10 @@ export default function ScientistPortalOverview() {
               <Table verticalSpacing="md" horizontalSpacing="xl" highlightOnHover>
                 <Table.Thead bg="parchment.0">
                   <Table.Tr>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">VERSION</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">STATUS</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed">LAST ACTION</Table.Th>
-                    <Table.Th ff="var(--font-body)" size="xs" c="dimmed"></Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">VERSION</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">STATUS</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">LAST ACTION</Table.Th>
+                    <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed"></Table.Th>
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
@@ -126,7 +126,7 @@ export default function ScientistPortalOverview() {
                   <Text size="xs" fw={700}>In progress</Text>
                 </Timeline.Item>
 
-                <Timeline.Item title="Journal Submission" bulletSize={12}>
+                <Timeline.Item title="Journal Submission" >
                   <Text size="xs" c="dimmed">Estimated: 48h</Text>
                 </Timeline.Item>
               </Timeline>

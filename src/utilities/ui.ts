@@ -1,12 +1,22 @@
-/**
- * Utility functions for UI components automatically added by ShadCN and used in a few of our frontend components and blocks.
- *
- * Other functions may be exported from here in the future or by installing other shadcn components.
- */
+export type ClassValue = string | number | boolean | undefined | null | { [key: string]: any } | ClassValue[]
 
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+export function cn(...inputs: ClassValue[]): string {
+  const classes: string[] = []
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  for (const input of inputs) {
+    if (!input) continue
+
+    if (typeof input === 'string' || typeof input === 'number') {
+      classes.push(input.toString())
+    } else if (Array.isArray(input)) {
+      const inner = cn(...input)
+      if (inner) classes.push(inner)
+    } else if (typeof input === 'object') {
+      for (const [key, value] of Object.entries(input)) {
+        if (value) classes.push(key)
+      }
+    }
+  }
+
+  return classes.join(' ')
 }

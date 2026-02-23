@@ -3,9 +3,8 @@ import type { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-f
 
 import { useFormContext } from 'react-hook-form'
 
-import { Checkbox as CheckboxUi } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
 import React from 'react'
+import { Checkbox as MantineCheckbox, Text } from '@mantine/core'
 
 import { Error } from '../Error'
 import { Width } from '../Width'
@@ -17,28 +16,29 @@ export const Checkbox: React.FC<
   }
 > = ({ name, defaultValue, errors, label, register, required, width }) => {
   const props = register(name, { required: required })
-  const { setValue } = useFormContext()
+  const { setValue, watch } = useFormContext()
+
+  const checked = watch(name)
+  const error = errors[name]?.message as string
 
   return (
     <Width width={width}>
-      <div className="flex items-center gap-2">
-        <CheckboxUi
-          defaultChecked={defaultValue}
-          id={name}
-          {...props}
-          onCheckedChange={(checked) => {
-            setValue(props.name, checked)
-          }}
-        />
-        <Label htmlFor={name}>
-          {required && (
-            <span className="required">
-              * <span className="sr-only">(required)</span>
-            </span>
-          )}
-          {label}
-        </Label>
-      </div>
+      <MantineCheckbox
+        id={name}
+        checked={checked} // Use watched value for controlled state
+        onChange={(event) => { // Mantine's onChange provides event
+          setValue(name, event.currentTarget.checked);
+        }}
+        label={
+          <>
+            {label}
+            {required && (
+              <Text component="span" c="red" ml={4}>*</Text> // Mantine's way to indicate required
+            )}
+          </>
+        }
+        error={!!error} // Mantine's Checkbox takes a boolean for error state
+      />
       {errors[name] && <Error name={name} />}
     </Width>
   )

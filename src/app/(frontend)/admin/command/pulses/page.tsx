@@ -67,16 +67,17 @@ export default function FridayPulsePage() {
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
                 Friday <Text component="span" inherit c="burnished-gold.7">Pulse</Text> Desk
               </Title>
-              <Text c="deep-green.3" size="sm" ff="var(--font-body)" mt={4}>
+              <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
                 Automated Status Management // Bulk Executive Authorization // Weekend Peace of Mind
               </Text>
             </Box>
             <Button 
               leftSection={<IconSend size={16} />} 
-              color="sage" 
+              color="burnished-gold" 
               c="dark-forest" 
               radius={0}
-              size="lg"
+              size="sm"
+              onClick={() => alert('ALL PULSES DISPATCHED // CLIENT ANXIETY NEUTRALIZED')}
             >
               Authorize & Fire All Pulses
             </Button>
@@ -85,67 +86,67 @@ export default function FridayPulsePage() {
 
         {/* 2. Pulse Scheduler Status */}
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
-          <Paper withBorder p="xl" radius={0} bg="black" style={{ border: '1px solid var(--mantine-color-deep-green-7)' }}>
+          <Paper withBorder p="xl" radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31' }}>
             <Group justify="space-between" mb="xs">
               <Text ff="var(--font-body)" size="xs" c="burnished-gold">SCHEDULER_STATUS</Text>
               <IconClock size={16} color="var(--mantine-color-burnished-gold-7)" />
             </Group>
-            <Text ff="var(--font-display)" size="xl">T-04:12:45</Text>
+            <Text ff="var(--font-display)" size="xl" c="#E1E1E1">T-04:12:45</Text>
             <Text size="7px" ff="var(--font-body)" c="dimmed">UNTIL FRIDAY 16:00 RELEASE</Text>
           </Paper>
           
-          <Paper withBorder p="xl" radius={0} bg="black" style={{ border: '1px solid var(--mantine-color-deep-green-7)' }}>
+          <Paper withBorder p="xl" radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31' }}>
             <Group justify="space-between" mb="xs">
               <Text ff="var(--font-body)" size="xs" c="burnished-gold">DRAFTS_COMPLETED</Text>
-              <IconCircleCheck size={16} color="var(--mantine-color-sage-0)" />
+              <IconCircleCheck size={16} color="var(--mantine-color-sage-7)" />
             </Group>
-            <Text ff="var(--font-display)" size="xl">12 / 14</Text>
+            <Text ff="var(--font-display)" size="xl" c="#E1E1E1">12 / 14</Text>
             <Progress value={85} color="sage" size="xs" radius={0} mt="sm" />
           </Paper>
 
-          <Paper withBorder p="xl" radius={0} bg="black" style={{ border: '1px solid var(--mantine-color-burnished-gold-0)' }}>
+          <Paper withBorder p="xl" radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31' }}>
             <Group justify="space-between" mb="xs">
               <Text ff="var(--font-body)" size="xs" c="burnished-gold">ANXIETY_FLAG_COUNT</Text>
-              <IconAlertCircle size={16} color="var(--mantine-color-burnished-gold-7)" />
+              <IconAlertCircle size={16} color="var(--mantine-color-orange-7)" />
             </Group>
-            <Text ff="var(--font-display)" size="xl">02</Text>
+            <Text ff="var(--font-display)" size="xl" c="#E1E1E1">02</Text>
             <Text size="7px" ff="var(--font-body)" c="dimmed">REQUIRES PERSONAL MICAH VOICE</Text>
           </Paper>
         </SimpleGrid>
 
         {/* 3. Pulse Approval Ledger */}
-        <Paper withBorder radius={0} p={0} bg="transparent">
-          <Box p="xl" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-3)' }}>
+        <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31' }}>
+          <Box p="xl" style={{ borderBottom: '1px solid #2A2D31' }}>
             <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
               Weekend Status Drafts
             </Title>
           </Box>
           <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
-            <Table.Thead bg="rgba(14, 29, 22, 0.6)">
+            <Table.Thead bg="#0A0B0C">
               <Table.Tr>
                 <Table.Th w={40}><Checkbox radius={0} color="sage" /></Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">CLIENT_PROJECT</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">CURRENT_PHASE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">PULSE_MESSAGE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">STATUS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3"></Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">CLIENT_PROJECT</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">CURRENT_PHASE</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PULSE_MESSAGE</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">STATUS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed"></Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
               {pulseDrafts.map((pulse) => (
-                <Table.Tr key={pulse.id}>
+                <Table.Tr key={pulse.id} style={{ borderBottom: '1px solid #2A2D31' }}>
                   <Table.Td><Checkbox radius={0} color="sage" defaultChecked={pulse.status === 'Ready'} /></Table.Td>
                   <Table.Td>
                     <Stack gap={0}>
-                      <Text size="sm" fw={700} c="parchment">{pulse.client}</Text>
+                      <Text size="sm" fw={700} c="#E1E1E1">{pulse.client}</Text>
                       <Text size="xs" c="dimmed">{pulse.project}</Text>
                     </Stack>
                   </Table.Td>
                   <Table.Td>
-                    <Badge variant="outline" color="deep-green.3" size="xs">{pulse.phase.toUpperCase()}</Badge>
+                    <Badge variant="outline" color="gray.6" size="xs" radius={0}>{pulse.phase.toUpperCase()}</Badge>
                   </Table.Td>
                   <Table.Td>
-                    <Text size="xs" c="parchment" italic>&quot;{pulse.message}&quot;</Text>
+                    <Text size="xs" c="#E1E1E1" fs="italic">&quot;{pulse.message}&quot;</Text>
                   </Table.Td>
                   <Table.Td>
                     <Badge 
@@ -153,15 +154,16 @@ export default function FridayPulsePage() {
                       color={pulse.status === 'Ready' ? 'sage' : 'burnished-gold'} 
                       size="xs"
                       c="dark-forest"
+                      radius={0}
                     >
                       {pulse.status.toUpperCase()}
                     </Badge>
                   </Table.Td>
                   <Table.Td>
                     <Group gap="xs">
-                      <ActionIcon variant="subtle" color="deep-green.3"><IconEdit size={16} /></ActionIcon>
+                      <ActionIcon variant="subtle" color="gray.6"><IconEdit size={16} /></ActionIcon>
                       <Tooltip label="Verify Fingerprint">
-                        <ActionIcon variant="subtle" color="deep-green.3"><IconFingerprint size={16} /></ActionIcon>
+                        <ActionIcon variant="subtle" color="gray.6"><IconFingerprint size={16} /></ActionIcon>
                       </Tooltip>
                     </Group>
                   </Table.Td>

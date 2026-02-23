@@ -1,7 +1,7 @@
 'use client'
-import { Button } from '@/components/ui/button'
 import { CopyIcon } from '@payloadcms/ui/icons/Copy'
 import { useState } from 'react'
+import { Button, Group, Text } from '@mantine/core' // Added Text for the label
 
 export function CopyButton({ code }: { code: string }) {
   const [text, setText] = useState('Copy')
@@ -18,16 +18,16 @@ export function CopyButton({ code }: { code: string }) {
   return (
     <div className="flex justify-end align-middle">
       <Button
-        className="flex gap-1"
-        variant={'secondary'}
+        variant="default" // Equivalent to a neutral/secondary button
         onClick={async () => {
           await navigator.clipboard.writeText(code)
           updateCopyStatus()
         }}
+        leftSection={<CopyIcon />} // Icon on the left
       >
-        <p>{text}</p>
-        <CopyIcon />
+        {text}
       </Button>
     </div>
   )
 }
+

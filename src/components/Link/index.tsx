@@ -1,12 +1,16 @@
-import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
+import { Button } from '@mantine/core'
 
 import type { Page, Post } from '@/payload-types'
 
+// Define Mantine-compatible ButtonProps type if needed, or use Mantine's directly
+type MantineButtonVariant = 'filled' | 'light' | 'outline' | 'default' | 'subtle' | 'transparent';
+type MantineButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 type CMSLinkType = {
-  appearance?: 'inline' | ButtonProps['variant']
+  appearance?: 'inline' | MantineButtonVariant | null
   children?: React.ReactNode
   className?: string
   label?: string | null
@@ -15,7 +19,7 @@ type CMSLinkType = {
     relationTo: 'pages' | 'posts'
     value: Page | Post | string | number
   } | null
-  size?: ButtonProps['size'] | null
+  size?: MantineButtonSize | null
   type?: 'custom' | 'reference' | null
   url?: string | null
 }
@@ -42,7 +46,10 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   if (!href) return null
 
-  const size = appearance === 'link' ? 'clear' : sizeFromProps
+  const mantineSize = sizeFromProps || 'md'; // Default to 'md' if not specified
+  // Map Shadcn variants to Mantine variants
+  const mantineVariant: MantineButtonVariant = appearance === 'inline' ? 'subtle' : (appearance as MantineButtonVariant || 'default');
+  
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   /* Ensure we don't break any styles set by richText */
@@ -56,11 +63,16 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   }
 
   return (
-    <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
-      </Link>
+    <Button 
+      component={Link} // Use Mantine's component prop for Next.js Link
+      href={href || url || ''} 
+      variant={mantineVariant} 
+      size={mantineSize}
+      className={cn(className)} // Retain className for additional utility classes
+      {...newTabProps}
+    >
+      {label && label}
+      {children && children}
     </Button>
   )
 }

@@ -16,7 +16,11 @@ import {
   Divider,
   ScrollArea,
   TextInput,
-  UnstyledButton
+  UnstyledButton,
+  Modal,
+  Select,
+  ThemeIcon,
+  Textarea
 } from '@mantine/core';
 import { 
   IconSearch, 
@@ -24,8 +28,12 @@ import {
   IconArchive, 
   IconTrash, 
   IconUserPlus,
-  IconBriefcase
+  IconBriefcase,
+  IconX,
+  IconRocket,
+  IconUserCheck
 } from '@tabler/icons-react';
+import { useDisclosure } from '@mantine/hooks';
 
 const incomingMail = [
   { 
@@ -72,29 +80,108 @@ const incomingMail = [
 
 export default function GlobalInboxPage() {
   const [selectedMail, setSelectedMail] = React.useState(incomingMail[0]);
+  const [projectOpened, { open: openProject, close: closeProject }] = useDisclosure(false);
+  const [leadOpened, { open: openLead, close: closeLead }] = useDisclosure(false);
 
   return (
     <Container size="xl" fluid>
+      {/* 1. Allocate to Project Modal */}
+      <Modal 
+        opened={projectOpened} 
+        onClose={closeProject} 
+        size="md" 
+        padding={0} 
+        radius={0} 
+        withCloseButton={false}
+        styles={{ content: { background: '#121416', border: '1px solid #2A2D31' } }}
+      >
+        <Box p="xl" bg="#0A0B0C" style={{ borderBottom: '1px solid #2A2D31' }}>
+          <Group justify="space-between">
+            <Group gap="md">
+              <ThemeIcon color="sage" variant="light" radius={0} size="xl">
+                <IconBriefcase size={24} />
+              </ThemeIcon>
+              <Box>
+                <Title order={3} ff="var(--font-display)" c="parchment" style={{ textTransform: 'uppercase' }}>
+                  Allocate to Project
+                </Title>
+                <Text size="xs" c="dimmed">Attach this correspondence to an active ledger.</Text>
+              </Box>
+            </Group>
+            <ActionIcon variant="subtle" color="gray" onClick={closeProject}><IconX size={20} /></ActionIcon>
+          </Group>
+        </Box>
+        <Stack p="xl" gap="md">
+          <Select 
+            label="Select Project Registry" 
+            placeholder="Search active projects..."
+            data={['PRJ-7792: Digital Spaces', 'PRJ-8104: Urban Sustain', 'PRJ-9021: NSF Keynote']}
+            variant="filled"
+            styles={{ input: { background: '#0A0B0C', border: '1px solid #2A2D31', color: 'white' }, label: { color: 'var(--mantine-color-dimmed)', fontSize: '10px' } }}
+          />
+          <Text size="xs" c="dimmed" italic>This will move all attachments to the Project Vault and notify the lead researcher.</Text>
+          <Button fullWidth color="sage" c="dark-forest" radius={0} onClick={() => { alert('COMMUNICATION ALLOCATED // PROJECT LEDGER UPDATED'); closeProject(); }}>
+            SYNC WITH PROJECT VAULT
+          </Button>
+        </Stack>
+      </Modal>
+
+      {/* 2. Promote to Lead Modal */}
+      <Modal 
+        opened={leadOpened} 
+        onClose={closeLead} 
+        size="md" 
+        padding={0} 
+        radius={0} 
+        withCloseButton={false}
+        styles={{ content: { background: '#121416', border: '1px solid #2A2D31' } }}
+      >
+        <Box p="xl" bg="#0A0B0C" style={{ borderBottom: '1px solid #2A2D31' }}>
+          <Group justify="space-between">
+            <Group gap="md">
+              <ThemeIcon color="burnished-gold" variant="light" radius={0} size="xl">
+                <IconUserPlus size={24} />
+              </ThemeIcon>
+              <Box>
+                <Title order={3} ff="var(--font-display)" c="parchment" style={{ textTransform: 'uppercase' }}>
+                  Promote to Lead
+                </Title>
+                <Text size="xs" c="dimmed">Initialize Discovery Sequence for this scholar.</Text>
+              </Box>
+            </Group>
+            <ActionIcon variant="subtle" color="gray" onClick={closeLead}><IconX size={20} /></ActionIcon>
+          </Group>
+        </Box>
+        <Stack p="xl" gap="md">
+          <TextInput label="Scholar Name" value={selectedMail.sender} variant="filled" styles={{ input: { background: '#0A0B0C', border: '1px solid #2A2D31', color: 'white' }, label: { color: 'var(--mantine-color-dimmed)', fontSize: '10px' } }} />
+          <TextInput label="Email Address" value={selectedMail.email} variant="filled" styles={{ input: { background: '#0A0B0C', border: '1px solid #2A2D31', color: 'white' }, label: { color: 'var(--mantine-color-dimmed)', fontSize: '10px' } }} />
+          <Button fullWidth color="burnished-gold" c="dark-forest" radius={0} onClick={() => { alert('PROMOTED TO PIPELINE // LEAD RECORD CREATED'); closeLead(); }}>
+            INITIALIZE LEAD TRIAGE
+          </Button>
+        </Stack>
+      </Modal>
+
       <Stack gap="xl">
-        {/* 1. Page Header */}
+        {/* 3. Page Header */}
         <Box>
           <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
             Global <Text component="span" inherit c="burnished-gold.7">Inbox</Text>
           </Title>
-          <Text c="deep-green.3" size="sm" ff="var(--font-body)" mt={4}>
+          <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
             Central Triage // Institutional Correspondence // Alias Monitoring
           </Text>
         </Box>
 
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" h={800}>
-          {/* 2. Mail List Sidebar */}
-          <Paper withBorder radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ display: 'flex', flexDirection: 'column' }}>
-            <Box p="md" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-7)' }}>
+          {/* 4. Mail List Sidebar */}
+          <Paper withBorder radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31', display: 'flex', flexDirection: 'column' }}>
+            <Box p="md" style={{ borderBottom: '1px solid #2A2D31' }}>
               <TextInput 
                 placeholder="Filter triage..." 
                 leftSection={<IconSearch size={14} />} 
                 variant="unstyled"
                 size="xs"
+                styles={{ input: { color: 'white' } }}
               />
             </Box>
             <ScrollArea flex={1}>
@@ -105,8 +192,8 @@ export default function GlobalInboxPage() {
                   onClick={() => setSelectedMail(mail)}
                   style={{ 
                     width: '100%',
-                    borderBottom: '1px solid var(--mantine-color-deep-green-8)',
-                    background: selectedMail.id === mail.id ? 'rgba(176, 141, 87, 0.05)' : 'transparent',
+                    borderBottom: '1px solid #2A2D31',
+                    background: selectedMail.id === mail.id ? '#121416' : 'transparent',
                     borderLeft: selectedMail.id === mail.id ? '2px solid var(--mantine-color-burnished-gold-7)' : 'none'
                   }}
                 >
@@ -114,63 +201,65 @@ export default function GlobalInboxPage() {
                     <Text size="7px" ff="var(--font-body)" c="burnished-gold">{mail.alias.toUpperCase()}</Text>
                     <Text size="7px" ff="var(--font-body)" c="dimmed">{mail.time}</Text>
                   </Group>
-                  <Text size="sm" fw={700} c="parchment" truncate>{mail.sender}</Text>
-                  <Text size="xs" c="parchment" truncate mb={4}>{mail.subject}</Text>
+                  <Text size="sm" fw={700} c="#E1E1E1" truncate>{mail.sender}</Text>
+                  <Text size="xs" c="#E1E1E1" truncate mb={4}>{mail.subject}</Text>
                   <Text size="xs" c="dimmed" lineClamp={2}>{mail.preview}</Text>
                 </UnstyledButton>
               ))}
             </ScrollArea>
           </Paper>
 
-          {/* 3. Mail Content & Triage Actions */}
+          {/* 5. Mail Content & Triage Actions */}
           <Box style={{ gridColumn: 'span 2' }}>
-            <Paper withBorder radius={0} bg="rgba(14, 29, 22, 0.4)" h="100%" style={{ display: 'flex', flexDirection: 'column' }}>
+            <Paper withBorder radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31' }} h="100%" style={{ display: 'flex', flexDirection: 'column' }}>
               {/* Message Header */}
-              <Box p="xl" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-7)' }}>
+              <Box p="xl" style={{ borderBottom: '1px solid #2A2D31' }}>
                 <Group justify="space-between" align="flex-start">
                   <Stack gap={4}>
                     <Title order={3} ff="var(--font-display)" c="parchment" size="1.5rem">{selectedMail.subject}</Title>
                     <Group gap="xs">
-                      <Avatar size="xs" radius={0} color="deep-green">{selectedMail.sender[0]}</Avatar>
-                      <Text size="xs" fw={700} c="parchment">{selectedMail.sender}</Text>
+                      <Avatar size="xs" radius={0} color="dark" bg="#2A2D31">{selectedMail.sender[0]}</Avatar>
+                      <Text size="xs" fw={700} c="#E1E1E1">{selectedMail.sender}</Text>
                       <Text size="xs" c="dimmed" ff="var(--font-body)">&lt;{selectedMail.email}&gt;</Text>
                     </Group>
                   </Stack>
-                  <Badge color="burnished-gold" variant="outline" radius={0}>{selectedMail.type.toUpperCase()}</Badge>
+                  <Badge color="burnished-gold" variant="outline" radius={0} size="xs">{selectedMail.type.toUpperCase()}</Badge>
                 </Group>
               </Box>
 
               {/* Triage Action Bar */}
-              <Box p="md" bg="black" style={{ borderBottom: '1px solid var(--mantine-color-deep-green-7)' }}>
+              <Box p="md" bg="black" style={{ borderBottom: '1px solid #2A2D31' }}>
                 <Group gap="md">
                   <Button 
                     size="xs" 
                     variant="filled" 
-                    color="sage" 
+                    color="burnished-gold" 
                     radius={0}
                     leftSection={<IconBriefcase size={14} />}
                     c="dark-forest"
+                    onClick={openProject}
                   >
                     Promote to Project
                   </Button>
                   <Button 
                     size="xs" 
                     variant="outline" 
-                    color="burnished-gold" 
+                    color="gray.6" 
                     radius={0}
                     leftSection={<IconUserPlus size={14} />}
+                    onClick={openLead}
                   >
                     Promote to Lead
                   </Button>
-                  <Divider orientation="vertical" h={20} color="deep-green.7" />
-                  <ActionIcon variant="subtle" color="deep-green.3"><IconArchive size={18} /></ActionIcon>
-                  <ActionIcon variant="subtle" color="deep-green.3"><IconTrash size={18} /></ActionIcon>
+                  <Divider orientation="vertical" h={20} color="#2A2D31" />
+                  <ActionIcon variant="subtle" color="gray.6"><IconArchive size={18} /></ActionIcon>
+                  <ActionIcon variant="subtle" color="gray.6"><IconTrash size={18} /></ActionIcon>
                 </Group>
               </Box>
 
               {/* Message Body */}
               <ScrollArea flex={1} p="xl">
-                <Text size="sm" c="parchment" style={{ whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
+                <Text size="sm" c="#E1E1E1" style={{ whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
                   {`Dear Micah,
 
 ${selectedMail.preview}
@@ -185,12 +274,12 @@ ${selectedMail.sender}`}
               </ScrollArea>
 
               {/* Quick Response Buffer */}
-              <Box p="xl" style={{ borderTop: '1px solid var(--mantine-color-deep-green-7)' }}>
+              <Box p="xl" style={{ borderTop: '1px solid #2A2D31' }}>
                 <Group gap="md">
                   <Button 
                     fullWidth 
                     variant="outline" 
-                    color="deep-green.3" 
+                    color="gray.6" 
                     radius={0}
                     rightSection={<IconArrowRight size={16} />}
                   >

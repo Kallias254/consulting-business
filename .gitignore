@@ -19,3 +19,12 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Package Store
+.pnpm-store/
+
+# Local Database
+payload.db
+
+# Docker Logs
+docker_output.log

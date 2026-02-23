@@ -122,12 +122,12 @@ export default function OpportunityCuratorPage() {
           <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
             <Table.Thead bg="rgba(14, 29, 22, 0.6)">
               <Table.Tr>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">OPP_ID</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">OPPORTUNITY_TITLE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">TARGET_SCHOLARS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">DEADLINE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">STATUS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3"></Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">OPP_ID</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">OPPORTUNITY_TITLE</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">TARGET_SCHOLARS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">DEADLINE</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">STATUS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3"></Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>

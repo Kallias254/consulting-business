@@ -169,7 +169,7 @@ export default function DeliverablesVaultPage() {
 
             <Box style={{ border: '1px dashed var(--mantine-color-parchment-5)', padding: '24px', textAlign: 'center' }}>
               <ThemeIcon color="parchment" variant="light" size={60} radius={0} mb="md">
-                <IconFingerprint size={40} c="deep-green.3" />
+                <IconFingerprint size={40} color="var(--mantine-color-deep-green-3)" />
               </ThemeIcon>
               <Text ff="var(--font-body)" size="7px" c="dimmed" style={{ letterSpacing: '2px' }} mb={8}>DIGITAL_FINGERPRINT_ACTIVE</Text>
               <Text size="xs" c="dimmed">Drag any file here to verify its scientific integrity against our master record.</Text>

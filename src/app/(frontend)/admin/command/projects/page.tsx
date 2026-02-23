@@ -18,7 +18,9 @@ import {
   SimpleGrid, 
   Progress,
   TextInput,
-  Select
+  Select,
+  Tabs,
+  Divider
 } from '@mantine/core';
 import { 
   IconSearch, 
@@ -26,7 +28,9 @@ import {
   IconClock,
   IconMessageCircle,
   IconCircleCheck,
-  IconCalendarEvent
+  IconCalendarEvent,
+  IconArchive,
+  IconRocket
 } from '@tabler/icons-react';
 
 const activeProjects = [
@@ -63,16 +67,28 @@ const activeProjects = [
     fridayPulse: 'Pending',
     readiness: 78
   },
+];
+
+const archivedProjects = [
   { 
     id: 'PRJ-6643', 
     name: 'Lab Legacy Archive: 2015-2025', 
     client: 'Prof. Arthur Dent', 
     researcher: 'Dr. Emily Chen', 
     niche: 'Institutional Archive',
-    status: 'Production', 
-    sentiment: 'Optimal',
-    fridayPulse: 'Ready',
-    readiness: 22
+    status: 'Legacy', 
+    delivered: '12 Jan 2026',
+    publisher: 'CRC Press'
+  },
+  { 
+    id: 'PRJ-5521', 
+    name: 'Quantum Cognitive Mapping', 
+    client: 'Dr. Aris Noble', 
+    researcher: 'Sarah Miller', 
+    niche: 'Social Sciences',
+    status: 'Legacy', 
+    delivered: '05 Dec 2025',
+    publisher: 'Nature'
   },
 ];
 
@@ -91,10 +107,10 @@ export default function ActiveProjectsPage() {
           <Group justify="space-between" align="flex-end">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
-                Active <Text component="span" inherit c="burnished-gold.7">Projects</Text>
+                Project <Text component="span" inherit c="burnished-gold.7">Registry</Text>
               </Title>
-              <Text c="deep-green.3" size="sm" ff="var(--font-body)" mt={4}>
-                Operational Matrix // Faculty-Led Portfolio Oversight
+              <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
+                Operational Matrix // Faculty-Led Portfolio Oversight // Institutional Archive
               </Text>
             </Box>
             <Button 
@@ -108,115 +124,114 @@ export default function ActiveProjectsPage() {
           </Group>
         </Box>
 
-        {/* 2. Filters & Controls */}
-        <Paper withBorder p="md" bg="rgba(14, 29, 22, 0.4)" radius={0} style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
-          <Group grow>
-            <TextInput 
-              placeholder="Search by project ID, title, or client..." 
-              leftSection={<IconSearch size={16} />}
-              variant="unstyled"
-              p="xs"
-              style={{ borderBottom: '1px solid var(--mantine-color-deep-green-7)' }}
-            />
-            <Select 
-              placeholder="Filter by Niche" 
-              data={['Social Sciences', 'Education', 'Bespoke', 'Institutional Archive']}
-              variant="unstyled"
-              p="xs"
-              style={{ borderBottom: '1px solid var(--mantine-color-deep-green-7)' }}
-            />
-            <Select 
-              placeholder="Filter by Status" 
-              data={['Production', 'Internal QC', 'Executive Review', 'Delivered']}
-              variant="unstyled"
-              p="xs"
-              style={{ borderBottom: '1px solid var(--mantine-color-deep-green-7)' }}
-            />
-          </Group>
-        </Paper>
+        <Tabs defaultValue="active" variant="default" radius={0} color="burnished-gold" styles={{ 
+          tab: { 
+            fontSize: '11px', 
+            textTransform: 'uppercase', 
+            letterSpacing: '1px', 
+            fontWeight: 600,
+            padding: '16px 32px',
+            color: 'var(--mantine-color-gray-6)',
+            '&[data-active]': { color: 'var(--mantine-color-burnished-gold-7)', borderColor: 'var(--mantine-color-burnished-gold-7)' }
+          },
+          panel: { paddingTop: '32px' }
+        }}>
+          <Tabs.List style={{ borderBottom: '1px solid #2A2D31' }}>
+            <Tabs.Tab value="active" leftSection={<IconRocket size={14} />}>Active Projects</Tabs.Tab>
+            <Tabs.Tab value="archive" leftSection={<IconArchive size={14} />}>Institutional Archive</Tabs.Tab>
+          </Tabs.List>
 
-        {/* 3. Project Ledger */}
-        <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
-          <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
-            <Table.Thead bg="rgba(14, 29, 22, 0.6)">
-              <Table.Tr>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">IDENTIFIER</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">PROJECT_NAME</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">ASSIGNED_TO</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">CHAIN_STATUS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">FRIDAY_PULSE</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">HEALTH</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3"></Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {activeProjects.map((project) => (
-                <Table.Tr 
-                  key={project.id} 
-                  onClick={() => handleRowClick(project.id)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <Table.Td>
-                    <Text ff="var(--font-body)" size="xs" c="parchment">{project.id}</Text>
-                  </Table.Td>
-                  <Table.Td>
-                    <Box maw={300}>
-                      <Text size="sm" fw={700} c="parchment" truncate="end">{project.name}</Text>
-                      <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
-                    </Box>
-                  </Table.Td>
-                  <Table.Td>
-                    <Group gap="xs">
-                      <Avatar size="xs" radius={0} color="burnished-gold">{project.researcher[0]}</Avatar>
-                      <Text size="xs" c="parchment">{project.researcher}</Text>
-                    </Group>
-                  </Table.Td>
-                  <Table.Td>
-                    <Badge 
-                      variant="outline" 
-                      color={project.status === 'Executive Review' ? 'burnished-gold' : 'deep-green.3'} 
-                      size="xs"
-                    >
-                      {project.status.toUpperCase()}
-                    </Badge>
-                  </Table.Td>
-                  <Table.Td>
-                    <Group gap={6}>
-                      {project.fridayPulse === 'Ready' ? (
-                        <IconCircleCheck size={14} color="var(--mantine-color-sage-0)" />
-                      ) : (
-                        <IconClock size={14} color="var(--mantine-color-burnished-gold-7)" />
-                      )}
-                      <Text ff="var(--font-body)" size="xs" c={project.fridayPulse === 'Ready' ? 'sage' : 'burnished-gold'}>
-                        {project.fridayPulse.toUpperCase()}
-                      </Text>
-                    </Group>
-                  </Table.Td>
-                  <Table.Td>
-                    <Group gap="xs">
-                      <Box 
-                        w={8} h={8} 
-                        bg={project.sentiment === 'Optimal' ? 'sage' : 'orange'} 
-                        style={{ borderRadius: '50%' }} 
-                      />
-                      <Text ff="var(--font-body)" size="xs" c={project.sentiment === 'Optimal' ? 'sage' : 'orange'}>
-                        {project.sentiment.toUpperCase()}
-                      </Text>
-                    </Group>
-                  </Table.Td>
-                  <Table.Td>
-                    <ActionIcon variant="subtle" color="deep-green.3"><IconExternalLink size={16} /></ActionIcon>
-                  </Table.Td>
-                </Table.Tr>
-              ))}
-            </Table.Tbody>
-          </Table>
-        </Paper>
+          <Tabs.Panel value="active">
+            <Stack gap="xl">
+              {/* Filters */}
+              <Paper withBorder p="md" bg="#0A0B0C" radius={0} style={{ borderColor: '#2A2D31' }}>
+                <Group grow>
+                  <TextInput placeholder="Search active..." leftSection={<IconSearch size={16} />} variant="unstyled" p="xs" style={{ borderBottom: '1px solid #2A2D31' }} />
+                  <Select placeholder="Filter by Niche" data={['Social Sciences', 'Education', 'Bespoke']} variant="unstyled" p="xs" style={{ borderBottom: '1px solid #2A2D31' }} />
+                </Group>
+              </Paper>
 
-        {/* 4. Workforce Distribution */}
+              {/* Active Ledger */}
+              <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31' }}>
+                <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
+                  <Table.Thead bg="#0A0B0C">
+                    <Table.Tr>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">IDENTIFIER</Table.Th>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">PROJECT_NAME</Table.Th>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">CHAIN_STATUS</Table.Th>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">HEALTH</Table.Th>
+                      <Table.Th></Table.Th>
+                    </Table.Tr>
+                  </Table.Thead>
+                  <Table.Tbody>
+                    {activeProjects.map((project) => (
+                      <Table.Tr key={project.id} onClick={() => handleRowClick(project.id)} style={{ cursor: 'pointer', borderBottom: '1px solid #2A2D31' }}>
+                        <Table.Td><Text size="xs" c="#E1E1E1">{project.id}</Text></Table.Td>
+                        <Table.Td>
+                          <Box>
+                            <Text size="sm" fw={700} c="#E1E1E1">{project.name}</Text>
+                            <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
+                          </Box>
+                        </Table.Td>
+                        <Table.Td><Badge variant="outline" color="burnished-gold" size="xs" radius={0}>{project.status.toUpperCase()}</Badge></Table.Td>
+                        <Table.Td>
+                          <Group gap="xs">
+                            <Box w={8} h={8} bg={project.sentiment === 'Optimal' ? '#40C057' : 'orange'} style={{ borderRadius: '50%' }} />
+                            <Text size="xs" c={project.sentiment === 'Optimal' ? '#40C057' : 'orange'}>{project.sentiment.toUpperCase()}</Text>
+                          </Group>
+                        </Table.Td>
+                        <Table.Td><ActionIcon variant="subtle" color="gray.6"><IconExternalLink size={16} /></ActionIcon></Table.Td>
+                      </Table.Tr>
+                    ))}
+                  </Table.Tbody>
+                </Table>
+              </Paper>
+            </Stack>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="archive">
+            <Stack gap="xl">
+              <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31' }}>
+                <Table verticalSpacing="lg" horizontalSpacing="xl">
+                  <Table.Thead bg="#0A0B0C">
+                    <Table.Tr>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">IDENTIFIER</Table.Th>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">LEGACY_RECORD</Table.Th>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">DELIVERED_ON</Table.Th>
+                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">PUBLISHER</Table.Th>
+                      <Table.Th></Table.Th>
+                    </Table.Tr>
+                  </Table.Thead>
+                  <Table.Tbody>
+                    {archivedProjects.map((project) => (
+                      <Table.Tr key={project.id} style={{ borderBottom: '1px solid #2A2D31' }}>
+                        <Table.Td><Text size="xs" c="dimmed">{project.id}</Text></Table.Td>
+                        <Table.Td>
+                          <Box>
+                            <Text size="sm" fw={700} c="dimmed">{project.name}</Text>
+                            <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
+                          </Box>
+                        </Table.Td>
+                        <Table.Td><Text size="xs" c="dimmed">{project.delivered}</Text></Table.Td>
+                        <Table.Td><Badge variant="dot" color="gray.6" size="xs" radius={0}>{project.publisher.toUpperCase()}</Badge></Table.Td>
+                        <Table.Td>
+                          <Tooltip label="View Full Record History">
+                            <ActionIcon variant="subtle" color="gray.6" onClick={() => handleRowClick(project.id)}><IconArchive size={16} /></ActionIcon>
+                          </Tooltip>
+                        </Table.Td>
+                      </Table.Tr>
+                    ))}
+                  </Table.Tbody>
+                </Table>
+              </Paper>
+            </Stack>
+          </Tabs.Panel>
+        </Tabs>
+
+        {/* Strategic Allocation (Keep these as they are global intelligence) */}
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
-            <Title order={5} ff="var(--font-display)" c="burnished-gold" mb="xl" style={{ textTransform: 'uppercase' }}>
+          <Paper withBorder p="xl" radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31' }}>
+            <Title order={5} ff="var(--font-display)" c="burnished-gold" mb="xl" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
               Workforce Allocation
             </Title>
             <Stack gap="md">
@@ -227,40 +242,27 @@ export default function ActiveProjectsPage() {
               ].map((member, i) => (
                 <Box key={i}>
                   <Group justify="space-between" mb={4}>
-                    <Text size="xs" fw={700}>{member.name}</Text>
-                    <Text ff="var(--font-body)" size="xs" c="dimmed">{member.count} ACTIVE</Text>
+                    <Text size="xs" fw={700} c="#E1E1E1">{member.name}</Text>
+                    <Text ff="var(--font-body)" size="9px" c="dimmed">{member.count} ACTIVE</Text>
                   </Group>
-                  <Progress value={member.capacity} color={member.capacity > 90 ? 'orange' : 'deep-green.7'} size="xs" radius={0} />
+                  <Progress value={member.capacity} color={member.capacity > 90 ? 'orange' : 'gray.6'} size="xs" radius={0} />
                 </Box>
               ))}
             </Stack>
           </Paper>
 
-          <Paper withBorder p="xl" radius={0} bg="rgba(14, 29, 22, 0.2)" style={{ borderColor: 'var(--mantine-color-deep-green-8)' }}>
-            <Title order={5} ff="var(--font-display)" c="burnished-gold" mb="xl" style={{ textTransform: 'uppercase' }}>
+          <Paper withBorder p="xl" radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31' }}>
+            <Title order={5} ff="var(--font-display)" c="burnished-gold" mb="xl" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
               Niche Concentration
             </Title>
             <SimpleGrid cols={2} spacing="xl">
-              <Stack gap="xs">
-                <Text size="xs" ff="var(--font-body)" c="dimmed">SOCIAL_SCIENCES:</Text>
-                <Text ff="var(--font-display)" size="xl">45%</Text>
-                <Progress value={45} color="sage" size="xs" radius={0} />
-              </Stack>
-              <Stack gap="xs">
-                <Text size="xs" ff="var(--font-body)" c="dimmed">EDUCATION:</Text>
-                <Text ff="var(--font-display)" size="xl">30%</Text>
-                <Progress value={30} color="sage" size="xs" radius={0} />
-              </Stack>
-              <Stack gap="xs">
-                <Text size="xs" ff="var(--font-body)" c="dimmed">BESPOKE_SOLUTIONS:</Text>
-                <Text ff="var(--font-display)" size="xl">15%</Text>
-                <Progress value={15} color="burnished-gold" size="xs" radius={0} />
-              </Stack>
-              <Stack gap="xs">
-                <Text size="xs" ff="var(--font-body)" c="dimmed">INSTITUTIONAL_ARCHIVE:</Text>
-                <Text ff="var(--font-display)" size="xl">10%</Text>
-                <Progress value={10} color="burnished-gold" size="xs" radius={0} />
-              </Stack>
+              {['SOCIAL_SCIENCES', 'EDUCATION', 'BESPOKE_SOLUTIONS', 'INSTITUTIONAL_ARCHIVE'].map((niche, i) => (
+                <Stack key={i} gap="xs">
+                  <Text size="9px" ff="var(--font-body)" c="dimmed" style={{ letterSpacing: '1px' }}>{niche}:</Text>
+                  <Text ff="var(--font-display)" size="xl" c="#E1E1E1">{[45, 30, 15, 10][i]}%</Text>
+                  <Progress value={[45, 30, 15, 10][i]} color={i < 2 ? 'sage' : 'burnished-gold'} size="xs" radius={0} />
+                </Stack>
+              ))}
             </SimpleGrid>
           </Paper>
         </SimpleGrid>

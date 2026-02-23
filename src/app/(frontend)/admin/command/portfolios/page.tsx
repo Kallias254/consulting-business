@@ -128,11 +128,11 @@ export default function PortfolioManagerPage() {
           <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
             <Table.Thead bg="rgba(14, 29, 22, 0.6)">
               <Table.Tr>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">SCHOLAR</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">DOMAIN_ENDPOINT</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">PUBLIC_PROJECTS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">SYNC_STATUS</Table.Th>
-                <Table.Th ff="var(--font-body)" size="xs" c="deep-green.3">ACTIONS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">SCHOLAR</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">DOMAIN_ENDPOINT</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">PUBLIC_PROJECTS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">SYNC_STATUS</Table.Th>
+                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="deep-green.3">ACTIONS</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>

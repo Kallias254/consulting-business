@@ -88,7 +88,7 @@ export default function ScientificAuditPage() {
               <Stepper.Step label="Identity" icon={<IconUser size={18} />} />
               <Stepper.Step label="Metadata" icon={<IconFileText size={18} />} />
               <Stepper.Step label="Technical" icon={<IconSettings size={18} />} />
-              <Stepper.Completed />
+              <Stepper.Completed>Diagnostic complete</Stepper.Completed>
             </Stepper>
           </Box>
 
