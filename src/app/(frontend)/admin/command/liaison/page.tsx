@@ -27,7 +27,7 @@ import {
   IconX,
   IconUser
 } from '@tabler/icons-react';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 const draftMemos = [
   { 
@@ -57,6 +57,7 @@ const draftMemos = [
 export default function LiaisonBufferPage() {
   const [selectedMemo, setSelectedMemo] = React.useState(draftMemos[0]);
   const [opened, { open, close }] = useDisclosure(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Container size="xl" fluid>
@@ -112,7 +113,7 @@ export default function LiaisonBufferPage() {
       <Stack gap={40}>
         {/* 1. Page Header */}
         <Box>
-          <Group justify="space-between" align="flex-end">
+          <Group justify="space-between" align="flex-end" wrap="wrap">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
                 Liaison <Text component="span" inherit c="burnished-gold.7">Buffer</Text>
@@ -127,6 +128,7 @@ export default function LiaisonBufferPage() {
               radius={0} 
               leftSection={<IconEdit size={18} />}
               onClick={open}
+              fullWidth={isMobile}
             >
               Initiate Executive Memo
             </Button>
@@ -135,11 +137,11 @@ export default function LiaisonBufferPage() {
 
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
           {/* 2. Draft List (Synchronized with Global Inbox Style) */}
-          <Paper withBorder radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31', display: 'flex', flexDirection: 'column', minHeight: '600px' }}>
+          <Paper withBorder radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31', display: 'flex', flexDirection: 'column', height: '100%', minHeight: isMobile ? '300px' : '600px' }}>
             <Box p="md" style={{ borderBottom: '1px solid #2A2D31' }}>
               <Text ff="var(--font-body)" size="9px" fw={600} c="burnished-gold" style={{ letterSpacing: '2px', textTransform: 'uppercase' }}>PENDING_AUTHORIZATION</Text>
             </Box>
-            <ScrollArea flex={1}>
+            <ScrollArea h={isMobile ? 300 : 600}>
               {draftMemos.map((memo) => (
                 <Box 
                   key={memo.id} 
@@ -154,7 +156,7 @@ export default function LiaisonBufferPage() {
                 >
                   <Group justify="space-between" mb={4}>
                     <Text size="7px" ff="var(--font-body)" c="dimmed">{memo.time}</Text>
-                    <Badge size="xs" color="burnished-gold" radius={0} variant="outline" styles={{ label: { fontSize: '7px' } }}>DRAFT</Badge>
+                    <Badge variant="outline" color="burnished-gold">DRAFT</Badge>
                   </Group>
                   <Text size="sm" fw={700} c="#E1E1E1" truncate>{memo.author}</Text>
                   <Text size="xs" c="#E1E1E1" truncate mb={4}>{memo.subject}</Text>
@@ -165,37 +167,37 @@ export default function LiaisonBufferPage() {
           </Paper>
 
           {/* 3. Review & Edit Console */}
-          <Box style={{ gridColumn: 'span 2' }}>
+          <Box style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }}>
             <Paper withBorder radius={0} bg="#0A0B0C" style={{ borderColor: '#2A2D31', display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <Box p="xl" style={{ borderBottom: '1px solid #2A2D31' }}>
-                <Group justify="space-between" align="center">
+              <Box p={{ base: 'md', sm: 'xl' }} style={{ borderBottom: '1px solid #2A2D31' }}>
+                <Group justify="space-between" align="center" wrap="nowrap">
                   <Stack gap={4}>
                     <Group gap="xs">
                       <Avatar size="xs" radius={0} bg="#2A2D31" color="white">{selectedMemo.author[0]}</Avatar>
                       <Box>
                         <Text size="xs" ff="var(--font-body)" c="burnished-gold" fw={700}>DRAFTED_BY: {selectedMemo.author.toUpperCase()}</Text>
-                        <Text size="xs" c="dimmed" ff="var(--font-body)">&lt;{selectedMemo.authorEmail}&gt;</Text>
+                        <Text size="xs" c="dimmed" ff="var(--font-body)" visibleFrom="xs">&lt;{selectedMemo.authorEmail}&gt;</Text>
                       </Box>
                     </Group>
-                    <Title order={3} ff="var(--font-display)" c="#E1E1E1" size="1.5rem" mt="md">{selectedMemo.subject}</Title>
+                    <Title order={3} ff="var(--font-display)" c="#E1E1E1" size={isMobile ? "1.2rem" : "1.5rem"} mt="md">{selectedMemo.subject}</Title>
                     <Group gap="xs">
-                      <Text size="xs" c="dimmed" fw={700}>RECIPIENT:</Text>
-                      <Badge size="xs" radius={0} color="gray.6" variant="outline" styles={{ label: { fontSize: '7px' } }}>{selectedMemo.target.toUpperCase()}</Badge>
+                      <Text size="xs" c="dimmed" fw={700} visibleFrom="xs">RECIPIENT:</Text>
+                      <Badge variant="outline" color="gray.6">{selectedMemo.target.toUpperCase()}</Badge>
                     </Group>
                   </Stack>
-                  <ThemeIcon color="sage" size="xl" radius={0} variant="light">
+                  <ThemeIcon color="sage" size="xl" radius={0} variant="light" visibleFrom="xs">
                     <IconShieldCheck size={24} />
                   </ThemeIcon>
                 </Group>
               </Box>
 
-              <Box p="xl">
+              <Box p={{ base: 'md', sm: 'xl' }}>
                 <Stack gap="md">
                   <Text size="xs" ff="var(--font-body)" c="dimmed">PRINCIPAL_PEER_REVIEW_MODE:</Text>
                   <Textarea 
                     variant="unstyled"
                     size="sm"
-                    p="xl"
+                    p={{ base: 'md', sm: 'xl' }}
                     bg="black"
                     styles={{
                       input: { 
@@ -203,7 +205,7 @@ export default function LiaisonBufferPage() {
                         lineHeight: 1.8, 
                         fontFamily: 'var(--font-body)', 
                         fontSize: '13px',
-                        minHeight: '350px'
+                        minHeight: isMobile ? '250px' : '350px'
                       }
                     }}
                     defaultValue={`Dear Colleague,
@@ -222,27 +224,27 @@ Principal Investigator`}
                 </Stack>
               </Box>
 
-              <Box p="xl" bg="black" style={{ borderTop: '1px solid #2A2D31' }}>
-                <Group justify="space-between" py="xs">
-                  <Group gap="sm">
+              <Box p={{ base: 'md', sm: 'xl' }} bg="black" style={{ borderTop: '1px solid #2A2D31' }}>
+                <Group justify="space-between" py="xs" wrap="wrap" gap="md">
+                  <Group gap="sm" grow={isMobile}>
                     <Button 
                       variant="outline" 
                       color="gray.6" 
                       radius={0} 
-                      size="sm" 
+                      size="xs" 
                       leftSection={<IconEdit size={14} />}
                       styles={{ root: { border: '1px solid #2A2D31' } }}
                     >
-                      Revision Request
+                      Revision
                     </Button>
                     <Button 
                       variant="subtle" 
                       color="red.8" 
                       radius={0} 
-                      size="sm" 
+                      size="xs" 
                       leftSection={<IconX size={14} />}
                     >
-                      Reject Memo
+                      Reject
                     </Button>
                   </Group>
                   <Button 
@@ -251,6 +253,7 @@ Principal Investigator`}
                     c="dark-forest" 
                     size="sm" 
                     rightSection={<IconSend size={18} />}
+                    fullWidth={isMobile}
                   >
                     Authorize & Dispatch
                   </Button>

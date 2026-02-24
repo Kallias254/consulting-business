@@ -35,7 +35,9 @@ import {
   IconShieldCheck,
   IconX
 } from '@tabler/icons-react';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useRouter } from 'next/navigation';
+import { ScrollArea } from '@mantine/core';
 
 const leads = [
   { 
@@ -96,6 +98,8 @@ export default function LeadsPage() {
   const [promoteOpened, { open: openPromote, close: closePromote }] = useDisclosure(false);
   const [ingestOpened, { open: openIngest, close: closeIngest }] = useDisclosure(false);
   const [selectedLead, setSelectedLead] = React.useState<any>(null);
+  const router = useRouter();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const handlePromoteClick = (lead: any) => {
     setSelectedLead(lead);
@@ -109,7 +113,7 @@ export default function LeadsPage() {
         opened={ingestOpened} 
         onClose={closeIngest} 
         title={<Text ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>Manual Lead Ingestion</Text>}
-        size="lg" 
+        size={isMobile ? "100%" : "lg"} 
         radius={0}
         styles={{ 
           content: { background: '#121416', border: '1px solid #2A2D31' },
@@ -117,7 +121,7 @@ export default function LeadsPage() {
         }}
       >
         <Stack gap="md" p="md">
-          <Group grow>
+          <Group grow wrap={isMobile ? "wrap" : "nowrap"}>
             <TextInput label="Scholar Name" placeholder="Dr. First Last" variant="filled" styles={{ input: { background: '#0A0B0C', border: '1px solid #2A2D31', color: 'white' }, label: { color: 'var(--mantine-color-dimmed)', fontSize: '10px' } }} />
             <TextInput label="Institution" placeholder="University / Lab" variant="filled" styles={{ input: { background: '#0A0B0C', border: '1px solid #2A2D31', color: 'white' }, label: { color: 'var(--mantine-color-dimmed)', fontSize: '10px' } }} />
           </Group>
@@ -156,20 +160,20 @@ export default function LeadsPage() {
       <Modal 
         opened={promoteOpened} 
         onClose={closePromote} 
-        size="md" 
+        size={isMobile ? "100%" : "md"} 
         padding={0} 
         radius={0} 
         withCloseButton={false}
         styles={{ content: { background: '#121416', border: '1px solid #2A2D31' } }}
       >
         <Box p="xl" bg="#0A0B0C" style={{ borderBottom: '1px solid #2A2D31' }}>
-          <Group justify="space-between">
-            <Group gap="md">
+          <Group justify="space-between" wrap="nowrap">
+            <Group gap="md" wrap="nowrap">
               <ThemeIcon color="sage" variant="light" radius={0} size="xl">
                 <IconRocket size={24} />
               </ThemeIcon>
               <Box>
-                <Title order={3} ff="var(--font-display)" c="parchment" style={{ textTransform: 'uppercase' }}>
+                <Title order={3} ff="var(--font-display)" c="parchment" style={{ textTransform: 'uppercase' }} size={isMobile ? "1.2rem" : "1.5rem"}>
                   Promote to Project
                 </Title>
                 <Text size="xs" c="dimmed">Drafting Project Infrastructure for {selectedLead?.name}</Text>
@@ -246,7 +250,7 @@ export default function LeadsPage() {
       <Stack gap={40}>
         {/* 1. Page Header */}
         <Box>
-          <Group justify="space-between" align="flex-end">
+          <Group justify="space-between" align="flex-end" wrap="wrap">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
                 Opportunity <Text component="span" inherit c="burnished-gold.7">Pipeline</Text>
@@ -261,6 +265,7 @@ export default function LeadsPage() {
               c="dark-forest" 
               radius={0}
               onClick={openIngest}
+              fullWidth={isMobile}
             >
               Manual Ingestion
             </Button>
@@ -268,7 +273,7 @@ export default function LeadsPage() {
         </Box>
 
         {/* 2. Conversion HUD */}
-        <SimpleGrid cols={{ base: 1, md: 4 }} spacing="xl">
+        <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="xl">
           <Paper withBorder p="md" bg="#0A0B0C" style={{ borderColor: '#2A2D31' }}>
             <Text ff="var(--font-body)" size="7px" c="dimmed" style={{ letterSpacing: '1px' }}>MONTHLY_INTAKE</Text>
             <Text ff="var(--font-display)" size="xl" c="#E1E1E1">14</Text>
@@ -292,13 +297,13 @@ export default function LeadsPage() {
         </SimpleGrid>
 
         {/* 3. The Leads Ledger */}
-        <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31' }}>
+        <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31', overflow: 'hidden' }}>
           <Box p="xl" style={{ borderBottom: '1px solid #2A2D31' }}>
-            <Group justify="space-between">
-              <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
+            <Group justify="space-between" wrap="wrap" gap="md">
+              <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }} size={isMobile ? "1.1rem" : "1.25rem"}>
                 Scientific Triage Ledger
               </Title>
-              <Group>
+              <Group grow={isMobile} style={{ width: isMobile ? '100%' : 'auto' }}>
                 <TextInput 
                   placeholder="Search scholars..." 
                   size="xs" 
@@ -309,85 +314,87 @@ export default function LeadsPage() {
               </Group>
             </Group>
           </Box>
-          <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
-            <Table.Thead bg="#0A0B0C">
-              <Table.Tr>
-                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">SCHOLAR</Table.Th>
-                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">INSTITUTION_FIELD</Table.Th>
-                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PROJECT_INTEREST</Table.Th>
-                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">TRIAGE_STATUS</Table.Th>
-                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">EST_VALUE</Table.Th>
-                <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed"></Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {leads.map((lead) => (
-                <Table.Tr key={lead.id} style={{ borderBottom: '1px solid #2A2D31' }}>
-                  <Table.Td>
-                    <Group gap="sm">
-                      <Avatar size="sm" radius={0} color="dark" bg="#2A2D31">
-                        {lead.name.split(' ').map(n => n[0]).join('')}
-                      </Avatar>
-                      <Box>
-                        <Text size="sm" fw={700} c="#E1E1E1">{lead.name}</Text>
-                        <Text size="7px" c="dimmed" ff="var(--font-body)">ID: {lead.id}</Text>
-                      </Box>
-                    </Group>
-                  </Table.Td>
-                  <Table.Td>
-                    <Stack gap={0}>
-                      <Group gap={4}>
-                        <IconSchool size={12} color="var(--mantine-color-gray-6)" />
-                        <Text size="xs" c="#E1E1E1">{lead.institution}</Text>
-                      </Group>
-                      <Text size="xs" c="dimmed">{lead.field}</Text>
-                    </Stack>
-                  </Table.Td>
-                  <Table.Td>
-                    <Badge variant="outline" color="burnished-gold" size="xs" radius={0}>{lead.interest.toUpperCase()}</Badge>
-                  </Table.Td>
-                  <Table.Td>
-                    <Group gap={6}>
-                      <Box 
-                        w={6} h={6} 
-                        bg={lead.status === 'Discovery Sync' ? 'sage' : 'gray.6'} 
-                        style={{ borderRadius: '50%' }} 
-                      />
-                      <Text ff="var(--font-body)" size="xs" c="#E1E1E1">{lead.status.toUpperCase()}</Text>
-                    </Group>
-                  </Table.Td>
-                  <Table.Td>
-                    <Text ff="var(--font-body)" size="xs" c="burnished-gold">{lead.value}</Text>
-                  </Table.Td>
-                  <Table.Td>
-                    <Group gap="xs">
-                      <Tooltip label="Initialize Discovery Sync">
-                        <ActionIcon 
-                          variant="subtle" 
-                          color="gray.6" 
-                          onClick={() => alert('DISCOVERY SYNC INVITE SENT // STATUS UPDATED')}
-                        >
-                          <IconCalendarStats size={16} />
-                        </ActionIcon>
-                      </Tooltip>
-                      <Tooltip label="Promote to Project">
-                        <ActionIcon variant="subtle" color="sage" onClick={() => handlePromoteClick(lead)}><IconCircleCheck size={16} /></ActionIcon>
-                      </Tooltip>
-                      <Tooltip label="Start Nurture Sequence">
-                        <ActionIcon 
-                          variant="subtle" 
-                          color="gray.6"
-                          onClick={() => alert('INSIGHTS DRIP ACTIVATED // ADDED TO NURTURE POOL')}
-                        >
-                          <IconMailForward size={16} />
-                        </ActionIcon>
-                      </Tooltip>
-                    </Group>
-                  </Table.Td>
+          <ScrollArea>
+            <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover style={{ minWidth: 800 }}>
+              <Table.Thead bg="#0A0B0C">
+                <Table.Tr>
+                  <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">SCHOLAR</Table.Th>
+                  <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">INSTITUTION_FIELD</Table.Th>
+                  <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">PROJECT_INTEREST</Table.Th>
+                  <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">TRIAGE_STATUS</Table.Th>
+                  <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed">EST_VALUE</Table.Th>
+                  <Table.Th ff="var(--font-body)" style={{ fontSize: "var(--mantine-font-size-xs)" }} c="dimmed"></Table.Th>
                 </Table.Tr>
-              ))}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {leads.map((lead) => (
+                  <Table.Tr key={lead.id} style={{ borderBottom: '1px solid #2A2D31' }}>
+                    <Table.Td>
+                      <Group gap="sm" wrap="nowrap">
+                        <Avatar size="sm" radius={0} color="dark" bg="#2A2D31">
+                          {lead.name.split(' ').map(n => n[0]).join('')}
+                        </Avatar>
+                        <Box>
+                          <Text size="sm" fw={700} c="#E1E1E1">{lead.name}</Text>
+                          <Text size="7px" c="dimmed" ff="var(--font-body)">ID: {lead.id}</Text>
+                        </Box>
+                      </Group>
+                    </Table.Td>
+                    <Table.Td>
+                      <Stack gap={0}>
+                        <Group gap={4} wrap="nowrap">
+                          <IconSchool size={12} color="var(--mantine-color-gray-6)" />
+                          <Text size="xs" c="#E1E1E1">{lead.institution}</Text>
+                        </Group>
+                        <Text size="xs" c="dimmed">{lead.field}</Text>
+                      </Stack>
+                    </Table.Td>
+                    <Table.Td>
+                      <Badge variant="outline" color="burnished-gold">{lead.interest.toUpperCase()}</Badge>
+                    </Table.Td>
+                    <Table.Td>
+                      <Group gap={6} wrap="nowrap">
+                        <Box 
+                          w={6} h={6} 
+                          bg={lead.status === 'Discovery Sync' ? 'sage' : 'gray.6'} 
+                          style={{ borderRadius: '50%' }} 
+                        />
+                        <Text ff="var(--font-body)" size="xs" c="#E1E1E1">{lead.status.toUpperCase()}</Text>
+                      </Group>
+                    </Table.Td>
+                    <Table.Td>
+                      <Text ff="var(--font-body)" size="xs" c="burnished-gold">{lead.value}</Text>
+                    </Table.Td>
+                    <Table.Td>
+                      <Group gap="xs" wrap="nowrap">
+                        <Tooltip label="Initialize Discovery Sync">
+                          <ActionIcon 
+                            variant="subtle" 
+                            color="gray.6" 
+                            onClick={() => alert('DISCOVERY SYNC INVITE SENT // STATUS UPDATED')}
+                          >
+                            <IconCalendarStats size={16} />
+                          </ActionIcon>
+                        </Tooltip>
+                        <Tooltip label="Promote to Project">
+                          <ActionIcon variant="subtle" color="sage" onClick={() => handlePromoteClick(lead)}><IconCircleCheck size={16} /></ActionIcon>
+                        </Tooltip>
+                        <Tooltip label="Start Nurture Sequence">
+                          <ActionIcon 
+                            variant="subtle" 
+                            color="gray.6"
+                            onClick={() => alert('INSIGHTS DRIP ACTIVATED // ADDED TO NURTURE POOL')}
+                          >
+                            <IconMailForward size={16} />
+                          </ActionIcon>
+                        </Tooltip>
+                      </Group>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </ScrollArea>
         </Paper>
 
         {/* 4. Strategic Ingestion Analytics */}

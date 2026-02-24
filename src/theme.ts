@@ -100,12 +100,14 @@ export const theme = createTheme({
       defaultProps: {
         radius: 0,
         variant: 'outline',
+        size: 'xs',
       },
       styles: {
         root: {
           textTransform: 'uppercase',
           letterSpacing: '1.5px',
           fontFamily: 'var(--font-body)',
+          fontWeight: 600,
         },
       },
     },

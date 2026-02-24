@@ -20,7 +20,8 @@ import {
   TextInput,
   Select,
   Tabs,
-  Divider
+  Divider,
+  ScrollArea
 } from '@mantine/core';
 import { 
   IconSearch, 
@@ -29,12 +30,12 @@ import {
   IconMessageCircle,
   IconCircleCheck,
   IconCalendarEvent,
-  IconArchive,
-  IconRocket
-} from '@tabler/icons-react';
-
-const activeProjects = [
-  { 
+    IconArchive, 
+    IconRocket
+  } from '@tabler/icons-react';
+  import Link from 'next/link';
+  
+  const activeProjects = [  { 
     id: 'PRJ-7792', 
     name: 'Impact of Digital Spaces on Youth Development', 
     client: 'Dr. Emily Chen', 
@@ -104,7 +105,7 @@ export default function ActiveProjectsPage() {
       <Stack gap={40}>
         {/* 1. Page Header */}
         <Box>
-          <Group justify="space-between" align="flex-end">
+          <Group justify="space-between" align="flex-end" wrap="wrap">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
                 Project <Text component="span" inherit c="burnished-gold.7">Registry</Text>
@@ -118,8 +119,11 @@ export default function ActiveProjectsPage() {
               color="burnished-gold" 
               c="dark-forest" 
               radius={0}
+              component={Link}
+              href="/admin/command/pulses"
+              w={{ base: '100%', sm: 'auto' }}
             >
-              Bulk Friday Authorization
+              Bulk Pulse Authorization
             </Button>
           </Group>
         </Box>
@@ -130,9 +134,8 @@ export default function ActiveProjectsPage() {
             textTransform: 'uppercase', 
             letterSpacing: '1px', 
             fontWeight: 600,
-            padding: '16px 32px',
-            color: 'var(--mantine-color-gray-6)',
-            '&[data-active]': { color: 'var(--mantine-color-burnished-gold-7)', borderColor: 'var(--mantine-color-burnished-gold-7)' }
+            padding: '16px 24px',
+            color: 'var(--mantine-color-gray-6)'
           },
           panel: { paddingTop: '32px' }
         }}>
@@ -145,84 +148,94 @@ export default function ActiveProjectsPage() {
             <Stack gap="xl">
               {/* Filters */}
               <Paper withBorder p="md" bg="#0A0B0C" radius={0} style={{ borderColor: '#2A2D31' }}>
-                <Group grow>
-                  <TextInput placeholder="Search active..." leftSection={<IconSearch size={16} />} variant="unstyled" p="xs" style={{ borderBottom: '1px solid #2A2D31' }} />
-                  <Select placeholder="Filter by Niche" data={['Social Sciences', 'Education', 'Bespoke']} variant="unstyled" p="xs" style={{ borderBottom: '1px solid #2A2D31' }} />
+                <Group grow wrap="wrap">
+                  <TextInput placeholder="Search active..." leftSection={<IconSearch size={16} />} variant="unstyled" p="xs" style={{ borderBottom: '1px solid #2A2D31', minWidth: '200px' }} />
+                  <Select placeholder="Filter by Niche" data={['Social Sciences', 'Education', 'Bespoke']} variant="unstyled" p="xs" style={{ borderBottom: '1px solid #2A2D31', minWidth: '200px' }} />
                 </Group>
               </Paper>
 
               {/* Active Ledger */}
-              <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31' }}>
-                <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover>
-                  <Table.Thead bg="#0A0B0C">
-                    <Table.Tr>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">IDENTIFIER</Table.Th>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">PROJECT_NAME</Table.Th>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">CHAIN_STATUS</Table.Th>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">HEALTH</Table.Th>
-                      <Table.Th></Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>
-                    {activeProjects.map((project) => (
-                      <Table.Tr key={project.id} onClick={() => handleRowClick(project.id)} style={{ cursor: 'pointer', borderBottom: '1px solid #2A2D31' }}>
-                        <Table.Td><Text size="xs" c="#E1E1E1">{project.id}</Text></Table.Td>
-                        <Table.Td>
-                          <Box>
-                            <Text size="sm" fw={700} c="#E1E1E1">{project.name}</Text>
-                            <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
-                          </Box>
-                        </Table.Td>
-                        <Table.Td><Badge variant="outline" color="burnished-gold" size="xs" radius={0}>{project.status.toUpperCase()}</Badge></Table.Td>
-                        <Table.Td>
-                          <Group gap="xs">
-                            <Box w={8} h={8} bg={project.sentiment === 'Optimal' ? '#40C057' : 'orange'} style={{ borderRadius: '50%' }} />
-                            <Text size="xs" c={project.sentiment === 'Optimal' ? '#40C057' : 'orange'}>{project.sentiment.toUpperCase()}</Text>
-                          </Group>
-                        </Table.Td>
-                        <Table.Td><ActionIcon variant="subtle" color="gray.6"><IconExternalLink size={16} /></ActionIcon></Table.Td>
+              <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31', overflow: 'hidden' }}>
+                <ScrollArea>
+                  <Table verticalSpacing="lg" horizontalSpacing="xl" highlightOnHover style={{ minWidth: 800 }}>
+                    <Table.Thead bg="#0A0B0C">
+                      <Table.Tr>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">IDENTIFIER</Table.Th>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">PROJECT_NAME</Table.Th>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">CHAIN_STATUS</Table.Th>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">HEALTH</Table.Th>
+                        <Table.Th></Table.Th>
                       </Table.Tr>
-                    ))}
-                  </Table.Tbody>
-                </Table>
+                    </Table.Thead>
+                    <Table.Tbody>
+                      {activeProjects.map((project) => (
+                        <Table.Tr key={project.id} onClick={() => handleRowClick(project.id)} style={{ cursor: 'pointer', borderBottom: '1px solid #2A2D31' }}>
+                          <Table.Td><Text size="xs" c="#E1E1E1">{project.id}</Text></Table.Td>
+                          <Table.Td>
+                            <Box>
+                              <Text size="sm" fw={700} c="#E1E1E1">{project.name}</Text>
+                              <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
+                            </Box>
+                          </Table.Td>
+                          <Table.Td><Badge variant="outline" color="burnished-gold">{project.status.toUpperCase()}</Badge></Table.Td>
+                    <Table.Td>
+                      <Group gap="xs">
+                        <Text 
+                          size="9px" 
+                          fw={700} 
+                          c={project.sentiment === 'Optimal' ? 'dimmed' : 'orange'} 
+                          style={{ letterSpacing: '1px' }}
+                        >
+                          {project.sentiment === 'Optimal' ? 'SYSTEM_OPTIMAL' : 'ACTION_REQUIRED'}
+                        </Text>
+                      </Group>
+                    </Table.Td>
+                          <Table.Td><ActionIcon variant="subtle" color="gray.6"><IconExternalLink size={16} /></ActionIcon></Table.Td>
+                        </Table.Tr>
+                      ))}
+                    </Table.Tbody>
+                  </Table>
+                </ScrollArea>
               </Paper>
             </Stack>
           </Tabs.Panel>
 
           <Tabs.Panel value="archive">
             <Stack gap="xl">
-              <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31' }}>
-                <Table verticalSpacing="lg" horizontalSpacing="xl">
-                  <Table.Thead bg="#0A0B0C">
-                    <Table.Tr>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">IDENTIFIER</Table.Th>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">LEGACY_RECORD</Table.Th>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">DELIVERED_ON</Table.Th>
-                      <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">PUBLISHER</Table.Th>
-                      <Table.Th></Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>
-                    {archivedProjects.map((project) => (
-                      <Table.Tr key={project.id} style={{ borderBottom: '1px solid #2A2D31' }}>
-                        <Table.Td><Text size="xs" c="dimmed">{project.id}</Text></Table.Td>
-                        <Table.Td>
-                          <Box>
-                            <Text size="sm" fw={700} c="dimmed">{project.name}</Text>
-                            <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
-                          </Box>
-                        </Table.Td>
-                        <Table.Td><Text size="xs" c="dimmed">{project.delivered}</Text></Table.Td>
-                        <Table.Td><Badge variant="dot" color="gray.6" size="xs" radius={0}>{project.publisher.toUpperCase()}</Badge></Table.Td>
-                        <Table.Td>
-                          <Tooltip label="View Full Record History">
-                            <ActionIcon variant="subtle" color="gray.6" onClick={() => handleRowClick(project.id)}><IconArchive size={16} /></ActionIcon>
-                          </Tooltip>
-                        </Table.Td>
+              <Paper withBorder radius={0} p={0} bg="transparent" style={{ borderColor: '#2A2D31', overflow: 'hidden' }}>
+                <ScrollArea>
+                  <Table verticalSpacing="lg" horizontalSpacing="xl" style={{ minWidth: 800 }}>
+                    <Table.Thead bg="#0A0B0C">
+                      <Table.Tr>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">IDENTIFIER</Table.Th>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">LEGACY_RECORD</Table.Th>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">DELIVERED_ON</Table.Th>
+                        <Table.Th ff="var(--font-body)" style={{ fontSize: "9px" }} c="dimmed">PUBLISHER</Table.Th>
+                        <Table.Th></Table.Th>
                       </Table.Tr>
-                    ))}
-                  </Table.Tbody>
-                </Table>
+                    </Table.Thead>
+                    <Table.Tbody>
+                      {archivedProjects.map((project) => (
+                        <Table.Tr key={project.id} style={{ borderBottom: '1px solid #2A2D31' }}>
+                          <Table.Td><Text size="xs" c="dimmed">{project.id}</Text></Table.Td>
+                          <Table.Td>
+                            <Box>
+                              <Text size="sm" fw={700} c="dimmed">{project.name}</Text>
+                              <Text size="xs" c="dimmed">{project.client} {'//'} {project.niche}</Text>
+                            </Box>
+                          </Table.Td>
+                          <Table.Td><Text size="xs" c="dimmed">{project.delivered}</Text></Table.Td>
+                          <Table.Td><Badge variant="dot" color="gray.6">{project.publisher.toUpperCase()}</Badge></Table.Td>
+                          <Table.Td>
+                            <Tooltip label="View Full Record History">
+                              <ActionIcon variant="subtle" color="gray.6" onClick={() => handleRowClick(project.id)}><IconArchive size={16} /></ActionIcon>
+                            </Tooltip>
+                          </Table.Td>
+                        </Table.Tr>
+                      ))}
+                    </Table.Tbody>
+                  </Table>
+                </ScrollArea>
               </Paper>
             </Stack>
           </Tabs.Panel>
