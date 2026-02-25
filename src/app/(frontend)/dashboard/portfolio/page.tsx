@@ -19,7 +19,10 @@ import {
 import { 
   IconExternalLink,
   IconCircleCheck,
-  IconDeviceDesktop
+  IconDeviceDesktop,
+  IconHistory,
+  IconWorld,
+  IconChartBar
 } from '@tabler/icons-react';
 
 export default function LivingPortfolioPage() {
@@ -32,26 +35,26 @@ export default function LivingPortfolioPage() {
             Living <Text component="span" inherit c="burnished-gold.7">Portfolio</Text>
           </Title>
           <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
-            Automated Academic Presence // Site Status: ONLINE // Last Sync: 2h ago
+            Automated Academic Presence // Public Site Status: ONLINE // Last Global Sync: 2h ago
           </Text>
         </Box>
 
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing={40}>
           {/* 2. Site Preview Card */}
-          <Paper withBorder radius={0} p={40} bg="white">
+          <Paper withBorder radius={0} p={40} bg="white" style={{ borderColor: '#E0DBCC' }}>
             <Stack gap="xl">
               <Group justify="space-between">
-                <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase' }}>Current Deployment</Title>
+                <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>Current Deployment</Title>
                 <Badge color="sage" variant="filled" radius={0}>LIVE_PROD</Badge>
               </Group>
               
-              <Box style={{ border: '1px solid var(--mantine-color-parchment-2)', position: 'relative' }}>
-                <Box p="xs" bg="parchment.0" style={{ borderBottom: '1px solid var(--mantine-color-parchment-2)' }}>
+              <Box style={{ border: '1px solid #E0DBCC', position: 'relative' }}>
+                <Box p="xs" bg="#F4F1EA" style={{ borderBottom: '1px solid #E0DBCC' }}>
                   <Group gap={4}>
-                    <Box w={8} h={8} bg="red" style={{ borderRadius: '50%' }} />
-                    <Box w={8} h={8} bg="orange" style={{ borderRadius: '50%' }} />
-                    <Box w={8} h={8} bg="sage" style={{ borderRadius: '50%' }} />
-                    <Box bg="white" px={8} py={2} ml={8} style={{ border: '1px solid #e0ddd5', borderRadius: '4px', flex: 1 }}>
+                    <Box w={8} h={8} bg="#E57373" style={{ borderRadius: '50%' }} />
+                    <Box w={8} h={8} bg="#FFB74D" style={{ borderRadius: '50%' }} />
+                    <Box w={8} h={8} bg="#81C784" style={{ borderRadius: '50%' }} />
+                    <Box bg="white" px={8} py={2} ml={8} style={{ border: '1px solid #E0DBCC', borderRadius: '4px', flex: 1 }}>
                       <Text size="7px" ff="var(--font-body)" c="dimmed">https://dr-emily-chen.scholar.com</Text>
                     </Box>
                   </Group>
@@ -59,10 +62,10 @@ export default function LivingPortfolioPage() {
                 <Box h={200} bg="white" p="xl" style={{ overflow: 'hidden' }}>
                   <Stack gap="xs">
                     <Title order={5} ff="var(--font-display)" size="1rem">DR. EMILY CHEN</Title>
-                    <Text size="7px" c="dimmed">ASSOCIATE PROFESSOR // BEHAVIORAL ECONOMICS</Text>
-                    <Divider color="parchment.1" />
-                    <Text size="8px" lineClamp={3}>My research explores the intersection of digital environments and human decision-making processes. Using a combination of qualitative and quantitative methodologies...</Text>
-                    <Group gap="xs" mt="md">
+                    <Text size="7px" c="dimmed" ff="var(--font-body)">ASSOCIATE PROFESSOR // BEHAVIORAL ECONOMICS</Text>
+                    <Divider color="#F4F1EA" />
+                    <Text size="8px" lineClamp={3} style={{ lineHeight: 1.6 }}>My research explores the intersection of digital environments and human decision-making processes. Using a combination of qualitative and quantitative methodologies...</Text>
+                    <Group gap={xs => 4} mt="md">
                       <Box w={40} h={4} bg="deep-green.7" />
                       <Box w={30} h={4} bg="burnished-gold.7" />
                     </Group>
@@ -71,20 +74,20 @@ export default function LivingPortfolioPage() {
               </Box>
 
               <Group grow gap="md">
-                <Button variant="outline" color="deep-green" radius={0} leftSection={<IconExternalLink size={16} />}>
+                <Button variant="outline" color="deep-green.7" radius={0} leftSection={<IconExternalLink size={16} />}>
                   View Public Site
                 </Button>
-                <Button color="deep-green" radius={0} leftSection={<IconDeviceDesktop size={16} />}>
-                  Custom Domain
+                <Button color="deep-green.7" radius={0} leftSection={<IconDeviceDesktop size={16} />}>
+                  Manage Domain
                 </Button>
               </Group>
             </Stack>
           </Paper>
 
-          {/* 3. Sync Controls & Assets */}
+          {/* 3. SEO & Sync Stats */}
           <Stack gap="xl">
-            <Paper withBorder radius={0} p={40} bg="white">
-              <Title order={4} ff="var(--font-display)" mb="xl" style={{ textTransform: 'uppercase' }}>
+            <Paper withBorder radius={0} p={40} bg="white" style={{ borderColor: '#E0DBCC' }}>
+              <Title order={4} ff="var(--font-display)" mb="xl" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
                 Automated Update Feed
               </Title>
               <List 
@@ -113,8 +116,8 @@ export default function LivingPortfolioPage() {
 
             <Paper withBorder radius={0} p="xl" bg="dark-forest">
               <Group justify="space-between" mb="xs">
-                <Text ff="var(--font-body)" size="xs" c="burnished-gold">SCHOLARLY_SEO_STATUS</Text>
-                <Badge color="sage" variant="outline" size="xs">OPTIMIZED</Badge>
+                <Text ff="var(--font-body)" size="xs" c="burnished-gold" fw={700}>SEO_INTEGRITY</Text>
+                <Badge color="sage" variant="outline" size="xs" radius={0}>OPTIMIZED</Badge>
               </Group>
               <Text size="xs" c="dimmed" style={{ lineHeight: 1.6 }}>
                 Your research outputs are indexed daily for academic search engines (Google Scholar, ResearchGate). Metadata structure is currently following Nature/Science standard formats.
@@ -123,30 +126,30 @@ export default function LivingPortfolioPage() {
           </Stack>
         </SimpleGrid>
 
-        {/* 4. Momentum Toggles */}
-        <Paper withBorder p={40} radius={0}>
-          <Title order={4} ff="var(--font-display)" mb="xl" style={{ textTransform: 'uppercase' }}>Portfolio Configuration</Title>
+        {/* 4. Sync Configuration */}
+        <Paper withBorder p={40} radius={0} bg="white" style={{ borderColor: '#E0DBCC' }}>
+          <Title order={4} ff="var(--font-display)" mb="xl" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>Portfolio Configuration</Title>
           <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
-            <Card withBorder radius={0} p="md" bg="parchment.0">
+            <Card withBorder radius={0} p="md" bg="#FDFDFB" style={{ borderColor: '#E0DBCC' }}>
               <Group justify="space-between" mb="md">
                 <Text size="xs" fw={700}>Show &quot;In-Progress&quot;</Text>
-                <Badge color="deep-green" size="xs">ON</Badge>
+                <Badge color="deep-green.7" size="xs" radius={0}>ON</Badge>
               </Group>
               <Text size="xs" c="dimmed">Displays your current working status for non-confidential projects to show momentum.</Text>
             </Card>
-            <Card withBorder radius={0} p="md" bg="parchment.0">
+            <Card withBorder radius={0} p="md" bg="#FDFDFB" style={{ borderColor: '#E0DBCC' }}>
               <Group justify="space-between" mb="md">
                 <Text size="xs" fw={700}>Automated Bio-Sync</Text>
-                <Badge color="deep-green" size="xs">ON</Badge>
+                <Badge color="deep-green.7" size="xs" radius={0}>ON</Badge>
               </Group>
               <Text size="xs" c="dimmed">Updates your site bio based on your latest published work and grant successes.</Text>
             </Card>
-            <Card withBorder radius={0} p="md" bg="parchment.0">
+            <Card withBorder radius={0} p="md" bg="#FDFDFB" style={{ borderColor: '#E0DBCC' }}>
               <Group justify="space-between" mb="md">
-                <Text size="xs" fw={700}>Custom Bibliography</Text>
-                <Badge color="gray" size="xs">OFF</Badge>
+                <Text size="xs" fw={700}>Search Visibility</Text>
+                <Badge color="sage" size="xs" radius={0}>ACTIVE</Badge>
               </Group>
-              <Text size="xs" c="dimmed">Allows manual override of your publication list (defaults to ORCID sync).</Text>
+              <Text size="xs" c="dimmed">Maintains your profile indexing across academic networks and search engines.</Text>
             </Card>
           </SimpleGrid>
         </Paper>

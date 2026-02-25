@@ -15,7 +15,9 @@ import {
   ActionIcon,
   Tooltip,
   Burger,
-  Kbd
+  Kbd,
+  Breadcrumbs,
+  Anchor
 } from '@mantine/core';
 import {
   IconLayoutDashboard,
@@ -29,7 +31,8 @@ import {
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
   IconCompass,
-  IconCircleFilled
+  IconCircleFilled,
+  IconFileText
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
@@ -64,6 +67,52 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const sidebarWidth = navbarOpened ? 280 : 80;
 
+  // --- Dynamic Breadcrumb & Context Logic ---
+  const breadcrumbNameMap: { [key: string]: string } = {
+    history: 'Manuscript History',
+    opportunities: 'Academic Intelligence',
+    correspondence: 'Liaison Record',
+    portfolio: 'Living Portfolio',
+    vault: 'Publication Vault',
+    validation: 'Technical Reports',
+  };
+
+  const pathSegments = pathname.split('/').filter(Boolean);
+  const isDashboardHome = pathSegments.length === 1 && pathSegments[0] === 'dashboard';
+  
+  // Detect if we are inside a project (/dashboard/[projectId])
+  const isProjectContext = pathSegments.length >= 2 && 
+    !['opportunities', 'correspondence', 'portfolio'].includes(pathSegments[1]);
+  
+  const activeProjectId = isProjectContext ? pathSegments[1] : null;
+
+  const breadcrumbItems = [];
+  if (!isDashboardHome) {
+    breadcrumbItems.push(
+      <Anchor component={Link} href="/dashboard" key="root" size="sm" c="dimmed" ff="var(--font-body)">
+        Projects
+      </Anchor>
+    );
+
+    if (isProjectContext) {
+      const isProjectDetailHome = pathSegments.length === 2;
+      if (isProjectDetailHome) {
+        breadcrumbItems.push(<Text key="project" size="sm" ff="var(--font-body)" fw={700}>{activeProjectId?.replace(/-/g, ' ').toUpperCase()}</Text>);
+      } else {
+        breadcrumbItems.push(
+          <Anchor component={Link} href={`/dashboard/${activeProjectId}`} key="project-link" size="sm" c="dimmed" ff="var(--font-body)">
+            {activeProjectId?.replace(/-/g, ' ').toUpperCase()}
+          </Anchor>
+        );
+        const subPage = pathSegments[2];
+        breadcrumbItems.push(<Text key="subpage" size="sm" ff="var(--font-body)" fw={700}>{breadcrumbNameMap[subPage] || subPage.toUpperCase()}</Text>);
+      }
+    } else {
+      const globalPage = pathSegments[1];
+      breadcrumbItems.push(<Text key="global" size="sm" ff="var(--font-body)" fw={700}>{breadcrumbNameMap[globalPage] || globalPage.toUpperCase()}</Text>);
+    }
+  }
+
   // Helper for consistent NavLinks with Tooltips
   const NavItem = ({ href, label, icon: Icon, active }: any) => (
     <Tooltip 
@@ -91,10 +140,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         label={(navbarOpened || isMobile) ? label : null}
         leftSection={
           <Box style={{ width: 40, display: 'flex', justifyContent: 'center' }}>
-            <Icon 
-              size={20} 
-              stroke={1.5} 
-            />
+            <Icon size={20} stroke={1.5} />
           </Box>
         }
         active={active}
@@ -110,23 +156,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             transition: mounted ? 'all 0.2s ease' : 'none',
             marginBottom: '4px',
             borderRadius: 0,
-            backgroundColor: 'transparent',
-            color: active ? 'var(--mantine-color-burnished-gold-7)' : '#0A140F',
-            // Tailwind-like hover logic
+            color: active ? 'var(--mantine-color-burnished-gold-7)' : 'var(--mantine-color-deep-green-9)',
+            backgroundColor: active ? 'var(--mantine-color-parchment-1)' : 'transparent',
             '&:hover': {
-              backgroundColor: '#F4F1EA !important',
-              color: 'var(--mantine-color-burnished-gold-7) !important',
+              backgroundColor: 'var(--mantine-color-parchment-2) !important',
+              color: 'var(--mantine-color-burnished-gold-8) !important',
             },
           },
           label: { 
             fontFamily: 'var(--font-body)', 
             fontSize: '0.75rem', 
             textTransform: 'uppercase', 
-            fontWeight: active ? 700 : 500, 
+            fontWeight: active ? 700 : 600, 
             letterSpacing: '0.5px',
             opacity: (navbarOpened || isMobile) ? 1 : 0,
-            color: 'inherit',
-            marginLeft: '4px'
+            transition: mounted ? 'opacity 0.1s ease' : 'none',
+            marginLeft: '4px',
+            color: 'inherit'
           },
           section: {
             margin: 0,
@@ -225,7 +271,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   <Text ff="var(--font-body)" size="9px" c="#4A4D51" style={{ letterSpacing: '2px', fontWeight: 700 }}>PROJECT_LIFECYCLE:</Text>
                   <Group gap={6}>
                     <Box w={4} h={4} bg="sage" style={{ borderRadius: '100%' }} />
-                    <Text ff="var(--font-body)" size="xs" fw={700} c="deep-green.9">MS-7792-ALPHA</Text>
+                    <Text ff="var(--font-body)" size="xs" fw={700} c="deep-green.9">{activeProjectId?.toUpperCase() || 'NO_PROJECT_SELECTED'}</Text>
                   </Group>
                 </Group>
               </Box>
@@ -234,7 +280,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Right: Global Actions */}
             <Group gap="md" ml="auto">
               <Group gap="xs" visibleFrom="md">
-                <Badge variant="outline" color="sage" radius={0} size="xs" style={{ letterSpacing: '1px' }}>SECURE_PORTAL</Badge>
+                <Text ff="var(--font-body)" size="9px" c="#4A4D51" style={{ letterSpacing: '1.5px', fontWeight: 700 }}>
+                  LAST_LOGIN: <Text component="span" c="deep-green.9" inherit>25_FEB_2026</Text> // SESSION_ID: <Text component="span" c="deep-green.9" inherit>SEC_9921_X</Text>
+                </Text>
               </Group>
               <Divider orientation="vertical" h={24} color="#E0DBCC" visibleFrom="sm" />
               <ActionIcon variant="subtle" color="burnished-gold" onClick={handleLogout} title="Logout"><IconLogout size={18} /></ActionIcon>
@@ -246,28 +294,39 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <AppShell.Navbar p="md">
         <ScrollArea flex={1} mx="-md" px="md">
           <Stack gap="xs" mt="md">
-            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 700 }}>RESEARCH_REPOSITORY</Text>}
-            <NavItem href="/dashboard" label="Project Overview" icon={IconLayoutDashboard} active={pathname === '/dashboard'} />
-            <NavItem href="/dashboard/history" label="Manuscript History" icon={IconHistory} active={pathname === '/dashboard/history'} />
+            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>GLOBAL_REPOSITORY</Text>}
+            <NavItem href="/dashboard" label="Active Projects" icon={IconLayoutDashboard} active={pathname === '/dashboard'} />
             <NavItem href="/dashboard/opportunities" label="Academic Intelligence" icon={IconTarget} active={pathname === '/dashboard/opportunities'} />
+            <NavItem href="/dashboard/cv" label="CV Architect" icon={IconFileText} active={pathname === '/dashboard/cv'} />
+            <NavItem href="/dashboard/portfolio" label="Living Portfolio" icon={IconWorld} active={pathname === '/dashboard/portfolio'} />
             
             <Divider my="md" color="#E0DBCC" />
 
-            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 700 }}>CORRESPONDENCE</Text>}
+            {/* Context-Aware Project Section */}
+            {isProjectContext && activeProjectId && (
+              <>
+                {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>PROJECT_DEEP_DIVE</Text>}
+                <NavItem href={`/dashboard/${activeProjectId}`} label="Project Overview" icon={IconFileText} active={pathname === `/dashboard/${activeProjectId}`} />
+                <NavItem href={`/dashboard/${activeProjectId}/history`} label="Manuscript History" icon={IconHistory} active={pathname === `/dashboard/${activeProjectId}/history`} />
+                <NavItem href={`/dashboard/${activeProjectId}/vault`} label="Publication Vault" icon={IconCertificate} active={pathname === `/dashboard/${activeProjectId}/vault`} />
+                <NavItem href={`/dashboard/${activeProjectId}/validation`} label="Technical Reports" icon={IconShieldCheck} active={pathname === `/dashboard/${activeProjectId}/validation`} />
+                <Divider my="md" color="#E0DBCC" />
+              </>
+            )}
+
+            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>CORRESPONDENCE</Text>}
             <NavItem href="/dashboard/correspondence" label="Liaison Record" icon={IconMail} active={pathname === '/dashboard/correspondence'} />
-            <NavItem href="/dashboard/portfolio" label="Living Portfolio" icon={IconWorld} active={pathname === '/dashboard/portfolio'} />
-
-            <Divider my="md" color="#E0DBCC" />
-
-            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 700 }}>FINAL_DELIVERABLES</Text>}
-            <NavItem href="/dashboard/vault" label="Publication Vault" icon={IconCertificate} active={pathname === '/dashboard/vault'} />
-            <NavItem href="/dashboard/validation" label="Technical Reports" icon={IconShieldCheck} active={pathname === '/dashboard/validation'} />
           </Stack>
         </ScrollArea>
       </AppShell.Navbar>
 
       <AppShell.Main>
         <Box p={{ base: 20, sm: 40, lg: 60 }} style={{ flex: 1 }}>
+          {breadcrumbItems.length > 0 && (
+            <Breadcrumbs separator="//" separatorMargin="md" mb="xl" styles={{ separator: { color: 'var(--mantine-color-gray-4)' }}}>
+                {breadcrumbItems}
+            </Breadcrumbs>
+          )}
           {children}
         </Box>
       </AppShell.Main>
