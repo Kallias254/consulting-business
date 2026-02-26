@@ -22,7 +22,8 @@ import {
   IconCode, 
   IconCircleCheck,
   IconScale,
-  IconFingerprint
+  IconFingerprint,
+  IconShieldCheck
 } from '@tabler/icons-react';
 import Link from 'next/link';
 

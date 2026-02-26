@@ -82,7 +82,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   
   // Detect if we are inside a project (/dashboard/[projectId])
   const isProjectContext = pathSegments.length >= 2 && 
-    !['opportunities', 'correspondence', 'portfolio'].includes(pathSegments[1]);
+    !['opportunities', 'portfolio'].includes(pathSegments[1]);
   
   const activeProjectId = isProjectContext ? pathSegments[1] : null;
 
@@ -299,6 +299,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NavItem href="/dashboard/opportunities" label="Academic Intelligence" icon={IconTarget} active={pathname === '/dashboard/opportunities'} />
             <NavItem href="/dashboard/cv" label="CV Architect" icon={IconFileText} active={pathname === '/dashboard/cv'} />
             <NavItem href="/dashboard/portfolio" label="Living Portfolio" icon={IconWorld} active={pathname === '/dashboard/portfolio'} />
+
             
             <Divider my="md" color="#E0DBCC" />
 
@@ -307,6 +308,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <>
                 {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>PROJECT_DEEP_DIVE</Text>}
                 <NavItem href={`/dashboard/${activeProjectId}`} label="Project Overview" icon={IconFileText} active={pathname === `/dashboard/${activeProjectId}`} />
+                <NavItem href={`/dashboard/${activeProjectId}/correspondence`} label="Liaison Record" icon={IconMail} active={pathname === `/dashboard/${activeProjectId}/correspondence`} />
                 <NavItem href={`/dashboard/${activeProjectId}/history`} label="Manuscript History" icon={IconHistory} active={pathname === `/dashboard/${activeProjectId}/history`} />
                 <NavItem href={`/dashboard/${activeProjectId}/vault`} label="Publication Vault" icon={IconCertificate} active={pathname === `/dashboard/${activeProjectId}/vault`} />
                 <NavItem href={`/dashboard/${activeProjectId}/validation`} label="Technical Reports" icon={IconShieldCheck} active={pathname === `/dashboard/${activeProjectId}/validation`} />
@@ -314,8 +316,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </>
             )}
 
-            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>CORRESPONDENCE</Text>}
-            <NavItem href="/dashboard/correspondence" label="Liaison Record" icon={IconMail} active={pathname === '/dashboard/correspondence'} />
+
           </Stack>
         </ScrollArea>
       </AppShell.Navbar>

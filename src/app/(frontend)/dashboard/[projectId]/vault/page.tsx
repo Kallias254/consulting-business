@@ -112,6 +112,35 @@ export default function ProjectVaultPage({ params }: { params: { projectId: stri
               </Group>
             </Box>
           </Card>
+
+          {/* Artifact 3: The Submission Package */}
+          <Card withBorder p={0} radius={0} style={{ display: 'flex', flexDirection: 'column' }}>
+            <Box p="xl" bg="white" style={{ borderBottom: '1px solid var(--mantine-color-parchment-2)', flexGrow: 1 }}>
+              <Group justify="space-between" mb="xl">
+                <ThemeIcon color="deep-green" variant="outline" size="xl" radius={0}>
+                  <IconFileCertificate size={24} />
+                </ThemeIcon>
+                <Badge color="deep-green" variant="light" radius={0} size="sm">SUBMISSION_READY</Badge>
+              </Group>
+              <Stack gap="xs">
+                <Title order={4} ff="var(--font-display)" size="1.25rem" style={{ textTransform: 'uppercase' }}>
+                  Journal Submission <br />
+                  Assets Package (Zip)
+                </Title>
+                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {params.projectId.toUpperCase()}-PKG.ZIP</Text>
+              </Stack>
+            </Box>
+            <Box p="md">
+              <Group justify="space-between">
+                <Button color="deep-green" variant="subtle" radius={0} size="xs" leftSection={<IconDownload size={14} />}>
+                  Download Package
+                </Button>
+                <ActionIcon variant="subtle" color="dimmed">
+                  <IconDotsVertical size={16} />
+                </ActionIcon>
+              </Group>
+            </Box>
+          </Card>
         </SimpleGrid>
 
         <Paper withBorder p={40} radius={0} mt="xl" bg="white" style={{ borderColor: '#E0DBCC' }}>
