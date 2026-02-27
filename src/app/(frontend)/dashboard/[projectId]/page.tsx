@@ -2,8 +2,8 @@
 import React from 'react';
 import { Container, Title, Text, Box, Stack } from '@mantine/core';
 
-export default function ProjectOverviewPage({ params }: { params: { projectId: string } }) {
-  const { projectId } = params;
+export default function ProjectOverviewPage({ params }: { params: Promise<{ projectId: string }> }) {
+  const { projectId } = React.use(params);
   const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
 
   return (

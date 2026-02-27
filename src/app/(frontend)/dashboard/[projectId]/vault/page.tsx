@@ -32,8 +32,9 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 
-export default function ProjectVaultPage({ params }: { params: { projectId: string } }) {
-  const projectIdFormatted = params.projectId.replace(/-/g, ' ').toUpperCase();
+export default function ProjectVaultPage({ params }: { params: Promise<{ projectId: string }> }) {
+  const { projectId } = React.use(params);
+  const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
 
   return (
     <Container size="xl" my="xl">
@@ -61,7 +62,7 @@ export default function ProjectVaultPage({ params }: { params: { projectId: stri
                   {projectIdFormatted}: <br />
                   Final Typeset Manuscript
                 </Title>
-                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {params.projectId.toUpperCase()}-FINAL.PDF</Text>
+                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {projectId.toUpperCase()}-FINAL.PDF</Text>
               </Stack>
             </Box>
             <Box p="md">
@@ -98,7 +99,7 @@ export default function ProjectVaultPage({ params }: { params: { projectId: stri
                   Methodology & Statistical <br />
                   Validation Report
                 </Title>
-                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {params.projectId.toUpperCase()}-STATS.PDF</Text>
+                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {projectId.toUpperCase()}-STATS.PDF</Text>
               </Stack>
             </Box>
             <Box p="md">
@@ -127,7 +128,7 @@ export default function ProjectVaultPage({ params }: { params: { projectId: stri
                   Journal Submission <br />
                   Assets Package (Zip)
                 </Title>
-                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {params.projectId.toUpperCase()}-PKG.ZIP</Text>
+                <Text size="xs" c="dimmed" ff="var(--font-body)">FILE_ID: {projectId.toUpperCase()}-PKG.ZIP</Text>
               </Stack>
             </Box>
             <Box p="md">

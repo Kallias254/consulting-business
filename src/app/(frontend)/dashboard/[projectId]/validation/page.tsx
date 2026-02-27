@@ -27,8 +27,9 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 
-export default function ProjectValidationPage({ params }: { params: { projectId: string } }) {
-  const projectIdFormatted = params.projectId.replace(/-/g, ' ').toUpperCase();
+export default function ProjectValidationPage({ params }: { params: Promise<{ projectId: string }> }) {
+  const { projectId } = React.use(params);
+  const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
 
   return (
     <Container size="xl" my="xl">

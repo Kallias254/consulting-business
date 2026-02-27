@@ -30,8 +30,8 @@ import {
   IconFingerprint
 } from '@tabler/icons-react';
 
-export default function ProjectLiaisonRecordPage({ params }: { params: { projectId: string } }) {
-  const { projectId } = params;
+export default function ProjectLiaisonRecordPage({ params }: { params: Promise<{ projectId: string }> }) {
+  const { projectId } = React.use(params);
   const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
 
   return (

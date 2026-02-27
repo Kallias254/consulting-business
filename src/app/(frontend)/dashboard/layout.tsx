@@ -82,7 +82,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   
   // Detect if we are inside a project (/dashboard/[projectId])
   const isProjectContext = pathSegments.length >= 2 && 
-    !['opportunities', 'portfolio'].includes(pathSegments[1]);
+    !['opportunities', 'portfolio', 'cv'].includes(pathSegments[1]);
   
   const activeProjectId = isProjectContext ? pathSegments[1] : null;
 
@@ -294,27 +294,29 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <AppShell.Navbar p="md">
         <ScrollArea flex={1} mx="-md" px="md">
           <Stack gap="xs" mt="md">
-            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>GLOBAL_REPOSITORY</Text>}
-            <NavItem href="/dashboard" label="Active Projects" icon={IconLayoutDashboard} active={pathname === '/dashboard'} />
-            <NavItem href="/dashboard/opportunities" label="Academic Intelligence" icon={IconTarget} active={pathname === '/dashboard/opportunities'} />
-            <NavItem href="/dashboard/cv" label="CV Architect" icon={IconFileText} active={pathname === '/dashboard/cv'} />
-            <NavItem href="/dashboard/portfolio" label="Living Portfolio" icon={IconWorld} active={pathname === '/dashboard/portfolio'} />
+            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>CURRENT_ENGAGEMENTS</Text>}
+            <NavItem href="/dashboard" label="Projects" icon={IconLayoutDashboard} active={pathname === '/dashboard'} />
 
-            
-            <Divider my="md" color="#E0DBCC" />
-
-            {/* Context-Aware Project Section */}
+            {/* Context-Aware Project Section (now moved) */}
             {isProjectContext && activeProjectId && (
               <>
+                <Divider my="md" color="#E0DBCC" />
                 {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>PROJECT_DEEP_DIVE</Text>}
                 <NavItem href={`/dashboard/${activeProjectId}`} label="Project Overview" icon={IconFileText} active={pathname === `/dashboard/${activeProjectId}`} />
                 <NavItem href={`/dashboard/${activeProjectId}/correspondence`} label="Liaison Record" icon={IconMail} active={pathname === `/dashboard/${activeProjectId}/correspondence`} />
                 <NavItem href={`/dashboard/${activeProjectId}/history`} label="Manuscript History" icon={IconHistory} active={pathname === `/dashboard/${activeProjectId}/history`} />
                 <NavItem href={`/dashboard/${activeProjectId}/vault`} label="Publication Vault" icon={IconCertificate} active={pathname === `/dashboard/${activeProjectId}/vault`} />
                 <NavItem href={`/dashboard/${activeProjectId}/validation`} label="Technical Reports" icon={IconShieldCheck} active={pathname === `/dashboard/${activeProjectId}/validation`} />
-                <Divider my="md" color="#E0DBCC" />
               </>
             )}
+            
+            <Divider my="md" color="#E0DBCC" />
+
+            {/* Global items (now moved after project-specific) */}
+            {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="9px" c="#4A4D51" px="md" mb={4} style={{ letterSpacing: '2px', fontWeight: 500 }}>CAREER_INFRASTRUCTURE</Text>}
+            <NavItem href="/dashboard/cv" label="Academic Dossier" icon={IconFileText} active={pathname === '/dashboard/cv'} />
+            <NavItem href="/dashboard/opportunities" label="Opportunity Engine" icon={IconTarget} active={pathname === '/dashboard/opportunities'} />
+            <NavItem href="/dashboard/portfolio" label="Impact Portfolio" icon={IconWorld} active={pathname === '/dashboard/portfolio'} />
 
 
           </Stack>
