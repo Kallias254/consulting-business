@@ -57,7 +57,7 @@ export default function OpportunityEnginePage() {
 
             <Paper p={50} withBorder radius={0} bg="white" style={{ borderColor: '#E0DBCC', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}>
               <Stack gap="xl">
-                <Text size="md" ff="var(--font-body)" fw={600} c="deep-green.9" italic>
+                <Text size="md" ff="var(--font-body)" fw={600} c="deep-green.9" fs="italic">
                   &quot;This engine scans global funding bodies and prestigious presses specifically for your research niche.&quot;
                 </Text>
                 

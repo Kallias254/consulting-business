@@ -118,7 +118,7 @@ export default function BlessingQueuePage() {
                   <Title order={1} ff="serif" style={{ fontSize: isMobile ? '1.5rem' : '2rem', color: 'black', fontWeight: 400 }}>
                     {selectedProject?.project || 'Manuscript Title'}
                   </Title>
-                  <Text ff="serif" italic size="sm" mt="md" c="dark">
+                  <Text ff="serif" fs="italic" size="sm" mt="md" c="dark">
                     Draft prepared for executive authorization prior to journal submission.
                   </Text>
                 </Box>

@@ -74,7 +74,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     correspondence: 'Liaison Record',
     portfolio: 'Living Portfolio',
     vault: 'Publication Vault',
-    validation: 'Technical Reports',
+    validation: 'Technical Validation',
   };
 
   const pathSegments = pathname.split('/').filter(Boolean);
@@ -306,7 +306,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <NavItem href={`/dashboard/${activeProjectId}/correspondence`} label="Liaison Record" icon={IconMail} active={pathname === `/dashboard/${activeProjectId}/correspondence`} />
                 <NavItem href={`/dashboard/${activeProjectId}/history`} label="Manuscript History" icon={IconHistory} active={pathname === `/dashboard/${activeProjectId}/history`} />
                 <NavItem href={`/dashboard/${activeProjectId}/vault`} label="Publication Vault" icon={IconCertificate} active={pathname === `/dashboard/${activeProjectId}/vault`} />
-                <NavItem href={`/dashboard/${activeProjectId}/validation`} label="Technical Reports" icon={IconShieldCheck} active={pathname === `/dashboard/${activeProjectId}/validation`} />
+                <NavItem href={`/dashboard/${activeProjectId}/validation`} label="Technical Validation" icon={IconShieldCheck} active={pathname === `/dashboard/${activeProjectId}/validation`} />
               </>
             )}
             

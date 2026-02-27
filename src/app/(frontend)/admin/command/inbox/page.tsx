@@ -157,7 +157,7 @@ export default function GlobalInboxPage() {
               label: { color: 'var(--mantine-color-dimmed)', fontSize: '10px', marginBottom: '4px' } 
             }}
           />
-          <Text size="xs" c="dimmed" italic>This will move all attachments to the Project Vault and notify the lead researcher.</Text>
+          <Text size="xs" c="dimmed" fs="italic">This will move all attachments to the Project Vault and notify the lead researcher.</Text>
           <Button 
             fullWidth 
             color="sage" 

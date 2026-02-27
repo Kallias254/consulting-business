@@ -31,8 +31,10 @@ export default function ProjectValidationPage({ params }: { params: Promise<{ pr
   const { projectId } = React.use(params);
   const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
   
-  // Detect project type based on slug or metadata (Mock logic)
-  const isTechnicalProject = projectId.includes('stats') || projectId.includes('methodology') || projectId.includes('validation');
+  // Map validation views to your existing mock projects
+  const isTechnicalProject = projectId.includes('stats') || 
+                             projectId.includes('quantum-gravity') || 
+                             projectId.includes('validation');
 
   return (
     <Container size="xl" fluid>
@@ -168,25 +170,45 @@ export default function ProjectValidationPage({ params }: { params: Promise<{ pr
             </Stack>
           </Paper>
 
-          {/* 5. Human Review Benchmarks */}
+          {/* 5. Human Review Benchmarks & Ethics */}
           <Paper withBorder p={40} radius={0} bg="white" style={{ borderColor: '#E0DBCC' }}>
             <Title order={4} ff="var(--font-display)" mb="xl" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
               <IconFileCertificate size={20} style={{ marginBottom: -4, marginRight: 8, color: 'var(--mantine-color-deep-green-7)' }} />
-              Human Review Benchmarks
+              Validation Benchmarks
             </Title>
-            <Stack gap="xs">
-              <Group gap="xs">
-                <IconCircleCheck size={14} color="var(--mantine-color-sage-7)" />
-                <Text size="xs" ff="var(--font-body)" fw={700}>
-                  {isTechnicalProject ? 'Independent replication of raw dataset results.' : 'All block quotes verified for length/indent.'}
-                </Text>
-              </Group>
-              <Group gap="xs">
-                <IconCircleCheck size={14} color="var(--mantine-color-sage-7)" />
-                <Text size="xs" ff="var(--font-body)" fw={700}>
-                  {isTechnicalProject ? 'Bias-neutralization audit on outliers.' : 'Chapter-level footnotes numbered sequentially.'}
-                </Text>
-              </Group>
+            
+            <Stack gap="xl">
+              <Box>
+                <Text size="9px" fw={700} c="dimmed" mb={8} style={{ letterSpacing: '1px' }}>ETHICS_&_HUMAN_SUBJECTS</Text>
+                <Group justify="space-between" p="sm" bg="sage.0" style={{ border: '1px solid var(--mantine-color-sage-2)' }}>
+                  <Group gap="xs">
+                    <IconShieldCheck size={16} color="var(--mantine-color-sage-7)" />
+                    <Text size="xs" fw={700}>IRB Approval Verified</Text>
+                  </Group>
+                  <Badge color="sage.7" variant="filled" radius={0} size="xs">0xEthics_Pass</Badge>
+                </Group>
+                <Text size="xs" c="dimmed" mt={4}>Institutional Review Board certificate #IRB-2025-004 validated against University records.</Text>
+              </Box>
+
+              <Divider color="#F4F1EA" />
+
+              <Box>
+                <Text size="9px" fw={700} c="dimmed" mb={8} style={{ letterSpacing: '1px' }}>RESEARCHER_OATHS</Text>
+                <Stack gap="xs">
+                  <Group gap="xs">
+                    <IconCircleCheck size={14} color="var(--mantine-color-sage-7)" />
+                    <Text size="xs" ff="var(--font-body)" fw={700}>
+                      {isTechnicalProject ? 'Independent replication of raw dataset results.' : 'All block quotes verified for length/indent.'}
+                    </Text>
+                  </Group>
+                  <Group gap="xs">
+                    <IconCircleCheck size={14} color="var(--mantine-color-sage-7)" />
+                    <Text size="xs" ff="var(--font-body)" fw={700}>
+                      {isTechnicalProject ? 'Bias-neutralization audit on outliers.' : 'Chapter-level footnotes numbered sequentially.'}
+                    </Text>
+                  </Group>
+                </Stack>
+              </Box>
             </Stack>
           </Paper>
         </SimpleGrid>

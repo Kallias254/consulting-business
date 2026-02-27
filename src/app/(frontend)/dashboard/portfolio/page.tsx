@@ -57,7 +57,7 @@ export default function ImpactPortfolioPage() {
 
             <Paper p={50} withBorder radius={0} bg="white" style={{ borderColor: '#E0DBCC', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}>
               <Stack gap="xl">
-                <Text size="md" ff="var(--font-body)" fw={600} c="deep-green.9" italic>
+                <Text size="md" ff="var(--font-body)" fw={600} c="deep-green.9" fs="italic">
                   &quot;We don't just build a website; we architect a professional presence that ensures your work is seen by the right peers.&quot;
                 </Text>
                 
