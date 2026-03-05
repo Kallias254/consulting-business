@@ -35,17 +35,17 @@ export default function ProjectLiaisonRecordPage({ params }: { params: Promise<{
   const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
 
   return (
-    <Container size="xl" fluid>
+    <Container size="xl">
       <Stack gap="xl">
         {/* 1. Page Header: High Technical Authority */}
         <Box>
           <Group justify="space-between" align="flex-end" mb="md">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
-                Liaison <Text component="span" inherit c="burnished-gold.7">Record</Text>
+                Project <Text component="span" inherit c="burnished-gold.7">Correspondence</Text>
               </Title>
               <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
-                Secure Correspondence Log // Project: {projectIdFormatted} // Permanent Audit Trail
+                Secure Correspondence Log // Permanent Audit Trail // Project: {projectIdFormatted}
               </Text>
             </Box>
             <Group gap="xs">
@@ -165,15 +165,6 @@ export default function ProjectLiaisonRecordPage({ params }: { params: Promise<{
                   Download Archive (.EML)
                 </Button>
               </Stack>
-            </Paper>
-
-            <Paper withBorder p="xl" radius={0} bg="white" style={{ borderColor: '#E0DBCC' }}>
-              <Title order={5} ff="var(--font-display)" mb="md" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>Linked project</Title>
-              <Text size="xs" fw={700} c="deep-green.9" mb={4}>{projectIdFormatted}</Text>
-              <Text size="xs" c="dimmed" mb="md">{projectIdFormatted}: Final Scholarly Review</Text>
-              <Button fullWidth variant="outline" color="gray.6" radius={0} size="xs">
-                Switch Project Context
-              </Button>
             </Paper>
           </Stack>
         </SimpleGrid>

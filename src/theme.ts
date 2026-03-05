@@ -51,6 +51,18 @@ export const theme = createTheme({
       '#0A140F',
       '#0A140F',
     ],
+    'sage': [
+      '#F2F5F3',
+      '#E1E8E3',
+      '#D0DBCF',
+      '#BFCEBC',
+      '#AEC1A9',
+      '#9DB496',
+      '#8BA783',
+      '#75906E', // 7: Main Sage
+      '#5F755A',
+      '#495A46',
+    ],
   },
   fontFamily: 'var(--font-body)',
   headings: {

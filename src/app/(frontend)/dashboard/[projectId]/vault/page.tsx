@@ -37,14 +37,14 @@ export default function ProjectVaultPage({ params }: { params: Promise<{ project
   const projectIdFormatted = projectId.replace(/-/g, ' ').toUpperCase();
 
   return (
-    <Container size="xl" my="xl">
-      <Stack gap="lg">
-        <Box mt="md">
-          <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
-            Publication <Text component="span" inherit c="burnished-gold.7">Vault</Text>
+    <Container size="xl">
+      <Stack gap="xl">
+        <Box>
+          <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase', lineHeight: 1.1 }}>
+            Project <Text component="span" inherit c="burnished-gold.7">Vault</Text>
           </Title>
           <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
-            Project: {projectIdFormatted} // Validated Artifacts // Final Publication Outputs
+            Validated Artifacts // Final Publication Outputs // Project: {projectIdFormatted}
           </Text>
         </Box>
 
@@ -55,7 +55,15 @@ export default function ProjectVaultPage({ params }: { params: Promise<{ project
                 <ThemeIcon color="deep-green.7" variant="outline" size="xl" radius={0}>
                   <IconBook size={24} />
                 </ThemeIcon>
-                <Badge color="deep-green.7" variant="filled" radius={0} size="sm">FINAL_PROOF</Badge>
+                <Badge 
+                  color="deep-green.7" 
+                  variant="filled" 
+                  radius={0} 
+                  size="sm"
+                  style={{ paddingTop: '2px', paddingBottom: '2px', height: 'auto', minHeight: '20px' }}
+                >
+                  FINAL_PROOF
+                </Badge>
               </Group>
               <Stack gap="xs">
                 <Title order={4} ff="var(--font-display)" size="1.25rem" style={{ textTransform: 'uppercase' }}>
@@ -92,7 +100,15 @@ export default function ProjectVaultPage({ params }: { params: Promise<{ project
                 <ThemeIcon color="burnished-gold.7" variant="outline" size="xl" radius={0}>
                   <IconChartBar size={24} />
                 </ThemeIcon>
-                <Badge color="burnished-gold.7" variant="outline" radius={0} size="sm">VALIDATION_REPORT</Badge>
+                <Badge 
+                  color="burnished-gold.7" 
+                  variant="outline" 
+                  radius={0} 
+                  size="sm"
+                  style={{ paddingTop: '2px', paddingBottom: '2px', height: 'auto', minHeight: '20px' }}
+                >
+                  VALIDATION_REPORT
+                </Badge>
               </Group>
               <Stack gap="xs">
                 <Title order={4} ff="var(--font-display)" size="1.25rem" style={{ textTransform: 'uppercase' }}>
@@ -121,7 +137,15 @@ export default function ProjectVaultPage({ params }: { params: Promise<{ project
                 <ThemeIcon color="deep-green" variant="outline" size="xl" radius={0}>
                   <IconFileCertificate size={24} />
                 </ThemeIcon>
-                <Badge color="deep-green" variant="light" radius={0} size="sm">SUBMISSION_READY</Badge>
+                <Badge 
+                  color="deep-green" 
+                  variant="light" 
+                  radius={0} 
+                  size="sm"
+                  style={{ paddingTop: '2px', paddingBottom: '2px', height: 'auto', minHeight: '20px' }}
+                >
+                  SUBMISSION_READY
+                </Badge>
               </Group>
               <Stack gap="xs">
                 <Title order={4} ff="var(--font-display)" size="1.25rem" style={{ textTransform: 'uppercase' }}>

@@ -96,7 +96,7 @@ To maintain our elite positioning, all communications must feel like a **peer-to
 > Micah
 
 ### Script 6: The Executive Review (Delivery)
-**Subject:** [Blessing] Final Manuscript - Executive Review Complete
+**Subject:** [Clearance] Final Manuscript - Executive Review Complete
 **Content:**
 > Dr. {{Name}},
 >

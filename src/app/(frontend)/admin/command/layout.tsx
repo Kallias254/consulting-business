@@ -382,7 +382,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Divider my="md" color="#2A2D31" />
 
             {(navbarOpened || isMobile) && <Text ff="var(--font-body)" size="7px" c="dimmed" px="md" mb={4} style={{ letterSpacing: '2px' }}>AUTHORIZATION_LOOPS</Text>}
-            <NavItem href="/admin/command/liaison" label="Liaison Buffer" icon={IconShieldCheck} active={pathname === '/admin/command/liaison'} />
+            <NavItem href="/admin/command/liaison" label="Clearance Desk" icon={IconShieldCheck} active={pathname === '/admin/command/liaison'} />
             <NavItem href="/admin/command/pulses" label="Executive Pulse Desk" icon={IconCalendarEvent} active={pathname === '/admin/command/pulses'} />
 
             <Divider my="md" color="#2A2D31" />

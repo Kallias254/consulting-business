@@ -122,15 +122,14 @@ export const FooterClient: React.FC<{ data: FooterType }> = ({ data }) => {
             <div>
               <h4 className="font-display text-xs uppercase tracking-widest text-burnished-gold mb-6">Institutional Links</h4>
               <nav className="flex flex-col gap-4">
-                <Link href="/dashboard/history" className="text-xs text-deep-green/60 hover:text-deep-green transition-colors font-medium">Manuscript History</Link>
+                <Link href="/dashboard" className="text-xs text-deep-green/60 hover:text-deep-green transition-colors font-medium">Project Hub</Link>
                 <Link href="/dashboard/portfolio" className="text-xs text-deep-green/60 hover:text-deep-green transition-colors font-medium">Living Portfolio</Link>
-                <Link href="/dashboard/validation" className="text-xs text-deep-green/60 hover:text-deep-green transition-colors font-medium">Validation Reports</Link>
+                <Link href="/dashboard/cv" className="text-xs text-deep-green/60 hover:text-deep-green transition-colors font-medium">Academic Dossier</Link>
               </nav>
-            </div>
-            <div className="bg-parchment-0 p-8 border border-parchment-2">
+            </div>            <div className="bg-parchment-0 p-8 border border-parchment-2">
               <h4 className="font-display text-xs uppercase tracking-widest text-deep-green mb-4">Portal Support</h4>
               <p className="text-[10px] text-deep-green/50 uppercase tracking-wider mb-6">Direct Faculty Correspondence Active</p>
-              <Link href="/dashboard/correspondence" className="inline-block px-6 py-2 border border-deep-green text-deep-green font-sans text-[10px] uppercase tracking-[0.2em] hover:bg-deep-green hover:text-white transition-all">
+              <Link href="/dashboard" className="inline-block px-6 py-2 border border-deep-green text-deep-green font-sans text-[10px] uppercase tracking-[0.2em] hover:bg-deep-green hover:text-white transition-all">
                 Send_Message_
               </Link>
             </div>

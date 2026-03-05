@@ -8,7 +8,7 @@ This document outlines our final foundational decision: moving away from third-p
 | :--- | :--- | :--- | :--- |
 | **Storage** | **Cloudflare R2** | S3-compatible via Payload Plugin | **Zero Egress Fees.** No "Success Taxes" on large archives. |
 | **Forms** | **Payload Native** | `@payloadcms/plugin-form-builder` | **Data Sovereignty.** Researcher data stays in our DB. |
-| **Comms** | **Resend BYOK** | Programmatic API + React Email | **Programmatic Voice.** Enables Micah's "Blessing" workflow. |
+| **Comms** | **Resend BYOK** | Programmatic API + React Email | **Programmatic Voice.** Enables Micah's "Clearance" workflow. |
 | **Machinery** | **Trigger.dev** | Next.js Background Tasks | **Reliability Layer.** Handles 48h waits and 14-day pulses. |
 
 ## 2. The "Researcher-First" Document Flow

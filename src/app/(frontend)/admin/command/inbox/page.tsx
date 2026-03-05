@@ -343,7 +343,7 @@ ${selectedMail.sender}`}
                 </Text>
               </ScrollArea>
 
-              {/* Quick Response Buffer */}
+              {/* Quick Response Desk */}
               <Box p={{ base: 'md', sm: 'xl' }} style={{ borderTop: '1px solid #2A2D31' }}>
                 <Group gap="md">
                   <Button 
@@ -355,7 +355,7 @@ ${selectedMail.sender}`}
                     component={Link}
                     href="/admin/command/liaison"
                   >
-                    {isMobile ? 'Open Buffer' : 'Open Correspondence Buffer'}
+                    {isMobile ? 'Clearance Desk' : 'Open Executive Clearance Desk'}
                   </Button>
                 </Group>
               </Box>

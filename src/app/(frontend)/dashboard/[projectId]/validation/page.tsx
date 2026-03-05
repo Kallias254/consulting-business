@@ -37,20 +37,28 @@ export default function ProjectValidationPage({ params }: { params: Promise<{ pr
                              projectId.includes('validation');
 
   return (
-    <Container size="xl" fluid>
+    <Container size="xl">
       <Stack gap="xl">
         {/* 1. Page Header */}
         <Box>
           <Group justify="space-between" align="flex-end">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
-                Technical <Text component="span" inherit c="burnished-gold.7">Validation</Text>
+                Quality <Text component="span" inherit c="burnished-gold.7">Audit</Text>
               </Title>
               <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
-                Project: {projectIdFormatted} // {isTechnicalProject ? 'Methodological Rigor' : 'Manuscript Integrity'} Audit // {isTechnicalProject ? 'Statistical' : 'Publisher'} Compliance Ledger
+                {isTechnicalProject ? 'Methodological Rigor' : 'Manuscript Integrity'} Audit // {isTechnicalProject ? 'Statistical' : 'Publisher'} Compliance Ledger // Project: {projectIdFormatted}
               </Text>
             </Box>
-            <Badge color="sage.7" variant="light" radius={0} size="lg" p="md" leftSection={<IconShieldCheck size={16} />}>
+            <Badge 
+              color="sage.7" 
+              variant="light" 
+              radius={0} 
+              size="lg" 
+              p="md" 
+              leftSection={<IconShieldCheck size={16} />}
+              style={{ paddingTop: '10px', paddingBottom: '10px', height: 'auto' }}
+            >
               {isTechnicalProject ? 'RIGOR_AUDIT_ACTIVE' : 'COMPLIANCE_AUDIT_ACTIVE'}
             </Badge>
           </Group>

@@ -40,7 +40,7 @@ import {
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 
-export default function BlessingQueuePage() {
+export default function ClearanceQueuePage() {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedProject, setSelectedProject] = React.useState<any>(null);
   const isMobile = useMediaQuery('(max-width: 768px)');

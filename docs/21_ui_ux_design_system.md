@@ -25,7 +25,7 @@ Our dashboard structure mimics the familiarity of **Taylor & Francis** and **Els
 - **Structure:**
     - **Header:** Global Sentiment Tracker (Red/Green light) and Project Switcher.
     - **Navbar (Left):** Hierarchy-based navigation (All Leads > Active Projects > Finance).
-    - **Main Content:** High-density data tables and "The Blessing Queue."
+    - **Main Content:** High-density data tables and "The Clearance Queue."
     - **Aside (Right):** "Intelligence Feed" showing real-time email opens and file downloads.
 
 ### B. The "Scientist Portal" (Client View)

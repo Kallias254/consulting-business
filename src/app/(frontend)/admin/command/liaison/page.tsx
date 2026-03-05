@@ -54,7 +54,7 @@ const draftMemos = [
   },
 ];
 
-export default function LiaisonBufferPage() {
+export default function LiaisonClearancePage() {
   const [selectedMemo, setSelectedMemo] = React.useState(draftMemos[0]);
   const [opened, { open, close }] = useDisclosure(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -116,10 +116,10 @@ export default function LiaisonBufferPage() {
           <Group justify="space-between" align="flex-end" wrap="wrap">
             <Box>
               <Title order={2} ff="var(--font-display)" size="2.5rem" style={{ textTransform: 'uppercase' }}>
-                Liaison <Text component="span" inherit c="burnished-gold.7">Buffer</Text>
+                Executive <Text component="span" inherit c="burnished-gold.7">Clearance</Text>
               </Title>
               <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
-                Executive Correspondence Clearance // Technical Draft Review // Principal Sign-Off Loop
+                Draft Review Console // Institutional Correspondence // Principal Sign-Off Loop
               </Text>
             </Box>
             <Button 
@@ -130,7 +130,7 @@ export default function LiaisonBufferPage() {
               onClick={open}
               fullWidth={isMobile}
             >
-              Initiate Executive Memo
+              Draft Executive Memo
             </Button>
           </Group>
         </Box>

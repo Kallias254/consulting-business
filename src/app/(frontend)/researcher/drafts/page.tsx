@@ -99,7 +99,7 @@ export default function ResearcherDraftingDesk() {
                       Save for Later
                     </Button>
                     <Button color="deep-green" radius={0} rightSection={<IconSend size={18} />}>
-                      Submit for Principal Blessing
+                      Submit for Principal Clearance
                     </Button>
                   </Group>
                 </Group>

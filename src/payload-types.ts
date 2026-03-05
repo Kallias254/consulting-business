@@ -72,6 +72,10 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    projects: Project;
+    tasks: Task;
+    publishers: Publisher;
+    'project-templates': ProjectTemplate;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +98,10 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    tasks: TasksSelect<false> | TasksSelect<true>;
+    publishers: PublishersSelect<false> | PublishersSelect<true>;
+    'project-templates': ProjectTemplatesSelect<false> | ProjectTemplatesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -464,6 +472,7 @@ export interface Category {
 export interface User {
   id: number;
   name?: string | null;
+  roles: ('principal' | 'admin' | 'lead_researcher' | 'researcher' | 'client')[];
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -827,6 +836,116 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  slug: string;
+  client: number | User;
+  leadResearcher: number | User;
+  status: 'onboarding' | 'active' | 'waiting' | 'finalizing' | 'completed';
+  /**
+   * Displayed in the Friday Pulse for the client
+   */
+  nextMilestone?: string | null;
+  progress?: number | null;
+  /**
+   * Link to the project root folder in Media
+   */
+  vaultFolder?: (number | null) | Media;
+  units?:
+    | {
+        title: string;
+        status?: ('draft' | 'internal_review' | 'scholar_review' | 'validated') | null;
+        currentVersion?: (number | null) | Media;
+        versionHistory?:
+          | {
+              versionNumber: string;
+              file: number | Media;
+              description?: string | null;
+              timestamp: string;
+              id?: string | null;
+            }[]
+          | null;
+        progress?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tasks".
+ */
+export interface Task {
+  id: number;
+  title: string;
+  project: number | Project;
+  assignedTo: number | User;
+  status: 'todo' | 'in_progress' | 'review' | 'done';
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  due?: string | null;
+  description?: string | null;
+  /**
+   * Link to the resulting file/artifact in Media
+   */
+  outputLink?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publishers".
+ */
+export interface Publisher {
+  id: number;
+  name: string;
+  website?: string | null;
+  submissionPortal?: string | null;
+  /**
+   * Key contact or editor name if known
+   */
+  primaryContact?: string | null;
+  /**
+   * General formatting or house style rules
+   */
+  globalGuidelines?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-templates".
+ */
+export interface ProjectTemplate {
+  id: number;
+  name: string;
+  publisher: number | Publisher;
+  productType: 'journal_article' | 'handbook' | 'textbook' | 'grant_proposal' | 'dissertation';
+  units?:
+    | {
+        title: string;
+        type: 'narrative' | 'technical' | 'data' | 'bibliography' | 'front_matter';
+        /**
+         * Specific rules for this unit (e.g. word counts, section headers)
+         */
+        guidelines?: string | null;
+        validationChecklist?:
+          | {
+              item?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1034,6 +1153,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'tasks';
+        value: number | Task;
+      } | null)
+    | ({
+        relationTo: 'publishers';
+        value: number | Publisher;
+      } | null)
+    | ({
+        relationTo: 'project-templates';
+        value: number | ProjectTemplate;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1412,6 +1547,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1428,6 +1564,94 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  client?: T;
+  leadResearcher?: T;
+  status?: T;
+  nextMilestone?: T;
+  progress?: T;
+  vaultFolder?: T;
+  units?:
+    | T
+    | {
+        title?: T;
+        status?: T;
+        currentVersion?: T;
+        versionHistory?:
+          | T
+          | {
+              versionNumber?: T;
+              file?: T;
+              description?: T;
+              timestamp?: T;
+              id?: T;
+            };
+        progress?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tasks_select".
+ */
+export interface TasksSelect<T extends boolean = true> {
+  title?: T;
+  project?: T;
+  assignedTo?: T;
+  status?: T;
+  priority?: T;
+  due?: T;
+  description?: T;
+  outputLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publishers_select".
+ */
+export interface PublishersSelect<T extends boolean = true> {
+  name?: T;
+  website?: T;
+  submissionPortal?: T;
+  primaryContact?: T;
+  globalGuidelines?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-templates_select".
+ */
+export interface ProjectTemplatesSelect<T extends boolean = true> {
+  name?: T;
+  publisher?: T;
+  productType?: T;
+  units?:
+    | T
+    | {
+        title?: T;
+        type?: T;
+        guidelines?: T;
+        validationChecklist?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
