@@ -44,8 +44,11 @@ Payload remains the perfect backend for the Agency OS. It will store:
 ### Typst & Pandoc: The "Word-to-Typst" Bridge
 We bridge the gap between researcher habits (MS Word) and elite output (Typst) using **Pandoc**.
 - **The Workflow:** Researchers write in MS Word using standard styles. Upon upload, the Agency OS uses Pandoc to convert the `.docx` into structured Markdown/Typst code.
-- **The Validation Engine:** Once converted, automated scripts perform a "Live Pulse" audit:
-    - **BibTeX Integrity:** Cross-referencing text citations against the `.bib` database.
-    - **Structural Audit:** Verifying heading hierarchy and nested numbering against publisher rules.
-    - **Asset Verification:** Ensuring all figures and tables are linked and meet DPI requirements.
+- **The "Reference Integrity" Auditor:** Since we avoid the third-party `typst.app` Zotero sync to maintain sovereignty, we use a local auditor script:
+    - **How it works:** The script parses the **converted Typst/Markdown text** for citation keys (e.g., `[@smith2024]`) and cross-references them against the **uploaded `.bib` file** from the project vault.
+    - **Validation Logic:** It checks for: 
+        1. **Missing Entries:** Citations in the text that don't exist in the `.bib` file.
+        2. **Metadata Gaps:** Entries in the `.bib` file missing required fields (e.g., a DOI or a Page Number).
+        3. **Style Compliance:** Ensuring the BibTeX format matches the target publisher's specific requirements (e.g., APA vs. Chicago).
+    - **Client Value:** Instead of "Syncing," we are **"Auditing."** The client sees a "Reference Health" score in their portal, which provides much higher psychological security than a simple sync.
 - **Value:** This removes the "formatting month" for the client and ensures 100% technical compliance throughout the project lifecycle. Every save by the researcher updates the client's **Technical Validation** score.

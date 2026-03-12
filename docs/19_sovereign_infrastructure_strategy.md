@@ -10,6 +10,7 @@ This document outlines our final foundational decision: moving away from third-p
 | **Forms** | **Payload Native** | `@payloadcms/plugin-form-builder` | **Data Sovereignty.** Researcher data stays in our DB. |
 | **Comms** | **Resend BYOK** | Programmatic API + React Email | **Programmatic Voice.** Enables Micah's "Clearance" workflow. |
 | **Machinery** | **Trigger.dev** | Next.js Background Tasks | **Reliability Layer.** Handles 48h waits and 14-day pulses. |
+| **Doc Engine**| **Typst CLI** | Server-side / CI Compilation | **Zero Data Leak.** We do not use the `typst.app` web service; compilation happens on our own sovereign metal. |
 
 ## 2. The "Researcher-First" Document Flow
 
@@ -21,7 +22,7 @@ We bridge the gap between **MS Word** (the researcher's home) and **Typst** (our
 3.  **Ongoing Validation (The Live Pulse):** The conversion triggers automated audit scripts:
     *   **Lookup Scripts:** Verify citations against the master BibTeX file.
     *   **Tree Checks:** Audit the heading hierarchy (H1 -> H2 -> H3) against publisher-specific JSON rules.
-    *   **WASM Render:** The Typst engine attempts a render; any failures (missing figures, broken links) are captured as "Anomalies."
+    *   **Sovereign Render:** The **Typst CLI** (running in our CI or server environment) attempts a render; any failures (missing figures, broken links) are captured as "Anomalies." We deliberately avoid the `typst.app` free/pro plans to ensure sensitive research data never touches a third-party rendering cloud.
 4.  **Client Insight:** The results are pushed to the **Technical Validation** page in the Portal, providing real-time "Scientific Certainty."
 5.  **Executive Review:** Micah reviews the **Typeset PDF** (Typst) in the Command Center.
 6.  **Sovereign Delivery:** Micah clicks "Approve." Payload triggers **Resend** to deliver an R2-hosted link to the client.
