@@ -93,9 +93,19 @@ export default function ProjectGalleryProofPage({ params }: { params: Promise<{ 
                     <Badge 
                       variant={unit.status === 'validated' ? 'filled' : 'outline'} 
                       color={unit.status === 'validated' ? 'sage.7' : 'burnished-gold.7'}
-                      size="7px"
+                      size="sm"
                       radius={0}
-                      styles={{ root: { border: unit.status === 'validated' ? 'none' : '1px solid currentColor' } }}
+                      px="xs"
+                      styles={{ 
+                        root: { 
+                          border: unit.status === 'validated' ? 'none' : '1px solid currentColor',
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          fontSize: '8px',
+                          height: '18px'
+                        } 
+                      }}
                     >
                       {unit.status.replace('_', ' ')}
                     </Badge>
