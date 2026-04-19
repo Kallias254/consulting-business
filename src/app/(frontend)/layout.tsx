@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { Antonio, Inter } from 'next/font/google'
+import { Inter, EB_Garamond } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -14,29 +14,27 @@ import { draftMode } from 'next/headers'
 import { ColorSchemeScript } from '@mantine/core'
 
 import '@mantine/core/styles.css'
+import '@mantine/carousel/styles.css'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-const antonio = Antonio({
+const ebGaramond = EB_Garamond({
   subsets: ['latin'],
-  variable: '--font-display',
-  weight: ['700'],
+  variable: '--font-serif',
+  display: 'swap',
 })
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-body',
+  variable: '--font-sans',
+  display: 'swap',
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html
-      className={cn(antonio.variable, inter.variable)}
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html className={cn(ebGaramond.variable, inter.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
         <ColorSchemeScript defaultColorScheme="dark" />
