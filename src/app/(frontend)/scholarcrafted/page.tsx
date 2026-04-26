@@ -440,6 +440,8 @@ export default function ScholarCraftedLanding() {
             onMouseEnter={autoplay.current.stop}
             onMouseLeave={autoplay.current.reset}
             styles={{
+              root: { paddingBottom: rem(60) },
+              indicators: { bottom: rem(-20) },
               indicator: {
                 width: rem(8),
                 height: rem(8),

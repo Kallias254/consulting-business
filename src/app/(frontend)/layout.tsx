@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-
 import { cn } from '@/utilities/ui'
 import { Inter, EB_Garamond } from 'next/font/google'
 import React from 'react'
@@ -15,6 +14,7 @@ import { ColorSchemeScript } from '@mantine/core'
 
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css'
+import '@mantine/dates/styles.css'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
