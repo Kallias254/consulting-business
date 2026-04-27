@@ -85,10 +85,15 @@ export function Navbar() {
               <Button
                 variant="outline"
                 color="dark"
-                size="xs"
+                size="sm"
                 radius={0}
                 fw={600}
-                style={{ letterSpacing: '0.1em' }}
+                style={{
+                  letterSpacing: '0.1em',
+                  height: rem(42),
+                  paddingLeft: rem(24),
+                  paddingRight: rem(24),
+                }}
               >
                 BOOK CONSULTATION
               </Button>

@@ -15,11 +15,11 @@ import {
   Group,
   UnstyledButton,
   Progress,
+  Center,
+  Divider,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import dayjs from 'dayjs'
-import { Navbar } from '../_components/Navbar'
-import { Footer } from '../_components/Footer'
 import {
   IconUsers,
   IconEdit,
@@ -31,10 +31,9 @@ import {
   IconClock,
   IconFileText,
   IconSearch,
-  IconCalendar,
 } from '@tabler/icons-react'
+import Link from 'next/link'
 
-const SECTION_SPACING = rem(100)
 const INNER_WIDTH = 800
 
 interface StepData {
@@ -281,9 +280,7 @@ export default function ConsultationPage() {
               value={data.preferredDate}
               onChange={(d) => setData({ ...data, preferredDate: d })}
               minDate={new Date()}
-              styles={{
-                day: { borderRadius: 0, '&[data-selected]': { backgroundColor: '#111' } },
-              }}
+              classNames={{ day: 'calendar-day' }}
             />
           </Stack>
           <Stack gap="md">
@@ -394,96 +391,188 @@ export default function ConsultationPage() {
   )
 
   const StepSuccess = () => (
-    <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-      <Box c="#B08D57">
-        <IconCheck size={64} stroke={1.5} />
-      </Box>
-      <Box>
-        <Title
-          order={1}
-          style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
-        >
-          Inquiry Received.
-        </Title>
-        <Text size="lg" mt="md" c="dimmed" lh={1.6}>
-          Your academic profile has been created for review. Micah will personally assess your
-          project and confirm your preferred window of{' '}
-          <strong>
-            {dayjs(data.preferredDate).format('MMMM D')} ({data.preferredTime})
-          </strong>{' '}
-          via email within 24 hours.
-        </Text>
-      </Box>
-
-      <Box p="xl" bg="#F9F8F6" style={{ border: '1px solid #eee', maxWidth: 400, width: '100%' }}>
-        <Stack gap="sm">
-          <Text size="xs" fw={700} style={{ letterSpacing: '0.1em' }}>
-            SUMMARY
+    <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
+      <Stack gap="xl" align="center">
+        <Box c="#B08D57">
+          <IconCertificate size={64} stroke={1.5} />
+        </Box>
+        <Box>
+          <Title
+            order={1}
+            style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+          >
+            Consultation Initialized.
+          </Title>
+          <Text size="lg" mt="md" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
+            You have taken a decisive step toward completion. Micah, PhD is personally reviewing
+            your research profile and will confirm your strategy session within 24 hours.
           </Text>
-          <Group justify="space-between">
-            <Text size="sm">Service:</Text>
-            <Text size="sm" fw={600}>
-              {data.interest}
-            </Text>
-          </Group>
-          <Group justify="space-between">
-            <Text size="sm">Requested Window:</Text>
-            <Text size="sm" fw={600}>
-              {dayjs(data.preferredDate).format('MMM D')}, {data.preferredTime}
-            </Text>
-          </Group>
-        </Stack>
-      </Box>
+        </Box>
+      </Stack>
 
-      <Button variant="subtle" color="dark" onClick={() => setStep(0)}>
-        START OVER
-      </Button>
+      <SimpleGrid
+        cols={{ base: 1, md: 2 }}
+        spacing={rem(40)}
+        style={{ textAlign: 'left', width: '100%' }}
+      >
+        {/* Left: What to do while you wait */}
+        <Box p={rem(40)} bg="white" style={{ border: '1px solid #eee' }}>
+          <Stack gap="xl">
+            <Text
+              size="xs"
+              fw={700}
+              style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              c="dimmed"
+            >
+              While You Wait
+            </Text>
+            <Stack gap="lg">
+              <Group align="flex-start" gap="md" wrap="nowrap">
+                <Text fw={700} c="#B08D57">
+                  01
+                </Text>
+                <Box>
+                  <Text fw={600} size="sm">
+                    Audit your latest feedback
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    Review the most recent comments from your committee to identify recurring
+                    themes.
+                  </Text>
+                </Box>
+              </Group>
+              <Group align="flex-start" gap="md" wrap="nowrap">
+                <Text fw={700} c="#B08D57">
+                  02
+                </Text>
+                <Box>
+                  <Text fw={600} size="sm">
+                    Isolate the "Stall Point"
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    Pinpoint the exact chapter or conceptual bridge where your momentum collapsed.
+                  </Text>
+                </Box>
+              </Group>
+              <Group align="flex-start" gap="md" wrap="nowrap">
+                <Text fw={700} c="#B08D57">
+                  03
+                </Text>
+                <Box>
+                  <Text fw={600} size="sm">
+                    Check your inbox
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    We've sent a preliminary onboarding document to <strong>{data.email}</strong>.
+                  </Text>
+                </Box>
+              </Group>
+            </Stack>
+          </Stack>
+        </Box>
+
+        {/* Right: Social Proof / Community */}
+        <Box p={rem(40)} bg="white" style={{ border: '1px solid #eee' }}>
+          <Stack gap="xl">
+            <Text
+              size="xs"
+              fw={700}
+              style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              c="dimmed"
+            >
+              Community of Scholars
+            </Text>
+            <Stack gap="lg">
+              <Box>
+                <Text size="sm" fs="italic" lh={1.6}>
+                  "I was stuck for 18 months before this consultation. Within 30 minutes, Micah
+                  identified a structural flaw in my second chapter that changed everything."
+                </Text>
+                <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
+                  &mdash; DR. SARAH J., PH.D. (YALE)
+                </Text>
+              </Box>
+              <Divider style={{ opacity: 0.3 }} />
+              <Box>
+                <Text size="sm" fs="italic" lh={1.6}>
+                  "The most rigorous academic support I've encountered. They don't do the work for
+                  you; they help you produce work you are proud to defend."
+                </Text>
+                <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
+                  &mdash; DR. MARCUS K., PH.D. (OXFORD)
+                </Text>
+              </Box>
+            </Stack>
+          </Stack>
+        </Box>
+      </SimpleGrid>
+
+      <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+        <Button variant="outline" color="dark.9" radius={0} px={rem(60)}>
+          RETURN TO HOME
+        </Button>
+      </Link>
     </Stack>
   )
 
   return (
-    <Box bg="white" style={{ minHeight: '100vh', color: '#111' }}>
-      <Navbar />
+    <Box bg="#F9F8F6" style={{ minHeight: '100vh', color: '#111', position: 'relative' }}>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        /* Hide global elements */
+        header, footer { display: none !important; }
 
-      <Box component="section" pt={rem(100)} pb={rem(60)} bg="white">
+        .calendar-day[data-selected] {
+          background-color: #111 !important;
+          color: white !important;
+          border-radius: 0 !important;
+        }
+        .calendar-day {
+          border-radius: 0 !important;
+        }
+      `,
+        }}
+      />
+
+      {/* Header-lite */}
+      <Box component="nav" py="xl" style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
         <Container size={INNER_WIDTH}>
-          <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c="dimmed"
+          <Group justify="space-between">
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Stack gap={0}>
+                <Text
+                  fw={700}
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: rem(20),
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1,
+                  }}
+                >
+                  SCHOLARCRAFTED
+                </Text>
+              </Stack>
+            </Link>
+            {step < totalSteps && (
+              <UnstyledButton
+                onClick={() => (window.location.href = '/scholarcrafted')}
+                style={{ opacity: 0.5 }}
               >
-                The First Step
-              </Text>
-              <Title
-                order={1}
-                mt="md"
-                style={{
-                  fontSize: rem(48),
-                  fontWeight: 400,
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
-                }}
-              >
-                Book a Strategic Review
-              </Title>
-            </Box>
-            <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
-              The purpose of this consultation is to understand your project in detail and provide a
-              preliminary assessment of its structural and strategic needs.
-            </Text>
-          </Stack>
+                <Text
+                  size="xs"
+                  fw={700}
+                  style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                >
+                  Exit
+                </Text>
+              </UnstyledButton>
+            )}
+          </Group>
         </Container>
       </Box>
 
-      <Box
-        component="section"
-        py={SECTION_SPACING}
-        bg="#F9F8F6"
-        style={{ borderTop: '1px solid #eee', minHeight: '60vh' }}
-      >
+      <Center style={{ minHeight: '100vh', padding: `${rem(100)} 0` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             {step < totalSteps && (
@@ -496,25 +585,32 @@ export default function ConsultationPage() {
                   mb="xl"
                   styles={{ section: { transition: 'width 500ms ease' } }}
                 />
-                {step > 0 && (
-                  <UnstyledButton
-                    onClick={prevStep}
-                    style={{ display: 'flex', alignItems: 'center', gap: rem(8) }}
-                  >
-                    <IconArrowLeft size={16} />
-                    <Text
-                      size="xs"
-                      fw={700}
-                      style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                <Group justify="space-between">
+                  {step > 0 ? (
+                    <UnstyledButton
+                      onClick={prevStep}
+                      style={{ display: 'flex', alignItems: 'center', gap: rem(8) }}
                     >
-                      Back
-                    </Text>
-                  </UnstyledButton>
-                )}
+                      <IconArrowLeft size={16} />
+                      <Text
+                        size="xs"
+                        fw={700}
+                        style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                      >
+                        Back
+                      </Text>
+                    </UnstyledButton>
+                  ) : (
+                    <div />
+                  )}
+                  <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.1em' }}>
+                    {step + 1} / {totalSteps}
+                  </Text>
+                </Group>
               </Box>
             )}
 
-            <Box mt="xl">
+            <Box>
               {step === 0 && <StepInterest />}
               {step === 1 && <StepSpecifics />}
               {step === 2 && <StepStage />}
@@ -524,9 +620,7 @@ export default function ConsultationPage() {
             </Box>
           </Stack>
         </Container>
-      </Box>
-
-      <Footer />
+      </Center>
     </Box>
   )
 }

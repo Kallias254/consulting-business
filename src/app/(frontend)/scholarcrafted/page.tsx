@@ -60,6 +60,25 @@ export default function ScholarCraftedLanding() {
           width: ${rem(24)} !important;
           background-color: #111 !important;
         }
+
+        .hero-primary-container {
+          min-width: 280px;
+        }
+
+        .hero-secondary-container {
+          min-width: 220px;
+        }
+
+        @media (max-width: 768px) {
+          .hero-btn-group {
+            flex-direction: column !important;
+            gap: 1rem !important;
+          }
+          .hero-primary-container, .hero-secondary-container {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+        }
       `,
         }}
       />
@@ -161,22 +180,38 @@ export default function ScholarCraftedLanding() {
               </SimpleGrid>
 
               <Stack gap="md">
-                <Group gap="md">
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-                    <Button
-                      size="lg"
-                      variant="filled"
-                      color="dark.9"
-                      rightSection={<IconArrowRight size={16} />}
-                    >
-                      SCHEDULE CONSULTATION
-                    </Button>
-                  </Link>
-                  <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }}>
-                    <Button size="lg" variant="outline" color="dark.9">
-                      LEARN OUR PROCESS
-                    </Button>
-                  </Link>
+                <Group gap="xl" wrap="nowrap" className="hero-btn-group">
+                  <Box className="hero-primary-container">
+                    <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                      <Button
+                        size="lg"
+                        variant="filled"
+                        color="dark.9"
+                        rightSection={<IconArrowRight size={18} />}
+                        fullWidth
+                        radius={0}
+                      >
+                        SCHEDULE CONSULTATION
+                      </Button>
+                    </Link>
+                  </Box>
+                  <Box className="hero-secondary-container">
+                    <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }}>
+                      <Button
+                        size="lg"
+                        variant="subtle"
+                        color="dark.9"
+                        rightSection={<IconArrowRight size={18} />}
+                        fullWidth
+                        radius={0}
+                        styles={{
+                          label: { textDecoration: 'underline', textUnderlineOffset: '4px' },
+                        }}
+                      >
+                        LEARN OUR PROCESS
+                      </Button>
+                    </Link>
+                  </Box>
                 </Group>
                 <Text size="xs" fw={600} c="dark.3" style={{ letterSpacing: '0.05em' }}>
                   Trusted by 500+ graduate students worldwide.
