@@ -12,6 +12,7 @@ import {
   Divider,
   rem,
   Group,
+  useMantineTheme,
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
@@ -63,12 +64,15 @@ const services = [
 ]
 
 export default function ServicesPage() {
+  const theme = useMantineTheme()
+  const active = theme.other
+
   return (
-    <Box bg="white" style={{ minHeight: '100vh', color: '#111' }}>
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
       {/* Top section with white background for consistency */}
-      <Box component="section" pt={rem(100)} pb={SECTION_SPACING} bg="white">
+      <Box component="section" pt={rem(100)} pb={SECTION_SPACING} bg={active.background}>
         <Container size={1100}>
           <Stack gap="xl">
             <Box style={{ maxWidth: 800 }}>
@@ -88,6 +92,7 @@ export default function ServicesPage() {
                   fontWeight: 400,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1,
+                  color: active.primary,
                 }}
               >
                 Rigorous support for <br />
@@ -106,7 +111,7 @@ export default function ServicesPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg="#F9F8F6"
+        bg={active.surface}
         style={{ borderTop: '1px solid #eee' }}
       >
         <Container size={1100}>
@@ -116,7 +121,7 @@ export default function ServicesPage() {
                 <Stack gap="xl" style={{ maxWidth: 850 }}>
                   <Stack gap="md">
                     <Group gap="lg" align="center">
-                      <Box c="#B08D57" style={{ display: 'flex', alignItems: 'center' }}>
+                      <Box c={active.accent} style={{ display: 'flex', alignItems: 'center' }}>
                         {service.icon}
                       </Box>
                       <Title
@@ -125,12 +130,13 @@ export default function ServicesPage() {
                           fontSize: rem(42),
                           fontWeight: 400,
                           fontFamily: 'var(--font-serif)',
+                          color: active.primary,
                         }}
                       >
                         {service.title}
                       </Title>
                     </Group>
-                    <Text size="lg" lh={1.6} fw={400} c="dark.8">
+                    <Text size="lg" lh={1.6} fw={400} c={active.primary} style={{ opacity: 0.8 }}>
                       {service.description}
                     </Text>
                   </Stack>
@@ -142,7 +148,7 @@ export default function ServicesPage() {
                         <Box
                           w={6}
                           h={6}
-                          bg="#B08D57"
+                          bg={active.accent}
                           style={{ borderRadius: '50%', flexShrink: 0 }}
                         />
                         <Text size="md" fw={500} c="dimmed">
@@ -157,10 +163,15 @@ export default function ServicesPage() {
                     style={{ textDecoration: 'none' }}
                   >
                     <Group gap="xs" style={{ cursor: 'pointer' }} mt="md">
-                      <Text fw={600} size="md" c="#8B0000" style={{ letterSpacing: '0.02em' }}>
+                      <Text
+                        fw={600}
+                        size="md"
+                        c={active.action}
+                        style={{ letterSpacing: '0.02em' }}
+                      >
                         Learn more
                       </Text>
-                      <IconArrowRight size={18} color="#8B0000" />
+                      <IconArrowRight size={18} color={active.action} />
                     </Group>
                   </Link>
                 </Stack>
@@ -177,12 +188,12 @@ export default function ServicesPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg="white"
+        bg={active.background}
         style={{ borderTop: '1px solid #eee' }}
       >
         <Container size={760}>
           <Stack align="center" style={{ textAlign: 'center' }} gap="xl">
-            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400 }}>
+            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}>
               Not sure which service you need?
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>
@@ -190,7 +201,14 @@ export default function ServicesPage() {
               the most effective path forward.
             </Text>
             <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button size="lg" variant="filled" color="dark.9" mt="md" radius={0} px={rem(40)}>
+              <Button
+                size="lg"
+                variant="filled"
+                bg={active.primary}
+                mt="md"
+                radius={0}
+                px={rem(40)}
+              >
                 BOOK A STRATEGIC REVIEW
               </Button>
             </Link>

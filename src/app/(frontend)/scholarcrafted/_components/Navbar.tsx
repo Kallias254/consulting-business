@@ -1,16 +1,19 @@
 'use client'
 
 import React from 'react'
-import { Container, Group, Text, Stack, Button, rem, Box } from '@mantine/core'
+import { Container, Group, Text, Stack, Button, rem, Box, useMantineTheme } from '@mantine/core'
 import Link from 'next/link'
 
 export function Navbar() {
+  const theme = useMantineTheme()
+  const active = theme.other
+
   return (
     <Box
       component="nav"
       py="md"
       style={{
-        borderBottom: '1px solid #eee',
+        borderBottom: `1px solid ${active.surface === '#FFFFFF' ? '#eee' : active.surface}`,
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(10px)',
         position: 'sticky',
@@ -30,6 +33,7 @@ export function Navbar() {
                   fontSize: rem(22),
                   letterSpacing: '-0.02em',
                   lineHeight: 1,
+                  color: active.primary,
                 }}
               >
                 SCHOLARCRAFTED
@@ -84,7 +88,7 @@ export function Navbar() {
             <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
               <Button
                 variant="outline"
-                color="dark"
+                color={active.primary}
                 size="sm"
                 radius={0}
                 fw={600}
@@ -93,6 +97,8 @@ export function Navbar() {
                   height: rem(42),
                   paddingLeft: rem(24),
                   paddingRight: rem(24),
+                  borderColor: active.primary,
+                  color: active.primary,
                 }}
               >
                 BOOK CONSULTATION
@@ -102,9 +108,12 @@ export function Navbar() {
         </Group>
       </Container>
       <style jsx global>{`
-        .nav-link:hover {
-          color: var(--mantine-color-dark-9) !important;
+        .nav-link {
+          color: #666;
           transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+          color: ${active.primary} !important;
         }
       `}</style>
     </Box>

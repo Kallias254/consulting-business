@@ -13,6 +13,7 @@ import {
   rem,
   Group,
   Button,
+  useMantineTheme,
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
@@ -22,8 +23,11 @@ const SECTION_SPACING = rem(120)
 const INNER_WIDTH = 760
 
 export default function AboutPage() {
+  const theme = useMantineTheme()
+  const active = theme.other
+
   return (
-    <Box bg="white" style={{ minHeight: '100vh', color: '#111' }}>
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
       <Box component="section" pt={rem(100)} pb={SECTION_SPACING}>
@@ -47,6 +51,7 @@ export default function AboutPage() {
                     fontWeight: 400,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.1,
+                    color: active.primary,
                   }}
                 >
                   Guidance born from experience.
@@ -58,11 +63,16 @@ export default function AboutPage() {
                 complexity and the isolation of its execution.
               </Text>
             </Stack>
-            <Box bg="#F9F8F6" p={rem(60)} style={{ border: '1px solid #eee' }}>
+            <Box bg={active.surface} p={rem(60)} style={{ border: '1px solid #eee' }}>
               <Stack gap="xl">
                 <Title
                   order={3}
-                  style={{ fontWeight: 400, fontSize: rem(28), fontFamily: 'var(--font-serif)' }}
+                  style={{
+                    fontWeight: 400,
+                    fontSize: rem(28),
+                    fontFamily: 'var(--font-serif)',
+                    color: active.primary,
+                  }}
                 >
                   The Firm
                 </Title>
@@ -81,7 +91,7 @@ export default function AboutPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg="#F9F8F6"
+        bg={active.surface}
         style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}
       >
         <Container size={1100}>
@@ -104,7 +114,11 @@ export default function AboutPage() {
                 >
                   Faculty Lead
                 </Text>
-                <Title order={2} mt="md" style={{ fontSize: rem(42), fontWeight: 400 }}>
+                <Title
+                  order={2}
+                  mt="md"
+                  style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}
+                >
                   Micah, PhD
                 </Title>
               </Box>
@@ -118,9 +132,9 @@ export default function AboutPage() {
                 support—ensuring that candidates not only finish their work but do so with absolute
                 authority over their subject matter.
               </Text>
-              <Divider style={{ width: rem(80) }} color="dark.2" />
+              <Divider style={{ width: rem(80) }} color={active.accent} />
               <Stack gap={4}>
-                <Text size="xs" fw={700} style={{ letterSpacing: '0.1em' }}>
+                <Text size="xs" fw={700} style={{ letterSpacing: '0.1em', color: active.primary }}>
                   EXPERTISE
                 </Text>
                 <Text size="xs" c="dimmed">
@@ -135,7 +149,7 @@ export default function AboutPage() {
       <Box component="section" py={SECTION_SPACING}>
         <Container size={INNER_WIDTH}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400 }}>
+            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}>
               Integrity & Oversight
             </Title>
             <Text size="lg" c="dimmed" lh={1.7}>
@@ -145,7 +159,7 @@ export default function AboutPage() {
               original research.
             </Text>
             <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button size="lg" variant="filled" color="dark.9" mt="xl" radius={0}>
+              <Button size="lg" variant="filled" bg={active.primary} mt="xl" radius={0}>
                 BOOK A CONSULTATION
               </Button>
             </Link>

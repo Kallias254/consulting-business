@@ -13,6 +13,7 @@ import {
   rem,
   Accordion,
   Group,
+  useMantineTheme,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
@@ -133,9 +134,11 @@ export default function ServiceDetailPage() {
   const params = useParams()
   const slug = params?.slug as string
   const data = serviceData[slug] || serviceData['dissertation-coaching']
+  const theme = useMantineTheme()
+  const active = theme.other
 
   return (
-    <Box bg="white" style={{ minHeight: '100vh', color: '#111' }}>
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
       {/* Hero Section */}
@@ -159,6 +162,7 @@ export default function ServiceDetailPage() {
                     fontWeight: 400,
                     lineHeight: 1.1,
                     letterSpacing: '-0.02em',
+                    color: active.primary,
                   }}
                 >
                   {data.title}
@@ -168,16 +172,21 @@ export default function ServiceDetailPage() {
                 {data.problem}
               </Text>
               <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-                <Button size="lg" variant="filled" color="dark.9" radius={0}>
+                <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                   BOOK A CONSULTATION
                 </Button>
               </Link>
             </Stack>
-            <Box bg="#F9F8F6" p={rem(60)} style={{ border: '1px solid #eee' }}>
+            <Box bg={active.surface} p={rem(60)} style={{ border: '1px solid #eee' }}>
               <Stack gap="xl">
                 <Title
                   order={3}
-                  style={{ fontWeight: 400, fontSize: rem(28), fontFamily: 'var(--font-serif)' }}
+                  style={{
+                    fontWeight: 400,
+                    fontSize: rem(28),
+                    fontFamily: 'var(--font-serif)',
+                    color: active.primary,
+                  }}
                 >
                   Who this is for
                 </Title>
@@ -188,7 +197,7 @@ export default function ServiceDetailPage() {
                         w={6}
                         h={6}
                         mt={10}
-                        bg="dark.2"
+                        bg={active.accent}
                         style={{ borderRadius: '50%', flexShrink: 0 }}
                       />
                       <Text size="sm" lh={1.6} fw={500}>
@@ -207,7 +216,7 @@ export default function ServiceDetailPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg="#F9F8F6"
+        bg={active.surface}
         style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}
       >
         <Container size={1100}>
@@ -221,7 +230,11 @@ export default function ServiceDetailPage() {
               >
                 What We Do
               </Text>
-              <Title order={2} mt="md" style={{ fontSize: rem(42), fontWeight: 400 }}>
+              <Title
+                order={2}
+                mt="md"
+                style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}
+              >
                 Deliverables & Focus
               </Title>
             </Box>
@@ -231,6 +244,7 @@ export default function ServiceDetailPage() {
                   <Text
                     fw={700}
                     size="xs"
+                    c={active.primary}
                     style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
                   >
                     {item.title}
@@ -263,7 +277,12 @@ export default function ServiceDetailPage() {
               <Stack gap={rem(60)}>
                 <Title
                   order={2}
-                  style={{ fontSize: rem(42), fontWeight: 400, letterSpacing: '-0.02em' }}
+                  style={{
+                    fontSize: rem(42),
+                    fontWeight: 400,
+                    letterSpacing: '-0.02em',
+                    color: active.primary,
+                  }}
                 >
                   A guided, iterative process toward submission.
                 </Title>
@@ -277,11 +296,12 @@ export default function ServiceDetailPage() {
                               fontFamily: 'var(--font-serif)',
                               fontSize: rem(24),
                               opacity: 0.3,
+                              color: active.primary,
                             }}
                           >
                             {item.step}
                           </Text>
-                          <Text fw={600} size="lg">
+                          <Text fw={600} size="lg" color={active.primary}>
                             {item.title}
                           </Text>
                         </Group>
@@ -300,7 +320,7 @@ export default function ServiceDetailPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg="white">
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
@@ -312,7 +332,11 @@ export default function ServiceDetailPage() {
               >
                 FAQ
               </Text>
-              <Title order={2} mt="md" style={{ fontSize: rem(36), fontWeight: 400 }}>
+              <Title
+                order={2}
+                mt="md"
+                style={{ fontSize: rem(36), fontWeight: 400, color: active.primary }}
+              >
                 Common Concerns
               </Title>
             </Box>
@@ -320,7 +344,7 @@ export default function ServiceDetailPage() {
               variant="separated"
               radius={0}
               styles={{
-                item: { border: '1px solid #eee', backgroundColor: 'white' },
+                item: { border: '1px solid #eee', backgroundColor: active.background },
                 control: { padding: rem(24) },
                 panel: { padding: rem(24), color: '#333' },
               }}
@@ -328,7 +352,7 @@ export default function ServiceDetailPage() {
               {data.faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
                   <Accordion.Control style={{ fontWeight: 600, fontSize: rem(18) }}>
-                    <Text fw={600} size="lg" c="dark.9">
+                    <Text fw={600} size="lg" c={active.primary}>
                       {faq.q}
                     </Text>
                   </Accordion.Control>
@@ -348,12 +372,12 @@ export default function ServiceDetailPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg="#F9F8F6"
+        bg={active.surface}
         style={{ borderTop: '1px solid #eee' }}
       >
         <Container size={INNER_WIDTH}>
           <Stack align="center" style={{ textAlign: 'center' }} gap="xl">
-            <Title order={2} style={{ fontSize: rem(48), fontWeight: 400 }}>
+            <Title order={2} style={{ fontSize: rem(48), fontWeight: 400, color: active.primary }}>
               Ready to begin?
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>
@@ -361,7 +385,7 @@ export default function ServiceDetailPage() {
               individual oversight.
             </Text>
             <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" color="dark.9" radius={0} px={rem(60)}>
+              <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(60)}>
                 BOOK A CONSULTATION
               </Button>
             </Link>

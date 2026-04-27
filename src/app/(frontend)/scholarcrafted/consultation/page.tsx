@@ -6,17 +6,18 @@ import {
   Title,
   Text,
   Box,
+  SimpleGrid,
   Stack,
   Button,
   TextInput,
   Textarea,
-  SimpleGrid,
   rem,
   Group,
   UnstyledButton,
   Progress,
   Center,
   Divider,
+  useMantineTheme,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import dayjs from 'dayjs'
@@ -33,8 +34,10 @@ import {
   IconSearch,
 } from '@tabler/icons-react'
 import Link from 'next/link'
+import { Navbar } from '../_components/Navbar'
+import { Footer } from '../_components/Footer'
 
-const INNER_WIDTH = 800
+const INNER_WIDTH = 1100
 
 interface StepData {
   interest: string
@@ -60,13 +63,15 @@ export default function ConsultationPage() {
     description: '',
   })
 
+  const theme = useMantineTheme()
+  const active = theme.other
   const totalSteps = 5
 
   const nextStep = () => setStep((s) => Math.min(s + 1, totalSteps))
   const prevStep = () => setStep((s) => Math.max(s - 1, 0))
 
   const selectOption = (field: keyof StepData, value: any) => {
-    setData({ ...data, [field]: value })
+    setData((prev) => ({ ...prev, [field]: value }))
     if (field !== 'preferredDate' && field !== 'preferredTime') {
       nextStep()
     }
@@ -88,7 +93,12 @@ export default function ConsultationPage() {
         <Title
           order={1}
           mt="md"
-          style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+          style={{
+            fontSize: rem(42),
+            fontWeight: 400,
+            fontFamily: 'var(--font-serif)',
+            color: active.primary,
+          }}
         >
           What are you interested in?
         </Title>
@@ -147,7 +157,12 @@ export default function ConsultationPage() {
         <Title
           order={1}
           mt="md"
-          style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+          style={{
+            fontSize: rem(42),
+            fontWeight: 400,
+            fontFamily: 'var(--font-serif)',
+            color: active.primary,
+          }}
         >
           How can we best support you?
         </Title>
@@ -206,7 +221,12 @@ export default function ConsultationPage() {
         <Title
           order={1}
           mt="md"
-          style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+          style={{
+            fontSize: rem(42),
+            fontWeight: 400,
+            fontFamily: 'var(--font-serif)',
+            color: active.primary,
+          }}
         >
           What is your current phase?
         </Title>
@@ -265,12 +285,17 @@ export default function ConsultationPage() {
         <Title
           order={1}
           mt="md"
-          style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+          style={{
+            fontSize: rem(42),
+            fontWeight: 400,
+            fontFamily: 'var(--font-serif)',
+            color: active.primary,
+          }}
         >
           Request a preferred window
         </Title>
       </Box>
-      <Box bg="white" p={rem(40)} style={{ border: '1px solid #eee' }}>
+      <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }}>
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
           <Stack align="center" gap="md">
             <Text fw={700} size="xs" style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
@@ -278,7 +303,7 @@ export default function ConsultationPage() {
             </Text>
             <DatePicker
               value={data.preferredDate}
-              onChange={(d) => setData({ ...data, preferredDate: d })}
+              onChange={(d) => setData((prev) => ({ ...prev, preferredDate: d }))}
               minDate={new Date()}
               classNames={{ day: 'calendar-day' }}
             />
@@ -295,16 +320,19 @@ export default function ConsultationPage() {
               ].map((slot) => (
                 <UnstyledButton
                   key={slot.id}
-                  onClick={() => setData({ ...data, preferredTime: slot.id })}
+                  onClick={() => setData((prev) => ({ ...prev, preferredTime: slot.id }))}
                   style={{
                     padding: rem(16),
-                    border: `1px solid ${data.preferredTime === slot.id ? '#111' : '#eee'}`,
-                    backgroundColor: data.preferredTime === slot.id ? '#fcfcfc' : 'white',
+                    border: `1px solid ${data.preferredTime === slot.id ? active.primary : '#eee'}`,
+                    backgroundColor:
+                      data.preferredTime === slot.id ? active.surface : active.background,
                     transition: 'all 0.2s ease',
                   }}
                 >
                   <Group justify="space-between">
-                    <Text fw={600}>{slot.title}</Text>
+                    <Text fw={600} color={active.primary}>
+                      {slot.title}
+                    </Text>
                     <Text size="xs" c="dimmed">
                       {slot.range}
                     </Text>
@@ -315,7 +343,7 @@ export default function ConsultationPage() {
             <Button
               size="lg"
               variant="filled"
-              color="dark.9"
+              bg={active.primary}
               radius={0}
               mt="xl"
               disabled={!data.preferredDate || !data.preferredTime}
@@ -344,12 +372,17 @@ export default function ConsultationPage() {
         <Title
           order={1}
           mt="md"
-          style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+          style={{
+            fontSize: rem(42),
+            fontWeight: 400,
+            fontFamily: 'var(--font-serif)',
+            color: active.primary,
+          }}
         >
           Finalize your inquiry
         </Title>
       </Box>
-      <Box bg="white" p={rem(40)} style={{ border: '1px solid #eee' }}>
+      <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }}>
         <Stack gap="lg">
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
             <TextInput
@@ -357,14 +390,14 @@ export default function ConsultationPage() {
               placeholder="e.g. Dr. Jane Smith"
               radius={0}
               value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
+              onChange={(e) => setData((prev) => ({ ...prev, name: e.target.value }))}
             />
             <TextInput
               label="Email Address"
               placeholder="e.g. j.smith@university.edu"
               radius={0}
               value={data.email}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
+              onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))}
             />
           </SimpleGrid>
           <Textarea
@@ -373,12 +406,12 @@ export default function ConsultationPage() {
             minRows={4}
             radius={0}
             value={data.description}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
+            onChange={(e) => setData((prev) => ({ ...prev, description: e.target.value }))}
           />
           <Button
             size="lg"
             variant="filled"
-            color="dark.9"
+            bg={active.primary}
             radius={0}
             onClick={nextStep}
             rightSection={<IconArrowRight size={18} />}
@@ -393,13 +426,18 @@ export default function ConsultationPage() {
   const StepSuccess = () => (
     <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
       <Stack gap="xl" align="center">
-        <Box c="#B08D57">
+        <Box c={active.accent}>
           <IconCertificate size={64} stroke={1.5} />
         </Box>
         <Box>
           <Title
             order={1}
-            style={{ fontSize: rem(42), fontWeight: 400, fontFamily: 'var(--font-serif)' }}
+            style={{
+              fontSize: rem(42),
+              fontWeight: 400,
+              fontFamily: 'var(--font-serif)',
+              color: active.primary,
+            }}
           >
             Consultation Initialized.
           </Title>
@@ -415,8 +453,7 @@ export default function ConsultationPage() {
         spacing={rem(40)}
         style={{ textAlign: 'left', width: '100%' }}
       >
-        {/* Left: What to do while you wait */}
-        <Box p={rem(40)} bg="white" style={{ border: '1px solid #eee' }}>
+        <Box p={rem(40)} bg={active.background} style={{ border: '1px solid #eee' }}>
           <Stack gap="xl">
             <Text
               size="xs"
@@ -428,7 +465,7 @@ export default function ConsultationPage() {
             </Text>
             <Stack gap="lg">
               <Group align="flex-start" gap="md" wrap="nowrap">
-                <Text fw={700} c="#B08D57">
+                <Text fw={700} c={active.accent}>
                   01
                 </Text>
                 <Box>
@@ -442,7 +479,7 @@ export default function ConsultationPage() {
                 </Box>
               </Group>
               <Group align="flex-start" gap="md" wrap="nowrap">
-                <Text fw={700} c="#B08D57">
+                <Text fw={700} c={active.accent}>
                   02
                 </Text>
                 <Box>
@@ -455,7 +492,7 @@ export default function ConsultationPage() {
                 </Box>
               </Group>
               <Group align="flex-start" gap="md" wrap="nowrap">
-                <Text fw={700} c="#B08D57">
+                <Text fw={700} c={active.accent}>
                   03
                 </Text>
                 <Box>
@@ -471,8 +508,7 @@ export default function ConsultationPage() {
           </Stack>
         </Box>
 
-        {/* Right: Social Proof / Community */}
-        <Box p={rem(40)} bg="white" style={{ border: '1px solid #eee' }}>
+        <Box p={rem(40)} bg={active.background} style={{ border: '1px solid #eee' }}>
           <Stack gap="xl">
             <Text
               size="xs"
@@ -508,7 +544,13 @@ export default function ConsultationPage() {
       </SimpleGrid>
 
       <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
-        <Button variant="outline" color="dark.9" radius={0} px={rem(60)}>
+        <Button
+          variant="outline"
+          color={active.primary}
+          radius={0}
+          px={rem(60)}
+          style={{ borderColor: active.primary, color: active.primary }}
+        >
           RETURN TO HOME
         </Button>
       </Link>
@@ -516,7 +558,10 @@ export default function ConsultationPage() {
   )
 
   return (
-    <Box bg="#F9F8F6" style={{ minHeight: '100vh', color: '#111', position: 'relative' }}>
+    <Box
+      bg={active.surface}
+      style={{ minHeight: '100vh', color: active.primary, position: 'relative' }}
+    >
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -524,12 +569,20 @@ export default function ConsultationPage() {
         header, footer { display: none !important; }
 
         .calendar-day[data-selected] {
-          background-color: #111 !important;
+          background-color: ${active.primary} !important;
           color: white !important;
           border-radius: 0 !important;
         }
         .calendar-day {
           border-radius: 0 !important;
+        }
+
+        .selection-card:hover {
+          border-color: ${active.primary} !important;
+          background-color: ${active.surface} !important;
+        }
+        .selection-card:hover svg {
+          color: ${active.accent} !important;
         }
       `,
         }}
@@ -548,6 +601,7 @@ export default function ConsultationPage() {
                     fontSize: rem(20),
                     letterSpacing: '-0.02em',
                     lineHeight: 1,
+                    color: active.primary,
                   }}
                 >
                   SCHOLARCRAFTED
@@ -562,7 +616,11 @@ export default function ConsultationPage() {
                 <Text
                   size="xs"
                   fw={700}
-                  style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                  style={{
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    color: active.primary,
+                  }}
                 >
                   Exit
                 </Text>
@@ -573,19 +631,18 @@ export default function ConsultationPage() {
       </Box>
 
       <Center style={{ minHeight: '100vh', padding: `${rem(100)} 0` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(40)}>
+        <Container size={INNER_WIDTH} w="100%">
+          <Stack gap={rem(60)}>
             {step < totalSteps && (
-              <Box>
+              <Stack gap="md">
                 <Progress
                   value={(step / (totalSteps - 1)) * 100}
-                  size="xs"
-                  color="dark.9"
+                  size="sm"
+                  color={active.primary}
                   radius={0}
-                  mb="xl"
                   styles={{ section: { transition: 'width 500ms ease' } }}
                 />
-                <Group justify="space-between">
+                <Group justify="space-between" w="100%">
                   {step > 0 ? (
                     <UnstyledButton
                       onClick={prevStep}
@@ -595,7 +652,11 @@ export default function ConsultationPage() {
                       <Text
                         size="xs"
                         fw={700}
-                        style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                        style={{
+                          letterSpacing: '0.1em',
+                          textTransform: 'uppercase',
+                          color: active.primary,
+                        }}
                       >
                         Back
                       </Text>
@@ -603,11 +664,15 @@ export default function ConsultationPage() {
                   ) : (
                     <div />
                   )}
-                  <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.1em' }}>
+                  <Text
+                    size="xs"
+                    fw={700}
+                    style={{ letterSpacing: '0.1em', color: active.primary }}
+                  >
                     {step + 1} / {totalSteps}
                   </Text>
                 </Group>
-              </Box>
+              </Stack>
             )}
 
             <Box>
@@ -634,13 +699,16 @@ interface CardProps {
 }
 
 function SelectionCard({ title, description, icon, active, onClick }: CardProps) {
+  const theme = useMantineTheme()
+  const activeTheme = theme.other
+
   return (
     <UnstyledButton
       onClick={onClick}
       style={{
         padding: rem(32),
-        backgroundColor: 'white',
-        border: `1px solid ${active ? '#111' : '#eee'}`,
+        backgroundColor: active ? activeTheme.background : 'white',
+        border: `1px solid ${active ? activeTheme.primary : '#eee'}`,
         transition: 'all 0.2s ease',
         position: 'relative',
         textAlign: 'left',
@@ -649,11 +717,19 @@ function SelectionCard({ title, description, icon, active, onClick }: CardProps)
       className="selection-card"
     >
       <Stack gap="md">
-        <Box c={active ? '#B08D57' : 'dark.2'} style={{ transition: 'color 0.2s ease' }}>
+        <Box c={active ? activeTheme.accent : 'dark.2'} style={{ transition: 'color 0.2s ease' }}>
           {icon}
         </Box>
         <Stack gap={4}>
-          <Text fw={600} size="lg" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(22) }}>
+          <Text
+            fw={600}
+            size="lg"
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: rem(22),
+              color: activeTheme.primary,
+            }}
+          >
             {title}
           </Text>
           <Text size="sm" c="dimmed" lh={1.5}>
@@ -662,20 +738,10 @@ function SelectionCard({ title, description, icon, active, onClick }: CardProps)
         </Stack>
       </Stack>
       {active && (
-        <Box style={{ position: 'absolute', top: rem(20), right: rem(20) }} c="#B08D57">
+        <Box style={{ position: 'absolute', top: rem(20), right: rem(20) }} c={activeTheme.accent}>
           <IconCheck size={20} stroke={3} />
         </Box>
       )}
-
-      <style jsx global>{`
-        .selection-card:hover {
-          border-color: #111 !important;
-          background-color: #fcfcfc !important;
-        }
-        .selection-card:hover svg {
-          color: #b08d57 !important;
-        }
-      `}</style>
     </UnstyledButton>
   )
 }

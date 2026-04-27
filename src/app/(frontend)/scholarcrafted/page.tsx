@@ -13,6 +13,7 @@ import {
   Image,
   Divider,
   rem,
+  useMantineTheme,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
@@ -47,10 +48,12 @@ const testimonials = [
 ]
 
 export default function ScholarCraftedLanding() {
+  const theme = useMantineTheme()
+  const active = theme.other
   const autoplay = useRef(Autoplay({ delay: 5000 }))
 
   return (
-    <Box bg="white" style={{ minHeight: '100vh', color: '#111' }}>
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
       <style
@@ -58,7 +61,7 @@ export default function ScholarCraftedLanding() {
           __html: `
         .carousel-indicator[data-active] {
           width: ${rem(24)} !important;
-          background-color: #111 !important;
+          background-color: ${active.primary} !important;
         }
 
         .hero-primary-container {
@@ -105,6 +108,7 @@ export default function ScholarCraftedLanding() {
                       fontWeight: 400,
                       lineHeight: 1.05,
                       letterSpacing: '-0.03em',
+                      color: active.primary,
                     }}
                   >
                     Finish with Clarity. <br />
@@ -124,7 +128,11 @@ export default function ScholarCraftedLanding() {
                   <Text
                     fw={700}
                     size="xl"
-                    style={{ fontFamily: 'var(--font-serif)', lineHeight: 1 }}
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      lineHeight: 1,
+                      color: active.primary,
+                    }}
                   >
                     98%
                   </Text>
@@ -143,7 +151,11 @@ export default function ScholarCraftedLanding() {
                   <Text
                     fw={700}
                     size="xl"
-                    style={{ fontFamily: 'var(--font-serif)', lineHeight: 1 }}
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      lineHeight: 1,
+                      color: active.primary,
+                    }}
                   >
                     4.9/5
                   </Text>
@@ -162,7 +174,11 @@ export default function ScholarCraftedLanding() {
                   <Text
                     fw={700}
                     size="xl"
-                    style={{ fontFamily: 'var(--font-serif)', lineHeight: 1 }}
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      lineHeight: 1,
+                      color: active.primary,
+                    }}
                   >
                     10y+
                   </Text>
@@ -186,7 +202,7 @@ export default function ScholarCraftedLanding() {
                       <Button
                         size="lg"
                         variant="filled"
-                        color="dark.9"
+                        bg={active.primary}
                         rightSection={<IconArrowRight size={18} />}
                         fullWidth
                         radius={0}
@@ -200,7 +216,7 @@ export default function ScholarCraftedLanding() {
                       <Button
                         size="lg"
                         variant="subtle"
-                        color="dark.9"
+                        c={active.primary}
                         rightSection={<IconArrowRight size={18} />}
                         fullWidth
                         radius={0}
@@ -237,7 +253,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* The Challenge (Problem) */}
-      <Box component="section" py={SECTION_SPACING} bg="#F9F8F6">
+      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="flex-start">
             <Box>
@@ -252,13 +268,22 @@ export default function ScholarCraftedLanding() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(48), fontWeight: 400, letterSpacing: '-0.02em' }}
+                style={{
+                  fontSize: rem(48),
+                  fontWeight: 400,
+                  letterSpacing: '-0.02em',
+                  color: active.primary,
+                }}
               >
                 The Isolation of the Archive
               </Title>
             </Box>
 
-            <Text size="xl" lh={1.7} style={{ fontWeight: 400, fontSize: rem(22) }}>
+            <Text
+              size="xl"
+              lh={1.7}
+              style={{ fontWeight: 400, fontSize: rem(22), color: active.primary }}
+            >
               Brilliant research often stalls not from a lack of ideas, but from a collapse of
               structure. The transition from coursework to independent research leaves many doctoral
               candidates adrift—overwhelmed by vast amounts of data, literature, and isolated
@@ -269,7 +294,14 @@ export default function ScholarCraftedLanding() {
 
             <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(60)} style={{ width: '100%' }}>
               <Stack gap="xs">
-                <Text style={{ fontSize: rem(42), fontFamily: 'var(--font-serif)', lineHeight: 1 }}>
+                <Text
+                  style={{
+                    fontSize: rem(42),
+                    fontFamily: 'var(--font-serif)',
+                    lineHeight: 1,
+                    color: active.primary,
+                  }}
+                >
                   50%
                 </Text>
                 <Text size="xs" fw={500} c="dimmed" lh={1.4} style={{ letterSpacing: '0.02em' }}>
@@ -277,7 +309,14 @@ export default function ScholarCraftedLanding() {
                 </Text>
               </Stack>
               <Stack gap="xs">
-                <Text style={{ fontSize: rem(42), fontFamily: 'var(--font-serif)', lineHeight: 1 }}>
+                <Text
+                  style={{
+                    fontSize: rem(42),
+                    fontFamily: 'var(--font-serif)',
+                    lineHeight: 1,
+                    color: active.primary,
+                  }}
+                >
                   8.2y
                 </Text>
                 <Text size="xs" fw={500} c="dimmed" lh={1.4} style={{ letterSpacing: '0.02em' }}>
@@ -285,7 +324,14 @@ export default function ScholarCraftedLanding() {
                 </Text>
               </Stack>
               <Stack gap="xs">
-                <Text style={{ fontSize: rem(42), fontFamily: 'var(--font-serif)', lineHeight: 1 }}>
+                <Text
+                  style={{
+                    fontSize: rem(42),
+                    fontFamily: 'var(--font-serif)',
+                    lineHeight: 1,
+                    color: active.primary,
+                  }}
+                >
                   73%
                 </Text>
                 <Text size="xs" fw={500} c="dimmed" lh={1.4} style={{ letterSpacing: '0.02em' }}>
@@ -298,7 +344,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Our Approach */}
-      <Box component="section" py={SECTION_SPACING}>
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={1100}>
           <SimpleGrid cols={{ base: 1, md: 4 }} spacing={rem(80)}>
             <Box>
@@ -320,6 +366,7 @@ export default function ScholarCraftedLanding() {
                     fontWeight: 400,
                     letterSpacing: '-0.02em',
                     maxWidth: 800,
+                    color: active.primary,
                   }}
                 >
                   Structured guidance for the independent scholar.
@@ -335,6 +382,7 @@ export default function ScholarCraftedLanding() {
                     <Text
                       fw={700}
                       size="xs"
+                      c={active.primary}
                       style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
                     >
                       Clarity
@@ -347,6 +395,7 @@ export default function ScholarCraftedLanding() {
                     <Text
                       fw={700}
                       size="xs"
+                      c={active.primary}
                       style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
                     >
                       Momentum
@@ -360,6 +409,7 @@ export default function ScholarCraftedLanding() {
                     <Text
                       fw={700}
                       size="xs"
+                      c={active.primary}
                       style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
                     >
                       Authority
@@ -376,7 +426,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Methodology */}
-      <Box component="section" py={SECTION_SPACING} bg="#111" c="white">
+      <Box component="section" py={SECTION_SPACING} bg={active.primary} c="white">
         <Container size={1100}>
           <SimpleGrid cols={{ base: 1, md: 4 }} spacing={rem(80)}>
             <Box>
@@ -384,7 +434,7 @@ export default function ScholarCraftedLanding() {
                 size="xs"
                 fw={700}
                 style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c="gray.6"
+                c="gray.5"
               >
                 Methodology
               </Text>
@@ -422,7 +472,7 @@ export default function ScholarCraftedLanding() {
                     <Box
                       key={i}
                       style={{
-                        borderTop: '1px solid #333',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
                         paddingBottom: rem(56),
                         paddingTop: rem(56),
                       }}
@@ -456,7 +506,7 @@ export default function ScholarCraftedLanding() {
                       </SimpleGrid>
                     </Box>
                   ))}
-                  <Divider style={{ borderColor: '#333' }} />
+                  <Divider style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
                 </Stack>
               </Stack>
             </Box>
@@ -465,7 +515,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Testimonials Carousel */}
-      <Box component="section" py={rem(180)} bg="white">
+      <Box component="section" py={rem(180)} bg={active.background}>
         <Container size={1100}>
           <Carousel
             withIndicators
@@ -499,6 +549,7 @@ export default function ScholarCraftedLanding() {
                         lineHeight: 0,
                         opacity: 0.1,
                         marginBottom: rem(-40),
+                        color: active.primary,
                       }}
                     >
                       &ldquo;
@@ -510,6 +561,7 @@ export default function ScholarCraftedLanding() {
                         fontStyle: 'italic',
                         lineHeight: 1.4,
                         letterSpacing: '-0.01em',
+                        color: active.primary,
                       }}
                     >
                       {item.quote}
@@ -518,6 +570,7 @@ export default function ScholarCraftedLanding() {
                       <Text
                         fw={700}
                         size="xs"
+                        c={active.primary}
                         style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                       >
                         {item.author}
@@ -537,14 +590,19 @@ export default function ScholarCraftedLanding() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg="#F9F8F6"
+        bg={active.surface}
         style={{ borderTop: '1px solid #eee' }}
       >
         <Container size={INNER_WIDTH}>
           <Stack align="center" style={{ textAlign: 'center' }} gap="xl">
             <Title
               order={2}
-              style={{ fontSize: rem(56), fontWeight: 400, letterSpacing: '-0.02em' }}
+              style={{
+                fontSize: rem(56),
+                fontWeight: 400,
+                letterSpacing: '-0.02em',
+                color: active.primary,
+              }}
             >
               Secure your completion.
             </Title>
@@ -553,7 +611,14 @@ export default function ScholarCraftedLanding() {
               undivided attention to your manuscript.
             </Text>
             <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" color="dark.9" mt="xl" radius={0} px={rem(60)}>
+              <Button
+                size="xl"
+                variant="filled"
+                bg={active.primary}
+                mt="xl"
+                radius={0}
+                px={rem(60)}
+              >
                 SUBMIT INQUIRY
               </Button>
             </Link>

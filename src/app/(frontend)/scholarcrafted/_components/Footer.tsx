@@ -1,16 +1,29 @@
 'use client'
 
 import React from 'react'
-import { Container, SimpleGrid, Stack, Text, Group, Divider, rem, Box, List } from '@mantine/core'
+import {
+  Container,
+  SimpleGrid,
+  Stack,
+  Text,
+  Group,
+  Divider,
+  rem,
+  Box,
+  useMantineTheme,
+} from '@mantine/core'
 import Link from 'next/link'
 
 export function Footer() {
+  const theme = useMantineTheme()
+  const active = theme.other
+
   return (
     <Box
       component="footer"
       pt={rem(100)}
       pb={rem(40)}
-      bg="#F9F8F6"
+      bg={active.surface}
       style={{ borderTop: '1px solid #eee' }}
       className="scholarcrafted-footer"
     >
@@ -26,6 +39,7 @@ export function Footer() {
                   fontSize: rem(24),
                   letterSpacing: '-0.02em',
                   lineHeight: 1,
+                  color: active.primary,
                 }}
               >
                 SCHOLARCRAFTED
@@ -176,7 +190,7 @@ export function Footer() {
 
       <style jsx global>{`
         .footer-link:hover {
-          color: var(--mantine-color-dark-9) !important;
+          color: ${active.primary} !important;
           transition: color 0.2s ease;
         }
       `}</style>
