@@ -46,31 +46,35 @@ export function Footer() {
               </Text>
               <Text
                 size="xs"
-                fw={500}
+                fw={700}
                 c="dimmed"
-                style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: rem(10) }}
+                style={{ letterSpacing: '0.15em', textTransform: 'uppercase', fontSize: rem(10) }}
               >
-                Academic Consultancy
+                ESTABLISHED 2016
               </Text>
             </Stack>
-            <Text size="sm" c="dimmed" lh={1.6}>
-              Providing rigorous editorial support and strategic guidance for doctoral candidates at
-              leading institutions worldwide.
+            <Text size="sm" c="dimmed" lh={1.7}>
+              A prestigious advisory firm dedicated to the rigorous oversight and structural
+              refinement of doctoral research across the global academic community.
             </Text>
             <Stack gap={4}>
-              <Text size="xs" fw={700} style={{ letterSpacing: '0.05em' }}>
-                OFFICES
+              <Text size="xs" fw={700} style={{ letterSpacing: '0.05em', color: active.primary }}>
+                FACULTY LOCATIONS
               </Text>
               <Text size="xs" c="dimmed">
-                Boston &bull; New York &bull; Oxford
+                Boston &bull; New York &bull; Oxford &bull; Cambridge
               </Text>
             </Stack>
           </Stack>
 
           {/* Services Column */}
           <Stack gap="xl">
-            <Text fw={700} size="xs" style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Services
+            <Text
+              fw={700}
+              size="xs"
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: active.primary }}
+            >
+              Advisory
             </Text>
             <Stack gap="sm">
               <Link
@@ -86,7 +90,7 @@ export function Footer() {
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text size="sm" c="dimmed" className="footer-link">
-                  Editing & Proofreading
+                  Structural Editing
                 </Text>
               </Link>
               <Link
@@ -94,7 +98,7 @@ export function Footer() {
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text size="sm" c="dimmed" className="footer-link">
-                  Research Support
+                  Methodology Oversight
                 </Text>
               </Link>
               <Link
@@ -110,8 +114,12 @@ export function Footer() {
 
           {/* Firm Column */}
           <Stack gap="xl">
-            <Text fw={700} size="xs" style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              The Firm
+            <Text
+              fw={700}
+              size="xs"
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: active.primary }}
+            >
+              The Institution
             </Text>
             <Stack gap="sm">
               <Link
@@ -119,7 +127,7 @@ export function Footer() {
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text size="sm" c="dimmed" className="footer-link">
-                  About Micah, PhD
+                  Micah, PhD & Faculty
                 </Text>
               </Link>
               <Link
@@ -127,17 +135,17 @@ export function Footer() {
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text size="sm" c="dimmed" className="footer-link">
-                  Our Methodology
+                  Our Scholarly Tradition
                 </Text>
               </Link>
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" c="dimmed" className="footer-link">
-                  Academic Integrity
+                  Research Ethics
                 </Text>
               </Link>
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" c="dimmed" className="footer-link">
-                  Contact
+                  Governance
                 </Text>
               </Link>
             </Stack>
@@ -145,19 +153,23 @@ export function Footer() {
 
           {/* Contact/Newsletter Column */}
           <Stack gap="xl">
-            <Text fw={700} size="xs" style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Inquiries
+            <Text
+              fw={700}
+              size="xs"
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: active.primary }}
+            >
+              Official Inquiries
             </Text>
             <Stack gap="xs">
-              <Text size="sm" fw={500}>
+              <Text size="sm" fw={600} color={active.primary}>
                 admissions@scholarcrafted.com
               </Text>
               <Text size="sm" c="dimmed">
                 +1 (617) 555-0123
               </Text>
             </Stack>
-            <Text size="xs" c="dimmed" lh={1.5}>
-              For urgent manuscript reviews, please include "URGENT" in your inquiry subject line.
+            <Text size="xs" c="dimmed" lh={1.6} fs="italic">
+              "Guidance is not just advice; it is the transfer of structural authority."
             </Text>
           </Stack>
         </SimpleGrid>
@@ -172,15 +184,16 @@ export function Footer() {
           </Group>
           <Group gap="xl">
             <Text size="xs" c="dimmed" style={{ cursor: 'pointer' }}>
-              Privacy Policy
+              Privacy & Ethics
             </Text>
             <Text size="xs" c="dimmed" style={{ cursor: 'pointer' }}>
-              Terms of Service
+              Honor Code
             </Text>
             <Text
               size="xs"
-              fw={600}
-              style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
+              fw={700}
+              color={active.primary}
+              style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
             >
               Strictly Confidential
             </Text>
@@ -192,6 +205,7 @@ export function Footer() {
         .footer-link:hover {
           color: ${active.primary} !important;
           transition: color 0.2s ease;
+          text-decoration: underline !important;
         }
       `}</style>
     </Box>

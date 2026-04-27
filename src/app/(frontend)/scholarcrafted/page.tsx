@@ -14,11 +14,21 @@ import {
   Divider,
   rem,
   useMantineTheme,
+  ThemeIcon,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
 import Link from 'next/link'
-import { IconArrowRight } from '@tabler/icons-react'
+import {
+  IconArrowRight,
+  IconUsers,
+  IconEdit,
+  IconFileText,
+  IconCheck,
+  IconMessageChatbot,
+  IconRocket,
+  IconCertificate,
+} from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
 import { useRef } from 'react'
@@ -68,16 +78,8 @@ export default function ScholarCraftedLanding() {
           min-width: 280px;
         }
 
-        .hero-secondary-container {
-          min-width: 220px;
-        }
-
         @media (max-width: 768px) {
-          .hero-btn-group {
-            flex-direction: column !important;
-            gap: 1rem !important;
-          }
-          .hero-primary-container, .hero-secondary-container {
+          .hero-primary-container {
             width: 100% !important;
             max-width: 100% !important;
           }
@@ -106,132 +108,136 @@ export default function ScholarCraftedLanding() {
                     style={{
                       fontSize: rem(64),
                       fontWeight: 400,
-                      lineHeight: 1.05,
+                      lineHeight: 1.1,
                       letterSpacing: '-0.03em',
                       color: active.primary,
                     }}
                   >
-                    Finish with Clarity. <br />
-                    Submit with Confidence.
+                    From Stall to Submission.
                   </Title>
                 </Stack>
                 <Box style={{ maxWidth: 480 }}>
-                  <Text size="lg" lh={1.6} c="dimmed" style={{ fontSize: rem(19) }}>
-                    From structural refinement to final-stage strategy, we help doctoral candidates
-                    and researchers move from stalled drafts to submission-ready work.
+                  <Text size="xl" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>
+                    We provide the rigorous, faculty-led oversight to finish your dissertation
+                    faster, with less stress.
                   </Text>
                 </Box>
               </Stack>
 
-              <SimpleGrid cols={3} spacing="lg" style={{ maxWidth: 500 }}>
-                <Stack gap={4}>
-                  <Text
-                    fw={700}
-                    size="xl"
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      lineHeight: 1,
-                      color: active.primary,
-                    }}
-                  >
-                    98%
-                  </Text>
-                  <Text
-                    size="xs"
-                    fw={600}
-                    c="dimmed"
-                    style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
-                  >
-                    Completion
-                    <br />
-                    Rate
-                  </Text>
-                </Stack>
-                <Stack gap={4}>
-                  <Text
-                    fw={700}
-                    size="xl"
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      lineHeight: 1,
-                      color: active.primary,
-                    }}
-                  >
-                    4.9/5
-                  </Text>
-                  <Text
-                    size="xs"
-                    fw={600}
-                    c="dimmed"
-                    style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
-                  >
-                    Average
-                    <br />
-                    Rating
-                  </Text>
-                </Stack>
-                <Stack gap={4}>
-                  <Text
-                    fw={700}
-                    size="xl"
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      lineHeight: 1,
-                      color: active.primary,
-                    }}
-                  >
-                    10y+
-                  </Text>
-                  <Text
-                    size="xs"
-                    fw={600}
-                    c="dimmed"
-                    style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
-                  >
-                    Faculty
-                    <br />
-                    Expertise
-                  </Text>
-                </Stack>
-              </SimpleGrid>
+              <Stack gap="xl">
+                <Box className="hero-primary-container">
+                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                    <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0}>
+                      BOOK MY FREE CONSULTATION
+                    </Button>
+                  </Link>
+                </Box>
 
-              <Stack gap="md">
-                <Group gap="xl" wrap="nowrap" className="hero-btn-group">
-                  <Box className="hero-primary-container">
-                    <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-                      <Button
-                        size="lg"
-                        variant="filled"
-                        bg={active.primary}
-                        rightSection={<IconArrowRight size={18} />}
-                        fullWidth
-                        radius={0}
-                      >
-                        SCHEDULE CONSULTATION
-                      </Button>
-                    </Link>
-                  </Box>
-                  <Box className="hero-secondary-container">
-                    <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }}>
-                      <Button
-                        size="lg"
-                        variant="subtle"
-                        c={active.primary}
-                        rightSection={<IconArrowRight size={18} />}
-                        fullWidth
-                        radius={0}
-                        styles={{
-                          label: { textDecoration: 'underline', textUnderlineOffset: '4px' },
-                        }}
-                      >
-                        LEARN OUR PROCESS
-                      </Button>
-                    </Link>
-                  </Box>
-                </Group>
-                <Text size="xs" fw={600} c="dark.3" style={{ letterSpacing: '0.05em' }}>
-                  Trusted by 500+ graduate students worldwide.
-                </Text>
+                <Box
+                  mt="md"
+                  style={{
+                    borderTop: `1px solid ${active.primary}22`,
+                    paddingTop: rem(32),
+                    maxWidth: 550,
+                  }}
+                >
+                  <Stack gap="md">
+                    <Text
+                      size="xs"
+                      fw={700}
+                      c="dimmed"
+                      style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                    >
+                      Institutional Record &bull; Est. 2016
+                    </Text>
+                    <SimpleGrid cols={3} spacing="xl">
+                      <Stack gap={0}>
+                        <Text
+                          fw={700}
+                          style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: rem(28),
+                            color: active.primary,
+                            lineHeight: 1,
+                          }}
+                        >
+                          98%
+                        </Text>
+                        <Text
+                          size="xs"
+                          fw={600}
+                          c="dimmed"
+                          mt={4}
+                          style={{
+                            letterSpacing: '0.05em',
+                            textTransform: 'uppercase',
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          Completion
+                          <br />
+                          Rate
+                        </Text>
+                      </Stack>
+                      <Stack gap={0}>
+                        <Text
+                          fw={700}
+                          style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: rem(28),
+                            color: active.primary,
+                            lineHeight: 1,
+                          }}
+                        >
+                          4.9/5
+                        </Text>
+                        <Text
+                          size="xs"
+                          fw={600}
+                          c="dimmed"
+                          mt={4}
+                          style={{
+                            letterSpacing: '0.05em',
+                            textTransform: 'uppercase',
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          Average
+                          <br />
+                          Rating
+                        </Text>
+                      </Stack>
+                      <Stack gap={0}>
+                        <Text
+                          fw={700}
+                          style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: rem(28),
+                            color: active.primary,
+                            lineHeight: 1,
+                          }}
+                        >
+                          500+
+                        </Text>
+                        <Text
+                          size="xs"
+                          fw={600}
+                          c="dimmed"
+                          mt={4}
+                          style={{
+                            letterSpacing: '0.05em',
+                            textTransform: 'uppercase',
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          Scholars
+                          <br />
+                          Guided
+                        </Text>
+                      </Stack>
+                    </SimpleGrid>
+                  </Stack>
+                </Box>
               </Stack>
             </Stack>
             <Box>
@@ -252,7 +258,7 @@ export default function ScholarCraftedLanding() {
         </Container>
       </Box>
 
-      {/* The Challenge (Problem) */}
+      {/* Resonance Section (The Pain Points) */}
       <Box component="section" py={SECTION_SPACING} bg={active.surface}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="flex-start">
@@ -275,78 +281,125 @@ export default function ScholarCraftedLanding() {
                   color: active.primary,
                 }}
               >
-                The Isolation of the Archive
+                Academic research can be <br />a lonely journey.
               </Title>
             </Box>
 
+            <Stack gap="xl">
+              {[
+                'You’re not getting meaningful support from your advisor.',
+                'You’re struggling to balance work, family and study.',
+                'You’re overwhelmed by the sheer scope of it all.',
+                'You’re crippled by perfectionism.',
+                'You’re wasting time.',
+              ].map((pain, i) => (
+                <Group key={i} gap="md" wrap="nowrap" align="flex-start">
+                  <Box
+                    w={8}
+                    h={8}
+                    mt={10}
+                    bg={active.accent}
+                    style={{ borderRadius: '50%', flexShrink: 0 }}
+                  />
+                  <Text size="xl" fw={400} c={active.primary}>
+                    {pain}
+                  </Text>
+                </Group>
+              ))}
+            </Stack>
+
             <Text
-              size="xl"
+              size="lg"
               lh={1.7}
-              style={{ fontWeight: 400, fontSize: rem(22), color: active.primary }}
+              c="dimmed"
+              mt="xl"
+              style={{
+                fontWeight: 400,
+                fontSize: rem(22),
+                borderTop: `2px solid ${active.accent}`,
+                paddingTop: rem(40),
+              }}
             >
-              Brilliant research often stalls not from a lack of ideas, but from a collapse of
-              structure. The transition from coursework to independent research leaves many doctoral
-              candidates adrift—overwhelmed by vast amounts of data, literature, and isolated
-              thought.
+              We provide the scaffolding required to move forward with absolute authority.
             </Text>
-
-            <Divider style={{ width: rem(80) }} color="dark.2" />
-
-            <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(60)} style={{ width: '100%' }}>
-              <Stack gap="xs">
-                <Text
-                  style={{
-                    fontSize: rem(42),
-                    fontFamily: 'var(--font-serif)',
-                    lineHeight: 1,
-                    color: active.primary,
-                  }}
-                >
-                  50%
-                </Text>
-                <Text size="xs" fw={500} c="dimmed" lh={1.4} style={{ letterSpacing: '0.02em' }}>
-                  of doctoral students do not complete their degree.
-                </Text>
-              </Stack>
-              <Stack gap="xs">
-                <Text
-                  style={{
-                    fontSize: rem(42),
-                    fontFamily: 'var(--font-serif)',
-                    lineHeight: 1,
-                    color: active.primary,
-                  }}
-                >
-                  8.2y
-                </Text>
-                <Text size="xs" fw={500} c="dimmed" lh={1.4} style={{ letterSpacing: '0.02em' }}>
-                  average time to completion in humanities.
-                </Text>
-              </Stack>
-              <Stack gap="xs">
-                <Text
-                  style={{
-                    fontSize: rem(42),
-                    fontFamily: 'var(--font-serif)',
-                    lineHeight: 1,
-                    color: active.primary,
-                  }}
-                >
-                  73%
-                </Text>
-                <Text size="xs" fw={500} c="dimmed" lh={1.4} style={{ letterSpacing: '0.02em' }}>
-                  report feeling unsupported by their institution.
-                </Text>
-              </Stack>
-            </SimpleGrid>
           </Stack>
         </Container>
       </Box>
 
-      {/* Our Approach */}
+      {/* The 3-Step Process */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={1100}>
-          <SimpleGrid cols={{ base: 1, md: 4 }} spacing={rem(80)}>
+          <Stack gap={rem(80)} align="center" style={{ textAlign: 'center' }}>
+            <Box style={{ maxWidth: 700 }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c="dimmed"
+              >
+                The Path to Completion
+              </Text>
+              <Title
+                order={2}
+                mt="md"
+                style={{ fontSize: rem(48), fontWeight: 400, color: active.primary }}
+              >
+                A clear, structured process <br /> from start to finish.
+              </Title>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)}>
+              <Stack align="center" gap="md">
+                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
+                  <IconMessageChatbot size={32} stroke={1.5} />
+                </ThemeIcon>
+                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                  01. Strategic Review
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  A deep-dive consultation to understand your project, identify roadblocks, and map
+                  a clear path forward.
+                </Text>
+              </Stack>
+              <Stack align="center" gap="md">
+                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
+                  <IconRocket size={32} stroke={1.5} />
+                </ThemeIcon>
+                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                  02. Guided Implementation
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  Work directly with a PhD-level specialist to execute the plan with regular
+                  check-ins and structured feedback.
+                </Text>
+              </Stack>
+              <Stack align="center" gap="md">
+                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
+                  <IconCheck size={32} stroke={1.5} />
+                </ThemeIcon>
+                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                  03. Final Submission
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  Finalize your manuscript with confidence, knowing it has been rigorously reviewed
+                  for clarity, structure, and impact.
+                </Text>
+              </Stack>
+            </SimpleGrid>
+
+            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+              <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(60)}>
+                SCHEDULE YOUR REVIEW
+              </Button>
+            </Link>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* Our Core Services */}
+      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+        <Container size={1100}>
+          <Stack gap={rem(80)}>
             <Box>
               <Text
                 size="xs"
@@ -354,163 +407,84 @@ export default function ScholarCraftedLanding() {
                 style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 c="dimmed"
               >
-                Our Approach
+                Our Core Services
               </Text>
-            </Box>
-            <Box style={{ gridColumn: 'span 3' }}>
-              <Stack gap="xl">
-                <Title
-                  order={2}
-                  style={{
-                    fontSize: rem(48),
-                    fontWeight: 400,
-                    letterSpacing: '-0.02em',
-                    maxWidth: 800,
-                    color: active.primary,
-                  }}
-                >
-                  Structured guidance for the independent scholar.
-                </Title>
-                <Text size="lg" lh={1.7} c="dimmed" style={{ maxWidth: 720, fontSize: rem(20) }}>
-                  We provide the scaffolding required to turn an unwieldy manuscript into a
-                  defensible, elegant dissertation. Our interventions are discrete, structural, and
-                  deeply tailored to your discipline.
-                </Text>
-
-                <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(40)} mt={rem(40)}>
-                  <Stack gap="md">
-                    <Text
-                      fw={700}
-                      size="xs"
-                      c={active.primary}
-                      style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
-                    >
-                      Clarity
-                    </Text>
-                    <Text size="sm" lh={1.6} c="dimmed">
-                      Untangle complex arguments and establish clear narrative arcs across chapters.
-                    </Text>
-                  </Stack>
-                  <Stack gap="md">
-                    <Text
-                      fw={700}
-                      size="xs"
-                      c={active.primary}
-                      style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
-                    >
-                      Momentum
-                    </Text>
-                    <Text size="sm" lh={1.6} c="dimmed">
-                      Structured milestones with weekly accountability to maintain rigorous
-                      progress.
-                    </Text>
-                  </Stack>
-                  <Stack gap="md">
-                    <Text
-                      fw={700}
-                      size="xs"
-                      c={active.primary}
-                      style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
-                    >
-                      Authority
-                    </Text>
-                    <Text size="sm" lh={1.6} c="dimmed">
-                      Rigorous preparation for defense and final submission to the committee.
-                    </Text>
-                  </Stack>
-                </SimpleGrid>
-              </Stack>
-            </Box>
-          </SimpleGrid>
-        </Container>
-      </Box>
-
-      {/* Methodology */}
-      <Box component="section" py={SECTION_SPACING} bg={active.primary} c="white">
-        <Container size={1100}>
-          <SimpleGrid cols={{ base: 1, md: 4 }} spacing={rem(80)}>
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c="gray.5"
+              <Title
+                order={2}
+                mt="md"
+                style={{ fontSize: rem(48), fontWeight: 400, color: active.primary }}
               >
-                Methodology
-              </Text>
+                Find the right support for your stage.
+              </Title>
             </Box>
-            <Box style={{ gridColumn: 'span 3' }}>
-              <Stack gap={rem(80)}>
-                <Title
-                  order={2}
-                  c="white"
+
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
+              {[
+                {
+                  title: 'Dissertation Coaching',
+                  label: '1-ON-1 GUIDANCE',
+                  desc: 'A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence.',
+                  link: '/scholarcrafted/services/dissertation-coaching',
+                  cta: 'Explore Coaching',
+                },
+                {
+                  title: 'Editing & Review',
+                  label: 'MANUSCRIPT REFINEMENT',
+                  desc: 'From structural logic to final proofreading, we ensure your argument is presented with clarity and authority.',
+                  link: '/scholarcrafted/services/editing-proofreading',
+                  cta: 'View Editing Services',
+                },
+                {
+                  title: 'Technical Support',
+                  label: 'METHODOLOGY & DATA',
+                  desc: 'Expert assistance with research design, qualitative coding, statistical analysis, and more.',
+                  link: '/scholarcrafted/services/research-support',
+                  cta: 'Get Research Support',
+                },
+              ].map((service, i) => (
+                <Box
+                  key={i}
+                  p={rem(40)}
+                  bg="white"
                   style={{
-                    fontSize: rem(48),
-                    fontWeight: 400,
-                    letterSpacing: '-0.02em',
-                    maxWidth: 800,
+                    border: '1px solid #eee',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
                   }}
                 >
-                  Our interventions are discrete, structural, and deeply tailored to the discipline.
-                </Title>
-
-                <Stack gap={0}>
-                  {[
-                    {
-                      title: 'Developmental Editing',
-                      desc: 'Macro-level restructuring of arguments, chapter sequencing, and narrative arc. We map the logic of your entire manuscript before addressing the prose.',
-                    },
-                    {
-                      title: 'Pacing & Accountability',
-                      desc: 'Structured milestones mimicking a rigorous advising relationship. Weekly check-ins, hard deadlines, and continuous feedback loops.',
-                    },
-                    {
-                      title: 'Defense Preparation',
-                      desc: 'Mock defenses, anticipated questioning, and presentation refinement aimed at projecting absolute authority over your subject matter.',
-                    },
-                  ].map((item, i) => (
-                    <Box
-                      key={i}
-                      style={{
-                        borderTop: '1px solid rgba(255,255,255,0.1)',
-                        paddingBottom: rem(56),
-                        paddingTop: rem(56),
-                      }}
-                    >
-                      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
-                        <Box>
+                  <Stack gap="xl" flex={1}>
+                    <Stack gap="xs">
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                        {service.label}
+                      </Text>
+                      <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                        {service.title}
+                      </Title>
+                    </Stack>
+                    <Text size="sm" c="dimmed" lh={1.6}>
+                      {service.desc}
+                    </Text>
+                    <Box mt="auto" pt="xl">
+                      <Link href={service.link} style={{ textDecoration: 'none' }}>
+                        <Group gap="xs" style={{ cursor: 'pointer' }}>
                           <Text
-                            c="white"
-                            style={{
-                              fontSize: rem(32),
-                              fontFamily: 'var(--font-serif)',
-                              fontWeight: 500,
-                              lineHeight: 1.2,
-                            }}
+                            fw={600}
+                            size="sm"
+                            c={active.action}
+                            style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}
                           >
-                            {item.title}
+                            {service.cta}
                           </Text>
-                        </Box>
-                        <Box>
-                          <Text
-                            size="lg"
-                            lh={1.8}
-                            c="gray.3"
-                            style={{
-                              fontWeight: 400,
-                            }}
-                          >
-                            {item.desc}
-                          </Text>
-                        </Box>
-                      </SimpleGrid>
+                          <IconArrowRight size={16} color={active.action} />
+                        </Group>
+                      </Link>
                     </Box>
-                  ))}
-                  <Divider style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
-                </Stack>
-              </Stack>
-            </Box>
-          </SimpleGrid>
+                  </Stack>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </Stack>
         </Container>
       </Box>
 
@@ -584,45 +558,6 @@ export default function ScholarCraftedLanding() {
               </Carousel.Slide>
             ))}
           </Carousel>
-        </Container>
-      </Box>
-      {/* Final CTA */}
-      <Box
-        component="section"
-        py={SECTION_SPACING}
-        bg={active.surface}
-        style={{ borderTop: '1px solid #eee' }}
-      >
-        <Container size={INNER_WIDTH}>
-          <Stack align="center" style={{ textAlign: 'center' }} gap="xl">
-            <Title
-              order={2}
-              style={{
-                fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
-                color: active.primary,
-              }}
-            >
-              Secure your completion.
-            </Title>
-            <Text size="lg" c="dimmed" style={{ maxWidth: 600, fontSize: rem(20) }} lh={1.6}>
-              We accept a limited number of candidates per academic quarter to ensure rigorous,
-              undivided attention to your manuscript.
-            </Text>
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button
-                size="xl"
-                variant="filled"
-                bg={active.primary}
-                mt="xl"
-                radius={0}
-                px={rem(60)}
-              >
-                SUBMIT INQUIRY
-              </Button>
-            </Link>
-          </Stack>
         </Container>
       </Box>
 
