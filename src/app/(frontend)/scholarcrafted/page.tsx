@@ -408,10 +408,10 @@ export default function ScholarCraftedLanding() {
             <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
               {[
                 {
-                  title: 'Dissertation Coaching',
+                  title: 'Private Coaching',
                   label: '1-ON-1 GUIDANCE',
                   desc: 'A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence.',
-                  link: '/scholarcrafted/services/dissertation-coaching',
+                  link: '/scholarcrafted/services/private-coaching',
                   cta: 'Explore Coaching',
                 },
                 {

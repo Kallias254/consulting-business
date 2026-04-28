@@ -24,11 +24,11 @@ const SECTION_SPACING = rem(120)
 const INNER_WIDTH = 760
 
 const serviceData: Record<string, any> = {
-  'dissertation-coaching': {
-    title: 'Dissertation Coaching',
+  'private-coaching': {
+    title: 'Private Coaching',
     heroSubtitle: 'Strategic partnership for the long haul.',
     problem:
-      'Dissertation writing is an inherently isolated process. Without structured feedback and strategic pacing, even the most brilliant projects can stall in the "all-but-dissertation" phase.',
+      'The research process is an inherently isolated journey. Without structured feedback and strategic pacing, even the most brilliant projects can stall.',
     whoItIsFor: [
       'Doctoral candidates feeling "stuck" or overwhelmed by the scale of their project.',
       'Researchers struggling to balance writing with professional or personal obligations.',
@@ -37,7 +37,7 @@ const serviceData: Record<string, any> = {
     whatWeDo: [
       {
         title: 'Strategic Planning',
-        desc: 'We help you break down your dissertation into manageable, high-impact milestones.',
+        desc: 'We help you break down your project into manageable, high-impact milestones.',
       },
       {
         title: 'Conceptual Alignment',
@@ -133,7 +133,7 @@ const serviceData: Record<string, any> = {
 export default function ServiceDetailPage() {
   const params = useParams()
   const slug = params?.slug as string
-  const data = serviceData[slug] || serviceData['dissertation-coaching']
+  const data = serviceData[slug] || serviceData['private-coaching']
   const theme = useMantineTheme()
   const active = theme.other
 

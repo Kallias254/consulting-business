@@ -85,7 +85,7 @@ export function Footer() {
             </Text>
             <Stack gap="sm">
               <Link
-                href="/scholarcrafted/services/dissertation-coaching"
+                href="/scholarcrafted/services/private-coaching"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text
@@ -93,7 +93,7 @@ export function Footer() {
                   c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
                   className="footer-link"
                 >
-                  Dissertation Coaching
+                  Private Coaching
                 </Text>
               </Link>
               <Link
@@ -213,7 +213,7 @@ export function Footer() {
               lh={1.6}
               fs="italic"
             >
-              "Guidance is not just advice; it is the transfer of structural authority."
+              &quot;Guidance is not just advice; it is the transfer of structural authority.&quot;
             </Text>
           </Stack>
         </SimpleGrid>

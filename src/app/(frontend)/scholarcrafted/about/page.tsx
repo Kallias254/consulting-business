@@ -91,7 +91,7 @@ const team = [
 const awards = [
   '#1 in Trustpilot’s “Private Tutor” Category',
   'Winner: Most Trusted Dissertation Coach (Business Excellence Awards)',
-  'Winner: Best Dissertation Coaching Service (AI International)',
+  'Winner: Best Private Coaching Service (AI International)',
   'Gold Award for Science & Education Video (TITAN)',
   'Accredited Member of The Tutor’s Association UK',
   '100+ years combined academic experience within the team',
