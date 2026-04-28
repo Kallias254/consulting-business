@@ -23,8 +23,11 @@ export function Footer() {
       component="footer"
       pt={rem(100)}
       pb={rem(40)}
-      bg={active.surface}
-      style={{ borderTop: '1px solid #eee' }}
+      bg={active.primary === '#A51C30' ? active.primary : active.surface}
+      c={active.primary === '#A51C30' ? 'white' : active.primary}
+      style={{
+        borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : '#eee'}`,
+      }}
       className="scholarcrafted-footer"
     >
       <Container size={1100}>
@@ -39,7 +42,7 @@ export function Footer() {
                   fontSize: rem(24),
                   letterSpacing: '-0.02em',
                   lineHeight: 1,
-                  color: active.primary,
+                  color: 'inherit',
                 }}
               >
                 SCHOLARCRAFTED
@@ -47,21 +50,25 @@ export function Footer() {
               <Text
                 size="xs"
                 fw={700}
-                c="dimmed"
+                c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.7)' : 'dimmed'}
                 style={{ letterSpacing: '0.15em', textTransform: 'uppercase', fontSize: rem(10) }}
               >
                 ESTABLISHED 2016
               </Text>
             </Stack>
-            <Text size="sm" c="dimmed" lh={1.7}>
+            <Text
+              size="sm"
+              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              lh={1.7}
+            >
               A prestigious advisory firm dedicated to the rigorous oversight and structural
               refinement of doctoral research across the global academic community.
             </Text>
             <Stack gap={4}>
-              <Text size="xs" fw={700} style={{ letterSpacing: '0.05em', color: active.primary }}>
+              <Text size="xs" fw={700} style={{ letterSpacing: '0.05em', color: 'inherit' }}>
                 FACULTY LOCATIONS
               </Text>
-              <Text size="xs" c="dimmed">
+              <Text size="xs" c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}>
                 Boston &bull; New York &bull; Oxford &bull; Cambridge
               </Text>
             </Stack>
@@ -72,7 +79,7 @@ export function Footer() {
             <Text
               fw={700}
               size="xs"
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: active.primary }}
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: 'inherit' }}
             >
               Advisory
             </Text>
@@ -81,7 +88,11 @@ export function Footer() {
                 href="/scholarcrafted/services/dissertation-coaching"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Dissertation Coaching
                 </Text>
               </Link>
@@ -89,7 +100,11 @@ export function Footer() {
                 href="/scholarcrafted/services/editing-proofreading"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Structural Editing
                 </Text>
               </Link>
@@ -97,7 +112,11 @@ export function Footer() {
                 href="/scholarcrafted/services/research-support"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Methodology Oversight
                 </Text>
               </Link>
@@ -105,7 +124,11 @@ export function Footer() {
                 href="/scholarcrafted/consultation"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Strategic Review
                 </Text>
               </Link>
@@ -117,7 +140,7 @@ export function Footer() {
             <Text
               fw={700}
               size="xs"
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: active.primary }}
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: 'inherit' }}
             >
               The Institution
             </Text>
@@ -126,7 +149,11 @@ export function Footer() {
                 href="/scholarcrafted/about"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Micah, PhD & Faculty
                 </Text>
               </Link>
@@ -134,17 +161,29 @@ export function Footer() {
                 href="/scholarcrafted/how-it-works"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Our Scholarly Tradition
                 </Text>
               </Link>
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Research Ethics
                 </Text>
               </Link>
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" c="dimmed" className="footer-link">
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
                   Governance
                 </Text>
               </Link>
@@ -156,43 +195,58 @@ export function Footer() {
             <Text
               fw={700}
               size="xs"
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: active.primary }}
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: 'inherit' }}
             >
               Official Inquiries
             </Text>
             <Stack gap="xs">
-              <Text size="sm" fw={600} color={active.primary}>
+              <Text size="sm" fw={600} color={'inherit'}>
                 admissions@scholarcrafted.com
               </Text>
-              <Text size="sm" c="dimmed">
+              <Text size="sm" c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}>
                 +1 (617) 555-0123
               </Text>
             </Stack>
-            <Text size="xs" c="dimmed" lh={1.6} fs="italic">
+            <Text
+              size="xs"
+              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              lh={1.6}
+              fs="italic"
+            >
               "Guidance is not just advice; it is the transfer of structural authority."
             </Text>
           </Stack>
         </SimpleGrid>
 
-        <Divider mb="xl" style={{ opacity: 0.5 }} />
+        <Divider mb="xl" style={{ opacity: 0.2 }} />
 
         <Group justify="space-between" align="center">
           <Group gap="xl">
-            <Text size="xs" c="dimmed">
+            <Text size="xs" c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}>
               &copy; 2026 ScholarCrafted Academic Consultancy. All rights reserved.
             </Text>
           </Group>
           <Group gap="xl">
-            <Text size="xs" c="dimmed" style={{ cursor: 'pointer' }}>
+            <Text
+              size="xs"
+              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              style={{ cursor: 'pointer' }}
+              className="footer-link"
+            >
               Privacy & Ethics
             </Text>
-            <Text size="xs" c="dimmed" style={{ cursor: 'pointer' }}>
+            <Text
+              size="xs"
+              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              style={{ cursor: 'pointer' }}
+              className="footer-link"
+            >
               Honor Code
             </Text>
             <Text
               size="xs"
               fw={700}
-              color={active.primary}
+              color={'inherit'}
               style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
             >
               Strictly Confidential
@@ -203,8 +257,7 @@ export function Footer() {
 
       <style jsx global>{`
         .footer-link:hover {
-          color: ${active.primary} !important;
-          transition: color 0.2s ease;
+          color: ${active.primary === '#A51C30' ? '#FFFFFF' : active.primary} !important;
           text-decoration: underline !important;
         }
       `}</style>

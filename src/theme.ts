@@ -25,11 +25,34 @@ export const palettes = {
     accent: '#8B7355', // Bronze
     action: '#00693E', // Dartmouth Green
   },
+  crimson: {
+    // Bold & Established
+    background: '#FFFFFF',
+    surface: '#FAFAFA',
+    primary: '#A51C30', // Harvard Crimson
+    accent: '#F2A900', // Gold
+    action: '#000000',
+  },
+  royal: {
+    // Prestigious & Calm
+    background: '#FFFFFF',
+    surface: '#F0F3F8',
+    primary: '#011F5B', // Penn State Blue
+    accent: '#B3A369', // Gold
+    action: '#000000',
+  },
+  slate: {
+    // Modern & Clean
+    background: '#FFFFFF',
+    surface: '#F8F9FA',
+    primary: '#343A40', // Slate Gray
+    accent: '#008080', // Teal
+    action: '#005F5F',
+  },
 }
 
 // TOGGLE THIS to change the entire site vibe:
-//const active = palettes.heritage
-const active = palettes.midnight
+const active = palettes.royal
 
 export const theme = createTheme({
   primaryColor: 'dark',
@@ -53,7 +76,7 @@ export const theme = createTheme({
   fontFamily: 'var(--font-sans)',
   headings: {
     fontFamily: 'var(--font-serif)',
-    fontWeight: '400', // Editorial serifs often look better at lower weights
+    fontWeight: '400',
     sizes: {
       h1: { fontSize: '3.5rem', lineHeight: '1.1' },
       h2: { fontSize: '2.75rem', lineHeight: '1.2' },

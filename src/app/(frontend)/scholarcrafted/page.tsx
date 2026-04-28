@@ -136,107 +136,96 @@ export default function ScholarCraftedLanding() {
                 <Box
                   mt="md"
                   style={{
-                    borderTop: `1px solid ${active.primary}22`,
                     paddingTop: rem(32),
                     maxWidth: 550,
                   }}
                 >
-                  <Stack gap="md">
-                    <Text
-                      size="xs"
-                      fw={700}
-                      c="dimmed"
-                      style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                    >
-                      Institutional Record &bull; Est. 2016
-                    </Text>
-                    <SimpleGrid cols={3} spacing="xl">
-                      <Stack gap={0}>
-                        <Text
-                          fw={700}
-                          style={{
-                            fontFamily: 'var(--font-serif)',
-                            fontSize: rem(28),
-                            color: active.primary,
-                            lineHeight: 1,
-                          }}
-                        >
-                          98%
-                        </Text>
-                        <Text
-                          size="xs"
-                          fw={600}
-                          c="dimmed"
-                          mt={4}
-                          style={{
-                            letterSpacing: '0.05em',
-                            textTransform: 'uppercase',
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          Completion
-                          <br />
-                          Rate
-                        </Text>
-                      </Stack>
-                      <Stack gap={0}>
-                        <Text
-                          fw={700}
-                          style={{
-                            fontFamily: 'var(--font-serif)',
-                            fontSize: rem(28),
-                            color: active.primary,
-                            lineHeight: 1,
-                          }}
-                        >
-                          4.9/5
-                        </Text>
-                        <Text
-                          size="xs"
-                          fw={600}
-                          c="dimmed"
-                          mt={4}
-                          style={{
-                            letterSpacing: '0.05em',
-                            textTransform: 'uppercase',
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          Average
-                          <br />
-                          Rating
-                        </Text>
-                      </Stack>
-                      <Stack gap={0}>
-                        <Text
-                          fw={700}
-                          style={{
-                            fontFamily: 'var(--font-serif)',
-                            fontSize: rem(28),
-                            color: active.primary,
-                            lineHeight: 1,
-                          }}
-                        >
-                          500+
-                        </Text>
-                        <Text
-                          size="xs"
-                          fw={600}
-                          c="dimmed"
-                          mt={4}
-                          style={{
-                            letterSpacing: '0.05em',
-                            textTransform: 'uppercase',
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          Scholars
-                          <br />
-                          Guided
-                        </Text>
-                      </Stack>
-                    </SimpleGrid>
-                  </Stack>
+                  <SimpleGrid cols={3} spacing="xl">
+                    <Stack gap={0}>
+                      <Text
+                        fw={700}
+                        style={{
+                          fontFamily: 'var(--font-serif)',
+                          fontSize: rem(28),
+                          color: active.primary,
+                          lineHeight: 1,
+                        }}
+                      >
+                        98%
+                      </Text>
+                      <Text
+                        size="xs"
+                        fw={600}
+                        c="dimmed"
+                        mt={4}
+                        style={{
+                          letterSpacing: '0.05em',
+                          textTransform: 'uppercase',
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        Completion
+                        <br />
+                        Rate
+                      </Text>
+                    </Stack>
+                    <Stack gap={0}>
+                      <Text
+                        fw={700}
+                        style={{
+                          fontFamily: 'var(--font-serif)',
+                          fontSize: rem(28),
+                          color: active.primary,
+                          lineHeight: 1,
+                        }}
+                      >
+                        4.9/5
+                      </Text>
+                      <Text
+                        size="xs"
+                        fw={600}
+                        c="dimmed"
+                        mt={4}
+                        style={{
+                          letterSpacing: '0.05em',
+                          textTransform: 'uppercase',
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        Average
+                        <br />
+                        Rating
+                      </Text>
+                    </Stack>
+                    <Stack gap={0}>
+                      <Text
+                        fw={700}
+                        style={{
+                          fontFamily: 'var(--font-serif)',
+                          fontSize: rem(28),
+                          color: active.primary,
+                          lineHeight: 1,
+                        }}
+                      >
+                        500+
+                      </Text>
+                      <Text
+                        size="xs"
+                        fw={600}
+                        c="dimmed"
+                        mt={4}
+                        style={{
+                          letterSpacing: '0.05em',
+                          textTransform: 'uppercase',
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        Scholars
+                        <br />
+                        Guided
+                      </Text>
+                    </Stack>
+                  </SimpleGrid>
                 </Box>
               </Stack>
             </Stack>
@@ -261,63 +250,76 @@ export default function ScholarCraftedLanding() {
       {/* Resonance Section (The Pain Points) */}
       <Box component="section" py={SECTION_SPACING} bg={active.surface}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)} align="flex-start">
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c="dimmed"
-              >
-                The Challenge
-              </Text>
+          <Stack gap={rem(80)}>
+            <Box style={{ textAlign: 'center' }}>
               <Title
                 order={2}
-                mt="md"
                 style={{
                   fontSize: rem(48),
                   fontWeight: 400,
                   letterSpacing: '-0.02em',
                   color: active.primary,
+                  fontFamily: 'var(--font-serif)',
                 }}
               >
-                Academic research can be <br />a lonely journey.
+                Recognizing the Doctoral Condition.
               </Title>
             </Box>
 
-            <Stack gap="xl">
+            <Stack gap={0}>
               {[
-                'You’re not getting meaningful support from your advisor.',
-                'You’re struggling to balance work, family and study.',
-                'You’re overwhelmed by the sheer scope of it all.',
-                'You’re crippled by perfectionism.',
-                'You’re wasting time.',
-              ].map((pain, i) => (
-                <Group key={i} gap="md" wrap="nowrap" align="flex-start">
-                  <Box
-                    w={8}
-                    h={8}
-                    mt={10}
-                    bg={active.accent}
-                    style={{ borderRadius: '50%', flexShrink: 0 }}
-                  />
-                  <Text size="xl" fw={400} c={active.primary}>
-                    {pain}
-                  </Text>
-                </Group>
+                {
+                  title: 'Advisor In-congruence',
+                  desc: 'You feel your feedback is infrequent, misaligned, or insufficient to move the work forward.',
+                },
+                {
+                  title: 'The Weight of Isolation',
+                  desc: 'You are struggling to balance the competing demands of research, work, and family life in a vacuum.',
+                },
+                {
+                  title: 'Structural Paralysis',
+                  desc: 'You are overwhelmed by the sheer scope of the literature, the data, and the path to a finished manuscript.',
+                },
+                {
+                  title: 'Perfectionism & Gridlock',
+                  desc: 'You are crippled by the fear of producing imperfect work, leading to an inability to produce any work at all.',
+                },
+              ].map((item, i) => (
+                <Box
+                  key={i}
+                  style={{
+                    borderBottom: `1px solid ${active.primary}22`,
+                    padding: `${rem(32)} 0`,
+                  }}
+                >
+                  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+                    <Text
+                      size="lg"
+                      fw={600}
+                      c={active.primary}
+                      style={{ fontFamily: 'var(--font-serif)' }}
+                    >
+                      {item.title}
+                    </Text>
+                    <Text c="dimmed" lh={1.6}>
+                      {item.desc}
+                    </Text>
+                  </SimpleGrid>
+                </Box>
               ))}
             </Stack>
 
             <Text
-              size="lg"
+              size="xl"
               lh={1.7}
               c="dimmed"
-              mt="xl"
               style={{
                 fontWeight: 400,
-                fontSize: rem(22),
+                fontSize: rem(24),
                 borderTop: `2px solid ${active.accent}`,
                 paddingTop: rem(40),
+                alignSelf: 'stretch',
+                textAlign: 'center',
               }}
             >
               We provide the scaffolding required to move forward with absolute authority.
