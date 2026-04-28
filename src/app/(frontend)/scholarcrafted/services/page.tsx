@@ -13,53 +13,37 @@ import {
   rem,
   Group,
   useMantineTheme,
+  ThemeIcon,
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
-import { IconArrowRight, IconUsers, IconEdit, IconMicroscope } from '@tabler/icons-react'
+import { IconArrowRight, IconUsers, IconEdit, IconFileText, IconGoGame } from '@tabler/icons-react'
 import Link from 'next/link'
 
-const SECTION_SPACING = rem(120)
+const SECTION_SPACING = rem(140)
+const INNER_WIDTH = 1100
 
-const services = [
+const offlineServices = [
   {
-    title: 'Dissertation Coaching',
-    slug: 'dissertation-coaching',
-    icon: <IconUsers size={32} stroke={1.5} />,
-    description:
-      'One-on-one guidance through every stage of your dissertation journey. From proposal development to final revisions, we help you clarify your thinking and move forward with confidence.',
-    features: [
-      'Weekly coaching sessions',
-      'Feedback on drafts',
-      'Milestone planning',
-      'Structure guidance',
-    ],
+    title: 'Structural Editing',
+    label: 'MANUSCRIPT REFINEMENT',
+    desc: 'A macro-level review of your manuscript for argument, structure, and narrative cohesion.',
+    link: '/scholarcrafted/consultation',
+    cta: 'Request an Edit',
   },
   {
-    title: 'Editing & Proofreading',
-    slug: 'editing-proofreading',
-    icon: <IconEdit size={32} stroke={1.5} />,
-    description:
-      'Specialized academic editing that goes beyond grammar. We focus on structural integrity, argument flow, and adherence to rigorous disciplinary standards.',
-    features: [
-      'Structural Refinement',
-      'Narrative Logic',
-      'Citation Precision',
-      'Style Compliance',
-    ],
+    title: 'Methodology Review',
+    label: 'RESEARCH DESIGN',
+    desc: 'A deep-dive assessment of your research design, sampling, and data analysis strategy.',
+    link: '/scholarcrafted/consultation',
+    cta: 'Request a Review',
   },
   {
-    title: 'Research Support',
-    slug: 'research-support',
-    icon: <IconMicroscope size={32} stroke={1.5} />,
-    description:
-      'Expert technical assistance for complex research phases, including methodology design, data coding strategies, and software-assisted analysis.',
-    features: [
-      'Methodology Design',
-      'Qualitative Coding',
-      'Systematic Review',
-      'Analysis Strategy',
-    ],
+    title: 'Data & Coding Support',
+    label: 'TECHNICAL ASSISTANCE',
+    desc: 'Expert support for qualitative coding (NVivo, ATLAS.ti) or statistical analysis (SPSS, R).',
+    link: '/scholarcrafted/consultation',
+    cta: 'Request Support',
   },
 ]
 
@@ -71,147 +55,256 @@ export default function ServicesPage() {
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
-      {/* Top section with white background for consistency */}
-      <Box component="section" pt={rem(100)} pb={SECTION_SPACING} bg={active.background}>
-        <Container size={1100}>
-          <Stack gap="xl">
+      {/* Hero Section */}
+      <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+        <Container size={INNER_WIDTH}>
+          <Box style={{ maxWidth: 800 }}>
+            <Text
+              size="xs"
+              fw={700}
+              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              c="dimmed"
+            >
+              Our Services
+            </Text>
+            <Title
+              order={1}
+              mt="md"
+              style={{
+                fontSize: rem(56),
+                fontWeight: 400,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                color: active.primary,
+              }}
+            >
+              Rigorous support for <br />
+              the academic journey.
+            </Title>
+            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
+              ScholarCrafted provides a range of specialized advisory services designed to help
+              researchers navigate the most challenging phases of the dissertation process.
+            </Text>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Tier 1: Faculty-Led Coaching */}
+      <Box
+        component="section"
+        py={SECTION_SPACING}
+        bg={active.surface}
+        style={{ borderTop: `1px solid ${active.primary}22` }}
+      >
+        <Container size={INNER_WIDTH}>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)}>
+            <Stack gap="xl" justify="center">
+              <Box>
+                <Text
+                  size="xs"
+                  fw={700}
+                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  c={active.accent}
+                >
+                  Tier 1: Direct Faculty Oversight
+                </Text>
+                <Title
+                  order={2}
+                  mt="md"
+                  style={{
+                    fontSize: rem(48),
+                    fontWeight: 400,
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.1,
+                    color: active.primary,
+                    fontFamily: 'var(--font-serif)',
+                  }}
+                >
+                  Faculty-Led Coaching
+                </Title>
+              </Box>
+              <Text size="lg" lh={1.7} c="dimmed">
+                Our premier service. A deep, one-on-one strategic partnership with a senior faculty
+                member to guide you from conceptualization to final defense. This is our most
+                intensive and transformative offering.
+              </Text>
+              <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="lg"
+                  variant="filled"
+                  bg={active.primary}
+                  radius={0}
+                  style={{ maxWidth: 300 }}
+                >
+                  BOOK A STRATEGIC REVIEW
+                </Button>
+              </Link>
+            </Stack>
+            <Box
+              p={rem(60)}
+              bg={active.background}
+              style={{ border: `1px solid ${active.primary}22` }}
+            >
+              <Stack gap="xl">
+                <Title
+                  order={3}
+                  style={{
+                    fontWeight: 400,
+                    fontSize: rem(28),
+                    fontFamily: 'var(--font-serif)',
+                    color: active.primary,
+                  }}
+                >
+                  Core Deliverables
+                </Title>
+                <Stack gap="lg">
+                  {[
+                    'Strategic Project Roadmap',
+                    'Weekly Progress & Feedback Loops',
+                    'Conceptual & Narrative Alignment',
+                    'Defense & Submission Strategy',
+                  ].map((item, i) => (
+                    <Group key={i} align="flex-start" gap="md" wrap="nowrap">
+                      <Box
+                        w={6}
+                        h={6}
+                        mt={8}
+                        bg={active.accent}
+                        style={{ borderRadius: '50%', flexShrink: 0 }}
+                      />
+                      <Text size="md" fw={500} c="dimmed">
+                        {item}
+                      </Text>
+                    </Group>
+                  ))}
+                </Stack>
+              </Stack>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* Tier 2: Manuscript & Data Services */}
+      <Box
+        component="section"
+        py={SECTION_SPACING}
+        bg={active.surface}
+        style={{ borderTop: `1px solid ${active.primary}22` }}
+      >
+        <Container size={INNER_WIDTH}>
+          <Stack gap={rem(80)}>
             <Box style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
                 fw={700}
                 style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c="dimmed"
+                c={active.accent}
               >
-                Our Services
+                Tier 2: Asynchronous Support
               </Text>
               <Title
-                order={1}
+                order={2}
                 mt="md"
                 style={{
-                  fontSize: rem(56),
+                  fontSize: rem(48),
                   fontWeight: 400,
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
                   color: active.primary,
+                  fontFamily: 'var(--font-serif)',
                 }}
               >
-                Rigorous support for <br />
-                the academic journey.
+                Manuscript & Data Services
               </Title>
-              <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-                ScholarCrafted provides a range of specialized advisory services designed to help
-                researchers navigate the most challenging phases of the dissertation process.
+              <Text size="lg" c="dimmed" mt="md">
+                For the scholar who needs expert intervention on a specific part of their work
+                without the need for live calls.
               </Text>
             </Box>
-          </Stack>
-        </Container>
-      </Box>
 
-      {/* Services List with subtle gray background */}
-      <Box
-        component="section"
-        py={SECTION_SPACING}
-        bg={active.surface}
-        style={{ borderTop: '1px solid #eee' }}
-      >
-        <Container size={1100}>
-          <Stack gap={rem(120)}>
-            {services.map((service, index) => (
-              <Box key={service.slug}>
-                <Stack gap="xl" style={{ maxWidth: 850 }}>
-                  <Stack gap="md">
-                    <Group gap="lg" align="center">
-                      <Box c={active.accent} style={{ display: 'flex', alignItems: 'center' }}>
-                        {service.icon}
-                      </Box>
-                      <Title
-                        order={2}
-                        style={{
-                          fontSize: rem(42),
-                          fontWeight: 400,
-                          fontFamily: 'var(--font-serif)',
-                          color: active.primary,
-                        }}
-                      >
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
+              {offlineServices.map((service, i) => (
+                <Box
+                  key={i}
+                  p={rem(40)}
+                  bg={active.background}
+                  style={{
+                    border: '1px solid #eee',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                  }}
+                >
+                  <Stack gap="xl" flex={1}>
+                    <Stack gap="xs">
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                        {service.label}
+                      </Text>
+                      <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
                         {service.title}
                       </Title>
-                    </Group>
-                    <Text size="lg" lh={1.6} fw={400} c={active.primary} style={{ opacity: 0.8 }}>
-                      {service.description}
+                    </Stack>
+                    <Text size="sm" c="dimmed" lh={1.6}>
+                      {service.desc}
                     </Text>
+                    <Box mt="auto" pt="xl">
+                      <Link href={service.link} style={{ textDecoration: 'none' }}>
+                        <Button
+                          variant="outline"
+                          color={active.primary}
+                          fullWidth
+                          radius={0}
+                          style={{ borderColor: active.primary }}
+                        >
+                          {service.cta}
+                        </Button>
+                      </Link>
+                    </Box>
                   </Stack>
-
-                  {/* Features list under description */}
-                  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-                    {service.features.map((feature) => (
-                      <Group key={feature} gap="md" wrap="nowrap">
-                        <Box
-                          w={6}
-                          h={6}
-                          bg={active.accent}
-                          style={{ borderRadius: '50%', flexShrink: 0 }}
-                        />
-                        <Text size="md" fw={500} c="dimmed">
-                          {feature}
-                        </Text>
-                      </Group>
-                    ))}
-                  </SimpleGrid>
-
-                  <Link
-                    href={`/scholarcrafted/services/${service.slug}`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Group gap="xs" style={{ cursor: 'pointer' }} mt="md">
-                      <Text
-                        fw={600}
-                        size="md"
-                        c={active.action}
-                        style={{ letterSpacing: '0.02em' }}
-                      >
-                        Learn more
-                      </Text>
-                      <IconArrowRight size={18} color={active.action} />
-                    </Group>
-                  </Link>
-                </Stack>
-                {index !== services.length - 1 && (
-                  <Divider mt={rem(100)} style={{ opacity: 0.5 }} />
-                )}
-              </Box>
-            ))}
+                </Box>
+              ))}
+            </SimpleGrid>
           </Stack>
         </Container>
       </Box>
 
-      {/* Bottom CTA section */}
-      <Box
-        component="section"
-        py={SECTION_SPACING}
-        bg={active.background}
-        style={{ borderTop: '1px solid #eee' }}
-      >
-        <Container size={760}>
-          <Stack align="center" style={{ textAlign: 'center' }} gap="xl">
-            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}>
-              Not sure which service you need?
-            </Title>
-            <Text size="lg" c="dimmed" lh={1.6}>
-              Book a brief introductory review to discuss your current project stage and identify
-              the most effective path forward.
-            </Text>
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button
-                size="lg"
-                variant="filled"
-                bg={active.primary}
-                mt="md"
-                radius={0}
-                px={rem(40)}
+      {/* Tier 3: Self-Guided Resources */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+        <Container size={INNER_WIDTH}>
+          <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
+            <Box>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c={active.accent}
               >
-                BOOK A STRATEGIC REVIEW
-              </Button>
-            </Link>
+                Tier 3: Self-Guided
+              </Text>
+              <Title
+                order={2}
+                mt="md"
+                style={{
+                  fontSize: rem(48),
+                  fontWeight: 400,
+                  color: active.primary,
+                  fontFamily: 'var(--font-serif)',
+                }}
+              >
+                The ScholarCrafted Archives
+              </Title>
+              <Text size="lg" c="dimmed" mt="md" style={{ maxWidth: 600, margin: 'auto' }}>
+                A curated collection of resources for the independent scholar, from methodology
+                guides to our signature Research Blueprints.
+              </Text>
+            </Box>
+            <Button
+              size="lg"
+              variant="outline"
+              color={active.primary}
+              radius={0}
+              style={{ borderColor: active.primary }}
+            >
+              ACCESS THE ARCHIVES
+            </Button>
           </Stack>
         </Container>
       </Box>

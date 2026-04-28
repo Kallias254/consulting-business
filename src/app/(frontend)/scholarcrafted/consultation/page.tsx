@@ -36,6 +36,7 @@ import {
 import Link from 'next/link'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
+import { ScrollToTop } from '../_components/ScrollToTop'
 
 const INNER_WIDTH = 1100
 
@@ -77,337 +78,358 @@ export default function ConsultationPage() {
     }
   }
 
-  // --- Step Components ---
+  const stepHeadlines = [
+    {
+      title: 'What are you interested in?',
+      desc: "This short diagnostic helps us understand your project's unique needs, ensuring our initial consultation is as productive as possible.",
+    },
+    {
+      title: 'How can we best support you?',
+      desc: 'Select the primary area where you feel you need the most immediate intervention.',
+    },
+    {
+      title: 'What is your current phase?',
+      desc: 'This helps us tailor our strategic advice to your specific stage in the doctoral journey.',
+    },
+    {
+      title: 'Request a preferred window',
+      desc: 'Our team is available for strategy sessions during the following windows. We will confirm your final time via email.',
+    },
+    {
+      title: 'Finalize your inquiry',
+      desc: 'Please provide your contact information and a brief overview of your research.',
+    },
+    {
+      title: 'Consultation Initialized.',
+      desc: 'You have taken a decisive step toward completion. Micah, PhD is personally reviewing your research profile and will confirm your strategy session within 24 hours.',
+    },
+  ]
 
-  const StepInterest = () => (
-    <Stack gap="xl">
-      <Box style={{ textAlign: 'center' }}>
-        <Text
-          size="xs"
-          fw={700}
-          style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-          c="dimmed"
-        >
-          Step 01
-        </Text>
-        <Title
-          order={1}
-          mt="md"
-          style={{
-            fontSize: rem(42),
-            fontWeight: 400,
-            fontFamily: 'var(--font-serif)',
-            color: active.primary,
-          }}
-        >
-          What are you interested in?
-        </Title>
-      </Box>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-        {[
-          {
-            id: 'coaching',
-            title: 'Private Coaching',
-            desc: '1-on-1 strategic support and mentorship',
-            icon: <IconUsers size={28} />,
-          },
-          {
-            id: 'editing',
-            title: 'Express Services',
-            desc: 'Editorial, coding, and technical support',
-            icon: <IconEdit size={28} />,
-          },
-          {
-            id: 'blueprints',
-            title: 'Research Blueprints',
-            desc: 'Guided courses and project templates',
-            icon: <IconFileText size={28} />,
-          },
-          {
-            id: 'events',
-            title: 'Free Events',
-            desc: 'Workshops and group methodology sessions',
-            icon: <IconCertificate size={28} />,
-          },
-        ].map((item) => (
-          <SelectionCard
-            key={item.id}
-            title={item.title}
-            description={item.desc}
-            icon={item.icon}
-            active={data.interest === item.id}
-            onClick={() => selectOption('interest', item.id)}
-          />
-        ))}
-      </SimpleGrid>
-    </Stack>
-  )
+  const stepsContent = [
+    <StepInterest key={0} data={data} selectOption={selectOption} />,
+    <StepSpecifics key={1} data={data} selectOption={selectOption} />,
+    <StepStage key={2} data={data} selectOption={selectOption} />,
+    <StepDateTime key={3} data={data} setData={setData} nextStep={nextStep} />,
+    <StepForm key={4} data={data} setData={setData} nextStep={nextStep} />,
+    <StepSuccess key={5} data={data} setStep={setStep} />,
+  ]
 
-  const StepSpecifics = () => (
-    <Stack gap="xl">
-      <Box style={{ textAlign: 'center' }}>
-        <Text
-          size="xs"
-          fw={700}
-          style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-          c="dimmed"
-        >
-          Step 02
-        </Text>
-        <Title
-          order={1}
-          mt="md"
-          style={{
-            fontSize: rem(42),
-            fontWeight: 400,
-            fontFamily: 'var(--font-serif)',
-            color: active.primary,
-          }}
-        >
-          How can we best support you?
-        </Title>
-      </Box>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-        {[
-          {
-            id: 'methodology',
-            title: 'Methodology Design',
-            desc: 'Structuring your research approach',
-            icon: <IconSearch size={28} />,
-          },
-          {
-            id: 'editing',
-            title: 'Language & Flow',
-            desc: 'Refining prose and structural logic',
-            icon: <IconEdit size={28} />,
-          },
-          {
-            id: 'coding',
-            title: 'Data Coding',
-            desc: 'Qualitative or quantitative analysis',
-            icon: <IconClock size={28} />,
-          },
-          {
-            id: 'defense',
-            title: 'Defense Strategy',
-            desc: 'Preparation for the final committee',
-            icon: <IconCertificate size={28} />,
-          },
-        ].map((item) => (
-          <SelectionCard
-            key={item.id}
-            title={item.title}
-            description={item.desc}
-            icon={item.icon}
-            active={data.specifics === item.id}
-            onClick={() => selectOption('specifics', item.id)}
-          />
-        ))}
-      </SimpleGrid>
-    </Stack>
-  )
+  return (
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <Navbar />
 
-  const StepStage = () => (
-    <Stack gap="xl">
-      <Box style={{ textAlign: 'center' }}>
-        <Text
-          size="xs"
-          fw={700}
-          style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-          c="dimmed"
-        >
-          Step 03
-        </Text>
-        <Title
-          order={1}
-          mt="md"
-          style={{
-            fontSize: rem(42),
-            fontWeight: 400,
-            fontFamily: 'var(--font-serif)',
-            color: active.primary,
-          }}
-        >
-          What is your current phase?
-        </Title>
-      </Box>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-        {[
-          {
-            id: 'proposal',
-            title: 'Proposal Phase',
-            desc: 'Conceptualizing and initial drafting',
-            icon: <IconFileText size={28} />,
-          },
-          {
-            id: 'collection',
-            title: 'Data Collection',
-            desc: 'Gathering field data or literature',
-            icon: <IconSearch size={28} />,
-          },
-          {
-            id: 'drafting',
-            title: 'Drafting Chapters',
-            desc: 'Transforming data into analysis',
-            icon: <IconEdit size={28} />,
-          },
-          {
-            id: 'review',
-            title: 'Final Review',
-            desc: 'Polishing for committee submission',
-            icon: <IconCheck size={28} />,
-          },
-        ].map((item) => (
-          <SelectionCard
-            key={item.id}
-            title={item.title}
-            description={item.desc}
-            icon={item.icon}
-            active={data.stage === item.id}
-            onClick={() => selectOption('stage', item.id)}
-          />
-        ))}
-      </SimpleGrid>
-    </Stack>
-  )
-
-  const StepDateTime = () => (
-    <Stack gap="xl">
-      <Box style={{ textAlign: 'center' }}>
-        <Text
-          size="xs"
-          fw={700}
-          style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-          c="dimmed"
-        >
-          Step 04
-        </Text>
-        <Title
-          order={1}
-          mt="md"
-          style={{
-            fontSize: rem(42),
-            fontWeight: 400,
-            fontFamily: 'var(--font-serif)',
-            color: active.primary,
-          }}
-        >
-          Request a preferred window
-        </Title>
-      </Box>
-      <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }}>
-        <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
-          <Stack align="center" gap="md">
-            <Text fw={700} size="xs" style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Select Date
-            </Text>
-            <DatePicker
-              value={data.preferredDate}
-              onChange={(d) => setData((prev) => ({ ...prev, preferredDate: d }))}
-              minDate={new Date()}
-              classNames={{ day: 'calendar-day' }}
-            />
-          </Stack>
-          <Stack gap="md">
-            <Text fw={700} size="xs" style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Select Time Window
-            </Text>
-            <Stack gap="sm">
-              {[
-                { id: 'morning', title: 'Morning', range: '09:00 - 12:00' },
-                { id: 'afternoon', title: 'Afternoon', range: '13:00 - 17:00' },
-                { id: 'evening', title: 'Evening', range: '18:00 - 20:00' },
-              ].map((slot) => (
-                <UnstyledButton
-                  key={slot.id}
-                  onClick={() => setData((prev) => ({ ...prev, preferredTime: slot.id }))}
-                  style={{
-                    padding: rem(16),
-                    border: `1px solid ${data.preferredTime === slot.id ? active.primary : '#eee'}`,
-                    backgroundColor:
-                      data.preferredTime === slot.id ? active.surface : active.background,
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  <Group justify="space-between">
-                    <Text fw={600} color={active.primary}>
-                      {slot.title}
-                    </Text>
-                    <Text size="xs" c="dimmed">
-                      {slot.range}
-                    </Text>
-                  </Group>
-                </UnstyledButton>
-              ))}
-            </Stack>
-            <Button
-              size="lg"
-              variant="filled"
-              bg={active.primary}
-              radius={0}
-              mt="xl"
-              disabled={!data.preferredDate || !data.preferredTime}
-              onClick={nextStep}
-              rightSection={<IconArrowRight size={18} />}
+      {/* Top White Section */}
+      <Box component="section" pt={rem(100)} pb={rem(60)} bg={active.background}>
+        <Container size={INNER_WIDTH}>
+          <Box style={{ maxWidth: 800, margin: 'auto', textAlign: 'center' }}>
+            {step < totalSteps && (
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c="dimmed"
+              >
+                Step {step + 1}
+              </Text>
+            )}
+            <Title
+              order={1}
+              mt="md"
+              style={{
+                fontSize: rem(48),
+                fontWeight: 400,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+              }}
             >
-              CONTINUE
-            </Button>
-          </Stack>
-        </SimpleGrid>
+              {stepHeadlines[step].title}
+            </Title>
+            <Text size="lg" c="dimmed" lh={1.6} mt="xl">
+              {stepHeadlines[step].desc}
+            </Text>
+          </Box>
+        </Container>
       </Box>
-    </Stack>
-  )
 
-  const StepForm = () => (
-    <Stack gap="xl">
-      <Box style={{ textAlign: 'center' }}>
-        <Text
-          size="xs"
-          fw={700}
-          style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-          c="dimmed"
-        >
-          Step 05
-        </Text>
-        <Title
-          order={1}
-          mt="md"
-          style={{
-            fontSize: rem(42),
-            fontWeight: 400,
-            fontFamily: 'var(--font-serif)',
-            color: active.primary,
-          }}
-        >
-          Finalize your inquiry
-        </Title>
+      {/* Main Stepper Section on Gray */}
+      <Box
+        component="section"
+        py={rem(80)}
+        bg={active.surface}
+        style={{ borderTop: `1px solid ${active.primary}22` }}
+      >
+        <Container size={INNER_WIDTH}>
+          <Stack gap={rem(40)}>
+            {step < totalSteps && (
+              <Stack gap="md">
+                <Progress
+                  value={(step / (totalSteps - 1)) * 100}
+                  size="sm"
+                  color={active.primary}
+                  radius={0}
+                  styles={{ section: { transition: 'width 500ms ease' } }}
+                />
+                <Group justify="space-between" w="100%">
+                  {step > 0 ? (
+                    <UnstyledButton
+                      onClick={prevStep}
+                      style={{ display: 'flex', alignItems: 'center', gap: rem(8) }}
+                    >
+                      <IconArrowLeft size={16} />
+                      <Text
+                        size="xs"
+                        fw={700}
+                        style={{
+                          letterSpacing: '0.1em',
+                          textTransform: 'uppercase',
+                          color: active.primary,
+                        }}
+                      >
+                        Back
+                      </Text>
+                    </UnstyledButton>
+                  ) : (
+                    <div />
+                  )}
+                  <Text
+                    size="xs"
+                    fw={700}
+                    style={{ letterSpacing: '0.1em', color: active.primary }}
+                  >
+                    {step + 1} / {totalSteps}
+                  </Text>
+                </Group>
+              </Stack>
+            )}
+
+            <Box mt="xl">{stepsContent[step]}</Box>
+          </Stack>
+        </Container>
       </Box>
-      <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }}>
-        <Stack gap="lg">
-          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-            <TextInput
-              label="Full Name"
-              placeholder="e.g. Dr. Jane Smith"
-              radius={0}
-              value={data.name}
-              onChange={(e) => setData((prev) => ({ ...prev, name: e.target.value }))}
-            />
-            <TextInput
-              label="Email Address"
-              placeholder="e.g. j.smith@university.edu"
-              radius={0}
-              value={data.email}
-              onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))}
-            />
-          </SimpleGrid>
-          <Textarea
-            label="Brief Project Description"
-            placeholder="Describe your research topic and current challenges..."
-            minRows={4}
-            radius={0}
-            value={data.description}
-            onChange={(e) => setData((prev) => ({ ...prev, description: e.target.value }))}
+      <Footer />
+    </Box>
+  )
+}
+
+// Step Components
+function StepInterest({ data, selectOption }: any) {
+  return (
+    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
+      {[
+        {
+          id: 'coaching',
+          title: 'Private Coaching',
+          desc: '1-on-1 strategic support and mentorship',
+          icon: <IconUsers size={28} />,
+        },
+        {
+          id: 'editing',
+          title: 'Express Services',
+          desc: 'Editorial, coding, and technical support',
+          icon: <IconEdit size={28} />,
+        },
+        {
+          id: 'blueprints',
+          title: 'Research Blueprints',
+          desc: 'Guided courses and project templates',
+          icon: <IconFileText size={28} />,
+        },
+        {
+          id: 'events',
+          title: 'Free Events',
+          desc: 'Workshops and group methodology sessions',
+          icon: <IconCertificate size={28} />,
+        },
+      ].map((item) => (
+        <SelectionCard
+          key={item.id}
+          title={item.title}
+          description={item.desc}
+          icon={item.icon}
+          active={data.interest === item.id}
+          onClick={() => selectOption('interest', item.id)}
+        />
+      ))}
+    </SimpleGrid>
+  )
+}
+
+function StepSpecifics({ data, selectOption }: any) {
+  return (
+    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
+      {[
+        {
+          id: 'methodology',
+          title: 'Methodology Design',
+          desc: 'Structuring your research approach',
+          icon: <IconSearch size={28} />,
+        },
+        {
+          id: 'editing',
+          title: 'Language & Flow',
+          desc: 'Refining prose and structural logic',
+          icon: <IconEdit size={28} />,
+        },
+        {
+          id: 'coding',
+          title: 'Data Coding',
+          desc: 'Qualitative or quantitative analysis',
+          icon: <IconClock size={28} />,
+        },
+        {
+          id: 'defense',
+          title: 'Defense Strategy',
+          desc: 'Preparation for the final committee',
+          icon: <IconCertificate size={28} />,
+        },
+      ].map((item) => (
+        <SelectionCard
+          key={item.id}
+          title={item.title}
+          description={item.desc}
+          icon={item.icon}
+          active={data.specifics === item.id}
+          onClick={() => selectOption('specifics', item.id)}
+        />
+      ))}
+    </SimpleGrid>
+  )
+}
+
+function StepStage({ data, selectOption }: any) {
+  return (
+    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
+      {[
+        {
+          id: 'proposal',
+          title: 'Proposal Phase',
+          desc: 'Conceptualizing and initial drafting',
+          icon: <IconFileText size={28} />,
+        },
+        {
+          id: 'collection',
+          title: 'Data Collection',
+          desc: 'Gathering field data or literature',
+          icon: <IconSearch size={28} />,
+        },
+        {
+          id: 'drafting',
+          title: 'Drafting Chapters',
+          desc: 'Transforming data into analysis',
+          icon: <IconEdit size={28} />,
+        },
+        {
+          id: 'review',
+          title: 'Final Review',
+          desc: 'Polishing for committee submission',
+          icon: <IconCheck size={28} />,
+        },
+      ].map((item) => (
+        <SelectionCard
+          key={item.id}
+          title={item.title}
+          description={item.desc}
+          icon={item.icon}
+          active={data.stage === item.id}
+          onClick={() => selectOption('stage', item.id)}
+        />
+      ))}
+    </SimpleGrid>
+  )
+}
+
+function StepDateTime({ data, setData, nextStep }: any) {
+  const { other: active } = useMantineTheme()
+  return (
+    <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }} mt={rem(40)}>
+      <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
+        <Stack align="center" gap="md">
+          <DatePicker
+            value={data.preferredDate}
+            onChange={(d) => setData((prev: any) => ({ ...prev, preferredDate: d }))}
+            minDate={new Date()}
+            classNames={{ day: 'calendar-day' }}
           />
+        </Stack>
+        <Stack gap="md">
+          <Stack gap="sm">
+            {[
+              { id: 'morning', title: 'Morning', range: '09:00 - 12:00' },
+              { id: 'afternoon', title: 'Afternoon', range: '13:00 - 17:00' },
+              { id: 'evening', title: 'Evening', range: '18:00 - 20:00' },
+            ].map((slot) => (
+              <UnstyledButton
+                key={slot.id}
+                onClick={() => setData((prev: any) => ({ ...prev, preferredTime: slot.id }))}
+                style={{
+                  padding: rem(16),
+                  border: `1px solid ${data.preferredTime === slot.id ? active.primary : '#eee'}`,
+                  backgroundColor:
+                    data.preferredTime === slot.id ? active.surface : active.background,
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <Group justify="space-between">
+                  <Text fw={600} color={active.primary}>
+                    {slot.title}
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    {slot.range}
+                  </Text>
+                </Group>
+              </UnstyledButton>
+            ))}
+          </Stack>
+          <Button
+            size="lg"
+            variant="filled"
+            bg={active.primary}
+            radius={0}
+            mt="xl"
+            disabled={!data.preferredDate || !data.preferredTime}
+            onClick={nextStep}
+            rightSection={<IconArrowRight size={18} />}
+          >
+            CONTINUE
+          </Button>
+        </Stack>
+      </SimpleGrid>
+    </Box>
+  )
+}
+
+function StepForm({ data, setData, nextStep }: any) {
+  const { other: active } = useMantineTheme()
+  return (
+    <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }} mt={rem(40)}>
+      <Stack gap="lg">
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+          <TextInput
+            label="Full Name"
+            placeholder="e.g. Dr. Jane Smith"
+            radius={0}
+            value={data.name}
+            onChange={(e) => setData((prev: any) => ({ ...prev, name: e.target.value }))}
+          />
+          <TextInput
+            label="Email Address"
+            placeholder="e.g. j.smith@university.edu"
+            radius={0}
+            value={data.email}
+            onChange={(e) => setData((prev: any) => ({ ...prev, email: e.target.value }))}
+          />
+        </SimpleGrid>
+        <Textarea
+          label="Brief Project Description"
+          placeholder="Describe your research topic and current challenges..."
+          minRows={4}
+          radius={0}
+          value={data.description}
+          onChange={(e) => setData((prev: any) => ({ ...prev, description: e.target.value }))}
+        />
+        <Stack gap="sm" mt="md">
           <Button
             size="lg"
             variant="filled"
@@ -418,29 +440,32 @@ export default function ConsultationPage() {
           >
             SUBMIT INQUIRY
           </Button>
+          <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
+            This is a free, 15-minute introductory call to get to know your needs, not a coaching
+            session.{' '}
+            <Link
+              href="/scholarcrafted/services/dissertation-coaching"
+              style={{ color: active.primary }}
+            >
+              Find out more here
+            </Link>
+            .
+          </Text>
         </Stack>
-      </Box>
-    </Stack>
+      </Stack>
+    </Box>
   )
+}
 
-  const StepSuccess = () => (
+function StepSuccess({ data, setStep }: any) {
+  const { other: active } = useMantineTheme()
+  return (
     <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
       <Stack gap="xl" align="center">
         <Box c={active.accent}>
           <IconCertificate size={64} stroke={1.5} />
         </Box>
         <Box>
-          <Title
-            order={1}
-            style={{
-              fontSize: rem(42),
-              fontWeight: 400,
-              fontFamily: 'var(--font-serif)',
-              color: active.primary,
-            }}
-          >
-            Consultation Initialized.
-          </Title>
           <Text size="lg" mt="md" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
             You have taken a decisive step toward completion. Micah, PhD is personally reviewing
             your research profile and will confirm your strategy session within 24 hours.
@@ -556,149 +581,9 @@ export default function ConsultationPage() {
       </Link>
     </Stack>
   )
-
-  return (
-    <Box
-      bg={active.surface}
-      style={{ minHeight: '100vh', color: active.primary, position: 'relative' }}
-    >
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        /* Hide global elements */
-        header, footer { display: none !important; }
-
-        .calendar-day[data-selected] {
-          background-color: ${active.primary} !important;
-          color: white !important;
-          border-radius: 0 !important;
-        }
-        .calendar-day {
-          border-radius: 0 !important;
-        }
-
-        .selection-card:hover {
-          border-color: ${active.primary} !important;
-          background-color: ${active.surface} !important;
-        }
-        .selection-card:hover svg {
-          color: ${active.accent} !important;
-        }
-      `,
-        }}
-      />
-
-      {/* Header-lite */}
-      <Box component="nav" py="xl" style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
-        <Container size={INNER_WIDTH}>
-          <Group justify="space-between">
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Stack gap={0}>
-                <Text
-                  fw={700}
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: rem(20),
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1,
-                    color: active.primary,
-                  }}
-                >
-                  SCHOLARCRAFTED
-                </Text>
-              </Stack>
-            </Link>
-            {step < totalSteps && (
-              <UnstyledButton
-                onClick={() => (window.location.href = '/scholarcrafted')}
-                style={{ opacity: 0.5 }}
-              >
-                <Text
-                  size="xs"
-                  fw={700}
-                  style={{
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: active.primary,
-                  }}
-                >
-                  Exit
-                </Text>
-              </UnstyledButton>
-            )}
-          </Group>
-        </Container>
-      </Box>
-
-      <Center style={{ minHeight: '100vh', padding: `${rem(100)} 0` }}>
-        <Container size={INNER_WIDTH} w="100%">
-          <Stack gap={rem(60)}>
-            {step < totalSteps && (
-              <Stack gap="md">
-                <Progress
-                  value={(step / (totalSteps - 1)) * 100}
-                  size="sm"
-                  color={active.primary}
-                  radius={0}
-                  styles={{ section: { transition: 'width 500ms ease' } }}
-                />
-                <Group justify="space-between" w="100%">
-                  {step > 0 ? (
-                    <UnstyledButton
-                      onClick={prevStep}
-                      style={{ display: 'flex', alignItems: 'center', gap: rem(8) }}
-                    >
-                      <IconArrowLeft size={16} />
-                      <Text
-                        size="xs"
-                        fw={700}
-                        style={{
-                          letterSpacing: '0.1em',
-                          textTransform: 'uppercase',
-                          color: active.primary,
-                        }}
-                      >
-                        Back
-                      </Text>
-                    </UnstyledButton>
-                  ) : (
-                    <div />
-                  )}
-                  <Text
-                    size="xs"
-                    fw={700}
-                    style={{ letterSpacing: '0.1em', color: active.primary }}
-                  >
-                    {step + 1} / {totalSteps}
-                  </Text>
-                </Group>
-              </Stack>
-            )}
-
-            <Box>
-              {step === 0 && <StepInterest />}
-              {step === 1 && <StepSpecifics />}
-              {step === 2 && <StepStage />}
-              {step === 3 && <StepDateTime />}
-              {step === 4 && <StepForm />}
-              {step === 5 && <StepSuccess />}
-            </Box>
-          </Stack>
-        </Container>
-      </Center>
-    </Box>
-  )
 }
 
-interface CardProps {
-  title: string
-  description: string
-  icon: React.ReactNode
-  active: boolean
-  onClick: () => void
-}
-
-function SelectionCard({ title, description, icon, active, onClick }: CardProps) {
+function SelectionCard({ title, description, icon, active, onClick }: any) {
   const theme = useMantineTheme()
   const activeTheme = theme.other
 
@@ -707,7 +592,7 @@ function SelectionCard({ title, description, icon, active, onClick }: CardProps)
       onClick={onClick}
       style={{
         padding: rem(32),
-        backgroundColor: active ? activeTheme.background : 'white',
+        backgroundColor: active ? activeTheme.surface : 'white',
         border: `1px solid ${active ? activeTheme.primary : '#eee'}`,
         transition: 'all 0.2s ease',
         position: 'relative',

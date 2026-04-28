@@ -262,14 +262,15 @@ export default function ScholarCraftedLanding() {
                   fontFamily: 'var(--font-serif)',
                 }}
               >
-                Recognizing the Doctoral Condition.
+                Your research journey is unique. <br />
+                Your challenges are not.
               </Title>
             </Box>
 
             <Stack gap={0}>
               {[
                 {
-                  title: 'Advisor In-congruence',
+                  title: 'Supervisor In-congruence',
                   desc: 'You feel your feedback is infrequent, misaligned, or insufficient to move the work forward.',
                 },
                 {
@@ -308,22 +309,6 @@ export default function ScholarCraftedLanding() {
                 </Box>
               ))}
             </Stack>
-
-            <Text
-              size="xl"
-              lh={1.7}
-              c="dimmed"
-              style={{
-                fontWeight: 400,
-                fontSize: rem(24),
-                borderTop: `2px solid ${active.accent}`,
-                paddingTop: rem(40),
-                alignSelf: 'stretch',
-                textAlign: 'center',
-              }}
-            >
-              We provide the scaffolding required to move forward with absolute authority.
-            </Text>
           </Stack>
         </Container>
       </Box>
