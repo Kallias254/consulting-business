@@ -264,8 +264,17 @@ export default function ScholarCraftedLanding() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(80)}>
             <Box style={{ textAlign: 'center' }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c="dimmed"
+              >
+                You Are Not Alone
+              </Text>
               <Title
                 order={2}
+                mt="md"
                 style={{
                   fontSize: rem(48),
                   fontWeight: 400,

@@ -188,13 +188,13 @@ export default function PrivateCoachingPage() {
                 style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 c={active.accent}
               >
-                Targeted Interventions
+                Coaching Packages
               </Text>
-              <Title order={3} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
-                Choose Your Session
+              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+                What's included in each package
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
-                Select the coaching duration that best matches the complexity of your current academic challenges.
+                All packages are activated following your free introductory call, where we assess your needs and confirm the right level of engagement for your research.
               </Text>
             </Box>
             
