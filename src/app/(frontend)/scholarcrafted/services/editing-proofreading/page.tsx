@@ -90,6 +90,12 @@ export default function EditingProofreadingPage() {
               From macro-level argument flow to micro-level prose precision, we ensure your research
               is presented with the clarity, tone, and authority expected by your committee.
             </Text>
+            
+            <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
+              <Button size="xl" variant="filled" bg={active.primary} radius={0} mt={rem(40)} px={rem(40)}>
+                REQUEST A REVIEW
+              </Button>
+            </Link>
           </Box>
         </Container>
       </Box>
