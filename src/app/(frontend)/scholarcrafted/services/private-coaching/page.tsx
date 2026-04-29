@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import {
   Container,
   Title,
@@ -19,14 +19,16 @@ import {
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
-import { 
-  IconCheck, 
-  IconVideo, 
-  IconListCheck, 
+import {
+  IconCheck,
+  IconVideo,
+  IconListCheck,
   IconUserCheck,
   IconArrowRight,
   IconRocket
 } from '@tabler/icons-react'
+import { Carousel } from '@mantine/carousel'
+import Autoplay from 'embla-carousel-autoplay'
 
 const SECTION_SPACING = rem(120)
 const INNER_WIDTH = 1100
@@ -53,6 +55,7 @@ const faqs = [
 export default function PrivateCoachingPage() {
   const theme = useMantineTheme()
   const active = theme.other
+  const autoplay = useRef(Autoplay({ delay: 3000, stopOnInteraction: false }))
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
@@ -97,7 +100,7 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
-      {/* Pain Points — Do you recognise yourself here? */}
+      {/* Pain Points Carousel */}
       <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
@@ -111,46 +114,52 @@ export default function PrivateCoachingPage() {
                 Sound Familiar?
               </Text>
               <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
-                Do you recognise yourself here?
+                Are you in this position right now?
               </Title>
               <Text c="dimmed" mt="md" size="lg" lh={1.7}>
                 Coaching exists for moments like these.
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(32)}>
+            <Carousel
+              withIndicators
+              loop
+              withControls={false}
+              plugins={[autoplay.current]}
+              onMouseEnter={autoplay.current.stop}
+              onMouseLeave={autoplay.current.reset}
+              styles={{
+                root: { paddingBottom: rem(48) },
+                indicators: { bottom: 0 },
+                indicator: {
+                  width: rem(8),
+                  height: rem(8),
+                  transition: 'width 250ms ease',
+                  backgroundColor: `${active.primary}44`,
+                },
+              }}
+            >
               {[
-                {
-                  pain: "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
-                },
-                {
-                  pain: "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
-                },
-                {
-                  pain: "You understand the theory — you just can't get it to hold together coherently on the page.",
-                },
-                {
-                  pain: "Your Chair is barely available and you're making critical research decisions completely alone.",
-                },
-                {
-                  pain: "You have the data. You just don't know what it's telling you — or how to say it properly.",
-                },
-                {
-                  pain: "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
-                },
-              ].map((item, i) => (
-                <Box
-                  key={i}
-                  p={rem(32)}
-                  bg={active.background}
-                  style={{ borderLeft: `3px solid ${active.primary}`, borderTop: `1px solid ${active.primary}11` }}
-                >
-                  <Text size="md" lh={1.7} c={active.primary} fw={500}>
-                    &ldquo;{item.pain}&rdquo;
-                  </Text>
-                </Box>
+                "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
+                "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
+                "You understand the theory — you just can't get it to hold together coherently on the page.",
+                "Your Chair is barely available and you're making critical research decisions completely alone.",
+                "You have the data. You just don't know what it's telling you — or how to say it properly.",
+                "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
+              ].map((pain, i) => (
+                <Carousel.Slide key={i}>
+                  <Box
+                    p={rem(40)}
+                    bg={active.background}
+                    style={{ borderLeft: `3px solid ${active.primary}`, borderTop: `1px solid ${active.primary}11`, minHeight: rem(120), display: 'flex', alignItems: 'center' }}
+                  >
+                    <Text size="lg" lh={1.8} c={active.primary} fw={500}>
+                      &ldquo;{pain}&rdquo;
+                    </Text>
+                  </Box>
+                </Carousel.Slide>
               ))}
-            </SimpleGrid>
+            </Carousel>
           </Stack>
         </Container>
       </Box>
