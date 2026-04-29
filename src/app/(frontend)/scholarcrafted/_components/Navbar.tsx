@@ -76,6 +76,19 @@ export function Navbar() {
                 HOW IT WORKS
               </Text>
             </Link>
+            <Link
+              href="/scholarcrafted/resources"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <Text
+                fw={500}
+                size="xs"
+                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
+                className="nav-link"
+              >
+                RESOURCES
+              </Text>
+            </Link>
             <Link href="/scholarcrafted/about" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Text
                 fw={500}

@@ -169,6 +169,18 @@ export function Footer() {
                   Our Scholarly Tradition
                 </Text>
               </Link>
+              <Link
+                href="/scholarcrafted/resources"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
+                  Resources & Blueprints
+                </Text>
+              </Link>
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text
                   size="sm"
