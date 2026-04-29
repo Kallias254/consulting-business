@@ -55,6 +55,18 @@ const testimonials = [
     author: 'DR. M. ROBERTS, PH.D.',
     institution: 'PSYCHOLOGY, STANFORD UNIVERSITY',
   },
+  {
+    quote:
+      "I was paralyzed by the sheer volume of qualitative data I had collected. The technical support team didn't just help me code my NVivo transcripts—they taught me how to extract the core narrative. I finally felt in control of my research.",
+    author: 'DR. S. PATEL, PH.D.',
+    institution: 'EDUCATION, HARVARD UNIVERSITY',
+  },
+  {
+    quote:
+      'The feedback I received on my methodology chapter was incredibly precise. They caught structural gaps that my committee missed, saving me months of potential revisions during my final defense.',
+    author: 'DR. J. CARTER, PH.D.',
+    institution: 'PUBLIC HEALTH, JOHNS HOPKINS UNIVERSITY',
+  },
 ]
 
 export default function ScholarCraftedLanding() {
@@ -298,7 +310,6 @@ export default function ScholarCraftedLanding() {
                       size="lg"
                       fw={600}
                       c={active.primary}
-                      style={{ fontFamily: 'var(--font-serif)' }}
                     >
                       {item.title}
                     </Text>
@@ -340,7 +351,7 @@ export default function ScholarCraftedLanding() {
                 <ThemeIcon size={64} radius="xl" variant="light" color="dark">
                   <IconMessageChatbot size={32} stroke={1.5} />
                 </ThemeIcon>
-                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                <Text fw={700} size="lg">
                   01. Strategic Review
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
@@ -352,7 +363,7 @@ export default function ScholarCraftedLanding() {
                 <ThemeIcon size={64} radius="xl" variant="light" color="dark">
                   <IconRocket size={32} stroke={1.5} />
                 </ThemeIcon>
-                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                <Text fw={700} size="lg">
                   02. Guided Implementation
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
@@ -364,7 +375,7 @@ export default function ScholarCraftedLanding() {
                 <ThemeIcon size={64} radius="xl" variant="light" color="dark">
                   <IconCheck size={32} stroke={1.5} />
                 </ThemeIcon>
-                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                <Text fw={700} size="lg">
                   03. Final Submission
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
@@ -408,23 +419,23 @@ export default function ScholarCraftedLanding() {
             <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
               {[
                 {
-                  title: 'Private Coaching',
+                  title: 'Live Academic Coaching',
                   label: '1-ON-1 GUIDANCE',
                   desc: 'A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence.',
-                  link: '/scholarcrafted/services/private-coaching',
-                  cta: 'Explore Coaching',
+                  link: '/scholarcrafted/consultation',
+                  cta: 'Book a Consultation',
                 },
                 {
-                  title: 'Editing & Review',
+                  title: 'Structural Editing & Proofreading',
                   label: 'MANUSCRIPT REFINEMENT',
-                  desc: 'From structural logic to final proofreading, we ensure your argument is presented with clarity and authority.',
+                  desc: 'From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.',
                   link: '/scholarcrafted/services/editing-proofreading',
                   cta: 'View Editing Services',
                 },
                 {
-                  title: 'Technical Support',
-                  label: 'METHODOLOGY & DATA',
-                  desc: 'Expert assistance with research design, qualitative coding, statistical analysis, and more.',
+                  title: 'Custom Research & Data Support',
+                  label: 'TECHNICAL ASSISTANCE',
+                  desc: 'Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.',
                   link: '/scholarcrafted/services/research-support',
                   cta: 'Get Research Support',
                 },
@@ -501,7 +512,7 @@ export default function ScholarCraftedLanding() {
           >
             {testimonials.map((item, index) => (
               <Carousel.Slide key={index}>
-                <Container size={INNER_WIDTH}>
+                <Container size={960}>
                   <Stack align="center" style={{ textAlign: 'center' }} gap={rem(40)}>
                     <Text
                       style={{
@@ -518,7 +529,6 @@ export default function ScholarCraftedLanding() {
                     <Text
                       style={{
                         fontSize: rem(36),
-                        fontFamily: 'var(--font-serif)',
                         fontStyle: 'italic',
                         lineHeight: 1.4,
                         letterSpacing: '-0.01em',

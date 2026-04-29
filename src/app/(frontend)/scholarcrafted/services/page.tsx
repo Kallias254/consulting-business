@@ -9,15 +9,12 @@ import {
   SimpleGrid,
   Stack,
   Button,
-  Divider,
   rem,
   Group,
   useMantineTheme,
-  ThemeIcon,
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
-import { IconArrowRight, IconUsers, IconEdit, IconFileText, IconGoGame } from '@tabler/icons-react'
 import Link from 'next/link'
 
 const SECTION_SPACING = rem(140)
@@ -25,25 +22,18 @@ const INNER_WIDTH = 1100
 
 const offlineServices = [
   {
-    title: 'Structural Editing',
+    title: 'Structural Editing & Proofreading',
     label: 'MANUSCRIPT REFINEMENT',
-    desc: 'A macro-level review of your manuscript for argument, structure, and narrative cohesion.',
-    link: '/scholarcrafted/request-review?service=Structural%20Editing',
-    cta: 'Get a Quote & Submit',
+    desc: 'From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.',
+    link: '/scholarcrafted/services/editing-proofreading',
+    cta: 'View Editing Services',
   },
   {
-    title: 'Methodology Review',
-    label: 'RESEARCH DESIGN',
-    desc: 'A deep-dive assessment of your research design, sampling, and data analysis strategy.',
-    link: '/scholarcrafted/request-review?service=Methodology%20Review',
-    cta: 'Get a Quote & Submit',
-  },
-  {
-    title: 'Data & Coding Support',
+    title: 'Custom Research & Data Support',
     label: 'TECHNICAL ASSISTANCE',
-    desc: 'Expert support for qualitative coding (NVivo, ATLAS.ti) or statistical analysis (SPSS, R).',
-    link: '/scholarcrafted/request-service?service=Data%20%26%20Coding%20Support',
-    cta: 'Book a Free 15-Min Assessment',
+    desc: 'Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.',
+    link: '/scholarcrafted/services/research-support',
+    cta: 'Get Research Support',
   },
 ]
 
@@ -82,30 +72,14 @@ export default function ServicesPage() {
               the academic journey.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              ScholarCrafted provides a range of specialized advisory services designed to help
+              ScholarCrafted provides specialized offline advisory services designed to help
               researchers navigate the most challenging phases of the dissertation process.
             </Text>
           </Box>
         </Container>
       </Box>
 
-      {/* Tier 1 placeholder */}
-      <Box py={rem(60)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack align="center" gap="lg">
-            <Link
-              href="/scholarcrafted/services/private-coaching"
-              style={{ textDecoration: 'none' }}
-            >
-              <Button size="xl" variant="filled" bg={active.primary} radius={0}>
-                Explore Faculty-Led Coaching
-              </Button>
-            </Link>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* Tier 2: Manuscript & Data Services */}
+      {/* Asynchronous Services */}
       <Box
         component="section"
         py={SECTION_SPACING}
@@ -121,7 +95,7 @@ export default function ServicesPage() {
                 style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 c={active.accent}
               >
-                Tier 2: Asynchronous Support
+                Asynchronous Support
               </Text>
               <Title
                 order={2}
@@ -137,11 +111,11 @@ export default function ServicesPage() {
               </Title>
               <Text size="lg" c="dimmed" mt="md">
                 For the scholar who needs expert intervention on a specific part of their work
-                without the need for live calls.
+                without the need for live coaching calls.
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
               {offlineServices.map((service, i) => (
                 <Box
                   key={i}
@@ -187,48 +161,7 @@ export default function ServicesPage() {
         </Container>
       </Box>
 
-      {/* Tier 3: Self-Guided Resources */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c={active.accent}
-              >
-                Tier 3: Self-Guided
-              </Text>
-              <Title
-                order={2}
-                mt="md"
-                style={{
-                  fontSize: rem(48),
-                  fontWeight: 400,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
-              >
-                The ScholarCrafted Archives
-              </Title>
-              <Text size="lg" c="dimmed" mt="md" style={{ maxWidth: 600, margin: 'auto' }}>
-                A curated collection of resources for the independent scholar, from methodology
-                guides to our signature Research Blueprints.
-              </Text>
-            </Box>
-            <Button
-              size="lg"
-              variant="outline"
-              color={active.primary}
-              radius={0}
-              style={{ borderColor: active.primary }}
-            >
-              ACCESS THE ARCHIVES
-            </Button>
-          </Stack>
-        </Container>
-      </Box>
+
 
       <Footer />
     </Box>

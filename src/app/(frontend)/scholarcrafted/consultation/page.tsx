@@ -70,10 +70,10 @@ const COACHES = [
 
 const FORMATTED_VALUES: Record<string, string> = {
   // Interest
-  coaching: 'Private Coaching',
-  editing: 'Express Services',
-  blueprints: 'Research Blueprints',
-  events: 'Free Events',
+  coaching: 'Live Academic Coaching',
+  data_support: 'Custom Research & Data Support',
+  editing: 'Structural Editing & Proofreading',
+  other: 'Not Sure Yet',
   
   // MetBefore
   no: 'No, first time',
@@ -126,7 +126,7 @@ export default function ConsultationPage() {
   const nextStep = () => {
     setStep((s) => {
       if (s === 0) {
-        if (data.interest === 'coaching') return 1
+        if (data.interest === 'coaching' || data.interest === 'data_support') return 1
         return 3 // Skip to specifics
       }
       if (s === 1) {
@@ -140,7 +140,7 @@ export default function ConsultationPage() {
   const prevStep = () => {
     setStep((s) => {
       if (s === 3) {
-        if (data.interest === 'coaching') {
+        if (data.interest === 'coaching' || data.interest === 'data_support') {
           return data.metBefore === 'yes' ? 2 : 1
         }
         return 0
@@ -155,7 +155,11 @@ export default function ConsultationPage() {
 
     // Immediate actions for specific selections
     if (field === 'interest') {
-      if (value === 'coaching') setStep(1)
+      if (value === 'editing') {
+        window.location.href = '/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading'
+        return
+      }
+      if (value === 'coaching' || value === 'data_support') setStep(1)
       else setStep(3)
     } else if (field === 'metBefore') {
       if (value === 'yes') setStep(2)
@@ -229,7 +233,7 @@ export default function ConsultationPage() {
       
       {/* Top Section - Background */}
       <Box component="section" pt={{ base: rem(60), md: rem(100) }} pb={rem(60)} bg={active.background}>
-        <Container size="md">
+        <Container size={INNER_WIDTH}>
           <Group justify="space-between" align="center" mb={rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
             {step > 0 && step < totalSteps ? (
               <UnstyledButton
@@ -278,7 +282,7 @@ export default function ConsultationPage() {
                 {stepHeadlines[step].title}
               </Title>
               {stepHeadlines[step].desc && (
-                <Text size="lg" c="dimmed" lh={1.6} mt="xl" style={{ maxWidth: 550, margin: '1.5rem auto 0' }}>
+                <Text size="lg" c="dimmed" lh={1.6} mt="xl" style={{ margin: '1.5rem auto 0' }}>
                   {stepHeadlines[step].desc}
                 </Text>
               )}
@@ -308,27 +312,27 @@ function StepInterest({ data, selectOption }: any) {
       {[
         {
           id: 'coaching',
-          title: 'Private Coaching',
+          title: 'Live Academic Coaching',
           desc: '1-on-1 strategic support and mentorship',
           icon: <IconUsers size={28} />,
         },
         {
+          id: 'data_support',
+          title: 'Custom Research & Data Support',
+          desc: 'Technical assistance, NVivo, SPSS, and methodology review',
+          icon: <IconMicroscope size={28} />,
+        },
+        {
           id: 'editing',
-          title: 'Express Services',
-          desc: 'Editorial, coding, and technical support',
+          title: 'Structural Editing & Proofreading',
+          desc: 'Manuscript refinement and formatting',
           icon: <IconEdit size={28} />,
         },
         {
-          id: 'blueprints',
-          title: 'Research Blueprints',
-          desc: 'Guided courses and project templates',
-          icon: <IconFileText size={28} />,
-        },
-        {
-          id: 'events',
-          title: 'Free Events',
-          desc: 'Workshops and group methodology sessions',
-          icon: <IconCertificate size={28} />,
+          id: 'other',
+          title: 'Not Sure Yet',
+          desc: 'Let us help diagnose your exact needs',
+          icon: <IconSearch size={28} />,
         },
       ].map((item) => (
         <SelectionCard
@@ -901,7 +905,7 @@ function SelectionCard({ title, description, icon, active, onClick }: any) {
         )}
       </Group>
       
-      <Text fw={600} size="xl" mb={rem(8)} style={{ fontFamily: 'var(--font-serif)', color: activeTheme.primary }}>
+      <Text fw={600} size="xl" mb={rem(8)} style={{ color: activeTheme.primary }}>
         {title}
       </Text>
       <Text size="sm" c="dimmed" lh={1.6} style={{ flexGrow: 1 }}>

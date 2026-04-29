@@ -105,7 +105,7 @@ export function Footer() {
                   c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
                   className="footer-link"
                 >
-                  Structural Editing
+                  Structural Editing & Proofreading
                 </Text>
               </Link>
               <Link
