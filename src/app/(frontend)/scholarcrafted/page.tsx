@@ -361,11 +361,10 @@ export default function ScholarCraftedLanding() {
                   <IconMessageChatbot size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  01. Strategic Review
+                  01. A 15-Minute Chat
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  A deep-dive consultation to understand your project, identify roadblocks, and map
-                  a clear path forward.
+                  No forms. No commitment. Just a quick, free call where we listen to where you are, what's blocking you, and whether we're the right fit. Zero pressure.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -373,11 +372,10 @@ export default function ScholarCraftedLanding() {
                   <IconRocket size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  02. Guided Implementation
+                  02. We Get to Work
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Work directly with a PhD-level specialist to execute the plan with regular
-                  check-ins and structured feedback.
+                  Your assigned specialist dives into your manuscript, methodology, or data — and works with you directly to unblock, restructure, and move things forward.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -385,11 +383,10 @@ export default function ScholarCraftedLanding() {
                   <IconCheck size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  03. Final Submission
+                  03. You Submit With Confidence
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Finalize your manuscript with confidence, knowing it has been rigorously reviewed
-                  for clarity, structure, and impact.
+                  You hand in work that is tight, coherent, and committee-ready — knowing exactly why every decision was made and how to defend it.
                 </Text>
               </Stack>
             </SimpleGrid>
