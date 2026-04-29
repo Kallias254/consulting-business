@@ -186,7 +186,7 @@ export default function ServicesPage() {
                   fontFamily: 'var(--font-serif)',
                 }}
               >
-                Manuscript & Data Services
+                Ready for expert intervention?
               </Title>
               <Text size="lg" c="dimmed" mt="md">
                 For the scholar who needs expert intervention on a specific part of their work
