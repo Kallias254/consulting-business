@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   Container,
   Title,
@@ -104,10 +105,34 @@ const FORMATTED_VALUES: Record<string, string> = {
 }
 
 export default function ConsultationPage() {
-  const [step, setStep] = useState(0)
+  return (
+    <Suspense fallback={<Box style={{ minHeight: '100vh' }} />}>
+      <ConsultationWizard />
+    </Suspense>
+  )
+}
+
+function ConsultationWizard() {
+  const searchParams = useSearchParams()
+  const initialInterest = searchParams.get('interest') || ''
+  const initialMetBefore = searchParams.get('metBefore') || ''
+
+  let initialStep = 0
+  if (initialInterest) {
+    if (initialInterest !== 'editing') {
+      initialStep = 1
+      if (initialMetBefore === 'no') {
+        initialStep = 3 // skip to specifics
+      } else if (initialMetBefore === 'yes') {
+        initialStep = 2 // select coach
+      }
+    }
+  }
+
+  const [step, setStep] = useState(initialStep)
   const [data, setData] = useState<StepData>({
-    interest: '',
-    metBefore: '',
+    interest: initialInterest,
+    metBefore: initialMetBefore,
     coach: '',
     specifics: '',
     discipline: '',

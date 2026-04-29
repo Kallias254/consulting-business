@@ -20,7 +20,7 @@ import {
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
-import { IconCheck, IconArrowRight } from '@tabler/icons-react'
+import { IconCheck, IconArrowRight, IconMessageChatbot, IconShieldCheck, IconRocket } from '@tabler/icons-react'
 
 const SECTION_SPACING = rem(120)
 const INNER_WIDTH = 1100
@@ -82,9 +82,9 @@ export default function ResearchSupportPage() {
               Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.
             </Text>
             
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/consultation?interest=data_support&metBefore=no" style={{ textDecoration: 'none' }}>
               <Button size="xl" variant="filled" bg={active.primary} radius={0} mt={rem(40)} px={rem(40)}>
-                BOOK A FREE 15-MIN ASSESSMENT
+                FREE INTRODUCTORY CALL
               </Button>
             </Link>
           </Box>
@@ -260,28 +260,69 @@ export default function ResearchSupportPage() {
       <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-            <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
-              How It Works
-            </Title>
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" style={{ textAlign: 'left' }}>
-              <Box>
-                <Text fw={700} size="xl" c={active.primary} mb="sm">1. Initial Assessment</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>Book a free 15-minute consultation to discuss your specific data needs, software requirements, and methodological approach.</Text>
-              </Box>
-              <Box>
-                <Text fw={700} size="xl" c={active.primary} mb="sm">2. Scope & Secure Transfer</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We provide a precise quote and timeline. Upon agreement, you securely transfer your raw data, codebooks, or instruments to our specialists.</Text>
-              </Box>
-              <Box>
-                <Text fw={700} size="xl" c={active.primary} mb="sm">3. Execution & Delivery</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We perform the rigorous technical analysis and deliver clean, organized outputs ready for you to interpret and write into your final manuscript.</Text>
-              </Box>
+            <Box style={{ maxWidth: 700 }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c="dimmed"
+              >
+                The Process
+              </Text>
+              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+                How It Works
+              </Title>
+              <Text c="dimmed" mt="md" size="lg">
+                A seamless, professional workflow designed to align your data with rigorous methodological standards.
+              </Text>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)} mt="lg">
+              <Stack align="center" gap="md">
+                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
+                  <IconMessageChatbot size={32} stroke={1.5} />
+                </ThemeIcon>
+                <Text fw={700} size="lg">
+                  01. Initial Assessment
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  Book a free introductory call to discuss your specific data needs, software requirements, and methodological approach.
+                </Text>
+              </Stack>
+              <Stack align="center" gap="md">
+                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
+                  <IconShieldCheck size={32} stroke={1.5} />
+                </ThemeIcon>
+                <Text fw={700} size="lg">
+                  02. Scope & Secure Transfer
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  We provide a precise quote and timeline. Upon agreement, you securely transfer your raw data, codebooks, or instruments to our specialists.
+                </Text>
+              </Stack>
+              <Stack align="center" gap="md">
+                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
+                  <IconRocket size={32} stroke={1.5} />
+                </ThemeIcon>
+                <Text fw={700} size="lg">
+                  03. Execution & Delivery
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  We perform the rigorous technical analysis and deliver clean, organized outputs ready for you to interpret and write into your final manuscript.
+                </Text>
+              </Stack>
             </SimpleGrid>
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-              <Button size="lg" variant="outline" color={active.primary} radius={0} mt="xl" style={{ borderColor: active.primary }}>
-                BOOK A FREE 15-MIN ASSESSMENT
-              </Button>
-            </Link>
+
+            <Center mt={rem(40)}>
+              <Link
+                href="/scholarcrafted/consultation?interest=data_support&metBefore=no"
+                style={{ textDecoration: 'none' }}
+              >
+                <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                  FREE INTRODUCTORY CALL
+                </Button>
+              </Link>
+            </Center>
           </Stack>
         </Container>
       </Box>
@@ -386,9 +427,9 @@ export default function ResearchSupportPage() {
                   </Text>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Book a Consultation
+                      View Coaching Services
                     </Button>
                   </Link>
                 </Box>

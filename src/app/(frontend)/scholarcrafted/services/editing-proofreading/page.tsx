@@ -93,7 +93,7 @@ export default function EditingProofreadingPage() {
             
             <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
               <Button size="xl" variant="filled" bg={active.primary} radius={0} mt={rem(40)} px={rem(40)}>
-                REQUEST A REVIEW
+                GET A FREE QUOTE
               </Button>
             </Link>
           </Box>
@@ -327,7 +327,7 @@ export default function EditingProofreadingPage() {
                 style={{ textDecoration: 'none' }}
               >
                 <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
-                  REQUEST AN EDITING QUOTE
+                  GET A FREE QUOTE
                 </Button>
               </Link>
             </Center>
@@ -435,9 +435,9 @@ export default function EditingProofreadingPage() {
                   </Text>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Book a Consultation
+                      View Coaching Services
                     </Button>
                   </Link>
                 </Box>

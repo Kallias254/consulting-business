@@ -86,7 +86,7 @@ export function Navbar() {
                 ABOUT
               </Text>
             </Link>
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
               <Button
                 variant="outline"
                 color={active.primary === '#A51C30' ? '#FFFFFF' : active.primary}
@@ -103,7 +103,7 @@ export function Navbar() {
                   color: active.primary === '#A51C30' ? '#FFFFFF' : active.primary,
                 }}
               >
-                BOOK CONSULTATION
+                FREE INTRODUCTORY CALL
               </Button>
             </Link>
           </Group>

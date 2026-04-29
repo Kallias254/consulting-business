@@ -138,9 +138,9 @@ export default function ScholarCraftedLanding() {
 
               <Stack gap="xl">
                 <Box className="hero-primary-container">
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
                     <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0}>
-                      BOOK MY FREE CONSULTATION
+                      FREE INTRODUCTORY CALL
                     </Button>
                   </Link>
                 </Box>
@@ -385,9 +385,9 @@ export default function ScholarCraftedLanding() {
               </Stack>
             </SimpleGrid>
 
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
               <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(60)}>
-                SCHEDULE YOUR REVIEW
+                FREE INTRODUCTORY CALL
               </Button>
             </Link>
           </Stack>
@@ -422,8 +422,8 @@ export default function ScholarCraftedLanding() {
                   title: 'Live Academic Coaching',
                   label: '1-ON-1 GUIDANCE',
                   desc: 'A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence.',
-                  link: '/scholarcrafted/consultation',
-                  cta: 'Book a Consultation',
+                  link: '/scholarcrafted/services/private-coaching',
+                  cta: 'View Coaching Services',
                 },
                 {
                   title: 'Structural Editing & Proofreading',
@@ -465,17 +465,9 @@ export default function ScholarCraftedLanding() {
                     </Text>
                     <Box mt="auto" pt="xl">
                       <Link href={service.link} style={{ textDecoration: 'none' }}>
-                        <Group gap="xs" style={{ cursor: 'pointer' }}>
-                          <Text
-                            fw={600}
-                            size="sm"
-                            c={active.action}
-                            style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                          >
-                            {service.cta}
-                          </Text>
-                          <IconArrowRight size={16} color={active.action} />
-                        </Group>
+                        <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
+                          {service.cta}
+                        </Button>
                       </Link>
                     </Box>
                   </Stack>
