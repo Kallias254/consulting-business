@@ -152,50 +152,82 @@ export default function PrivateCoachingPage() {
               </Text>
             </Box>
             
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)}>
-              {/* 60 Min */}
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(40)}>
+              {/* Option A: 5 Hours */}
               <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      IN-DEPTH SUPPORT
+                      THE STRATEGIC SPRINT
                     </Text>
                     <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
-                      60-Minute Deep Dive
+                      5-Hour Retainer
                     </Title>
-                    <Text fw={600} size="xl" c={active.primary}>$70 USD</Text>
+                    <Text fw={600} size="xl" c={active.primary}>$750 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    A comprehensive coaching experience, addressing any aspect of your project in a 60-minute deep dive. Perfect for exploring complex methodological issues, structuring large chapters, or handling challenging committee feedback.
+                    Ideal for overcoming a specific roadblock, restructuring a single chapter, or preparing for an upcoming committee meeting. Use these hours flexibly across live video calls and offline document review.
                   </Text>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                    Book Now
-                  </Button>
+                  <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
+                      Free Introductory Call
+                    </Button>
+                  </Link>
                 </Box>
               </Box>
 
-              {/* 30 Min */}
+              {/* Option B: 10 Hours */}
+              <Box p={rem(40)} bg={active.background} style={{ border: `2px solid ${active.primary}`, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+                <Box style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: active.primary, color: '#fff', padding: '4px 16px', fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em' }}>
+                  MOST POPULAR
+                </Box>
+                <Stack gap="xl" flex={1}>
+                  <Stack gap="xs">
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                      THE SEMESTER PARTNERSHIP
+                    </Text>
+                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                      10-Hour Retainer
+                    </Title>
+                    <Text fw={600} size="xl" c={active.primary}>$1,400 USD</Text>
+                  </Stack>
+                  <Text size="sm" c="dimmed" lh={1.6}>
+                    Perfect for navigating a major academic milestone, such as defending your proposal or analyzing complex data. Includes priority access to our schedule and comprehensive offline review cycles.
+                  </Text>
+                </Stack>
+                <Box mt={rem(40)}>
+                  <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                    <Button variant="filled" bg={active.primary} radius={0} fullWidth>
+                      Free Introductory Call
+                    </Button>
+                  </Link>
+                </Box>
+              </Box>
+
+              {/* Option C: 20 Hours */}
               <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      FOCUSED PROBLEM SOLVING
+                      THE FULL-CYCLE JOURNEY
                     </Text>
                     <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
-                      30-Minute Power Session
+                      20-Hour Retainer
                     </Title>
-                    <Text fw={600} size="xl" c={active.primary}>$35 USD</Text>
+                    <Text fw={600} size="xl" c={active.primary}>$2,600 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Are you grappling with a specific issue and need focused, expert advice? This 30-minute call offers targeted support to help you tackle single challenges efficiently and gain immediate clarity on your next steps.
+                    Complete, high-touch support from stalled draft to final committee submission. We hold your hand through the entire process, providing an expert sounding board and rigorous accountability every step of the way.
                   </Text>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                    Book Now
-                  </Button>
+                  <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
+                      Free Introductory Call
+                    </Button>
+                  </Link>
                 </Box>
               </Box>
             </SimpleGrid>

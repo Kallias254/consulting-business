@@ -72,10 +72,89 @@ export default function ServicesPage() {
               the academic journey.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              ScholarCrafted provides specialized offline advisory services designed to help
+              ScholarCrafted provides specialized advisory services designed to help
               researchers navigate the most challenging phases of the dissertation process.
             </Text>
           </Box>
+        </Container>
+      </Box>
+
+      {/* 1-on-1 Guidance */}
+      <Box
+        component="section"
+        py={SECTION_SPACING}
+        bg={active.surface}
+        style={{ borderTop: `1px solid ${active.primary}22` }}
+      >
+        <Container size={INNER_WIDTH}>
+          <Stack gap={rem(80)}>
+            <Box style={{ maxWidth: 800 }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c={active.accent}
+              >
+                1-on-1 Guidance
+              </Text>
+              <Title
+                order={2}
+                mt="md"
+                style={{
+                  fontSize: rem(48),
+                  fontWeight: 400,
+                  color: active.primary,
+                  fontFamily: 'var(--font-serif)',
+                }}
+              >
+                Need strategic direction?
+              </Title>
+              <Text size="lg" c="dimmed" mt="md">
+                Are you stalled, overwhelmed, or struggling with committee feedback? 
+                Our live academic coaching provides the strategic roadmap and expert sounding board you need to move forward.
+              </Text>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+              <Box
+                p={rem(40)}
+                bg={active.background}
+                style={{
+                  border: `1px solid ${active.primary}22`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '100%',
+                }}
+              >
+                <Stack gap="xl" flex={1}>
+                  <Stack gap="xs">
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                      LIVE ACADEMIC COACHING
+                    </Text>
+                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                      Private Coaching Packages
+                    </Title>
+                  </Stack>
+                  <Text size="sm" c="dimmed" lh={1.6}>
+                    A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence. 
+                    Choose from 5, 10, or 20-hour retainers tailored to your specific academic milestones.
+                  </Text>
+                  <Box mt="auto" pt="xl">
+                    <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
+                      <Button
+                        variant="filled"
+                        bg={active.primary}
+                        fullWidth
+                        radius={0}
+                      >
+                        View Coaching Packages
+                      </Button>
+                    </Link>
+                  </Box>
+                </Stack>
+              </Box>
+            </SimpleGrid>
+          </Stack>
         </Container>
       </Box>
 
@@ -83,7 +162,7 @@ export default function ServicesPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg={active.surface}
+        bg={active.background}
         style={{ borderTop: `1px solid ${active.primary}22` }}
       >
         <Container size={INNER_WIDTH}>
@@ -120,7 +199,7 @@ export default function ServicesPage() {
                 <Box
                   key={i}
                   p={rem(40)}
-                  bg={active.background}
+                  bg={active.surface}
                   style={{
                     border: '1px solid #eee',
                     display: 'flex',
