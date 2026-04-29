@@ -73,7 +73,7 @@ export function Navbar() {
                 style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                 className="nav-link"
               >
-                METHODOLOGY
+                HOW IT WORKS
               </Text>
             </Link>
             <Link href="/scholarcrafted/about" style={{ textDecoration: 'none', color: 'inherit' }}>

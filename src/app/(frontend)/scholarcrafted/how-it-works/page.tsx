@@ -154,9 +154,9 @@ export default function HowItWorksPage() {
               of how we can help.
             </Text>
             <Group gap="md">
-              <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  BOOK A CONSULTATION
+                  FREE INTRODUCTORY CALL
                 </Button>
               </Link>
               <Link href="/scholarcrafted/about" style={{ textDecoration: 'none' }}>
