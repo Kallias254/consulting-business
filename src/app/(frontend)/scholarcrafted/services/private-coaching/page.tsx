@@ -101,65 +101,78 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* Pain Points Carousel */}
-      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ maxWidth: 720 }}>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c={active.accent}
-              >
-                Sound Familiar?
-              </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
-                Are you in this position right now?
-              </Title>
-              <Text c="dimmed" mt="md" size="lg" lh={1.7}>
-                Coaching exists for moments like these.
-              </Text>
-            </Box>
+          <Stack gap={rem(60)} align="center">
 
-            <Carousel
-              withIndicators
-              loop
-              withControls={false}
-              plugins={[autoplay.current]}
-              onMouseEnter={autoplay.current.stop}
-              onMouseLeave={autoplay.current.reset}
-              styles={{
-                root: { paddingBottom: rem(48) },
-                indicators: { bottom: 0 },
-                indicator: {
-                  width: rem(8),
-                  height: rem(8),
-                  transition: 'width 250ms ease',
-                  backgroundColor: `${active.primary}44`,
-                },
+            <Title
+              order={2}
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontWeight: 400,
+                fontSize: rem(48),
+                textAlign: 'center',
+                color: active.primary,
               }}
             >
-              {[
-                "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
-                "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
-                "You understand the theory — you just can't get it to hold together coherently on the page.",
-                "Your Chair is barely available and you're making critical research decisions completely alone.",
-                "You have the data. You just don't know what it's telling you — or how to say it properly.",
-                "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
-              ].map((pain, i) => (
-                <Carousel.Slide key={i}>
-                  <Box
-                    p={rem(40)}
-                    bg={active.background}
-                    style={{ borderLeft: `3px solid ${active.primary}`, borderTop: `1px solid ${active.primary}11`, minHeight: rem(120), display: 'flex', alignItems: 'center' }}
-                  >
-                    <Text size="lg" lh={1.8} c={active.primary} fw={500}>
-                      &ldquo;{pain}&rdquo;
-                    </Text>
-                  </Box>
-                </Carousel.Slide>
-              ))}
-            </Carousel>
+              Are you in this position right now?
+            </Title>
+
+            <Box style={{ width: '100%' }}>
+              <Carousel
+                withIndicators
+                loop
+                withControls={false}
+                plugins={[autoplay.current]}
+                styles={{
+                  root: { paddingBottom: rem(48) },
+                  indicators: { bottom: 0 },
+                  indicator: {
+                    width: rem(8),
+                    height: rem(8),
+                    transition: 'width 250ms ease',
+                    backgroundColor: `${active.primary}44`,
+                  },
+                }}
+              >
+                {[
+                  "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
+                  "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
+                  "You understand the theory — you just can't get it to hold together coherently on the page.",
+                  "Your Chair is barely available and you're making critical research decisions completely alone.",
+                  "You have the data. You just don't know what it's telling you — or how to say it properly.",
+                  "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
+                ].map((pain, i) => (
+                  <Carousel.Slide key={i}>
+                    <Box
+                      p={rem(48)}
+                      bg={active.background}
+                      style={{
+                        borderLeft: `3px solid ${active.primary}`,
+                        borderTop: `1px solid ${active.primary}11`,
+                        minHeight: rem(120),
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Text size="lg" lh={1.8} c={active.primary} fw={500}>
+                        &ldquo;{pain}&rdquo;
+                      </Text>
+                    </Box>
+                  </Carousel.Slide>
+                ))}
+              </Carousel>
+            </Box>
+
+            <Text
+              size="lg"
+              c="dimmed"
+              lh={1.7}
+              style={{ textAlign: 'center', maxWidth: 600 }}
+            >
+              Coaching exists for moments exactly like these. It starts with one free conversation.
+            </Text>
+
           </Stack>
         </Container>
       </Box>
@@ -356,7 +369,7 @@ export default function PrivateCoachingPage() {
                 What you'll walk away with.
               </Title>
               <Text c="dimmed" mt="md" size="lg" lh={1.7}>
-                One focused coaching session can fundamentally shift the trajectory of your research. Here is what that looks like in practice.
+                The right coaching engagement can fundamentally shift the trajectory of your research. Here is what that looks like in practice.
               </Text>
             </Box>
 
