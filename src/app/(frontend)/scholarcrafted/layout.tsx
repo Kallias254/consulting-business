@@ -1,4 +1,5 @@
 import React from 'react'
+import { ExitIntentModal } from './_components/ExitIntentModal'
 
 export default function ScholarCraftedLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,6 +25,7 @@ export default function ScholarCraftedLayout({ children }: { children: React.Rea
       `,
         }}
       />
+      <ExitIntentModal />
       {children}
     </div>
   )

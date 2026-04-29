@@ -97,36 +97,60 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
-      {/* Why Choose Coaching */}
+      {/* Pain Points — Do you recognise yourself here? */}
       <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(40)}>
-            <Box>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
-                Why Choose a Coaching Call?
+          <Stack gap={rem(60)}>
+            <Box style={{ maxWidth: 720 }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c={active.accent}
+              >
+                Sound Familiar?
+              </Text>
+              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+                Do you recognise yourself here?
               </Title>
-              <Text c="dimmed" mt="md" size="lg" lh={1.7} style={{ maxWidth: 800 }}>
-                Sometimes, you just need an expert sounding board to untangle your logic. Our coaching sessions are tailored to your unique research needs and goals.
+              <Text c="dimmed" mt="md" size="lg" lh={1.7}>
+                Coaching exists for moments like these.
               </Text>
             </Box>
-            <Stack gap="lg">
+
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(32)}>
               {[
-                { title: 'Comprehensive Guidance', desc: 'Perfect for exploring complex or multifaceted challenges in your research.' },
-                { title: 'Personalised Strategies', desc: 'Each session is tailored to your unique research needs and academic goals.' },
-                { title: 'Actionable Advice', desc: 'We dive deep into your manuscript to ensure you are on the right track and meeting committee expectations.' },
-                { title: 'Confidence Boost', desc: 'Leave the call with clear, immediate steps and renewed motivation to progress.' },
+                {
+                  pain: "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
+                },
+                {
+                  pain: "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
+                },
+                {
+                  pain: "You understand the theory — you just can't get it to hold together coherently on the page.",
+                },
+                {
+                  pain: "Your Chair is barely available and you're making critical research decisions completely alone.",
+                },
+                {
+                  pain: "You have the data. You just don't know what it's telling you — or how to say it properly.",
+                },
+                {
+                  pain: "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
+                },
               ].map((item, i) => (
-                <Group key={i} align="flex-start" wrap="nowrap" gap="md">
-                  <ThemeIcon size={24} radius="xl" variant="light" color="dark" style={{ marginTop: rem(4) }}>
-                    <IconCheck size={14} stroke={2} />
-                  </ThemeIcon>
-                  <Box>
-                    <Text fw={700} size="md" c={active.primary}>{item.title}</Text>
-                    <Text size="sm" c="dimmed" lh={1.6}>{item.desc}</Text>
-                  </Box>
-                </Group>
+                <Box
+                  key={i}
+                  p={rem(32)}
+                  bg={active.background}
+                  style={{ borderLeft: `3px solid ${active.primary}`, borderTop: `1px solid ${active.primary}11` }}
+                >
+                  <Text size="md" lh={1.7} c={active.primary} fw={500}>
+                    &ldquo;{item.pain}&rdquo;
+                  </Text>
+                </Box>
               ))}
-            </Stack>
+            </SimpleGrid>
           </Stack>
         </Container>
       </Box>
@@ -306,63 +330,66 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
-      {/* What You'll Gain & Is This Right For You */}
+      {/* What You'll Gain — the outcome side */}
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)}>
-            <Stack gap="xl">
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
-                What You&rsquo;ll Gain
+          <Stack gap={rem(60)}>
+            <Box style={{ maxWidth: 720 }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c={active.accent}
+              >
+                The Other Side
+              </Text>
+              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+                What you'll walk away with.
               </Title>
-              <Stack gap="md">
-                <Group align="flex-start" wrap="nowrap" gap="md">
-                  <IconCheck size={20} color={active.accent} style={{ marginTop: rem(2) }} />
-                  <Text size="md" c="dimmed" lh={1.6}>
-                    A clear understanding of how to resolve complex challenges.
-                  </Text>
-                </Group>
-                <Group align="flex-start" wrap="nowrap" gap="md">
-                  <IconCheck size={20} color={active.accent} style={{ marginTop: rem(2) }} />
-                  <Text size="md" c="dimmed" lh={1.6}>
-                    Practical strategies to improve your research, writing, or overall organisation.
-                  </Text>
-                </Group>
-                <Group align="flex-start" wrap="nowrap" gap="md">
-                  <IconCheck size={20} color={active.accent} style={{ marginTop: rem(2) }} />
-                  <Text size="md" c="dimmed" lh={1.6}>
-                    Renewed focus and confidence in your ability to meet academic expectations.
-                  </Text>
-                </Group>
-              </Stack>
-            </Stack>
+              <Text c="dimmed" mt="md" size="lg" lh={1.7}>
+                One focused coaching session can fundamentally shift the trajectory of your research. Here is what that looks like in practice.
+              </Text>
+            </Box>
 
-            <Stack gap="xl">
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
-                Is This Right for You?
-              </Title>
-              <Text size="md" c="dimmed" mb="sm">This service is highly recommended if you:</Text>
-              <Stack gap="md">
-                <Group align="flex-start" wrap="nowrap" gap="md">
-                  <IconUserCheck size={20} color={active.primary} style={{ marginTop: rem(2) }} />
-                  <Text size="md" c="dimmed" lh={1.6}>
-                    Are tackling a major issue or challenge in your dissertation or thesis.
-                  </Text>
-                </Group>
-                <Group align="flex-start" wrap="nowrap" gap="md">
-                  <IconUserCheck size={20} color={active.primary} style={{ marginTop: rem(2) }} />
-                  <Text size="md" c="dimmed" lh={1.6}>
-                    Need help structuring a chapter or tackling your data analysis (qualitative or quantitative).
-                  </Text>
-                </Group>
-                <Group align="flex-start" wrap="nowrap" gap="md">
-                  <IconUserCheck size={20} color={active.primary} style={{ marginTop: rem(2) }} />
-                  <Text size="md" c="dimmed" lh={1.6}>
-                    Want expert guidance without committing to a full structural edit right now.
-                  </Text>
-                </Group>
-              </Stack>
-            </Stack>
-          </SimpleGrid>
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(32)}>
+              {[
+                {
+                  label: 'CLARITY',
+                  title: 'A clear path forward',
+                  desc: "You leave knowing exactly what to do next. No more circling the same paragraph. No more second-guessing every decision. Just a clear, concrete step you can take today.",
+                },
+                {
+                  label: 'CONFIDENCE',
+                  title: 'The researcher you already are',
+                  desc: "Most candidates don't lack the ability — they lack the belief that their thinking is valid. A great coach doesn't give you answers. They help you trust the ones you already have.",
+                },
+                {
+                  label: 'METHODOLOGY',
+                  title: 'A framework you carry forward',
+                  desc: "You don't just fix this chapter. You leave with a transferable way of thinking about research structure, argumentation, and analysis that applies to every project you take on from here.",
+                },
+              ].map((item, i) => (
+                <Box
+                  key={i}
+                  p={rem(40)}
+                  bg={active.surface}
+                  style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}
+                >
+                  <Stack gap="md">
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em' }}>
+                      {item.label}
+                    </Text>
+                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                      {item.title}
+                    </Title>
+                    <Text size="sm" c="dimmed" lh={1.7}>
+                      {item.desc}
+                    </Text>
+                  </Stack>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </Stack>
         </Container>
       </Box>
 
