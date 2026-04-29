@@ -283,7 +283,7 @@ export default function ScholarCraftedLanding() {
               {[
                 {
                   title: 'Supervisor In-congruence',
-                  desc: 'You feel your feedback is infrequent, misaligned, or insufficient to move the work forward.',
+                  desc: 'You’re not getting meaningful support from your advisor.',
                 },
                 {
                   title: 'The Weight of Isolation',
