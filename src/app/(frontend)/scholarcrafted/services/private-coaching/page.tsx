@@ -130,20 +130,9 @@ export default function PrivateCoachingPage() {
 
             <Box style={{ width: '100%' }}>
               <Carousel
-                withIndicators
                 loop
                 withControls={false}
                 plugins={[autoplay.current]}
-                styles={{
-                  root: { paddingBottom: rem(48) },
-                  indicators: { bottom: 0 },
-                  indicator: {
-                    width: rem(8),
-                    height: rem(8),
-                    transition: 'width 250ms ease',
-                    backgroundColor: `${active.primary}44`,
-                  },
-                }}
               >
                 {[
                   "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
@@ -158,8 +147,6 @@ export default function PrivateCoachingPage() {
                       p={rem(48)}
                       bg={active.background}
                       style={{
-                        borderLeft: `3px solid ${active.primary}`,
-                        borderTop: `1px solid ${active.primary}11`,
                         minHeight: rem(120),
                         display: 'flex',
                         alignItems: 'center',
