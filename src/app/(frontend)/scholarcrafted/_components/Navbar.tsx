@@ -13,9 +13,8 @@ export function Navbar() {
       component="nav"
       py="md"
       style={{
-        borderBottom: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : '#eee'}`,
-        backgroundColor:
-          active.primary === '#A51C30' ? active.primary : 'rgba(255, 255, 255, 0.95)',
+        borderBottom: `1px solid ${active.primary}18`,
+        backgroundColor: `${active.background}ee`,
         backdropFilter: 'blur(10px)',
         position: 'sticky',
         top: 0,
@@ -34,7 +33,7 @@ export function Navbar() {
                   fontSize: rem(22),
                   letterSpacing: '-0.02em',
                   lineHeight: 1,
-                  color: active.primary === '#A51C30' ? '#FFFFFF' : active.primary,
+                  color: active.primary,
                 }}
               >
                 SCHOLARCRAFTED
@@ -42,7 +41,7 @@ export function Navbar() {
               <Text
                 size="xs"
                 fw={500}
-                c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.7)' : 'dimmed'}
+                c="dimmed"
                 style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: rem(9) }}
               >
                 Academic Consultancy
@@ -57,8 +56,8 @@ export function Navbar() {
               <Text
                 fw={500}
                 size="xs"
-                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                 className="nav-link"
+                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
               >
                 SERVICES
               </Text>
@@ -70,8 +69,8 @@ export function Navbar() {
               <Text
                 fw={500}
                 size="xs"
-                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                 className="nav-link"
+                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
               >
                 HOW IT WORKS
               </Text>
@@ -83,8 +82,8 @@ export function Navbar() {
               <Text
                 fw={500}
                 size="xs"
-                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                 className="nav-link"
+                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
               >
                 RESOURCES
               </Text>
@@ -93,8 +92,8 @@ export function Navbar() {
               <Text
                 fw={500}
                 size="xs"
-                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                 className="nav-link"
+                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
               >
                 ABOUT
               </Text>
@@ -102,7 +101,7 @@ export function Navbar() {
             <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
               <Button
                 variant="outline"
-                color={active.primary === '#A51C30' ? '#FFFFFF' : active.primary}
+                color={active.primary}
                 size="md"
                 radius={0}
                 fw={600}
@@ -110,9 +109,7 @@ export function Navbar() {
                   letterSpacing: '0.1em',
                   paddingLeft: rem(24),
                   paddingRight: rem(24),
-                  borderColor:
-                    active.primary === '#A51C30' ? 'rgba(255,255,255,0.5)' : active.primary,
-                  color: active.primary === '#A51C30' ? '#FFFFFF' : active.primary,
+                  borderColor: active.primary,
                 }}
               >
                 FREE INTRODUCTORY CALL
@@ -123,11 +120,11 @@ export function Navbar() {
       </Container>
       <style jsx global>{`
         .nav-link {
-          color: ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.7)' : '#666'};
+          color: #666;
           transition: color 0.2s ease;
         }
         .nav-link:hover {
-          color: ${active.primary === '#A51C30' ? '#FFFFFF' : active.primary} !important;
+          color: ${active.primary} !important;
         }
       `}</style>
     </Box>

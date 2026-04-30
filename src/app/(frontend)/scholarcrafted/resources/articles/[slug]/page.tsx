@@ -138,67 +138,85 @@ export default function ArticlePage() {
       {/* Hero */}
       <Box
         component="section"
+        bg={active.background}
         style={{
-          background: `linear-gradient(160deg, ${active.primary} 0%, ${article.heroColor} 100%)`,
-          paddingTop: rem(120),
+          paddingTop: rem(100),
           paddingBottom: rem(80),
         }}
       >
         <Container size={INNER_WIDTH}>
-          <Stack gap="xl">
-            <Link
-              href="/scholarcrafted/resources"
-              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}
-            >
-              <IconArrowLeft size={16} color="rgba(255,255,255,0.6)" />
-              <Text size="xs" fw={600} style={{ color: 'rgba(255,255,255,0.6)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                Back to Resources
-              </Text>
-            </Link>
-            <Stack gap="md">
+          <Group justify="space-between" align="flex-start">
+            <Stack gap="md" style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
                 fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}
+                c="dimmed"
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
               >
                 {article.category}
               </Text>
               <Title
                 order={1}
+                c={active.primary}
                 style={{
                   fontFamily: 'var(--font-serif)',
                   fontWeight: 400,
-                  fontSize: rem(44),
-                  color: '#fff',
-                  lineHeight: 1.2,
+                  fontSize: rem(56),
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.1,
                 }}
               >
                 {article.title}
               </Title>
               <Group gap="xl" mt="sm">
                 <Group gap="xs">
-                  <IconUser size={14} color="rgba(255,255,255,0.5)" />
-                  <Text size="sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <IconUser size={14} color={active.primary} style={{ opacity: 0.6 }} />
+                  <Text size="sm" c="dimmed">
                     {article.author}
                   </Text>
                 </Group>
                 <Group gap="xs">
-                  <IconClock size={14} color="rgba(255,255,255,0.5)" />
-                  <Text size="sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <IconClock size={14} color={active.primary} style={{ opacity: 0.6 }} />
+                  <Text size="sm" c="dimmed">
                     {article.readTime}
                   </Text>
                 </Group>
-                <Text size="sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <Text size="sm" c="dimmed">
                   {article.date}
                 </Text>
               </Group>
             </Stack>
-          </Stack>
+
+            <Link
+              href="/scholarcrafted/resources/articles"
+              style={{
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: `${rem(8)} ${rem(16)}`,
+                border: `1px solid ${active.primary}22`,
+                borderRadius: rem(100),
+                transition: 'all 0.2s ease',
+              }}
+              className="back-btn"
+            >
+              <IconArrowLeft size={14} color={active.primary} style={{ opacity: 0.7 }} />
+              <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                Back to Articles
+              </Text>
+            </Link>
+          </Group>
         </Container>
       </Box>
 
       {/* Article Body */}
-      <Box component="section" py={rem(80)} bg={active.background}>
+      <Box
+        component="section"
+        py={rem(80)}
+        bg={active.surface}
+        style={{ borderTop: `1px solid ${active.primary}22` }}
+      >
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(32)}>
             {article.body.map((paragraph, i) => (
@@ -215,12 +233,12 @@ export default function ArticlePage() {
             ))}
           </Stack>
 
-          <Divider my={rem(80)} style={{ opacity: 0.2 }} />
+          <Divider my={rem(80)} style={{ borderColor: `${active.primary}22` }} />
 
           {/* Inline CTA */}
           <Box
             p={rem(60)}
-            bg={active.surface}
+            bg={active.background}
             style={{ border: `1px solid ${active.primary}22`, textAlign: 'center' }}
           >
             <Stack gap="xl" align="center">
