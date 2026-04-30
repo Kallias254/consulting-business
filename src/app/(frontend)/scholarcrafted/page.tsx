@@ -16,6 +16,7 @@ import {
   useMantineTheme,
   ThemeIcon,
   Center,
+  Accordion,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
@@ -72,6 +73,25 @@ const testimonials = [
   },
 ]
 
+const homeFaqs = [
+  {
+    q: 'What if my committee disagrees with the structural changes we make?',
+    a: "We don't replace your committee; we decode them. Every strategy we provide is designed to explicitly address your committee's feedback, helping you defend your choices academically. If there is a conflict, we coach you on exactly how to communicate with your chair to resolve it.",
+  },
+  {
+    q: 'Is getting external help considered academic misconduct?',
+    a: 'Absolutely not. We operate under a strict ethical framework. We do not write your content, run your statistical analysis, or do your research for you. We provide the high-level structural oversight and methodological coaching that your university is failing to provide. You remain the sole author of your work.',
+  },
+  {
+    q: "I haven't written a single word in 6 months. Is my project dead?",
+    a: "Writer's block at the ABD level is rarely about laziness; it's about structural paralysis. When the scope of your literature or data becomes too overwhelming, your brain shuts down. We help you break the project into hyper-specific, manageable pieces so you can start moving forward today.",
+  },
+  {
+    q: "I'm terrified my research isn't 'original' or 'good enough'.",
+    a: 'Imposter syndrome is the most common affliction among doctoral candidates. A completed dissertation does not need to redefine your entire field—it just needs to be methodologically sound, clearly argued, and finished. We help you dial down the perfectionism and focus on what actually matters: getting it approved.',
+  },
+]
+
 export default function ScholarCraftedLanding() {
   const theme = useMantineTheme()
   const active = theme.other
@@ -104,6 +124,14 @@ export default function ScholarCraftedLanding() {
 
         .hero-primary-container {
           min-width: 280px;
+        }
+
+        .home-accordion-item[data-active] {
+          border-color: ${active.primary} !important;
+        }
+
+        .home-accordion-control:hover {
+          background-color: transparent !important;
         }
 
         @media (max-width: 768px) {
@@ -600,6 +628,58 @@ export default function ScholarCraftedLanding() {
               </Carousel.Slide>
             ))}
           </Carousel>
+        </Container>
+      </Box>
+
+      {/* Frequently Asked Questions */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+        <Container size={800}>
+          <Stack gap={rem(60)}>
+            <Box style={{ textAlign: 'center' }}>
+              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(48), color: active.primary }}>
+                Common Concerns
+              </Title>
+              <Text size="lg" c="dimmed" mt="md">
+                We understand the anxieties of doctoral research. You are not the first to feel this way.
+              </Text>
+            </Box>
+
+            <Accordion 
+              variant="separated" 
+              classNames={{
+                item: 'home-accordion-item',
+                control: 'home-accordion-control',
+              }}
+              styles={{
+                item: {
+                  backgroundColor: active.surface,
+                  border: `1px solid ${active.primary}22`,
+                },
+                control: {
+                  padding: rem(24),
+                },
+                content: {
+                  padding: rem(24),
+                  paddingTop: 0,
+                }
+              }}
+            >
+              {homeFaqs.map((faq, i) => (
+                <Accordion.Item key={i} value={`faq-${i}`}>
+                  <Accordion.Control>
+                    <Text fw={600} size="lg" c={active.primary}>
+                      {faq.q}
+                    </Text>
+                  </Accordion.Control>
+                  <Accordion.Panel>
+                    <Text size="md" lh={1.7} c="dimmed">
+                      {faq.a}
+                    </Text>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              ))}
+            </Accordion>
+          </Stack>
         </Container>
       </Box>
 

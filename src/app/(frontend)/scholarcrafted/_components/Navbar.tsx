@@ -125,6 +125,7 @@ export function Navbar() {
         }
         .nav-link:hover {
           color: ${active.primary} !important;
+          text-decoration: underline !important;
         }
       `}</style>
     </Box>
