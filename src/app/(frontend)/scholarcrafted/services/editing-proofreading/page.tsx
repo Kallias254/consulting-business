@@ -361,16 +361,14 @@ export default function EditingProofreadingPage() {
               radius={0}
               styles={{
                 item: { border: `1px solid ${active.primary}22`, backgroundColor: active.background },
-                control: { padding: rem(24) },
-                panel: { padding: rem(24), color: '#333' },
+                control: { padding: rem(24), fontWeight: 600, fontSize: rem(18), color: active.primary },
+                content: { padding: rem(24), paddingTop: 0 },
               }}
             >
               {faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
-                  <Accordion.Control style={{ fontWeight: 600, fontSize: rem(18) }}>
-                    <Text fw={600} size="lg" c={active.primary}>
-                      {faq.q}
-                    </Text>
+                  <Accordion.Control>
+                    {faq.q}
                   </Accordion.Control>
                   <Accordion.Panel>
                     <Text size="sm" lh={1.7} c="dimmed">

@@ -632,7 +632,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Frequently Asked Questions */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
         <Container size={800}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
