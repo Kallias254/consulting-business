@@ -23,28 +23,28 @@ const SECTION_SPACING = rem(120)
 const steps = [
   {
     step: '01',
-    title: 'Initial Consultation',
-    desc: 'We begin with a strategic review of your project stage, committee requirements, and current manuscript. This helps us determine if our expertise aligns with your specific needs.',
+    title: 'The First Conversation',
+    desc: "A low-pressure, no-obligation deep dive into your research stage. We map out where you are and where you're stuck to see if we are the right partners for your journey.",
   },
   {
     step: '02',
-    title: 'Diagnostic Review',
-    desc: 'Our faculty lead performs a deep-dive diagnostic of your work to identify structural gaps, logical inconsistencies, and potential roadblocks to submission.',
+    title: 'The Deep Dive',
+    desc: 'We review your committee feedback and current manuscript together. We find the specific "knots" in your logic or methodology that are preventing progress.',
   },
   {
     step: '03',
-    title: 'Strategic Roadmap',
-    desc: 'We develop a customized pacing strategy and intervention plan. This includes specific milestones, feedback loops, and a clear timeline to completion.',
+    title: 'The Strategic Roadmap',
+    desc: 'We define a customized path forward with clear milestones and a realistic timeline. You will never have to wonder "what do I do next?" ever again.',
   },
   {
     step: '04',
-    title: 'Iterative Implementation',
-    desc: 'Work begins through a series of structured cycles. Each cycle involves drafting, review, and refinement, guided by our PhD-level advisory team.',
+    title: 'The Refining Cycles',
+    desc: 'Through structured feedback loops, we help you draft, refine, and polish your work until your argument is airtight and your authority is undeniable.',
   },
   {
     step: '05',
-    title: 'Final Submission Ready',
-    desc: 'The project concludes with a final technical review, ensuring all structural, stylistic, and formatting requirements are met for a successful defense.',
+    title: 'Ready for Defense',
+    desc: 'A final technical audit ensures every structural and stylistic requirement is met. You can now submit your work with the confidence that you are fully prepared.',
   },
 ]
 
@@ -56,7 +56,7 @@ export default function HowItWorksPage() {
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
-      <Box component="section" pt={rem(100)} pb={SECTION_SPACING}>
+      <Box component="section" pt={rem(100)} pb={rem(80)}>
         <Container size={1100}>
           <Stack gap="xl">
             <Box style={{ maxWidth: 800 }}>
@@ -95,15 +95,15 @@ export default function HowItWorksPage() {
         component="section"
         py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: '1px solid #eee' }}
+        style={{ borderTop: `1px solid ${active.primary}11` }}
       >
         <Container size={1100}>
-          <Stack gap={rem(40)}>
+          <Stack gap={0}>
             {steps.map((item, i) => (
               <Box
                 key={i}
-                py={rem(60)}
-                style={{ borderBottom: i === steps.length - 1 ? 'none' : '1px solid #eee' }}
+                py={rem(32)}
+                style={{ borderBottom: i === steps.length - 1 ? 'none' : `1px solid ${active.primary}11` }}
               >
                 <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
                   <Text
@@ -175,7 +175,7 @@ export default function HowItWorksPage() {
         </Container>
       </Box>
 
-      <Footer />
+      <Footer bg={active.surface} />
     </Box>
   )
 }

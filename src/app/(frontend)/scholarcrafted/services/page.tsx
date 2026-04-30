@@ -242,7 +242,7 @@ export default function ServicesPage() {
 
 
 
-      <Footer />
+      <Footer bg={active.surface} />
     </Box>
   )
 }

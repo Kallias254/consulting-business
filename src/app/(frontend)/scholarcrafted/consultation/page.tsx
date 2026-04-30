@@ -81,10 +81,10 @@ const FORMATTED_VALUES: Record<string, string> = {
   yes: 'Yes, had intro call',
   
   // Specifics
-  friction: 'Committee Friction',
-  block: 'Methodological Block',
-  narrative: 'The Narrative Gap',
-  momentum: 'Momentum Collapse',
+  friction: 'Committee Feedback & Friction',
+  block: 'Methodology or Data Hurdles',
+  narrative: 'Argument Flow & Structure',
+  momentum: 'Stalled Momentum',
   
   // Discipline
   social: 'Social Sciences',
@@ -99,9 +99,9 @@ const FORMATTED_VALUES: Record<string, string> = {
   review: 'Final Review',
 
   // Time
-  morning: '09:00 - 12:00',
-  afternoon: '13:00 - 17:00',
-  evening: '18:00 - 20:00',
+  morning: 'Morning (09:00 - 12:00)',
+  afternoon: 'Afternoon (13:00 - 17:00)',
+  evening: 'Evening (18:00 - 20:00)',
 }
 
 export default function ConsultationPage() {
@@ -199,32 +199,32 @@ function ConsultationWizard() {
 
   const stepHeadlines = [
     {
-      title: 'What are you interested in?',
-      desc: "This short diagnostic helps us understand your project's unique needs, ensuring our initial consultation is as productive as possible.",
+      title: 'How can we best support you today?',
+      desc: "This short diagnostic helps us match you with the right faculty lead, ensuring our first conversation is focused on your specific goals.",
     },
     {
-      title: 'Have you had an initial consultation yet?',
-      desc: "Tell us if you've already had an introductory consultation.",
+      title: 'Have we met before?',
+      desc: "Let us know if you've already had an introductory consultation with one of our coaches.",
     },
     {
       title: 'Who did you meet with?',
-      desc: "If you can't remember, please check your appointment confirmation email.",
+      desc: "If you're already working with a specific coach, we'll keep you in their loop.",
     },
     {
-      title: 'Identify your "Stall Point"',
-      desc: 'Select the primary obstacle currently preventing your progress.',
+      title: 'Where are you currently feeling stuck?',
+      desc: 'Identify the biggest hurdle currently preventing your progress so we can jump straight to the solution.',
     },
     {
-      title: 'Your Academic Discipline',
-      desc: 'This allows us to assign a Squad Leader with specific expertise in your field.',
+      title: 'What is your field of study?',
+      desc: 'This allows us to pair you with an advisor who understands the specific conventions and expectations of your discipline.',
     },
     {
-      title: 'What is your current phase?',
-      desc: 'This helps us tailor our strategic advice to your specific stage in the doctoral journey.',
+      title: 'Where are you in the process?',
+      desc: "Whether you're just starting your proposal or pushing through the final chapters, we'll meet you exactly where you are.",
     },
     {
-      title: 'Request a preferred window',
-      desc: 'Our team is available for strategy sessions during the following windows. We will confirm your final time via email.',
+      title: 'Pick a preferred window',
+      desc: "Pick a preferred window that works for you. We'll match you with a faculty lead and confirm your 15-minute intro via email.",
     },
     {
       title: 'Review Your Information',
@@ -254,7 +254,20 @@ function ConsultationWizard() {
   ]
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
-      <Navbar />
+      <Box component="header" py={rem(20)} style={{ borderBottom: `1px solid ${active.primary}11` }}>
+        <Container size={INNER_WIDTH}>
+          <Group justify="space-between" align="center">
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: active.primary }}>
+              <Text fw={700} size="xl" style={{ letterSpacing: '-0.02em', fontFamily: 'var(--font-serif)' }}>
+                ScholarCrafted
+              </Text>
+            </Link>
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'dimmed' }}>
+              <Text size="sm" fw={500} style={{ opacity: 0.6 }}>Back to site</Text>
+            </Link>
+          </Group>
+        </Container>
+      </Box>
       
       {/* Top Section - Background */}
       <Box component="section" pt={{ base: rem(60), md: rem(100) }} pb={rem(60)} bg={active.background}>
@@ -325,7 +338,7 @@ function ConsultationWizard() {
         </Container>
       </Box>
       
-      <Footer />
+      <Box py={rem(40)} />
     </Box>
   )
 }
@@ -425,28 +438,28 @@ function StepSpecifics({ data, selectOption }: any) {
     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
       {[
         {
-          id: 'friction',
-          title: 'Committee Friction',
-          desc: 'Navigating contradictory feedback or stagnant reviews.',
-          icon: <IconSearch size={28} />,
+          id: 'momentum',
+          title: 'Stalled Momentum',
+          desc: 'Stalled after a long break or life event.',
+          icon: <IconClock size={28} />,
         },
         {
           id: 'block',
-          title: 'Methodological Block',
+          title: 'Methodology or Data Hurdles',
           desc: 'Stuck on research design, logic, or data analysis.',
           icon: <IconMicroscope size={28} />,
         },
         {
           id: 'narrative',
-          title: 'The Narrative Gap',
+          title: 'Argument Flow & Structure',
           desc: "The data exists, but the scholarly story isn't flowing.",
           icon: <IconEdit size={28} />,
         },
         {
-          id: 'momentum',
-          title: 'Momentum Collapse',
-          desc: 'Stalled after a long break or life event.',
-          icon: <IconClock size={28} />,
+          id: 'friction',
+          title: 'Committee Feedback & Friction',
+          desc: 'Navigating contradictory feedback or stagnant reviews.',
+          icon: <IconSearch size={28} />,
         },
       ].map((item) => (
         <SelectionCard
@@ -506,7 +519,7 @@ function StepDiscipline({ data, selectOption }: any) {
 
 function StepStage({ data, selectOption }: any) {
   return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
+    <SimpleGrid cols={1} spacing="lg" mt={rem(40)}>
       {[
         {
           id: 'proposal',
@@ -602,6 +615,10 @@ function StepDateTime({ data, setData, nextStep }: any) {
           </Button>
         </Stack>
       </SimpleGrid>
+      <Divider my="xl" label="DISCLAIMER" labelPosition="center" />
+      <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
+        This is a free, 15-minute introductory call to get to know your needs, not a coaching session. <Link href="/scholarcrafted/how-it-works" style={{ color: active.accent, textDecoration: 'underline' }}>Find out more here.</Link>
+      </Text>
     </Box>
   )
 }
@@ -893,15 +910,13 @@ function SelectionCard({ title, description, icon, active, onClick }: any) {
     <UnstyledButton
       onClick={onClick}
       style={{
-        padding: rem(32),
+        padding: rem(20),
         backgroundColor: active ? activeTheme.background : activeTheme.surface,
         border: `1px solid ${active ? activeTheme.primary : `${activeTheme.primary}22`}`,
         transition: 'all 0.2s ease',
         position: 'relative',
         textAlign: 'left',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+        width: '100%',
       }}
       onMouseEnter={(e) => {
         if (!active) {
@@ -916,26 +931,29 @@ function SelectionCard({ title, description, icon, active, onClick }: any) {
         }
       }}
     >
-      <Group justify="space-between" align="flex-start" mb="xl">
+      <Group align="center" wrap="nowrap" gap="xl">
         <Box 
           c={active ? activeTheme.primary : 'dimmed'} 
-          style={{ transition: 'color 0.2s ease' }}
+          style={{ transition: 'color 0.2s ease', flexShrink: 0 }}
         >
           {icon}
         </Box>
+        
+        <Stack gap={rem(4)} style={{ flex: 1 }}>
+          <Text fw={600} size="xl" style={{ color: activeTheme.primary, lineHeight: 1.2 }}>
+            {title}
+          </Text>
+          <Text size="sm" c="dimmed" lh={1.5}>
+            {description}
+          </Text>
+        </Stack>
+
         {active && (
-          <Box c={activeTheme.primary}>
+          <Box c={activeTheme.primary} style={{ flexShrink: 0 }}>
             <IconCheck size={24} stroke={3} />
           </Box>
         )}
       </Group>
-      
-      <Text fw={600} size="xl" mb={rem(8)} style={{ color: activeTheme.primary }}>
-        {title}
-      </Text>
-      <Text size="sm" c="dimmed" lh={1.6} style={{ flexGrow: 1 }}>
-        {description}
-      </Text>
     </UnstyledButton>
   )
 }
