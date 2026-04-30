@@ -23,10 +23,10 @@ export function Footer() {
       component="footer"
       pt={rem(100)}
       pb={rem(40)}
-      bg={active.primary === '#A51C30' ? active.primary : active.surface}
+      bg={active.primary === '#A51C30' ? active.primary : active.background}
       c={active.primary === '#A51C30' ? 'white' : active.primary}
       style={{
-        borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : '#eee'}`,
+        borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : `${active.primary}22`}`,
       }}
       className="scholarcrafted-footer"
     >

@@ -340,14 +340,7 @@ export default function ResourcesPage() {
       >
         <Box p="md" style={{ textAlign: 'center' }}>
           <Stack gap="xs" mb="xl">
-            <Text
-              size="xs"
-              fw={700}
-              c="dimmed"
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-            >
-              Institutional Resource
-            </Text>
+
             <Title
               order={2}
               style={{

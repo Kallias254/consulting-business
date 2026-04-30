@@ -636,7 +636,15 @@ export default function ScholarCraftedLanding() {
         <Container size={800}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(48), color: active.primary }}>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c="dimmed"
+              >
+                FAQ & Integrity
+              </Text>
+              <Title order={2} mt="xs" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(48), color: active.primary }}>
                 Common Concerns
               </Title>
               <Text size="lg" c="dimmed" mt="md">
