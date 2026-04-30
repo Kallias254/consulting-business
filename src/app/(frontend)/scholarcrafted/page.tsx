@@ -138,11 +138,19 @@ export default function ScholarCraftedLanding() {
 
               <Stack gap="xl">
                 <Box className="hero-primary-container">
-                  <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-                    <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0}>
-                      FREE INTRODUCTORY CALL
-                    </Button>
-                  </Link>
+                  <Stack gap="xs">
+                    <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+                      <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0}>
+                        FREE INTRODUCTORY CALL
+                      </Button>
+                    </Link>
+                    <Text size="sm" c="dimmed" lh={1.4}>
+                      This 15-minute call is to get to know your needs, not a coaching session.{' '}
+                      <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'underline' }}>
+                        Find out more here.
+                      </Link>
+                    </Text>
+                  </Stack>
                 </Box>
 
                 <Box
@@ -291,20 +299,24 @@ export default function ScholarCraftedLanding() {
             <Stack gap={0}>
               {[
                 {
-                  title: 'Supervisor In-congruence',
-                  desc: 'You’re not getting meaningful support from your advisor.',
+                  prefix: 'You’re not getting ',
+                  highlight: 'meaningful support from your advisor',
+                  suffix: ' or committee.',
                 },
                 {
-                  title: 'The Weight of Isolation',
-                  desc: 'You are struggling to balance the competing demands of research, work, and family life in a vacuum.',
+                  prefix: 'You are struggling to ',
+                  highlight: 'balance the competing demands',
+                  suffix: ' of research, work, and family life in a vacuum.',
                 },
                 {
-                  title: 'Structural Paralysis',
-                  desc: 'You are overwhelmed by the sheer scope of the literature, the data, and the path to a finished manuscript.',
+                  prefix: 'You are ',
+                  highlight: 'overwhelmed by the sheer scope',
+                  suffix: ' of the literature, the data, and the path to a finished manuscript.',
                 },
                 {
-                  title: 'Perfectionism & Gridlock',
-                  desc: 'You are crippled by the fear of producing imperfect work, leading to an inability to produce any work at all.',
+                  prefix: 'You are crippled by the ',
+                  highlight: 'fear of producing imperfect work',
+                  suffix: ', leading to an inability to produce any work at all.',
                 },
               ].map((item, i) => (
                 <Box
@@ -314,18 +326,13 @@ export default function ScholarCraftedLanding() {
                     padding: `${rem(32)} 0`,
                   }}
                 >
-                  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-                    <Text
-                      size="lg"
-                      fw={600}
-                      c={active.primary}
-                    >
-                      {item.title}
-                    </Text>
-                    <Text c="dimmed" lh={1.6}>
-                      {item.desc}
-                    </Text>
-                  </SimpleGrid>
+                  <Text size="xl" c="dimmed" lh={1.6}>
+                    {item.prefix}
+                    <span style={{ fontWeight: 600, color: active.primary }}>
+                      {item.highlight}
+                    </span>
+                    {item.suffix}
+                  </Text>
                 </Box>
               ))}
             </Stack>
@@ -344,14 +351,14 @@ export default function ScholarCraftedLanding() {
                 style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                 c="dimmed"
               >
-                The Path to Completion
+                Getting Started is Simple
               </Text>
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(48), fontWeight: 400, color: active.primary }}
+                style={{ fontSize: rem(48), fontWeight: 400, color: active.primary, fontFamily: 'var(--font-serif)' }}
               >
-                A clear, structured process <br /> from start to finish.
+                A clear path forward, <br /> tailored to your research.
               </Title>
             </Box>
 
@@ -361,10 +368,10 @@ export default function ScholarCraftedLanding() {
                   <IconMessageChatbot size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  01. A 15-Minute Chat
+                  01. A Free 15-Minute Chat
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  No forms. No commitment. Just a quick, free call where we listen to where you are, what's blocking you, and whether we're the right fit. Zero pressure.
+                  No long intake forms and absolutely zero pressure. Just a quick, relaxed conversation to get to know each other, understand where you're currently stalled, and make sure we're a good fit.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -372,10 +379,10 @@ export default function ScholarCraftedLanding() {
                   <IconRocket size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  02. We Get to Work
+                  02. Share Goals & Challenges
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Your assigned specialist dives into your manuscript, methodology, or data — and works with you directly to unblock, restructure, and move things forward.
+                  You and your research are entirely unique. In our call, we'll map out exactly what you're trying to achieve and the specific committee or methodological hurdles standing in your way.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -383,10 +390,10 @@ export default function ScholarCraftedLanding() {
                   <IconCheck size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  03. You Submit With Confidence
+                  03. Execute Your Custom Strategy
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  You hand in work that is tight, coherent, and committee-ready — knowing exactly why every decision was made and how to defend it.
+                  We get to work. You receive a tailored, actionable coaching plan designed specifically to unblock your writing, so you can finally submit your manuscript with total confidence.
                 </Text>
               </Stack>
             </SimpleGrid>

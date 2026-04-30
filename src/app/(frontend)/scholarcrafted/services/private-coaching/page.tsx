@@ -91,11 +91,21 @@ export default function PrivateCoachingPage() {
               Overwhelmed by your academic research? Struggling with a complex structural or methodological issue? Let’s solve it together with in-depth, personalised academic coaching.
             </Text>
             
-            <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" bg={active.primary} radius={0} mt={rem(40)} px={rem(40)}>
-                FREE INTRODUCTORY CALL
-              </Button>
-            </Link>
+            <Stack gap="xs" mt={rem(40)}>
+              <Box>
+                <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                  <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                    FREE INTRODUCTORY CALL
+                  </Button>
+                </Link>
+              </Box>
+              <Text size="sm" c="dimmed">
+                This 15-minute call is to get to know your needs, not a coaching session.{' '}
+                <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'underline' }}>
+                  Find out more here.
+                </Link>
+              </Text>
+            </Stack>
           </Box>
         </Container>
       </Box>
@@ -177,8 +187,70 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
+      {/* How We Work (The Services) */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+        <Container size={INNER_WIDTH}>
+          <Stack gap={rem(60)}>
+            <Box>
+              <Text
+                size="xs"
+                fw={700}
+                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                c={active.accent}
+              >
+                Inside a Session
+              </Text>
+              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42), color: active.primary }}>
+                What happens during your coaching hours?
+              </Title>
+              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
+                Your retainer hours are completely flexible. Depending on where you are in the process, we use your sessions for any combination of the following:
+              </Text>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)} mt="xl">
+              <Stack gap="sm">
+                <Text size="lg" fw={600} c={active.primary}>
+                  Planning & Accountability
+                </Text>
+                <Text c="dimmed" lh={1.6}>
+                  Together, we set long and short-term goals for your academic work. We meet regularly to review progress, troubleshoot challenges, and define exact next steps.
+                </Text>
+              </Stack>
+              
+              <Stack gap="sm">
+                <Text size="lg" fw={600} c={active.primary}>
+                  Problem Solving
+                </Text>
+                <Text c="dimmed" lh={1.6}>
+                  Got a research or writing problem to solve? We work through puzzles like organizing your literature review, aligning your research questions and methods, or interpreting reviewer feedback.
+                </Text>
+              </Stack>
+
+              <Stack gap="sm">
+                <Text size="lg" fw={600} c={active.primary}>
+                  Facilitated Work Sessions
+                </Text>
+                <Text c="dimmed" lh={1.6}>
+                  Tried everything but just can’t get started drafting? Afraid to read your advisor’s comments? Do it with a coach right at your side to guide you through the anxiety and get the work done.
+                </Text>
+              </Stack>
+
+              <Stack gap="sm">
+                <Text size="lg" fw={600} c={active.primary}>
+                  Feedback on Work-In-Progress
+                </Text>
+                <Text c="dimmed" lh={1.6}>
+                  All writers need an outside perspective on their drafts. We provide robust, structural feedback you can actually use to move forward—without the judgment of a committee member.
+                </Text>
+              </Stack>
+            </SimpleGrid>
+          </Stack>
+        </Container>
+      </Box>
+
       {/* The Packages */}
-      <Box py={SECTION_SPACING} bg={active.background}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box>
@@ -281,76 +353,6 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
-      {/* How It Works - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-                c="dimmed"
-              >
-                The Process
-              </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
-                How It Works
-              </Title>
-              <Text c="dimmed" mt="md" size="lg">
-                A seamless, professional workflow designed to maximize your time with our academic experts.
-              </Text>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)} mt="lg" style={{ textAlign: 'left' }}>
-              <Stack align="center" gap="md" style={{ textAlign: 'center' }}>
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconListCheck size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  01. Prepare Your Focus
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Identify key challenges or questions you’d like to address before the call to ensure we use every minute effectively.
-                </Text>
-              </Stack>
-              <Stack align="center" gap="md" style={{ textAlign: 'center' }}>
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconVideo size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  02. Collaborative Coaching
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Meet with your expert coach via video call. We’ll work together to identify solutions, structure arguments, and break methodological gridlock.
-                </Text>
-              </Stack>
-              <Stack align="center" gap="md" style={{ textAlign: 'center' }}>
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconRocket size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  03. Take Action
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Leave the session with practical strategies and renewed focus. Apply our insights immediately to move your dissertation forward.
-                </Text>
-              </Stack>
-            </SimpleGrid>
-
-            <Center mt={rem(40)}>
-              <Link
-                href="/scholarcrafted/consultation?interest=coaching&metBefore=no"
-                style={{ textDecoration: 'none' }}
-              >
-                <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
-                  FREE INTRODUCTORY CALL
-                </Button>
-              </Link>
-            </Center>
-          </Stack>
-        </Container>
-      </Box>
 
       {/* What You'll Gain — the outcome side */}
       <Box py={SECTION_SPACING} bg={active.background}>
