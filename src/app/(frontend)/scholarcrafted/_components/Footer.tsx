@@ -247,14 +247,16 @@ export function Footer() {
             >
               Privacy & Ethics
             </Text>
-            <Text
-              size="xs"
-              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
-              style={{ cursor: 'pointer' }}
-              className="footer-link"
-            >
-              Honor Code
-            </Text>
+            <Link href="/scholarcrafted/terms" style={{ textDecoration: 'none' }}>
+              <Text
+                size="xs"
+                c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                style={{ cursor: 'pointer' }}
+                className="footer-link"
+              >
+                Terms & Conditions
+              </Text>
+            </Link>
             <Text
               size="xs"
               fw={700}

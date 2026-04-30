@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Title,
@@ -15,6 +15,7 @@ import {
   rem,
   useMantineTheme,
   ThemeIcon,
+  Center,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
@@ -28,6 +29,8 @@ import {
   IconMessageChatbot,
   IconRocket,
   IconCertificate,
+  IconChevronDown,
+  IconChevronUp,
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -73,6 +76,19 @@ export default function ScholarCraftedLanding() {
   const theme = useMantineTheme()
   const active = theme.other
   const autoplay = useRef(Autoplay({ delay: 5000 }))
+  const [showBackToTop, setShowBackToTop] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 400)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
@@ -296,7 +312,7 @@ export default function ScholarCraftedLanding() {
               </Title>
             </Box>
 
-            <Stack gap={0}>
+            <Stack gap={0} align="stretch" mt="xl" w="100%">
               {[
                 {
                   prefix: 'You’re not getting ',
@@ -319,29 +335,53 @@ export default function ScholarCraftedLanding() {
                   suffix: ', leading to an inability to produce any work at all.',
                 },
               ].map((item, i) => (
-                <Box
-                  key={i}
-                  style={{
+                <Box 
+                  key={i} 
+                  style={{ 
                     borderBottom: `1px solid ${active.primary}22`,
-                    padding: `${rem(32)} 0`,
+                    padding: `${rem(40)} 0`,
+                    textAlign: 'center' 
                   }}
                 >
-                  <Text size="xl" c="dimmed" lh={1.6}>
-                    {item.prefix}
-                    <span style={{ fontWeight: 600, color: active.primary }}>
-                      {item.highlight}
-                    </span>
-                    {item.suffix}
-                  </Text>
+                  <Box style={{ width: '100%', margin: '0 auto' }}>
+                    <Text size="lg" c="dimmed" lh={1.6}>
+                      <span style={{ color: active.accent, marginRight: rem(16), fontSize: rem(20), verticalAlign: 'middle' }}>✦</span>
+                      {item.prefix}
+                      <span style={{ fontWeight: 600, color: active.primary }}>
+                        {item.highlight}
+                      </span>
+                      {item.suffix}
+                      <span style={{ color: active.accent, marginLeft: rem(16), fontSize: rem(20), verticalAlign: 'middle' }}>✦</span>
+                    </Text>
+                  </Box>
                 </Box>
               ))}
             </Stack>
+            
+            <Center mt={rem(60)}>
+              <Box
+                onClick={() => scrollToSection('getting-started')}
+                style={{ 
+                  padding: rem(12), 
+                  borderRadius: '50%', 
+                  border: `1px solid ${active.primary}22`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: active.primary,
+                  cursor: 'pointer',
+                  transition: 'border-color 0.2s, opacity 0.2s',
+                }}
+              >
+                <IconChevronDown size={24} stroke={1.5} style={{ opacity: 0.6 }} />
+              </Box>
+            </Center>
           </Stack>
         </Container>
       </Box>
 
       {/* The 3-Step Process */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+      <Box id="getting-started" component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={1100}>
           <Stack gap={rem(80)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -371,7 +411,7 @@ export default function ScholarCraftedLanding() {
                   01. A Free 15-Minute Chat
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  No long intake forms and absolutely zero pressure. Just a quick, relaxed conversation to get to know each other, understand where you're currently stalled, and make sure we're a good fit.
+                  No forms. No pressure. Just a quick conversation to understand where you're stalled and see if we're a good fit.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -382,7 +422,7 @@ export default function ScholarCraftedLanding() {
                   02. Share Goals & Challenges
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  You and your research are entirely unique. In our call, we'll map out exactly what you're trying to achieve and the specific committee or methodological hurdles standing in your way.
+                  We map out exactly what you're trying to achieve and identify the specific methodological or committee hurdles standing in your way.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -393,7 +433,7 @@ export default function ScholarCraftedLanding() {
                   03. Execute Your Custom Strategy
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  We get to work. You receive a tailored, actionable coaching plan designed specifically to unblock your writing, so you can finally submit your manuscript with total confidence.
+                  You receive a tailored, actionable coaching plan designed to unblock your writing so you can finally submit with confidence.
                 </Text>
               </Stack>
             </SimpleGrid>
@@ -564,6 +604,41 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       <Footer />
+
+      <Box
+        onClick={scrollToTop}
+        style={{
+          position: 'fixed',
+          bottom: rem(40),
+          right: rem(40),
+          width: rem(50),
+          height: rem(50),
+          borderRadius: '50%',
+          backgroundColor: active.surface,
+          border: `1px solid ${active.primary}33`,
+          color: active.primary,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 100,
+          opacity: showBackToTop ? 1 : 0,
+          pointerEvents: showBackToTop ? 'all' : 'none',
+          transform: showBackToTop ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.1)'
+          e.currentTarget.style.transform = 'translateY(-2px)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)'
+          e.currentTarget.style.transform = 'translateY(0)'
+        }}
+      >
+        <IconChevronUp size={24} stroke={1.5} />
+      </Box>
     </Box>
   )
 }
