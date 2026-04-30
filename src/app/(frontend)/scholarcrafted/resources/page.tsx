@@ -336,16 +336,31 @@ export default function ResourcesPage() {
           header: {
             backgroundColor: active.surface,
           },
-          title: {
-            color: active.primary,
-            fontFamily: 'var(--font-serif)',
-            fontWeight: 400,
-            fontSize: rem(24),
-          },
         }}
-        title="Extract Your Blueprint"
       >
-        <Box p="md">
+        <Box p="md" style={{ textAlign: 'center' }}>
+          <Stack gap="xs" mb="xl">
+            <Text
+              size="xs"
+              fw={700}
+              c="dimmed"
+              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+            >
+              Institutional Resource
+            </Text>
+            <Title
+              order={2}
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontWeight: 400,
+                fontSize: rem(32),
+                color: active.primary,
+              }}
+            >
+              Secure Your Blueprint
+            </Title>
+          </Stack>
+
           {!submitted ? (
             <Stack gap="xl">
               <Text size="sm" c="dimmed" lh={1.6}>

@@ -46,14 +46,7 @@ export function ExitIntentModal() {
     >
       <Box p={rem(32)} style={{ textAlign: 'center' }}>
         <Stack gap="lg" align="center">
-          <Text
-            size="xs"
-            fw={700}
-            c="dimmed"
-            style={{ letterSpacing: '0.3em', textTransform: 'uppercase' }}
-          >
-            Before You Go
-          </Text>
+
           <Title
             order={2}
             style={{
