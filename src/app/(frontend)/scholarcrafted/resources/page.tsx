@@ -88,7 +88,7 @@ export default function ResourcesPage() {
         <Navbar />
 
         {/* Hero Section */}
-        <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.surface}>
+        <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Box style={{ maxWidth: 800 }}>
             <Text
@@ -125,7 +125,7 @@ export default function ResourcesPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg={active.background}
+        bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}22` }}
       >
         <Container size={INNER_WIDTH}>
@@ -162,7 +162,7 @@ export default function ResourcesPage() {
                 <Box
                   key={i}
                   p={rem(40)}
-                  bg={active.surface}
+                  bg={active.background}
                   style={{
                     border: '1px solid #eee',
                     display: 'flex',
@@ -207,7 +207,7 @@ export default function ResourcesPage() {
       <Box
         component="section"
         py={SECTION_SPACING}
-        bg={active.surface}
+        bg={active.background}
         style={{ borderTop: `1px solid ${active.primary}22` }}
       >
         <Container size={INNER_WIDTH}>
@@ -247,7 +247,7 @@ export default function ResourcesPage() {
                 >
                   <Box
                     p={rem(40)}
-                    bg={active.background}
+                    bg={active.surface}
                     style={{
                       border: `1px solid ${active.primary}22`,
                       display: 'flex',
@@ -300,7 +300,7 @@ export default function ResourcesPage() {
       </Box>
 
       {/* Bottom CTA */}
-      <Box py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={760}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Title order={2} style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}>

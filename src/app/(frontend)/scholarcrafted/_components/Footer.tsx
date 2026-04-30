@@ -14,16 +14,18 @@ import {
 } from '@mantine/core'
 import Link from 'next/link'
 
-export function Footer() {
+export function Footer({ bg }: { bg?: string }) {
   const theme = useMantineTheme()
   const active = theme.other
+
+  const footerBg = bg || (active.primary === '#A51C30' ? active.primary : active.background)
 
   return (
     <Box
       component="footer"
       pt={rem(100)}
       pb={rem(40)}
-      bg={active.primary === '#A51C30' ? active.primary : active.background}
+      bg={footerBg}
       c={active.primary === '#A51C30' ? 'white' : active.primary}
       style={{
         borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : `${active.primary}22`}`,
