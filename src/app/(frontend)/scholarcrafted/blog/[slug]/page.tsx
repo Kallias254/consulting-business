@@ -39,7 +39,7 @@ const articleContent: Record<
     readTime: '6 min read',
     author: 'Micah, PhD',
     date: 'April 2026',
-    heroColor: '#1a1a2e',
+    heroColor: 'var(--color-primary)',
     body: [
       "It happens more often than anyone admits. You send a draft. A week passes. Then two. You follow up. Silence. Your Chair, the person whose entire professional mandate is to guide your research, has gone dark. And suddenly, the most important project of your academic life is stuck waiting on a single person's reply.",
       "Here is the truth no one tells you at orientation: your Chair's primary obligation is to their own research, their own tenure file, and their own students — roughly in that order. You are one of many. This is not malicious; it is structural. Understanding this removes the emotional sting and lets you operate strategically.",
@@ -56,7 +56,7 @@ const articleContent: Record<
     readTime: '8 min read',
     author: 'Micah, PhD',
     date: 'March 2026',
-    heroColor: '#1a1a2e',
+    heroColor: 'var(--color-primary)',
     body: [
       "Your Chapter 4 came back with devastating feedback: your committee does not accept the analysis. After months of interviews, transcription, and coding, the rejection feels personal. It is not. It is almost certainly one of four fixable methodological failures.",
       "**Failure 1: Themes are topics, not themes.** The most common error. 'Participant experiences of stress' is a topic. 'Institutional ambiguity as the primary driver of doctoral attrition' is a theme. A true theme makes an interpretive claim about your data. Review every theme heading and ask: does this tell the reader *what* the data says, or merely *what* the data is about?",
@@ -72,7 +72,7 @@ const articleContent: Record<
     readTime: '5 min read',
     author: 'Micah, PhD',
     date: 'February 2026',
-    heroColor: '#1a1a2e',
+    heroColor: 'var(--color-primary)',
     body: [
       "All But Dissertation. The label sounds almost like an achievement. It is not. It is the most dangerous stage of the doctoral journey, the point at which the structure of coursework and deadlines has dissolved and the only thing keeping you moving is internal motivation — a notoriously unreliable resource.",
       "A six-month break is common. A two-year break is more common than departments will admit. Returning feels impossible not because the work is harder than before, but because the psychological distance has transformed the dissertation from a manuscript into a monument. It has become something too large to touch.",
@@ -88,7 +88,7 @@ const articleContent: Record<
     readTime: '10 min read',
     author: 'Micah, PhD',
     date: 'January 2026',
-    heroColor: '#1a1a2e',
+    heroColor: 'var(--color-primary)',
     body: [
       "One of the most persistent — and consequential — errors in doctoral research is the misalignment between a researcher's stated paradigm and their actual research questions. A researcher claims to operate from a constructivist position, then writes RQs that seek to identify causal variables. The committee notices. The proposal stalls.",
       "**What is a paradigm and why does it matter?** A paradigm is your foundational set of beliefs about the nature of reality (ontology), how we can know it (epistemology), and therefore how we should study it (methodology). It is not a preference or a tradition. It is a logical architecture. Every methodological choice you make must be traceable back to it.",
@@ -188,7 +188,7 @@ export default function BlogArticlePage() {
                 alignItems: 'center',
                 gap: 8,
                 padding: `${rem(8)} ${rem(16)}`,
-                border: `1px solid ${active.primary}22`,
+                border: `1px solid #eee`,
                 borderRadius: rem(100),
                 transition: 'all 0.2s ease' }}
               className="back-btn"
@@ -207,7 +207,7 @@ export default function BlogArticlePage() {
         component="section"
         py={rem(80)}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={READING_WIDTH}>
           <Stack gap={rem(32)}>
@@ -231,7 +231,7 @@ export default function BlogArticlePage() {
           <Box
             p={rem(60)}
             bg={active.background}
-            style={{ border: `1px solid ${active.primary}22`, textAlign: 'center' }}
+            style={{ border: `1px solid #eee`, textAlign: 'center' }}
           >
             <Stack gap="xl" align="center">
               <Text

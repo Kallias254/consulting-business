@@ -54,7 +54,7 @@ export default function TermsPage() {
         component="section"
         py={rem(80)}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={READING_WIDTH}>
           <Stack gap={rem(48)}>

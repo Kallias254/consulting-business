@@ -339,7 +339,7 @@ export default function ScholarCraftedLanding() {
                 <Box 
                   key={i} 
                   style={{ 
-                    borderBottom: `1px solid ${active.primary}22`,
+                    borderBottom: `1px solid #eee`,
                     padding: `${rem(40)} 0`,
                     textAlign: 'center' 
                   }}
@@ -365,7 +365,7 @@ export default function ScholarCraftedLanding() {
                 style={{ 
                   padding: rem(12), 
                   borderRadius: '50%', 
-                  border: `1px solid ${active.primary}22`,
+                  border: `1px solid #eee`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -545,7 +545,7 @@ export default function ScholarCraftedLanding() {
                 width: rem(8),
                 height: rem(8),
                 transition: 'transform 250ms ease, background-color 250ms ease',
-                backgroundColor: '#ccc',
+                backgroundColor: '#eee',
               } }}
             classNames={{
               indicator: 'carousel-indicator' }}

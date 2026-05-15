@@ -46,7 +46,7 @@ const chapters = [
 
 export default function RoutledgeHandbookMock() {
   const theme = useMantineTheme()
-  const active = theme.other || { primary: '#1A1A1A', background: '#FAFAFA', surface: '#FFFFFF', accent: '#D4AF37' }
+  const active = theme.other
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>

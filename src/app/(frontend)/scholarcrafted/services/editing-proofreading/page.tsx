@@ -95,7 +95,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* Why Choose a Professional Review */}
-      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             <Box>
@@ -179,7 +179,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* What You'll Gain */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -192,19 +192,19 @@ export default function EditingProofreadingPage() {
             </Box>
 
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" style={{ textAlign: 'left' }}>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Institutional Alignment</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>We ensure your formatting strictly adheres to your university&rsquo;s specific guidelines (APA, MLA, Chicago, etc.), removing a major hurdle to final approval.</Text>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Elevated Academic Voice</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>We refine your prose to ensure it carries the objective, authoritative tone expected by senior academics and journal reviewers.</Text>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Structural Integrity</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>We identify weak transitions and logical gaps, ensuring your core argument is easily traceable from your introduction to your conclusion.</Text>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Peace of Mind</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>Handing your manuscript over to an expert pair of eyes allows you to step away and return refreshed for your final defense preparation.</Text>
               </Box>
@@ -216,7 +216,7 @@ export default function EditingProofreadingPage() {
 
 
       {/* Editing vs Consulting - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={800}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Text
@@ -234,7 +234,7 @@ export default function EditingProofreadingPage() {
             </Text>
 
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl" style={{ textAlign: 'left' }}>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Title order={4} mb="md">
                   Editing (Asynchronous)
                 </Title>
@@ -243,7 +243,7 @@ export default function EditingProofreadingPage() {
                 </Text>
               </Box>
 
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Title order={4} mb="md">
                   Consulting (Live Coaching)
                 </Title>
@@ -327,7 +327,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
@@ -365,7 +365,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
@@ -377,7 +377,7 @@ export default function EditingProofreadingPage() {
               </Text>
             </Box>
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
@@ -400,7 +400,7 @@ export default function EditingProofreadingPage() {
                 </Box>
               </Box>
 
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>

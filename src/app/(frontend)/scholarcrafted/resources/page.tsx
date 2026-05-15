@@ -120,7 +120,7 @@ export default function ResourcesPage() {
         component="section"
         py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(80)}>
@@ -197,10 +197,10 @@ export default function ResourcesPage() {
         component="section"
         py={SECTION_SPACING}
         bg={active.background}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={INNER_WIDTH}>
-          <Box p={rem(80)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, textAlign: 'center' }}>
+          <Box p={rem(80)} bg={active.surface} style={{ border: `1px solid #eee`, textAlign: 'center' }}>
             <Stack gap="xl" align="center">
               <Text
                 size="xs"
@@ -232,7 +232,7 @@ export default function ResourcesPage() {
       </Box>
 
       {/* Bottom CTA */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={760}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Title order={2} style={{ fontSize: rem(42), color: active.primary }}>
@@ -262,7 +262,7 @@ export default function ResourcesPage() {
         styles={{
           content: {
             backgroundColor: active.surface,
-            border: `1px solid ${active.primary}22`,
+            border: `1px solid #eee`,
             borderRadius: 0,
           },
           header: {
@@ -294,7 +294,7 @@ export default function ResourcesPage() {
                   size="md"
                   styles={{
                     input: {
-                      border: `1px solid ${active.primary}44`,
+                      border: `1px solid #eee`,
                       '&:focus': {
                         borderColor: active.primary,
                       },

@@ -314,7 +314,7 @@ export default function AboutPage() {
                 A track record that speaks for itself.
               </Title>
             </Box>
-            <Box p={rem(40)} bg={active.surface} style={{ border: '1px solid #ddd' }}>
+            <Box p={rem(40)} bg={active.surface} style={{ border: '1px solid #eee' }}>
               <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
                 {awards.map((award, i) => (
                   <Group key={i} gap="sm" wrap="nowrap">

@@ -325,7 +325,7 @@ function ConsultationWizard() {
       </Box>
 
       {/* Main Content Section - Surface */}
-      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size="md">
           <Box style={{ maxWidth: 800, margin: '0 auto' }}>
             {stepsContent[step]}
@@ -834,7 +834,7 @@ function StepReview({ data, setStep, nextStep }: any) {
       <Box 
         bg={active.background} 
         p={{ base: rem(30), sm: rem(50) }} 
-        style={{ border: `1px solid ${active.primary}22` }}
+        style={{ border: `1px solid #eee` }}
       >
         <Stack gap="lg">
           {reviewItems.map(

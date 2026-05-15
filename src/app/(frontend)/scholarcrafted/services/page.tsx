@@ -78,7 +78,7 @@ export default function ServicesPage() {
         component="section"
         py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(80)}>
@@ -110,7 +110,7 @@ export default function ServicesPage() {
                 p={rem(40)}
                 bg={active.background}
                 style={{
-                  border: `1px solid ${active.primary}22`,
+                  border: `1px solid #eee`,
                   display: 'flex',
                   flexDirection: 'column',
                   height: '100%' }}
@@ -152,7 +152,7 @@ export default function ServicesPage() {
         component="section"
         py={SECTION_SPACING}
         bg={active.background}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(80)}>

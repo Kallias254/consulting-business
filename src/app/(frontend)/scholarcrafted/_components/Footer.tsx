@@ -18,7 +18,7 @@ export function Footer({ bg }: { bg?: string }) {
   const theme = useMantineTheme()
   const active = theme.other
 
-  const footerBg = bg || (active.primary === '#A51C30' ? active.primary : active.background)
+  const footerBg = bg || active.background
 
   return (
     <Box
@@ -26,9 +26,9 @@ export function Footer({ bg }: { bg?: string }) {
       pt={rem(100)}
       pb={rem(40)}
       bg={footerBg}
-      c={active.primary === '#A51C30' ? 'white' : active.primary}
+      c={active.primary}
       style={{
-        borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : `${active.primary}22`}` }}
+        borderTop: '1px solid #eee' }}
       className="scholarcrafted-footer"
     >
       <Container size={1100}>
@@ -47,7 +47,7 @@ export function Footer({ bg }: { bg?: string }) {
               </Text>
               <Text
                 size="xs"
-                c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.7)' : 'dimmed'}
+                c="dimmed"
                 style={{ fontSize: rem(10) }}
               >
                 ESTABLISHED 2016
@@ -55,7 +55,7 @@ export function Footer({ bg }: { bg?: string }) {
             </Stack>
             <Text
               size="sm"
-              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              c="dimmed"
               lh={1.7}
             >
               A prestigious advisory firm dedicated to the rigorous oversight and structural
@@ -65,7 +65,7 @@ export function Footer({ bg }: { bg?: string }) {
               <Text size="xs" fw={700} style={{ letterSpacing: '0.05em', color: 'inherit' }}>
                 FACULTY LOCATIONS
               </Text>
-              <Text size="xs" c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}>
+              <Text size="xs" c="dimmed">
                 Boston &bull; New York &bull; Oxford &bull; Cambridge
               </Text>
             </Stack>
@@ -86,7 +86,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Private Coaching
@@ -98,7 +98,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Structural Editing & Proofreading
@@ -110,7 +110,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Methodology Oversight
@@ -122,7 +122,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Strategic Review
@@ -146,7 +146,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Micah, PhD & Faculty
@@ -158,7 +158,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Our Scholarly Tradition
@@ -170,7 +170,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Downloadable Blueprints
@@ -182,7 +182,7 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Strategic Library (Blog)
@@ -191,7 +191,7 @@ export function Footer({ bg }: { bg?: string }) {
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Research Ethics
@@ -200,7 +200,7 @@ export function Footer({ bg }: { bg?: string }) {
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text
                   size="sm"
-                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  c="dimmed"
                   className="footer-link"
                 >
                   Governance
@@ -221,13 +221,13 @@ export function Footer({ bg }: { bg?: string }) {
               <Text size="sm" fw={600} color={'inherit'}>
                 admissions@scholarcrafted.com
               </Text>
-              <Text size="sm" c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}>
+              <Text size="sm" c="dimmed">
                 +1 (617) 555-0123
               </Text>
             </Stack>
             <Text
               size="xs"
-              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              c="dimmed"
               lh={1.6}
               fs="italic"
             >
@@ -240,14 +240,14 @@ export function Footer({ bg }: { bg?: string }) {
 
         <Group justify="space-between" align="center">
           <Group gap="xl">
-            <Text size="xs" c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}>
+            <Text size="xs" c="dimmed">
               &copy; 2026 ScholarCrafted Academic Consultancy. All rights reserved.
             </Text>
           </Group>
           <Group gap="xl">
             <Text
               size="xs"
-              c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+              c="dimmed"
               style={{ cursor: 'pointer' }}
               className="footer-link"
             >
@@ -256,7 +256,7 @@ export function Footer({ bg }: { bg?: string }) {
             <Link href="/scholarcrafted/terms" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
-                c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                c="dimmed"
                 style={{ cursor: 'pointer' }}
                 className="footer-link"
               >

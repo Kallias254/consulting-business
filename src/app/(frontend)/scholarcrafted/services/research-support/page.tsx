@@ -85,7 +85,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* Why Choose Custom Research Support */}
-      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             <Box>
@@ -177,7 +177,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* What You'll Gain */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -190,19 +190,19 @@ export default function ResearchSupportPage() {
             </Box>
 
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" style={{ textAlign: 'left' }}>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Institutional Alignment</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>We ensure your methodological approach strictly adheres to your university&rsquo;s specific guidelines, removing a major hurdle to final defense approval.</Text>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Elevated Analysis</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>We don&rsquo;t just run the numbers or extract themes; we help organize the outputs so you can easily interpret them in the context of your core research questions.</Text>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Structural Integrity</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>We validate your instruments to ensure they accurately measure exactly what they claim to measure, preventing critical flaws in your findings.</Text>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid ${active.primary}22` }}>
+              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
                 <Text fw={700} size="lg" mb="sm">Peace of Mind</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>Handing the raw data processing over to a specialist allows you to step away and return refreshed for the critical interpretation and discussion phase.</Text>
               </Box>
@@ -248,7 +248,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* How It Works - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -356,7 +356,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
@@ -368,7 +368,7 @@ export default function ResearchSupportPage() {
               </Text>
             </Box>
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
@@ -391,7 +391,7 @@ export default function ResearchSupportPage() {
                 </Box>
               </Box>
 
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>

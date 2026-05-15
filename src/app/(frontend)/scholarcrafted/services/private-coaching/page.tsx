@@ -15,6 +15,7 @@ import {
   useMantineTheme,
   Accordion,
   ThemeIcon,
+  Badge,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
@@ -104,7 +105,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* Pain Points Carousel */}
-      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center">
 
@@ -224,7 +225,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* The Packages */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box>
@@ -245,7 +246,7 @@ export default function PrivateCoachingPage() {
             
             <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(40)}>
               {/* Option A: 5 Hours */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
@@ -271,9 +272,9 @@ export default function PrivateCoachingPage() {
 
               {/* Option B: 10 Hours */}
               <Box p={rem(40)} bg={active.background} style={{ border: `2px solid ${active.primary}`, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                <Box style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: active.primary, color: '#fff', padding: '4px 16px', fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em' }}>
+                <Badge style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)' }} color={active.primary} variant="filled">
                   MOST POPULAR
-                </Box>
+                </Badge>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
@@ -298,7 +299,7 @@ export default function PrivateCoachingPage() {
               </Box>
 
               {/* Option C: 20 Hours */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
@@ -369,7 +370,7 @@ export default function PrivateCoachingPage() {
                   key={i}
                   p={rem(40)}
                   bg={active.surface}
-                  style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}
+                  style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}
                 >
                   <Stack gap="md">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em' }}>
@@ -390,7 +391,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
@@ -440,7 +441,7 @@ export default function PrivateCoachingPage() {
               </Text>
             </Box>
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
@@ -463,7 +464,7 @@ export default function PrivateCoachingPage() {
                 </Box>
               </Box>
 
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>

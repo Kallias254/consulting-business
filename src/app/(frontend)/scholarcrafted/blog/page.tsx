@@ -100,7 +100,7 @@ export default function BlogArchivePage() {
                 alignItems: 'center',
                 gap: 8,
                 padding: `${rem(8)} ${rem(16)}`,
-                border: `1px solid ${active.primary}22`,
+                border: `1px solid #eee`,
                 borderRadius: rem(100),
                 transition: 'all 0.2s ease' }}
               className="back-btn"
@@ -119,7 +119,7 @@ export default function BlogArchivePage() {
         component="section"
         py={rem(80)}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}22` }}
+        style={{ borderTop: `1px solid #eee` }}
       >
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(2)}>
@@ -183,7 +183,7 @@ export default function BlogArchivePage() {
       <Box
         py={rem(80)}
         bg={active.background}
-        style={{ borderTop: `1px solid ${active.primary}22`, textAlign: 'center' }}
+        style={{ borderTop: `1px solid #eee`, textAlign: 'center' }}
       >
         <Container size={760}>
           <Stack gap="xl" align="center">
