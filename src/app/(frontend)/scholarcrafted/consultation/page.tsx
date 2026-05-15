@@ -277,7 +277,6 @@ function ConsultationWizard() {
               <UnstyledButton
                 onClick={prevStep}
                 style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease' }}
-                _hover={{ opacity: 0.7 }}
               >
                 <IconArrowLeft size={16} color={active.primary} />
                 <Text size="xs" fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: active.primary }}>

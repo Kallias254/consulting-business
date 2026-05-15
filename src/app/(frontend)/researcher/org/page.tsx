@@ -67,7 +67,7 @@ export default function OrgStructurePage() {
               receives.
             </Text>
 
-            <Stepper active={3} breakpoint="sm" color="burnished-gold" iconSize={42}>
+            <Stepper active={3} color="burnished-gold" iconSize={42}>
               <Stepper.Step
                 label="Production"
                 description="Researchers"

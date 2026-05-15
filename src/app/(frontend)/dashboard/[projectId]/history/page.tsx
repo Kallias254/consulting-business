@@ -126,7 +126,7 @@ export default function ProjectHistoryPage({ params }: { params: Promise<{ proje
           </Text>
         </Box>
 
-        <SimpleGrid cols={{ base: 1, lg: 3 }} spacing={60} align="flex-start">
+        <SimpleGrid cols={{ base: 1, lg: 3 }} spacing={60}>
           {/* 1. Modular Audit Ledger (Grouped by Unit) */}
           <Box style={{ gridColumn: 'span 2' }}>
             <Stack gap="md">
@@ -203,7 +203,6 @@ export default function ProjectHistoryPage({ params }: { params: Promise<{ proje
                         <Table.Thead bg="parchment.0">
                           <Table.Tr style={{ borderBottom: '1px solid #E0DBCC' }}>
                             <Table.Th
-                              size="xs"
                               ff="var(--font-body)"
                               c="#62666B"
                               style={{ fontSize: '9px', letterSpacing: '1px' }}
@@ -211,7 +210,6 @@ export default function ProjectHistoryPage({ params }: { params: Promise<{ proje
                               REV_ID
                             </Table.Th>
                             <Table.Th
-                              size="xs"
                               ff="var(--font-body)"
                               c="#62666B"
                               style={{ fontSize: '9px', letterSpacing: '1px' }}
@@ -219,7 +217,6 @@ export default function ProjectHistoryPage({ params }: { params: Promise<{ proje
                               DESCRIPTION
                             </Table.Th>
                             <Table.Th
-                              size="xs"
                               ff="var(--font-body)"
                               c="#62666B"
                               style={{ fontSize: '9px', letterSpacing: '1px' }}
@@ -227,7 +224,6 @@ export default function ProjectHistoryPage({ params }: { params: Promise<{ proje
                               DATE
                             </Table.Th>
                             <Table.Th
-                              size="xs"
                               ff="var(--font-body)"
                               c="#62666B"
                               style={{ fontSize: '9px', letterSpacing: '1px' }}

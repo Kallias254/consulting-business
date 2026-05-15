@@ -439,7 +439,7 @@ export default function ScholarCraftedLanding() {
                   01. A Free 15-Minute Chat
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  No forms. No pressure. Just a quick conversation to understand where you're stalled and see if we're a good fit.
+                  No forms. No pressure. Just a quick conversation to understand where you&apos;re stalled and see if we&apos;re a good fit.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -450,7 +450,7 @@ export default function ScholarCraftedLanding() {
                   02. Share Goals & Challenges
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  We map out exactly what you're trying to achieve and identify the specific methodological or committee hurdles standing in your way.
+                  We map out exactly what you&apos;re trying to achieve and identify the specific methodological or committee hurdles standing in your way.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -564,7 +564,7 @@ export default function ScholarCraftedLanding() {
         <Container size={1100}>
           <Carousel
             withIndicators
-            loop
+            emblaOptions={{ loop: true }}
             withControls={false}
             plugins={[autoplay.current]}
             onMouseEnter={autoplay.current.stop}

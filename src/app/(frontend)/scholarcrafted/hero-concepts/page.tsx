@@ -137,7 +137,7 @@ const ResearchAbstractHero = () => {
 const ModernInstituteHero = () => {
   const { other: active } = useMantineTheme()
   return (
-    <Box component="section" py={SECTION_SPACING * 1.5}>
+    <Box component="section" py={rem(210)}>
       <Container size={1100}>
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)}>
           <Image

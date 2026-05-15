@@ -143,7 +143,7 @@ export default function ClearanceQueuePage() {
                 </Title>
               </Box>
 
-              <Stack gap={{ base: 30, sm: 60 }} style={{ position: 'relative', zIndex: 2 }}>
+              <Stack gap="xl" style={{ position: 'relative', zIndex: 2 }}>
                 <Box ta="center">
                   <Text
                     ff="var(--font-body)"

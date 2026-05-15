@@ -76,6 +76,19 @@ export function Navbar() {
               </Text>
             </Link>
             <Link
+              href="/scholarcrafted/blog"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <Text
+                fw={500}
+                size="xs"
+                className="nav-link"
+                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
+              >
+                THE LIBRARY
+              </Text>
+            </Link>
+            <Link
               href="/scholarcrafted/resources"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
@@ -85,7 +98,7 @@ export function Navbar() {
                 className="nav-link"
                 style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
               >
-                RESOURCES
+                BLUEPRINTS
               </Text>
             </Link>
             <Link href="/scholarcrafted/about" style={{ textDecoration: 'none', color: 'inherit' }}>

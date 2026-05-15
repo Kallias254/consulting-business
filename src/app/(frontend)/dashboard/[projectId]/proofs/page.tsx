@@ -205,17 +205,17 @@ export default function ProjectGalleryProofPage({
                 </Box>
                 <Divider orientation="vertical" h={30} />
                 <Group gap="xs">
-                  <Tooltip label="Zoom In" radius={0} size="xs">
+                  <Tooltip label="Zoom In" radius={0}>
                     <ActionIcon variant="subtle" color="deep-green">
                       <IconZoomIn size={18} />
                     </ActionIcon>
                   </Tooltip>
-                  <Tooltip label="Zoom Out" radius={0} size="xs">
+                  <Tooltip label="Zoom Out" radius={0}>
                     <ActionIcon variant="subtle" color="deep-green">
                       <IconZoomOut size={18} />
                     </ActionIcon>
                   </Tooltip>
-                  <Tooltip label="Full Screen" radius={0} size="xs">
+                  <Tooltip label="Full Screen" radius={0}>
                     <ActionIcon variant="subtle" color="deep-green">
                       <IconMaximize size={18} />
                     </ActionIcon>

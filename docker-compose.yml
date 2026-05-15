@@ -9,6 +9,7 @@ services:
       - .env
     environment:
       - NODE_ENV=development
+      - CI=true
     volumes:
       - .:/app
       - /app/node_modules # Prevents host modules from clashing

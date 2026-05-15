@@ -130,7 +130,6 @@ export default function PrivateCoachingPage() {
 
             <Box style={{ width: '100%' }}>
               <Carousel
-                loop
                 withControls={false}
                 plugins={[autoplay.current]}
               >
@@ -250,7 +249,7 @@ export default function PrivateCoachingPage() {
                 Coaching Packages
               </Text>
               <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
-                What's included in each package
+                What&apos;s included in each package
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
                 All packages are activated following your free introductory call, where we assess your needs and confirm the right level of engagement for your research.
@@ -355,7 +354,7 @@ export default function PrivateCoachingPage() {
                 The Other Side
               </Text>
               <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
-                What you'll walk away with.
+                What you&apos;ll walk away with.
               </Title>
               <Text c="dimmed" mt="md" size="lg" lh={1.7}>
                 The right coaching engagement can fundamentally shift the trajectory of your research. Here is what that looks like in practice.

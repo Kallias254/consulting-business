@@ -180,7 +180,19 @@ export function Footer({ bg }: { bg?: string }) {
                   c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
                   className="footer-link"
                 >
-                  Resources & Blueprints
+                  Downloadable Blueprints
+                </Text>
+              </Link>
+              <Link
+                href="/scholarcrafted/blog"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <Text
+                  size="sm"
+                  c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.8)' : 'dimmed'}
+                  className="footer-link"
+                >
+                  Strategic Library (Blog)
                 </Text>
               </Link>
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>

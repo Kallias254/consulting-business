@@ -152,7 +152,7 @@ export default function ResourcesPage() {
                 Downloadable Blueprints
               </Title>
               <Text size="lg" c="dimmed" mt="md">
-                Proprietary templates and matrices we use internally to structure our clients'
+                Proprietary templates and matrices we use internally to structure our clients&apos;
                 research. Available for instant download.
               </Text>
             </Box>
@@ -203,7 +203,7 @@ export default function ResourcesPage() {
         </Container>
       </Box>
 
-      {/* Strategic Articles */}
+      {/* Visit the Library CTA */}
       <Box
         component="section"
         py={SECTION_SPACING}
@@ -211,8 +211,8 @@ export default function ResourcesPage() {
         style={{ borderTop: `1px solid ${active.primary}22` }}
       >
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(80)}>
-            <Box style={{ maxWidth: 800 }}>
+          <Box p={rem(80)} bg={active.surface} style={{ border: `1px solid ${active.primary}22`, textAlign: 'center' }}>
+            <Stack gap="xl" align="center">
               <Text
                 size="xs"
                 fw={700}
@@ -223,79 +223,26 @@ export default function ResourcesPage() {
               </Text>
               <Title
                 order={2}
-                mt="md"
                 style={{
-                  fontSize: rem(48),
+                  fontSize: rem(42),
                   fontWeight: 400,
                   color: active.primary,
                   fontFamily: 'var(--font-serif)',
                 }}
               >
-                Strategic Insights
+                Strategic Insights Archive
               </Title>
-              <Text size="lg" c="dimmed" mt="md">
-                Deep dives into methodology, academic writing, and navigating committee politics.
+              <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
+                Deep dives into methodology, academic writing, and navigating committee politics. 
+                Our full archive of strategic insights is now hosted in the Library.
               </Text>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              {articles.map((item, i) => (
-                <Link
-                  key={i}
-                  href={`/scholarcrafted/resources/articles/${item.slug}`}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <Box
-                    p={rem(40)}
-                    bg={active.surface}
-                    style={{
-                      border: `1px solid ${active.primary}22`,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: '100%',
-                      cursor: 'pointer',
-                    }}
-                    className="article-card"
-                  >
-                    <Stack gap="xl" flex={1}>
-                      <Group justify="space-between">
-                        <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                          {item.category}
-                        </Text>
-                        <Text size="xs" c="dimmed">
-                          {item.readTime}
-                        </Text>
-                      </Group>
-                      <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, lineHeight: 1.3 }}>
-                        {item.title}
-                      </Title>
-                      <Box mt="auto" pt="md">
-                        <Group gap="xs">
-                          <Text
-                            fw={600}
-                            size="sm"
-                            c={active.action}
-                            style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                          >
-                            Read Article
-                          </Text>
-                          <IconArrowRight size={16} color={active.action} />
-                        </Group>
-                      </Box>
-                    </Stack>
-                  </Box>
-                </Link>
-              ))}
-            </SimpleGrid>
-
-            <Box style={{ textAlign: 'center' }} mt={rem(20)}>
-              <Link href="/scholarcrafted/resources/articles" style={{ textDecoration: 'none' }}>
-                <Button variant="outline" color={active.primary} radius={0} size="md" style={{ borderColor: active.primary }}>
-                  View All Articles
+              <Link href="/scholarcrafted/blog" style={{ textDecoration: 'none' }}>
+                <Button size="lg" variant="outline" color={active.primary} radius={0} px={rem(40)} style={{ borderColor: active.primary }}>
+                  VISIT THE LIBRARY
                 </Button>
               </Link>
-            </Box>
-          </Stack>
+            </Stack>
+          </Box>
         </Container>
       </Box>
 
@@ -398,7 +345,7 @@ export default function ResourcesPage() {
                   Blueprint Sent!
                 </Title>
                 <Text size="sm" c="dimmed" mt="sm">
-                  Check your inbox. We've sent <strong>{selectedBlueprint}</strong> directly to you.
+                  Check your inbox. We&apos;ve sent <strong>{selectedBlueprint}</strong> directly to you.
                 </Text>
               </Box>
               <Button variant="outline" color={active.primary} radius={0} fullWidth onClick={close}>

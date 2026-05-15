@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import {
   Container,
   Title,
@@ -28,6 +28,14 @@ import Link from 'next/link'
 const INNER_WIDTH = 760
 
 export default function RequestReviewPage() {
+  return (
+    <Suspense fallback={<Box bg="gray.1" style={{ minHeight: '100vh' }} />}>
+      <RequestReviewContent />
+    </Suspense>
+  )
+}
+
+function RequestReviewContent() {
   const theme = useMantineTheme()
   const active = theme.other
   const searchParams = useSearchParams()
