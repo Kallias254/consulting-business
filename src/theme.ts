@@ -107,10 +107,6 @@ export const theme = createTheme({
           paddingLeft: '2rem',
           paddingRight: '2rem',
           transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0 8px 24px oklch(0% 0 0 / 0.1)',
-          },
         },
       },
     },
@@ -124,17 +120,55 @@ export const theme = createTheme({
           transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease',
           borderColor: 'oklch(0% 0 0 / 0.06)',
           boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)',
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 16px 40px oklch(0% 0 0 / 0.06)',
-            borderColor: 'oklch(0% 0 0 / 0.1)',
-          },
         },
       },
     },
     Text: {
       defaultProps: {
         c: 'dark.8',
+      },
+    },
+    TextInput: {
+      defaultProps: {
+        radius: 0,
+        size: 'md',
+      },
+      styles: {
+        input: {},
+      },
+    },
+    Textarea: {
+      defaultProps: {
+        radius: 0,
+        size: 'md',
+      },
+      styles: {
+        input: {},
+      },
+    },
+    Accordion: {
+      defaultProps: {
+        variant: 'separated',
+        radius: 0,
+      },
+      styles: {
+        item: {
+          backgroundColor: active.surface,
+          borderColor: 'oklch(0% 0 0 / 0.06)',
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        },
+      },
+    },
+    Badge: {
+      defaultProps: {
+        radius: 0,
+        variant: 'light',
+      },
+      styles: {
+        root: {
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+        },
       },
     },
   },

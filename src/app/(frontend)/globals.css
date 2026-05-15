@@ -260,3 +260,20 @@ html[data-theme='light'] {
 .mantine-Title-root[data-order='1'] { letter-spacing: -0.03em !important; }
 .mantine-Title-root[data-order='2'] { letter-spacing: -0.02em !important; }
 .mantine-Title-root[data-order='3'] { letter-spacing: -0.01em !important; }
+
+/* Mantine Interactive States */
+.mantine-Button-root:hover,
+.mantine-Card-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.1);
+}
+
+.mantine-TextInput-input:focus,
+.mantine-Textarea-input:focus {
+  border-color: var(--color-primary);
+}
+
+.mantine-Accordion-item[data-active] {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.08);
+}

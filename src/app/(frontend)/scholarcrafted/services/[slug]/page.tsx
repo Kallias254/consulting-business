@@ -323,17 +323,10 @@ export default function ServiceDetailPage() {
                 Common Concerns
               </Title>
             </Box>
-            <Accordion
-              variant="separated"
-              radius={0}
-              styles={{
-                item: { border: '1px solid #eee', backgroundColor: active.background },
-                control: { padding: rem(24) },
-                panel: { padding: rem(24), color: '#333' } }}
-            >
+            <Accordion>
               {data.faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
-                  <Accordion.Control style={{ fontWeight: 600, fontSize: rem(18) }}>
+                  <Accordion.Control>
                     <Text fw={600} size="lg" c={active.primary}>
                       {faq.q}
                     </Text>

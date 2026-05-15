@@ -599,7 +599,7 @@ function StepDateTime({ data, setData, nextStep }: any) {
             size="lg"
             variant="filled"
             bg={active.primary}
-            radius={0}
+
             mt="xl"
             disabled={!data.preferredDate || !data.preferredTime}
             onClick={nextStep}
@@ -626,14 +626,12 @@ function StepForm({ data, setData, nextStep }: any) {
           <TextInput
             label="Full Name"
             placeholder="e.g. Dr. Jane Smith"
-            radius={0}
             value={data.name}
             onChange={(e) => setData((prev: any) => ({ ...prev, name: e.target.value }))}
           />
           <TextInput
             label="Email Address"
             placeholder="e.g. j.smith@university.edu"
-            radius={0}
             value={data.email}
             onChange={(e) => setData((prev: any) => ({ ...prev, email: e.target.value }))}
           />
@@ -642,7 +640,6 @@ function StepForm({ data, setData, nextStep }: any) {
           label="Brief Project Description"
           placeholder="Describe your research topic and current challenges..."
           minRows={4}
-          radius={0}
           value={data.description}
           onChange={(e) => setData((prev: any) => ({ ...prev, description: e.target.value }))}
         />
@@ -651,7 +648,6 @@ function StepForm({ data, setData, nextStep }: any) {
             size="lg"
             variant="filled"
             bg={active.primary}
-            radius={0}
             onClick={nextStep}
             rightSection={<IconArrowRight size={18} />}
           >
@@ -789,7 +785,7 @@ function StepSuccess({ data, setStep }: any) {
         <Button
           variant="outline"
           color={active.primary}
-          radius={0}
+
           px={rem(60)}
           style={{ borderColor: active.primary, color: active.primary }}
         >
@@ -860,7 +856,7 @@ function StepReview({ data, setStep, nextStep }: any) {
                           color={active.primary}
                           onClick={() => setStep(item.editableStep)}
                           title={`Edit ${item.label}`}
-                          radius={0}
+
                           size="sm"
                         >
                           <IconEdit size={16} />
@@ -880,7 +876,7 @@ function StepReview({ data, setStep, nextStep }: any) {
       <Group justify="center" mt="xl">
         <Button
           size="xl"
-          radius={0}
+          mt="xl"
           variant="filled"
           bg={active.primary}
           onClick={nextStep}

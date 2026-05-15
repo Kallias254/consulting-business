@@ -120,13 +120,11 @@ function RequestReviewContent() {
                     <TextInput
                       label="Full Name"
                       placeholder="e.g. Dr. Jane Smith"
-                      radius={0}
                       onChange={(e) => setName(e.currentTarget.value)}
                     />
                     <TextInput
                       label="Email Address"
                       placeholder="e.g. j.smith@university.edu"
-                      radius={0}
                       onChange={(e) => setEmail(e.currentTarget.value)}
                     />
                   </SimpleGrid>
@@ -140,17 +138,15 @@ function RequestReviewContent() {
                         '7,000 - 15,000 words',
                         '15,000+ words',
                       ]}
-                      radius={0}
                     />
                     <DatePickerInput
                       label="Required Deadline"
                       placeholder="Select a date"
-                      radius={0}
                       minDate={new Date()}
                     />
                   </SimpleGrid>
 
-                  <Dropzone onDrop={setFiles} mt="md" radius={0}>
+                  <Dropzone onDrop={setFiles} mt="md">
                     <Group justify="center" gap="xl" mih={120} style={{ pointerEvents: 'none' }}>
                       <Dropzone.Accept>
                         <IconUpload size={rem(40)} stroke={1.5} />
@@ -179,7 +175,6 @@ function RequestReviewContent() {
                       size="lg"
                       variant="filled"
                       bg={active.primary}
-                      radius={0}
                       onClick={handleSubmit}
                       disabled={files.length === 0}
                     >

@@ -337,14 +337,7 @@ export default function ResearchSupportPage() {
                 Common Questions
               </Title>
             </Box>
-            <Accordion
-              variant="separated"
-              radius={0}
-              styles={{
-                item: { border: `1px solid ${active.primary}22`, backgroundColor: active.surface },
-                control: { padding: rem(24), fontWeight: 600, fontSize: rem(18), color: active.primary },
-                content: { padding: rem(24), paddingTop: 0 } }}
-            >
+            <Accordion>
               {faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
                   <Accordion.Control>

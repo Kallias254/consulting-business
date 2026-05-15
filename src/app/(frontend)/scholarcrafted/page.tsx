@@ -614,25 +614,7 @@ export default function ScholarCraftedLanding() {
               </Text>
             </Box>
 
-            <Accordion 
-              variant="separated" 
-              classNames={{
-                item: 'home-accordion-item',
-                control: 'home-accordion-control' }}
-              styles={{
-                item: {
-                  backgroundColor: active.surface,
-                  border: `1px solid ${active.primary}22`,
-                },
-                control: {
-                  padding: rem(24),
-                },
-                content: {
-                  padding: rem(24),
-                  paddingTop: 0,
-                }
-              }}
-            >
+            <Accordion>
               {homeFaqs.map((faq, i) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
                   <Accordion.Control>
