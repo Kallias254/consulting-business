@@ -52,7 +52,7 @@ export const palettes = {
 }
 
 // TOGGLE THIS to change the entire site vibe:
-const active = palettes.royal
+const active = palettes.emerald
 
 export const theme = createTheme({
   primaryColor: 'dark',

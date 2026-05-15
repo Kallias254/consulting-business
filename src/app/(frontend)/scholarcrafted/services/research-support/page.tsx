@@ -85,7 +85,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* Why Choose Custom Research Support */}
-      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             <Box>
@@ -177,7 +177,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* What You'll Gain */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -248,7 +248,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* How It Works - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -356,7 +356,7 @@ export default function ResearchSupportPage() {
       </Box>
 
       {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>

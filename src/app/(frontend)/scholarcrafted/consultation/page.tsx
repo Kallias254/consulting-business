@@ -325,7 +325,7 @@ function ConsultationWizard() {
       </Box>
 
       {/* Main Content Section - Surface */}
-      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size="md">
           <Box style={{ maxWidth: 800, margin: '0 auto' }}>
             {stepsContent[step]}
@@ -557,7 +557,7 @@ function StepStage({ data, selectOption }: any) {
 function StepDateTime({ data, setData, nextStep }: any) {
   const { other: active } = useMantineTheme()
   return (
-    <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }} mt={rem(40)}>
+    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
         <Stack align="center" gap="md">
           <DatePicker
@@ -611,7 +611,7 @@ function StepDateTime({ data, setData, nextStep }: any) {
       </SimpleGrid>
       <Divider my="xl" label="DISCLAIMER" labelPosition="center" />
       <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
-        This is a free, 15-minute introductory call to get to know your needs, not a coaching session. <Link href="/scholarcrafted/how-it-works" style={{ color: active.accent, textDecoration: 'underline' }}>Find out more here.</Link>
+        This is a free, 15-minute introductory call to get to know your needs, not a coaching session. <Link href="/scholarcrafted/how-it-works" style={{ color: active.accent, textDecoration: 'none' }}>Find out more here.</Link>
       </Text>
     </Box>
   )
@@ -620,7 +620,7 @@ function StepDateTime({ data, setData, nextStep }: any) {
 function StepForm({ data, setData, nextStep }: any) {
   const { other: active } = useMantineTheme()
   return (
-    <Box bg={active.background} p={rem(40)} style={{ border: '1px solid #eee' }} mt={rem(40)}>
+    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
       <Stack gap="lg">
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
           <TextInput
@@ -691,7 +691,7 @@ function StepSuccess({ data, setStep }: any) {
         spacing={rem(40)}
         style={{ textAlign: 'left', width: '100%' }}
       >
-        <Box p={rem(40)} bg={active.background} style={{ border: '1px solid #eee' }}>
+        <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}12` }}>
           <Stack gap="xl">
             <Text
               size="xs"
@@ -747,7 +747,7 @@ function StepSuccess({ data, setStep }: any) {
           </Stack>
         </Box>
 
-        <Box p={rem(40)} bg={active.background} style={{ border: '1px solid #eee' }}>
+        <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}12` }}>
           <Stack gap="xl">
             <Text
               size="xs"

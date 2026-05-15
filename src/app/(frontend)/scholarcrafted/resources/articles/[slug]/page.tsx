@@ -207,7 +207,7 @@ export default function ArticlePage() {
         component="section"
         py={rem(80)}
         bg={active.surface}
-        style={{ borderTop: `1px solid #eee` }}
+        style={{ borderTop: `1px solid ${active.primary}12` }}
       >
         <Container size={READING_WIDTH}>
           <Stack gap={rem(32)}>

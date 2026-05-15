@@ -28,7 +28,7 @@ export function Footer({ bg }: { bg?: string }) {
       bg={footerBg}
       c={active.primary}
       style={{
-        borderTop: '1px solid #eee' }}
+        borderTop: `1px solid ${active.primary}12` }}
       className="scholarcrafted-footer"
     >
       <Container size={1100}>
@@ -275,9 +275,13 @@ export function Footer({ bg }: { bg?: string }) {
       </Container>
 
       <style jsx global>{`
+        .footer-link {
+          transition: all 0.2s ease;
+        }
         .footer-link:hover {
-          color: ${active.primary === '#A51C30' ? '#FFFFFF' : active.primary} !important;
-          text-decoration: underline !important;
+          color: ${active.primary} !important;
+          opacity: 0.8;
+          text-decoration: none !important;
         }
       `}</style>
     </Box>

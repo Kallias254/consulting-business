@@ -91,7 +91,7 @@ export default function RoutledgeHandbookMock() {
 
             {/* Editor Profile Card */}
             <Box>
-              <Card p={rem(40)} radius={0} bg={active.surface} style={{ border: '1px solid #eee' }}>
+              <Card p={rem(40)} radius={0} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
                 <Stack gap="xl">
                   <Group wrap="nowrap">
                     <Avatar src={editorBio.image} size={80} radius={0} />

@@ -154,7 +154,7 @@ export default function AboutPage() {
                   h={150}
                   w={150}
                   fit="cover"
-                  style={{ border: '1px solid #eee' }}
+                  style={{ border: `1px solid ${active.primary}12` }}
                 />
                 <Stack gap={0} align="center" style={{ textAlign: 'center' }}>
                   <Text fw={600} size="sm">
@@ -314,7 +314,7 @@ export default function AboutPage() {
                 A track record that speaks for itself.
               </Title>
             </Box>
-            <Box p={rem(40)} bg={active.surface} style={{ border: '1px solid #eee' }}>
+            <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
               <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
                 {awards.map((award, i) => (
                   <Group key={i} gap="sm" wrap="nowrap">

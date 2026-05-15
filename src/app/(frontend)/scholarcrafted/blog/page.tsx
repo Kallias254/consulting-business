@@ -119,7 +119,7 @@ export default function BlogArchivePage() {
         component="section"
         py={rem(80)}
         bg={active.surface}
-        style={{ borderTop: `1px solid #eee` }}
+        style={{ borderTop: `1px solid ${active.primary}12` }}
       >
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(2)}>
@@ -183,7 +183,7 @@ export default function BlogArchivePage() {
       <Box
         py={rem(80)}
         bg={active.background}
-        style={{ borderTop: `1px solid #eee`, textAlign: 'center' }}
+        style={{ borderTop: `1px solid ${active.primary}12`, textAlign: 'center' }}
       >
         <Container size={760}>
           <Stack gap="xl" align="center">

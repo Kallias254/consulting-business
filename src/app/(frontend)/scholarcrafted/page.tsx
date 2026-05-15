@@ -188,7 +188,7 @@ export default function ScholarCraftedLanding() {
                     </Link>
                     <Text size="sm" c="dimmed" lh={1.4}>
                       This 15-minute call is to get to know your needs, not a coaching session.{' '}
-                      <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'underline' }}>
+                      <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'none' }}>
                         Find out more here.
                       </Link>
                     </Text>
@@ -339,7 +339,7 @@ export default function ScholarCraftedLanding() {
                 <Box 
                   key={i} 
                   style={{ 
-                    borderBottom: `1px solid #eee`,
+                    borderBottom: `1px solid ${active.primary}12`,
                     padding: `${rem(40)} 0`,
                     textAlign: 'center' 
                   }}

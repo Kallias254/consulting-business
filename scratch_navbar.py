@@ -1,4 +1,6 @@
-'use client'
+import os
+
+navbar_code = """'use client'
 
 import React from 'react'
 import { Container, Group, Text, Stack, Button, rem, Box, useMantineTheme, HoverCard, SimpleGrid, ThemeIcon, Center } from '@mantine/core'
@@ -14,16 +16,16 @@ export function Navbar() {
       component="nav"
       py="md"
       style={{
-        borderBottom: `1px solid ${active.primary}12`,
-        backgroundColor: `${active.background}f2`,
-        backdropFilter: 'blur(12px)',
+        borderBottom: `1px solid var(--color-border)`,
+        backgroundColor: `${active.background}ee`,
+        backdropFilter: 'blur(10px)',
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}
+        transition: 'all 0.3s ease' }}
     >
       <Container size={1100}>
-        <Group justify="space-between" align="center">
+        <Group justify="space-between">
           <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit' }}>
             <Stack gap={0}>
               <Text
@@ -31,70 +33,70 @@ export function Navbar() {
                 style={{
                   fontSize: rem(22),
                   lineHeight: 1,
-                  color: active.primary,
-                  letterSpacing: '-0.02em' }}
+                  color: active.primary }}
               >
                 SCHOLARCRAFTED
               </Text>
               <Text
                 size="xs"
                 c="dimmed"
-                fw={500}
-                style={{ fontSize: rem(9), letterSpacing: '0.05em', textTransform: 'uppercase' }}
+                style={{ fontSize: rem(9) }}
               >
                 Academic Consultancy
               </Text>
             </Stack>
           </Link>
-
-          <Group gap="xl" visibleFrom="sm" align="center">
-            <HoverCard width={600} position="bottom" radius={0} shadow="xl" withinPortal offset={20} transitionProps={{ transition: 'pop-top-left' }}>
+          <Group gap="xl" visibleFrom="sm">
+            <HoverCard width={600} position="bottom" radius={0} shadow="md" withinPortal offset={10}>
               <HoverCard.Target>
-                <Box style={{ cursor: 'pointer' }}>
+                <Link
+                  href="/scholarcrafted/services"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
                   <Center inline>
                     <Text
-                      fw={600}
+                      fw={500}
                       size="xs"
                       className="nav-link"
-                      style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
+                      style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                     >
-                      SERVICES <IconChevronDown size={14} style={{ marginLeft: rem(6), opacity: 0.6 }} />
+                      SERVICES <IconChevronDown size={14} style={{ marginLeft: rem(4) }} />
                     </Text>
                   </Center>
-                </Box>
+                </Link>
               </HoverCard.Target>
-              <HoverCard.Dropdown style={{ overflow: 'hidden', padding: 0, border: `1px solid ${active.primary}15` }}>
+              <HoverCard.Dropdown style={{ overflow: 'hidden', padding: 0 }} radius={0} bg="white">
                 <SimpleGrid cols={2} spacing={0}>
                   <Link href="/scholarcrafted/services/private-coaching" className="mega-link">
-                    <Group wrap="nowrap" align="center" p="lg">
-                      <ThemeIcon size={40} variant="light" color={active.primary} radius={0}>
-                        <IconBook size={24} />
+                    <Group wrap="nowrap" align="flex-start" p="md">
+                      <ThemeIcon size={34} variant="light" color={active.primary} radius={0}>
+                        <IconBook size={22} />
                       </ThemeIcon>
                       <div>
                         <Text size="sm" fw={600} c="dark.9">Private Coaching</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>1-on-1 strategic dissertation guidance.</Text>
+                        <Text size="xs" c="dimmed">1-on-1 strategic dissertation guidance.</Text>
                       </div>
                     </Group>
                   </Link>
                   <Link href="/scholarcrafted/services/editing-proofreading" className="mega-link">
-                    <Group wrap="nowrap" align="center" p="lg">
-                      <ThemeIcon size={40} variant="light" color={active.primary} radius={0}>
-                        <IconPencil size={24} />
+                    <Group wrap="nowrap" align="flex-start" p="md">
+                      <ThemeIcon size={34} variant="light" color={active.primary} radius={0}>
+                        <IconPencil size={22} />
                       </ThemeIcon>
                       <div>
                         <Text size="sm" fw={600} c="dark.9">Editing & Proofreading</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Professional academic review and copyediting.</Text>
+                        <Text size="xs" c="dimmed">Professional academic review and copyediting.</Text>
                       </div>
                     </Group>
                   </Link>
                   <Link href="/scholarcrafted/services/research-support" className="mega-link">
-                    <Group wrap="nowrap" align="center" p="lg">
-                      <ThemeIcon size={40} variant="light" color={active.primary} radius={0}>
-                        <IconMicroscope size={24} />
+                    <Group wrap="nowrap" align="flex-start" p="md">
+                      <ThemeIcon size={34} variant="light" color={active.primary} radius={0}>
+                        <IconMicroscope size={22} />
                       </ThemeIcon>
                       <div>
                         <Text size="sm" fw={600} c="dark.9">Research Support</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Methodology and data analysis consulting.</Text>
+                        <Text size="xs" c="dimmed">Methodology and data analysis consulting.</Text>
                       </div>
                     </Group>
                   </Link>
@@ -107,7 +109,7 @@ export function Navbar() {
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <Text
-                fw={600}
+                fw={500}
                 size="xs"
                 className="nav-link"
                 style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
@@ -116,42 +118,45 @@ export function Navbar() {
               </Text>
             </Link>
 
-            <HoverCard width={320} position="bottom" radius={0} shadow="xl" withinPortal offset={20} transitionProps={{ transition: 'pop-top-left' }}>
+            <HoverCard width={300} position="bottom" radius={0} shadow="md" withinPortal offset={10}>
               <HoverCard.Target>
-                <Box style={{ cursor: 'pointer' }}>
+                <Link
+                  href="/scholarcrafted/resources"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
                   <Center inline>
                     <Text
-                      fw={600}
+                      fw={500}
                       size="xs"
                       className="nav-link"
-                      style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
+                      style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
                     >
-                      BLUEPRINTS <IconChevronDown size={14} style={{ marginLeft: rem(6), opacity: 0.6 }} />
+                      BLUEPRINTS <IconChevronDown size={14} style={{ marginLeft: rem(4) }} />
                     </Text>
                   </Center>
-                </Box>
+                </Link>
               </HoverCard.Target>
-              <HoverCard.Dropdown style={{ overflow: 'hidden', padding: 0, border: `1px solid ${active.primary}15` }}>
+              <HoverCard.Dropdown style={{ overflow: 'hidden', padding: 0 }} radius={0} bg="white">
                 <SimpleGrid cols={1} spacing={0}>
                   <Link href="/scholarcrafted/resources" className="mega-link">
-                    <Group wrap="nowrap" align="center" p="lg">
-                      <ThemeIcon size={40} variant="light" color={active.primary} radius={0}>
-                        <IconFileText size={24} />
+                    <Group wrap="nowrap" align="flex-start" p="md">
+                      <ThemeIcon size={34} variant="light" color={active.primary} radius={0}>
+                        <IconFileText size={22} />
                       </ThemeIcon>
                       <div>
                         <Text size="sm" fw={600} c="dark.9">All Blueprints</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Browse the full collection of templates.</Text>
+                        <Text size="xs" c="dimmed">Browse the full collection of templates.</Text>
                       </div>
                     </Group>
                   </Link>
                   <Link href="/scholarcrafted/resources/articles" className="mega-link">
-                    <Group wrap="nowrap" align="center" p="lg">
-                      <ThemeIcon size={40} variant="light" color={active.primary} radius={0}>
-                        <IconArticle size={24} />
+                    <Group wrap="nowrap" align="flex-start" p="md">
+                      <ThemeIcon size={34} variant="light" color={active.primary} radius={0}>
+                        <IconArticle size={22} />
                       </ThemeIcon>
                       <div>
                         <Text size="sm" fw={600} c="dark.9">Articles & Guides</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Read our latest academic strategies.</Text>
+                        <Text size="xs" c="dimmed">Read our latest academic strategies.</Text>
                       </div>
                     </Group>
                   </Link>
@@ -161,7 +166,7 @@ export function Navbar() {
 
             <Link href="/scholarcrafted/about" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Text
-                fw={600}
+                fw={500}
                 size="xs"
                 className="nav-link"
                 style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
@@ -169,24 +174,20 @@ export function Navbar() {
                 ABOUT
               </Text>
             </Link>
-
             <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
               <Button
                 variant="outline"
                 color={active.primary}
-                size="sm"
+                size="md"
                 radius={0}
-                fw={700}
+                fw={600}
                 style={{
-                  fontSize: rem(10),
-                  letterSpacing: '0.15em',
-                  paddingLeft: rem(20),
-                  paddingRight: rem(20),
-                  height: rem(40),
-                  borderColor: `${active.primary}40`,
-                  borderWidth: rem(1) }}
+                  letterSpacing: '0.1em',
+                  paddingLeft: rem(24),
+                  paddingRight: rem(24),
+                  borderColor: active.primary }}
               >
-                FREE CONSULTATION
+                FREE INTRODUCTORY CALL
               </Button>
             </Link>
           </Group>
@@ -194,23 +195,28 @@ export function Navbar() {
       </Container>
       <style jsx global>{`
         .nav-link {
-          color: #444;
-          transition: all 0.2s ease;
+          color: #666;
+          transition: color 0.2s ease;
         }
         .nav-link:hover {
           color: ${active.primary} !important;
-          opacity: 0.8;
+          text-decoration: underline !important;
         }
         .mega-link {
           text-decoration: none;
           color: inherit;
-          display: block;
           transition: background-color 0.2s ease;
         }
         .mega-link:hover {
-          background-color: ${active.primary}05;
+          background-color: var(--color-border);
         }
       `}</style>
     </Box>
   )
 }
+"""
+
+with open('/home/miseda/Documents/projects/consulting-business/src/app/(frontend)/scholarcrafted/_components/Navbar.tsx', 'w', encoding='utf-8') as f:
+    f.write(navbar_code)
+
+print("Navbar updated successfully")

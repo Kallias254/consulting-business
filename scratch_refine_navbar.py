@@ -1,4 +1,6 @@
-'use client'
+import os
+
+navbar_code = """'use client'
 
 import React from 'react'
 import { Container, Group, Text, Stack, Button, rem, Box, useMantineTheme, HoverCard, SimpleGrid, ThemeIcon, Center } from '@mantine/core'
@@ -214,3 +216,9 @@ export function Navbar() {
     </Box>
   )
 }
+"""
+
+with open('/home/miseda/Documents/projects/consulting-business/src/app/(frontend)/scholarcrafted/_components/Navbar.tsx', 'w', encoding='utf-8') as f:
+    f.write(navbar_code)
+
+print("Navbar refined successfully")

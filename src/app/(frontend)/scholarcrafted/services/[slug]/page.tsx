@@ -172,7 +172,7 @@ export default function ServiceDetailPage() {
                 </Button>
               </Link>
             </Stack>
-            <Box bg={active.surface} p={rem(60)} style={{ border: '1px solid #eee' }}>
+            <Box bg={active.surface} p={rem(60)} style={{ border: `1px solid ${active.primary}12` }}>
               <Stack gap="xl">
                 <Title
                   order={3}

@@ -95,7 +95,7 @@ export default function PrivateCoachingPage() {
               </Box>
               <Text size="sm" c="dimmed">
                 This 15-minute call is to get to know your needs, not a coaching session.{' '}
-                <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'underline' }}>
+                <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'none' }}>
                   Find out more here.
                 </Link>
               </Text>
@@ -105,7 +105,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* Pain Points Carousel */}
-      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center">
 
@@ -225,7 +225,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* The Packages */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box>
@@ -391,7 +391,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>

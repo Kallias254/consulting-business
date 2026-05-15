@@ -95,7 +95,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* Why Choose a Professional Review */}
-      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             <Box>
@@ -179,7 +179,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* What You'll Gain */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -216,7 +216,7 @@ export default function EditingProofreadingPage() {
 
 
       {/* Editing vs Consulting - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={800}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Text
@@ -327,7 +327,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
@@ -365,7 +365,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid #eee` }}>
+      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
