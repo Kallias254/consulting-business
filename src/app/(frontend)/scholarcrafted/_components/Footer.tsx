@@ -28,8 +28,7 @@ export function Footer({ bg }: { bg?: string }) {
       bg={footerBg}
       c={active.primary === '#A51C30' ? 'white' : active.primary}
       style={{
-        borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : `${active.primary}22`}`,
-      }}
+        borderTop: `1px solid ${active.primary === '#A51C30' ? 'rgba(255,255,255,0.2)' : `${active.primary}22`}` }}
       className="scholarcrafted-footer"
     >
       <Container size={1100}>
@@ -40,20 +39,16 @@ export function Footer({ bg }: { bg?: string }) {
               <Text
                 fw={700}
                 style={{
-                  fontFamily: 'var(--font-serif)',
                   fontSize: rem(24),
-                  letterSpacing: '-0.02em',
                   lineHeight: 1,
-                  color: 'inherit',
-                }}
+                  color: 'inherit' }}
               >
                 SCHOLARCRAFTED
               </Text>
               <Text
                 size="xs"
-                fw={700}
                 c={active.primary === '#A51C30' ? 'rgba(255,255,255,0.7)' : 'dimmed'}
-                style={{ letterSpacing: '0.15em', textTransform: 'uppercase', fontSize: rem(10) }}
+                style={{ fontSize: rem(10) }}
               >
                 ESTABLISHED 2016
               </Text>
@@ -79,9 +74,8 @@ export function Footer({ bg }: { bg?: string }) {
           {/* Services Column */}
           <Stack gap="xl">
             <Text
-              fw={700}
               size="xs"
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: 'inherit' }}
+              style={{ color: 'inherit' }}
             >
               Advisory
             </Text>
@@ -140,9 +134,8 @@ export function Footer({ bg }: { bg?: string }) {
           {/* Firm Column */}
           <Stack gap="xl">
             <Text
-              fw={700}
               size="xs"
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: 'inherit' }}
+              style={{ color: 'inherit' }}
             >
               The Institution
             </Text>
@@ -219,9 +212,8 @@ export function Footer({ bg }: { bg?: string }) {
           {/* Contact/Newsletter Column */}
           <Stack gap="xl">
             <Text
-              fw={700}
               size="xs"
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase', color: 'inherit' }}
+              style={{ color: 'inherit' }}
             >
               Official Inquiries
             </Text>
@@ -273,9 +265,8 @@ export function Footer({ bg }: { bg?: string }) {
             </Link>
             <Text
               size="xs"
-              fw={700}
               color={'inherit'}
-              style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              
             >
               Strictly Confidential
             </Text>

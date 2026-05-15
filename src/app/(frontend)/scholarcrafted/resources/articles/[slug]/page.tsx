@@ -18,8 +18,7 @@ import { Footer } from '../../../_components/Footer'
 import Link from 'next/link'
 import { IconArrowLeft, IconClock, IconUser } from '@tabler/icons-react'
 import { useParams } from 'next/navigation'
-
-const INNER_WIDTH = 760
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 // Static article content keyed by slug
 const articleContent: Record<
@@ -114,9 +113,9 @@ export default function ArticlePage() {
     return (
       <Box bg={active.background} style={{ minHeight: '100vh' }}>
         <Navbar />
-        <Container size={INNER_WIDTH} py={rem(120)}>
+        <Container size={READING_WIDTH} py={rem(120)}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Title order={1} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+            <Title order={1} style={{ color: active.primary }}>
               Article not found.
             </Title>
             <Link href="/scholarcrafted/resources" style={{ textDecoration: 'none' }}>
@@ -141,17 +140,15 @@ export default function ArticlePage() {
         bg={active.background}
         style={{
           paddingTop: rem(100),
-          paddingBottom: rem(80),
-        }}
+          paddingBottom: rem(80) }}
       >
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Group justify="space-between" align="flex-start">
             <Stack gap="md" style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
-                fw={700}
                 c="dimmed"
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
               >
                 {article.category}
               </Text>
@@ -159,12 +156,8 @@ export default function ArticlePage() {
                 order={1}
                 c={active.primary}
                 style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontWeight: 400,
                   fontSize: rem(56),
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
-                }}
+                  lineHeight: 1.1 }}
               >
                 {article.title}
               </Title>
@@ -197,12 +190,11 @@ export default function ArticlePage() {
                 padding: `${rem(8)} ${rem(16)}`,
                 border: `1px solid ${active.primary}22`,
                 borderRadius: rem(100),
-                transition: 'all 0.2s ease',
-              }}
+                transition: 'all 0.2s ease' }}
               className="back-btn"
             >
               <IconArrowLeft size={14} color={active.primary} style={{ opacity: 0.7 }} />
-              <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+              <Text className="impeccable-eyebrow" size="xs" c={active.primary} >
                 Back to Articles
               </Text>
             </Link>
@@ -217,7 +209,7 @@ export default function ArticlePage() {
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}22` }}
       >
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Stack gap={rem(32)}>
             {article.body.map((paragraph, i) => (
               <Text
@@ -244,13 +236,12 @@ export default function ArticlePage() {
             <Stack gap="xl" align="center">
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 Still Stuck?
               </Text>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36), color: active.primary }}>
+              <Title order={2} style={{ fontSize: rem(36), color: active.primary }}>
                 Let our faculty diagnose the problem in 15 minutes.
               </Title>
               <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 500 }}>

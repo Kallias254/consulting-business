@@ -22,8 +22,7 @@ export default function ScholarCraftedLayout({ children }: { children: React.Rea
            -webkit-font-smoothing: antialiased;
            -moz-osx-font-smoothing: grayscale;
         }
-      `,
-        }}
+      ` }}
       />
       <ExitIntentModal />
       {children}

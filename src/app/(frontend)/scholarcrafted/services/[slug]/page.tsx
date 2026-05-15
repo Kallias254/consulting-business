@@ -20,8 +20,7 @@ import { Footer } from '../../_components/Footer'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
-const SECTION_SPACING = rem(120)
-const INNER_WIDTH = 760
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const serviceData: Record<string, any> = {
   'private-coaching': {
@@ -149,8 +148,7 @@ export default function ServiceDetailPage() {
               <Stack gap="xs">
                 <Text
                   size="xs"
-                  fw={700}
-                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  
                   c="dimmed"
                 >
                   {data.heroSubtitle}
@@ -159,11 +157,8 @@ export default function ServiceDetailPage() {
                   order={1}
                   style={{
                     fontSize: rem(56),
-                    fontWeight: 400,
                     lineHeight: 1.1,
-                    letterSpacing: '-0.02em',
-                    color: active.primary,
-                  }}
+                    color: active.primary }}
                 >
                   {data.title}
                 </Title>
@@ -182,11 +177,8 @@ export default function ServiceDetailPage() {
                 <Title
                   order={3}
                   style={{
-                    fontWeight: 400,
                     fontSize: rem(28),
-                    fontFamily: 'var(--font-serif)',
-                    color: active.primary,
-                  }}
+                    color: active.primary }}
                 >
                   Who this is for
                 </Title>
@@ -224,8 +216,7 @@ export default function ServiceDetailPage() {
             <Box>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 What We Do
@@ -233,7 +224,7 @@ export default function ServiceDetailPage() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}
+                style={{ fontSize: rem(42), color: active.primary }}
               >
                 Deliverables & Focus
               </Title>
@@ -242,10 +233,9 @@ export default function ServiceDetailPage() {
               {data.whatWeDo.map((item: any, i: number) => (
                 <Stack key={i} gap="md">
                   <Text
-                    fw={700}
                     size="xs"
                     c={active.primary}
-                    style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+                    
                   >
                     {item.title}
                   </Text>
@@ -266,8 +256,7 @@ export default function ServiceDetailPage() {
             <Box>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 How It Works
@@ -279,10 +268,7 @@ export default function ServiceDetailPage() {
                   order={2}
                   style={{
                     fontSize: rem(42),
-                    fontWeight: 400,
-                    letterSpacing: '-0.02em',
-                    color: active.primary,
-                  }}
+                    color: active.primary }}
                 >
                   A guided, iterative process toward submission.
                 </Title>
@@ -293,11 +279,9 @@ export default function ServiceDetailPage() {
                         <Group gap="xl">
                           <Text
                             style={{
-                              fontFamily: 'var(--font-serif)',
                               fontSize: rem(24),
                               opacity: 0.3,
-                              color: active.primary,
-                            }}
+                              color: active.primary }}
                           >
                             {item.step}
                           </Text>
@@ -321,13 +305,12 @@ export default function ServiceDetailPage() {
 
       {/* FAQ Section */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 FAQ
@@ -335,7 +318,7 @@ export default function ServiceDetailPage() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(36), fontWeight: 400, color: active.primary }}
+                style={{ fontSize: rem(36), color: active.primary }}
               >
                 Common Concerns
               </Title>
@@ -346,8 +329,7 @@ export default function ServiceDetailPage() {
               styles={{
                 item: { border: '1px solid #eee', backgroundColor: active.background },
                 control: { padding: rem(24) },
-                panel: { padding: rem(24), color: '#333' },
-              }}
+                panel: { padding: rem(24), color: '#333' } }}
             >
               {data.faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
@@ -375,9 +357,9 @@ export default function ServiceDetailPage() {
         bg={active.surface}
         style={{ borderTop: '1px solid #eee' }}
       >
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Stack align="center" style={{ textAlign: 'center' }} gap="xl">
-            <Title order={2} style={{ fontSize: rem(48), fontWeight: 400, color: active.primary }}>
+            <Title order={2} style={{ fontSize: rem(48), color: active.primary }}>
               Ready to begin?
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>

@@ -24,8 +24,7 @@ import { Footer } from '../_components/Footer'
 import { useSearchParams } from 'next/navigation'
 import { IconCheck, IconUpload, IconX, IconFileText } from '@tabler/icons-react'
 import Link from 'next/link'
-
-const INNER_WIDTH = 760
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 export default function RequestReviewPage() {
   return (
@@ -65,14 +64,14 @@ function RequestReviewContent() {
       <Navbar />
 
       {submitted ? (
-        <Container size={INNER_WIDTH} py={rem(140)}>
+        <Container size={READING_WIDTH} py={rem(140)}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Box c={active.accent}>
               <IconCheck size={64} stroke={1.5} />
             </Box>
             <Title
               order={1}
-              style={{ fontFamily: 'var(--font-serif)', color: active.primary, fontWeight: 400 }}
+              style={{ color: active.primary }}
             >
               Submission Received
             </Title>
@@ -91,12 +90,11 @@ function RequestReviewContent() {
       ) : (
         <>
           <Box component="section" pt={rem(100)} pb={rem(60)} bg={active.background}>
-            <Container size={INNER_WIDTH}>
+            <Container size={READING_WIDTH}>
               <Box style={{ textAlign: 'center' }}>
                 <Text
                   size="xs"
-                  fw={700}
-                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  
                   c="dimmed"
                 >
                   Initiate a Review
@@ -106,12 +104,8 @@ function RequestReviewContent() {
                   mt="md"
                   style={{
                     fontSize: rem(48),
-                    fontWeight: 400,
-                    letterSpacing: '-0.02em',
                     lineHeight: 1.1,
-                    color: active.primary,
-                    fontFamily: 'var(--font-serif)',
-                  }}
+                    color: active.primary }}
                 >
                   Request for: {service}
                 </Title>
@@ -119,7 +113,7 @@ function RequestReviewContent() {
             </Container>
           </Box>
           <Box component="section" py={rem(80)} bg={active.surface}>
-            <Container size={INNER_WIDTH}>
+            <Container size={READING_WIDTH}>
               <Box bg="white" p={rem(40)} style={{ border: `1px solid #eee` }}>
                 <Stack gap="lg">
                   <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">

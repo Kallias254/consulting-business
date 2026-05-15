@@ -17,8 +17,7 @@ import {
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import Link from 'next/link'
-
-const SECTION_SPACING = rem(120)
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const steps = [
   {
@@ -62,8 +61,7 @@ export default function HowItWorksPage() {
             <Box style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 The Client Journey
@@ -73,11 +71,8 @@ export default function HowItWorksPage() {
                 mt="md"
                 style={{
                   fontSize: rem(56),
-                  fontWeight: 400,
-                  letterSpacing: '-0.02em',
                   lineHeight: 1.1,
-                  color: active.primary,
-                }}
+                  color: active.primary }}
               >
                 A guided path from <br />
                 stalled draft to submission.
@@ -108,12 +103,10 @@ export default function HowItWorksPage() {
                 <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
                   <Text
                     style={{
-                      fontFamily: 'var(--font-serif)',
                       fontSize: rem(48),
                       opacity: 0.2,
                       lineHeight: 1,
-                      color: active.primary,
-                    }}
+                      color: active.primary }}
                   >
                     {item.step}
                   </Text>
@@ -123,10 +116,7 @@ export default function HowItWorksPage() {
                         order={2}
                         style={{
                           fontSize: rem(32),
-                          fontWeight: 400,
-                          fontFamily: 'var(--font-serif)',
-                          color: active.primary,
-                        }}
+                          color: active.primary }}
                       >
                         {item.title}
                       </Title>
@@ -145,7 +135,7 @@ export default function HowItWorksPage() {
       <Box component="section" py={SECTION_SPACING}>
         <Container size={760}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}>
+            <Title order={2} style={{ fontSize: rem(42), color: active.primary }}>
               What happens next?
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>

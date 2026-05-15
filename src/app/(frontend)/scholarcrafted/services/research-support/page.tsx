@@ -21,9 +21,7 @@ import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
 import { IconCheck, IconArrowRight, IconMessageChatbot, IconShieldCheck, IconRocket } from '@tabler/icons-react'
-
-const SECTION_SPACING = rem(120)
-const INNER_WIDTH = 1100
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
   {
@@ -58,8 +56,7 @@ export default function ResearchSupportPage() {
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Technical Assistance
@@ -69,12 +66,8 @@ export default function ResearchSupportPage() {
               mt="md"
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-                fontFamily: 'var(--font-serif)',
-              }}
+                color: active.primary }}
             >
               Custom Research & Data Support
             </Title>
@@ -96,7 +89,7 @@ export default function ResearchSupportPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             <Box>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+              <Title order={2} >
                 Why Choose Custom Research Support?
               </Title>
               <Text c="dimmed" mt="md" size="lg" lh={1.7} style={{ maxWidth: 800 }}>
@@ -131,13 +124,12 @@ export default function ResearchSupportPage() {
             <Box>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 The Analytical Framework
               </Text>
-              <Title order={3} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
+              <Title order={3} mt="sm" style={{ fontSize: rem(36) }}>
                 Core Technical Deliverables
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
@@ -147,7 +139,7 @@ export default function ResearchSupportPage() {
             
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
               <Box>
-                <Text fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: active.primary }} size="sm" mb="md">
+                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
                   1. Qualitative Coding & Analysis
                 </Text>
                 <Text c="dimmed" lh={1.6} mb="lg">
@@ -164,7 +156,7 @@ export default function ResearchSupportPage() {
               </Box>
 
               <Box>
-                <Text fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: active.primary }} size="sm" mb="md">
+                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
                   2. Quantitative & Statistical Support
                 </Text>
                 <Text c="dimmed" lh={1.6} mb="lg">
@@ -189,7 +181,7 @@ export default function ResearchSupportPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+              <Title order={2} style={{ fontSize: rem(42) }}>
                 What You&rsquo;ll Gain
               </Title>
               <Text c="dimmed" mt="md" size="lg">
@@ -225,13 +217,12 @@ export default function ResearchSupportPage() {
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c={active.accent}
             >
               Crucial Distinction
             </Text>
-            <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
+            <Title order={2} style={{ fontSize: rem(36) }}>
               Technical Support vs. Consulting
             </Title>
             <Text size="lg" c="dimmed" lh={1.7}>
@@ -263,13 +254,12 @@ export default function ResearchSupportPage() {
             <Box style={{ maxWidth: 700 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 The Process
               </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
                 How It Works
               </Title>
               <Text c="dimmed" mt="md" size="lg">
@@ -334,8 +324,7 @@ export default function ResearchSupportPage() {
             <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 FAQ
@@ -343,7 +332,7 @@ export default function ResearchSupportPage() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(36), fontWeight: 400, color: active.primary, fontFamily: 'var(--font-serif)' }}
+                style={{ fontSize: rem(36), color: active.primary }}
               >
                 Common Questions
               </Title>
@@ -354,8 +343,7 @@ export default function ResearchSupportPage() {
               styles={{
                 item: { border: `1px solid ${active.primary}22`, backgroundColor: active.surface },
                 control: { padding: rem(24), fontWeight: 600, fontSize: rem(18), color: active.primary },
-                content: { padding: rem(24), paddingTop: 0 },
-              }}
+                content: { padding: rem(24), paddingTop: 0 } }}
             >
               {faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
@@ -379,7 +367,7 @@ export default function ResearchSupportPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
+              <Title order={2} style={{ fontSize: rem(36) }}>
                 Explore Other Services
               </Title>
               <Text size="lg" c="dimmed" mt="md">
@@ -393,7 +381,7 @@ export default function ResearchSupportPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       MANUSCRIPT REFINEMENT
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Structural Editing & Proofreading
                     </Title>
                   </Stack>
@@ -416,7 +404,7 @@ export default function ResearchSupportPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       1-ON-1 GUIDANCE
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Live Academic Coaching
                     </Title>
                   </Stack>

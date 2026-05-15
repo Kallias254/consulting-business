@@ -21,8 +21,7 @@ import {
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import { IconLock, IconLockOpen, IconBook, IconArrowRight, IconFileText } from '@tabler/icons-react'
-
-const SECTION_SPACING = rem(120)
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 // --- MOCK DATA ---
 const editorBio = {
@@ -61,8 +60,7 @@ export default function RoutledgeHandbookMock() {
               <Stack gap="xs">
                 <Text
                   size="xs"
-                  fw={700}
-                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  
                   c="dimmed"
                 >
                   Official Call For Chapters
@@ -71,12 +69,8 @@ export default function RoutledgeHandbookMock() {
                   order={1}
                   style={{
                     fontSize: rem(54),
-                    fontWeight: 400,
                     lineHeight: 1.1,
-                    letterSpacing: '-0.02em',
-                    color: active.primary,
-                    fontFamily: 'var(--font-serif)',
-                  }}
+                    color: active.primary }}
                 >
                   The Routledge Handbook of Hip Hop and Sport
                 </Title>
@@ -102,8 +96,8 @@ export default function RoutledgeHandbookMock() {
                   <Group wrap="nowrap">
                     <Avatar src={editorBio.image} size={80} radius={0} />
                     <Box>
-                      <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>{editorBio.name}</Text>
-                      <Text size="sm" c={active.accent} fw={600} style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                      <Text fw={700} size="lg" >{editorBio.name}</Text>
+                      <Text className="impeccable-eyebrow" size="sm" c={active.accent} >
                         {editorBio.role}
                       </Text>
                       <Text size="sm" c="dimmed">{editorBio.institution}</Text>
@@ -134,8 +128,7 @@ export default function RoutledgeHandbookMock() {
             <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 Project Architecture
@@ -143,7 +136,7 @@ export default function RoutledgeHandbookMock() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(40), fontWeight: 400, color: active.primary, fontFamily: 'var(--font-serif)' }}
+                style={{ fontSize: rem(40), color: active.primary }}
               >
                 Targeted Vacancies
               </Title>
@@ -162,8 +155,7 @@ export default function RoutledgeHandbookMock() {
                     border: chapter.status === 'open' ? `1px solid ${active.accent}` : '1px solid #eee',
                     backgroundColor: chapter.status === 'open' ? `${active.accent}05` : active.surface,
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    cursor: chapter.status === 'open' ? 'pointer' : 'default',
-                  }}
+                    cursor: chapter.status === 'open' ? 'pointer' : 'default' }}
                 >
                   <Stack gap="md" justify="space-between" h="100%">
                     <Box>
@@ -181,7 +173,7 @@ export default function RoutledgeHandbookMock() {
                           </Badge>
                         )}
                       </Group>
-                      <Title order={4} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, lineHeight: 1.4 }}>
+                      <Title order={4} style={{ lineHeight: 1.4 }}>
                         {chapter.title}
                       </Title>
                     </Box>

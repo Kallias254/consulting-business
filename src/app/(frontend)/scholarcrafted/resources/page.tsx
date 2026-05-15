@@ -21,9 +21,7 @@ import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import Link from 'next/link'
 import { IconDownload, IconArrowRight, IconFileText, IconCheck } from '@tabler/icons-react'
-
-const SECTION_SPACING = rem(140)
-const INNER_WIDTH = 1100
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const blueprints = [
   {
@@ -93,8 +91,7 @@ export default function ResourcesPage() {
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Resources & Insights
@@ -104,11 +101,8 @@ export default function ResourcesPage() {
               mt="md"
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-              }}
+                color: active.primary }}
             >
               Strategic insights and <br />
               structured frameworks.
@@ -133,8 +127,7 @@ export default function ResourcesPage() {
             <Box style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 Lead Magnets
@@ -144,10 +137,7 @@ export default function ResourcesPage() {
                 mt="md"
                 style={{
                   fontSize: rem(48),
-                  fontWeight: 400,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 Downloadable Blueprints
               </Title>
@@ -167,15 +157,14 @@ export default function ResourcesPage() {
                     border: '1px solid #eee',
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '100%',
-                  }}
+                    height: '100%' }}
                 >
                   <Stack gap="xl" flex={1}>
                     <Stack gap="xs">
                       <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                         {item.category}
                       </Text>
-                      <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                      <Title order={3} >
                         {item.title}
                       </Title>
                     </Stack>
@@ -215,8 +204,7 @@ export default function ResourcesPage() {
             <Stack gap="xl" align="center">
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 The Library
@@ -225,10 +213,7 @@ export default function ResourcesPage() {
                 order={2}
                 style={{
                   fontSize: rem(42),
-                  fontWeight: 400,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 Strategic Insights Archive
               </Title>
@@ -250,7 +235,7 @@ export default function ResourcesPage() {
       <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}22` }}>
         <Container size={760}>
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Title order={2} style={{ fontSize: rem(42), fontWeight: 400, color: active.primary }}>
+            <Title order={2} style={{ fontSize: rem(42), color: active.primary }}>
               Still stuck? We can help.
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>
@@ -282,8 +267,7 @@ export default function ResourcesPage() {
           },
           header: {
             backgroundColor: active.surface,
-          },
-        }}
+          } }}
       >
         <Box p="md" style={{ textAlign: 'center' }}>
           <Stack gap="xs" mb="xl">
@@ -291,11 +275,8 @@ export default function ResourcesPage() {
             <Title
               order={2}
               style={{
-                fontFamily: 'var(--font-serif)',
-                fontWeight: 400,
                 fontSize: rem(32),
-                color: active.primary,
-              }}
+                color: active.primary }}
             >
               Secure Your Blueprint
             </Title>
@@ -317,8 +298,7 @@ export default function ResourcesPage() {
                       '&:focus': {
                         borderColor: active.primary,
                       },
-                    },
-                  }}
+                    } }}
                 />
                 <Button
                   fullWidth
@@ -341,7 +321,7 @@ export default function ResourcesPage() {
                 <IconCheck size={32} />
               </ThemeIcon>
               <Box>
-                <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                <Title order={3} >
                   Blueprint Sent!
                 </Title>
                 <Text size="sm" c="dimmed" mt="sm">

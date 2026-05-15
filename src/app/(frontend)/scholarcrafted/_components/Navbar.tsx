@@ -19,8 +19,7 @@ export function Navbar() {
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        transition: 'all 0.3s ease',
-      }}
+        transition: 'all 0.3s ease' }}
     >
       <Container size={1100}>
         <Group justify="space-between">
@@ -29,20 +28,16 @@ export function Navbar() {
               <Text
                 fw={700}
                 style={{
-                  fontFamily: 'var(--font-serif)',
                   fontSize: rem(22),
-                  letterSpacing: '-0.02em',
                   lineHeight: 1,
-                  color: active.primary,
-                }}
+                  color: active.primary }}
               >
                 SCHOLARCRAFTED
               </Text>
               <Text
                 size="xs"
-                fw={500}
                 c="dimmed"
-                style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: rem(9) }}
+                style={{ fontSize: rem(9) }}
               >
                 Academic Consultancy
               </Text>
@@ -122,8 +117,7 @@ export function Navbar() {
                   letterSpacing: '0.1em',
                   paddingLeft: rem(24),
                   paddingRight: rem(24),
-                  borderColor: active.primary,
-                }}
+                  borderColor: active.primary }}
               >
                 FREE INTRODUCTORY CALL
               </Button>

@@ -16,8 +16,7 @@ import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import Link from 'next/link'
 import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react'
-
-const INNER_WIDTH = 1100
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const articles = [
   {
@@ -73,8 +72,7 @@ export default function BlogArchivePage() {
             <Stack gap="sm" style={{ maxWidth: 600 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 The Library
@@ -83,12 +81,8 @@ export default function BlogArchivePage() {
                 order={1}
                 style={{
                   fontSize: rem(56),
-                  fontWeight: 400,
-                  letterSpacing: '-0.02em',
                   lineHeight: 1.1,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 Strategic Insights
               </Title>
@@ -108,12 +102,11 @@ export default function BlogArchivePage() {
                 padding: `${rem(8)} ${rem(16)}`,
                 border: `1px solid ${active.primary}22`,
                 borderRadius: rem(100),
-                transition: 'all 0.2s ease',
-              }}
+                transition: 'all 0.2s ease' }}
               className="back-btn"
             >
               <IconArrowLeft size={14} color={active.primary} style={{ opacity: 0.7 }} />
-              <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+              <Text className="impeccable-eyebrow" size="xs" c={active.primary} >
                 Back to Resources
               </Text>
             </Link>
@@ -141,8 +134,7 @@ export default function BlogArchivePage() {
                   bg={i % 2 === 0 ? active.surface : active.background}
                   className="impeccable-card"
                   style={{
-                    cursor: 'pointer',
-                  }}
+                    cursor: 'pointer' }}
                 >
                   <Group justify="space-between" align="flex-start" wrap="nowrap">
                     <Stack gap="sm" style={{ flex: 1, maxWidth: 760 }}>
@@ -160,12 +152,9 @@ export default function BlogArchivePage() {
                       <Title
                         order={3}
                         style={{
-                          fontFamily: 'var(--font-serif)',
-                          fontWeight: 400,
                           fontSize: rem(24),
                           lineHeight: 1.3,
-                          color: active.primary,
-                        }}
+                          color: active.primary }}
                       >
                         {item.title}
                       </Title>
@@ -175,10 +164,9 @@ export default function BlogArchivePage() {
                     </Stack>
                     <Group gap="xs" style={{ flexShrink: 0, paddingTop: rem(4) }}>
                       <Text
-                        fw={600}
                         size="sm"
                         c={active.action}
-                        style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                        
                       >
                         Read
                       </Text>
@@ -199,7 +187,7 @@ export default function BlogArchivePage() {
       >
         <Container size={760}>
           <Stack gap="xl" align="center">
-            <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36), color: active.primary }}>
+            <Title order={2} style={{ fontSize: rem(36), color: active.primary }}>
               Still stuck after reading?
             </Title>
             <Text size="lg" c="dimmed" lh={1.7}>

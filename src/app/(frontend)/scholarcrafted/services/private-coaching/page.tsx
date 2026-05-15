@@ -29,9 +29,7 @@ import {
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
-
-const SECTION_SPACING = rem(120)
-const INNER_WIDTH = 1100
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
   {
@@ -67,8 +65,7 @@ export default function PrivateCoachingPage() {
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               1-ON-1 GUIDANCE
@@ -78,12 +75,8 @@ export default function PrivateCoachingPage() {
               mt="md"
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-                fontFamily: 'var(--font-serif)',
-              }}
+                color: active.primary }}
             >
               Personalized Guidance for Your Dissertation or Thesis
             </Title>
@@ -118,12 +111,9 @@ export default function PrivateCoachingPage() {
             <Title
               order={2}
               style={{
-                fontFamily: 'var(--font-serif)',
-                fontWeight: 400,
                 fontSize: rem(48),
                 textAlign: 'center',
-                color: active.primary,
-              }}
+                color: active.primary }}
             >
               Are you in this position right now?
             </Title>
@@ -148,8 +138,7 @@ export default function PrivateCoachingPage() {
                       style={{
                         minHeight: rem(120),
                         display: 'flex',
-                        alignItems: 'center',
-                      }}
+                        alignItems: 'center' }}
                     >
                       <Text size="lg" lh={1.8} c={active.primary} fw={500}>
                         &ldquo;{pain}&rdquo;
@@ -180,13 +169,12 @@ export default function PrivateCoachingPage() {
             <Box>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 Inside a Session
               </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42), color: active.primary }}>
+              <Title order={2} mt="sm" style={{ fontSize: rem(42), color: active.primary }}>
                 What happens during your coaching hours?
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
@@ -242,13 +230,12 @@ export default function PrivateCoachingPage() {
             <Box>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 Coaching Packages
               </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
                 What&apos;s included in each package
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
@@ -264,7 +251,7 @@ export default function PrivateCoachingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       THE STRATEGIC SPRINT
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       5-Hour Retainer
                     </Title>
                     <Text fw={600} size="xl" c={active.primary}>$750 USD</Text>
@@ -292,7 +279,7 @@ export default function PrivateCoachingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       THE SEMESTER PARTNERSHIP
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       10-Hour Retainer
                     </Title>
                     <Text fw={600} size="xl" c={active.primary}>$1,400 USD</Text>
@@ -317,7 +304,7 @@ export default function PrivateCoachingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       THE FULL-CYCLE JOURNEY
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       20-Hour Retainer
                     </Title>
                     <Text fw={600} size="xl" c={active.primary}>$2,600 USD</Text>
@@ -347,13 +334,12 @@ export default function PrivateCoachingPage() {
             <Box style={{ maxWidth: 720 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 The Other Side
               </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
                 What you&apos;ll walk away with.
               </Title>
               <Text c="dimmed" mt="md" size="lg" lh={1.7}>
@@ -389,7 +375,7 @@ export default function PrivateCoachingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em' }}>
                       {item.label}
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       {item.title}
                     </Title>
                     <Text size="sm" c="dimmed" lh={1.7}>
@@ -410,8 +396,7 @@ export default function PrivateCoachingPage() {
             <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 FAQ
@@ -419,7 +404,7 @@ export default function PrivateCoachingPage() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(36), fontWeight: 400, color: active.primary, fontFamily: 'var(--font-serif)' }}
+                style={{ fontSize: rem(36), color: active.primary }}
               >
                 Common Questions
               </Title>
@@ -430,8 +415,7 @@ export default function PrivateCoachingPage() {
               styles={{
                 item: { border: `1px solid ${active.primary}22`, backgroundColor: active.background },
                 control: { padding: rem(24), fontWeight: 600, fontSize: rem(18), color: active.primary },
-                content: { padding: rem(24), paddingTop: 0 },
-              }}
+                content: { padding: rem(24), paddingTop: 0 } }}
             >
               {faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
@@ -455,7 +439,7 @@ export default function PrivateCoachingPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
+              <Title order={2} style={{ fontSize: rem(36) }}>
                 Explore Other Services
               </Title>
               <Text size="lg" c="dimmed" mt="md">
@@ -469,7 +453,7 @@ export default function PrivateCoachingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       MANUSCRIPT REFINEMENT
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Structural Editing & Proofreading
                     </Title>
                   </Stack>
@@ -492,7 +476,7 @@ export default function PrivateCoachingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       TECHNICAL ASSISTANCE
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Custom Research & Data Support
                     </Title>
                   </Stack>

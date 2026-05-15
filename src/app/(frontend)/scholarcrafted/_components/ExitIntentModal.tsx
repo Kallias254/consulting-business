@@ -41,8 +41,7 @@ export function ExitIntentModal() {
         },
         close: {
           color: active.primary,
-        },
-      }}
+        } }}
     >
       <Box p={rem(32)} style={{ textAlign: 'center' }}>
         <Stack gap="lg" align="center">
@@ -50,12 +49,9 @@ export function ExitIntentModal() {
           <Title
             order={2}
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontWeight: 400,
               fontSize: rem(32),
               color: active.primary,
-              lineHeight: 1.25,
-            }}
+              lineHeight: 1.25 }}
           >
             Not sure which service is right for you?
           </Title>

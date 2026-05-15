@@ -22,8 +22,7 @@ import { Footer } from '../_components/Footer'
 import Link from 'next/link'
 import { IconCheck, IconX, IconMessageChatbot, IconRocket } from '@tabler/icons-react'
 
-const SECTION_SPACING = rem(140)
-const INNER_WIDTH = 800
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const team = [
   {
@@ -112,8 +111,7 @@ export default function AboutPage() {
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               About ScholarCrafted
@@ -123,11 +121,8 @@ export default function AboutPage() {
               mt="md"
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-              }}
+                color: active.primary }}
             >
               Scholarly Rigor. <br />
               Human Guidance.
@@ -182,8 +177,7 @@ export default function AboutPage() {
             <Box style={{ maxWidth: 700 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 The Client Journey
@@ -191,7 +185,7 @@ export default function AboutPage() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(48), fontWeight: 400, color: active.primary }}
+                style={{ fontSize: rem(48), color: active.primary }}
               >
                 A clear, structured process <br /> from start to finish.
               </Title>
@@ -202,7 +196,7 @@ export default function AboutPage() {
                 <ThemeIcon size={64} radius="xl" variant="light" color="dark">
                   <IconMessageChatbot size={32} stroke={1.5} />
                 </ThemeIcon>
-                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                <Text fw={700} size="lg" >
                   01. Strategic Review
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
@@ -214,7 +208,7 @@ export default function AboutPage() {
                 <ThemeIcon size={64} radius="xl" variant="light" color="dark">
                   <IconRocket size={32} stroke={1.5} />
                 </ThemeIcon>
-                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                <Text fw={700} size="lg" >
                   02. Guided Implementation
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
@@ -226,7 +220,7 @@ export default function AboutPage() {
                 <ThemeIcon size={64} radius="xl" variant="light" color="dark">
                   <IconCheck size={32} stroke={1.5} />
                 </ThemeIcon>
-                <Text fw={700} size="lg" style={{ fontFamily: 'var(--font-serif)' }}>
+                <Text fw={700} size="lg" >
                   03. Final Submission
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
@@ -261,7 +255,7 @@ export default function AboutPage() {
           <Box style={{ textAlign: 'center', marginBottom: rem(60) }}>
             <Title
               order={2}
-              style={{ fontWeight: 400, fontFamily: 'var(--font-serif)', color: active.primary }}
+              style={{ color: active.primary }}
             >
               Hands-on help, the right way.
             </Title>
@@ -308,17 +302,14 @@ export default function AboutPage() {
         bg={active.background}
         style={{ borderTop: '1px solid #eee' }}
       >
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
               <Title
                 order={2}
                 style={{
                   fontSize: rem(42),
-                  fontWeight: 400,
-                  fontFamily: 'var(--font-serif)',
-                  color: active.primary,
-                }}
+                  color: active.primary }}
               >
                 A track record that speaks for itself.
               </Title>

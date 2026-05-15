@@ -18,8 +18,7 @@ import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import Link from 'next/link'
 import { IconArrowRight } from '@tabler/icons-react'
-
-const SECTION_SPACING = rem(140)
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 // --- Hero Variations ---
 
@@ -34,8 +33,7 @@ const DeanWelcomeHero = () => {
               <Stack gap="xs">
                 <Text
                   size="xs"
-                  fw={700}
-                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  
                   c="dimmed"
                 >
                   SCHOLARCRAFTED ADVISORY
@@ -44,12 +42,9 @@ const DeanWelcomeHero = () => {
                   order={1}
                   style={{
                     fontSize: rem(64),
-                    fontWeight: 400,
                     lineHeight: 1.1,
                     letterSpacing: '-0.03em',
-                    color: active.primary,
-                    fontFamily: 'var(--font-serif)',
-                  }}
+                    color: active.primary }}
                 >
                   Rigor and Insight, <br />
                   On Demand.
@@ -100,12 +95,8 @@ const ResearchAbstractHero = () => {
             order={1}
             style={{
               fontSize: rem(52),
-              fontWeight: 400,
               lineHeight: 1.2,
-              letterSpacing: '-0.02em',
-              color: active.primary,
-              fontFamily: 'var(--font-serif)',
-            }}
+              color: active.primary }}
           >
             &ldquo;The goal is to transform data into information, and information into
             insight.&rdquo;
@@ -156,10 +147,7 @@ const ModernInstituteHero = () => {
                   fontSize: rem(48),
                   fontWeight: 500,
                   lineHeight: 1.1,
-                  letterSpacing: '-0.02em',
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 The End of Academic Drift.
               </Title>

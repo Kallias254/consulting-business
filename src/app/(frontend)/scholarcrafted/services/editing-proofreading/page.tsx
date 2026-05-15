@@ -30,9 +30,7 @@ import {
   IconWriting, 
   IconSend 
 } from '@tabler/icons-react'
-
-const SECTION_SPACING = rem(120)
-const INNER_WIDTH = 1100
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
   {
@@ -67,8 +65,7 @@ export default function EditingProofreadingPage() {
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Manuscript Refinement
@@ -78,11 +75,8 @@ export default function EditingProofreadingPage() {
               mt="md"
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-              }}
+                color: active.primary }}
             >
               Structural Editing & Proofreading
             </Title>
@@ -105,7 +99,7 @@ export default function EditingProofreadingPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(40)}>
             <Box>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+              <Title order={2} >
                 Why Choose a Professional Review?
               </Title>
               <Text c="dimmed" mt="md" size="lg" lh={1.7} style={{ maxWidth: 800 }}>
@@ -140,13 +134,12 @@ export default function EditingProofreadingPage() {
             <Box>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 The Dual-Layer Approach
               </Text>
-              <Title order={3} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
+              <Title order={3} mt="sm" style={{ fontSize: rem(36) }}>
                 Levels of Editing
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
@@ -156,7 +149,7 @@ export default function EditingProofreadingPage() {
             
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
               <Box>
-                <Text fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: active.primary }} size="sm" mb="md">
+                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
                   1. Structural & Developmental Editing
                 </Text>
                 <Text c="dimmed" lh={1.6}>
@@ -165,7 +158,7 @@ export default function EditingProofreadingPage() {
               </Box>
 
               <Box>
-                <Text fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: active.primary }} size="sm" mb="md">
+                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
                   2. Formatting & Proofreading
                 </Text>
                 <Text c="dimmed" lh={1.6} mb="lg">
@@ -190,7 +183,7 @@ export default function EditingProofreadingPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+              <Title order={2} style={{ fontSize: rem(42) }}>
                 What You&rsquo;ll Gain
               </Title>
               <Text c="dimmed" mt="md" size="lg">
@@ -228,13 +221,12 @@ export default function EditingProofreadingPage() {
           <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c={active.accent}
             >
               Crucial Distinction
             </Text>
-            <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+            <Title order={2} style={{ fontSize: rem(42) }}>
               Editing vs. Consulting
             </Title>
             <Text size="lg" lh={1.7} c="dimmed">
@@ -271,13 +263,12 @@ export default function EditingProofreadingPage() {
             <Box style={{ maxWidth: 700 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 The Process
               </Text>
-              <Title order={2} mt="sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(42) }}>
+              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
                 How It Works
               </Title>
               <Text c="dimmed" mt="md" size="lg">
@@ -342,8 +333,7 @@ export default function EditingProofreadingPage() {
             <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c="dimmed"
               >
                 FAQ
@@ -351,7 +341,7 @@ export default function EditingProofreadingPage() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(36), fontWeight: 400, color: active.primary, fontFamily: 'var(--font-serif)' }}
+                style={{ fontSize: rem(36), color: active.primary }}
               >
                 Logistics & Policies
               </Title>
@@ -362,8 +352,7 @@ export default function EditingProofreadingPage() {
               styles={{
                 item: { border: `1px solid ${active.primary}22`, backgroundColor: active.background },
                 control: { padding: rem(24), fontWeight: 600, fontSize: rem(18), color: active.primary },
-                content: { padding: rem(24), paddingTop: 0 },
-              }}
+                content: { padding: rem(24), paddingTop: 0 } }}
             >
               {faqs.map((faq: any, i: number) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
@@ -387,7 +376,7 @@ export default function EditingProofreadingPage() {
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: rem(36) }}>
+              <Title order={2} style={{ fontSize: rem(36) }}>
                 Explore Other Services
               </Title>
               <Text size="lg" c="dimmed" mt="md">
@@ -401,7 +390,7 @@ export default function EditingProofreadingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       TECHNICAL ASSISTANCE
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Custom Research & Data Support
                     </Title>
                   </Stack>
@@ -424,7 +413,7 @@ export default function EditingProofreadingPage() {
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       1-ON-1 GUIDANCE
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Live Academic Coaching
                     </Title>
                   </Stack>

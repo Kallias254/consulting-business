@@ -12,8 +12,7 @@ import {
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
-
-const INNER_WIDTH = 800 // Kept slightly narrower for comfortable reading
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 export default function TermsPage() {
   const theme = useMantineTheme()
@@ -25,12 +24,11 @@ export default function TermsPage() {
 
       {/* Hero */}
       <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Stack gap="md">
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Legal & Policies
@@ -39,12 +37,8 @@ export default function TermsPage() {
               order={1}
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-                fontFamily: 'var(--font-serif)',
-              }}
+                color: active.primary }}
             >
               Terms and Conditions
             </Title>
@@ -62,11 +56,11 @@ export default function TermsPage() {
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}22` }}
       >
-        <Container size={INNER_WIDTH}>
+        <Container size={READING_WIDTH}>
           <Stack gap={rem(48)}>
             
             <Box>
-              <Title order={2} mb="md" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+              <Title order={2} mb="md" style={{ color: active.primary }}>
                 1. Booking & Payments
               </Title>
               <Stack gap="sm">
@@ -83,7 +77,7 @@ export default function TermsPage() {
             </Box>
 
             <Box>
-              <Title order={2} mb="md" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+              <Title order={2} mb="md" style={{ color: active.primary }}>
                 2. Rescheduling & Cancellations
               </Title>
               <Stack gap="sm">
@@ -97,7 +91,7 @@ export default function TermsPage() {
             </Box>
 
             <Box>
-              <Title order={2} mb="md" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+              <Title order={2} mb="md" style={{ color: active.primary }}>
                 3. Unused Time Policy
               </Title>
               <Stack gap="sm">
@@ -111,7 +105,7 @@ export default function TermsPage() {
             </Box>
 
             <Box>
-              <Title order={2} mb="md" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+              <Title order={2} mb="md" style={{ color: active.primary }}>
                 4. Confidentiality & Data Protection
               </Title>
               <Stack gap="sm">
@@ -128,7 +122,7 @@ export default function TermsPage() {
             </Box>
 
             <Box>
-              <Title order={2} mb="md" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+              <Title order={2} mb="md" style={{ color: active.primary }}>
                 5. Dispute Resolution
               </Title>
               <Stack gap="sm">
@@ -142,7 +136,7 @@ export default function TermsPage() {
             </Box>
 
             <Box>
-              <Title order={2} mb="md" style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, color: active.primary }}>
+              <Title order={2} mb="md" style={{ color: active.primary }}>
                 6. Amendments to Terms
               </Title>
               <Stack gap="sm">

@@ -16,9 +16,7 @@ import {
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import Link from 'next/link'
-
-const SECTION_SPACING = rem(140)
-const INNER_WIDTH = 1100
+import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const offlineServices = [
   {
@@ -51,8 +49,7 @@ export default function ServicesPage() {
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Our Services
@@ -62,11 +59,8 @@ export default function ServicesPage() {
               mt="md"
               style={{
                 fontSize: rem(56),
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: active.primary,
-              }}
+                color: active.primary }}
             >
               Rigorous support for <br />
               the academic journey.
@@ -91,8 +85,7 @@ export default function ServicesPage() {
             <Box style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 1-on-1 Guidance
@@ -102,10 +95,7 @@ export default function ServicesPage() {
                 mt="md"
                 style={{
                   fontSize: rem(48),
-                  fontWeight: 400,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 Need strategic direction?
               </Title>
@@ -123,15 +113,14 @@ export default function ServicesPage() {
                   border: `1px solid ${active.primary}22`,
                   display: 'flex',
                   flexDirection: 'column',
-                  height: '100%',
-                }}
+                  height: '100%' }}
               >
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                       LIVE ACADEMIC COACHING
                     </Text>
-                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                    <Title order={3} >
                       Private Coaching Packages
                     </Title>
                   </Stack>
@@ -170,8 +159,7 @@ export default function ServicesPage() {
             <Box style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                
                 c={active.accent}
               >
                 Asynchronous Support
@@ -181,10 +169,7 @@ export default function ServicesPage() {
                 mt="md"
                 style={{
                   fontSize: rem(48),
-                  fontWeight: 400,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 Ready for expert intervention?
               </Title>
@@ -204,15 +189,14 @@ export default function ServicesPage() {
                     border: '1px solid #eee',
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '100%',
-                  }}
+                    height: '100%' }}
                 >
                   <Stack gap="xl" flex={1}>
                     <Stack gap="xs">
                       <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
                         {service.label}
                       </Text>
-                      <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}>
+                      <Title order={3} >
                         {service.title}
                       </Title>
                     </Stack>

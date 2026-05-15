@@ -249,3 +249,14 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+
+/* Impeccable Typography Framework */
+.impeccable-eyebrow {
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+.mantine-Title-root[data-order='1'] { letter-spacing: -0.03em !important; }
+.mantine-Title-root[data-order='2'] { letter-spacing: -0.02em !important; }
+.mantine-Title-root[data-order='3'] { letter-spacing: -0.01em !important; }

@@ -258,7 +258,7 @@ function ConsultationWizard() {
         <Container size={INNER_WIDTH}>
           <Group justify="space-between" align="center">
             <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: active.primary }}>
-              <Text fw={700} size="xl" style={{ letterSpacing: '-0.02em', fontFamily: 'var(--font-serif)' }}>
+              <Text fw={700} size="xl" >
                 ScholarCrafted
               </Text>
             </Link>
@@ -279,7 +279,7 @@ function ConsultationWizard() {
                 style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease' }}
               >
                 <IconArrowLeft size={16} color={active.primary} />
-                <Text size="xs" fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: active.primary }}>
+                <Text className="impeccable-eyebrow" size="xs" style={{ color: active.primary }}>
                   Back
                 </Text>
               </UnstyledButton>
@@ -287,7 +287,7 @@ function ConsultationWizard() {
             
             {step < totalSteps && (
               <Stack gap="xs" align="center">
-                <Text size="xs" fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} c="dimmed">
+                <Text className="impeccable-eyebrow" size="xs"  c="dimmed">
                   Diagnostic Step {step + 1}
                 </Text>
                 <Progress
@@ -309,12 +309,8 @@ function ConsultationWizard() {
                 order={1}
                 style={{
                   fontSize: rem(42),
-                  fontWeight: 400,
-                  letterSpacing: '-0.02em',
                   lineHeight: 1.2,
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                }}
+                  color: active.primary }}
               >
                 {stepHeadlines[step].title}
               </Title>
@@ -586,8 +582,7 @@ function StepDateTime({ data, setData, nextStep }: any) {
                   border: `1px solid ${data.preferredTime === slot.id ? active.primary : '#eee'}`,
                   backgroundColor:
                     data.preferredTime === slot.id ? active.surface : active.background,
-                  transition: 'all 0.2s ease',
-                }}
+                  transition: 'all 0.2s ease' }}
               >
                 <Group justify="space-between">
                   <Text fw={600} color={active.primary}>
@@ -704,8 +699,7 @@ function StepSuccess({ data, setStep }: any) {
           <Stack gap="xl">
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Next Steps: Agency Ingestion
@@ -761,8 +755,7 @@ function StepSuccess({ data, setStep }: any) {
           <Stack gap="xl">
             <Text
               size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              
               c="dimmed"
             >
               Community of Scholars
@@ -854,11 +847,11 @@ function StepReview({ data, setStep, nextStep }: any) {
               item.value !== 'N/A' && (
                 <Box key={item.label}>
                   <Group justify="space-between" align="center" wrap="nowrap">
-                    <Text fw={600} size="sm" c="dimmed" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                    <Text className="impeccable-eyebrow" size="sm" c="dimmed" >
                       {item.label}
                     </Text>
                     <Group gap="sm">
-                      <Text fw={500} size="md" c={active.primary} style={{ textAlign: 'right', fontFamily: 'var(--font-serif)' }}>
+                      <Text fw={500} size="md" c={active.primary} style={{ textAlign: 'right' }}>
                         {item.value}
                       </Text>
                       {item.editableStep !== undefined && (
@@ -915,8 +908,7 @@ function SelectionCard({ title, description, icon, active, onClick }: any) {
         transition: 'all 0.2s ease',
         position: 'relative',
         textAlign: 'left',
-        width: '100%',
-      }}
+        width: '100%' }}
       onMouseEnter={(e) => {
         if (!active) {
           e.currentTarget.style.backgroundColor = activeTheme.background;
