@@ -117,8 +117,11 @@ export default function ScholarCraftedLanding() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
+        .carousel-indicator {
+          transform-origin: left;
+        }
         .carousel-indicator[data-active] {
-          width: ${rem(24)} !important;
+          transform: scaleX(3) !important;
           background-color: ${active.primary} !important;
         }
 
@@ -184,7 +187,7 @@ export default function ScholarCraftedLanding() {
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
                     <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-                      <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0}>
+                      <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0} className="impeccable-button">
                         FREE INTRODUCTORY CALL
                       </Button>
                     </Link>
@@ -467,7 +470,7 @@ export default function ScholarCraftedLanding() {
             </SimpleGrid>
 
             <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(60)}>
+              <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(60)} className="impeccable-button">
                 FREE INTRODUCTORY CALL
               </Button>
             </Link>
@@ -525,8 +528,8 @@ export default function ScholarCraftedLanding() {
                   key={i}
                   p={rem(40)}
                   bg="white"
+                  className="impeccable-card"
                   style={{
-                    border: '1px solid #eee',
                     display: 'flex',
                     flexDirection: 'column',
                     height: '100%',
@@ -546,7 +549,7 @@ export default function ScholarCraftedLanding() {
                     </Text>
                     <Box mt="auto" pt="xl">
                       <Link href={service.link} style={{ textDecoration: 'none' }}>
-                        <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
+                        <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }} className="impeccable-button">
                           {service.cta}
                         </Button>
                       </Link>
@@ -575,7 +578,7 @@ export default function ScholarCraftedLanding() {
               indicator: {
                 width: rem(8),
                 height: rem(8),
-                transition: 'width 250ms ease',
+                transition: 'transform 250ms ease, background-color 250ms ease',
                 backgroundColor: '#ccc',
               },
             }}

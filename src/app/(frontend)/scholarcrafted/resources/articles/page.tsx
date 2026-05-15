@@ -140,12 +140,10 @@ export default function ArticlesArchivePage() {
                 <Box
                   p={rem(40)}
                   bg={i % 2 === 0 ? active.surface : active.background}
+                  className="impeccable-card"
                   style={{
-                    borderLeft: `3px solid transparent`,
-                    transition: 'border-color 0.2s ease, background 0.2s ease',
                     cursor: 'pointer',
                   }}
-                  className="archive-row"
                 >
                   <Group justify="space-between" align="flex-start" wrap="nowrap">
                     <Stack gap="sm" style={{ flex: 1, maxWidth: 760 }}>
@@ -220,9 +218,7 @@ export default function ArticlesArchivePage() {
       <Footer />
 
       <style jsx global>{`
-        .archive-row:hover {
-          border-left-color: ${active.action} !important;
-        }
+        /* Removed AI-slop side-tab borders, using global .impeccable-card instead */
       `}</style>
     </Box>
   )

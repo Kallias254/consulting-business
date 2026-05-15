@@ -239,14 +239,14 @@ export default function ResearchSupportPage() {
             </Text>
             
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="md" style={{ textAlign: 'left', width: '100%' }}>
-              <Box p={rem(32)} bg={active.surface} style={{ borderLeft: `4px solid ${active.primary}` }}>
-                <Text fw={700} size="lg" mb="xs">Custom Data Support</Text>
+              <Box p={rem(32)} bg={active.surface} className="impeccable-card">
+                <Text fw={700} size="lg" mb="xs" c={active.primary}>Custom Data Support</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
                   An asynchronous service where you hand over raw data or instruments. We process the technical aspects (coding, statistics) offline and return organized outputs.
                 </Text>
               </Box>
-              <Box p={rem(32)} bg={active.surface} style={{ borderLeft: `4px solid ${active.accent}` }}>
-                <Text fw={700} size="lg" mb="xs">Live Consulting</Text>
+              <Box p={rem(32)} bg={active.surface} className="impeccable-card">
+                <Text fw={700} size="lg" mb="xs" c={active.accent}>Live Consulting</Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
                   A real-time instructional opportunity (1-on-1 coaching) meant to teach you <i>how</i> to conduct the research yourself, overcome roadblocks, or prepare for defense.
                 </Text>

@@ -103,6 +103,29 @@ export const theme = createTheme({
           fontWeight: 500,
           paddingLeft: '2rem',
           paddingRight: '2rem',
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: '0 8px 24px oklch(0% 0 0 / 0.1)',
+          },
+        },
+      },
+    },
+    Card: {
+      defaultProps: {
+        radius: 0,
+        withBorder: true,
+      },
+      styles: {
+        root: {
+          transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease',
+          borderColor: 'oklch(0% 0 0 / 0.06)',
+          boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            boxShadow: '0 16px 40px oklch(0% 0 0 / 0.06)',
+            borderColor: 'oklch(0% 0 0 / 0.1)',
+          },
         },
       },
     },

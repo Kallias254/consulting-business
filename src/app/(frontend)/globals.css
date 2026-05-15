@@ -91,6 +91,26 @@
       max-width: var(--breakpoint-2xl);
     }
   }
+
+  /* Impeccable Design Enhancements (Mantine v7 Global Targets) */
+  .mantine-Card-root, .impeccable-card {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease !important;
+    border: 1px solid oklch(0% 0 0 / 0.06) !important;
+    box-shadow: 0 4px 24px oklch(0% 0 0 / 0.02) !important;
+  }
+  .mantine-Card-root:hover, .impeccable-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 16px 40px oklch(0% 0 0 / 0.06) !important;
+    border-color: oklch(0% 0 0 / 0.1) !important;
+  }
+  
+  .mantine-Button-root, .impeccable-button {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease !important;
+  }
+  .mantine-Button-root:hover, .impeccable-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px oklch(0% 0 0 / 0.15) !important;
+  }
 }
 
 :root {

@@ -115,7 +115,7 @@ export default function RoutledgeHandbookMock() {
                   </Text>
                   
                   {/* Funding Badge - Highlighted as requested */}
-                  <Box mt="md" p="md" bg={`${active.primary}05`} style={{ borderLeft: `3px solid ${active.accent}` }}>
+                  <Box mt="md" p="md" bg={`${active.primary}05`} style={{ borderRadius: '4px', border: `1px solid ${active.accent}44` }}>
                     <Text size="sm" fw={600} c={active.primary}>
                       Supported by $20,000 Institutional Research Funding
                     </Text>
