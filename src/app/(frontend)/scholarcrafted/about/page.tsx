@@ -106,15 +106,16 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero: Philosophy */}
-      <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
         <Container size={1100}>
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              
-              c="dimmed"
+              fw={700}
+              style={{ letterSpacing: '0.15em' }}
+              c={active.accent}
             >
-              About ScholarCrafted
+              ABOUT SCHOLARCRAFTED
             </Text>
             <Title
               order={1}
@@ -122,15 +123,15 @@ export default function AboutPage() {
               style={{
                 fontSize: rem(56),
                 lineHeight: 1.1,
+                letterSpacing: '-0.02em',
                 color: active.primary }}
             >
-              Scholarly Rigor. <br />
-              Human Guidance.
+              Scholarly rigor. <br />
+              Human guidance.
             </Title>
-            <Text size="xl" c="dimmed" lh={1.6} mt="xl" style={{ maxWidth: 600 }}>
-              While algorithms can check for plagiarism, they cannot replicate the nuanced,
-              structural insight of a seasoned academic. Our institution is founded on the principle
-              of PhD-led mentorship.
+            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
+              Algorithms cannot replicate the nuanced, structural insight of a seasoned 
+              academic. Our institution is founded on the principle of PhD-led mentorship.
             </Text>
           </Box>
         </Container>

@@ -55,16 +55,17 @@ export default function HowItWorksPage() {
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
-      <Box component="section" pt={rem(100)} pb={rem(80)}>
+      <Box component="section" pt={rem(140)} pb={rem(80)}>
         <Container size={1100}>
           <Stack gap="xl">
             <Box style={{ maxWidth: 800 }}>
               <Text
                 size="xs"
-                
-                c="dimmed"
+                fw={700}
+                style={{ letterSpacing: '0.15em' }}
+                c={active.accent}
               >
-                The Client Journey
+                THE CLIENT JOURNEY
               </Text>
               <Title
                 order={1}
@@ -72,6 +73,7 @@ export default function HowItWorksPage() {
                 style={{
                   fontSize: rem(56),
                   lineHeight: 1.1,
+                  letterSpacing: '-0.02em',
                   color: active.primary }}
               >
                 A guided path from <br />

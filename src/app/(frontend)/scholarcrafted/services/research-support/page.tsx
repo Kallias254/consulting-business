@@ -51,15 +51,16 @@ export default function ResearchSupportPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              
-              c="dimmed"
+              fw={700}
+              style={{ letterSpacing: '0.15em' }}
+              c={active.accent}
             >
-              Technical Assistance
+              TECHNICAL ASSISTANCE
             </Text>
             <Title
               order={1}
@@ -67,12 +68,15 @@ export default function ResearchSupportPage() {
               style={{
                 fontSize: rem(56),
                 lineHeight: 1.1,
+                letterSpacing: '-0.02em',
                 color: active.primary }}
             >
-              Custom Research & Data Support
+              Methodological design and <br />
+              custom data support.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.
+              Offline technical support for complex survey construction, qualitative coding, 
+              and advanced statistical analysis for your methodology findings.
             </Text>
             
             <Link href="/scholarcrafted/consultation?interest=data_support&metBefore=no" style={{ textDecoration: 'none' }}>

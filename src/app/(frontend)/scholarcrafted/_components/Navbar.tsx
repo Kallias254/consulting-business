@@ -126,7 +126,7 @@ export function Navbar() {
                       className="nav-link"
                       style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
                     >
-                      BLUEPRINTS <IconChevronDown size={14} style={{ marginLeft: rem(6), opacity: 0.6 }} />
+                      RESOURCES <IconChevronDown size={14} style={{ marginLeft: rem(6), opacity: 0.6 }} />
                     </Text>
                   </Center>
                 </Box>
@@ -139,8 +139,8 @@ export function Navbar() {
                         <IconFileText size={24} />
                       </ThemeIcon>
                       <div>
-                        <Text size="sm" fw={600} c="dark.9">All Blueprints</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Browse the full collection of templates.</Text>
+                        <Text size="sm" fw={600} c="dark.9">Academic Blueprints</Text>
+                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Curated dissertation templates and literature matrices.</Text>
                       </div>
                     </Group>
                   </Link>
@@ -151,7 +151,7 @@ export function Navbar() {
                       </ThemeIcon>
                       <div>
                         <Text size="sm" fw={600} c="dark.9">Articles & Guides</Text>
-                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Read our latest academic strategies.</Text>
+                        <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>Expert strategies for research design and defense.</Text>
                       </div>
                     </Group>
                   </Link>

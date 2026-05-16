@@ -177,8 +177,7 @@ export default function ScholarCraftedLanding() {
                 </Stack>
                 <Box style={{ maxWidth: 480 }}>
                   <Text size="xl" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>
-                    We provide the rigorous, faculty-led oversight to finish your dissertation
-                    faster, with less stress.
+                    We provide the rigorous, faculty-level guidance and structural accountability you need to break through ABD paralysis and defend your dissertation with confidence.
                   </Text>
                 </Box>
               </Stack>
@@ -192,10 +191,7 @@ export default function ScholarCraftedLanding() {
                       </Button>
                     </Link>
                     <Text size="sm" c="dimmed" lh={1.4}>
-                      This 15-minute call is to get to know your needs, not a coaching session.{' '}
-                      <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'none' }}>
-                        Find out more here.
-                      </Link>
+                      A zero-pressure discovery call to discuss your current roadblocks and determine the ideal path forward. No commitment required.
                     </Text>
                   </Stack>
                 </Box>
@@ -339,16 +335,16 @@ export default function ScholarCraftedLanding() {
                   desc: 'Without external accountability and structured milestones, dissertation writing easily slips to the bottom of your daily priorities.',
                 },
                 {
-                  tag: 'SCOPE OVERWHELM',
+                  tag: 'SYNTHESIS COLLAPSE',
                   icon: IconBooks,
-                  complaint: 'I have 150 PDFs downloaded, 60 pages of messy notes, and transcripts I don’t know how to code. Every time I try to outline the chapter, I get completely lost in the weeds.',
-                  desc: 'Synthesizing years of reading and complex qualitative or quantitative data into a cohesive, defensible narrative feels like an impossible mountain.',
+                  complaint: 'I used AI to summarize 100 articles and generate literature matrices, but now I’m drowning in thousands of disconnected bullet points. My chair says my draft reads like a generic summary and lacks my own critical voice.',
+                  desc: 'AI tools can churn out endless summaries, but they cannot provide the deep theoretical synthesis and authentic scholar’s voice your committee demands.',
                 },
                 {
-                  tag: 'ANALYSIS PARALYSIS',
+                  tag: 'DEFENSE ANXIETY',
                   icon: IconBrain,
-                  complaint: 'I keep rewriting the same literature review paragraph over and over because it doesn’t sound ‘smart enough’. I’m terrified my committee will read my draft and decide I don’t belong here.',
-                  desc: 'Imposter syndrome and perfectionism force you into endless cycles of rewriting the same chapter without ever making forward progress.',
+                  complaint: 'I keep tweaking AI prompts trying to make my methodology sound ‘smart’ enough, but I’m terrified my committee will ask me to defend a theoretical connection I didn’t actually conceptualize myself.',
+                  desc: 'Relying on generative tools creates imposter syndrome and defense anxiety. We provide the human expert sounding board to ensure your research design is robust, defensible, and entirely your own.',
                 },
               ].map((item, i) => (
                 <Box
@@ -540,21 +536,21 @@ export default function ScholarCraftedLanding() {
                   label: '1-ON-1 GUIDANCE',
                   desc: 'A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence.',
                   link: '/scholarcrafted/services/private-coaching',
-                  cta: 'View Coaching Services',
+                  cta: 'Explore Coaching',
                 },
                 {
                   title: 'Structural Editing & Proofreading',
                   label: 'MANUSCRIPT REFINEMENT',
                   desc: 'From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.',
                   link: '/scholarcrafted/services/editing-proofreading',
-                  cta: 'View Editing Services',
+                  cta: 'Explore Editing',
                 },
                 {
                   title: 'Custom Research & Data Support',
                   label: 'TECHNICAL ASSISTANCE',
                   desc: 'Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.',
                   link: '/scholarcrafted/services/research-support',
-                  cta: 'Get Research Support',
+                  cta: 'Explore Support',
                 },
               ].map((service, i) => (
                 <Box

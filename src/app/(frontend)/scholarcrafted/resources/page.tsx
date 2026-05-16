@@ -86,15 +86,16 @@ export default function ResourcesPage() {
         <Navbar />
 
         {/* Hero Section */}
-        <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+        <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              
-              c="dimmed"
+              fw={700}
+              style={{ letterSpacing: '0.15em' }}
+              c={active.accent}
             >
-              Resources & Insights
+              ACADEMIC BLUEPRINTS
             </Text>
             <Title
               order={1}
@@ -102,14 +103,15 @@ export default function ResourcesPage() {
               style={{
                 fontSize: rem(56),
                 lineHeight: 1.1,
+                letterSpacing: '-0.02em',
                 color: active.primary }}
             >
-              Strategic insights and <br />
-              structured frameworks.
+              Structured frameworks for <br />
+              independent researchers.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              Actionable blueprints, tools, and expert advice designed specifically to help
-              independent researchers overcome their toughest academic roadblocks.
+              Actionable templates, matrices, and tools designed specifically to help you 
+              overcome your toughest academic roadblocks and accelerate your writing.
             </Text>
           </Box>
         </Container>

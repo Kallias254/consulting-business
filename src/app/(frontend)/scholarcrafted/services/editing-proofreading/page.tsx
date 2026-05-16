@@ -60,15 +60,16 @@ export default function EditingProofreadingPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              
-              c="dimmed"
+              fw={700}
+              style={{ letterSpacing: '0.15em' }}
+              c={active.accent}
             >
-              Manuscript Refinement
+              MANUSCRIPT REFINEMENT
             </Text>
             <Title
               order={1}
@@ -76,13 +77,15 @@ export default function EditingProofreadingPage() {
               style={{
                 fontSize: rem(56),
                 lineHeight: 1.1,
+                letterSpacing: '-0.02em',
                 color: active.primary }}
             >
-              Structural Editing & Proofreading
+              Structural editing for <br />
+              academic manuscripts.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              From macro-level argument flow to micro-level prose precision, we ensure your research
-              is presented with the clarity, tone, and authority expected by your committee.
+              From macro-level flow to prose precision, we ensure your research is presented 
+              with the clarity, tone, and authority expected by your committee.
             </Text>
             
             <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>

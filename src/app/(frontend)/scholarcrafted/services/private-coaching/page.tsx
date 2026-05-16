@@ -62,13 +62,14 @@ export default function PrivateCoachingPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Box style={{ maxWidth: 800 }}>
             <Text
               size="xs"
-              
-              c="dimmed"
+              fw={700}
+              style={{ letterSpacing: '0.15em' }}
+              c={active.accent}
             >
               1-ON-1 GUIDANCE
             </Text>
@@ -78,12 +79,15 @@ export default function PrivateCoachingPage() {
               style={{
                 fontSize: rem(56),
                 lineHeight: 1.1,
+                letterSpacing: '-0.02em',
                 color: active.primary }}
             >
-              Personalized Guidance for Your Dissertation or Thesis
+              Strategic intervention for <br />
+              stalled doctoral research.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              Overwhelmed by your academic research? Struggling with a complex structural or methodological issue? Let’s solve it together with in-depth, personalised academic coaching.
+              Overcome structural roadblocks and methodological anxiety with intensive, 
+              personalized coaching from our faculty-level academic advisors.
             </Text>
             
             <Stack gap="xs" mt={rem(40)}>
@@ -287,7 +291,7 @@ export default function PrivateCoachingPage() {
                 <Box mt={rem(40)}>
                   <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Free Introductory Call
+                      Book Intro Call
                     </Button>
                   </Link>
                 </Box>
@@ -315,7 +319,7 @@ export default function PrivateCoachingPage() {
                 <Box mt={rem(40)}>
                   <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
                     <Button variant="filled" bg={active.primary} radius={0} fullWidth>
-                      Free Introductory Call
+                      Book Intro Call
                     </Button>
                   </Link>
                 </Box>
@@ -340,7 +344,7 @@ export default function PrivateCoachingPage() {
                 <Box mt={rem(40)}>
                   <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Free Introductory Call
+                      Book Intro Call
                     </Button>
                   </Link>
                 </Box>
