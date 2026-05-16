@@ -187,7 +187,7 @@ export default function ScholarCraftedLanding() {
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
                     <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-                      <Button size="xl" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                      <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                         BOOK INTRO CALL
                       </Button>
                     </Link>
@@ -505,7 +505,7 @@ export default function ScholarCraftedLanding() {
             </SimpleGrid>
 
             <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(60)} className="impeccable-button">
+              <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                 FREE INTRODUCTORY CALL
               </Button>
             </Link>

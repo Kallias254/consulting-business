@@ -190,24 +190,6 @@ export function Footer({ bg }: { bg?: string }) {
                   Strategic Library (Blog)
                 </Text>
               </Link>
-              <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text
-                  size="sm"
-                  className="footer-link"
-                  c="rgba(255,255,255,0.6)"
-                >
-                  Research Ethics
-                </Text>
-              </Link>
-              <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text
-                  size="sm"
-                  className="footer-link"
-                  c="rgba(255,255,255,0.6)"
-                >
-                  Governance
-                </Text>
-              </Link>
             </Stack>
           </Stack>
 

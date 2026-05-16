@@ -89,7 +89,7 @@ export default function EditingProofreadingPage() {
             </Text>
             
             <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" bg={active.primary} radius={0} mt={rem(40)} px={rem(40)}>
+              <Button size="lg" variant="filled" bg={active.primary} radius={0} mt={rem(40)}>
                 GET A FREE QUOTE
               </Button>
             </Link>
@@ -320,7 +320,7 @@ export default function EditingProofreadingPage() {
                 href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading"
                 style={{ textDecoration: 'none' }}
               >
-                <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                   GET A FREE QUOTE
                 </Button>
               </Link>

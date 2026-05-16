@@ -79,10 +79,10 @@ export default function RoutledgeHandbookMock() {
               </Text>
               
               <Group mt="md">
-                <Button size="xl" variant="filled" bg={active.primary} radius={0} className="impeccable-button" rightSection={<IconArrowRight size={18} />}>
+                <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" rightSection={<IconArrowRight size={18} />}>
                   SUBMIT ABSTRACT
                 </Button>
-                <Button size="xl" variant="outline" color={active.primary} radius={0} rightSection={<IconFileText size={18} />}>
+                <Button size="lg" variant="outline" color={active.primary} radius={0} rightSection={<IconFileText size={18} />}>
                   DOWNLOAD PROSPECTUS
                 </Button>
               </Group>
@@ -190,7 +190,7 @@ export default function RoutledgeHandbookMock() {
             </SimpleGrid>
             
             <Group justify="center" mt="xl">
-              <Button size="xl" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+              <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                 VIEW FULL SUBMISSION GUIDELINES
               </Button>
             </Group>

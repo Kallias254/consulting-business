@@ -80,7 +80,7 @@ export default function ResearchSupportPage() {
             </Text>
             
             <Link href="/scholarcrafted/consultation?interest=data_support&metBefore=no" style={{ textDecoration: 'none' }}>
-              <Button size="xl" variant="filled" bg={active.primary} radius={0} mt={rem(40)} px={rem(40)}>
+              <Button size="lg" variant="filled" bg={active.primary} radius={0} mt={rem(40)}>
                 FREE INTRODUCTORY CALL
               </Button>
             </Link>
@@ -312,7 +312,7 @@ export default function ResearchSupportPage() {
                 href="/scholarcrafted/consultation?interest=data_support&metBefore=no"
                 style={{ textDecoration: 'none' }}
               >
-                <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                   FREE INTRODUCTORY CALL
                 </Button>
               </Link>

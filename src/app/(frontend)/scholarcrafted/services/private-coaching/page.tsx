@@ -93,7 +93,7 @@ export default function PrivateCoachingPage() {
             <Stack gap="xs" mt={rem(40)}>
               <Box>
                 <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
-                  <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                  <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                     FREE INTRODUCTORY CALL
                   </Button>
                 </Link>
