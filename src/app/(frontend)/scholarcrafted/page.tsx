@@ -32,6 +32,11 @@ import {
   IconCertificate,
   IconChevronDown,
   IconChevronUp,
+  IconUserExclamation,
+  IconScale,
+  IconBooks,
+  IconBrain,
+  IconQuote,
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -291,89 +296,150 @@ export default function ScholarCraftedLanding() {
 
       {/* Resonance Section (The Pain Points) */}
       <Box component="section" py={SECTION_SPACING} bg={active.surface}>
-        <Container size={READING_WIDTH}>
+        <Container size={1100}>
           <Stack gap={rem(80)}>
-            <Box style={{ textAlign: 'center' }}>
+            <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
               <Text
                 size="xs"
-                
-                c="dimmed"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.15em' }}
               >
-                You Are Not Alone
+                YOU ARE NOT ALONE
               </Text>
               <Title
                 order={2}
                 mt="md"
                 style={{
                   fontSize: rem(48),
-                  color: active.primary }}
+                  color: active.primary,
+                  lineHeight: 1.1,
+                }}
               >
                 Your research journey is unique. <br />
                 Your challenges are not.
               </Title>
+              <Text size="lg" c="dimmed" lh={1.7} mt="md">
+                Every year, thousands of brilliant doctoral candidates stall at the ABD stage. It isn&apos;t a lack of capability—it&apos;s a lack of structural support.
+              </Text>
             </Box>
 
-            <Stack gap={0} align="stretch" mt="xl" w="100%">
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)}>
               {[
                 {
-                  prefix: 'You’re not getting ',
-                  highlight: 'meaningful support from your advisor',
-                  suffix: ' or committee.',
+                  tag: 'ADVISORY SILENCE',
+                  icon: IconUserExclamation,
+                  complaint: 'I submitted my draft three months ago. My chair just got back to me with two vague sentences that contradict what my second reader asked for. I have no idea what they actually want me to do.',
+                  desc: 'Navigating contradictory feedback or months of silence leaves you guessing at what your committee actually wants to see.',
                 },
                 {
-                  prefix: 'You are struggling to ',
-                  highlight: 'balance the competing demands',
-                  suffix: ' of research, work, and family life in a vacuum.',
+                  tag: 'LIFE ALIGNMENT',
+                  icon: IconScale,
+                  complaint: 'After working a full day and putting the kids to bed, I stare at my laptop at 10 PM completely exhausted. Weeks go by without me writing a single page, and the guilt is crushing.',
+                  desc: 'Without external accountability and structured milestones, dissertation writing easily slips to the bottom of your daily priorities.',
                 },
                 {
-                  prefix: 'You are ',
-                  highlight: 'overwhelmed by the sheer scope',
-                  suffix: ' of the literature, the data, and the path to a finished manuscript.',
+                  tag: 'SCOPE OVERWHELM',
+                  icon: IconBooks,
+                  complaint: 'I have 150 PDFs downloaded, 60 pages of messy notes, and transcripts I don’t know how to code. Every time I try to outline the chapter, I get completely lost in the weeds.',
+                  desc: 'Synthesizing years of reading and complex qualitative or quantitative data into a cohesive, defensible narrative feels like an impossible mountain.',
                 },
                 {
-                  prefix: 'You are crippled by the ',
-                  highlight: 'fear of producing imperfect work',
-                  suffix: ', leading to an inability to produce any work at all.',
+                  tag: 'ANALYSIS PARALYSIS',
+                  icon: IconBrain,
+                  complaint: 'I keep rewriting the same literature review paragraph over and over because it doesn’t sound ‘smart enough’. I’m terrified my committee will read my draft and decide I don’t belong here.',
+                  desc: 'Imposter syndrome and perfectionism force you into endless cycles of rewriting the same chapter without ever making forward progress.',
                 },
               ].map((item, i) => (
-                <Box 
-                  key={i} 
-                  style={{ 
-                    borderBottom: `1px solid ${active.primary}12`,
-                    padding: `${rem(40)} 0`,
-                    textAlign: 'center' 
+                <Box
+                  key={i}
+                  p={rem(40)}
+                  bg={active.background}
+                  style={{
+                    borderRadius: rem(16),
+                    border: `1px solid ${active.primary}20`,
+                    boxShadow: `0 4px 24px ${active.primary}05`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    cursor: 'default',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-6px)';
+                    e.currentTarget.style.boxShadow = `0 16px 40px ${active.primary}12`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = `0 4px 24px ${active.primary}05`;
                   }}
                 >
-                  <Box style={{ width: '100%', margin: '0 auto' }}>
-                    <Text size="lg" c="dimmed" lh={1.6}>
-                      <span style={{ color: active.accent, marginRight: rem(16), fontSize: rem(20), verticalAlign: 'middle' }}>✦</span>
-                      {item.prefix}
-                      <span style={{ fontWeight: 600, color: active.primary }}>
-                        {item.highlight}
-                      </span>
-                      {item.suffix}
-                      <span style={{ color: active.accent, marginLeft: rem(16), fontSize: rem(20), verticalAlign: 'middle' }}>✦</span>
+                  {/* The Student Complaint (The Resonance) */}
+                  <Box mb="sm">
+                    <Group gap="xs" mb="md">
+                      <IconQuote size={20} style={{ opacity: 0.4 }} />
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.15em' }}>
+                        THE COMPLAINT
+                      </Text>
+                    </Group>
+                    <Text
+                      size="lg"
+                      style={{
+                        fontStyle: 'italic',
+                        lineHeight: 1.7,
+                        color: active.primary,
+                      }}
+                    >
+                      &ldquo;{item.complaint}&rdquo;
                     </Text>
                   </Box>
+
+                  <Divider mt="auto" mb="lg" style={{ borderColor: `${active.primary}15` }} />
+
+                  {/* The Structural Reality (The Diagnosis) */}
+                  <Stack gap="sm">
+                    <Group gap="sm" align="center">
+                      <ThemeIcon size={32} radius="md" variant="light" color={active.accent}>
+                        <item.icon size={18} stroke={1.5} />
+                      </ThemeIcon>
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em' }}>
+                        {item.tag}
+                      </Text>
+                    </Group>
+                    <Text size="sm" c="dimmed" lh={1.6}>
+                      {item.desc}
+                    </Text>
+                  </Stack>
                 </Box>
               ))}
-            </Stack>
+            </SimpleGrid>
             
-            <Center mt={rem(60)}>
+            <Center mt={rem(40)}>
               <Box
                 onClick={() => scrollToSection('getting-started')}
                 style={{ 
-                  padding: rem(12), 
+                  padding: rem(16), 
                   borderRadius: '50%', 
-                  border: `1px solid #eee`,
+                  backgroundColor: active.background,
+                  border: `1px solid ${active.primary}20`,
+                  boxShadow: `0 4px 12px ${active.primary}05`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: active.primary,
                   cursor: 'pointer',
-                  transition: 'border-color 0.2s, opacity 0.2s' }}
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(4px)';
+                  e.currentTarget.style.boxShadow = `0 6px 20px ${active.primary}15`;
+                  e.currentTarget.style.borderColor = active.primary;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = `0 4px 12px ${active.primary}05`;
+                  e.currentTarget.style.borderColor = `${active.primary}20`;
+                }}
               >
-                <IconChevronDown size={24} stroke={1.5} style={{ opacity: 0.6 }} />
+                <IconChevronDown size={24} stroke={1.5} />
               </Box>
             </Center>
           </Stack>
@@ -407,10 +473,10 @@ export default function ScholarCraftedLanding() {
                   <IconMessageChatbot size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  01. A Free 15-Minute Chat
+                  01. Book Your 15-Minute Discovery Call
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  No forms. No pressure. Just a quick conversation to understand where you&apos;re stalled and see if we&apos;re a good fit.
+                  No lengthy intake forms or high-pressure sales pitches. Just a focused, informal conversation to connect and discuss where your dissertation is currently stalled.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -418,10 +484,10 @@ export default function ScholarCraftedLanding() {
                   <IconRocket size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  02. Share Goals & Challenges
+                  02. Diagnostic Problem-Solving (During Call)
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  We map out exactly what you&apos;re trying to achieve and identify the specific methodological or committee hurdles standing in your way.
+                  We dive into your specific committee feedback, methodological hurdles, and timeline constraints to diagnose exactly what is blocking your academic progress.
                 </Text>
               </Stack>
               <Stack align="center" gap="md">
@@ -429,10 +495,10 @@ export default function ScholarCraftedLanding() {
                   <IconCheck size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  03. Execute Your Custom Strategy
+                  03. Your Tailored Service Roadmap (After Call)
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  You receive a tailored, actionable coaching plan designed to unblock your writing so you can finally submit with confidence.
+                  Following our discussion, we follow up with a customized proposal recommending the exact service—whether live coaching, structural editing, or custom data support—designed to get you to submission.
                 </Text>
               </Stack>
             </SimpleGrid>
