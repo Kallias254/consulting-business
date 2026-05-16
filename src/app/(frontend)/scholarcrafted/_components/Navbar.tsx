@@ -106,14 +106,18 @@ export function Navbar() {
               href="/scholarcrafted/how-it-works"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <Text
-                fw={600}
-                size="xs"
-                className="nav-link"
-                style={{ cursor: 'pointer', letterSpacing: '0.1em' }}
-              >
-                HOW IT WORKS
-              </Text>
+              <Box style={{ cursor: 'pointer' }}>
+                <Center inline>
+                  <Text
+                    fw={600}
+                    size="xs"
+                    className="nav-link"
+                    style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center', minHeight: rem(14) }}
+                  >
+                    HOW IT WORKS
+                  </Text>
+                </Center>
+              </Box>
             </Link>
 
             <HoverCard width={320} position="bottom" radius={0} shadow="xl" withinPortal offset={20} transitionProps={{ transition: 'pop-top-left' }}>

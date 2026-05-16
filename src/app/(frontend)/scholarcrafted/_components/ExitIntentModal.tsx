@@ -34,7 +34,8 @@ export function ExitIntentModal() {
         content: {
           backgroundColor: active.surface,
           borderRadius: 0,
-          border: `3px solid ${active.primary}`,
+          border: `1px solid ${active.primary}15`,
+          boxShadow: '0 24px 48px rgba(0,0,0,0.08)',
         },
         header: {
           backgroundColor: active.surface,
@@ -43,23 +44,31 @@ export function ExitIntentModal() {
           color: active.primary,
         } }}
     >
-      <Box p={rem(32)} style={{ textAlign: 'center' }}>
+      <Box p={rem(40)} style={{ textAlign: 'center' }}>
         <Stack gap="lg" align="center">
-
+          <Text
+            size="xs"
+            fw={700}
+            style={{ letterSpacing: '0.15em' }}
+            c={active.accent}
+          >
+            ACADEMIC ADVISORY
+          </Text>
           <Title
             order={2}
             style={{
-              fontSize: rem(32),
+              fontSize: rem(36),
               color: active.primary,
-              lineHeight: 1.25 }}
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1 }}
           >
             Not sure which service is right for you?
           </Title>
-          <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 420 }}>
+          <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 420 }}>
             Grab a free consultation and we'll point you in the right direction.
             No cost. No obligation.
           </Text>
-          <Stack gap="sm" style={{ width: '100%', maxWidth: 360 }}>
+          <Stack gap="sm" mt="md" style={{ width: '100%', maxWidth: 360 }}>
             <Link
               href="/scholarcrafted/consultation?interest=other&metBefore=no"
               style={{ textDecoration: 'none' }}
@@ -67,14 +76,13 @@ export function ExitIntentModal() {
             >
               <Button
                 fullWidth
-                size="lg"
+                size="xl"
                 radius={0}
                 variant="filled"
                 bg={active.primary}
-                fw={700}
-                style={{ letterSpacing: '0.08em' }}
+                className="impeccable-button"
               >
-                BOOK NOW
+                BOOK INTRO CALL
               </Button>
             </Link>
             <Text

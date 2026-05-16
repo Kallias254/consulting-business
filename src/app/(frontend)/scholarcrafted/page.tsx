@@ -151,7 +151,7 @@ export default function ScholarCraftedLanding() {
       />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(140)} pb={SECTION_SPACING}>
+      <Box component="section" pt={{ base: rem(100), md: rem(120) }} pb={{ base: rem(100), md: rem(120) }}>
         <Container size={1100}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} verticalSpacing="xl">
             <Stack gap={rem(40)} justify="center">
@@ -159,10 +159,11 @@ export default function ScholarCraftedLanding() {
                 <Stack gap="xs">
                   <Text
                     size="xs"
-                    
-                    c="dimmed"
+                    fw={700}
+                    style={{ letterSpacing: '0.15em' }}
+                    c={active.accent}
                   >
-                    Academic Advisory Services
+                    ACADEMIC ADVISORY
                   </Text>
                   <Title
                     order={1}
@@ -177,7 +178,7 @@ export default function ScholarCraftedLanding() {
                 </Stack>
                 <Box style={{ maxWidth: 480 }}>
                   <Text size="xl" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>
-                    We provide the rigorous, faculty-level guidance and structural accountability you need to break through ABD paralysis and defend your dissertation with confidence.
+                    We provide the elite, faculty-led oversight and structural rigor required to break through ABD paralysis, elevate your manuscript, and defend your research with absolute authority.
                   </Text>
                 </Box>
               </Stack>
@@ -186,12 +187,16 @@ export default function ScholarCraftedLanding() {
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
                     <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-                      <Button size="xl" variant="filled" bg={active.primary} fullWidth radius={0} className="impeccable-button">
-                        FREE INTRODUCTORY CALL
+                      <Button size="xl" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                        BOOK INTRO CALL
                       </Button>
                     </Link>
                     <Text size="sm" c="dimmed" lh={1.4}>
-                      A zero-pressure discovery call to discuss your current roadblocks and determine the ideal path forward. No commitment required.
+                      A free, 15-minute discovery call to get to know your needs <br />
+                      and map out the ideal path forward.{' '}
+                      <Link href="/scholarcrafted/how-it-works" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                        Find out more here.
+                      </Link>
                     </Text>
                   </Stack>
                 </Box>
@@ -680,9 +685,7 @@ export default function ScholarCraftedLanding() {
               {homeFaqs.map((faq, i) => (
                 <Accordion.Item key={i} value={`faq-${i}`}>
                   <Accordion.Control>
-                    <Text fw={600} size="lg" c={active.primary}>
-                      {faq.q}
-                    </Text>
+                    {faq.q}
                   </Accordion.Control>
                   <Accordion.Panel>
                     <Text size="md" lh={1.7} c="dimmed">
