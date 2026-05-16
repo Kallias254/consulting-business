@@ -26,7 +26,8 @@ import {
   IconListCheck,
   IconUserCheck,
   IconArrowRight,
-  IconRocket
+  IconRocket,
+  IconQuote
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -104,60 +105,82 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
-      {/* Pain Points Carousel */}
+      {/* Pain Points Section */}
       <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center">
 
-            <Title
-              order={2}
-              style={{
-                fontSize: rem(48),
-                textAlign: 'center',
-                color: active.primary }}
-            >
-              Are you in this position right now?
-            </Title>
-
-            <Box style={{ width: '100%' }}>
-              <Carousel
-                withControls={false}
-                plugins={[autoplay.current]}
+            <Box style={{ textAlign: 'center', maxWidth: 800 }}>
+              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.1em' }} mb="sm">
+                THE STRUGGLE IS REAL
+              </Text>
+              <Title
+                order={2}
+                style={{
+                  fontSize: rem(48),
+                  color: active.primary }}
               >
-                {[
-                  "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
-                  "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
-                  "You understand the theory — you just can't get it to hold together coherently on the page.",
-                  "Your Chair is barely available and you're making critical research decisions completely alone.",
-                  "You have the data. You just don't know what it's telling you — or how to say it properly.",
-                  "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
-                ].map((pain, i) => (
-                  <Carousel.Slide key={i}>
-                    <Box
-                      p={rem(48)}
-                      bg={active.background}
-                      style={{
-                        minHeight: rem(120),
-                        display: 'flex',
-                        alignItems: 'center' }}
-                    >
-                      <Text size="lg" lh={1.8} c={active.primary} fw={500}>
-                        &ldquo;{pain}&rdquo;
-                      </Text>
-                    </Box>
-                  </Carousel.Slide>
-                ))}
-              </Carousel>
+                Are you in this position right now?
+              </Title>
+              <Text size="lg" c="dimmed" lh={1.7} mt="md">
+                Coaching exists for moments exactly like these. You aren&apos;t broken, and your research isn&apos;t doomed. You just need a partner to help you untangle it.
+              </Text>
             </Box>
 
-            <Text
-              size="lg"
-              c="dimmed"
-              lh={1.7}
-              style={{ textAlign: 'center', maxWidth: 600 }}
-            >
-              Coaching exists for moments exactly like these. It starts with one free conversation.
-            </Text>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(30)} style={{ width: '100%' }}>
+              {[
+                "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
+                "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
+                "You understand the theory — you just can't get it to hold together coherently on the page.",
+                "Your Chair is barely available and you're making critical research decisions completely alone.",
+                "You have the data. You just don't know what it's telling you — or how to say it properly.",
+                "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
+              ].map((pain, i) => (
+                <Box
+                  key={i}
+                  p={rem(32)}
+                  bg={active.background}
+                  style={{
+                    borderRadius: rem(12),
+                    border: `1px solid ${active.primary}15`,
+                    boxShadow: `0 4px 20px ${active.primary}05`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: rem(16),
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                    cursor: 'default',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = `0 8px 30px ${active.primary}15`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = `0 4px 20px ${active.primary}05`;
+                  }}
+                >
+                  <ThemeIcon 
+                    size={48} 
+                    radius="md" 
+                    variant="light" 
+                    color={active.accent}
+                  >
+                    <IconQuote size={24} />
+                  </ThemeIcon>
+                  <Text size="md" lh={1.7} c={active.primary} fw={500} style={{ flex: 1 }}>
+                    &ldquo;{pain}&rdquo;
+                  </Text>
+                </Box>
+              ))}
+            </SimpleGrid>
+
+            <Box mt="xl">
+              <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                <Button variant="outline" color={active.primary} size="lg" radius={0} rightSection={<IconArrowRight size={18} />}>
+                  Start with one free conversation
+                </Button>
+              </Link>
+            </Box>
 
           </Stack>
         </Container>
