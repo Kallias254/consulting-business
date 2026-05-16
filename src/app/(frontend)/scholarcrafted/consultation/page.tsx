@@ -35,6 +35,7 @@ import {
   IconClock,
   IconFileText,
   IconSearch,
+  IconX,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { Navbar } from '../_components/Navbar'
@@ -254,7 +255,18 @@ function ConsultationWizard() {
   ]
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
-      <Box component="header" py={rem(20)} style={{ borderBottom: `1px solid ${active.primary}11` }}>
+      <Box 
+        component="header" 
+        py={rem(20)} 
+        style={{ 
+          borderBottom: `1px solid ${active.primary}11`,
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000,
+          backgroundColor: `${active.background}f2`,
+          backdropFilter: 'blur(12px)'
+        }}
+      >
         <Container size={INNER_WIDTH}>
           <Group justify="space-between" align="center">
             <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: active.primary }}>
@@ -262,9 +274,23 @@ function ConsultationWizard() {
                 ScholarCrafted
               </Text>
             </Link>
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'dimmed' }}>
-              <Text size="sm" fw={500} style={{ opacity: 0.6 }}>Back to site</Text>
-            </Link>
+            <Button 
+              component={Link}
+              href="/scholarcrafted"
+              variant="outline" 
+              size="xs" 
+              radius="xl" 
+              rightSection={<IconX size={14} />}
+              style={{ 
+                borderColor: `${active.primary}40`, 
+                color: active.primary,
+                backgroundColor: 'transparent',
+                opacity: 0.8,
+                textDecoration: 'none'
+              }}
+            >
+              <Text className="impeccable-eyebrow" size="xs">EXIT</Text>
+            </Button>
           </Group>
         </Container>
       </Box>
@@ -273,17 +299,7 @@ function ConsultationWizard() {
       <Box component="section" pt={{ base: rem(60), md: rem(100) }} pb={rem(60)} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Group justify="space-between" align="center" mb={rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
-            {step > 0 && step < totalSteps ? (
-              <UnstyledButton
-                onClick={prevStep}
-                style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease' }}
-              >
-                <IconArrowLeft size={16} color={active.primary} />
-                <Text className="impeccable-eyebrow" size="xs" style={{ color: active.primary }}>
-                  Back
-                </Text>
-              </UnstyledButton>
-            ) : <Box w={100} />}
+            <Box w={100} />
             
             {step < totalSteps && (
               <Stack gap="xs" align="center">
@@ -328,6 +344,17 @@ function ConsultationWizard() {
       <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size="md">
           <Box style={{ maxWidth: 800, margin: '0 auto' }}>
+            {step > 0 && step < totalSteps && (
+              <UnstyledButton
+                onClick={prevStep}
+                style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease', marginBottom: rem(32) }}
+              >
+                <IconArrowLeft size={16} color={active.primary} />
+                <Text className="impeccable-eyebrow" size="xs" style={{ color: active.primary }}>
+                  Back
+                </Text>
+              </UnstyledButton>
+            )}
             {stepsContent[step]}
           </Box>
         </Container>

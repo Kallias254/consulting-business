@@ -53,38 +53,37 @@ export default function RoutledgeHandbookMock() {
       <Navbar />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(160)} pb={rem(80)}>
+      <Box component="section" pt={rem(140)} pb={rem(80)}>
         <Container size={1100}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)} verticalSpacing="xl">
             <Stack gap="xl">
               <Stack gap="xs">
-                <Text
-                  size="xs"
-                  
-                  c="dimmed"
-                >
-                  Official Call For Chapters
+                <Text className="impeccable-eyebrow" size="xs" c={active.accent}>
+                  OFFICIAL CALL FOR CHAPTERS
                 </Text>
                 <Title
                   order={1}
                   style={{
                     fontSize: rem(54),
                     lineHeight: 1.1,
+                    letterSpacing: '-0.02em',
                     color: active.primary }}
                 >
-                  The Routledge Handbook of Hip Hop and Sport
+                  The Routledge Handbook <br />
+                  of Hip Hop and Sport
                 </Title>
               </Stack>
               <Text size="xl" lh={1.6} c="dimmed">
-                A definitive academic volume exploring the socio-cultural, economic, and political intersections of global sporting cultures and Hip Hop.
+                A definitive academic volume exploring the socio-cultural, economic, <br />
+                and political intersections of global sporting cultures and Hip Hop.
               </Text>
               
               <Group mt="md">
-                <Button size="lg" variant="filled" bg={active.primary} radius={0} rightSection={<IconArrowRight size={18} />}>
-                  Submit Abstract
+                <Button size="xl" variant="filled" bg={active.primary} radius={0} className="impeccable-button" rightSection={<IconArrowRight size={18} />}>
+                  SUBMIT ABSTRACT
                 </Button>
-                <Button size="lg" variant="outline" color={active.primary} radius={0} rightSection={<IconFileText size={18} />}>
-                  Download PDF Prospectus
+                <Button size="xl" variant="outline" color={active.primary} radius={0} rightSection={<IconFileText size={18} />}>
+                  DOWNLOAD PROSPECTUS
                 </Button>
               </Group>
             </Stack>
@@ -97,8 +96,8 @@ export default function RoutledgeHandbookMock() {
                     <Avatar src={editorBio.image} size={80} radius={0} />
                     <Box>
                       <Text fw={700} size="lg" >{editorBio.name}</Text>
-                      <Text className="impeccable-eyebrow" size="sm" c={active.accent} >
-                        {editorBio.role}
+                      <Text className="impeccable-eyebrow" size="xs" c={active.accent} >
+                        {editorBio.role.toUpperCase()}
                       </Text>
                       <Text size="sm" c="dimmed">{editorBio.institution}</Text>
                     </Box>
@@ -126,12 +125,8 @@ export default function RoutledgeHandbookMock() {
         <Container size={1100}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
-                Project Architecture
+              <Text className="impeccable-eyebrow" size="xs" c={active.accent}>
+                PROJECT ARCHITECTURE
               </Text>
               <Title
                 order={2}
@@ -195,8 +190,8 @@ export default function RoutledgeHandbookMock() {
             </SimpleGrid>
             
             <Group justify="center" mt="xl">
-              <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                View Full Submission Guidelines
+              <Button size="xl" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                VIEW FULL SUBMISSION GUIDELINES
               </Button>
             </Group>
           </Stack>

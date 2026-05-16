@@ -25,10 +25,10 @@ export function Footer({ bg }: { bg?: string }) {
       component="footer"
       pt={rem(100)}
       pb={rem(40)}
-      bg={footerBg}
-      c={active.primary}
+      bg={active.primary}
+      c="white"
       style={{
-        borderTop: `1px solid ${active.primary}12` }}
+        borderTop: 'none' }}
       className="scholarcrafted-footer"
     >
       <Container size={1100}>
@@ -38,16 +38,16 @@ export function Footer({ bg }: { bg?: string }) {
             <Stack gap={0}>
               <Text
                 fw={700}
+                c="white"
                 style={{
                   fontSize: rem(24),
-                  lineHeight: 1,
-                  color: 'inherit' }}
+                  lineHeight: 1 }}
               >
                 SCHOLARCRAFTED
               </Text>
               <Text
                 size="xs"
-                c="dimmed"
+                c="rgba(255,255,255,0.6)"
                 style={{ fontSize: rem(10) }}
               >
                 ESTABLISHED 2016
@@ -55,17 +55,17 @@ export function Footer({ bg }: { bg?: string }) {
             </Stack>
             <Text
               size="sm"
-              c="dimmed"
               lh={1.7}
+              c="rgba(255,255,255,0.8)"
             >
               A prestigious advisory firm dedicated to the rigorous oversight and structural
               refinement of doctoral research across the global academic community.
             </Text>
             <Stack gap={4}>
-              <Text size="xs" fw={700} style={{ letterSpacing: '0.05em', color: 'inherit' }}>
+              <Text size="xs" fw={700} c="white" style={{ letterSpacing: '0.05em' }}>
                 FACULTY LOCATIONS
               </Text>
-              <Text size="xs" c="dimmed">
+              <Text size="xs" c="rgba(255,255,255,0.6)">
                 Boston &bull; New York &bull; Oxford &bull; Cambridge
               </Text>
             </Stack>
@@ -75,7 +75,8 @@ export function Footer({ bg }: { bg?: string }) {
           <Stack gap="xl">
             <Text
               size="xs"
-              style={{ color: 'inherit' }}
+              c="white"
+              style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600 }}
             >
               Advisory
             </Text>
@@ -86,8 +87,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Private Coaching
                 </Text>
@@ -98,8 +99,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Structural Editing & Proofreading
                 </Text>
@@ -110,8 +111,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Methodology Oversight
                 </Text>
@@ -122,8 +123,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Strategic Review
                 </Text>
@@ -135,7 +136,8 @@ export function Footer({ bg }: { bg?: string }) {
           <Stack gap="xl">
             <Text
               size="xs"
-              style={{ color: 'inherit' }}
+              c="white"
+              style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600 }}
             >
               The Institution
             </Text>
@@ -146,8 +148,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Micah, PhD & Faculty
                 </Text>
@@ -158,8 +160,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Our Scholarly Tradition
                 </Text>
@@ -170,8 +172,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Downloadable Blueprints
                 </Text>
@@ -182,8 +184,8 @@ export function Footer({ bg }: { bg?: string }) {
               >
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Strategic Library (Blog)
                 </Text>
@@ -191,8 +193,8 @@ export function Footer({ bg }: { bg?: string }) {
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Research Ethics
                 </Text>
@@ -200,8 +202,8 @@ export function Footer({ bg }: { bg?: string }) {
               <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text
                   size="sm"
-                  c="dimmed"
                   className="footer-link"
+                  c="rgba(255,255,255,0.6)"
                 >
                   Governance
                 </Text>
@@ -213,41 +215,42 @@ export function Footer({ bg }: { bg?: string }) {
           <Stack gap="xl">
             <Text
               size="xs"
-              style={{ color: 'inherit' }}
+              c="white"
+              style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600 }}
             >
               Official Inquiries
             </Text>
             <Stack gap="xs">
-              <Text size="sm" fw={600} color={'inherit'}>
+              <Text size="sm" fw={600} c="white">
                 admissions@scholarcrafted.com
               </Text>
-              <Text size="sm" c="dimmed">
+              <Text size="sm" c="rgba(255,255,255,0.6)">
                 +1 (617) 555-0123
               </Text>
             </Stack>
             <Text
               size="xs"
-              c="dimmed"
               lh={1.6}
               fs="italic"
+              c="rgba(255,255,255,0.5)"
             >
               &quot;Guidance is not just advice; it is the transfer of structural authority.&quot;
             </Text>
           </Stack>
         </SimpleGrid>
 
-        <Divider mb="xl" style={{ opacity: 0.2 }} />
+        <Divider mb="xl" color="rgba(255,255,255,0.1)" />
 
         <Group justify="space-between" align="center">
           <Group gap="xl">
-            <Text size="xs" c="dimmed">
+            <Text size="xs" c="rgba(255,255,255,0.5)">
               &copy; 2026 ScholarCrafted Academic Consultancy. All rights reserved.
             </Text>
           </Group>
           <Group gap="xl">
             <Text
               size="xs"
-              c="dimmed"
+              c="rgba(255,255,255,0.6)"
               style={{ cursor: 'pointer' }}
               className="footer-link"
             >
@@ -256,7 +259,7 @@ export function Footer({ bg }: { bg?: string }) {
             <Link href="/scholarcrafted/terms" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
-                c="dimmed"
+                c="rgba(255,255,255,0.6)"
                 style={{ cursor: 'pointer' }}
                 className="footer-link"
               >
@@ -265,8 +268,7 @@ export function Footer({ bg }: { bg?: string }) {
             </Link>
             <Text
               size="xs"
-              color={'inherit'}
-              
+              c="rgba(255,255,255,0.5)"
             >
               Strictly Confidential
             </Text>
@@ -276,11 +278,11 @@ export function Footer({ bg }: { bg?: string }) {
 
       <style jsx global>{`
         .footer-link {
+          color: rgba(255,255,255,0.6) !important;
           transition: all 0.2s ease;
         }
         .footer-link:hover {
-          color: ${active.primary} !important;
-          opacity: 0.8;
+          color: #ffffff !important;
           text-decoration: none !important;
         }
       `}</style>

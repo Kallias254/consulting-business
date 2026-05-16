@@ -40,7 +40,7 @@ export function Navbar() {
                 size="xs"
                 c="dimmed"
                 fw={500}
-                style={{ fontSize: rem(9), letterSpacing: '0.05em', textTransform: 'uppercase' }}
+                style={{ fontSize: rem(9), letterSpacing: '0.15em', textTransform: 'uppercase' }}
               >
                 Academic Consultancy
               </Text>
@@ -176,21 +176,13 @@ export function Navbar() {
 
             <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
               <Button
-                variant="outline"
-                color={active.primary}
+                variant="filled"
+                bg={active.primary}
                 size="sm"
                 radius={0}
-                fw={700}
-                style={{
-                  fontSize: rem(10),
-                  letterSpacing: '0.15em',
-                  paddingLeft: rem(20),
-                  paddingRight: rem(20),
-                  height: rem(40),
-                  borderColor: `${active.primary}40`,
-                  borderWidth: rem(1) }}
+                className="impeccable-button"
               >
-                FREE CONSULTATION
+                BOOK INTRO CALL
               </Button>
             </Link>
           </Group>
