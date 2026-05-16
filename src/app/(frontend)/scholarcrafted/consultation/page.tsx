@@ -254,7 +254,7 @@ function ConsultationWizard() {
     <StepSuccess key={9} data={data} setStep={setStep} />,
   ]
   return (
-    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
       <Box 
         component="header" 
         py={rem(20)} 
@@ -264,7 +264,8 @@ function ConsultationWizard() {
           top: 0,
           zIndex: 1000,
           backgroundColor: `${active.background}f2`,
-          backdropFilter: 'blur(12px)'
+          backdropFilter: 'blur(12px)',
+          flexShrink: 0
         }}
       >
         <Container size={INNER_WIDTH}>
@@ -296,7 +297,7 @@ function ConsultationWizard() {
       </Box>
       
       {/* Top Section - Background */}
-      <Box component="section" pt={{ base: rem(60), md: rem(100) }} pb={rem(60)} bg={active.background}>
+      <Box component="section" pt={{ base: rem(60), md: rem(100) }} pb={rem(60)} bg={active.background} style={{ flexShrink: 0 }}>
         <Container size={INNER_WIDTH}>
           <Group justify="space-between" align="center" mb={rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
             <Box w={100} />
@@ -318,7 +319,6 @@ function ConsultationWizard() {
             
             <Box w={100} /> {/* Spacer to perfectly center the progress bar */}
           </Group>
-
           {step < totalSteps && (
             <Box style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
               <Title
@@ -339,9 +339,8 @@ function ConsultationWizard() {
           )}
         </Container>
       </Box>
-
       {/* Main Content Section - Surface */}
-      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}>
         <Container size="md">
           <Box style={{ maxWidth: 800, margin: '0 auto' }}>
             {step > 0 && step < totalSteps && (
@@ -359,8 +358,6 @@ function ConsultationWizard() {
           </Box>
         </Container>
       </Box>
-      
-      <Box py={rem(40)} />
     </Box>
   )
 }

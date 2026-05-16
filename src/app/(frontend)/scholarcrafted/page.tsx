@@ -178,7 +178,7 @@ export default function ScholarCraftedLanding() {
                 </Stack>
                 <Box style={{ maxWidth: 480 }}>
                   <Text size="xl" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>
-                    We provide the elite, faculty-led oversight and structural rigor required to break through ABD paralysis, elevate your manuscript, and defend your research with absolute authority.
+                    We provide the elite, faculty-led oversight required to move your dissertation from a persistent stall to final submission.
                   </Text>
                 </Box>
               </Stack>
@@ -192,8 +192,7 @@ export default function ScholarCraftedLanding() {
                       </Button>
                     </Link>
                     <Text size="sm" c="dimmed" lh={1.4}>
-                      A free, 15-minute discovery call to get to know your needs <br />
-                      and map out the ideal path forward.{' '}
+                      A free, 15-minute call to map your path forward.{' '}
                       <Link href="/scholarcrafted/how-it-works" style={{ color: 'inherit', textDecoration: 'underline' }}>
                         Find out more here.
                       </Link>
