@@ -123,7 +123,7 @@ export default function ArticlesArchivePage() {
         style={{ borderTop: `1px solid ${active.primary}12` }}
       >
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(2)}>
+          <Stack gap="lg">
             {articles.map((item, i) => (
               <Link
                 key={i}
@@ -132,9 +132,10 @@ export default function ArticlesArchivePage() {
               >
                 <Box
                   p={rem(40)}
-                  bg={i % 2 === 0 ? active.surface : active.background}
+                  bg={active.background}
                   className="impeccable-card"
                   style={{
+                    border: `1px solid ${active.primary}15`,
                     cursor: 'pointer' }}
                 >
                   <Group justify="space-between" align="flex-start" wrap="nowrap">

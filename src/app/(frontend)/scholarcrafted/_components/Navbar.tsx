@@ -1,17 +1,30 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Group, Text, Stack, Button, rem, Box, useMantineTheme, HoverCard, SimpleGrid, ThemeIcon, Center, Burger, Drawer, Divider } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure, useWindowScroll } from '@mantine/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { IconBook, IconPencil, IconMicroscope, IconFileText, IconArticle, IconChevronDown } from '@tabler/icons-react'
+import { IconBook, IconPencil, IconMicroscope, IconFileText, IconArticle, IconChevronDown, IconPhone } from '@tabler/icons-react'
 
 export function Navbar() {
   const theme = useMantineTheme()
   const active = theme.other
   const pathname = usePathname()
   const [opened, { toggle, close }] = useDisclosure(false)
+  const [scroll] = useWindowScroll()
+  const [visible, setVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const currentScrollY = scroll.y
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      setVisible(false) // Scrolling down
+    } else {
+      setVisible(true)  // Scrolling up or near top
+    }
+    setLastScrollY(currentScrollY)
+  }, [scroll.y])
 
   const isActive = (path: string) => {
     if (path === '/scholarcrafted') return pathname === path
@@ -20,16 +33,51 @@ export function Navbar() {
 
   return (
     <Box
-      component="nav"
-      py="md"
       style={{
-        backgroundColor: active.primary,
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+      }}
     >
-      <Container size={1100}>
+      {/* Topbar */}
+      <Box style={{ backgroundColor: '#000000' }} py={rem(6)}>
+        <Container size={1100}>
+          <Group justify="space-between" align="center">
+            <Group gap={rem(6)}>
+              <IconPhone size={12} color="rgba(255,255,255,0.7)" />
+              <Text size="xs" c="rgba(255,255,255,0.7)" fw={500} style={{ letterSpacing: '0.05em' }}>
+                Academic Emergency? Call: +1 (800) 555-0199
+              </Text>
+            </Group>
+            <Group gap="md" visibleFrom="sm">
+              <Link href="/scholarcrafted/faq" style={{ textDecoration: 'none' }}>
+                <Text size="xs" c="rgba(255,255,255,0.7)" fw={500} style={{ letterSpacing: '0.05em' }} className="topbar-link">
+                  FAQ
+                </Text>
+              </Link>
+              <Text size="xs" c="rgba(255,255,255,0.3)">|</Text>
+              <Link href="/scholarcrafted/client-portal" style={{ textDecoration: 'none' }}>
+                <Text size="xs" c="rgba(255,255,255,0.7)" fw={500} style={{ letterSpacing: '0.05em' }} className="topbar-link">
+                  Client Portal
+                </Text>
+              </Link>
+            </Group>
+          </Group>
+        </Container>
+      </Box>
+
+      {/* Main Navbar */}
+      <Box
+        component="nav"
+        py="md"
+        style={{
+          backgroundColor: active.primary,
+          borderTop: '1px solid rgba(255,255,255,0.05)'
+        }}
+      >
+        <Container size={1100}>
         <Group justify="space-between" align="center">
           <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit' }}>
             <Stack gap={0}>
@@ -278,6 +326,12 @@ export function Navbar() {
         :root {
           --nav-hover-bg: color-mix(in srgb, ${active.primary}, black 20%);
         }
+        .topbar-link {
+          transition: color 0.2s ease;
+        }
+        .topbar-link:hover {
+          color: #ffffff !important;
+        }
         .nav-link-wrapper {
           padding: 8px 16px;
           border-radius: 4px;
@@ -318,6 +372,7 @@ export function Navbar() {
           padding-left: 8px;
         }
       `}</style>
+      </Box>
     </Box>
   )
 }
