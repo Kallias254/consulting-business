@@ -58,9 +58,9 @@ export function Navbar() {
                 </Text>
               </Link>
               <Text size="xs" c="rgba(255,255,255,0.3)">|</Text>
-              <Link href="/scholarcrafted/client-portal" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/login" style={{ textDecoration: 'none' }}>
                 <Text size="xs" c="rgba(255,255,255,0.7)" fw={500} style={{ letterSpacing: '0.05em' }} className="topbar-link">
-                  Client Portal
+                  Login
                 </Text>
               </Link>
             </Group>
