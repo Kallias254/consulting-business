@@ -103,7 +103,7 @@ const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
     viewBox="0 0 24 48"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ transform: left ? 'scale(-1, -1)' : 'scaleY(-1)', display: 'block', opacity: 0.8 }}
+    style={{ transform: left ? 'scaleY(-1)' : 'scale(-1, -1)', display: 'block', opacity: 0.8 }}
   >
     <path d="M12 44C12 30 6 16 20 4" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
     <path d="M11 38C5 36 2 40 5 44C8 40 11 41 11 38Z" fill={color} />
