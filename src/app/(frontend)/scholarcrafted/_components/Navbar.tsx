@@ -58,6 +58,7 @@ export function Navbar() {
                 </Text>
               </Link>
               <Text size="xs" c="rgba(255,255,255,0.3)">|</Text>
+
               <Link href="/scholarcrafted/login" style={{ textDecoration: 'none' }}>
                 <Text size="xs" c="rgba(255,255,255,0.7)" fw={500} style={{ letterSpacing: '0.05em' }} className="topbar-link">
                   Login
@@ -169,7 +170,7 @@ export function Navbar() {
                     className="nav-link"
                     style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center', minHeight: rem(14) }}
                   >
-                    HOW IT WORKS
+                    OUR APPROACH
                   </Text>
                 </Center>
               </Box>
@@ -288,9 +289,15 @@ export function Navbar() {
 
           <Divider color={`${active.primary}15`} />
 
-          <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }} onClick={close}>
-            <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">How it Works</Text>
-          </Link>
+          <Box>
+            <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.1em' }} mt="md">
+              THE METHODOLOGY
+            </Text>
+            <Divider color="gray.2" />
+            <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }} onClick={close}>
+              <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Our Approach</Text>
+            </Link>
+          </Box>
 
           <Divider color={`${active.primary}15`} />
 

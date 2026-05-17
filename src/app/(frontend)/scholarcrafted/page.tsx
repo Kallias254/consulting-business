@@ -186,11 +186,18 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl">
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
-                    <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-                      <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                        BOOK INTRO CALL
-                      </Button>
-                    </Link>
+                    <Group gap="md">
+                      <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+                        <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                          BOOK INTRO CALL
+                        </Button>
+                      </Link>
+                      <Link href="/scholarcrafted/login" style={{ textDecoration: 'none' }}>
+                        <Button size="lg" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
+                          CLIENT LOGIN
+                        </Button>
+                      </Link>
+                    </Group>
                     <Text size="sm" c="dimmed" lh={1.4}>
                       A free, 15-minute call to map your path forward.{' '}
                       <Link href="/scholarcrafted/how-it-works" style={{ color: 'inherit', textDecoration: 'underline' }}>
@@ -277,17 +284,31 @@ export default function ScholarCraftedLanding() {
                 </Box>
               </Stack>
             </Stack>
-            <Box>
-              <Image
-                src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1200"
-                alt="Graduate student focused on research"
-                radius={0}
-                h={700}
-                fallbackSrc="https://placehold.co/600x800?text=Scholar+Portrait"
+            <Box style={{ position: 'relative', marginTop: rem(40), marginRight: rem(40) }}>
+              {/* Decorative Offset Block */}
+              <Box
                 style={{
-                  filter: 'grayscale(0.15)',
-                  opacity: 0.9,
-                  objectPosition: 'center top' }}
+                  position: 'absolute',
+                  top: rem(-40),
+                  right: rem(-40),
+                  width: '90%',
+                  height: '95%',
+                  backgroundColor: '#E6D3C0', // Soft tan/beige accent
+                  zIndex: 0,
+                }}
+              />
+              <Image
+                src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=800"
+                alt="Academic research and strategy"
+                radius={0}
+                h={650}
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  filter: 'grayscale(100%) contrast(1.1)',
+                  objectFit: 'cover',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+                }}
               />
             </Box>
           </SimpleGrid>
