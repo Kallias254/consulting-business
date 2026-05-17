@@ -261,11 +261,26 @@ export function Footer({ bg }: { bg?: string }) {
       <style jsx global>{`
         .footer-link {
           color: rgba(255,255,255,0.6) !important;
-          transition: all 0.2s ease;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          position: relative;
+          text-decoration: none !important;
+          display: inline-block;
+        }
+        .footer-link::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 1px;
+          bottom: 0px;
+          left: 0;
+          background-color: #fff;
+          transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .footer-link:hover {
           color: #ffffff !important;
-          text-decoration: none !important;
+        }
+        .footer-link:hover::after {
+          width: 100%;
         }
       `}</style>
     </Box>
