@@ -130,53 +130,101 @@ export default function EditingProofreadingPage() {
         </Container>
       </Box>
 
-      {/* Levels of Editing */}
+      {/* Detailed Service Capabilities */}
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box>
               <Text
                 size="xs"
-                
+                fw={700}
+                style={{ letterSpacing: '0.15em' }}
                 c={active.accent}
               >
-                The Dual-Layer Approach
+                OUR CAPABILITIES
               </Text>
-              <Title order={3} mt="sm" style={{ fontSize: rem(36) }}>
-                Levels of Editing
+              <Title order={3} mt="sm" style={{ fontSize: rem(36), color: active.primary }}>
+                Editing & Formatting Services
               </Title>
               <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
-                We perform a comprehensive, dual-layered review to ensure both the architectural integrity and the surface-level polish of your manuscript.
+                Our team of seasoned PhD-level academics ensures your manuscript is meticulously polished and submission-ready. We stand by our rigor: if your committee requests revisions related to our editing, we make them at no extra charge.
               </Text>
             </Box>
             
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
-              <Box>
-                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
-                  1. Structural & Developmental Editing
+            <Stack gap={rem(40)}>
+              {/* Service 1 */}
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
+                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
+                  1. Dissertation & Thesis Formatting
+                </Title>
+                <Text mt="sm" c="dimmed" lh={1.7}>
+                  We focus on correcting typos, grammar, syntax, phrasing, and scholarly tone according to your required academic style guidelines (APA, MLA, Chicago). Our editors meticulously format margins, headings, reference cross-checking, tables, and the table of contents.
                 </Text>
-                <Text c="dimmed" lh={1.6}>
-                  A critical analysis of content and organization. We focus on the logical progression of your argument, chapter sequencing, transitions, and overarching narrative coherence.
-                </Text>
+                <Group mt="xl" gap="xl">
+                  <Box>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
+                    <Text fw={600} c={active.primary}>$0.044 USD per word</Text>
+                  </Box>
+                  <Box>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>TURNAROUND</Text>
+                    <Text fw={600} c={active.primary}>10-14 business days</Text>
+                  </Box>
+                </Group>
               </Box>
 
-              <Box>
-                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
-                  2. Formatting & Proofreading
+              {/* Service 2 */}
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
+                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
+                  2. Developmental Editing
+                </Title>
+                <Text mt="sm" c="dimmed" lh={1.7}>
+                  A critical analysis of content, argument, and organization. For doctoral students, developmental feedback is integrated directly into our live consulting services. For non-student scholars and post-docs preparing for professional publication, we offer standalone developmental editing to refine early-stage drafts.
                 </Text>
-                <Text c="dimmed" lh={1.6} mb="lg">
-                  A meticulous review of the final proof. We ensure absolute accuracy and consistency in:
-                </Text>
-                <SimpleGrid cols={2} spacing="sm">
-                  {['Grammar & Syntax', 'Spelling & Typos', 'Punctuation', 'Academic Tone', 'Headings & Spacing', 'Table & Figure Alignment', 'In-text Citations', 'Reference Lists'].map((item, i) => (
-                    <Group key={i} align="center" gap="sm" wrap="nowrap">
-                      <IconCheck size={18} color={active.accent || active.primary} />
-                      <Text size="sm" fw={500} c="dimmed">{item}</Text>
-                    </Group>
-                  ))}
-                </SimpleGrid>
+                <Group mt="xl" gap="xl">
+                  <Box>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
+                    <Text fw={600} c={active.primary}>Determined post-consultation</Text>
+                  </Box>
+                </Group>
               </Box>
-            </SimpleGrid>
+
+              {/* Service 3 */}
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
+                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
+                  3. Proofreading
+                </Title>
+                <Text mt="sm" c="dimmed" lh={1.7}>
+                  Ideal for those seeking a final, exhaustive check for punctuation, spelling, and typographical errors. For students, this is naturally included in our primary formatting package. For professional scholars, this occurs after all copyediting revisions are complete.
+                </Text>
+                <Group mt="xl" gap="xl">
+                  <Box>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
+                    <Text fw={600} c={active.primary}>Per-job estimate</Text>
+                  </Box>
+                  <Box>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>TURNAROUND</Text>
+                    <Text fw={600} c={active.primary}>3-5 business days</Text>
+                  </Box>
+                </Group>
+              </Box>
+
+              {/* Service 4 */}
+              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
+                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
+                  4. Miscellaneous Technical Editing
+                </Title>
+                <Text mt="sm" c="dimmed" lh={1.7}>
+                  Targeted assistance for specific technical hurdles, including strict Reference List formatting, Citation cross-checking, ProQuest formatting, and specialized Table/Figure assembly.
+                </Text>
+                <Group mt="xl" gap="xl">
+                  <Box>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
+                    <Text fw={600} c={active.primary}>$90/hr USD</Text>
+                  </Box>
+                </Group>
+              </Box>
+            </Stack>
+
           </Stack>
         </Container>
       </Box>
