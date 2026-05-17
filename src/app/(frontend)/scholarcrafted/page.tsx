@@ -96,6 +96,26 @@ const homeFaqs = [
   },
 ]
 
+const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
+  <svg
+    width={size / 2}
+    height={size}
+    viewBox="0 0 24 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ transform: left ? 'scaleX(-1)' : 'none', display: 'block', opacity: 0.8 }}
+  >
+    <path d="M12 44C12 30 6 16 20 4" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M11 38C5 36 2 40 5 44C8 40 11 41 11 38Z" fill={color} />
+    <path d="M9 28C3 26 0 30 3 34C6 30 9 31 9 28Z" fill={color} />
+    <path d="M9 18C3 16 0 20 3 24C6 20 9 21 9 18Z" fill={color} />
+    <path d="M13 32C19 30 22 34 19 38C16 34 13 35 13 32Z" fill={color} />
+    <path d="M11 22C17 20 20 24 17 28C14 24 11 25 11 22Z" fill={color} />
+    <path d="M11 12C17 10 20 14 17 18C14 14 11 15 11 12Z" fill={color} />
+    <path d="M18 6C16 0 22 -2 24 4C21 6 18 6 18 6Z" fill={color} />
+  </svg>
+)
+
 export default function ScholarCraftedLanding() {
   const theme = useMantineTheme()
   const active = theme.other
@@ -213,73 +233,33 @@ export default function ScholarCraftedLanding() {
                     paddingTop: rem(32),
                     maxWidth: 550 }}
                 >
-                  <SimpleGrid cols={3} spacing="xl">
-                    <Stack gap={0}>
-                      <Text
-                        fw={700}
-                        style={{
-                          fontSize: rem(28),
-                          color: active.primary,
-                          lineHeight: 1 }}
-                      >
-                        98%
-                      </Text>
-                      <Text
-                        size="xs"
-                        c="dimmed"
-                        mt={4}
-                        style={{
-                          lineHeight: 1.2 }}
-                      >
-                        Completion
-                        <br />
-                        Rate
-                      </Text>
-                    </Stack>
-                    <Stack gap={0}>
-                      <Text
-                        fw={700}
-                        style={{
-                          fontSize: rem(28),
-                          color: active.primary,
-                          lineHeight: 1 }}
-                      >
-                        4.9/5
-                      </Text>
-                      <Text
-                        size="xs"
-                        c="dimmed"
-                        mt={4}
-                        style={{
-                          lineHeight: 1.2 }}
-                      >
-                        Average
-                        <br />
-                        Rating
-                      </Text>
-                    </Stack>
-                    <Stack gap={0}>
-                      <Text
-                        fw={700}
-                        style={{
-                          fontSize: rem(28),
-                          color: active.primary,
-                          lineHeight: 1 }}
-                      >
-                        500+
-                      </Text>
-                      <Text
-                        size="xs"
-                        c="dimmed"
-                        mt={4}
-                        style={{
-                          lineHeight: 1.2 }}
-                      >
-                        Scholars
-                        <br />
-                        Guided
-                      </Text>
-                    </Stack>
+                  <SimpleGrid cols={3} spacing="md">
+                    <Group wrap="nowrap" gap="xs" align="center">
+                      <LaurelBranch color={active.accent} left />
+                      <Stack gap={0} align="center">
+                        <Text fw={700} style={{ fontSize: rem(28), color: active.primary, lineHeight: 1 }}>98%</Text>
+                        <Text size="xs" c="dimmed" mt={4} style={{ lineHeight: 1.2, textAlign: 'center' }}>Completion<br />Rate</Text>
+                      </Stack>
+                      <LaurelBranch color={active.accent} />
+                    </Group>
+
+                    <Group wrap="nowrap" gap="xs" align="center">
+                      <LaurelBranch color={active.accent} left />
+                      <Stack gap={0} align="center">
+                        <Text fw={700} style={{ fontSize: rem(28), color: active.primary, lineHeight: 1 }}>4.9/5</Text>
+                        <Text size="xs" c="dimmed" mt={4} style={{ lineHeight: 1.2, textAlign: 'center' }}>Average<br />Rating</Text>
+                      </Stack>
+                      <LaurelBranch color={active.accent} />
+                    </Group>
+
+                    <Group wrap="nowrap" gap="xs" align="center">
+                      <LaurelBranch color={active.accent} left />
+                      <Stack gap={0} align="center">
+                        <Text fw={700} style={{ fontSize: rem(28), color: active.primary, lineHeight: 1 }}>500+</Text>
+                        <Text size="xs" c="dimmed" mt={4} style={{ lineHeight: 1.2, textAlign: 'center' }}>Scholars<br />Guided</Text>
+                      </Stack>
+                      <LaurelBranch color={active.accent} />
+                    </Group>
                   </SimpleGrid>
                 </Box>
               </Stack>
