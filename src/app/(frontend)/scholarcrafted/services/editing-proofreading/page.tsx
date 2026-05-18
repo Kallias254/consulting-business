@@ -16,6 +16,7 @@ import {
   useMantineTheme,
   Accordion,
   ThemeIcon,
+  Badge,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
@@ -27,27 +28,25 @@ import {
   IconFileCheck, 
   IconShieldCheck, 
   IconSearch, 
-  IconWriting, 
-  IconSend 
+  IconDownload,
+  IconSend,
+  IconClock,
+  IconScale
 } from '@tabler/icons-react'
 import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
   {
-    q: 'When should I hire an editor?',
-    a: "We recommend reaching out when your proposal or dissertation is in its final stages or has been initially approved by your committee. To avoid paying for multiple rounds of editing, wait until the core content is locked in.",
+    q: 'How do I know if I need Editing or Consulting?',
+    a: "Editing is for manuscripts that are already written and need polishing. Consulting (Coaching) is for when you are stuck in the writing process itself. Our full Services Guide contains a detailed breakdown of this distinction.",
   },
   {
-    q: 'What is the standard turnaround time?',
-    a: "We typically require 7-10 business days for proposals and 10-14 business days for full dissertations, depending on word count. We recommend reserving an additional 2-7 days in your personal timeline to address the editor's comments.",
+    q: 'What is your policy on ghostwriting?',
+    a: "We maintain absolute ethical standards. We do not provide ghostwriting services under any circumstances. We refine your voice; we do not replace it.",
   },
   {
-    q: 'Do you offer citation management or reference checking?',
-    a: "While our editors flag references and in-text citations that are incomplete or mismatched, editing does not include researching and verifying references for accuracy from scratch. We format to strict academic styles (APA, MLA, Chicago), but the underlying accuracy remains the scholar's responsibility.",
-  },
-  {
-    q: 'Is this service confidential and ethical?',
-    a: 'Absolutely. We are guided by strict academic ethics. We do not provide ghostwriting services under any circumstances. All manuscripts are handled with complete confidentiality.',
+    q: 'Can you format to my specific university template?',
+    a: "Yes. While we default to APA, MLA, or Chicago, we can adapt to any specific institutional guidelines you provide during the intake process.",
   },
 ]
 
@@ -60,420 +59,225 @@ export default function EditingProofreadingPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
+      <Box component="section" pt={rem(140)} pb={rem(100)} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <Box style={{ maxWidth: 800 }}>
+          <Box style={{ maxWidth: 850 }}>
             <Text
               size="xs"
               fw={700}
-              style={{ letterSpacing: '0.15em' }}
+              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
               c={active.accent}
             >
-              MANUSCRIPT REFINEMENT
+              Manuscript Refinement
             </Text>
             <Title
               order={1}
               mt="md"
               style={{
-                fontSize: rem(56),
+                fontSize: rem(64),
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
-                color: active.primary }}
+                color: active.primary,
+                fontFamily: 'var(--font-serif)'
+              }}
             >
-              Structural editing for <br />
-              academic manuscripts.
+              Precision structural editing <br />
+              for doctoral scholars.
             </Title>
-            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              From macro-level flow to prose precision, we ensure your research is presented 
-              with the clarity, tone, and authority expected by your committee.
+            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(22), maxWidth: 700 }}>
+              Move from a working draft to a submission-ready manuscript with the clarity, 
+              tone, and authority required by your committee.
             </Text>
             
-            <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
-              <Button size="lg" variant="filled" bg={active.primary} radius={0} mt={rem(40)}>
-                GET A FREE QUOTE
+            <Group gap="md" mt={rem(50)}>
+              <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
+                <Button size="xl" variant="filled" bg={active.primary} radius={0} style={{ paddingLeft: rem(40), paddingRight: rem(40) }}>
+                  GET A FREE QUOTE
+                </Button>
+              </Link>
+              <Button 
+                size="xl" 
+                variant="outline" 
+                color={active.primary} 
+                radius={0} 
+                leftSection={<IconDownload size={20} />}
+                onClick={() => window.open('/docs/editing_services_guide.md', '_blank')}
+                style={{ borderColor: active.primary }}
+              >
+                DOWNLOAD SERVICES GUIDE
               </Button>
-            </Link>
+            </Group>
           </Box>
         </Container>
       </Box>
 
-      {/* Why Choose a Professional Review */}
-      <Box py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      {/* The Scholar's Standard (Trust Section) */}
+      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(40)}>
-            <Box>
-              <Title order={2} >
-                Why Choose a Professional Review?
-              </Title>
-              <Text c="dimmed" mt="md" size="lg" lh={1.7} style={{ maxWidth: 800 }}>
-                Your dissertation represents years of grueling research. Our objective is to ensure that your final submission is flawless, allowing your argument to shine without distraction.
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} align="center">
+            <Stack gap="xl">
+              <Box>
+                <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
+                  The Quality Guarantee
+                </Text>
+                <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                  A higher standard of <br />academic rigor.
+                </Title>
+              </Box>
+              <Text size="lg" c="dimmed" lh={1.7}>
+                Our editors are not just "proofreaders"—they are PhD-level academics who understand the 
+                nuance of your discipline. We don&apos;t just check for typos; we ensure your argument carries 
+                the authoritative voice expected by senior faculty.
               </Text>
-            </Box>
-            <Stack gap="lg">
-              {[
-                { title: 'Detailed Feedback', desc: 'Improve structure, narrative coherence, and logical flow across chapters.' },
-                { title: 'Clarity & Precision', desc: 'Enhance academic tone, eliminate typographical errors, and align formatting.' },
-                { title: 'Submission Confidence', desc: 'Ensure your dissertation or thesis meets the rigorous expectations of review boards.' },
-              ].map((item, i) => (
-                <Group key={i} align="flex-start" wrap="nowrap" gap="md">
-                  <ThemeIcon size={24} radius="xl" variant="light" color="dark" style={{ marginTop: rem(4) }}>
-                    <IconCheck size={14} stroke={2} />
-                  </ThemeIcon>
-                  <Box>
-                    <Text fw={700} size="md" c={active.primary}>{item.title}</Text>
-                    <Text size="sm" c="dimmed" lh={1.6}>{item.desc}</Text>
-                  </Box>
-                </Group>
-              ))}
+              <Stack gap="md">
+                {[
+                  'PhD-level subject matter expertise',
+                  'Strict adherence to institutional guidelines',
+                  'No-risk satisfaction guarantee on revisions',
+                  'Asynchronous, secure manuscript handling'
+                ].map((item, i) => (
+                  <Group key={i} gap="sm">
+                    <IconCheck size={18} color={active.accent} stroke={3} />
+                    <Text fw={600} size="sm" c={active.primary}>{item}</Text>
+                  </Group>
+                ))}
+              </Stack>
             </Stack>
-          </Stack>
+            <Box p={rem(60)} bg="white" style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
+              <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
+                <ThemeIcon size={64} radius="xl" variant="light" color={active.accent}>
+                  <IconShieldCheck size={32} />
+                </ThemeIcon>
+                <Title order={3} style={{ fontSize: rem(28) }}>The Guarantee</Title>
+                <Text size="sm" c="dimmed" lh={1.7}>
+                  If your committee requests revisions related specifically to the editing we performed, 
+                  we will undertake those revisions at no additional cost. We stand by our rigor.
+                </Text>
+              </Stack>
+            </Box>
+          </SimpleGrid>
         </Container>
       </Box>
 
-      {/* Detailed Service Capabilities */}
+      {/* Levels of Service (Simplified) */}
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                style={{ letterSpacing: '0.15em' }}
-                c={active.accent}
-              >
-                OUR CAPABILITIES
+            <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
+              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
+                Our Services
               </Text>
-              <Title order={3} mt="sm" style={{ fontSize: rem(36), color: active.primary }}>
-                Editing & Formatting Services
+              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Comprehensive Refinement.
               </Title>
-              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
-                Our team of seasoned PhD-level academics ensures your manuscript is meticulously polished and submission-ready. We stand by our rigor: if your committee requests revisions related to our editing, we make them at no extra charge.
+              <Text size="lg" c="dimmed" lh={1.7} mt="md">
+                We provide a tiered approach to manuscript editing, from light proofreading to deep 
+                structural analysis and technical formatting.
               </Text>
             </Box>
-            
-            <Stack gap={rem(40)}>
-              {/* Service 1 */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
-                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
-                  1. Dissertation & Thesis Formatting
-                </Title>
-                <Text mt="sm" c="dimmed" lh={1.7}>
-                  We focus on correcting typos, grammar, syntax, phrasing, and scholarly tone according to your required academic style guidelines (APA, MLA, Chicago). Our editors meticulously format margins, headings, reference cross-checking, tables, and the table of contents.
-                </Text>
-                <Group mt="xl" gap="xl">
+
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(32)}>
+              <Box p={rem(48)} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
+                <Stack gap="xl">
                   <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
-                    <Text fw={600} c={active.primary}>$0.044 USD per word</Text>
+                    <Badge radius={0} color={active.primary} mb="md">MOST POPULAR</Badge>
+                    <Title order={3} style={{ fontSize: rem(32) }}>Dissertation & Thesis Formatting</Title>
+                    <Text size="md" c="dimmed" mt="sm">The gold standard for final-stage manuscripts.</Text>
                   </Box>
-                  <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>TURNAROUND</Text>
-                    <Text fw={600} c={active.primary}>10-14 business days</Text>
-                  </Box>
-                </Group>
+                  <Stack gap="sm">
+                    {['APA, MLA, Chicago Compliance', 'Mechanical & Grammatical Polish', 'Reference & Citation Audit', 'Table of Contents & Pagination'].map((item, i) => (
+                      <Group key={i} gap="xs">
+                        <IconCheck size={16} color={active.accent} stroke={3} />
+                        <Text size="sm" fw={600}>{item}</Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+                  <Group justify="space-between">
+                    <Text fw={700} size="lg">$0.044 / word</Text>
+                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+                      <Button variant="filled" bg={active.primary} radius={0}>Get Quote</Button>
+                    </Link>
+                  </Group>
+                </Stack>
               </Box>
 
-              {/* Service 2 */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
-                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
-                  2. Developmental Editing
-                </Title>
-                <Text mt="sm" c="dimmed" lh={1.7}>
-                  A critical analysis of content, argument, and organization. For doctoral students, developmental feedback is integrated directly into our live consulting services. For non-student scholars and post-docs preparing for professional publication, we offer standalone developmental editing to refine early-stage drafts.
-                </Text>
-                <Group mt="xl" gap="xl">
+              <Box p={rem(48)} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
+                <Stack gap="xl">
                   <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
-                    <Text fw={600} c={active.primary}>Determined post-consultation</Text>
+                    <Badge radius={0} variant="outline" color={active.primary} mb="md">TECHNICAL</Badge>
+                    <Title order={3} style={{ fontSize: rem(32) }}>Targeted Technical Support</Title>
+                    <Text size="md" c="dimmed" mt="sm">Hourly assistance for specific technical hurdles.</Text>
                   </Box>
-                </Group>
+                  <Stack gap="sm">
+                    {['Reference List Reconstruction', 'Citation Cross-checking', 'ProQuest Compliance', 'Complex Table/Figure Assembly'].map((item, i) => (
+                      <Group key={i} gap="xs">
+                        <IconCheck size={16} color={active.accent} stroke={3} />
+                        <Text size="sm" fw={600}>{item}</Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+                  <Group justify="space-between">
+                    <Text fw={700} size="lg">$90 / hour</Text>
+                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+                      <Button variant="outline" color={active.primary} radius={0} style={{ borderColor: active.primary }}>Enquire</Button>
+                    </Link>
+                  </Group>
+                </Stack>
               </Box>
+            </SimpleGrid>
+          </Stack>
+        </Container>
+      </Box>
 
-              {/* Service 3 */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
-                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
-                  3. Proofreading
-                </Title>
-                <Text mt="sm" c="dimmed" lh={1.7}>
-                  Ideal for those seeking a final, exhaustive check for punctuation, spelling, and typographical errors. For students, this is naturally included in our primary formatting package. For professional scholars, this occurs after all copyediting revisions are complete.
-                </Text>
-                <Group mt="xl" gap="xl">
-                  <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
-                    <Text fw={600} c={active.primary}>Per-job estimate</Text>
-                  </Box>
-                  <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>TURNAROUND</Text>
-                    <Text fw={600} c={active.primary}>3-5 business days</Text>
-                  </Box>
-                </Group>
-              </Box>
-
-              {/* Service 4 */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
-                <Title order={4} style={{ color: active.primary, fontSize: rem(24) }}>
-                  4. Miscellaneous Technical Editing
-                </Title>
-                <Text mt="sm" c="dimmed" lh={1.7}>
-                  Targeted assistance for specific technical hurdles, including strict Reference List formatting, Citation cross-checking, ProQuest formatting, and specialized Table/Figure assembly.
-                </Text>
-                <Group mt="xl" gap="xl">
-                  <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>RATE</Text>
-                    <Text fw={600} c={active.primary}>$90/hr USD</Text>
-                  </Box>
-                </Group>
-              </Box>
+      {/* The Logistics (Simplified) */}
+      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
+        <Container size={INNER_WIDTH}>
+          <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)}>
+            <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
+              <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
+                <IconClock size={24} />
+              </ThemeIcon>
+              <Text fw={700} style={{ letterSpacing: '0.05em' }}>TURNAROUND</Text>
+              <Text size="sm" c="dimmed" lh={1.6}>Typically 10-14 business days for full manuscripts. 7-10 days for proposals.</Text>
             </Stack>
-
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* What You'll Gain */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Title order={2} style={{ fontSize: rem(42) }}>
-                What You&rsquo;ll Gain
-              </Title>
-              <Text c="dimmed" mt="md" size="lg">
-                Beyond mere typo correction, our review provides a comprehensive elevation of your entire manuscript.
-              </Text>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" style={{ textAlign: 'left' }}>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Institutional Alignment</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We ensure your formatting strictly adheres to your university&rsquo;s specific guidelines (APA, MLA, Chicago, etc.), removing a major hurdle to final approval.</Text>
-              </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Elevated Academic Voice</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We refine your prose to ensure it carries the objective, authoritative tone expected by senior academics and journal reviewers.</Text>
-              </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Structural Integrity</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We identify weak transitions and logical gaps, ensuring your core argument is easily traceable from your introduction to your conclusion.</Text>
-              </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Peace of Mind</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>Handing your manuscript over to an expert pair of eyes allows you to step away and return refreshed for your final defense preparation.</Text>
-              </Box>
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
-
-
-
-      {/* Editing vs Consulting - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
-        <Container size={800}>
-          <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Text
-              size="xs"
-              
-              c={active.accent}
-            >
-              Crucial Distinction
-            </Text>
-            <Title order={2} style={{ fontSize: rem(42) }}>
-              Editing vs. Consulting
-            </Title>
-            <Text size="lg" lh={1.7} c="dimmed">
-              It can be challenging to differentiate between the support received from editors and coaches. To ensure you get exactly what you need, it is important to understand the boundary.
-            </Text>
-
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl" style={{ textAlign: 'left' }}>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Title order={4} mb="md">
-                  Editing (Asynchronous)
-                </Title>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Editing is reserved for manuscripts that have <strong>already been written</strong>. The purpose of editing is not to instruct but to review and polish your manuscript. The editor focuses on correcting flow, grammar, syntax, style, and formatting.
-                </Text>
-              </Box>
-
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Title order={4} mb="md">
-                  Consulting (Live Coaching)
-                </Title>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Consulting is a <strong>real-time instructional opportunity</strong> meant to help you learn how to plan, conduct, and report your research. No writing or editing occurs during live coaching.
-                </Text>
-              </Box>
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* How It Works - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
-                The Process
-              </Text>
-              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
-                How It Works
-              </Title>
-              <Text c="dimmed" mt="md" size="lg">
-                A seamless, professional workflow designed to take your manuscript from a working draft to a polished, submission-ready document.
-              </Text>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)} mt="lg">
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconSend size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  01. Submit for Quote
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Send us your final draft along with your word count and institutional formatting guidelines to receive an exact quote and timeline.
-                </Text>
-              </Stack>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconSearch size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  02. Comprehensive Review
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Our PhD-level editors conduct a dual-layer review, returning your document with detailed track-changes, structural comments, and polished formatting.
-                </Text>
-              </Stack>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconRocket size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  03. Refine & Submit
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  You apply the actionable feedback to your final draft. You can now submit your work to your committee with absolute confidence.
-                </Text>
-              </Stack>
-            </SimpleGrid>
-
-            <Center mt={rem(40)}>
-              <Link
-                href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading"
-                style={{ textDecoration: 'none' }}
-              >
-                <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  GET A FREE QUOTE
-                </Button>
-              </Link>
-            </Center>
-          </Stack>
+            <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
+              <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
+                <IconScale size={24} />
+              </ThemeIcon>
+              <Text fw={700} style={{ letterSpacing: '0.05em' }}>ETHICAL BOUNDARY</Text>
+              <Text size="sm" c="dimmed" lh={1.6}>Strict adherence to academic integrity. No ghostwriting or original data analysis.</Text>
+            </Stack>
+            <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
+              <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
+                <IconDownload size={24} />
+              </ThemeIcon>
+              <Text fw={700} style={{ letterSpacing: '0.05em' }}>FULL DETAILS</Text>
+              <Text size="sm" c="dimmed" lh={1.6}>Download our Services Guide for complete checklists and post-editing advice.</Text>
+            </Stack>
+          </SimpleGrid>
         </Container>
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
-                FAQ
-              </Text>
-              <Title
-                order={2}
-                mt="md"
-                style={{ fontSize: rem(36), color: active.primary }}
-              >
-                Logistics & Policies
-              </Title>
+              <Text size="xs" c="dimmed" fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>FAQ</Text>
+              <Title order={2} mt="md" style={{ fontSize: rem(36), color: active.primary, fontFamily: 'var(--font-serif)' }}>Logistics & Policies</Title>
             </Box>
-            <Accordion>
+            <Accordion variant="separated">
               {faqs.map((faq: any, i: number) => (
-                <Accordion.Item key={i} value={`faq-${i}`}>
-                  <Accordion.Control>
-                    {faq.q}
-                  </Accordion.Control>
+                <Accordion.Item key={i} value={`faq-${i}`} style={{ backgroundColor: active.surface, border: '1px solid #eee' }}>
+                  <Accordion.Control style={{ fontWeight: 600, color: active.primary }}>{faq.q}</Accordion.Control>
                   <Accordion.Panel>
-                    <Text size="sm" lh={1.7} c="dimmed">
-                      {faq.a}
-                    </Text>
+                    <Text size="md" lh={1.7} c="dimmed">{faq.a}</Text>
                   </Accordion.Panel>
                 </Accordion.Item>
               ))}
             </Accordion>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontSize: rem(36) }}>
-                Explore Other Services
-              </Title>
-              <Text size="lg" c="dimmed" mt="md">
-                Need a different type of support? We have you covered.
-              </Text>
-            </Box>
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      TECHNICAL ASSISTANCE
-                    </Text>
-                    <Title order={3} >
-                      Custom Research & Data Support
-                    </Title>
-                  </Stack>
-                  <Text size="sm" c="dimmed" lh={1.6}>
-                    Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.
-                  </Text>
-                </Stack>
-                <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/services/research-support" style={{ textDecoration: 'none' }}>
-                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Get Research Support
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
-
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      1-ON-1 GUIDANCE
-                    </Text>
-                    <Title order={3} >
-                      Live Academic Coaching
-                    </Title>
-                  </Stack>
-                  <Text size="sm" c="dimmed" lh={1.6}>
-                    A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence. Perfect for when you are stuck and need real-time instructional support.
-                  </Text>
-                </Stack>
-                <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
-                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      View Coaching Services
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
-            </SimpleGrid>
           </Stack>
         </Container>
       </Box>

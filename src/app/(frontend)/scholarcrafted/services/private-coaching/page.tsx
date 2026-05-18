@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React from 'react'
 import {
   Container,
   Title,
@@ -9,28 +9,27 @@ import {
   SimpleGrid,
   Stack,
   Button,
-  Center,
   rem,
   Group,
   useMantineTheme,
   Accordion,
   ThemeIcon,
   Badge,
+  Divider,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
 import {
   IconCheck,
-  IconVideo,
-  IconListCheck,
-  IconUserCheck,
   IconArrowRight,
-  IconRocket,
-  IconQuote
+  IconQuote,
+  IconCompass,
+  IconTarget,
+  IconMessageCircle,
+  IconCertificate,
+  IconAlertCircle,
 } from '@tabler/icons-react'
-import { Carousel } from '@mantine/carousel'
-import Autoplay from 'embla-carousel-autoplay'
 import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
@@ -55,241 +54,296 @@ const faqs = [
 export default function PrivateCoachingPage() {
   const theme = useMantineTheme()
   const active = theme.other
-  const autoplay = useRef(Autoplay({ delay: 3000, stopOnInteraction: false }))
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
+      {/* High-Impact Hero with Side-Box */}
+      <Box component="section" pt={rem(140)} pb={rem(100)} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <Box style={{ maxWidth: 800 }}>
-            <Text
-              size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.15em' }}
-              c={active.accent}
-            >
-              1-ON-1 GUIDANCE
-            </Text>
-            <Title
-              order={1}
-              mt="md"
-              style={{
-                fontSize: rem(56),
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                color: active.primary }}
-            >
-              Strategic intervention for <br />
-              stalled doctoral research.
-            </Title>
-            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              Overcome structural roadblocks and methodological anxiety with intensive, 
-              personalized coaching from our faculty-level academic advisors.
-            </Text>
-            
-            <Stack gap="xs" mt={rem(40)}>
-              <Box>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)}>
+            <Stack gap="xl" justify="center">
+              <Stack gap="xs">
+                <Text
+                  size="xs"
+                  fw={700}
+                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  c={active.accent}
+                >
+                  1-ON-1 ADVISORY
+                </Text>
+                <Title
+                  order={1}
+                  mt="md"
+                  style={{
+                    fontSize: rem(64),
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.02em',
+                    color: active.primary,
+                    fontFamily: 'var(--font-serif)'
+                  }}
+                >
+                  Strategic help for <br />
+                  stalled researchers.
+                </Title>
+              </Stack>
+              <Text size="lg" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>
+                Overcome structural roadblocks, contradictory feedback, and methodological anxiety with 
+                intensive, personalized coaching from our faculty-level academic advisors.
+              </Text>
+              
+              <Group gap="md">
                 <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
-                  <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                    FREE INTRODUCTORY CALL
+                  <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                    BOOK INTRODUCTORY CALL
                   </Button>
                 </Link>
-              </Box>
-              <Text size="sm" c="dimmed">
-                This 15-minute call is to get to know your needs, not a coaching session.{' '}
-                <Link href="/scholarcrafted/consultation" style={{ color: active.primary, textDecoration: 'none' }}>
-                  Find out more here.
-                </Link>
-              </Text>
+                <Box>
+                  <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.05em' }}>NEXT AVAILABILITY</Text>
+                  <Text size="sm" c="dimmed">Within 48 Hours</Text>
+                </Box>
+              </Group>
             </Stack>
-          </Box>
+
+            {/* Who this is for (Side-Box Style) */}
+            <Box bg={active.surface} p={rem(40)} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
+              <Stack gap="lg">
+                <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                  Who this is for
+                </Title>
+                <Stack gap="md">
+                  {[
+                    'Scholars stuck at the ABD stage for 6+ months.',
+                    'Researchers navigating contradictory or vague feedback.',
+                    'Non-traditional or first-gen students needing structural oversight.',
+                    'Professionals balancing intensive careers with doctoral work.',
+                  ].map((item, i) => (
+                    <Group key={i} align="flex-start" gap="sm" wrap="nowrap">
+                      <Box
+                        w={6}
+                        h={6}
+                        mt={8}
+                        bg={active.accent}
+                        style={{ borderRadius: '50%', flexShrink: 0 }}
+                      />
+                      <Text size="sm" lh={1.5} fw={500} c={active.primary}>
+                        {item}
+                      </Text>
+                    </Group>
+                  ))}
+                </Stack>
+                <Divider color="oklch(0% 0 0 / 0.1)" mt="sm" />
+                <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>
+                  Coaching is a partnership. We provide the structural scaffolding while you maintain the authorial voice.
+                </Text>
+              </Stack>
+            </Box>
+          </SimpleGrid>
         </Container>
       </Box>
 
-      {/* Pain Points Section */}
-      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      {/* Common Challenges (The Empathy Section) */}
+      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)} align="center">
-
-            <Box style={{ textAlign: 'center', maxWidth: 800 }}>
-              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.1em' }} mb="sm">
-                THE STRUGGLE IS REAL
+          <Stack gap={rem(60)}>
+            <Box>
+              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
+                Common Roadblocks
               </Text>
-              <Title
-                order={2}
-                style={{
-                  fontSize: rem(48),
-                  color: active.primary }}
-              >
-                Are you in this position right now?
+              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Recognize these challenges?
               </Title>
-              <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                Coaching exists for moments exactly like these. You aren&apos;t broken, and your research isn&apos;t doomed. You just need a partner to help you untangle it.
+              <Text size="lg" c="dimmed" lh={1.7} mt="md" style={{ maxWidth: 800 }}>
+                Most doctoral stalls aren&apos;t a lack of ability—they are a lack of structural clarity. 
+                Our coaching is designed specifically to dismantle these hurdles.
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(30)} style={{ width: '100%' }}>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(32)}>
               {[
-                "You've been 'almost done' for six months and you can't figure out why you're still stuck.",
-                "Your committee gave you contradictory feedback and you have no idea which direction to follow.",
-                "You understand the theory — you just can't get it to hold together coherently on the page.",
-                "Your Chair is barely available and you're making critical research decisions completely alone.",
-                "You have the data. You just don't know what it's telling you — or how to say it properly.",
-                "Every time you sit down to write, you spiral. You rewrite the same paragraph and move nothing forward.",
-              ].map((pain, i) => (
+                {
+                  title: 'The "Vague Feedback" Loop',
+                  desc: 'Your chair gives you two vague sentences after three months of waiting. You don\'t know how to respond or what to change.',
+                },
+                {
+                  title: 'Structural Paralysis',
+                  desc: 'You have your data, but you can\'t figure out how to organize it into a coherent argument that flows across chapters.',
+                },
+                {
+                  title: 'The Literature Sinkhole',
+                  desc: 'You keep reading "just one more article" to feel ready, but your own draft remains unwritten and stalled.',
+                },
+                {
+                  title: 'Isolation & Imposter Syndrome',
+                  desc: 'Working entirely alone makes every decision feel heavy. You start to doubt if your research is even valid.',
+                },
+                {
+                  title: 'Methodology Gridlock',
+                  desc: 'You are terrified your research design won\'t hold up to committee scrutiny or during your final defense.',
+                },
+                {
+                  title: 'Balancing Life & Research',
+                  desc: 'Work and family take priority, and you lack the structured accountability to make consistent progress every week.',
+                }
+              ].map((challenge, i) => (
                 <Box
                   key={i}
-                  p={rem(32)}
-                  bg={active.background}
+                  p={rem(40)}
+                  bg="white"
                   style={{
-                    borderRadius: rem(12),
-                    border: `1px solid ${active.primary}15`,
-                    boxShadow: `0 4px 20px ${active.primary}05`,
+                    border: `1px solid oklch(0% 0 0 / 0.08)`,
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: rem(16),
-                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    cursor: 'default',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = `0 8px 30px ${active.primary}15`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = `0 4px 20px ${active.primary}05`;
+                    gap: rem(12),
                   }}
                 >
-                  <ThemeIcon 
-                    size={48} 
-                    radius="md" 
-                    variant="light" 
-                    color={active.accent}
-                  >
-                    <IconQuote size={24} />
+                  <ThemeIcon variant="light" color="red" radius="xl">
+                    <IconAlertCircle size={18} />
                   </ThemeIcon>
-                  <Text size="md" lh={1.7} c={active.primary} fw={500} style={{ flex: 1 }}>
-                    &ldquo;{pain}&rdquo;
-                  </Text>
+                  <Title order={4} style={{ fontSize: rem(20), color: active.primary }}>{challenge.title}</Title>
+                  <Text size="sm" lh={1.7} c="dimmed">{challenge.desc}</Text>
                 </Box>
               ))}
             </SimpleGrid>
-
-            <Box mt="xl">
-              <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
-                <Button variant="outline" color={active.primary} size="lg" radius={0} rightSection={<IconArrowRight size={18} />}>
-                  Start with one free conversation
-                </Button>
-              </Link>
-            </Box>
-
           </Stack>
         </Container>
       </Box>
 
-      {/* How We Work (The Services) */}
+      {/* How Coaching Supports You (The Roadmap) */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box>
-              <Text
-                size="xs"
-                
-                c={active.accent}
-              >
-                Inside a Session
+          <Stack gap={rem(80)}>
+            <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
+              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
+                The Partnership
               </Text>
-              <Title order={2} mt="sm" style={{ fontSize: rem(42), color: active.primary }}>
-                What happens during your coaching hours?
+              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                How we walk with you.
               </Title>
-              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
-                Your retainer hours are completely flexible. Depending on where you are in the process, we use your sessions for any combination of the following:
+              <Text size="lg" c="dimmed" lh={1.7} mt="md">
+                We provide a rigorous, faculty-led partnership that takes you from 
+                structural confusion to a defensible, finished manuscript.
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)} mt="xl">
-              <Stack gap="sm">
-                <Text size="lg" fw={600} c={active.primary}>
-                  Planning & Accountability
-                </Text>
-                <Text c="dimmed" lh={1.6}>
-                  Together, we set long and short-term goals for your academic work. We meet regularly to review progress, troubleshoot challenges, and define exact next steps.
-                </Text>
-              </Stack>
-              
-              <Stack gap="sm">
-                <Text size="lg" fw={600} c={active.primary}>
-                  Problem Solving
-                </Text>
-                <Text c="dimmed" lh={1.6}>
-                  Got a research or writing problem to solve? We work through puzzles like organizing your literature review, aligning your research questions and methods, or interpreting reviewer feedback.
-                </Text>
-              </Stack>
-
-              <Stack gap="sm">
-                <Text size="lg" fw={600} c={active.primary}>
-                  Facilitated Work Sessions
-                </Text>
-                <Text c="dimmed" lh={1.6}>
-                  Tried everything but just can’t get started drafting? Afraid to read your advisor’s comments? Do it with a coach right at your side to guide you through the anxiety and get the work done.
-                </Text>
-              </Stack>
-
-              <Stack gap="sm">
-                <Text size="lg" fw={600} c={active.primary}>
-                  Feedback on Work-In-Progress
-                </Text>
-                <Text c="dimmed" lh={1.6}>
-                  All writers need an outside perspective on their drafts. We provide robust, structural feedback you can actually use to move forward—without the judgment of a committee member.
-                </Text>
-              </Stack>
-            </SimpleGrid>
+            <Stack gap={rem(100)} mt="xl">
+              {[
+                {
+                  step: '01',
+                  title: 'The Diagnostic Phase',
+                  subtitle: 'Untangling the Roadmap',
+                  desc: 'We start by auditing your current progress, your committee feedback, and your research design. We identify exactly where the stall is happening and why.',
+                  icon: IconCompass,
+                  tasks: ['Audit of current drafts', 'De-coding committee feedback', 'Identifying structural gaps']
+                },
+                {
+                  step: '02',
+                  title: 'Strategic Milestones',
+                  subtitle: 'Building the Schedule',
+                  desc: 'We move from "hoping to finish" to a concrete calendar. We break your dissertation into manageable pieces with hyper-specific deliverables for each week.',
+                  icon: IconTarget,
+                  tasks: ['Custom writing schedules', 'Conceptual alignment checks', 'Chapter-level roadmaps']
+                },
+                {
+                  step: '03',
+                  title: 'Iterative Refinement',
+                  subtitle: 'Execution & Feedback',
+                  desc: 'This is where the work happens. We meet via video to solve methodological puzzles, review new drafts, and sharpen your authentic academic voice.',
+                  icon: IconMessageCircle,
+                  tasks: ['1-on-1 video deep dives', 'Structural draft reviews', 'Accountability check-ins']
+                },
+                {
+                  step: '04',
+                  title: 'Defense Readiness',
+                  subtitle: 'Final Validation',
+                  desc: 'As you approach submission, we pivot to defense coaching. We help you conceptualize your arguments so you can stand before your committee with absolute authority.',
+                  icon: IconCertificate,
+                  tasks: ['Mock defense sessions', 'Argument synthesis', 'Pre-submission audit']
+                }
+              ].map((phase, i) => (
+                <Group key={i} align="flex-start" wrap="nowrap" gap={rem(60)}>
+                  <Box style={{ flex: '0 0 120px' }} visibleFrom="md">
+                    <Text fw={700} style={{ fontSize: rem(80), color: active.primary, opacity: 0.1, lineHeight: 1 }}>{phase.step}</Text>
+                  </Box>
+                  <Box style={{ flex: 1 }}>
+                    <Group gap="sm" mb="xs">
+                      <ThemeIcon size={32} radius="xl" variant="light" color={active.accent}>
+                        <phase.icon size={18} />
+                      </ThemeIcon>
+                      <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>{phase.subtitle}</Text>
+                    </Group>
+                    <Title order={3} style={{ fontSize: rem(32), color: active.primary, marginBottom: rem(16) }}>{phase.title}</Title>
+                    <Text size="md" lh={1.7} c="dimmed" mb="xl" style={{ maxWidth: 700 }}>{phase.desc}</Text>
+                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+                      {phase.tasks.map((task, j) => (
+                        <Group key={j} gap="xs">
+                          <IconCheck size={16} color={active.accent} stroke={3} />
+                          <Text size="xs" fw={700} c={active.primary}>{task}</Text>
+                        </Group>
+                      ))}
+                    </SimpleGrid>
+                  </Box>
+                </Group>
+              ))}
+            </Stack>
           </Stack>
         </Container>
       </Box>
 
       {/* The Packages */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
-            <Box>
+            <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                
+                fw={700}
                 c={active.accent}
+                style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+                mb="sm"
               >
-                Coaching Packages
+                Engagement Levels
               </Text>
-              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
-                What&apos;s included in each package
+              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Advisory Retainers.
               </Title>
-              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
-                All packages are activated following your free introductory call, where we assess your needs and confirm the right level of engagement for your research.
+              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 700, margin: '0 auto' }}>
+                All packages are activated following your free introductory call, where we assess your 
+                needs and confirm the right level of engagement.
               </Text>
             </Box>
             
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(40)}>
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(32)}>
               {/* Option A: 5 Hours */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg="white" style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       THE STRATEGIC SPRINT
                     </Text>
-                    <Title order={3} >
+                    <Title order={3} style={{ fontSize: rem(28) }}>
                       5-Hour Retainer
                     </Title>
-                    <Text fw={600} size="xl" c={active.primary}>$750 USD</Text>
+                    <Text fw={700} size="xl" c={active.primary}>$750 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Ideal for overcoming a specific roadblock, restructuring a single chapter, or preparing for an upcoming committee meeting. Use these hours flexibly across live video calls and offline document review.
+                    Ideal for overcoming a specific roadblock, restructuring a single chapter, or preparing for an upcoming committee meeting.
                   </Text>
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+                  <Stack gap="xs">
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">1-on-1 Video Advisory</Text>
+                    </Group>
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">Offline Document Review</Text>
+                    </Group>
+                  </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
                       Book Intro Call
                     </Button>
@@ -298,26 +352,41 @@ export default function PrivateCoachingPage() {
               </Box>
 
               {/* Option B: 10 Hours */}
-              <Box p={rem(40)} bg={active.background} style={{ border: `2px solid ${active.primary}`, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                <Badge style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)' }} color={active.primary} variant="filled">
+              <Box p={rem(40)} bg="white" style={{ border: `2px solid ${active.primary}`, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+                <Badge 
+                  style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', borderRadius: 0, height: rem(28) }} 
+                  color={active.primary} 
+                  variant="filled"
+                >
                   MOST POPULAR
                 </Badge>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      THE SEMESTER PARTNERSHIP
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                      THE MILESTONE PARTNERSHIP
                     </Text>
-                    <Title order={3} >
+                    <Title order={3} style={{ fontSize: rem(28) }}>
                       10-Hour Retainer
                     </Title>
-                    <Text fw={600} size="xl" c={active.primary}>$1,400 USD</Text>
+                    <Text fw={700} size="xl" c={active.primary}>$1,400 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Perfect for navigating a major academic milestone, such as defending your proposal or analyzing complex data. Includes priority access to our schedule and comprehensive offline review cycles.
+                    Perfect for navigating a major academic milestone, such as defending your proposal or analyzing complex data sets.
                   </Text>
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+                  <Stack gap="xs">
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">Priority Scheduling</Text>
+                    </Group>
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">Full Structural Feedback</Text>
+                    </Group>
+                  </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
                     <Button variant="filled" bg={active.primary} radius={0} fullWidth>
                       Book Intro Call
                     </Button>
@@ -326,23 +395,34 @@ export default function PrivateCoachingPage() {
               </Box>
 
               {/* Option C: 20 Hours */}
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
+              <Box p={rem(40)} bg="white" style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       THE FULL-CYCLE JOURNEY
                     </Text>
-                    <Title order={3} >
+                    <Title order={3} style={{ fontSize: rem(28) }}>
                       20-Hour Retainer
                     </Title>
-                    <Text fw={600} size="xl" c={active.primary}>$2,600 USD</Text>
+                    <Text fw={700} size="xl" c={active.primary}>$2,600 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Complete, high-touch support from stalled draft to final committee submission. We hold your hand through the entire process, providing an expert sounding board and rigorous accountability every step of the way.
+                    Complete, high-touch support from stalled draft to final submission. We provide an expert sounding board and rigorous accountability.
                   </Text>
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+                  <Stack gap="xs">
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">Strategic Oversight</Text>
+                    </Group>
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">Unlimited Document Access</Text>
+                    </Group>
+                  </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
                       Book Intro Call
                     </Button>
@@ -354,93 +434,22 @@ export default function PrivateCoachingPage() {
         </Container>
       </Box>
 
-
-      {/* What You'll Gain — the outcome side */}
-      <Box py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ maxWidth: 720 }}>
-              <Text
-                size="xs"
-                
-                c={active.accent}
-              >
-                The Other Side
-              </Text>
-              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
-                What you&apos;ll walk away with.
-              </Title>
-              <Text c="dimmed" mt="md" size="lg" lh={1.7}>
-                The right coaching engagement can fundamentally shift the trajectory of your research. Here is what that looks like in practice.
-              </Text>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(32)}>
-              {[
-                {
-                  label: 'CLARITY',
-                  title: 'A clear path forward',
-                  desc: "You leave knowing exactly what to do next. No more circling the same paragraph. No more second-guessing every decision. Just a clear, concrete step you can take today.",
-                },
-                {
-                  label: 'CONFIDENCE',
-                  title: 'The researcher you already are',
-                  desc: "Most candidates don't lack the ability — they lack the belief that their thinking is valid. A great coach doesn't give you answers. They help you trust the ones you already have.",
-                },
-                {
-                  label: 'METHODOLOGY',
-                  title: 'A framework you carry forward',
-                  desc: "You don't just fix this chapter. You leave with a transferable way of thinking about research structure, argumentation, and analysis that applies to every project you take on from here.",
-                },
-              ].map((item, i) => (
-                <Box
-                  key={i}
-                  p={rem(40)}
-                  bg={active.surface}
-                  style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}
-                >
-                  <Stack gap="md">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em' }}>
-                      {item.label}
-                    </Text>
-                    <Title order={3} >
-                      {item.title}
-                    </Title>
-                    <Text size="sm" c="dimmed" lh={1.7}>
-                      {item.desc}
-                    </Text>
-                  </Stack>
-                </Box>
-              ))}
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
-
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
+              <Text size="xs" c="dimmed" fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                 FAQ
               </Text>
-              <Title
-                order={2}
-                mt="md"
-                style={{ fontSize: rem(36), color: active.primary }}
-              >
-                Common Questions
+              <Title order={2} mt="md" style={{ fontSize: rem(36), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Common Concerns
               </Title>
             </Box>
-            <Accordion>
+            <Accordion variant="separated">
               {faqs.map((faq: any, i: number) => (
-                <Accordion.Item key={i} value={`faq-${i}`}>
-                  <Accordion.Control>
+                <Accordion.Item key={i} value={`faq-${i}`} style={{ backgroundColor: active.surface, border: '1px solid #eee' }}>
+                  <Accordion.Control style={{ fontWeight: 600, color: active.primary }}>
                     {faq.q}
                   </Accordion.Control>
                   <Accordion.Panel>
@@ -451,69 +460,6 @@ export default function PrivateCoachingPage() {
                 </Accordion.Item>
               ))}
             </Accordion>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontSize: rem(36) }}>
-                Explore Other Services
-              </Title>
-              <Text size="lg" c="dimmed" mt="md">
-                Need a different type of support? We have you covered.
-              </Text>
-            </Box>
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      MANUSCRIPT REFINEMENT
-                    </Text>
-                    <Title order={3} >
-                      Structural Editing & Proofreading
-                    </Title>
-                  </Stack>
-                  <Text size="sm" c="dimmed" lh={1.6}>
-                    From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.
-                  </Text>
-                </Stack>
-                <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
-                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      View Editing Services
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
-
-              <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      TECHNICAL ASSISTANCE
-                    </Text>
-                    <Title order={3} >
-                      Custom Research & Data Support
-                    </Title>
-                  </Stack>
-                  <Text size="sm" c="dimmed" lh={1.6}>
-                    Prearranged offline support tailored to your exact needs, including literature mapping, survey construction, qualitative coding, and statistical analysis.
-                  </Text>
-                </Stack>
-                <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/services/research-support" style={{ textDecoration: 'none' }}>
-                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Get Research Support
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
-            </SimpleGrid>
           </Stack>
         </Container>
       </Box>

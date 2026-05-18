@@ -62,9 +62,36 @@ function RequestReviewContent() {
 
   const [manuscript, setManuscript] = useState<FileWithPath[]>([])
   const [guidelines, setGuidelines] = useState<FileWithPath[]>([])
+  const [isSaved, setIsSaved] = useState(false)
+
+  // Load from localStorage on mount
+  React.useEffect(() => {
+    const saved = localStorage.getItem('scholarcrafted_intake_draft')
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved)
+        // Convert deadline string back to Date object
+        if (parsed.deadline) parsed.deadline = new Date(parsed.deadline)
+        setFormData((prev) => ({ ...prev, ...parsed }))
+      } catch (e) {
+        console.error('Failed to load draft', e)
+      }
+    }
+  }, [])
+
+  // Save to localStorage on change
+  React.useEffect(() => {
+    if (!submitted) {
+      localStorage.setItem('scholarcrafted_intake_draft', JSON.stringify(formData))
+      setIsSaved(true)
+      const timeout = setTimeout(() => setIsSaved(false), 2000)
+      return () => clearTimeout(timeout)
+    }
+  }, [formData, submitted])
 
   const handleSubmit = () => {
     console.log({ ...formData, manuscript, guidelines })
+    localStorage.removeItem('scholarcrafted_intake_draft')
     setSubmitted(true)
   }
 
@@ -126,11 +153,19 @@ function RequestReviewContent() {
                 <Stack gap={rem(40)}>
                   {/* Contact Information */}
                   <Box>
-                    <Group gap="xs" mb="lg">
-                      <ThemeIcon variant="light" color="dark" radius="xl" size="sm">
-                        <IconFileText size={14} />
-                      </ThemeIcon>
-                      <Text fw={700} size="sm" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>Contact Details</Text>
+                    <Group justify="space-between" mb="lg">
+                      <Group gap="xs">
+                        <ThemeIcon variant="light" color="dark" radius="xl" size="sm">
+                          <IconFileText size={14} />
+                        </ThemeIcon>
+                        <Text fw={700} size="sm" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>Contact Details</Text>
+                      </Group>
+                      {isSaved && (
+                        <Group gap={4}>
+                          <IconCheck size={12} color={active.accent} />
+                          <Text size="xs" c="dimmed" fw={500}>Draft Saved</Text>
+                        </Group>
+                      )}
                     </Group>
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
                       <TextInput
