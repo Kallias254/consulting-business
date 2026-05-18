@@ -45,7 +45,7 @@ export function Navbar() {
     >
       {/* Topbar */}
       <Box style={{ backgroundColor: '#000000' }} py={rem(6)}>
-        <Container size={1100}>
+        <Container size={1200}>
           <Group justify="space-between" align="center">
             <Group gap={rem(6)}>
               <IconPhone size={12} color="rgba(255,255,255,0.7)" />
@@ -74,13 +74,13 @@ export function Navbar() {
       {/* Main Navbar */}
       <Box
         component="nav"
-        py="md"
+        py={rem(24)}
         style={{
           backgroundColor: active.primary,
           borderTop: '1px solid rgba(255,255,255,0.05)'
         }}
       >
-        <Container size={1100}>
+        <Container size={1200}>
         <Group justify="space-between" align="center">
           <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit' }}>
             <Stack gap={0}>
@@ -105,7 +105,7 @@ export function Navbar() {
             </Stack>
           </Link>
 
-          <Group gap="xl" visibleFrom="sm" align="center">
+          <Group gap="xl" visibleFrom="sm" align="center" style={{ gap: '1.25rem' }}>
             <HoverCard 
               width={600} 
               position="bottom" 
@@ -301,7 +301,7 @@ export function Navbar() {
                 variant="filled"
                 bg="white"
                 c={active.primary}
-                size="sm"
+                size="md"
                 radius={0}
                 className="impeccable-button"
               >

@@ -111,7 +111,7 @@ export default function PrivateCoachingPage() {
               
               <Group gap="md">
                 <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
-                  <Button size="xl" variant="filled" bg={active.primary} radius={0} px={rem(40)}>
+                  <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                     BOOK INTRODUCTORY CALL
                   </Button>
                 </Link>

@@ -89,18 +89,19 @@ export default function EditingProofreadingPage() {
               tone, and authority required by your committee.
             </Text>
             
-            <Group gap="md" mt={rem(50)}>
+            <Group gap="md" mt={rem(40)}>
               <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
-                <Button size="xl" variant="filled" bg={active.primary} radius={0} style={{ paddingLeft: rem(40), paddingRight: rem(40) }}>
+                <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                   GET A FREE QUOTE
                 </Button>
               </Link>
               <Button 
-                size="xl" 
+                size="lg" 
                 variant="outline" 
                 color={active.primary} 
                 radius={0} 
-                leftSection={<IconDownload size={20} />}
+                className="impeccable-button"
+                leftSection={<IconDownload size={18} />}
                 onClick={() => window.open('/docs/editing_services_guide.md', '_blank')}
                 style={{ borderColor: active.primary }}
               >
@@ -112,51 +113,94 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* The Scholar's Standard (Trust Section) */}
-      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
-        <Container size={INNER_WIDTH}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} align="center">
-            <Stack gap="xl">
-              <Box>
-                <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                  The Quality Guarantee
-                </Text>
-                <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                  A higher standard of <br />academic rigor.
-                </Title>
-              </Box>
-              <Text size="lg" c="dimmed" lh={1.7}>
-                Our editors are not just "proofreaders"—they are PhD-level academics who understand the 
+      <Box py={0} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
+        <Container size={800} py={rem(100)}>
+          <Stack gap={rem(48)} align="center" style={{ textAlign: 'center' }}>
+            <Box style={{ maxWidth: 700 }}>
+              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
+                The Quality Guarantee
+              </Text>
+              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)', lineHeight: 1.15 }}>
+                A higher standard of <br />academic rigor.
+              </Title>
+            </Box>
+
+            <Box style={{ maxWidth: 750 }}>
+              <Text size="lg" c="dimmed" lh={1.8} style={{ fontSize: rem(20) }}>
+                Our editors are not just &ldquo;proofreaders&rdquo;—they are PhD-level academics who understand the 
                 nuance of your discipline. We don&apos;t just check for typos; we ensure your argument carries 
                 the authoritative voice expected by senior faculty.
               </Text>
-              <Stack gap="md">
-                {[
-                  'PhD-level subject matter expertise',
-                  'Strict adherence to institutional guidelines',
-                  'No-risk satisfaction guarantee on revisions',
-                  'Asynchronous, secure manuscript handling'
-                ].map((item, i) => (
-                  <Group key={i} gap="sm">
-                    <IconCheck size={18} color={active.accent} stroke={3} />
-                    <Text fw={600} size="sm" c={active.primary}>{item}</Text>
-                  </Group>
-                ))}
-              </Stack>
-            </Stack>
-            <Box p={rem(60)} bg="white" style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
-              <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
-                <ThemeIcon size={64} radius="xl" variant="light" color={active.accent}>
-                  <IconShieldCheck size={32} />
-                </ThemeIcon>
-                <Title order={3} style={{ fontSize: rem(28) }}>The Guarantee</Title>
-                <Text size="sm" c="dimmed" lh={1.7}>
-                  If your committee requests revisions related specifically to the editing we performed, 
-                  we will undertake those revisions at no additional cost. We stand by our rigor.
-                </Text>
-              </Stack>
             </Box>
-          </SimpleGrid>
+
+            <Stack gap="md" style={{ width: '100%', maxWidth: 500, textAlign: 'left' }} mt="md">
+              {[
+                'PhD-level subject matter expertise',
+                'Strict adherence to institutional guidelines',
+                'No-risk satisfaction guarantee on revisions',
+                'Asynchronous, secure manuscript handling'
+              ].map((item, i) => (
+                <Group key={i} gap="md" wrap="nowrap" align="center">
+                  <ThemeIcon size={28} radius="xl" variant="light" color={active.accent}>
+                    <IconCheck size={16} stroke={3} />
+                  </ThemeIcon>
+                  <Text fw={600} size="md" c={active.primary}>{item}</Text>
+                </Group>
+              ))}
+            </Stack>
+          </Stack>
         </Container>
+
+        {/* Infinite Scrolling Ribbon */}
+        <Box
+          style={{
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            backgroundColor: active.primary,
+            color: '#FFFFFF',
+            padding: '16px 0',
+            borderTop: `1px solid ${active.accent}33`,
+            borderBottom: `1px solid ${active.accent}33`,
+            position: 'relative',
+          }}
+        >
+          <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes marquee {
+              0% { transform: translate3d(0, 0, 0); }
+              100% { transform: translate3d(-33.3333%, 0, 0); }
+            }
+            .marquee-wrapper {
+              display: flex;
+              overflow: hidden;
+              width: 100%;
+            }
+            .marquee-content {
+              display: flex;
+              animation: marquee 40s linear infinite;
+              white-space: nowrap;
+            }
+            .marquee-content span {
+              display: inline-block;
+              padding-right: 64px;
+              font-family: var(--font-sans);
+              font-size: 11px;
+              font-weight: 600;
+              letter-spacing: 0.18em;
+              color: rgba(255, 255, 255, 0.9);
+            }
+            .marquee-content strong {
+              color: ${active.accent};
+              font-weight: 700;
+            }
+          ` }} />
+          <div className="marquee-wrapper">
+            <div className="marquee-content">
+              <span>✦ <strong>THE GUARANTEE:</strong> IF YOUR COMMITTEE REQUESTS REVISIONS RELATED SPECIFICALLY TO THE EDITING WE PERFORMED, WE WILL UNDERTAKE THOSE REVISIONS AT NO ADDITIONAL COST. WE STAND BY OUR RIGOR.</span>
+              <span>✦ <strong>THE GUARANTEE:</strong> IF YOUR COMMITTEE REQUESTS REVISIONS RELATED SPECIFICALLY TO THE EDITING WE PERFORMED, WE WILL UNDERTAKE THOSE REVISIONS AT NO ADDITIONAL COST. WE STAND BY OUR RIGOR.</span>
+              <span>✦ <strong>THE GUARANTEE:</strong> IF YOUR COMMITTEE REQUESTS REVISIONS RELATED SPECIFICALLY TO THE EDITING WE PERFORMED, WE WILL UNDERTAKE THOSE REVISIONS AT NO ADDITIONAL COST. WE STAND BY OUR RIGOR.</span>
+            </div>
+          </div>
+        </Box>
       </Box>
 
       {/* Levels of Service (Simplified) */}
@@ -177,7 +221,7 @@ export default function EditingProofreadingPage() {
             </Box>
 
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(32)}>
-              <Box p={rem(48)} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
+              <Box p={{ base: rem(24), md: rem(32) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
                 <Stack gap="xl">
                   <Box>
                     <Badge radius={0} color={active.primary} mb="md">MOST POPULAR</Badge>
@@ -196,13 +240,15 @@ export default function EditingProofreadingPage() {
                   <Group justify="space-between">
                     <Text fw={700} size="lg">$0.044 / word</Text>
                     <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
-                      <Button variant="filled" bg={active.primary} radius={0}>Get Quote</Button>
+                      <Button size="sm" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                        Get Quote
+                      </Button>
                     </Link>
                   </Group>
                 </Stack>
               </Box>
 
-              <Box p={rem(48)} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
+              <Box p={{ base: rem(24), md: rem(32) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
                 <Stack gap="xl">
                   <Box>
                     <Badge radius={0} variant="outline" color={active.primary} mb="md">TECHNICAL</Badge>
@@ -221,7 +267,9 @@ export default function EditingProofreadingPage() {
                   <Group justify="space-between">
                     <Text fw={700} size="lg">$90 / hour</Text>
                     <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
-                      <Button variant="outline" color={active.primary} radius={0} style={{ borderColor: active.primary }}>Enquire</Button>
+                      <Button size="sm" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
+                        Enquire
+                      </Button>
                     </Link>
                   </Group>
                 </Stack>
@@ -251,10 +299,10 @@ export default function EditingProofreadingPage() {
             </Stack>
             <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
               <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
-                <IconDownload size={24} />
+                <IconShieldCheck size={24} />
               </ThemeIcon>
-              <Text fw={700} style={{ letterSpacing: '0.05em' }}>FULL DETAILS</Text>
-              <Text size="sm" c="dimmed" lh={1.6}>Download our Services Guide for complete checklists and post-editing advice.</Text>
+              <Text fw={700} style={{ letterSpacing: '0.05em' }}>THE GUARANTEE</Text>
+              <Text size="sm" c="dimmed" lh={1.6}>Committee-ready assurance. If revisions are requested for our editing, we perform them at no cost.</Text>
             </Stack>
           </SimpleGrid>
         </Container>
