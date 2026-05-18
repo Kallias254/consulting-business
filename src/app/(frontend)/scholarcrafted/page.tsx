@@ -171,7 +171,7 @@ export default function ScholarCraftedLanding() {
 
       {/* Hero Section */}
       <Box component="section" pt={{ base: rem(100), md: rem(120) }} pb={{ base: rem(100), md: rem(120) }}>
-        <Container size={1100}>
+        <Container size={1200}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} verticalSpacing="xl">
             <Stack gap={rem(40)} justify="center">
               <Stack gap="xl">
@@ -205,14 +205,14 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl">
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
-                    <Group gap="md">
-                      <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
-                        <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                    <Group gap="md" grow>
+                      <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none', display: 'block' }}>
+                        <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
                           BOOK INTRO CALL
                         </Button>
                       </Link>
-                      <Link href="/scholarcrafted/login" style={{ textDecoration: 'none' }}>
-                        <Button size="lg" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
+                      <Link href="/scholarcrafted/login" style={{ textDecoration: 'none', display: 'block' }}>
+                        <Button size="lg" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }} fullWidth>
                           CLIENT LOGIN
                         </Button>
                       </Link>
@@ -236,8 +236,8 @@ export default function ScholarCraftedLanding() {
                     <Group wrap="nowrap" gap="xs" align="center">
                       <LaurelBranch color={active.accent} left />
                       <Stack gap={0} align="center">
-                        <Text fw={700} style={{ fontSize: rem(28), color: active.primary, lineHeight: 1 }}>98%</Text>
-                        <Text size="xs" c="dimmed" mt={4} style={{ lineHeight: 1.2, textAlign: 'center' }}>Completion<br />Rate</Text>
+                        <Text fw={700} style={{ fontSize: rem(28), color: active.primary, lineHeight: 1 }}>2012</Text>
+                        <Text size="xs" c="dimmed" mt={4} style={{ lineHeight: 1.2, textAlign: 'center' }}>Est. Academic<br />Advisory</Text>
                       </Stack>
                       <LaurelBranch color={active.accent} />
                     </Group>
@@ -273,7 +273,7 @@ export default function ScholarCraftedLanding() {
                   right: rem(-40),
                   width: '90%',
                   height: '95%',
-                  backgroundColor: '#E6D3C0', // Soft tan/beige accent
+                  backgroundColor: active.surface,
                   zIndex: 0,
                 }}
               />

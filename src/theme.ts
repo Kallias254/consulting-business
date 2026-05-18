@@ -49,10 +49,35 @@ export const palettes = {
     accent: '#008080', // Teal
     action: '#005F5F',
   },
+  terracotta: {
+    // Vibrant Earth & Warm Clay (Warm, welcoming, lively academic)
+    background: '#FFFFFF',
+    surface: '#FFFBF9', // Soft warm sand/clay tone
+    primary: '#2E1912', // Deep rich espresso for text contrast
+    accent: '#E65C38', // Beautiful, energetic terracotta orange
+    action: '#BD3B19', // Deep clay orange
+  },
+  solar: {
+    // Golden Scholar & Honey (Very inviting, prestigious, sunny)
+    background: '#FFFFFF',
+    surface: '#FCF9F3', // Soft parchment warm honey tint
+    primary: '#2B261D', // Deep bronze text
+    accent: '#E09C00', // Inviting, rich scholarly honey gold
+    action: '#A37200', // Darker gold
+  },
+  cerulean: {
+    // Vibrant Modern Research (Fresh, crisp, highly engaging)
+    background: '#FFFFFF',
+    surface: '#F1F7F9', // Clean ice blue surface
+    primary: '#0B1C2C', // Deep sea dark navy text
+    accent: '#0084C7', // Lively electric cerulean blue
+    action: '#006294', // Deeper blue
+  },
 }
 
-// TOGGLE THIS to change the entire site vibe:
-const active = palettes.emerald
+// TOGGLE THIS to change the entire site vibe (options: terracotta, solar, cerulean, heritage, midnight, emerald, crimson, royal, slate):
+const active = palettes.midnight
+
 
 export const theme = createTheme({
   primaryColor: 'dark',

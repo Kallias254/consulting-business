@@ -28,30 +28,36 @@ To maximize the effectiveness of our collaboration, we recommend reaching out fo
 
 ## 03. Levels of Service
 
-### A. Primary Formatting & Stylistic Review
-*Rate: $0.044 per word*
+Comprehensive Refinement. We provide a tiered approach to manuscript editing, from light proofreading to deep structural analysis and technical formatting.
 
-This exhaustive service includes the correction of:
-- **Mechanics:** Typos, misspellings, punctuation, and grammar.
-- **Tone & Style:** Academic syntax, phrasing, transitions, and flow.
-- **Formatting:** Margins, page numbering, spacing, font consistency, and headings.
-- **Structure:** Reference list entries, Table of Contents, Tables, Figures, and Appendices alignment.
+### A. Dissertation & Thesis Formatting (Most Popular)
+*The gold standard for final-stage manuscripts.*
+* **Rate:** $0.044 / word rate
+* **Typical Estimate (e.g., 30,000 words):** $1,320.00 baseline estimate
+* *Est. baseline rate. Final quote subject to manuscript review.*
 
-### B. Developmental Editing
-*Rate: Custom Quote*
+**Included Highlights:**
+- **APA, MLA, Chicago Compliance** — Comprehensive compliance review and alignment to your university guidelines.
+- **Mechanical & Grammatical Polish** — Exhaustive correction of typos, misspellings, punctuation, and grammar.
+- **Reference & Citation Audit** — Comprehensive audit of reference list formatting and standard styles.
+- **Table of Contents & Pagination** — Aligning margins, headers, page numbers, list of tables, and pagination hierarchy.
 
-A critical analysis of content and organization. 
-- **For Students:** Developmental feedback is primarily provided through our **Consulting & Coaching** services.
-- **For Professional Scholars:** Standalone developmental review is available for early-stage manuscripts intended for professional publication.
+### B. Targeted Technical Support (Technical)
+*Hourly assistance for specific technical hurdles.*
+* **Rate:** $90 / hour rate
+* **Typical Estimate (e.g., 10 hours):** $900.00 baseline estimate
+* *Est. baseline rate. Final quote subject to technical review.*
 
-### C. Miscellaneous Technical Support
-*Rate: $90 per hour*
+**Targeted assistance with:**
+- **Reference List Reconstruction**
+- **Citation Cross-checking** (In-text vs. Reference list)
+- **ProQuest Compliance**
+- **Complex Table/Figure Assembly**
 
-Targeted assistance for specific technical hurdles, including:
-- Reference list reconstruction.
-- Citation cross-checking (In-text vs. Reference list).
-- ProQuest formatting compliance.
-- Complex Table/Figure assembly.
+### C. Custom Research & Data Support
+*Bespoke research, methodology, and qualitative/quantitative data support.*
+* **Rate:** Custom Quote (Scoped Individually)
+* *Faculty-level review of methodology, instruments, and files to compile a customized proposal.*
 
 ---
 

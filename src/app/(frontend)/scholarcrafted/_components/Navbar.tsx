@@ -44,7 +44,7 @@ export function Navbar() {
       }}
     >
       {/* Topbar */}
-      <Box style={{ backgroundColor: '#000000' }} py={rem(6)}>
+      <Box style={{ backgroundColor: `color-mix(in srgb, ${active.primary}, black 25%)` }} py={rem(6)}>
         <Container size={1200}>
           <Group justify="space-between" align="center">
             <Group gap={rem(6)}>
@@ -443,7 +443,6 @@ export function Navbar() {
         }
         .mega-link:hover {
           background-color: rgba(255,255,255,0.08);
-          transform: translateX(4px);
         }
         .mobile-nav-link {
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
