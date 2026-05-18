@@ -136,8 +136,24 @@ export default function PrivateCoachingPage() {
                 <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
                   Who this is for
                 </Title>
-                <Text size="sm" lh={1.6} c={active.primary} style={{ fontSize: rem(15) }}>
-                  Designed for doctoral candidates stuck at the ABD stage, working professionals balancing high-demand careers, and first-generation researchers navigating vague committee feedback—providing the rigorous structural oversight and momentum needed to finish with confidence.
+                <Text size="sm" lh={1.7} c={active.primary} style={{ fontSize: rem(15) }}>
+                  Designed for{' '}
+                  <span className="text-hover-underline">
+                    doctoral candidates stuck at the ABD stage
+                  </span>
+                  ,{' '}
+                  <span className="text-hover-underline">
+                    working professionals balancing high-demand careers
+                  </span>
+                  , and{' '}
+                  <span className="text-hover-underline">
+                    first-generation researchers navigating vague committee feedback
+                  </span>
+                  —providing the{' '}
+                  <span className="text-hover-underline">
+                    rigorous structural oversight and momentum
+                  </span>{' '}
+                  needed to finish with confidence.
                 </Text>
                 <Divider color="oklch(0% 0 0 / 0.06)" />
                 <Text size="xs" c="dimmed" style={{ fontStyle: 'italic', lineHeight: 1.4 }}>
@@ -471,6 +487,28 @@ export default function PrivateCoachingPage() {
       </Box>
 
       <Footer />
+
+      <style jsx global>{`
+        .text-hover-underline {
+          position: relative;
+          text-decoration: none !important;
+          display: inline;
+          cursor: pointer;
+        }
+        .text-hover-underline::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 1.5px;
+          bottom: -1px;
+          left: 0;
+          background-color: ${active.primary};
+          transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .text-hover-underline:hover::after {
+          width: 100%;
+        }
+      `}</style>
     </Box>
   )
 }

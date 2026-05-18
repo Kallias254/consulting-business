@@ -579,13 +579,8 @@ export default function ScholarCraftedLanding() {
             onMouseLeave={autoplay.current.reset}
             styles={{
               root: { paddingBottom: rem(60) },
-              indicators: { bottom: rem(-20) },
-              indicator: {
-                width: rem(8),
-                height: rem(8),
-                transition: 'transform 250ms ease, background-color 250ms ease',
-                backgroundColor: '#eee',
-              } }}
+              indicators: { bottom: rem(-20) }
+            }}
             classNames={{
               indicator: 'carousel-indicator' }}
           >
@@ -706,6 +701,20 @@ export default function ScholarCraftedLanding() {
       >
         <IconChevronUp size={24} stroke={1.5} />
       </Box>
+
+      <style jsx global>{`
+        .mantine-Carousel-indicator {
+          width: 8px !important;
+          height: 8px !important;
+          border-radius: 50% !important;
+          transition: width 250ms ease, background-color 250ms ease !important;
+        }
+        .mantine-Carousel-indicator[data-active] {
+          width: 8px !important;
+          height: 8px !important;
+          background-color: ${active.primary} !important;
+        }
+      `}</style>
     </Box>
   )
 }
