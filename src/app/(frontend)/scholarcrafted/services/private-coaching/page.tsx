@@ -77,7 +77,7 @@ export default function PrivateCoachingPage() {
 
       {/* High-Impact Hero with Side-Box */}
       <Box component="section" pt={rem(140)} pb={rem(100)} bg={active.background}>
-        <Container size={INNER_WIDTH}>
+        <Container size={1200}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)}>
             <Stack gap="xl" justify="center">
               <Stack gap="xs">
