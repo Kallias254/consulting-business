@@ -58,7 +58,7 @@ function RequestReviewContent() {
     additionalInstructions: '',
     referral: '',
     consent: false,
-    service: 'Professional Editing',
+    service: 'Structural Editing & Proofreading',
   })
 
   const [manuscript, setManuscript] = useState<FileWithPath[]>([])
@@ -87,7 +87,7 @@ function RequestReviewContent() {
     const queryService = searchParams.get('service')
 
     const initialData = {
-      service: 'Professional Editing',
+      service: 'Structural Editing & Proofreading',
       ...draftData,
     }
 
@@ -97,9 +97,9 @@ function RequestReviewContent() {
 
     if (queryService) {
       if (queryService === 'Formatting') {
-        initialData.service = 'Dissertation & Thesis Formatting'
+        initialData.service = 'Structural Editing & Proofreading'
       } else if (queryService === 'TechnicalSupport') {
-        initialData.service = 'Targeted Technical Support'
+        initialData.service = 'Custom Research & Data Support'
       } else {
         initialData.service = queryService
       }
@@ -300,47 +300,75 @@ function RequestReviewContent() {
                         </Group>
 
                         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
-                          <Select
-                            label="Selected Service"
-                            placeholder="Select service"
-                            required
-                            radius={0}
-                            data={['Dissertation & Thesis Formatting', 'Targeted Technical Support', 'Professional Editing', 'Structural Editing & Proofreading']}
-                            value={formData.service}
-                            onChange={(val) => setFormData({ ...formData, service: val || '' })}
-                          />
-                          <NumberInput
-                            label="Word Count of Document"
-                            placeholder="e.g. 45000"
-                            description="Exclude appendices from count."
-                            required
-                            radius={0}
-                            min={0}
-                            value={formData.wordCount}
-                            onChange={(val) => setFormData({ ...formData, wordCount: typeof val === 'number' ? val : 0 })}
-                          />
+                          <Box>
+                            <Text size="sm" fw={500} mb={4}>
+                              Selected Service <Text span c="red" ml={2}>*</Text>
+                            </Text>
+                            <Select
+                              placeholder="Select service"
+                              required
+                              radius={0}
+                              data={['Structural Editing & Proofreading', 'Custom Research & Data Support']}
+                              value={formData.service}
+                              onChange={(val) => setFormData({ ...formData, service: val || '' })}
+                            />
+                            <Text size="xs" c="dimmed" mt={4} style={{ visibility: 'hidden' }}>
+                              Placeholder description for baseline alignment
+                            </Text>
+                          </Box>
+
+                          <Box>
+                            <Text size="sm" fw={500} mb={4}>
+                              Word Count of Document <Text span c="red" ml={2}>*</Text>
+                            </Text>
+                            <NumberInput
+                              placeholder="e.g. 45000"
+                              required
+                              radius={0}
+                              min={0}
+                              value={formData.wordCount}
+                              onChange={(val) => setFormData({ ...formData, wordCount: typeof val === 'number' ? val : 0 })}
+                            />
+                            <Text size="xs" c="dimmed" mt={4}>
+                              Exclude appendices from count.
+                            </Text>
+                          </Box>
                         </SimpleGrid>
 
                         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
-                          <DatePickerInput
-                            label="Desired Return Date"
-                            placeholder="Select a date"
-                            description="Include a 24-48h buffer before your actual deadline."
-                            required
-                            radius={0}
-                            minDate={new Date()}
-                            value={formData.deadline}
-                            onChange={(val) => setFormData({ ...formData, deadline: val as Date | null })}
-                          />
-                          <Select
-                            label="How did you hear about us?"
-                            placeholder="Select an option"
-                            required
-                            radius={0}
-                            data={['Search Engine', 'University Referral', 'Colleague/Friend', 'Social Media', 'Academic Journal', 'Other']}
-                            value={formData.referral}
-                            onChange={(val) => setFormData({ ...formData, referral: val || '' })}
-                          />
+                          <Box>
+                            <Text size="sm" fw={500} mb={4}>
+                              Desired Return Date <Text span c="red" ml={2}>*</Text>
+                            </Text>
+                            <DatePickerInput
+                              placeholder="Select a date"
+                              required
+                              radius={0}
+                              minDate={new Date()}
+                              value={formData.deadline}
+                              onChange={(val) => setFormData({ ...formData, deadline: val as Date | null })}
+                            />
+                            <Text size="xs" c="dimmed" mt={4}>
+                              Include a 24-48h buffer before your actual deadline.
+                            </Text>
+                          </Box>
+
+                          <Box>
+                            <Text size="sm" fw={500} mb={4}>
+                              How did you hear about us? <Text span c="red" ml={2}>*</Text>
+                            </Text>
+                            <Select
+                              placeholder="Select an option"
+                              required
+                              radius={0}
+                              data={['Search Engine', 'University Referral', 'Colleague/Friend', 'Social Media', 'Academic Journal', 'Other']}
+                              value={formData.referral}
+                              onChange={(val) => setFormData({ ...formData, referral: val || '' })}
+                            />
+                            <Text size="xs" c="dimmed" mt={4} style={{ visibility: 'hidden' }}>
+                              Placeholder description for baseline alignment
+                            </Text>
+                          </Box>
                         </SimpleGrid>
 
                         <Textarea
