@@ -30,7 +30,6 @@ import {
   IconMessageChatbot,
   IconRocket,
   IconCertificate,
-  IconChevronDown,
   IconChevronUp,
   IconUserExclamation,
   IconScale,
@@ -415,35 +414,7 @@ export default function ScholarCraftedLanding() {
               ))}
             </SimpleGrid>
             
-            <Center mt={rem(40)}>
-              <Box
-                onClick={() => scrollToSection('getting-started')}
-                style={{ 
-                  padding: rem(16), 
-                  borderRadius: '50%', 
-                  backgroundColor: active.background,
-                  border: `1px solid ${active.primary}20`,
-                  boxShadow: `0 4px 12px ${active.primary}05`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: active.primary,
-                  cursor: 'pointer',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(4px)';
-                  e.currentTarget.style.boxShadow = `0 6px 20px ${active.primary}15`;
-                  e.currentTarget.style.borderColor = active.primary;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = `0 4px 12px ${active.primary}05`;
-                  e.currentTarget.style.borderColor = `${active.primary}20`;
-                }}
-              >
-                <IconChevronDown size={24} stroke={1.5} />
-              </Box>
-            </Center>
+
           </Stack>
         </Container>
       </Box>

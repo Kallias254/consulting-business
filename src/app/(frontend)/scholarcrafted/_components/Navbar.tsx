@@ -124,7 +124,11 @@ export function Navbar() {
                       fw={600}
                       size="xs"
                       className="nav-link"
-                      style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
+                      c="rgba(255,255,255,0.85)"
+                      style={{
+                        color: 'rgba(255,255,255,0.85)',
+                        letterSpacing: '0.1em'
+                      }}
                     >
                       SERVICES 
                       <IconChevronDown 
@@ -132,8 +136,11 @@ export function Navbar() {
                         style={{ 
                           marginLeft: rem(6), 
                           opacity: 0.6,
-                          transform: servicesOpened ? 'rotate(180deg)' : 'none',
-                          transition: 'transform 0.3s ease'
+                          transform: servicesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.3s ease',
+                          display: 'inline-block',
+                          verticalAlign: 'middle',
+                          flexShrink: 0
                         }} 
                       />
                     </Text>
@@ -189,7 +196,11 @@ export function Navbar() {
                     fw={600}
                     size="xs"
                     className="nav-link"
-                    style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center', minHeight: rem(14) }}
+                    c="rgba(255,255,255,0.85)"
+                    style={{
+                      color: 'rgba(255,255,255,0.85)',
+                      letterSpacing: '0.1em'
+                    }}
                   >
                     OUR APPROACH
                   </Text>
@@ -215,7 +226,11 @@ export function Navbar() {
                       fw={600}
                       size="xs"
                       className="nav-link"
-                      style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
+                      c="rgba(255,255,255,0.85)"
+                      style={{
+                        color: 'rgba(255,255,255,0.85)',
+                        letterSpacing: '0.1em'
+                      }}
                     >
                       RESOURCES 
                       <IconChevronDown 
@@ -223,8 +238,11 @@ export function Navbar() {
                         style={{ 
                           marginLeft: rem(6), 
                           opacity: 0.6,
-                          transform: resourcesOpened ? 'rotate(180deg)' : 'none',
-                          transition: 'transform 0.3s ease'
+                          transform: resourcesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.3s ease',
+                          display: 'inline-block',
+                          verticalAlign: 'middle',
+                          flexShrink: 0
                         }} 
                       />
                     </Text>
@@ -266,7 +284,11 @@ export function Navbar() {
                     fw={600}
                     size="xs"
                     className="nav-link"
-                    style={{ letterSpacing: '0.1em' }}
+                    c="rgba(255,255,255,0.85)"
+                    style={{
+                      color: 'rgba(255,255,255,0.85)',
+                      letterSpacing: '0.1em'
+                    }}
                   >
                     ABOUT
                   </Text>
@@ -382,7 +404,7 @@ export function Navbar() {
         .nav-link-wrapper {
           padding: 8px 16px;
           border-radius: 4px;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nav-link-wrapper:hover {
           background-color: var(--nav-hover-bg);
@@ -397,9 +419,12 @@ export function Navbar() {
         }
         .nav-link {
           color: rgba(255,255,255,0.85) !important;
-          transition: all 0.2s ease;
+          transition: color 0.2s ease, opacity 0.2s ease;
           position: relative;
           text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          vertical-align: middle;
         }
         .nav-link-wrapper:hover .nav-link, .nav-link-wrapper.active .nav-link {
           color: #fff !important;
