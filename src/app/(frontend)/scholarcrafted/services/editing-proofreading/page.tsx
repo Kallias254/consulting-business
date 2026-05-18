@@ -84,8 +84,8 @@ export default function EditingProofreadingPage() {
                 fontFamily: 'var(--font-serif)'
               }}
             >
-              Precision structural editing <br />
-              for doctoral scholars.
+              Precision editing <br />
+              for scholars.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(22), maxWidth: 700 }}>
               Move from a working draft to a submission-ready manuscript with the clarity, 
