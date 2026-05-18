@@ -64,20 +64,44 @@ function RequestReviewContent() {
   const [guidelines, setGuidelines] = useState<FileWithPath[]>([])
   const [isSaved, setIsSaved] = useState(false)
 
-  // Load from localStorage on mount
+  // Load from localStorage & searchParams on mount
   React.useEffect(() => {
+    // 1. First, load draft if any exists
     const saved = localStorage.getItem('scholarcrafted_intake_draft')
+    let draftData: any = {}
     if (saved) {
       try {
         const parsed = JSON.parse(saved)
         // Convert deadline string back to Date object
         if (parsed.deadline) parsed.deadline = new Date(parsed.deadline)
-        setFormData((prev) => ({ ...prev, ...parsed }))
+        draftData = parsed
       } catch (e) {
         console.error('Failed to load draft', e)
       }
     }
-  }, [])
+
+    // 2. Read query params (which take precedence on deep link from the interactive page)
+    const queryWordCount = searchParams.get('wordCount')
+    const queryHours = searchParams.get('hours')
+    const queryService = searchParams.get('service')
+
+    const initialData = {
+      ...draftData,
+    }
+
+    if (queryWordCount) {
+      initialData.wordCount = parseInt(queryWordCount, 10) || 0
+    }
+    
+    if (queryHours && queryService === 'TechnicalSupport') {
+      const estimationText = `[Estimated Support Request: ${queryHours} hours ($${parseInt(queryHours, 10) * 90})]`
+      if (!initialData.additionalInstructions?.includes(estimationText)) {
+        initialData.additionalInstructions = `${estimationText}\n` + (initialData.additionalInstructions || '')
+      }
+    }
+
+    setFormData((prev) => ({ ...prev, ...initialData }))
+  }, [searchParams])
 
   // Save to localStorage on change
   React.useEffect(() => {
@@ -151,6 +175,36 @@ function RequestReviewContent() {
             <Container size={READING_WIDTH}>
               <Box bg="white" p={{ base: rem(20), sm: rem(60) }} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
                 <Stack gap={rem(40)}>
+                  {/* Dynamic Baseline Estimate Callout */}
+                  {(searchParams.get('wordCount') || searchParams.get('hours')) && (
+                    <Box 
+                      p="md" 
+                      bg="oklch(99% 0.005 60)" 
+                      style={{ 
+                        borderLeft: `4px solid ${active.accent}`,
+                        borderTop: '1px solid oklch(93% 0.005 60)',
+                        borderRight: '1px solid oklch(93% 0.005 60)',
+                        borderBottom: '1px solid oklch(93% 0.005 60)'
+                      }}
+                    >
+                      <Stack gap="xs">
+                        <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                          Selected Baseline Estimate
+                        </Text>
+                        <Text size="lg" fw={700} c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
+                          {searchParams.get('wordCount') ? (
+                            <>Estimated Rate: ${(parseInt(searchParams.get('wordCount')!, 10) * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <Text span size="xs" c="dimmed" fw={500}>({parseInt(searchParams.get('wordCount')!, 10).toLocaleString()} words @ $0.044/word)</Text></>
+                          ) : (
+                            <>Estimated Rate: ${(parseInt(searchParams.get('hours')!, 10) * 90).toLocaleString()} <Text span size="xs" c="dimmed" fw={500}>({searchParams.get('hours')} hours @ $90/hr)</Text></>
+                          )}
+                        </Text>
+                        <Text size="xs" c="dimmed" lh={1.4}>
+                          This baseline estimate has been locked into your intake request below. Complete your contact details and attach your manuscript draft. A faculty coordinator will review your materials to confirm structural complexity and issue your official, finalized quote within 24 hours.
+                        </Text>
+                      </Stack>
+                    </Box>
+                  )}
+
                   {/* Contact Information */}
                   <Box>
                     <Group justify="space-between" mb="lg">
@@ -184,47 +238,60 @@ function RequestReviewContent() {
                         value={formData.lastName}
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                       />
-                      <TextInput
-                        label="Personal Email"
-                        placeholder="e.g. jane.smith@gmail.com"
-                        description="Avoid university emails to ensure delivery through firewalls."
-                        required
-                        radius={0}
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
-                      <Group grow align="flex-end" gap="xs">
-                        <Select
-                          label="Country"
-                          placeholder="+254"
-                          data={[
-                            { value: '+254', label: '🇰🇪 KE (+254)' },
-                            { value: '+1', label: '🇺🇸 US (+1)' },
-                            { value: '+44', label: '🇬🇧 UK (+44)' },
-                            { value: '+61', label: '🇦🇺 AU (+61)' },
-                            { value: '+27', label: '🇿🇦 ZA (+27)' },
-                            { value: '+91', label: '🇮🇳 IN (+91)' },
-                            { value: '+86', label: '🇨🇳 CN (+86)' },
-                            { value: '+49', label: '🇩🇪 DE (+49)' },
-                            { value: '+33', label: '🇫🇷 FR (+33)' },
-                            { value: '+971', label: '🇦🇪 AE (+971)' },
-                          ]}
-                          searchable
-                          radius={0}
-                          style={{ maxWidth: rem(140) }}
-                          value={formData.countryCode}
-                          onChange={(val) => setFormData({ ...formData, countryCode: val || '' })}
-                        />
+                      <Box>
+                        <Text size="sm" fw={500} mb={4}>
+                          Personal Email <Text span c="red" ml={2}>*</Text>
+                        </Text>
                         <TextInput
-                          label="Phone Number"
-                          placeholder="712 345 678"
-                          description="We will contact you via email if international."
+                          placeholder="e.g. jane.smith@gmail.com"
                           required
                           radius={0}
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
-                      </Group>
+                        <Text size="xs" c="dimmed" mt={4}>
+                          Avoid university emails to ensure delivery through firewalls.
+                        </Text>
+                      </Box>
+
+                      <Box>
+                        <Text size="sm" fw={500} mb={4}>
+                          Phone Number <Text span c="red" ml={2}>*</Text>
+                        </Text>
+                        <Group gap="xs" wrap="nowrap" style={{ alignItems: 'stretch' }}>
+                          <Select
+                            placeholder="+254"
+                            data={[
+                              { value: '+254', label: '🇰🇪 KE (+254)' },
+                              { value: '+1', label: '🇺🇸 US (+1)' },
+                              { value: '+44', label: '🇬🇧 UK (+44)' },
+                              { value: '+61', label: '🇦🇺 AU (+61)' },
+                              { value: '+27', label: '🇿🇦 ZA (+27)' },
+                              { value: '+91', label: '🇮🇳 IN (+91)' },
+                              { value: '+86', label: '🇨🇳 CN (+86)' },
+                              { value: '+49', label: '🇩🇪 DE (+49)' },
+                              { value: '+33', label: '🇫🇷 FR (+33)' },
+                              { value: '+971', label: '🇦🇪 AE (+971)' },
+                            ]}
+                            searchable
+                            radius={0}
+                            style={{ width: rem(150), flexShrink: 0 }}
+                            value={formData.countryCode}
+                            onChange={(val) => setFormData({ ...formData, countryCode: val || '' })}
+                          />
+                          <TextInput
+                            placeholder="712 345 678"
+                            required
+                            radius={0}
+                            style={{ flexGrow: 1 }}
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          />
+                        </Group>
+                        <Text size="xs" c="dimmed" mt={4}>
+                          We will contact you via email if international.
+                        </Text>
+                      </Box>
                     </SimpleGrid>
 
                     <Radio.Group
@@ -270,7 +337,7 @@ function RequestReviewContent() {
                         radius={0}
                         minDate={new Date()}
                         value={formData.deadline}
-                        onChange={(val) => setFormData({ ...formData, deadline: val })}
+                        onChange={(val) => setFormData({ ...formData, deadline: val as Date | null })}
                       />
                     </SimpleGrid>
                     <Textarea

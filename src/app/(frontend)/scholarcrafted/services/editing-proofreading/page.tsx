@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Container,
   Title,
@@ -17,6 +17,7 @@ import {
   Accordion,
   ThemeIcon,
   Badge,
+  Slider,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
@@ -53,6 +54,8 @@ const faqs = [
 export default function EditingProofreadingPage() {
   const theme = useMantineTheme()
   const active = theme.other
+  const [wordCount, setWordCount] = useState(30000)
+  const [hours, setHours] = useState(10)
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
@@ -221,6 +224,7 @@ export default function EditingProofreadingPage() {
             </Box>
 
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(32)}>
+              {/* Card 1: Dissertation & Thesis Formatting */}
               <Box p={{ base: rem(24), md: rem(32) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
                 <Stack gap="xl">
                   <Box>
@@ -228,6 +232,7 @@ export default function EditingProofreadingPage() {
                     <Title order={3} style={{ fontSize: rem(32) }}>Dissertation & Thesis Formatting</Title>
                     <Text size="md" c="dimmed" mt="sm">The gold standard for final-stage manuscripts.</Text>
                   </Box>
+                  
                   <Stack gap="sm">
                     {['APA, MLA, Chicago Compliance', 'Mechanical & Grammatical Polish', 'Reference & Citation Audit', 'Table of Contents & Pagination'].map((item, i) => (
                       <Group key={i} gap="xs">
@@ -236,10 +241,45 @@ export default function EditingProofreadingPage() {
                       </Group>
                     ))}
                   </Stack>
+
                   <Divider color="oklch(0% 0 0 / 0.05)" />
-                  <Group justify="space-between">
-                    <Text fw={700} size="lg">$0.044 / word</Text>
-                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+
+                  <Box>
+                    <Group justify="space-between" mb="xs">
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>ESTIMATE FOR YOUR WORD COUNT</Text>
+                      <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
+                    </Group>
+                    <Slider
+                      value={wordCount}
+                      onChange={setWordCount}
+                      min={5000}
+                      max={120000}
+                      step={5000}
+                      label={(val) => `${val.toLocaleString()} words`}
+                      color={active.primary}
+                      radius={0}
+                      size="sm"
+                      thumbSize={16}
+                      styles={{
+                        track: { backgroundColor: 'oklch(0% 0 0 / 0.05)' },
+                      }}
+                    />
+                  </Box>
+
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+
+                  <Group justify="space-between" align="flex-end">
+                    <Stack gap={2}>
+                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED BASELINE</Text>
+                      <Text fw={700} size="xl" style={{ fontSize: rem(28), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
+                        ${(wordCount * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.044 / word rate</Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(9), fontStyle: 'italic', maxWidth: rem(200), marginTop: rem(2) }}>
+                        *Est. baseline rate. Final quote subject to manuscript review.
+                      </Text>
+                    </Stack>
+                    <Link href={`/scholarcrafted/request-review?service=Formatting&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
                       <Button size="sm" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                         Get Quote
                       </Button>
@@ -248,6 +288,7 @@ export default function EditingProofreadingPage() {
                 </Stack>
               </Box>
 
+              {/* Card 2: Targeted Technical Support */}
               <Box p={{ base: rem(24), md: rem(32) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
                 <Stack gap="xl">
                   <Box>
@@ -255,6 +296,7 @@ export default function EditingProofreadingPage() {
                     <Title order={3} style={{ fontSize: rem(32) }}>Targeted Technical Support</Title>
                     <Text size="md" c="dimmed" mt="sm">Hourly assistance for specific technical hurdles.</Text>
                   </Box>
+
                   <Stack gap="sm">
                     {['Reference List Reconstruction', 'Citation Cross-checking', 'ProQuest Compliance', 'Complex Table/Figure Assembly'].map((item, i) => (
                       <Group key={i} gap="xs">
@@ -263,10 +305,45 @@ export default function EditingProofreadingPage() {
                       </Group>
                     ))}
                   </Stack>
+
                   <Divider color="oklch(0% 0 0 / 0.05)" />
-                  <Group justify="space-between">
-                    <Text fw={700} size="lg">$90 / hour</Text>
-                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+
+                  <Box>
+                    <Group justify="space-between" mb="xs">
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>ESTIMATE FOR YOUR HOURS</Text>
+                      <Text size="sm" fw={700} c={active.primary}>{hours} hours</Text>
+                    </Group>
+                    <Slider
+                      value={hours}
+                      onChange={setHours}
+                      min={2}
+                      max={40}
+                      step={1}
+                      label={(val) => `${val} hours`}
+                      color={active.primary}
+                      radius={0}
+                      size="sm"
+                      thumbSize={16}
+                      styles={{
+                        track: { backgroundColor: 'oklch(0% 0 0 / 0.05)' },
+                      }}
+                    />
+                  </Box>
+
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+
+                  <Group justify="space-between" align="flex-end">
+                    <Stack gap={2}>
+                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED BASELINE</Text>
+                      <Text fw={700} size="xl" style={{ fontSize: rem(28), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
+                        ${(hours * 90).toLocaleString()}
+                      </Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$90 / hour rate</Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(9), fontStyle: 'italic', maxWidth: rem(200), marginTop: rem(2) }}>
+                        *Est. baseline rate. Final quote subject to technical review.
+                      </Text>
+                    </Stack>
+                    <Link href={`/scholarcrafted/request-review?service=TechnicalSupport&hours=${hours}`} style={{ textDecoration: 'none' }}>
                       <Button size="sm" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
                         Enquire
                       </Button>
