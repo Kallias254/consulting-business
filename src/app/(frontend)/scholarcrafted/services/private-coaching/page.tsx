@@ -34,20 +34,36 @@ import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
   {
-    q: 'How is coaching different from your other services?',
-    a: 'Coaching is a live, collaborative video session designed to help you solve complex academic challenges. We do not write or edit your dissertation for you; instead, we provide actionable strategies and guidance so you can move forward confidently.',
+    q: 'Is the introductory consultation really free?',
+    a: 'Yes. We offer a 15-minute introductory call at no cost. This is a diagnostic conversation to understand your specific challenges and determine if our advisory approach is the right fit for your project.',
+  },
+  {
+    q: 'Is this service allowed by my university?',
+    a: 'Absolutely. Our coaching is strictly instructional and developmental. We provide the same type of high-level advisory support that a faculty mentor or committee member provides—just with more frequency and accessibility. We do not do the work for you.',
+  },
+  {
+    q: 'Will my research be treated confidentially?',
+    a: 'Confidentiality is a pillar of our firm. All manuscripts, data, and discussions are handled with strict privacy protocols. We are happy to provide a formal Non-Disclosure Agreement (NDA) prior to beginning our work together.',
+  },
+  {
+    q: 'Can you write my dissertation or thesis for me?',
+    a: 'No. We maintain strict academic and ethical standards. We never ghostwrite, conduct original research, or run primary data analysis on your behalf. Our role is to provide the structural scaffolding and expert guidance so you can produce your own defensible work.',
+  },
+  {
+    q: 'How much does Private Coaching cost?',
+    a: 'We operate on a flexible retainer basis. Our standard packages include the 5-hour Strategic Sprint ($750), the 10-hour Milestone Partnership ($1,400), and the 20-hour Full-Cycle Journey ($2,600).',
+  },
+  {
+    q: 'How is coaching different from your editing services?',
+    a: 'Coaching is a live, collaborative video session designed to help you solve complex academic puzzles in real-time. Editing is an asynchronous service where we polish a manuscript you have already written.',
   },
   {
     q: 'Should I book 30 minutes or 60 minutes?',
-    a: 'We recommend the 60-minute deep dive if you have multiple challenges, need help restructuring a large chapter, or want comprehensive methodology support. The 30-minute session is perfect for targeted, specific questions.',
+    a: 'We generally recommend the 60-minute deep dive for complex methodology support or chapter restructuring. The 30-minute session is ideal for targeted feedback on a specific committee comment.',
   },
   {
-    q: 'Can I send my materials before the call?',
-    a: 'Yes, once you book your session, you will receive a secure link to upload your manuscript, methodology, or notes so your coach can review them prior to your call.',
-  },
-  {
-    q: 'Do you support professional doctorates like EdD or DBA?',
-    a: 'Absolutely. We regularly support candidates across PhD, EdD, DBA, DNP, MSc, and MBA programs, tailoring our approach to the specific requirements of your discipline.',
+    q: 'I still have questions…',
+    a: "We are here to help. If your specific concern isn't addressed here, please book a free introductory call or email our advisory team at support@scholarcrafted.com.",
   },
 ]
 

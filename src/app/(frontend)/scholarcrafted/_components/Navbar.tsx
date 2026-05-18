@@ -15,6 +15,8 @@ export function Navbar() {
   const [scroll] = useWindowScroll()
   const [visible, setVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [servicesOpened, setServicesOpened] = useState(false)
+  const [resourcesOpened, setResourcesOpened] = useState(false)
 
   useEffect(() => {
     const currentScrollY = scroll.y
@@ -104,7 +106,17 @@ export function Navbar() {
           </Link>
 
           <Group gap="xl" visibleFrom="sm" align="center">
-            <HoverCard width={600} position="bottom" radius={0} shadow="xl" withinPortal offset={20} transitionProps={{ transition: 'pop-top-left' }}>
+            <HoverCard 
+              width={600} 
+              position="bottom" 
+              radius={0} 
+              shadow="xl" 
+              withinPortal 
+              offset={20} 
+              transitionProps={{ transition: 'pop-top-left' }}
+              onOpen={() => setServicesOpened(true)}
+              onClose={() => setServicesOpened(false)}
+            >
               <HoverCard.Target>
                 <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/services') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
@@ -114,7 +126,16 @@ export function Navbar() {
                       className="nav-link"
                       style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
                     >
-                      SERVICES <IconChevronDown size={14} style={{ marginLeft: rem(6), opacity: 0.6 }} />
+                      SERVICES 
+                      <IconChevronDown 
+                        size={14} 
+                        style={{ 
+                          marginLeft: rem(6), 
+                          opacity: 0.6,
+                          transform: servicesOpened ? 'rotate(180deg)' : 'none',
+                          transition: 'transform 0.3s ease'
+                        }} 
+                      />
                     </Text>
                   </Center>
                 </Box>
@@ -176,9 +197,19 @@ export function Navbar() {
               </Box>
             </Link>
 
-            <HoverCard width={320} position="bottom" radius={0} shadow="xl" withinPortal offset={20} transitionProps={{ transition: 'pop-top-left' }}>
+            <HoverCard 
+              width={320} 
+              position="bottom" 
+              radius={0} 
+              shadow="xl" 
+              withinPortal 
+              offset={20} 
+              transitionProps={{ transition: 'pop-top-left' }}
+              onOpen={() => setResourcesOpened(true)}
+              onClose={() => setResourcesOpened(false)}
+            >
               <HoverCard.Target>
-                <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/services') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/resources') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
                     <Text
                       fw={600}
@@ -186,7 +217,16 @@ export function Navbar() {
                       className="nav-link"
                       style={{ letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}
                     >
-                      RESOURCES <IconChevronDown size={14} style={{ marginLeft: rem(6), opacity: 0.6 }} />
+                      RESOURCES 
+                      <IconChevronDown 
+                        size={14} 
+                        style={{ 
+                          marginLeft: rem(6), 
+                          opacity: 0.6,
+                          transform: resourcesOpened ? 'rotate(180deg)' : 'none',
+                          transition: 'transform 0.3s ease'
+                        }} 
+                      />
                     </Text>
                   </Center>
                 </Box>
@@ -342,10 +382,18 @@ export function Navbar() {
         .nav-link-wrapper {
           padding: 8px 16px;
           border-radius: 4px;
-          transition: background-color 0.2s ease;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nav-link-wrapper:hover, .nav-link-wrapper.active {
+        .nav-link-wrapper:hover {
           background-color: var(--nav-hover-bg);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .nav-link-wrapper.active {
+          background-color: var(--nav-hover-bg);
+        }
+        .nav-link-wrapper:active {
+          transform: translateY(0);
         }
         .nav-link {
           color: rgba(255,255,255,0.85) !important;
@@ -360,23 +408,25 @@ export function Navbar() {
         .mega-menu-dropdown {
           background-color: var(--nav-hover-bg) !important;
           border: 1px solid rgba(255,255,255,0.05) !important;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
         }
         .mega-link {
           text-decoration: none;
           color: inherit;
           display: block;
-          transition: background-color 0.2s ease;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .mega-link:hover {
-          background-color: rgba(255,255,255,0.05);
+          background-color: rgba(255,255,255,0.08);
+          transform: translateX(4px);
         }
         .mobile-nav-link {
-          transition: color 0.2s ease, padding-left 0.2s ease;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           display: inline-block;
         }
         .mobile-nav-link:active, .mobile-nav-link:hover {
           color: ${active.primary} !important;
-          padding-left: 8px;
+          transform: translateX(8px);
         }
       `}</style>
       </Box>
