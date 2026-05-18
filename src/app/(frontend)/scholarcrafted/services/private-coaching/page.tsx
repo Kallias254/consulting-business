@@ -100,8 +100,7 @@ export default function PrivateCoachingPage() {
                     fontFamily: 'var(--font-serif)'
                   }}
                 >
-                  Strategic help for <br />
-                  stalled researchers.
+                  Live Academic Coaching
                 </Title>
               </Stack>
               <Text size="lg" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>

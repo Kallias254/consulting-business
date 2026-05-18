@@ -40,6 +40,15 @@ export default function RequestReviewPage() {
   )
 }
 
+const getStepTitle = (s: number) => {
+  switch (s) {
+    case 1: return 'Project Specifications'
+    case 2: return 'Document Uploads'
+    case 3: return 'Contact Details'
+    default: return ''
+  }
+}
+
 function RequestReviewContent() {
   const theme = useMantineTheme()
   const active = theme.other
@@ -223,38 +232,26 @@ function RequestReviewContent() {
                   {/* Academic Stepper Header */}
                   <Box pb="md" style={{ borderBottom: '1px solid oklch(0% 0 0 / 0.05)' }}>
                     <Group justify="space-between" align="center">
-                      <Group gap="xs">
-                        <Text 
-                          size="xs" 
-                          fw={700} 
-                          c={step === 1 ? active.accent : 'dark.8'} 
-                          style={{ letterSpacing: '0.1em', transition: 'color 0.3s ease' }}
-                        >
-                          01 SPECS
-                        </Text>
-                        <Text size="xs" c="dimmed">/</Text>
-                        <Text 
-                          size="xs" 
-                          fw={700} 
-                          c={step === 2 ? active.accent : 'dark.8'} 
-                          style={{ letterSpacing: '0.1em', transition: 'color 0.3s ease' }}
-                        >
-                          02 DOCUMENTS
-                        </Text>
-                        <Text size="xs" c="dimmed">/</Text>
-                        <Text 
-                          size="xs" 
-                          fw={700} 
-                          c={step === 3 ? active.accent : 'dark.8'} 
-                          style={{ letterSpacing: '0.1em', transition: 'color 0.3s ease' }}
-                        >
-                          03 SECURE QUOTE
+                      <Text 
+                        fw={700} 
+                        size="sm" 
+                        c={active.accent}
+                        style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
+                      >
+                        {getStepTitle(step)}
+                      </Text>
+                      
+                      <Group gap="md">
+                        {isSaved && (
+                          <Group gap={4}>
+                            <IconCheck size={12} color={active.accent} />
+                            <Text size="xs" c="dimmed" fw={500}>Draft Saved</Text>
+                          </Group>
+                        )}
+                        <Text size="xs" c="dimmed" fw={600}>
+                          STEP {step} OF 3
                         </Text>
                       </Group>
-                      
-                      <Text size="xs" c="dimmed" fw={600}>
-                        STEP {step} OF 3
-                      </Text>
                     </Group>
                     <Box mt="xs" style={{ height: 2, backgroundColor: 'oklch(0% 0 0 / 0.05)', position: 'relative' }}>
                       <Box 
@@ -312,12 +309,6 @@ function RequestReviewContent() {
                       )}
 
                       <Box>
-                        <Group gap="xs" mb="lg">
-                          <ThemeIcon variant="light" color="dark" radius="xl" size="sm">
-                            <IconLock size={14} />
-                          </ThemeIcon>
-                          <Text fw={700} size="sm" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>Project Specifications</Text>
-                        </Group>
 
                         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
                           <Box>
@@ -423,7 +414,6 @@ function RequestReviewContent() {
                   {step === 2 && (
                     <Stack gap="xl">
                       <Box>
-                        <Text fw={700} size="sm" mb="lg" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>Document Uploads</Text>
                         <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
                           <Stack gap="xs">
                             <Text size="sm" fw={500}>Attach Your Manuscript (Required)</Text>
@@ -498,20 +488,6 @@ function RequestReviewContent() {
                     <Stack gap="xl">
                       {/* Contact Information */}
                       <Box>
-                        <Group justify="space-between" mb="lg">
-                          <Group gap="xs">
-                            <ThemeIcon variant="light" color="dark" radius="xl" size="sm">
-                              <IconFileText size={14} />
-                            </ThemeIcon>
-                            <Text fw={700} size="sm" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>Contact Details</Text>
-                          </Group>
-                          {isSaved && (
-                            <Group gap={4}>
-                              <IconCheck size={12} color={active.accent} />
-                              <Text size="xs" c="dimmed" fw={500}>Draft Saved</Text>
-                            </Group>
-                          )}
-                        </Group>
 
                         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
                           <TextInput
@@ -714,7 +690,7 @@ function RequestReviewContent() {
         }}
       >
         <ScrollArea h={300} type="always" p="md" offsetScrollbars>
-          <Text size="xs" lh={1.6} c="dimmed">
+          <Text size="xs" lh={1.6} c="dimmed" component="div">
             <Text fw={700} mb="xs" c="dark">CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT</Text>
             This Agreement is made between Scholarcrafted (referred to as the &quot;Company&quot;) and the client (referred to as the &quot;Client&quot;). The purpose of this Agreement is to ensure the confidentiality of information shared...
             <br /><br />
