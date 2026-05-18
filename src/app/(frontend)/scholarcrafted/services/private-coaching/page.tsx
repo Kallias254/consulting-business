@@ -124,33 +124,15 @@ export default function PrivateCoachingPage() {
 
             {/* Who this is for (Side-Box Style) */}
             <Box bg={active.surface} p={rem(40)} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
-              <Stack gap="lg">
+              <Stack gap="md">
                 <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
                   Who this is for
                 </Title>
-                <Stack gap="md">
-                  {[
-                    'Scholars stuck at the ABD stage for 6+ months.',
-                    'Researchers navigating contradictory or vague feedback.',
-                    'Non-traditional or first-gen students needing structural oversight.',
-                    'Professionals balancing intensive careers with doctoral work.',
-                  ].map((item, i) => (
-                    <Group key={i} align="flex-start" gap="sm" wrap="nowrap">
-                      <Box
-                        w={6}
-                        h={6}
-                        mt={8}
-                        bg={active.accent}
-                        style={{ borderRadius: '50%', flexShrink: 0 }}
-                      />
-                      <Text size="sm" lh={1.5} fw={500} c={active.primary}>
-                        {item}
-                      </Text>
-                    </Group>
-                  ))}
-                </Stack>
-                <Divider color="oklch(0% 0 0 / 0.1)" mt="sm" />
-                <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>
+                <Text size="sm" lh={1.6} c={active.primary} style={{ fontSize: rem(15) }}>
+                  Designed for doctoral candidates stuck at the ABD stage, working professionals balancing high-demand careers, and first-generation researchers navigating vague committee feedback—providing the rigorous structural oversight and momentum needed to finish with confidence.
+                </Text>
+                <Divider color="oklch(0% 0 0 / 0.06)" />
+                <Text size="xs" c="dimmed" style={{ fontStyle: 'italic', lineHeight: 1.4 }}>
                   Coaching is a partnership. We provide the structural scaffolding while you maintain the authorial voice.
                 </Text>
               </Stack>
