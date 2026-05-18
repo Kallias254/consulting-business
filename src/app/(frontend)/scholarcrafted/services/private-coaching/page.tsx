@@ -123,7 +123,15 @@ export default function PrivateCoachingPage() {
             </Stack>
 
             {/* Who this is for (Side-Box Style) */}
-            <Box bg={active.surface} p={rem(40)} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
+            <Box 
+              bg={active.surface} 
+              p={rem(40)} 
+              style={{ 
+                border: `1px solid oklch(0% 0 0 / 0.08)`, 
+                boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)',
+                alignSelf: 'flex-start'
+              }}
+            >
               <Stack gap="md">
                 <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
                   Who this is for
