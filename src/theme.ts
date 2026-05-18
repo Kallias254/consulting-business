@@ -157,6 +157,16 @@ export const theme = createTheme({
           borderColor: 'oklch(0% 0 0 / 0.06)',
           transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
         },
+        control: {
+          color: active.primary,
+        },
+        label: {
+          color: active.primary,
+          fontWeight: 500,
+        },
+        chevron: {
+          color: active.primary,
+        },
       },
     },
     Badge: {

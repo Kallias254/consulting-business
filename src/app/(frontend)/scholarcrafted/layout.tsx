@@ -3,7 +3,7 @@ import { ExitIntentModal } from './_components/ExitIntentModal'
 
 export default function ScholarCraftedLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="scholarcrafted-root">
+    <div className="scholarcrafted-root" data-mantine-color-scheme="light">
       <style
         dangerouslySetInnerHTML={{
           __html: `
