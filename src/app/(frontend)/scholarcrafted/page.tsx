@@ -702,14 +702,16 @@ export default function ScholarCraftedLanding() {
         <IconChevronUp size={24} stroke={1.5} />
       </Box>
 
-      <style jsx global>{`
-        .mantine-Carousel-indicator {
+      <style>{`
+        /* Force perfectly circular indicators in all states */
+        button.carousel-indicator {
           width: 8px !important;
           height: 8px !important;
           border-radius: 50% !important;
+          background-color: oklch(0% 0 0 / 0.15) !important;
           transition: width 250ms ease, background-color 250ms ease !important;
         }
-        .mantine-Carousel-indicator[data-active] {
+        button.carousel-indicator[data-active="true"] {
           width: 8px !important;
           height: 8px !important;
           background-color: ${active.primary} !important;

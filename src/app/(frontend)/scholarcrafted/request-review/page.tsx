@@ -21,13 +21,14 @@ import {
   ScrollArea,
   Divider,
   ThemeIcon,
+  Modal,
 } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates'
 import { Dropzone, FileWithPath } from '@mantine/dropzone'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import { useSearchParams } from 'next/navigation'
-import { IconCheck, IconUpload, IconX, IconFileText, IconPhone, IconMail, IconLock } from '@tabler/icons-react'
+import { IconCheck, IconUpload, IconX, IconFileText, IconPhone, IconMail, IconLock, IconShieldLock } from '@tabler/icons-react'
 import Link from 'next/link'
 import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
@@ -58,12 +59,13 @@ function RequestReviewContent() {
     additionalInstructions: '',
     referral: '',
     consent: false,
-    service: 'Structural Editing & Proofreading',
+    service: 'Dissertation & Thesis Formatting',
   })
 
   const [manuscript, setManuscript] = useState<FileWithPath[]>([])
   const [guidelines, setGuidelines] = useState<FileWithPath[]>([])
   const [isSaved, setIsSaved] = useState(false)
+  const [ndaOpened, setNdaOpened] = useState(false)
 
   // Load from localStorage & searchParams on mount
   React.useEffect(() => {
@@ -87,7 +89,7 @@ function RequestReviewContent() {
     const queryService = searchParams.get('service')
 
     const initialData = {
-      service: 'Structural Editing & Proofreading',
+      service: 'Dissertation & Thesis Formatting',
       ...draftData,
     }
 
@@ -96,12 +98,17 @@ function RequestReviewContent() {
     }
 
     if (queryService) {
-      if (queryService === 'Formatting') {
-        initialData.service = 'Structural Editing & Proofreading'
+      if (queryService === 'Formatting' || queryService === 'Structural Editing & Proofreading' || queryService === 'Structural%20Editing%20%26%20Proofreading') {
+        initialData.service = 'Dissertation & Thesis Formatting'
       } else if (queryService === 'TechnicalSupport') {
+        initialData.service = 'Targeted Technical Support'
+      } else if (queryService === 'ResearchSupport' || queryService === 'DataSupport' || queryService === 'Custom Research & Data Support') {
         initialData.service = 'Custom Research & Data Support'
       } else {
-        initialData.service = queryService
+        const decoded = decodeURIComponent(queryService)
+        if (['Dissertation & Thesis Formatting', 'Targeted Technical Support', 'Custom Research & Data Support'].includes(decoded)) {
+          initialData.service = decoded
+        }
       }
     }
     
@@ -144,7 +151,10 @@ function RequestReviewContent() {
     setSubmitted(true)
   }
 
-  const isStep1Valid = formData.wordCount > 0 && formData.deadline !== null && formData.service.trim() !== ''
+  const isStep1Valid = 
+    (formData.service === 'Dissertation & Thesis Formatting' ? formData.wordCount > 0 : true) && 
+    formData.deadline !== null && 
+    formData.service.trim() !== ''
   const isStep2Valid = manuscript.length > 0
   const isStep3Valid = 
     formData.firstName.trim() !== '' && 
@@ -262,7 +272,7 @@ function RequestReviewContent() {
                   {step === 1 && (
                     <Stack gap="xl">
                       {/* Dynamic Baseline Estimate Callout */}
-                      {(searchParams.get('wordCount') || searchParams.get('hours')) && (
+                      {formData.service && (
                         <Box 
                           p="md" 
                           bg="oklch(99% 0.005 60)" 
@@ -278,14 +288,24 @@ function RequestReviewContent() {
                               Selected Baseline Estimate
                             </Text>
                             <Text size="lg" fw={700} c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
-                              {searchParams.get('wordCount') ? (
-                                <>Estimated Rate: ${(parseInt(searchParams.get('wordCount')!, 10) * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <Text span size="xs" c="dimmed" fw={500}>({parseInt(searchParams.get('wordCount')!, 10).toLocaleString()} words @ $0.044/word)</Text></>
+                              {formData.service === 'Dissertation & Thesis Formatting' ? (
+                                formData.wordCount > 0 ? (
+                                  <>Estimated Rate: ${(formData.wordCount * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <Text span size="xs" c="dimmed" fw={500}>({formData.wordCount.toLocaleString()} words @ $0.044/word)</Text></>
+                                ) : (
+                                  <>Rate: $0.044 / word <Text span size="xs" c="dimmed" fw={500}>(Enter word count below for baseline estimate)</Text></>
+                                )
+                              ) : formData.service === 'Targeted Technical Support' ? (
+                                <>Estimated Rate: ${(parseInt(searchParams.get('hours') || '10', 10) * 90).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <Text span size="xs" c="dimmed" fw={500}>({parseInt(searchParams.get('hours') || '10', 10)} hours @ $90/hr)</Text></>
                               ) : (
-                                <>Estimated Rate: ${(parseInt(searchParams.get('hours')!, 10) * 90).toLocaleString()} <Text span size="xs" c="dimmed" fw={500}>({searchParams.get('hours')} hours @ $90/hr)</Text></>
+                                <>Custom Scoping <Text span size="xs" c="dimmed" fw={500}>(Scoped individually based on methodology/dataset)</Text></>
                               )}
                             </Text>
                             <Text size="xs" c="dimmed" lh={1.4}>
-                              This baseline estimate has been locked into your request. Complete your details to secure this rate. A faculty coordinator will review your materials to confirm structural complexity and issue your official quote.
+                              {formData.service === 'Dissertation & Thesis Formatting'
+                                ? 'This baseline estimate is calculated in real-time. Complete your details and upload your manuscript to secure this rate.'
+                                : formData.service === 'Targeted Technical Support'
+                                ? 'This is a baseline technical hourly estimate. A coordinator will review your references, tables, or compliance requirements to finalize the scope.'
+                                : 'Custom Research and Data Support requires faculty review of your methodology and files to compile a customized technical scoping document.'}
                             </Text>
                           </Stack>
                         </Box>
@@ -308,7 +328,7 @@ function RequestReviewContent() {
                               placeholder="Select service"
                               required
                               radius={0}
-                              data={['Structural Editing & Proofreading', 'Custom Research & Data Support']}
+                              data={['Dissertation & Thesis Formatting', 'Targeted Technical Support', 'Custom Research & Data Support']}
                               value={formData.service}
                               onChange={(val) => setFormData({ ...formData, service: val || '' })}
                             />
@@ -319,18 +339,18 @@ function RequestReviewContent() {
 
                           <Box>
                             <Text size="sm" fw={500} mb={4}>
-                              Word Count of Document <Text span c="red" ml={2}>*</Text>
+                              Word Count of Document {formData.service === 'Dissertation & Thesis Formatting' && <Text span c="red" ml={2}>*</Text>}
                             </Text>
                             <NumberInput
-                              placeholder="e.g. 45000"
-                              required
+                              placeholder={formData.service === 'Dissertation & Thesis Formatting' ? 'e.g. 45000' : 'Optional'}
+                              required={formData.service === 'Dissertation & Thesis Formatting'}
                               radius={0}
                               min={0}
                               value={formData.wordCount}
                               onChange={(val) => setFormData({ ...formData, wordCount: typeof val === 'number' ? val : 0 })}
                             />
                             <Text size="xs" c="dimmed" mt={4}>
-                              Exclude appendices from count.
+                              {formData.service === 'Dissertation & Thesis Formatting' ? 'Exclude appendices from count.' : 'Optional for technical or hourly support.'}
                             </Text>
                           </Box>
                         </SimpleGrid>
@@ -583,28 +603,55 @@ function RequestReviewContent() {
                         </Radio.Group>
                       </Box>
 
-                      <Divider color="oklch(0% 0 0 / 0.05)" />
-
                       {/* NDA Section */}
                       <Box>
-                        <Text fw={700} size="sm" mb="md" style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>Confidentiality Agreement</Text>
-                        <ScrollArea h={180} type="always" p="md" offsetScrollbars style={{ backgroundColor: active.surface, border: '1px solid #eee' }}>
-                          <Text size="xs" lh={1.6} c="dimmed">
-                            <Text fw={700} mb="xs" c="dark">CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT</Text>
-                            This Agreement is made between The Dissertation Coach (referred to as the "Company") and the client (referred to as the "Client"). The purpose of this Agreement is to ensure the confidentiality of information shared...
-                            <br /><br />
-                            <Text fw={700} c="dark">CONFIDENTIAL INFORMATION.</Text> Includes, but is not limited to, documents, records, data (verbal, electronic, or written), models, designs, technical procedures, analyses, compilations, studies, software, prototypes, formulas, methodologies, formulations, know-how, experimental results, specifications, and other business information...
-                            <br /><br />
-                            <Text fw={700} c="dark">SURVIVAL OF CONFIDENTIALITY AND NON-USE.</Text> The Company will ensure that its affiliates, employees, officers, directors, owners, agents, consultants, and representatives given access to the Confidential Information comply with this Agreement's terms. The Company and the Client will maintain confidentiality indefinitely unless otherwise agreed in writing...
-                            <br /><br />
-                            <Text fw={700} c="dark">GOVERNING LAW.</Text> This Agreement is governed by the laws of North Carolina, with venue and jurisdiction in the state and federal courts of the Company's jurisdiction.
-                            <br /><br />
-                            <Text fw={700} c="dark">ELECTRONIC SIGNATURE.</Text> The Client's electronic signature (consent below) is valid and binding for this Agreement.
-                          </Text>
-                        </ScrollArea>
+                        {/* Premium trust badge banner */}
+                        <Box 
+                          p="md" 
+                          style={{ 
+                            border: `1px solid oklch(0% 0 0 / 0.05)`, 
+                            backgroundColor: active.surface,
+                            display: 'flex',
+                            gap: rem(16),
+                            alignItems: 'center'
+                          }}
+                        >
+                          <ThemeIcon size={40} radius="xl" variant="light" color={active.accent}>
+                            <IconShieldLock size={22} stroke={1.5} />
+                          </ThemeIcon>
+                          <Stack gap={2} style={{ flexGrow: 1 }}>
+                            <Text size="sm" fw={700} c={active.primary}>
+                              Legally Protected Manuscript & Data
+                            </Text>
+                            <Text size="xs" c="dimmed" lh={1.4}>
+                              All uploaded manuscripts, datasets, and personal details are strictly confidential and protected by our automatic Academic Non-Disclosure Agreement.
+                            </Text>
+                          </Stack>
+                        </Box>
+
                         <Checkbox
                           mt="md"
-                          label="I consent to this agreement and understand that my document will only be used for the purposes of determining an estimate."
+                          label={
+                            <Text size="sm">
+                              I consent to the{' '}
+                              <Text 
+                                span 
+                                fw={700} 
+                                style={{ 
+                                  color: active.accent, 
+                                  cursor: 'pointer',
+                                  textDecoration: 'underline'
+                                }} 
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setNdaOpened(true)
+                                }}
+                              >
+                                Confidentiality and Non-Disclosure Terms
+                              </Text>
+                              .
+                            </Text>
+                          }
                           required
                           color="dark"
                           checked={formData.consent}
@@ -651,6 +698,36 @@ function RequestReviewContent() {
           </Box>
         </>
       )}
+
+      <Modal
+        opened={ndaOpened}
+        onClose={() => setNdaOpened(false)}
+        title="Confidentiality & Non-Disclosure Agreement"
+        centered
+        radius={0}
+        size="lg"
+        overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
+        styles={{
+          header: { backgroundColor: active.background, borderBottom: '1px solid oklch(0% 0 0 / 0.05)' },
+          title: { fontWeight: 700, color: active.primary, fontFamily: 'var(--font-serif)' },
+          content: { backgroundColor: active.background },
+        }}
+      >
+        <ScrollArea h={300} type="always" p="md" offsetScrollbars>
+          <Text size="xs" lh={1.6} c="dimmed">
+            <Text fw={700} mb="xs" c="dark">CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT</Text>
+            This Agreement is made between Scholarcrafted (referred to as the &quot;Company&quot;) and the client (referred to as the &quot;Client&quot;). The purpose of this Agreement is to ensure the confidentiality of information shared...
+            <br /><br />
+            <Text fw={700} c="dark">CONFIDENTIAL INFORMATION.</Text> Includes, but is not limited to, documents, records, data (verbal, electronic, or written), models, designs, technical procedures, analyses, compilations, studies, software, prototypes, formulas, methodologies, formulations, know-how, experimental results, specifications, and other business information...
+            <br /><br />
+            <Text fw={700} c="dark">SURVIVAL OF CONFIDENTIALITY AND NON-USE.</Text> The Company will ensure that its affiliates, employees, officers, directors, owners, agents, consultants, and representatives given access to the Confidential Information comply with this Agreement&apos;s terms. The Company and the Client will maintain confidentiality indefinitely unless otherwise agreed in writing...
+            <br /><br />
+            <Text fw={700} c="dark">GOVERNING LAW.</Text> This Agreement is governed by the laws of North Carolina, with venue and jurisdiction in the state and federal courts of the Company&apos;s jurisdiction.
+            <br /><br />
+            <Text fw={700} c="dark">ELECTRONIC SIGNATURE.</Text> The Client&apos;s electronic signature (consent below) is valid and binding for this Agreement.
+          </Text>
+        </ScrollArea>
+      </Modal>
 
       <Footer />
     </Box>
