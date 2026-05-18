@@ -265,8 +265,9 @@ export default function ScholarCraftedLanding() {
               </Stack>
             </Stack>
             <Box style={{ position: 'relative', marginTop: rem(40), marginRight: rem(40) }}>
-              {/* Decorative Offset Block */}
+              {/* Decorative Offset Block - Hidden on mobile for cleaner look */}
               <Box
+                visibleFrom="md"
                 style={{
                   position: 'absolute',
                   top: rem(-40),
@@ -281,7 +282,7 @@ export default function ScholarCraftedLanding() {
                 src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=800"
                 alt="Academic research and strategy"
                 radius={0}
-                h={650}
+                h={{ base: 300, md: 650 }}
                 style={{
                   position: 'relative',
                   zIndex: 1,

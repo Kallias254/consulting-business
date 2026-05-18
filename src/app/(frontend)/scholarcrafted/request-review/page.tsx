@@ -51,6 +51,7 @@ function RequestReviewContent() {
     lastName: '',
     email: '',
     phone: '',
+    countryCode: '+254',
     contactPreference: 'email',
     wordCount: 0,
     deadline: null as Date | null,
@@ -157,15 +158,38 @@ function RequestReviewContent() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
-                      <TextInput
-                        label="Phone Number"
-                        placeholder="+1 (555) 000-0000"
-                        description="Include country code for international numbers."
-                        required
-                        radius={0}
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      />
+                      <Group grow align="flex-end" gap="xs">
+                        <Select
+                          label="Country"
+                          placeholder="+254"
+                          data={[
+                            { value: '+254', label: '🇰🇪 KE (+254)' },
+                            { value: '+1', label: '🇺🇸 US (+1)' },
+                            { value: '+44', label: '🇬🇧 UK (+44)' },
+                            { value: '+61', label: '🇦🇺 AU (+61)' },
+                            { value: '+27', label: '🇿🇦 ZA (+27)' },
+                            { value: '+91', label: '🇮🇳 IN (+91)' },
+                            { value: '+86', label: '🇨🇳 CN (+86)' },
+                            { value: '+49', label: '🇩🇪 DE (+49)' },
+                            { value: '+33', label: '🇫🇷 FR (+33)' },
+                            { value: '+971', label: '🇦🇪 AE (+971)' },
+                          ]}
+                          searchable
+                          radius={0}
+                          style={{ maxWidth: rem(140) }}
+                          value={formData.countryCode}
+                          onChange={(val) => setFormData({ ...formData, countryCode: val || '' })}
+                        />
+                        <TextInput
+                          label="Phone Number"
+                          placeholder="712 345 678"
+                          description="We will contact you via email if international."
+                          required
+                          radius={0}
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        />
+                      </Group>
                     </SimpleGrid>
 
                     <Radio.Group
@@ -319,7 +343,7 @@ function RequestReviewContent() {
                     disabled={!formData.consent || manuscript.length === 0 || !formData.firstName || !formData.email}
                     style={{ letterSpacing: '0.1em' }}
                   >
-                    GENERATE MY ESTIMATE
+                    SUBMIT
                   </Button>
 
                   <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
