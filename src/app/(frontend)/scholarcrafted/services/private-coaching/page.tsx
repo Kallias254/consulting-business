@@ -109,9 +109,9 @@ export default function PrivateCoachingPage() {
               </Text>
               
               <Group gap="md">
-                <Link href="/scholarcrafted/consultation?interest=coaching&metBefore=no" style={{ textDecoration: 'none' }}>
+                <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                   <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                    BOOK INTRODUCTORY CALL
+                    INQUIRE ABOUT AVAILABILITY
                   </Button>
                 </Link>
                 <Box>
@@ -428,9 +428,9 @@ export default function PrivateCoachingPage() {
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Book Intro Call
+                      Inquire About Availability
                     </Button>
                   </Link>
                 </Box>
@@ -471,9 +471,9 @@ export default function PrivateCoachingPage() {
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                     <Button variant="filled" bg={active.primary} radius={0} fullWidth>
-                      Book Intro Call
+                      Inquire About Availability
                     </Button>
                   </Link>
                 </Box>
@@ -507,9 +507,9 @@ export default function PrivateCoachingPage() {
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Book Intro Call
+                      Inquire About Availability
                     </Button>
                   </Link>
                 </Box>

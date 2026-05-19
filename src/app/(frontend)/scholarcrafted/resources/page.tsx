@@ -262,12 +262,12 @@ export default function ResourcesPage() {
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>
               Reading articles will only get you so far. If you need a structural intervention or strategic 
-              direction for your specific research, book a quick call with our faculty.
+              direction for your specific research, request a professional project quote from our faculty.
             </Text>
             <Group gap="md">
-              <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  FREE INTRODUCTORY CALL
+                  GET A QUOTE
                 </Button>
               </Link>
             </Group>

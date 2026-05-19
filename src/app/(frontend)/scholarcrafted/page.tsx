@@ -226,9 +226,9 @@ export default function ScholarCraftedLanding() {
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-                      <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none', display: 'block' }}>
+                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', display: 'block' }}>
                         <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
-                          BOOK INTRO CALL
+                          GET A QUOTE
                         </Button>
                       </Link>
                       <Link href="/scholarcrafted/login" style={{ textDecoration: 'none', display: 'block' }}>
@@ -238,7 +238,7 @@ export default function ScholarCraftedLanding() {
                       </Link>
                     </SimpleGrid>
                     <Text size="sm" c="dimmed" lh={1.4}>
-                      A free, 15-minute call to map your path forward.{' '}
+                      Secure, confidential project review within 24 hours.{' '}
                       <Link href="/scholarcrafted/how-it-works" style={{ color: 'inherit', textDecoration: 'underline' }}>
                         Find out more here.
                       </Link>
@@ -488,17 +488,17 @@ export default function ScholarCraftedLanding() {
                   <IconCheck size={32} stroke={1.5} />
                 </ThemeIcon>
                 <Text fw={700} size="lg">
-                  03. Your Tailored Service Roadmap (After Call)
+                  03. Your Tailored Service Roadmap (Proposal)
                 </Text>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Following our discussion, we follow up with a customized proposal recommending the exact service—whether live coaching, structural editing, or custom data support—designed to get you to submission.
+                  Following our review of your files and requirements, we issue a customized proposal recommending the exact service—whether structural editing, formatting, or custom data support—designed to get you to submission.
                 </Text>
               </Stack>
             </SimpleGrid>
 
-            <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
               <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                FREE INTRODUCTORY CALL
+                GET A QUOTE
               </Button>
             </Link>
           </Stack>

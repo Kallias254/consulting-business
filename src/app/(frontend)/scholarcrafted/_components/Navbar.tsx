@@ -296,7 +296,7 @@ export function Navbar() {
               </Box>
             </Link>
 
-            <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
               <Button
                 variant="filled"
                 bg="white"
@@ -305,7 +305,7 @@ export function Navbar() {
                 radius={0}
                 className="impeccable-button"
               >
-                BOOK INTRO CALL
+                GET A QUOTE
               </Button>
             </Link>
           </Group>
@@ -437,9 +437,9 @@ export function Navbar() {
 
           {/* Call to Action & Social Drawer Footer */}
           <Stack gap="md" mt="auto" pt="xl">
-            <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }} onClick={close}>
               <Button variant="filled" bg={active.primary} fullWidth size="lg" radius={0} className="impeccable-button">
-                BOOK INTRODUCTORY CALL
+                GET A QUOTE
               </Button>
             </Link>
             

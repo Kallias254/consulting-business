@@ -325,13 +325,12 @@ export default function HowItWorksPage() {
               What happens next?
             </Title>
             <Text size="lg" c="dimmed" lh={1.6}>
-              After you book your consultation, you will receive a brief questionnaire about your project. During
-              the call, we will discuss your work in detail and recommend the exact service path designed to get you to submission.
+              After you submit your project files and requirements for review, our faculty will perform a professional assessment and issue a customized service proposal and quote designed to get you to submission within 24 hours.
             </Text>
             <Group gap="md">
-              <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                  FREE INTRODUCTORY CALL
+                  GET A QUOTE
                 </Button>
               </Link>
               <Link href="/scholarcrafted/about" style={{ textDecoration: 'none' }}>

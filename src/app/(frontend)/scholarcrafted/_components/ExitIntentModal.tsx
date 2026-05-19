@@ -65,12 +65,11 @@ export function ExitIntentModal() {
             Not sure which service is right for you?
           </Title>
           <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 420 }}>
-            Grab a free consultation and we'll point you in the right direction.
-            No cost. No obligation.
+            Get a professional assessment of your research and secure your custom quote within 24 hours. Confidential and secure.
           </Text>
           <Stack gap="sm" mt="md" style={{ width: '100%', maxWidth: 360 }}>
             <Link
-              href="/scholarcrafted/consultation?interest=other&metBefore=no"
+              href="/scholarcrafted/request-review"
               style={{ textDecoration: 'none' }}
               onClick={close}
             >
@@ -82,7 +81,7 @@ export function ExitIntentModal() {
                 bg={active.primary}
                 className="impeccable-button"
               >
-                BOOK INTRO CALL
+                GET A QUOTE
               </Button>
             </Link>
             <Text

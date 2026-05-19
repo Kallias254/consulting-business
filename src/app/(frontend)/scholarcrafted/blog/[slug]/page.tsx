@@ -243,14 +243,14 @@ export default function BlogArticlePage() {
                 Still Stuck?
               </Text>
               <Title order={2} style={{ fontSize: rem(36), color: active.primary }}>
-                Let our faculty diagnose the problem in 15 minutes.
+                Get a professional, secure assessment of your research.
               </Title>
               <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 500 }}>
-                Reading about the problem is the first step. Getting expert eyes on your specific case is the one that actually moves the needle.
+                Reading about the problem is the first step. Getting a custom project quote and methodological review from our faculty moves the needle.
               </Text>
-              <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  FREE INTRODUCTORY CALL
+                  GET A QUOTE
                 </Button>
               </Link>
             </Stack>

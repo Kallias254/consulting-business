@@ -139,7 +139,7 @@ export function Footer({ bg }: { bg?: string }) {
                 </Text>
               </Link>
               <Link
-                href="/scholarcrafted/consultation"
+                href="/scholarcrafted/request-review"
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text

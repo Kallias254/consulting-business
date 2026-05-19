@@ -193,11 +193,11 @@ export default function ArticlesArchivePage() {
               Still stuck after reading?
             </Title>
             <Text size="lg" c="dimmed" lh={1.7}>
-              Articles give you the framework. A coaching call gives you the answer for your specific situation.
+              Articles give you the framework. A professional project assessment gives you the precise answers for your specific research.
             </Text>
-            <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
               <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                FREE INTRODUCTORY CALL
+                GET A QUOTE
               </Button>
             </Link>
           </Stack>

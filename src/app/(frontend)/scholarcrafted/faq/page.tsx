@@ -204,12 +204,12 @@ export default function FAQPage() {
                 Ready to un-stall your research?
               </Title>
               <Text size="md" c="dimmed" style={{ maxWidth: 500 }}>
-                Book your free 15-minute consultation with Micah, PhD, and map your path directly to graduation.
+                Request a professional, secure assessment of your research and receive your custom project quote within 24 hours.
               </Text>
               <Group gap="md" style={{ width: '100%', maxWidth: rem(450) }} justify="center">
-                <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none', width: '100%' }}>
+                <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', width: '100%' }}>
                   <Button size="lg" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
-                    BOOK FREE INTRO CALL
+                    GET A QUOTE
                   </Button>
                 </Link>
               </Group>

@@ -79,9 +79,9 @@ export default function ResearchSupportPage() {
               and advanced statistical analysis for your methodology findings.
             </Text>
             
-            <Link href="/scholarcrafted/consultation?interest=data_support&metBefore=no" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/request-review?service=Custom%20Research%20%26%20Data%20Support" style={{ textDecoration: 'none' }}>
               <Button size="lg" variant="filled" bg={active.primary} radius={0} mt={rem(40)}>
-                FREE INTRODUCTORY CALL
+                GET A QUOTE
               </Button>
             </Link>
           </Box>
@@ -309,11 +309,11 @@ export default function ResearchSupportPage() {
 
             <Center mt={rem(40)}>
               <Link
-                href="/scholarcrafted/consultation?interest=data_support&metBefore=no"
+                href="/scholarcrafted/request-review?service=Custom%20Research%20%26%20Data%20Support"
                 style={{ textDecoration: 'none' }}
               >
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  FREE INTRODUCTORY CALL
+                  GET A QUOTE
                 </Button>
               </Link>
             </Center>
