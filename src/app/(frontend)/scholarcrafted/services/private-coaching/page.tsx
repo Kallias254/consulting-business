@@ -248,66 +248,125 @@ export default function PrivateCoachingPage() {
               </Text>
             </Box>
 
-            <Stack gap={rem(100)} mt="xl">
-              {[
-                {
-                  step: '01',
-                  title: 'The Diagnostic Phase',
-                  subtitle: 'Untangling the Roadmap',
-                  desc: 'We start by auditing your current progress, your committee feedback, and your research design. We identify exactly where the stall is happening and why.',
-                  icon: IconCompass,
-                  tasks: ['Audit of current drafts', 'De-coding committee feedback', 'Identifying structural gaps']
-                },
-                {
-                  step: '02',
-                  title: 'Strategic Milestones',
-                  subtitle: 'Building the Schedule',
-                  desc: 'We move from "hoping to finish" to a concrete calendar. We break your dissertation into manageable pieces with hyper-specific deliverables for each week.',
-                  icon: IconTarget,
-                  tasks: ['Custom writing schedules', 'Conceptual alignment checks', 'Chapter-level roadmaps']
-                },
-                {
-                  step: '03',
-                  title: 'Iterative Refinement',
-                  subtitle: 'Execution & Feedback',
-                  desc: 'This is where the work happens. We meet via video to solve methodological puzzles, review new drafts, and sharpen your authentic academic voice.',
-                  icon: IconMessageCircle,
-                  tasks: ['1-on-1 video deep dives', 'Structural draft reviews', 'Accountability check-ins']
-                },
-                {
-                  step: '04',
-                  title: 'Defense Readiness',
-                  subtitle: 'Final Validation',
-                  desc: 'As you approach submission, we pivot to defense coaching. We help you conceptualize your arguments so you can stand before your committee with absolute authority.',
-                  icon: IconCertificate,
-                  tasks: ['Mock defense sessions', 'Argument synthesis', 'Pre-submission audit']
-                }
-              ].map((phase, i) => (
-                <Group key={i} align="flex-start" wrap="nowrap" gap={rem(60)}>
-                  <Box style={{ flex: '0 0 120px' }} visibleFrom="md">
-                    <Text fw={700} style={{ fontSize: rem(80), color: active.primary, opacity: 0.1, lineHeight: 1 }}>{phase.step}</Text>
-                  </Box>
-                  <Box style={{ flex: 1 }}>
-                    <Group gap="sm" mb="xs">
-                      <ThemeIcon size={32} radius="xl" variant="light" color={active.accent}>
-                        <phase.icon size={18} />
-                      </ThemeIcon>
-                      <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>{phase.subtitle}</Text>
-                    </Group>
-                    <Title order={3} style={{ fontSize: rem(32), color: active.primary, marginBottom: rem(16) }}>{phase.title}</Title>
-                    <Text size="md" lh={1.7} c="dimmed" mb="xl" style={{ maxWidth: 700 }}>{phase.desc}</Text>
-                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
-                      {phase.tasks.map((task, j) => (
-                        <Group key={j} gap="xs">
-                          <IconCheck size={16} color={active.accent} stroke={3} />
-                          <Text size="xs" fw={700} c={active.primary}>{task}</Text>
-                        </Group>
-                      ))}
-                    </SimpleGrid>
-                  </Box>
-                </Group>
-              ))}
-            </Stack>
+            <Box style={{ position: 'relative', marginTop: rem(40) }}>
+              {/* Vertical Timeline Connection Line */}
+              <Box 
+                style={{ 
+                  position: 'absolute', 
+                  left: rem(24), 
+                  top: rem(24), 
+                  bottom: rem(24), 
+                  width: '2px', 
+                  backgroundColor: `${active.accent}20`,
+                  zIndex: 0
+                }}
+                visibleFrom="sm"
+              />
+
+              <Stack gap={rem(80)}>
+                {[
+                  {
+                    step: '01',
+                    title: 'The Diagnostic Phase',
+                    subtitle: 'Untangling the Roadmap',
+                    desc: 'We start by auditing your current progress, your committee feedback, and your research design. We identify exactly where the stall is happening and why.',
+                    icon: IconCompass,
+                    tasks: [
+                      'Detailed audit of your current drafts',
+                      'Direct de-coding of committee feedback',
+                      'Identifying and mapping structural gaps',
+                      'Locating logic or data bottlenecks'
+                    ]
+                  },
+                  {
+                    step: '02',
+                    title: 'Strategic Milestones',
+                    subtitle: 'Building the Schedule',
+                    desc: 'We move from "hoping to finish" to a concrete calendar. We break your dissertation into manageable pieces with hyper-specific deliverables for each week.',
+                    icon: IconTarget,
+                    tasks: [
+                      'Custom, weekly writing schedules',
+                      'Regular conceptual alignment checks',
+                      'Detailed, chapter-level milestone roadmaps',
+                      'Setting highly realistic deliverables'
+                    ]
+                  },
+                  {
+                    step: '03',
+                    title: 'Iterative Refinement',
+                    subtitle: 'Execution & Feedback',
+                    desc: 'This is where the real work happens. We meet via video to solve methodological puzzles, review new drafts, and sharpen your authentic academic voice.',
+                    icon: IconMessageCircle,
+                    tasks: [
+                      'Ongoing 1-on-1 video deep dives',
+                      'Complete structural draft reviews',
+                      'Proactive accountability check-ins',
+                      'Step-by-step drafting and editing support'
+                    ]
+                  },
+                  {
+                    step: '04',
+                    title: 'Defense Readiness',
+                    subtitle: 'Final Validation',
+                    desc: 'As you approach submission, we pivot to defense coaching. We help you conceptualize your arguments so you can stand before your committee with absolute authority.',
+                    icon: IconCertificate,
+                    tasks: [
+                      'Realistic mock defense prep sessions',
+                      'Clear synthesis of arguments',
+                      'Technical pre-submission formatting audit',
+                      'Guidance on addressing final committee revisions'
+                    ]
+                  }
+                ].map((phase, i) => (
+                  <Group key={i} align="flex-start" wrap="nowrap" gap="xl" style={{ position: 'relative', zIndex: 1 }}>
+                    {/* Timeline Node Badge */}
+                    <Box 
+                      style={{ 
+                        flex: '0 0 50px', 
+                        height: '50px', 
+                        borderRadius: '50%', 
+                        backgroundColor: active.background,
+                        border: `2px solid ${active.accent}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: `0 0 0 4px ${active.background}`,
+                      }}
+                      visibleFrom="sm"
+                    >
+                      <Text fw={700} style={{ fontSize: rem(18), color: active.accent, fontFamily: 'var(--font-serif)' }}>{phase.step}</Text>
+                    </Box>
+
+                    <Box style={{ flex: 1, paddingLeft: rem(10) }}>
+                      <Group gap="sm" mb="xs">
+                        <ThemeIcon size={24} radius="xl" variant="light" color={active.accent} style={{ display: 'inline-flex' }}>
+                          <phase.icon size={14} />
+                        </ThemeIcon>
+                        <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>{phase.subtitle}</Text>
+                      </Group>
+                      
+                      <Title order={3} style={{ fontSize: rem(28), color: active.primary, marginBottom: rem(12), fontFamily: 'var(--font-serif)' }}>
+                        {phase.title}
+                      </Title>
+                      
+                      <Text size="md" lh={1.7} c="dimmed" mb="lg" style={{ maxWidth: 700 }}>
+                        {phase.desc}
+                      </Text>
+                      
+                      {/* Vertical Bullets List instead of horizontal grid */}
+                      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" style={{ maxWidth: 700 }}>
+                        {phase.tasks.map((task, j) => (
+                          <Group key={j} gap="sm" wrap="nowrap" align="flex-start">
+                            <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
+                            <Text size="sm" c={active.primary} lh={1.4}>{task}</Text>
+                          </Group>
+                        ))}
+                      </SimpleGrid>
+                    </Box>
+                  </Group>
+                ))}
+              </Stack>
+            </Box>
           </Stack>
         </Container>
       </Box>
