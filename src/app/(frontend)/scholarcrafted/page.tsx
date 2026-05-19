@@ -135,43 +135,44 @@ export default function ScholarCraftedLanding() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+    <Box bg={active.background} className="academic-watermark" style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        .carousel-indicator {
-          transform-origin: left;
-        }
-        .carousel-indicator[data-active] {
-          transform: scaleX(3) !important;
-          background-color: ${active.primary} !important;
-        }
+            .carousel-indicator {
+              transform-origin: left;
+            }
+            .carousel-indicator[data-active] {
+              transform: scaleX(3) !important;
+              background-color: ${active.primary} !important;
+            }
 
-        .hero-primary-container {
-          min-width: 280px;
-        }
+            .hero-primary-container {
+              min-width: 280px;
+            }
 
-        .home-accordion-item[data-active] {
-          border-color: ${active.primary} !important;
-        }
+            .home-accordion-item[data-active] {
+              border-color: ${active.primary} !important;
+            }
 
-        .home-accordion-control:hover {
-          background-color: transparent !important;
-        }
+            .home-accordion-control:hover {
+              background-color: transparent !important;
+            }
 
-        @media (max-width: 768px) {
-          .hero-primary-container {
-            width: 100% !important;
-            max-width: 100% !important;
-          }
-        }
-      ` }}
+            @media (max-width: 768px) {
+              .hero-primary-container {
+                width: 100% !important;
+                max-width: 100% !important;
+              }
+            }
+          `,
+        }}
       />
 
       {/* Hero Section */}
-      <Box component="section" pt={{ base: rem(100), md: rem(120) }} pb={{ base: rem(100), md: rem(120) }}>
+      <Box component="section" className="academic-watermark" pt={{ base: rem(100), md: rem(120) }} pb={{ base: rem(100), md: rem(120) }}>
         <Container size={1200}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} verticalSpacing="xl">
             <Stack gap={rem(40)} justify="center">
@@ -297,7 +298,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Resonance Section (The Pain Points) */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.surface}>
         <Container size={1100}>
           <Stack gap={rem(80)}>
             <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
@@ -421,7 +422,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* The 3-Step Process */}
-      <Box id="getting-started" component="section" py={SECTION_SPACING} bg={active.background}>
+      <Box id="getting-started" component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.background}>
         <Container size={1100}>
           <Stack gap={rem(80)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -487,7 +488,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Our Core Services */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.surface}>
         <Container size={1100}>
           <Stack gap={rem(80)}>
             <Box>
@@ -569,7 +570,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Testimonials Carousel */}
-      <Box component="section" py={rem(180)} bg={active.background}>
+      <Box component="section" className="academic-watermark" py={rem(180)} bg={active.background}>
         <Container size={1100}>
           <Carousel
             withIndicators
@@ -635,7 +636,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Frequently Asked Questions */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.surface}>
         <Container size={800}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
