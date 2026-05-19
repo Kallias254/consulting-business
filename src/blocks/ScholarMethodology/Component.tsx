@@ -12,8 +12,8 @@ export type ScholarMethodologyProps = {
 
 export const ScholarMethodologyBlock: React.FC<ScholarMethodologyProps> = ({ steps }) => {
   return (
-    <Box component="section" py={120} bg="dark-forest" pos="relative" style={{ overflow: 'hidden' }}>
-      <Container size="xl" className="academic-watermark watermark-left">
+    <Box component="section" className="academic-watermark" py={120} bg="dark-forest" pos="relative">
+      <Container size="xl">
         <Stack gap="xl" mb={60}>
           <Badge 
             variant="outline" 

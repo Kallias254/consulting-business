@@ -282,39 +282,23 @@ html[data-theme='light'] {
 .academic-watermark {
   position: relative;
   isolation: isolate;
+  overflow: hidden; /* Ensure repeating background doesn't overflow section bounds */
 }
 
 .academic-watermark::before {
   content: "";
   position: absolute;
-  top: -150px;
-  bottom: -150px;
-  left: -400px;
-  right: -400px;
+  inset: 0;
   background-image: url("/topography.svg");
-  background-repeat: no-repeat;
-  background-position: right 100px top -50px;
-  background-size: 1300px; /* Sweeping width to cover a large portion of the screen */
-  opacity: 0.08; /* Clearly visible but elegant opacity */
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 600px; /* Seamless tile size */
+  opacity: 0.04; /* Very subtle and prestigious full-section texture */
   pointer-events: none;
   z-index: -1;
 }
 
 [data-theme='dark'] .academic-watermark::before {
   filter: invert(1);
-  opacity: 0.035; /* Faint in dark mode */
-}
-
-/* Directional Watermarks */
-.watermark-left::before {
-  background-position: left 100px top -50px !important;
-}
-
-.watermark-right::before {
-  background-position: right 100px top -50px !important;
-}
-
-.watermark-center::before {
-  background-position: center !important;
-  background-size: 1100px !important;
+  opacity: 0.02; /* Extremely faint in dark mode to align with dark palette aesthetics */
 }
