@@ -36,6 +36,7 @@ import {
   IconBooks,
   IconBrain,
   IconQuote,
+  IconStarFilled,
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -375,7 +376,7 @@ export default function ScholarCraftedLanding() {
                   }}
                 >
                   {/* The Student Complaint (The Resonance) */}
-                  <Box mb="sm">
+                  <Box>
                     <Group gap="xs" mb="md">
                       <IconQuote size={20} style={{ opacity: 0.4 }} />
                       <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.15em' }}>
@@ -394,7 +395,7 @@ export default function ScholarCraftedLanding() {
                     </Text>
                   </Box>
 
-                  <Divider mt="auto" mb="lg" style={{ borderColor: `${active.primary}15` }} />
+                  <Divider mt="lg" mb="lg" style={{ borderColor: `${active.primary}15` }} />
 
                   {/* The Structural Reality (The Diagnosis) */}
                   <Stack gap="sm">
@@ -608,19 +609,24 @@ export default function ScholarCraftedLanding() {
                     >
                       {item.quote}
                     </Text>
-                    <Stack gap={4}>
-                      <Text
-                        size="xs"
-                        c={active.primary}
-                        
-                      >
-                        {item.author}
-                      </Text>
-                      <Text size="xs" c="dimmed" style={{ letterSpacing: '0.05em' }}>
-                        {item.institution}
-                      </Text>
-                    </Stack>
-                  </Stack>
+                    <Stack gap="xs" align="center">
+                     <Group gap={rem(4)}>
+                       {[...Array(5)].map((_, i) => (
+                         <IconStarFilled key={i} size={14} color="#FFD700" style={{ opacity: 0.85 }} />
+                       ))}
+                     </Group>
+                     <Stack gap={4}>
+                       <Text
+                         size="xs"
+                         c={active.primary}
+                       >
+                         {item.author}
+                       </Text>
+                       <Text size="xs" c="dimmed" style={{ letterSpacing: '0.05em' }}>
+                         {item.institution}
+                       </Text>
+                     </Stack>
+                    </Stack>                  </Stack>
                 </Container>
               </Carousel.Slide>
             ))}

@@ -135,7 +135,13 @@ export default function RoutledgeHandbookMock() {
               >
                 Targeted Vacancies
               </Title>
-              <Text size="lg" c="dimmed" mt="md" style={{ maxWidth: 600, margin: '16px auto 0' }}>
+              <Text size="lg" c="dimmed" style={{ 
+                maxWidth: 600, 
+                marginTop: '16px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginBottom: 0
+              }}>
                 Review the structural logic of the handbook below. We are actively headhunting for the specific open slots highlighted in gold.
               </Text>
             </Box>

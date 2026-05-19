@@ -329,11 +329,16 @@ export default function PrivateCoachingPage() {
               <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
                 Advisory Retainers.
               </Title>
-              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 700, margin: '0 auto' }}>
-                All packages are activated following your free introductory call, where we assess your 
+              <Text size="lg" lh={1.7} c="dimmed" style={{ 
+                maxWidth: 700, 
+                marginLeft: 'auto', 
+                marginRight: 'auto',
+                marginTop: 'var(--mantine-spacing-md)',
+                marginBottom: 0
+              }}>
+                All packages are activated following your free introductory call, where we assess your
                 needs and confirm the right level of engagement.
-              </Text>
-            </Box>
+              </Text>            </Box>
             
             <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(32)}>
               {/* Option A: 5 Hours */}

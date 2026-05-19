@@ -148,6 +148,7 @@ function ConsultationWizard() {
   const theme = useMantineTheme()
   const active = theme.other
   const totalSteps = 10
+  const isSuccessStep = step === totalSteps - 1
 
   const nextStep = () => {
     setStep((s) => {
@@ -297,9 +298,15 @@ function ConsultationWizard() {
       </Box>
       
       {/* Top Section - Background */}
-      <Box component="section" pt={{ base: rem(60), md: rem(100) }} pb={rem(60)} bg={active.background} style={{ flexShrink: 0 }}>
+      <Box 
+        component="section" 
+        pt={isSuccessStep ? { base: rem(30), md: rem(50) } : { base: rem(60), md: rem(100) }} 
+        pb={isSuccessStep ? rem(20) : rem(60)} 
+        bg={active.background} 
+        style={{ flexShrink: 0 }}
+      >
         <Container size={INNER_WIDTH}>
-          <Group justify="space-between" align="center" mb={rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
+          <Group justify="space-between" align="center" mb={isSuccessStep ? rem(24) : rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
             <Box w={100} />
             
             {step < totalSteps && (
@@ -324,14 +331,19 @@ function ConsultationWizard() {
               <Title
                 order={1}
                 style={{
-                  fontSize: rem(42),
+                  fontSize: isSuccessStep ? rem(32) : rem(42),
                   lineHeight: 1.2,
                   color: active.primary }}
               >
                 {stepHeadlines[step].title}
               </Title>
               {stepHeadlines[step].desc && (
-                <Text size="lg" c="dimmed" lh={1.6} mt="xl" style={{ margin: '1.5rem auto 0' }}>
+                <Text size={isSuccessStep ? "md" : "lg"} c="dimmed" lh={1.6} style={{ 
+                  marginTop: isSuccessStep ? '0.75rem' : '1.5rem',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginBottom: 0
+                }}>
                   {stepHeadlines[step].desc}
                 </Text>
               )}
@@ -340,7 +352,12 @@ function ConsultationWizard() {
         </Container>
       </Box>
       {/* Main Content Section - Surface */}
-      <Box component="section" py={rem(80)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}>
+      <Box 
+        component="section" 
+        py={isSuccessStep ? rem(30) : rem(80)} 
+        bg={active.surface} 
+        style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}
+      >
         <Container size="md">
           <Box style={{ maxWidth: 800, margin: '0 auto' }}>
             {step > 0 && step < totalSteps && (
@@ -697,119 +714,56 @@ function StepForm({ data, setData, nextStep }: any) {
 function StepSuccess({ data, setStep }: any) {
   const { other: active } = useMantineTheme()
   return (
-    <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-      <Stack gap="xl" align="center">
-        <Box c={active.accent}>
-          <IconCertificate size={64} stroke={1.5} />
-        </Box>
-        <Box>
-          <Text size="lg" mt="md" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
-            You have taken a decisive step toward completion. Micah, PhD is personally reviewing
-            your research profile to initiate your **Preliminary Technical Audit**.
-          </Text>
-        </Box>
-      </Stack>
-
-      <SimpleGrid
-        cols={{ base: 1, md: 2 }}
-        spacing={rem(40)}
-        style={{ textAlign: 'left', width: '100%' }}
+    <Stack gap={rem(32)} align="center" style={{ textAlign: 'center', width: '100%' }}>
+      {/* Community of Scholars Card */}
+      <Box 
+        p={rem(40)} 
+        bg={active.background} 
+        style={{ 
+          border: `1px solid ${active.primary}12`,
+          textAlign: 'left',
+          width: '100%',
+          maxWidth: rem(600),
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.02)'
+        }}
       >
-        <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}12` }}>
-          <Stack gap="xl">
-            <Text
-              size="xs"
-              
-              c="dimmed"
-            >
-              Next Steps: Agency Ingestion
-            </Text>
-            <Stack gap="lg">
-              <Group align="flex-start" gap="md" wrap="nowrap">
-                <Text fw={700} c={active.accent}>
-                  01
-                </Text>
-                <Box>
-                  <Text fw={600} size="sm">
-                    Technical Audit Initiated
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    Our team is cross-referencing your project goals against publisher and
-                    university standards.
-                  </Text>
-                </Box>
-              </Group>
-              <Group align="flex-start" gap="md" wrap="nowrap">
-                <Text fw={700} c={active.accent}>
-                  02
-                </Text>
-                <Box>
-                  <Text fw={600} size="sm">
-                    Project Vault Setup
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    A secure repository is being architected to house your manuscripts and future
-                    WASM-rendered proofs.
-                  </Text>
-                </Box>
-              </Group>
-              <Group align="flex-start" gap="md" wrap="nowrap">
-                <Text fw={700} c={active.accent}>
-                  03
-                </Text>
-                <Box>
-                  <Text fw={600} size="sm">
-                    Strategic Confirmation
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    Check your inbox. We&apos;ve sent a preliminary guide to protect your momentum
-                    while we finalize your consultation time.
-                  </Text>
-                </Box>
-              </Group>
-            </Stack>
+        <Stack gap="xl">
+          <Text
+            size="xs"
+            c="dimmed"
+            className="impeccable-eyebrow"
+            style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700 }}
+          >
+            Community of Scholars
+          </Text>
+          <Stack gap="lg">
+            <Box>
+              <Text size="sm" fs="italic" lh={1.6}>
+                &quot;I was stuck for 18 months before this consultation. Within 30 minutes, Micah
+                identified a structural flaw in my second chapter that changed everything.&quot;
+              </Text>
+              <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
+                &mdash; DR. SARAH J., PH.D. (YALE)
+              </Text>
+            </Box>
+            <Divider style={{ opacity: 0.3 }} />
+            <Box>
+              <Text size="sm" fs="italic" lh={1.6}>
+                &quot;The most rigorous academic support I&apos;ve encountered. They don&apos;t do
+                the work for you; they help you produce work you are proud to defend.&quot;
+              </Text>
+              <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
+                &mdash; DR. MARCUS K., PH.D. (OXFORD)
+              </Text>
+            </Box>
           </Stack>
-        </Box>
-
-        <Box p={rem(40)} bg={active.background} style={{ border: `1px solid ${active.primary}12` }}>
-          <Stack gap="xl">
-            <Text
-              size="xs"
-              
-              c="dimmed"
-            >
-              Community of Scholars
-            </Text>
-            <Stack gap="lg">
-              <Box>
-                <Text size="sm" fs="italic" lh={1.6}>
-                  &quot;I was stuck for 18 months before this consultation. Within 30 minutes, Micah
-                  identified a structural flaw in my second chapter that changed everything.&quot;
-                </Text>
-                <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
-                  &mdash; DR. SARAH J., PH.D. (YALE)
-                </Text>
-              </Box>
-              <Divider style={{ opacity: 0.3 }} />
-              <Box>
-                <Text size="sm" fs="italic" lh={1.6}>
-                  &quot;The most rigorous academic support I&apos;ve encountered. They don&apos;t do
-                  the work for you; they help you produce work you are proud to defend.&quot;
-                </Text>
-                <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
-                  &mdash; DR. MARCUS K., PH.D. (OXFORD)
-                </Text>
-              </Box>
-            </Stack>
-          </Stack>
-        </Box>
-      </SimpleGrid>
+        </Stack>
+      </Box>
 
       <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
         <Button
           variant="outline"
           color={active.primary}
-
           px={rem(60)}
           style={{ borderColor: active.primary, color: active.primary }}
         >
