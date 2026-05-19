@@ -16,8 +16,8 @@ export type ScholarCardsProps = {
 
 export const ScholarCardsBlock: React.FC<ScholarCardsProps> = ({ cards }) => {
   return (
-    <Box component="section" className="academic-watermark" py={120} bg="dark-forest">
-      <Container size="xl">
+    <Box component="section" py={120} bg="dark-forest" style={{ overflow: 'hidden' }}>
+      <Container size="xl" className="academic-watermark watermark-right">
         <Stack gap="xl" mb={60} align="center" style={{ textAlign: 'center' }}>
           <Badge 
             variant="outline" 
