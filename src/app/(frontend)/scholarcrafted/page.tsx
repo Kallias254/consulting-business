@@ -207,7 +207,7 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl">
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
-                    <Group gap="md" grow>
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
                       <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none', display: 'block' }}>
                         <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
                           BOOK INTRO CALL
@@ -218,7 +218,7 @@ export default function ScholarCraftedLanding() {
                           CLIENT LOGIN
                         </Button>
                       </Link>
-                    </Group>
+                    </SimpleGrid>
                     <Text size="sm" c="dimmed" lh={1.4}>
                       A free, 15-minute call to map your path forward.{' '}
                       <Link href="/scholarcrafted/how-it-works" style={{ color: 'inherit', textDecoration: 'underline' }}>
