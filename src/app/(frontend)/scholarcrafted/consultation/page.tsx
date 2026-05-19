@@ -147,7 +147,7 @@ function ConsultationWizard() {
 
   const theme = useMantineTheme()
   const active = theme.other
-  const totalSteps = 10
+  const totalSteps = 9
   const isSuccessStep = step === totalSteps - 1
 
   const nextStep = () => {
@@ -229,16 +229,12 @@ function ConsultationWizard() {
       desc: "Pick a preferred window that works for you. We'll match you with a faculty lead and confirm your 15-minute intro via email.",
     },
     {
-      title: 'Review Your Information',
-      desc: 'Please take a moment to confirm your selections before proceeding.',
-    },
-    {
       title: 'Finalize your inquiry',
       desc: 'Please provide your contact information and a brief overview of your research.',
     },
     {
-      title: 'Audit Initialized.',
-      desc: 'You have taken a decisive step toward completion. Micah, PhD is personally reviewing your research profile.',
+      title: 'Thank You. Audit Initialized.',
+      desc: 'Thank you for taking a decisive step toward completion. Micah, PhD is personally reviewing your research profile. You will receive an email within 24 hours to confirm your advisor pairing and introductory session.',
     },
   ]
 
@@ -250,9 +246,8 @@ function ConsultationWizard() {
     <StepDiscipline key={4} data={data} selectOption={selectOption} />,
     <StepStage key={5} data={data} selectOption={selectOption} />,
     <StepDateTime key={6} data={data} setData={setData} nextStep={nextStep} />,
-    <StepReview key={7} data={data} setStep={setStep} nextStep={nextStep} />,
-    <StepForm key={8} data={data} setData={setData} nextStep={nextStep} />,
-    <StepSuccess key={9} data={data} setStep={setStep} />,
+    <StepForm key={7} data={data} setData={setData} nextStep={nextStep} />,
+    <StepSuccess key={8} data={data} setStep={setStep} />,
   ]
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
@@ -359,9 +354,9 @@ function ConsultationWizard() {
         bg={active.surface} 
         style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}
       >
-        <Container size="md">
-          <Box style={{ maxWidth: 800, margin: '0 auto' }}>
-            {step > 0 && step < totalSteps && (
+        <Container size={isSuccessStep ? 1000 : "md"}>
+          <Box style={{ maxWidth: isSuccessStep ? 1000 : 800, margin: '0 auto' }}>
+            {step > 0 && !isSuccessStep && (
               <UnstyledButton
                 onClick={prevStep}
                 style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease', marginBottom: rem(32) }}
@@ -712,52 +707,70 @@ function StepSuccess({ data, setStep }: any) {
   const { other: active } = useMantineTheme()
   return (
     <Stack gap={rem(32)} align="center" style={{ textAlign: 'center', width: '100%' }}>
-      {/* Community of Scholars Card */}
-      <Box 
-        p={rem(40)} 
-        bg={active.background} 
-        style={{ 
-          border: `1px solid ${active.primary}12`,
-          textAlign: 'left',
-          width: '100%',
-          maxWidth: rem(600),
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.02)'
-        }}
-      >
-        <Stack gap="xl">
-          <Text
-            size="xs"
-            c="dimmed"
-            className="impeccable-eyebrow"
-            style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700 }}
-          >
-            Community of Scholars
+      {/* Explore Other Services Section */}
+      <Stack gap={rem(40)} mt={0} style={{ width: '100%', textAlign: 'left', maxWidth: rem(1000) }}>
+        <Divider style={{ opacity: 0.15 }} />
+        <Stack gap="xs" style={{ textAlign: 'center' }}>
+          <Title order={2} style={{ fontSize: rem(36), color: active.primary }}>
+            Explore Other Services
+          </Title>
+          <Text size="lg" c="dimmed">
+            Need a different type of support? We have you covered.
           </Text>
-          <Stack gap="lg">
-            <Box>
-              <Text size="sm" fs="italic" lh={1.6}>
-                &quot;I was stuck for 18 months before this consultation. Within 30 minutes, Micah
-                identified a structural flaw in my second chapter that changed everything.&quot;
-              </Text>
-              <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
-                &mdash; DR. SARAH J., PH.D. (YALE)
-              </Text>
-            </Box>
-            <Divider style={{ opacity: 0.3 }} />
-            <Box>
-              <Text size="sm" fs="italic" lh={1.6}>
-                &quot;The most rigorous academic support I&apos;ve encountered. They don&apos;t do
-                the work for you; they help you produce work you are proud to defend.&quot;
-              </Text>
-              <Text size="xs" fw={700} mt="xs" style={{ letterSpacing: '0.05em' }}>
-                &mdash; DR. MARCUS K., PH.D. (OXFORD)
-              </Text>
-            </Box>
-          </Stack>
         </Stack>
-      </Box>
+        
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+          {/* Card 1 */}
+          <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Stack gap="xl" flex={1}>
+              <Stack gap="xs">
+                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                  MANUSCRIPT REFINEMENT
+                </Text>
+                <Title order={3} style={{ color: active.primary }}>
+                  Structural Editing &amp; Proofreading
+                </Title>
+              </Stack>
+              <Text size="sm" c="dimmed" lh={1.6}>
+                From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.
+              </Text>
+            </Stack>
+            <Box mt={rem(40)}>
+              <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
+                <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
+                  View Editing Services
+                </Button>
+              </Link>
+            </Box>
+          </Box>
 
-      <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+          {/* Card 2 */}
+          <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Stack gap="xl" flex={1}>
+              <Stack gap="xs">
+                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
+                  1-ON-1 GUIDANCE
+                </Text>
+                <Title order={3} style={{ color: active.primary }}>
+                  Live Academic Coaching
+                </Title>
+              </Stack>
+              <Text size="sm" c="dimmed" lh={1.6}>
+                A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence. Perfect for when you are stuck and need real-time instructional support.
+              </Text>
+            </Stack>
+            <Box mt={rem(40)}>
+              <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
+                <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
+                  View Coaching Services
+                </Button>
+              </Link>
+            </Box>
+          </Box>
+        </SimpleGrid>
+      </Stack>
+
+      <Link href="/scholarcrafted" style={{ textDecoration: 'none', marginTop: rem(24) }}>
         <Button
           variant="outline"
           color={active.primary}
@@ -773,97 +786,7 @@ function StepSuccess({ data, setStep }: any) {
 
 
 
-function StepReview({ data, setStep, nextStep }: any) {
-  const { other: active } = useMantineTheme()
-  
-  const formatDate = (date: Date | null) => {
-    return date ? dayjs(date).format('MMMM D, YYYY') : 'N/A'
-  }
 
-  const formatTime = (timeId: string) => {
-    switch (timeId) {
-      case 'morning':
-        return '09:00 - 12:00'
-      case 'afternoon':
-        return '13:00 - 17:00'
-      case 'evening':
-        return '18:00 - 20:00'
-      default:
-        return 'N/A'
-    }
-  }
-
-  const reviewItems = [
-    { label: 'Interest', value: FORMATTED_VALUES[data.interest] || data.interest, editableStep: 0 },
-    { label: 'Met Before', value: FORMATTED_VALUES[data.metBefore] || data.metBefore, editableStep: 1 },
-    { label: 'Coach', value: data.coach, editableStep: 2 },
-    { label: 'Stall Point', value: FORMATTED_VALUES[data.specifics] || data.specifics, editableStep: 3 },
-    { label: 'Discipline', value: FORMATTED_VALUES[data.discipline] || data.discipline, editableStep: 4 },
-    { label: 'Current Phase', value: FORMATTED_VALUES[data.stage] || data.stage, editableStep: 5 },
-    { label: 'Preferred Date', value: formatDate(data.preferredDate), editableStep: 6 },
-    { label: 'Preferred Time', value: formatTime(data.preferredTime), editableStep: 6 },
-  ]
-
-  return (
-    <Stack gap="xl" mt={rem(20)}>
-      <Box 
-        bg={active.background} 
-        p={{ base: rem(30), sm: rem(50) }} 
-        style={{ border: `1px solid #eee` }}
-      >
-        <Stack gap="lg">
-          {reviewItems.map(
-            (item, index) =>
-              item.value &&
-              item.value !== 'N/A' && (
-                <Box key={item.label}>
-                  <Group justify="space-between" align="center" wrap="nowrap">
-                    <Text className="impeccable-eyebrow" size="sm" c="dimmed" >
-                      {item.label}
-                    </Text>
-                    <Group gap="sm">
-                      <Text fw={500} size="md" c={active.primary} style={{ textAlign: 'right' }}>
-                        {item.value}
-                      </Text>
-                      {item.editableStep !== undefined && (
-                        <ActionIcon
-                          variant="subtle"
-                          color={active.primary}
-                          onClick={() => setStep(item.editableStep)}
-                          title={`Edit ${item.label}`}
-
-                          size="sm"
-                        >
-                          <IconEdit size={16} />
-                        </ActionIcon>
-                      )}
-                    </Group>
-                  </Group>
-                  {index < reviewItems.length - 1 && (
-                    <Divider mt="lg" mb={0} style={{ opacity: 0.5, borderColor: `${active.primary}22` }} />
-                  )}
-                </Box>
-              ),
-          )}
-        </Stack>
-      </Box>
-
-      <Group justify="center" mt="xl">
-        <Button
-          size="xl"
-          mt="xl"
-          variant="filled"
-          bg={active.primary}
-          onClick={nextStep}
-          rightSection={<IconArrowRight size={20} />}
-          px={rem(40)}
-        >
-          CONFIRM AND PROCEED
-        </Button>
-      </Group>
-    </Stack>
-  )
-}
 
 function SelectionCard({ title, description, icon, active, onClick }: any) {
   const theme = useMantineTheme()

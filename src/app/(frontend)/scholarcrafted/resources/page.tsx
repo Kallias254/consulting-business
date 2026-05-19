@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Title,
@@ -74,6 +74,24 @@ export default function ResourcesPage() {
   const [opened, { open, close }] = useDisclosure(false)
   const [selectedBlueprint, setSelectedBlueprint] = useState('')
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      const downloadParam = params.get('download')
+      if (downloadParam) {
+        const match = blueprints.find(
+          b => b.title.toLowerCase() === downloadParam.toLowerCase() ||
+               b.title.toLowerCase().includes(downloadParam.toLowerCase())
+        )
+        if (match) {
+          setSelectedBlueprint(match.title)
+          setSubmitted(false)
+          open()
+        }
+      }
+    }
+  }, [open])
 
   const handleDownloadClick = (title: string) => {
     setSelectedBlueprint(title)

@@ -13,12 +13,14 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import Link from 'next/link'
+import {
+  IconBrandLinkedin,
+  IconBrandInstagram,
+} from '@tabler/icons-react'
 
 export function Footer({ bg }: { bg?: string }) {
   const theme = useMantineTheme()
   const active = theme.other
-
-  const footerBg = bg || active.background
 
   return (
     <Box
@@ -28,10 +30,12 @@ export function Footer({ bg }: { bg?: string }) {
       bg={active.primary}
       c="white"
       style={{
-        borderTop: 'none' }}
-      className="scholarcrafted-footer"
+        borderTop: 'none',
+        position: 'relative'
+      }}
+      className="scholarcrafted-footer academic-watermark dark-scholar-section"
     >
-      <Container size={1100}>
+      <Container size={1200} style={{ position: 'relative', zIndex: 1 }}>
         <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(60)} mb={rem(80)}>
           {/* Brand Column */}
           <Stack gap="xl">
@@ -61,13 +65,30 @@ export function Footer({ bg }: { bg?: string }) {
               A prestigious advisory firm dedicated to the rigorous oversight and structural
               refinement of doctoral research across the global academic community.
             </Text>
-            <Stack gap={4}>
-              <Text size="xs" fw={700} c="white" style={{ letterSpacing: '0.05em' }}>
-                FACULTY LOCATIONS
+
+            {/* Social Channels */}
+            <Stack gap="xs">
+              <Text size="xs" fw={700} c="rgba(255,255,255,0.7)" style={{ letterSpacing: '0.05em' }}>
+                CONNECT WITH OUR FACULTY
               </Text>
-              <Text size="xs" c="rgba(255,255,255,0.6)">
-                Boston &bull; New York &bull; Oxford &bull; Cambridge
-              </Text>
+              <Group gap="md">
+                <a 
+                  href="https://www.linkedin.com" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="social-icon-link"
+                >
+                  <IconBrandLinkedin size={24} />
+                </a>
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="social-icon-link"
+                >
+                  <IconBrandInstagram size={24} />
+                </a>
+              </Group>
             </Stack>
           </Stack>
 
@@ -281,6 +302,18 @@ export function Footer({ bg }: { bg?: string }) {
         }
         .footer-link:hover::after {
           width: 100%;
+        }
+
+        .social-icon-link {
+          color: rgba(255,255,255,0.55) !important;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .social-icon-link:hover {
+          color: #ffffff !important;
+          transform: translateY(-2px);
         }
       `}</style>
     </Box>

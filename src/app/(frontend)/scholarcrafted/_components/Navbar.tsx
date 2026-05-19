@@ -5,7 +5,7 @@ import { Container, Group, Text, Stack, Button, rem, Box, useMantineTheme, Hover
 import { useDisclosure, useWindowScroll } from '@mantine/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { IconBook, IconPencil, IconMicroscope, IconFileText, IconArticle, IconChevronDown, IconPhone } from '@tabler/icons-react'
+import { IconBook, IconPencil, IconMicroscope, IconFileText, IconArticle, IconChevronDown, IconPhone, IconBrandLinkedin, IconBrandInstagram } from '@tabler/icons-react'
 
 export function Navbar() {
   const theme = useMantineTheme()
@@ -318,76 +318,152 @@ export function Navbar() {
         onClose={close}
         size="100%"
         padding="xl"
-        bg={active.background}
-        title={
-          <Stack gap={0}>
-            <Text fw={700} c={active.primary} style={{ fontSize: rem(20), lineHeight: 1, letterSpacing: '-0.02em' }}>
-              SCHOLARCRAFTED
-            </Text>
-            <Text size="xs" c="dimmed" fw={500} style={{ fontSize: rem(9), letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-              Academic Consultancy
-            </Text>
-          </Stack>
-        }
         hiddenFrom="sm"
         zIndex={1000000}
         transitionProps={{ transition: 'fade', duration: 300 }}
+        withCloseButton={true}
+        styles={{
+          header: {
+            backgroundColor: active.background,
+            borderBottom: `1px solid ${active.primary}12`,
+            paddingBottom: rem(16),
+            paddingTop: rem(16),
+          },
+          content: {
+            backgroundColor: active.background,
+          },
+          close: {
+            color: active.primary,
+            transform: 'scale(1.3)',
+            transition: 'all 0.2s ease',
+            cursor: 'pointer',
+          }
+        }}
+        title={
+          <Stack gap={0}>
+            <Text fw={700} c={active.primary} style={{ fontSize: rem(20), lineHeight: 1, letterSpacing: '-0.02em', fontFamily: 'var(--font-serif)' }}>
+              SCHOLARCRAFTED
+            </Text>
+            <Text size="xs" c="dimmed" fw={500} style={{ fontSize: rem(9), letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              Academic Advisory
+            </Text>
+          </Stack>
+        }
       >
-        <Stack gap="xl" mt="xl">
+        <Stack gap="xl" mt="lg" className="academic-watermark" style={{ minHeight: '80vh', position: 'relative' }}>
+          
+          {/* Services Group */}
           <Box>
-            <Text size="xs" fw={700} c="dimmed" mb="md" style={{ letterSpacing: '0.1em' }}>SERVICES</Text>
-            <Stack gap="sm">
-              <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }} onClick={close}>
-                <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Private Coaching</Text>
-              </Link>
-              <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }} onClick={close}>
-                <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Editing & Proofreading</Text>
-              </Link>
-              <Link href="/scholarcrafted/services/research-support" style={{ textDecoration: 'none' }} onClick={close}>
-                <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Research Support</Text>
-              </Link>
+            <Text size="xs" fw={700} c={active.accent} mb="md" style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              Advisory Services
+            </Text>
+            <Stack gap="xs">
+              {[
+                { label: 'Private Coaching', desc: '1-on-1 strategic dissertation guidance', href: '/scholarcrafted/services/private-coaching', icon: IconBook },
+                { label: 'Editing & Proofreading', desc: 'Professional academic review and copyediting', href: '/scholarcrafted/services/editing-proofreading', icon: IconPencil },
+                { label: 'Research Support', desc: 'Methodology and data analysis consulting', href: '/scholarcrafted/services/research-support', icon: IconMicroscope }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.href} style={{ textDecoration: 'none' }} onClick={close}>
+                  <Group wrap="nowrap" p="md" style={{ backgroundColor: `${active.primary}04`, border: `1px solid ${active.primary}08` }}>
+                    <ThemeIcon size={36} radius="xl" variant="light" color={active.accent}>
+                      <item.icon size={18} />
+                    </ThemeIcon>
+                    <Box style={{ flex: 1 }}>
+                      <Text fw={600} size="sm" c={active.primary}>{item.label}</Text>
+                      <Text size="xs" c="dimmed" lh={1.3}>{item.desc}</Text>
+                    </Box>
+                  </Group>
+                </Link>
+              ))}
             </Stack>
           </Box>
 
-          <Divider color={`${active.primary}15`} />
-
+          {/* Core Methodology */}
           <Box>
-            <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.1em' }} mt="md">
-              THE METHODOLOGY
+            <Text size="xs" fw={700} c={active.accent} mb="md" style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              The Methodology
             </Text>
-            <Divider color="gray.2" />
             <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }} onClick={close}>
-              <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Our Approach</Text>
+              <Group wrap="nowrap" p="md" style={{ backgroundColor: `${active.primary}04`, border: `1px solid ${active.primary}08` }}>
+                <ThemeIcon size={36} radius="xl" variant="light" color={active.accent}>
+                  <IconFileText size={18} />
+                </ThemeIcon>
+                <Box style={{ flex: 1 }}>
+                  <Text fw={600} size="sm" c={active.primary}>Our Approach</Text>
+                  <Text size="xs" c="dimmed" lh={1.3}>The dual client pathway to submission</Text>
+                </Box>
+              </Group>
             </Link>
           </Box>
 
-          <Divider color={`${active.primary}15`} />
-
+          {/* Resources & Guides */}
           <Box>
-            <Text size="xs" fw={700} c="dimmed" mb="md" style={{ letterSpacing: '0.1em' }}>RESOURCES</Text>
-            <Stack gap="sm">
+            <Text size="xs" fw={700} c={active.accent} mb="md" style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              Academic Resources
+            </Text>
+            <Stack gap="xs">
               <Link href="/scholarcrafted/resources" style={{ textDecoration: 'none' }} onClick={close}>
-                <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Academic Blueprints</Text>
+                <Group wrap="nowrap" p="md" style={{ backgroundColor: `${active.primary}04`, border: `1px solid ${active.primary}08` }}>
+                  <ThemeIcon size={36} radius="xl" variant="light" color={active.accent}>
+                    <IconFileText size={18} />
+                  </ThemeIcon>
+                  <Box style={{ flex: 1 }}>
+                    <Text fw={600} size="sm" c={active.primary}>Academic Blueprints</Text>
+                    <Text size="xs" c="dimmed" lh={1.3}>Dissertation templates & matrices</Text>
+                  </Box>
+                </Group>
               </Link>
               <Link href="/scholarcrafted/resources/articles" style={{ textDecoration: 'none' }} onClick={close}>
-                <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">Articles & Guides</Text>
+                <Group wrap="nowrap" p="md" style={{ backgroundColor: `${active.primary}04`, border: `1px solid ${active.primary}08` }}>
+                  <ThemeIcon size={36} radius="xl" variant="light" color={active.accent}>
+                    <IconArticle size={18} />
+                  </ThemeIcon>
+                  <Box style={{ flex: 1 }}>
+                    <Text fw={600} size="sm" c={active.primary}>Articles & Guides</Text>
+                    <Text size="xs" c="dimmed" lh={1.3}>Expert research strategies</Text>
+                  </Box>
+                </Group>
               </Link>
             </Stack>
           </Box>
 
-          <Divider color={`${active.primary}15`} />
-
+          {/* General Link to About */}
           <Link href="/scholarcrafted/about" style={{ textDecoration: 'none' }} onClick={close}>
-            <Text fw={500} c="dark.8" size="md" className="mobile-nav-link">About</Text>
+            <Group wrap="nowrap" justify="space-between" p="md" style={{ borderBottom: `1px solid ${active.primary}12` }}>
+              <Text fw={600} size="md" c={active.primary}>About Micah, PhD & Faculty</Text>
+              <Text fw={700} c={active.accent} size="sm">&rarr;</Text>
+            </Group>
           </Link>
 
-          <Box mt="xl">
+          {/* Call to Action & Social Drawer Footer */}
+          <Stack gap="md" mt="auto" pt="xl">
             <Link href="/scholarcrafted/consultation?interest=other&metBefore=no" style={{ textDecoration: 'none' }} onClick={close}>
               <Button variant="filled" bg={active.primary} fullWidth size="lg" radius={0} className="impeccable-button">
-                BOOK INTRO CALL
+                BOOK INTRODUCTORY CALL
               </Button>
             </Link>
-          </Box>
+            
+            <Divider color={`${active.primary}12`} />
+            
+            <Group justify="space-between" align="center">
+              <Stack gap={2}>
+                <Text size="xs" fw={700} c={active.primary}>CONNECT WITH US</Text>
+                <Group gap="sm">
+                  <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="social-icon-link-drawer">
+                    <IconBrandLinkedin size={18} />
+                  </a>
+                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="social-icon-link-drawer">
+                    <IconBrandInstagram size={18} />
+                  </a>
+                </Group>
+              </Stack>
+              
+              <Text size="xs" c="dimmed" fw={500} style={{ textAlign: 'right' }}>
+                ESTABLISHED 2016<br />
+                Strictly Confidential
+              </Text>
+            </Group>
+          </Stack>
         </Stack>
       </Drawer>
 
@@ -451,6 +527,23 @@ export function Navbar() {
         .mobile-nav-link:active, .mobile-nav-link:hover {
           color: ${active.primary} !important;
           transform: translateX(8px);
+        }
+        .social-icon-link-drawer {
+          color: ${active.primary}80 !important;
+          transition: all 0.25s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: rem(36);
+          height: rem(36);
+          border-radius: 50%;
+          border: 1px solid ${active.primary}20;
+        }
+        .social-icon-link-drawer:hover {
+          color: ${active.primary} !important;
+          border-color: ${active.primary};
+          background-color: ${active.primary}08;
+          transform: translateY(-2px);
         }
       `}</style>
       </Box>

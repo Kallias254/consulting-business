@@ -36,7 +36,8 @@ import {
   IconDownload,
   IconSend,
   IconClock,
-  IconScale
+  IconScale,
+  IconPencil
 } from '@tabler/icons-react'
 import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
@@ -245,6 +246,146 @@ export default function EditingProofreadingPage() {
             </div>
           </div>
         </Box>
+      </Box>
+
+      {/* How the Process Works (The Roadmap) */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+        <Container size={INNER_WIDTH}>
+          <Stack gap={rem(80)}>
+            <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
+              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
+                Manuscript Pathway
+              </Text>
+              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Rigorous Editing, Stage by Stage.
+              </Title>
+              <Text size="lg" c="dimmed" lh={1.7} mt="md">
+                We take your raw draft through a structural, mechanical, and stylistic refining loop 
+                to ensure it meets the highest standards of senior faculty reviews.
+              </Text>
+            </Box>
+
+            <Box style={{ position: 'relative', marginTop: rem(40) }}>
+              {/* Vertical Timeline Connection Line */}
+              <Box 
+                style={{ 
+                  position: 'absolute', 
+                  left: rem(24), 
+                  top: rem(24), 
+                  bottom: rem(24), 
+                  width: '2px', 
+                  backgroundColor: `${active.accent}20`,
+                  zIndex: 0
+                }}
+                visibleFrom="sm"
+              />
+
+              <Stack gap={rem(80)}>
+                {[
+                  {
+                    step: '01',
+                    title: 'Deep Structural Audit',
+                    subtitle: 'Forensic Review',
+                    desc: 'We perform a comprehensive forensic audit of your entire draft. We check for conceptual alignment, literature integration, argument flow, and structural vulnerabilities.',
+                    icon: IconSearch,
+                    tasks: [
+                      'Forensic audit of your draft logic & flow',
+                      'Direct mapping of structural inconsistencies',
+                      'Alignment analysis against committee feedback',
+                      'Detailed, chapter-by-chapter gap reports'
+                    ]
+                  },
+                  {
+                    step: '02',
+                    title: 'The Precision Edit',
+                    subtitle: 'Linguistic & Mechanical Polish',
+                    desc: 'Our PhD-level editors undertake the mechanical and linguistic heavy lifting. We correct syntax errors, improve transitions, and tune the text to a senior academic tone.',
+                    icon: IconPencil,
+                    tasks: [
+                      'Comprehensive grammatical & syntax correction',
+                      'Authoritative scholarly voice tuning',
+                      'Flow, readability & paragraph transition work',
+                      'Refining terminology to align with your field'
+                    ]
+                  },
+                  {
+                    step: '03',
+                    title: 'Formatting & Compliance',
+                    subtitle: 'Style & Template Alignment',
+                    desc: 'We conform your manuscript perfectly to your target style guidelines (APA, Harvard, Chicago, or specific institutional template). We rebuild references and cross-link citations.',
+                    icon: IconFileCheck,
+                    tasks: [
+                      'Strict style-guide conformity (APA, Harvard, etc.)',
+                      'Complete reference list & bibliography rebuild',
+                      'Rigorous citation-to-reference cross-checking',
+                      'ProQuest & university repository layout compliance'
+                    ]
+                  },
+                  {
+                    step: '04',
+                    title: 'The Verification Loop',
+                    subtitle: 'Quality & Revision Guarantee',
+                    desc: 'You receive a fully tracked, polished manuscript along with a complete report. We stand by our work: if your committee requests editing-related revisions, we perform them at no cost.',
+                    icon: IconShieldCheck,
+                    tasks: [
+                      'Comprehensive side-by-side tracked changes',
+                      'Detailed, marginal comments explaining edits',
+                      'Free committee editing revision guarantee',
+                      'Direct faculty support loop'
+                    ]
+                  }
+                ].map((phase, i) => (
+                  <Group key={i} align="flex-start" wrap="nowrap" gap="xl" style={{ position: 'relative', zIndex: 1 }}>
+                    {/* Timeline Node Badge */}
+                    <Box 
+                      style={{ 
+                        flex: '0 0 50px', 
+                        height: '50px', 
+                        borderRadius: '50%', 
+                        backgroundColor: active.background,
+                        border: `2px solid ${active.accent}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: `0 0 0 4px ${active.background}`,
+                      }}
+                      visibleFrom="sm"
+                    >
+                      <Text fw={700} style={{ fontSize: rem(18), color: active.accent, fontFamily: 'var(--font-serif)' }}>{phase.step}</Text>
+                    </Box>
+
+                    <Box style={{ flex: 1, paddingLeft: rem(10) }}>
+                      <Group gap="sm" mb="xs">
+                        <ThemeIcon size={24} radius="xl" variant="light" color={active.accent} style={{ display: 'inline-flex' }}>
+                          <phase.icon size={14} />
+                        </ThemeIcon>
+                        <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>{phase.subtitle}</Text>
+                      </Group>
+                      
+                      <Title order={3} style={{ fontSize: rem(28), color: active.primary, marginBottom: rem(12), fontFamily: 'var(--font-serif)' }}>
+                        {phase.title}
+                      </Title>
+                      
+                      <Text size="md" lh={1.7} c="dimmed" mb="lg" style={{ maxWidth: 700 }}>
+                        {phase.desc}
+                      </Text>
+                      
+                      {/* Vertical Bullets List */}
+                      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" style={{ maxWidth: 700 }}>
+                        {phase.tasks.map((task, j) => (
+                          <Group key={j} gap="sm" wrap="nowrap" align="flex-start">
+                            <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
+                            <Text size="sm" c={active.primary} lh={1.4}>{task}</Text>
+                          </Group>
+                        ))}
+                      </SimpleGrid>
+                    </Box>
+                  </Group>
+                ))}
+              </Stack>
+            </Box>
+          </Stack>
+        </Container>
       </Box>
 
       {/* Levels of Service (Simplified) */}

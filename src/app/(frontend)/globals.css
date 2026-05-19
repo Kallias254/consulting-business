@@ -373,3 +373,18 @@ html[data-theme='light'] {
   filter: none !important;
   opacity: 0.04 !important;
 }
+
+/* Overrides for specific dark sections (like the Global Footprint) within scholarcrafted pages */
+.scholarcrafted-root .dark-scholar-section.academic-watermark::before {
+  filter: invert(1) !important;
+  opacity: 0.03 !important;
+}
+
+.scholarcrafted-root .dark-scholar-section .university-logo-img {
+  opacity: 0.45 !important;
+  filter: grayscale(100%) brightness(0) invert(1) !important;
+}
+
+.scholarcrafted-root .dark-scholar-section .university-logo-img:hover {
+  opacity: 0.95 !important;
+}

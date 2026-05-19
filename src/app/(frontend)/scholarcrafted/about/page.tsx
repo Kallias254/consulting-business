@@ -331,35 +331,12 @@ export default function AboutPage() {
                 order={2}
                 style={{
                   fontSize: rem(42),
-                  color: active.primary }}
+                  color: active.primary,
+                  fontFamily: 'var(--font-serif)'
+                }}
               >
                 A track record that speaks for itself.
               </Title>
-            </Box>
-
-            {/* University Logo Marquee */}
-            <Box style={{ width: '100%', overflow: 'hidden' }} my="md">
-              <div className="marquee-container">
-                <div className="marquee-content">
-                  {universities.map((uni, idx) => (
-                    <img
-                      key={`uni-1-${idx}`}
-                      src={uni.logo}
-                      alt={uni.name}
-                      className="university-logo-img"
-                    />
-                  ))}
-                  {/* Repeat for seamless loop */}
-                  {universities.map((uni, idx) => (
-                    <img
-                      key={`uni-2-${idx}`}
-                      src={uni.logo}
-                      alt={uni.name}
-                      className="university-logo-img"
-                    />
-                  ))}
-                </div>
-              </div>
             </Box>
 
             <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
@@ -392,6 +369,44 @@ export default function AboutPage() {
             </Center>
           </Stack>
         </Container>
+      </Box>
+
+      {/* University Logo Marquee */}
+      <Box component="section" className="dark-scholar-section" py={rem(100)} bg={active.primary}>
+        <Container size={1200}>
+          <Stack gap="xl" align="center" mb="xl">
+            <Box style={{ textAlign: 'center' }}>
+              <Title order={3} style={{ fontSize: rem(28), color: active.background, fontFamily: 'var(--font-serif)' }}>
+                Trusted by Researchers at the World’s Leading Universities
+              </Title>
+            </Box>
+          </Stack>
+        </Container>
+        
+        {/* Full-width marquee outside container */}
+        <Box style={{ width: '100%', overflow: 'hidden' }}>
+          <div className="marquee-container">
+            <div className="marquee-content">
+              {universities.map((uni, idx) => (
+                <img
+                  key={`uni-1-${idx}`}
+                  src={uni.logo}
+                  alt={uni.name}
+                  className="university-logo-img"
+                />
+              ))}
+              {/* Repeat for seamless loop */}
+              {universities.map((uni, idx) => (
+                <img
+                  key={`uni-2-${idx}`}
+                  src={uni.logo}
+                  alt={uni.name}
+                  className="university-logo-img"
+                />
+              ))}
+            </div>
+          </div>
+        </Box>
       </Box>
 
       <Footer />

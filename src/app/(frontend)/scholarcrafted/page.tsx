@@ -654,43 +654,41 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* University Logo Marquee */}
-      <Box component="section" className="academic-watermark" py={rem(80)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Box component="section" className="dark-scholar-section" py={rem(100)} bg={active.primary}>
         <Container size={1200}>
-          <Stack gap="xl" align="center">
+          <Stack gap="xl" align="center" mb="xl">
             <Box style={{ textAlign: 'center' }}>
-              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="xs">
-                Global Footprint
-              </Text>
-              <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                Supporting Scholars at Elite Institutions
+              <Title order={3} style={{ fontSize: rem(28), color: active.background, fontFamily: 'var(--font-serif)' }}>
+                Trusted by Researchers at the World’s Leading Universities
               </Title>
-            </Box>
-            
-            <Box style={{ width: '100%', overflow: 'hidden' }}>
-              <div className="marquee-container">
-                <div className="marquee-content">
-                  {universities.map((uni, idx) => (
-                    <img
-                      key={`uni-1-${idx}`}
-                      src={uni.logo}
-                      alt={uni.name}
-                      className="university-logo-img"
-                    />
-                  ))}
-                  {/* Repeat for seamless loop */}
-                  {universities.map((uni, idx) => (
-                    <img
-                      key={`uni-2-${idx}`}
-                      src={uni.logo}
-                      alt={uni.name}
-                      className="university-logo-img"
-                    />
-                  ))}
-                </div>
-              </div>
             </Box>
           </Stack>
         </Container>
+        
+        {/* Full-width marquee outside container */}
+        <Box style={{ width: '100%', overflow: 'hidden' }}>
+          <div className="marquee-container">
+            <div className="marquee-content">
+              {universities.map((uni, idx) => (
+                <img
+                  key={`uni-1-${idx}`}
+                  src={uni.logo}
+                  alt={uni.name}
+                  className="university-logo-img"
+                />
+              ))}
+              {/* Repeat for seamless loop */}
+              {universities.map((uni, idx) => (
+                <img
+                  key={`uni-2-${idx}`}
+                  src={uni.logo}
+                  alt={uni.name}
+                  className="university-logo-img"
+                />
+              ))}
+            </div>
+          </div>
+        </Box>
       </Box>
 
       {/* Frequently Asked Questions */}
