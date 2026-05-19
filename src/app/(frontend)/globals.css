@@ -362,4 +362,14 @@ html[data-theme='light'] {
   transform: translateY(-2px);
 }
 
+/* Force light-theme styling for watermarks and logos inside the light-themed scholarcrafted pages,
+   regardless of whether the global HTML element has data-theme='dark' (e.g. system dark mode). */
+.scholarcrafted-root .university-logo-img {
+  opacity: 0.45 !important;
+  filter: grayscale(100%) brightness(0) !important;
+}
 
+.scholarcrafted-root .academic-watermark::before {
+  filter: none !important;
+  opacity: 0.04 !important;
+}
