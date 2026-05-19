@@ -205,6 +205,7 @@ export default function BlogArticlePage() {
       {/* Article Body */}
       <Box
         component="section"
+        className="academic-watermark"
         py={rem(80)}
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}12` }}

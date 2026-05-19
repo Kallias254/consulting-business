@@ -354,6 +354,7 @@ function ConsultationWizard() {
       {/* Main Content Section - Surface */}
       <Box 
         component="section" 
+        className="academic-watermark"
         py={isSuccessStep ? rem(30) : rem(80)} 
         bg={active.surface} 
         style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}

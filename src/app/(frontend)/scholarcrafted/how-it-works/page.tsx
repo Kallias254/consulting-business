@@ -90,6 +90,7 @@ export default function HowItWorksPage() {
 
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}11` }}

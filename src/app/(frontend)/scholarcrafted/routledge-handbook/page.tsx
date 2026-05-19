@@ -121,7 +121,7 @@ export default function RoutledgeHandbookMock() {
       </Box>
 
       {/* Table of Contents / Architecture Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: '1px solid #eee' }}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: '1px solid #eee' }}>
         <Container size={1100}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>

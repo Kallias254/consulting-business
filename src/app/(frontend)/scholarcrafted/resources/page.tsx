@@ -120,6 +120,7 @@ export default function ResourcesPage() {
       {/* Blueprints Section */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}12` }}
@@ -197,6 +198,7 @@ export default function ResourcesPage() {
       {/* Visit the Library CTA */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.background}
         style={{ borderTop: `1px solid ${active.primary}12` }}

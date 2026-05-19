@@ -117,6 +117,7 @@ export default function BlogArchivePage() {
       {/* Articles Grid */}
       <Box
         component="section"
+        className="academic-watermark"
         py={rem(80)}
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}12` }}

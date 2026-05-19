@@ -302,3 +302,64 @@ html[data-theme='light'] {
   filter: invert(1);
   opacity: 0.02; /* Extremely faint in dark mode to align with dark palette aesthetics */
 }
+
+/* University Logo Marquee */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  padding: 2.5rem 0;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-content {
+  display: inline-flex;
+  gap: 4rem;
+  animation: marquee-scroll 35s linear infinite;
+  align-items: center;
+  width: max-content;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.university-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.45;
+  filter: grayscale(100%) brightness(0);
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+  user-select: none;
+}
+
+.university-logo-img[alt="Michigan"],
+.university-logo-img[alt="ANU"],
+.university-logo-img[alt="GCU"],
+.university-logo-img[alt="K-State"],
+.university-logo-img[alt="Princeton"],
+.university-logo-img[alt="Stanford"],
+.university-logo-img[alt="Oxford"],
+.university-logo-img[alt="Cambridge"] {
+  height: 56px;
+}
+
+[data-theme='dark'] .university-logo-img {
+  opacity: 0.35;
+  filter: grayscale(100%) brightness(0) invert(1);
+}
+
+.university-logo-img:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+

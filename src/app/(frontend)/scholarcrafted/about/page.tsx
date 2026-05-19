@@ -87,6 +87,21 @@ const team = [
   },
 ]
 
+const universities = [
+  { name: 'Yale', logo: '/logos/Yale_University_logo.svg' },
+  { name: 'Princeton', logo: '/logos/Princeton_University-Logo.wine.svg' },
+  { name: 'Stanford', logo: '/logos/stanford-university-logo-svgrepo-com.svg' },
+  { name: 'Oxford', logo: '/logos/university-of-oxford-logo-1.svg' },
+  { name: 'Cambridge', logo: '/logos/University_of_Cambridge-Logo.wine.svg' },
+  { name: 'MIT', logo: '/logos/Massachusetts_Institute_of_Technology-Logo.wine.svg' },
+  { name: 'Columbia', logo: '/logos/cu-header.svg' },
+  { name: 'Duke', logo: '/logos/duke-wordmark-white.svg' },
+  { name: 'Michigan', logo: '/logos/University_of_Michigan-Logo.wine.svg' },
+  { name: 'ANU', logo: '/logos/Australian_National_University-Logo.wine.svg' },
+  { name: 'GCU', logo: '/logos/Grand_Canyon_University-Logo.wine.svg' },
+  { name: 'K-State', logo: '/logos/Kansas_State_University-Logo.wine.svg' },
+]
+
 const awards = [
   '#1 in Trustpilot’s “Private Tutor” Category',
   'Winner: Most Trusted Dissertation Coach (Business Excellence Awards)',
@@ -140,6 +155,7 @@ export default function AboutPage() {
       {/* Team Grid */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
         style={{ borderTop: '1px solid #eee' }}
@@ -248,6 +264,7 @@ export default function AboutPage() {
       {/* What we do / don't do */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
         style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}
@@ -299,6 +316,7 @@ export default function AboutPage() {
       {/* Track Record */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.background}
         style={{ borderTop: '1px solid #eee' }}
@@ -315,6 +333,32 @@ export default function AboutPage() {
                 A track record that speaks for itself.
               </Title>
             </Box>
+
+            {/* University Logo Marquee */}
+            <Box style={{ width: '100%', overflow: 'hidden' }} my="md">
+              <div className="marquee-container">
+                <div className="marquee-content">
+                  {universities.map((uni, idx) => (
+                    <img
+                      key={`uni-1-${idx}`}
+                      src={uni.logo}
+                      alt={uni.name}
+                      className="university-logo-img"
+                    />
+                  ))}
+                  {/* Repeat for seamless loop */}
+                  {universities.map((uni, idx) => (
+                    <img
+                      key={`uni-2-${idx}`}
+                      src={uni.logo}
+                      alt={uni.name}
+                      className="university-logo-img"
+                    />
+                  ))}
+                </div>
+              </div>
+            </Box>
+
             <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
               <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
                 {awards.map((award, i) => (

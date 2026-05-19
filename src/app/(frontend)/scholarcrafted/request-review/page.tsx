@@ -224,7 +224,7 @@ function RequestReviewContent() {
             </Container>
           </Box>
 
-          <Box component="section" py={rem(60)} bg={active.surface}>
+          <Box component="section" className="academic-watermark" py={rem(60)} bg={active.surface}>
             <Container size={READING_WIDTH}>
               <Box bg="white" p={{ base: rem(20), sm: rem(60) }} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
                 <Stack gap={rem(40)}>

@@ -165,7 +165,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* Common Challenges (The Empathy Section) */}
-      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Box py={rem(100)} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box>
@@ -313,7 +313,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* The Packages */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center' }}>
@@ -461,7 +461,7 @@ export default function PrivateCoachingPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>

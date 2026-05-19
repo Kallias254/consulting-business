@@ -96,6 +96,21 @@ const homeFaqs = [
   },
 ]
 
+const universities = [
+  { name: 'Yale', logo: '/logos/Yale_University_logo.svg' },
+  { name: 'Princeton', logo: '/logos/Princeton_University-Logo.wine.svg' },
+  { name: 'Stanford', logo: '/logos/stanford-university-logo-svgrepo-com.svg' },
+  { name: 'Oxford', logo: '/logos/university-of-oxford-logo-1.svg' },
+  { name: 'Cambridge', logo: '/logos/University_of_Cambridge-Logo.wine.svg' },
+  { name: 'MIT', logo: '/logos/Massachusetts_Institute_of_Technology-Logo.wine.svg' },
+  { name: 'Columbia', logo: '/logos/cu-header.svg' },
+  { name: 'Duke', logo: '/logos/duke-wordmark-white.svg' },
+  { name: 'Michigan', logo: '/logos/University_of_Michigan-Logo.wine.svg' },
+  { name: 'ANU', logo: '/logos/Australian_National_University-Logo.wine.svg' },
+  { name: 'GCU', logo: '/logos/Grand_Canyon_University-Logo.wine.svg' },
+  { name: 'K-State', logo: '/logos/Kansas_State_University-Logo.wine.svg' },
+]
+
 const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
   <svg
     width={size / 2}
@@ -632,6 +647,46 @@ export default function ScholarCraftedLanding() {
               </Carousel.Slide>
             ))}
           </Carousel>
+        </Container>
+      </Box>
+
+      {/* University Logo Marquee */}
+      <Box component="section" className="academic-watermark" py={rem(80)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
+        <Container size={1200}>
+          <Stack gap="xl" align="center">
+            <Box style={{ textAlign: 'center' }}>
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="xs">
+                Global Footprint
+              </Text>
+              <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Supporting Scholars at Elite Institutions
+              </Title>
+            </Box>
+            
+            <Box style={{ width: '100%', overflow: 'hidden' }}>
+              <div className="marquee-container">
+                <div className="marquee-content">
+                  {universities.map((uni, idx) => (
+                    <img
+                      key={`uni-1-${idx}`}
+                      src={uni.logo}
+                      alt={uni.name}
+                      className="university-logo-img"
+                    />
+                  ))}
+                  {/* Repeat for seamless loop */}
+                  {universities.map((uni, idx) => (
+                    <img
+                      key={`uni-2-${idx}`}
+                      src={uni.logo}
+                      alt={uni.name}
+                      className="university-logo-img"
+                    />
+                  ))}
+                </div>
+              </div>
+            </Box>
+          </Stack>
         </Container>
       </Box>
 

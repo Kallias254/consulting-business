@@ -76,6 +76,7 @@ export default function ServicesPage() {
       {/* 1-on-1 Guidance */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}12` }}
@@ -150,6 +151,7 @@ export default function ServicesPage() {
       {/* Asynchronous Services */}
       <Box
         component="section"
+        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.background}
         style={{ borderTop: `1px solid ${active.primary}12` }}

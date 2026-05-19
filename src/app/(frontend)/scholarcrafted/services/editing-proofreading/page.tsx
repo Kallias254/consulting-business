@@ -18,7 +18,11 @@ import {
   ThemeIcon,
   Badge,
   Slider,
+  Card,
+  Modal,
+  TextInput,
 } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
@@ -56,6 +60,15 @@ export default function EditingProofreadingPage() {
   const active = theme.other
   const [wordCount, setWordCount] = useState(30000)
   const [hours, setHours] = useState(10)
+  const [opened, { open, close }] = useDisclosure(false)
+  const [selectedResource, setSelectedResource] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleDownloadClick = (title: string) => {
+    setSelectedResource(title)
+    setSubmitted(false)
+    open()
+  }
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
@@ -63,60 +76,88 @@ export default function EditingProofreadingPage() {
 
       {/* Hero Section */}
       <Box component="section" pt={rem(140)} pb={rem(100)} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Box style={{ maxWidth: 850 }}>
-            <Text
-              size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
-              c={active.accent}
-            >
-              Manuscript Refinement
-            </Text>
-            <Title
-              order={1}
-              mt="md"
-              style={{
-                fontSize: rem(64),
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                color: active.primary,
-                fontFamily: 'var(--font-serif)'
-              }}
-            >
-              Precision editing <br />
-              for scholars.
-            </Title>
-            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(22), maxWidth: 700 }}>
-              Move from a working draft to a submission-ready manuscript with the clarity, 
-              tone, and authority required by your committee.
-            </Text>
-            
-            <Group gap="md" mt={rem(40)}>
-              <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
-                <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                  GET A FREE QUOTE
-                </Button>
-              </Link>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                color={active.primary} 
+        <Container size={1200}>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} style={{ alignItems: 'center' }}>
+            <Stack gap="xl">
+              <Stack gap="xs">
+                <Text
+                  size="xs"
+                  fw={700}
+                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  c={active.accent}
+                >
+                  Manuscript Refinement
+                </Text>
+                <Title
+                  order={1}
+                  style={{
+                    fontSize: rem(64),
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.02em',
+                    color: active.primary,
+                    fontFamily: 'var(--font-serif)'
+                  }}
+                >
+                  Precision editing <br />
+                  for scholars.
+                </Title>
+              </Stack>
+              <Text size="lg" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
+                Move from a working draft to a submission-ready manuscript with the clarity, 
+                tone, and authority required by your committee.
+              </Text>
+              
+              <Group gap="md">
+                <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
+                  <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                    GET A FREE QUOTE
+                  </Button>
+                </Link>
+              </Group>
+            </Stack>
+
+            {/* RHS Card: High-value Template Lead Magnet */}
+            <Box>
+              <Card 
+                p={rem(40)} 
                 radius={0} 
-                className="impeccable-button"
-                leftSection={<IconDownload size={18} />}
-                onClick={() => window.open('/docs/editing_services_guide.md', '_blank')}
-                style={{ borderColor: active.primary }}
+                bg={active.surface} 
+                style={{ 
+                  border: `1px solid ${active.primary}12`,
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)'
+                }}
               >
-                DOWNLOAD SERVICES GUIDE
-              </Button>
-            </Group>
-          </Box>
+                <Stack gap="xl">
+                  <Badge color="dark" variant="light" radius={0} style={{ alignSelf: 'flex-start' }} className="impeccable-eyebrow">
+                    SERVICES GUIDE
+                  </Badge>
+                  <Stack gap="xs">
+                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary }}>
+                      The Manuscript Refinement Guide
+                    </Title>
+                    <Text size="sm" c="dimmed" lh={1.6}>
+                      A comprehensive, step-by-step overview of our doctoral-level copyediting, formatting rules, compliance checks, and pricing tiers.
+                    </Text>
+                  </Stack>
+                  <Button
+                    variant="outline"
+                    color={active.primary}
+                    radius={0}
+                    leftSection={<IconDownload size={16} />}
+                    style={{ borderColor: active.primary }}
+                    onClick={() => handleDownloadClick('The Manuscript Refinement Guide')}
+                  >
+                    Download Services Guide
+                  </Button>
+                </Stack>
+              </Card>
+            </Box>
+          </SimpleGrid>
         </Container>
       </Box>
 
       {/* The Scholar's Standard (Trust Section) */}
-      <Box py={0} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Box py={0} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={800} py={rem(100)}>
           <Stack gap={rem(48)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
@@ -207,7 +248,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* Levels of Service (Simplified) */}
-      <Box py={SECTION_SPACING} bg={active.background}>
+      <Box py={SECTION_SPACING} className="academic-watermark" bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
@@ -386,7 +427,7 @@ export default function EditingProofreadingPage() {
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
@@ -406,6 +447,87 @@ export default function EditingProofreadingPage() {
           </Stack>
         </Container>
       </Box>
+
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={true}
+        centered
+        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
+        styles={{
+          content: {
+            backgroundColor: active.surface,
+            border: `1px solid #eee`,
+            borderRadius: 0,
+          },
+          header: {
+            backgroundColor: active.surface,
+          } }}
+      >
+        <Box p="md" style={{ textAlign: 'center' }}>
+          <Title
+            order={2}
+            style={{
+              fontSize: rem(32),
+              color: active.primary }}
+            mb="xl"
+          >
+            Secure Your Resource
+          </Title>
+
+          {!submitted ? (
+            <Stack gap="xl">
+              <Text size="sm" c="dimmed" lh={1.6}>
+                You are about to download <strong>{selectedResource}</strong>. Please enter your preferred email address to receive your secure download link.
+              </Text>
+              <Stack gap="md">
+                <TextInput
+                  placeholder="Your Email Address"
+                  radius={0}
+                  size="md"
+                  styles={{
+                    input: {
+                      border: `1px solid #eee`,
+                      '&:focus': {
+                        borderColor: active.primary,
+                      },
+                    } }}
+                />
+                <Button
+                  fullWidth
+                  size="md"
+                  radius={0}
+                  variant="filled"
+                  bg={active.primary}
+                  onClick={() => setSubmitted(true)}
+                >
+                  Send My Download
+                </Button>
+              </Stack>
+              <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
+                We respect your privacy. Unsubscribe at any time.
+              </Text>
+            </Stack>
+          ) : (
+            <Stack gap="xl" align="center" style={{ textAlign: 'center' }} py="xl">
+              <ThemeIcon size={64} radius="xl" color="green" variant="light">
+                <IconCheck size={32} />
+              </ThemeIcon>
+              <Box>
+                <Title order={3} >
+                  Download Sent!
+                </Title>
+                <Text size="sm" c="dimmed" mt="sm">
+                  Check your inbox. We&apos;ve sent <strong>{selectedResource}</strong> directly to you.
+                </Text>
+              </Box>
+              <Button variant="outline" color={active.primary} radius={0} fullWidth onClick={close}>
+                Close
+              </Button>
+            </Stack>
+          )}
+        </Box>
+      </Modal>
 
       <Footer />
     </Box>
