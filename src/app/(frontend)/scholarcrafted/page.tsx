@@ -109,6 +109,9 @@ const universities = [
   { name: 'ANU', logo: '/logos/Australian_National_University-Logo.wine.svg' },
   { name: 'GCU', logo: '/logos/Grand_Canyon_University-Logo.wine.svg' },
   { name: 'K-State', logo: '/logos/Kansas_State_University-Logo.wine.svg' },
+  { name: 'Harvard', logo: '/logos/Harvard_University_logo.svg' },
+  { name: 'Johns Hopkins', logo: '/logos/Johns_Hopkins_University-Logo.wine.svg' },
+  { name: 'NCSU', logo: '/logos/North_Carolina_State_University_Athletic_logo.svg' },
 ]
 
 const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (

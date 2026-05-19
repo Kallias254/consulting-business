@@ -82,7 +82,7 @@ const FORMATTED_VALUES: Record<string, string> = {
   yes: 'Yes, had intro call',
   
   // Specifics
-  friction: 'Committee Feedback & Friction',
+  friction: 'Committee Friction',
   block: 'Methodology or Data Hurdles',
   narrative: 'Argument Flow & Structure',
   momentum: 'Stalled Momentum',
@@ -494,7 +494,7 @@ function StepSpecifics({ data, selectOption }: any) {
         },
         {
           id: 'friction',
-          title: 'Committee Feedback & Friction',
+          title: 'Committee Friction',
           desc: 'Navigating contradictory feedback or stagnant reviews.',
           icon: <IconSearch size={28} />,
         },
@@ -651,10 +651,6 @@ function StepDateTime({ data, setData, nextStep }: any) {
           </Button>
         </Stack>
       </SimpleGrid>
-      <Divider my="xl" label="DISCLAIMER" labelPosition="center" />
-      <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
-        This is a free, 15-minute introductory call to get to know your needs, not a coaching session. <Link href="/scholarcrafted/how-it-works" style={{ color: active.accent, textDecoration: 'none' }}>Find out more here.</Link>
-      </Text>
     </Box>
   )
 }
@@ -877,13 +873,16 @@ function SelectionCard({ title, description, icon, active, onClick }: any) {
     <UnstyledButton
       onClick={onClick}
       style={{
+        display: 'block',
         padding: rem(20),
         backgroundColor: active ? activeTheme.background : activeTheme.surface,
         border: `1px solid ${active ? activeTheme.primary : `${activeTheme.primary}22`}`,
         transition: 'all 0.2s ease',
         position: 'relative',
         textAlign: 'left',
-        width: '100%' }}
+        width: '100%',
+        height: '100%',
+      }}
       onMouseEnter={(e) => {
         if (!active) {
           e.currentTarget.style.backgroundColor = activeTheme.background;
@@ -897,7 +896,7 @@ function SelectionCard({ title, description, icon, active, onClick }: any) {
         }
       }}
     >
-      <Group align="center" wrap="nowrap" gap="xl">
+      <Group align="center" wrap="nowrap" gap="xl" style={{ height: '100%' }}>
         <Box 
           c={active ? activeTheme.primary : 'dimmed'} 
           style={{ transition: 'color 0.2s ease', flexShrink: 0 }}
