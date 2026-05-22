@@ -70,6 +70,24 @@ const COACHES = [
   'Tara',
 ]
 
+const COACH_CALENDLY_URLS: Record<string, string> = {
+  brandon: 'https://calendly.com/scholarcrafted-brandon',
+  denise: 'https://calendly.com/scholarcrafted-denise',
+  ethar: 'https://calendly.com/scholarcrafted-ethar',
+  kerryn: 'https://calendly.com/scholarcrafted-kerryn',
+  lani: 'https://calendly.com/scholarcrafted-lani',
+  matthew: 'https://calendly.com/scholarcrafted-matthew',
+  nichole: 'https://calendly.com/scholarcrafted-nichole',
+  suzanne: 'https://calendly.com/scholarcrafted-suzanne',
+  tara: 'https://calendly.com/scholarcrafted-tara',
+  general: 'https://calendly.com/scholarcrafted-advisor',
+}
+
+const getCalendlyUrl = (coachName: string) => {
+  const key = coachName.toLowerCase().trim()
+  return COACH_CALENDLY_URLS[key] || COACH_CALENDLY_URLS.general
+}
+
 const FORMATTED_VALUES: Record<string, string> = {
   // Interest
   coaching: 'Live Academic Coaching',
@@ -147,7 +165,7 @@ function ConsultationWizard() {
 
   const theme = useMantineTheme()
   const active = theme.other
-  const totalSteps = 9
+  const totalSteps = 8
   const isSuccessStep = step === totalSteps - 1
 
   const nextStep = () => {
@@ -225,16 +243,12 @@ function ConsultationWizard() {
       desc: "Whether you're just starting your proposal or pushing through the final chapters, we'll meet you exactly where you are.",
     },
     {
-      title: 'Pick a preferred window',
-      desc: "Pick a preferred window that works for you. We'll match you with a faculty lead and confirm your 15-minute intro via email.",
+      title: 'Schedule Your Discovery Call',
+      desc: "Select a convenient time for your introductory 15-minute consultation. We will connect to map out your roadmap.",
     },
     {
-      title: 'Finalize your inquiry',
-      desc: 'Please provide your contact information and a brief overview of your research.',
-    },
-    {
-      title: 'Thank You. Audit Initialized.',
-      desc: 'Thank you for taking a decisive step toward completion. Micah, PhD is personally reviewing your research profile. You will receive an email within 24 hours to confirm your advisor pairing and introductory session.',
+      title: 'Thank You. Consultation Confirmed.',
+      desc: 'Thank you for scheduling your introductory call. Your advisor pairing has been initialized, and you should receive a calendar invitation shortly.',
     },
   ]
 
@@ -245,14 +259,12 @@ function ConsultationWizard() {
     <StepSpecifics key={3} data={data} selectOption={selectOption} />,
     <StepDiscipline key={4} data={data} selectOption={selectOption} />,
     <StepStage key={5} data={data} selectOption={selectOption} />,
-    <StepDateTime key={6} data={data} setData={setData} nextStep={nextStep} />,
-    <StepForm key={7} data={data} setData={setData} nextStep={nextStep} />,
-    <StepSuccess key={8} data={data} setStep={setStep} />,
+    <StepCalendly key={6} data={data} nextStep={nextStep} />,
+    <StepSuccess key={7} data={data} setStep={setStep} />,
   ]
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
       <Box 
-        component="header" 
         py={rem(20)} 
         style={{ 
           borderBottom: `1px solid ${active.primary}11`,
@@ -591,114 +603,46 @@ function StepStage({ data, selectOption }: any) {
   )
 }
 
-function StepDateTime({ data, setData, nextStep }: any) {
+function StepCalendly({ data, nextStep }: { data: StepData; nextStep: () => void }) {
   const { other: active } = useMantineTheme()
-  return (
-    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
-      <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
-        <Stack align="center" gap="md">
-          <DatePicker
-            value={data.preferredDate}
-            onChange={(d) => setData((prev: any) => ({ ...prev, preferredDate: d }))}
-            minDate={new Date()}
-            classNames={{ day: 'calendar-day' }}
-          />
-        </Stack>
-        <Stack gap="md">
-          <Stack gap="sm">
-            {[
-              { id: 'morning', title: 'Morning', range: '09:00 - 12:00' },
-              { id: 'afternoon', title: 'Afternoon', range: '13:00 - 17:00' },
-              { id: 'evening', title: 'Evening', range: '18:00 - 20:00' },
-            ].map((slot) => (
-              <UnstyledButton
-                key={slot.id}
-                onClick={() => setData((prev: any) => ({ ...prev, preferredTime: slot.id }))}
-                style={{
-                  padding: rem(16),
-                  border: `1px solid ${data.preferredTime === slot.id ? active.primary : '#eee'}`,
-                  backgroundColor:
-                    data.preferredTime === slot.id ? active.surface : active.background,
-                  transition: 'all 0.2s ease' }}
-              >
-                <Group justify="space-between">
-                  <Text fw={600} color={active.primary}>
-                    {slot.title}
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    {slot.range}
-                  </Text>
-                </Group>
-              </UnstyledButton>
-            ))}
-          </Stack>
-          <Button
-            size="lg"
-            variant="filled"
-            bg={active.primary}
+  const coachName = data.coach || 'general'
+  const calendlyUrl = getCalendlyUrl(coachName)
 
-            mt="xl"
-            disabled={!data.preferredDate || !data.preferredTime}
-            onClick={nextStep}
-            rightSection={<IconArrowRight size={18} />}
-          >
-            CONTINUE
-          </Button>
-        </Stack>
-      </SimpleGrid>
-    </Box>
-  )
-}
+  // Pre-fill fields if needed
+  const projectDetails = `Field: ${FORMATTED_VALUES[data.discipline] || data.discipline}. Stage: ${FORMATTED_VALUES[data.stage] || data.stage}. Stalled due to: ${FORMATTED_VALUES[data.specifics] || data.specifics}.`
+  const encodedDetails = encodeURIComponent(projectDetails)
+  const fullUrl = `${calendlyUrl}?hide_event_type_details=1&hide_gdpr_banner=1&a1=${encodedDetails}`
 
-function StepForm({ data, setData, nextStep }: any) {
-  const { other: active } = useMantineTheme()
+  React.useEffect(() => {
+    const handleCalendlyEvent = (e: MessageEvent) => {
+      if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+        if (e.data.event === 'calendly.event_scheduled') {
+          nextStep()
+        }
+      }
+    }
+    window.addEventListener('message', handleCalendlyEvent)
+    return () => window.removeEventListener('message', handleCalendlyEvent)
+  }, [nextStep])
+
   return (
-    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
-      <Stack gap="lg">
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-          <TextInput
-            label="Full Name"
-            placeholder="e.g. Dr. Jane Smith"
-            value={data.name}
-            onChange={(e) => setData((prev: any) => ({ ...prev, name: e.target.value }))}
-          />
-          <TextInput
-            label="Email Address"
-            placeholder="e.g. j.smith@university.edu"
-            value={data.email}
-            onChange={(e) => setData((prev: any) => ({ ...prev, email: e.target.value }))}
-          />
-        </SimpleGrid>
-        <Textarea
-          label="Brief Project Description"
-          placeholder="Describe your research topic and current challenges..."
-          minRows={4}
-          value={data.description}
-          onChange={(e) => setData((prev: any) => ({ ...prev, description: e.target.value }))}
-        />
-        <Stack gap="sm" mt="md">
-          <Button
-            size="lg"
-            variant="filled"
-            bg={active.primary}
-            onClick={nextStep}
-            rightSection={<IconArrowRight size={18} />}
-          >
-            SUBMIT INQUIRY
-          </Button>
-          <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
-            This is a free, 15-minute introductory call to get to know your needs, not a coaching
-            session.{' '}
-            <Link
-              href="/scholarcrafted/services/private-coaching"
-              style={{ color: active.primary }}
-            >
-              Find out more here
-            </Link>
-            .
-          </Text>
-        </Stack>
-      </Stack>
+    <Box 
+      bg="white" 
+      style={{ 
+        border: `1px solid ${active.primary}12`,
+        borderRadius: rem(8),
+        overflow: 'hidden',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+      }} 
+      mt={rem(40)}
+    >
+      <iframe
+        src={fullUrl}
+        width="100%"
+        height="700px"
+        frameBorder="0"
+        title="Schedule Consultation"
+      />
     </Box>
   )
 }

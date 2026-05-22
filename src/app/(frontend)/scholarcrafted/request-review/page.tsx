@@ -13,24 +13,30 @@ import {
   rem,
   Group,
   useMantineTheme,
-  Select,
-  NumberInput,
   SimpleGrid,
-  Radio,
-  Checkbox,
-  ScrollArea,
-  Divider,
-  ThemeIcon,
-  Modal,
+  NumberInput,
+  UnstyledButton,
+  Progress,
 } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates'
-import { Dropzone, FileWithPath } from '@mantine/dropzone'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import { useSearchParams } from 'next/navigation'
-import { IconCheck, IconUpload, IconX, IconFileText, IconPhone, IconMail, IconLock, IconShieldLock } from '@tabler/icons-react'
+import {
+  IconCheck,
+  IconX,
+  IconFileText,
+  IconMicroscope,
+  IconEdit,
+  IconSearch,
+  IconArrowLeft,
+  IconSchool,
+  IconCertificate,
+  IconUser,
+  IconNotebook,
+} from '@tabler/icons-react'
 import Link from 'next/link'
-import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
+import { INNER_WIDTH } from '@/layout'
 
 export default function RequestReviewPage() {
   return (
@@ -40,13 +46,43 @@ export default function RequestReviewPage() {
   )
 }
 
-const getStepTitle = (s: number) => {
-  switch (s) {
-    case 1: return 'Project Specifications'
-    case 2: return 'Document Uploads'
-    case 3: return 'Contact Details'
-    default: return ''
-  }
+function SelectionCard({ title, description, icon, active, onClick }: any) {
+  const theme = useMantineTheme()
+  const current = theme.other
+
+  return (
+    <UnstyledButton
+      onClick={onClick}
+      style={{
+        display: 'block',
+        width: '100%',
+        padding: rem(24),
+        backgroundColor: active ? current.primary : current.surface,
+        border: `1px solid ${active ? current.primary : 'rgba(0,0,0,0.1)'}`,
+        transition: 'all 0.2s ease',
+        color: active ? 'white' : current.primary,
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <Group wrap="nowrap" align="flex-start" gap="md">
+        <Box c={active ? 'white' : current.accent}>{icon}</Box>
+        <Box style={{ flex: 1 }}>
+          <Text fw={600} size="lg" mb={4} style={{ color: active ? 'white' : current.primary }}>
+            {title}
+          </Text>
+          <Text size="sm" style={{ color: active ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.6)' }} lh={1.4}>
+            {description}
+          </Text>
+        </Box>
+        {active && (
+          <Box style={{ position: 'absolute', top: rem(24), right: rem(24) }}>
+            <IconCheck size={20} color="white" />
+          </Box>
+        )}
+      </Group>
+    </UnstyledButton>
+  )
 }
 
 function RequestReviewContent() {
@@ -54,658 +90,465 @@ function RequestReviewContent() {
   const active = theme.other
   const searchParams = useSearchParams()
 
-  const [step, setStep] = useState(1)
-  const [submitted, setSubmitted] = useState(false)
-  const [formData, setFormData] = useState({
+  const [step, setStep] = useState(0)
+  const [data, setData] = useState({
+    service: '',
+    academicLevel: '',
+    university: '',
+    wordCount: 0,
+    deadline: null as Date | null,
+    details: '',
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    countryCode: '+254',
-    contactPreference: 'email',
-    wordCount: 0,
-    deadline: null as Date | null,
-    additionalInstructions: '',
-    referral: '',
-    consent: false,
-    service: 'Dissertation & Thesis Formatting',
   })
 
-  const [manuscript, setManuscript] = useState<FileWithPath[]>([])
-  const [guidelines, setGuidelines] = useState<FileWithPath[]>([])
-  const [isSaved, setIsSaved] = useState(false)
-  const [ndaOpened, setNdaOpened] = useState(false)
+  const totalSteps = 6
+  const isSuccessStep = step === totalSteps - 1
 
-  // Load from localStorage & searchParams on mount
+  // Handle direct links from Service pages (e.g. ?service=Custom%20Research)
   React.useEffect(() => {
-    // 1. First, load draft if any exists
-    const saved = localStorage.getItem('scholarcrafted_intake_draft')
-    let draftData: any = {}
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved)
-        // Convert deadline string back to Date object
-        if (parsed.deadline) parsed.deadline = new Date(parsed.deadline)
-        draftData = parsed
-      } catch (e) {
-        console.error('Failed to load draft', e)
-      }
-    }
-
-    // 2. Read query params (which take precedence on deep link from the interactive page)
-    const queryWordCount = searchParams.get('wordCount')
-    const queryHours = searchParams.get('hours')
     const queryService = searchParams.get('service')
+    if (queryService && step === 0 && !data.service) {
+      let mappedService = queryService
+      if (queryService.includes('Editing') || queryService === 'Formatting') mappedService = 'editing'
+      if (queryService.includes('Research') || queryService.includes('Data')) mappedService = 'data_support'
+      if (queryService.includes('Technical')) mappedService = 'technical'
 
-    const initialData = {
-      service: 'Dissertation & Thesis Formatting',
-      ...draftData,
+      setData((prev) => ({ ...prev, service: mappedService }))
+      setStep(1) // skip the first step since it's pre-filled
     }
-
-    if (queryWordCount) {
-      initialData.wordCount = parseInt(queryWordCount, 10) || 0
-    }
-
-    if (queryService) {
-      if (queryService === 'Formatting' || queryService === 'Structural Editing & Proofreading' || queryService === 'Structural%20Editing%20%26%20Proofreading') {
-        initialData.service = 'Dissertation & Thesis Formatting'
-      } else if (queryService === 'TechnicalSupport') {
-        initialData.service = 'Targeted Technical Support'
-      } else if (queryService === 'ResearchSupport' || queryService === 'DataSupport' || queryService === 'Custom Research & Data Support') {
-        initialData.service = 'Custom Research & Data Support'
-      } else {
-        const decoded = decodeURIComponent(queryService)
-        if (['Dissertation & Thesis Formatting', 'Targeted Technical Support', 'Custom Research & Data Support'].includes(decoded)) {
-          initialData.service = decoded
-        }
-      }
-    }
-    
-    if (queryHours && queryService === 'TechnicalSupport') {
-      const estimationText = `[Estimated Support Request: ${queryHours} hours ($${parseInt(queryHours, 10) * 90})]`
-      if (!initialData.additionalInstructions?.includes(estimationText)) {
-        initialData.additionalInstructions = `${estimationText}\n` + (initialData.additionalInstructions || '')
-      }
-    }
-
-    // 3. Read saved step unless forced by query params
-    const savedStep = localStorage.getItem('scholarcrafted_intake_step')
-    let initialStep = 1
-    if (savedStep && !queryWordCount && !queryHours && !queryService) {
-      const parsedStep = parseInt(savedStep, 10)
-      if (parsedStep >= 1 && parsedStep <= 3) {
-        initialStep = parsedStep
-      }
-    }
-    setStep(initialStep)
-
-    setFormData((prev) => ({ ...prev, ...initialData }))
   }, [searchParams])
 
-  // Save to localStorage on change
-  React.useEffect(() => {
-    if (!submitted) {
-      localStorage.setItem('scholarcrafted_intake_draft', JSON.stringify(formData))
-      localStorage.setItem('scholarcrafted_intake_step', step.toString())
-      setIsSaved(true)
-      const timeout = setTimeout(() => setIsSaved(false), 2000)
-      return () => clearTimeout(timeout)
-    }
-  }, [formData, step, submitted])
+  const nextStep = () => setStep((s) => Math.min(s + 1, totalSteps - 1))
+  const prevStep = () => setStep((s) => Math.max(s - 1, 0))
 
-  const handleSubmit = () => {
-    console.log({ ...formData, manuscript, guidelines })
-    localStorage.removeItem('scholarcrafted_intake_draft')
-    localStorage.removeItem('scholarcrafted_intake_step')
-    setSubmitted(true)
+  const selectOption = (field: keyof typeof data, value: any) => {
+    setData((prev) => ({ ...prev, [field]: value }))
+    nextStep()
   }
 
-  const isStep1Valid = 
-    (formData.service === 'Dissertation & Thesis Formatting' ? formData.wordCount > 0 : true) && 
-    formData.deadline !== null && 
-    formData.service.trim() !== ''
-  const isStep2Valid = manuscript.length > 0
-  const isStep3Valid = 
-    formData.firstName.trim() !== '' && 
-    formData.lastName.trim() !== '' && 
-    formData.email.trim() !== '' && 
-    formData.phone.trim() !== '' && 
-    formData.consent
+  const stepHeadlines = [
+    {
+      title: 'What do you need help with?',
+      desc: 'Select the primary service you require so we can tailor the rest of this intake form.',
+    },
+    {
+      title: 'What is your academic level?',
+      desc: 'Select your level of study so we can match your project with a faculty lead of matching scholarly expertise.',
+    },
+    {
+      title: 'Institution & Scope',
+      desc: 'This helps us assign your project to the correct disciplinary background and prepare university-specific formatting.',
+    },
+    {
+      title: 'Provide Project Details',
+      desc: 'Specify unique formatting needs, style guides (e.g. APA, Harvard), or specific goals you want us to address.',
+    },
+    {
+      title: 'Identity & Contact',
+      desc: 'Please provide your details so we can email your secure project proposal within 24 hours.',
+    },
+    {
+      title: 'Request Received',
+      desc: 'Thank you for submitting your project details. A faculty coordinator will review your materials and issue a formal quote shortly.',
+    },
+  ]
+
+  const isStep2Valid = data.university.trim() !== '' && data.deadline !== null
+  const isStep3Valid = data.details.trim().length > 10
+  const isStep4Valid = data.firstName.trim() !== '' && data.lastName.trim() !== '' && data.email.trim() !== ''
+
+  const stepsContent = [
+    <StepService key={0} data={data} selectOption={selectOption} />,
+    <StepAcademicLevel key={1} data={data} selectOption={selectOption} />,
+    <StepScope key={2} data={data} setData={setData} nextStep={nextStep} isValid={isStep2Valid} />,
+    <StepDetails key={3} data={data} setData={setData} nextStep={nextStep} isValid={isStep3Valid} />,
+    <StepIdentity key={4} data={data} setData={setData} nextStep={nextStep} isValid={isStep4Valid} />,
+    <StepSuccess key={5} data={data} />,
+  ]
 
   return (
-    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
-      <Navbar />
-
-      {submitted ? (
-        <Container size={READING_WIDTH} py={rem(140)}>
-          <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Box c={active.accent}>
-              <IconCheck size={64} stroke={1.5} />
-            </Box>
-            <Title order={1} style={{ color: active.primary }}>
-              Submission Received
-            </Title>
-            <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
-              Thank you, {formData.firstName}. We have received your documents for <strong>{formData.service}</strong>. A
-              faculty coordinator will review your submission and issue a formal quote to{' '}
-              <strong>{formData.email}</strong> within 24 hours.
-            </Text>
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
-              <Button variant="outline" color={active.primary} radius={0} mt="md">
-                RETURN TO HOME
-              </Button>
-            </Link>
-          </Stack>
-        </Container>
-      ) : (
-        <>
-          <Box component="section" pt={rem(100)} pb={rem(40)} bg={active.background}>
-            <Container size={READING_WIDTH}>
-              <Stack gap="xs" align="center" style={{ textAlign: 'center' }}>
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                  Intake Process
-                </Text>
-                <Title
-                  order={1}
-                  style={{
-                    fontSize: rem(48),
-                    lineHeight: 1.1,
-                    color: active.primary,
-                    fontFamily: 'var(--font-serif)'
-                  }}
-                >
-                  Request an Editing Estimate
-                </Title>
-                <Text size="sm" c="dimmed" mt="md" style={{ maxWidth: 600 }}>
-                  To receive a quote, complete the form below and attach your document as a Word file. 
-                  Quotes are issued via email within 24 hours of receipt.
-                </Text>
-              </Stack>
-            </Container>
-          </Box>
-
-          <Box component="section" className="academic-watermark" py={rem(60)} bg={active.surface}>
-            <Container size={READING_WIDTH}>
-              <Box bg="white" p={{ base: rem(20), sm: rem(60) }} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, boxShadow: '0 4px 24px oklch(0% 0 0 / 0.02)' }}>
-                <Stack gap={rem(40)}>
-                  
-                  {/* Academic Stepper Header */}
-                  <Box pb="md" style={{ borderBottom: '1px solid oklch(0% 0 0 / 0.05)' }}>
-                    <Group justify="space-between" align="center">
-                      <Text 
-                        fw={700} 
-                        size="sm" 
-                        c={active.accent}
-                        style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
-                      >
-                        {getStepTitle(step)}
-                      </Text>
-                      
-                      <Group gap="md">
-                        {isSaved && (
-                          <Group gap={4}>
-                            <IconCheck size={12} color={active.accent} />
-                            <Text size="xs" c="dimmed" fw={500}>Draft Saved</Text>
-                          </Group>
-                        )}
-                        <Text size="xs" c="dimmed" fw={600}>
-                          STEP {step} OF 3
-                        </Text>
-                      </Group>
-                    </Group>
-                    <Box mt="xs" style={{ height: 2, backgroundColor: 'oklch(0% 0 0 / 0.05)', position: 'relative' }}>
-                      <Box 
-                        style={{ 
-                          height: '100%', 
-                          width: `${(step / 3) * 100}%`, 
-                          backgroundColor: active.accent, 
-                          transition: 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)' 
-                        }} 
-                      />
-                    </Box>
-                  </Box>
-
-                  {/* Step 1: Project Specifications */}
-                  {step === 1 && (
-                    <Stack gap="xl">
-                      {/* Dynamic Baseline Estimate Callout */}
-                      {formData.service && (
-                        <Box 
-                          p="md" 
-                          bg="oklch(99% 0.005 60)" 
-                          style={{ 
-                            borderLeft: `4px solid ${active.accent}`,
-                            borderTop: '1px solid oklch(93% 0.005 60)',
-                            borderRight: '1px solid oklch(93% 0.005 60)',
-                            borderBottom: '1px solid oklch(93% 0.005 60)'
-                          }}
-                        >
-                          <Stack gap="xs">
-                            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-                              Selected Baseline Estimate
-                            </Text>
-                            <Text size="lg" fw={700} c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
-                              {formData.service === 'Dissertation & Thesis Formatting' ? (
-                                formData.wordCount > 0 ? (
-                                  <>Estimated Rate: ${(formData.wordCount * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <Text span size="xs" c="dimmed" fw={500}>({formData.wordCount.toLocaleString()} words @ $0.044/word)</Text></>
-                                ) : (
-                                  <>Rate: $0.044 / word <Text span size="xs" c="dimmed" fw={500}>(Enter word count below for baseline estimate)</Text></>
-                                )
-                              ) : formData.service === 'Targeted Technical Support' ? (
-                                <>Estimated Rate: ${(parseInt(searchParams.get('hours') || '10', 10) * 90).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <Text span size="xs" c="dimmed" fw={500}>({parseInt(searchParams.get('hours') || '10', 10)} hours @ $90/hr)</Text></>
-                              ) : (
-                                <>Custom Scoping <Text span size="xs" c="dimmed" fw={500}>(Scoped individually based on methodology/dataset)</Text></>
-                              )}
-                            </Text>
-                            <Text size="xs" c="dimmed" lh={1.4}>
-                              {formData.service === 'Dissertation & Thesis Formatting'
-                                ? 'This baseline estimate is calculated in real-time. Complete your details and upload your manuscript to secure this rate.'
-                                : formData.service === 'Targeted Technical Support'
-                                ? 'This is a baseline technical hourly estimate. A coordinator will review your references, tables, or compliance requirements to finalize the scope.'
-                                : 'Custom Research and Data Support requires faculty review of your methodology and files to compile a customized technical scoping document.'}
-                            </Text>
-                          </Stack>
-                        </Box>
-                      )}
-
-                      <Box>
-
-                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
-                          <Box>
-                            <Text size="sm" fw={500} mb={4}>
-                              Selected Service <Text span c="red" ml={2}>*</Text>
-                            </Text>
-                            <Select
-                              placeholder="Select service"
-                              required
-                              radius={0}
-                              data={['Dissertation & Thesis Formatting', 'Targeted Technical Support', 'Custom Research & Data Support']}
-                              value={formData.service}
-                              onChange={(val) => setFormData({ ...formData, service: val || '' })}
-                            />
-                            <Text size="xs" c="dimmed" mt={4} style={{ visibility: 'hidden' }}>
-                              Placeholder description for baseline alignment
-                            </Text>
-                          </Box>
-
-                          <Box>
-                            <Text size="sm" fw={500} mb={4}>
-                              Word Count of Document {formData.service === 'Dissertation & Thesis Formatting' && <Text span c="red" ml={2}>*</Text>}
-                            </Text>
-                            <NumberInput
-                              placeholder={formData.service === 'Dissertation & Thesis Formatting' ? 'e.g. 45000' : 'Optional'}
-                              required={formData.service === 'Dissertation & Thesis Formatting'}
-                              radius={0}
-                              min={0}
-                              value={formData.wordCount}
-                              onChange={(val) => setFormData({ ...formData, wordCount: typeof val === 'number' ? val : 0 })}
-                            />
-                            <Text size="xs" c="dimmed" mt={4}>
-                              {formData.service === 'Dissertation & Thesis Formatting' ? 'Exclude appendices from count.' : 'Optional for technical or hourly support.'}
-                            </Text>
-                          </Box>
-                        </SimpleGrid>
-
-                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
-                          <Box>
-                            <Text size="sm" fw={500} mb={4}>
-                              Desired Return Date <Text span c="red" ml={2}>*</Text>
-                            </Text>
-                            <DatePickerInput
-                              placeholder="Select a date"
-                              required
-                              radius={0}
-                              minDate={new Date()}
-                              value={formData.deadline}
-                              onChange={(val) => setFormData({ ...formData, deadline: val as Date | null })}
-                            />
-                            <Text size="xs" c="dimmed" mt={4}>
-                              Include a 24-48h buffer before your actual deadline.
-                            </Text>
-                          </Box>
-
-                          <Box>
-                            <Text size="sm" fw={500} mb={4}>
-                              How did you hear about us? <Text span c="red" ml={2}>*</Text>
-                            </Text>
-                            <Select
-                              placeholder="Select an option"
-                              required
-                              radius={0}
-                              data={['Search Engine', 'University Referral', 'Colleague/Friend', 'Social Media', 'Academic Journal', 'Other']}
-                              value={formData.referral}
-                              onChange={(val) => setFormData({ ...formData, referral: val || '' })}
-                            />
-                            <Text size="xs" c="dimmed" mt={4} style={{ visibility: 'hidden' }}>
-                              Placeholder description for baseline alignment
-                            </Text>
-                          </Box>
-                        </SimpleGrid>
-
-                        <Textarea
-                          label="Additional Instructions"
-                          placeholder="Specify unique formatting needs, style guides (APA, MLA), or specific concerns..."
-                          mt="xl"
-                          radius={0}
-                          minRows={4}
-                          value={formData.additionalInstructions}
-                          onChange={(e) => setFormData({ ...formData, additionalInstructions: e.target.value })}
-                        />
-                      </Box>
-
-                      <Group justify="flex-end" mt="xl">
-                        <Button
-                          size="md"
-                          variant="filled"
-                          bg={active.primary}
-                          radius={0}
-                          onClick={() => setStep(2)}
-                          disabled={!isStep1Valid}
-                          style={{ letterSpacing: '0.05em' }}
-                          className="impeccable-button"
-                        >
-                          Continue to Upload
-                        </Button>
-                      </Group>
-                    </Stack>
-                  )}
-
-                  {/* Step 2: Document Uploads */}
-                  {step === 2 && (
-                    <Stack gap="xl">
-                      <Box>
-                        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-                          <Stack gap="xs">
-                            <Text size="sm" fw={500}>Attach Your Manuscript (Required)</Text>
-                            <Dropzone onDrop={setManuscript} multiple={false} styles={{ root: { backgroundColor: active.surface, borderStyle: 'dashed' } }}>
-                              <Group justify="center" gap="md" mih={120} style={{ pointerEvents: 'none' }}>
-                                {manuscript.length > 0 ? (
-                                  <Stack align="center" gap={4}>
-                                    <IconCheck size={30} color={active.accent} />
-                                    <Text size="xs" style={{ textAlign: 'center', maxWidth: rem(180) }} truncate>{manuscript[0].name}</Text>
-                                  </Stack>
-                                ) : (
-                                  <>
-                                    <IconFileText size={30} stroke={1.5} color="gray" />
-                                    <Text size="xs" c="dimmed">Drag Word file or click</Text>
-                                  </>
-                                )}
-                              </Group>
-                            </Dropzone>
-                          </Stack>
-
-                          <Stack gap="xs">
-                            <Text size="sm" fw={500}>Program Guidelines (Optional)</Text>
-                            <Dropzone onDrop={setGuidelines} multiple={false} styles={{ root: { backgroundColor: active.surface, borderStyle: 'dashed' } }}>
-                              <Group justify="center" gap="md" mih={120} style={{ pointerEvents: 'none' }}>
-                                {guidelines.length > 0 ? (
-                                  <Stack align="center" gap={4}>
-                                    <IconCheck size={30} color={active.accent} />
-                                    <Text size="xs" style={{ textAlign: 'center', maxWidth: rem(180) }} truncate>{guidelines[0].name}</Text>
-                                  </Stack>
-                                ) : (
-                                  <>
-                                    <IconUpload size={30} stroke={1.5} color="gray" />
-                                    <Text size="xs" c="dimmed">Attach template or guide</Text>
-                                  </>
-                                )}
-                              </Group>
-                            </Dropzone>
-                          </Stack>
-                        </SimpleGrid>
-                      </Box>
-
-                      <Group justify="space-between" mt="xl">
-                        <Button
-                          size="md"
-                          variant="outline"
-                          color={active.primary}
-                          radius={0}
-                          onClick={() => setStep(1)}
-                          style={{ borderColor: active.primary, letterSpacing: '0.05em' }}
-                          className="impeccable-button"
-                        >
-                          Back to Specs
-                        </Button>
-                        <Button
-                          size="md"
-                          variant="filled"
-                          bg={active.primary}
-                          radius={0}
-                          onClick={() => setStep(3)}
-                          disabled={!isStep2Valid}
-                          style={{ letterSpacing: '0.05em' }}
-                          className="impeccable-button"
-                        >
-                          Continue to Identity
-                        </Button>
-                      </Group>
-                    </Stack>
-                  )}
-
-                  {/* Step 3: Identity & NDA */}
-                  {step === 3 && (
-                    <Stack gap="xl">
-                      {/* Contact Information */}
-                      <Box>
-
-                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
-                          <TextInput
-                            label="First Name"
-                            placeholder="e.g. Jane"
-                            required
-                            radius={0}
-                            value={formData.firstName}
-                            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                          />
-                          <TextInput
-                            label="Last Name"
-                            placeholder="e.g. Smith"
-                            required
-                            radius={0}
-                            value={formData.lastName}
-                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                          />
-                        </SimpleGrid>
-
-                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="xl">
-                          <Box>
-                            <Text size="sm" fw={500} mb={4}>
-                              Personal Email <Text span c="red" ml={2}>*</Text>
-                            </Text>
-                            <TextInput
-                              placeholder="e.g. jane.smith@gmail.com"
-                              required
-                              radius={0}
-                              value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            />
-                            <Text size="xs" c="dimmed" mt={4}>
-                              Avoid university emails to ensure delivery through firewalls.
-                            </Text>
-                          </Box>
-
-                          <Box>
-                            <Text size="sm" fw={500} mb={4}>
-                              Phone Number <Text span c="red" ml={2}>*</Text>
-                            </Text>
-                            <Group gap="xs" wrap="nowrap" style={{ alignItems: 'stretch' }}>
-                              <Select
-                                placeholder="+254"
-                                data={[
-                                  { value: '+254', label: '🇰🇪 KE (+254)' },
-                                  { value: '+1', label: '🇺🇸 US (+1)' },
-                                  { value: '+44', label: '🇬🇧 UK (+44)' },
-                                  { value: '+61', label: '🇦🇺 AU (+61)' },
-                                  { value: '+27', label: '🇿🇦 ZA (+27)' },
-                                  { value: '+91', label: '🇮🇳 IN (+91)' },
-                                  { value: '+86', label: '🇨🇳 CN (+86)' },
-                                  { value: '+49', label: '🇩🇪 DE (+49)' },
-                                  { value: '+33', label: '🇫🇷 FR (+33)' },
-                                  { value: '+971', label: '🇦🇪 AE (+971)' },
-                                ]}
-                                searchable
-                                radius={0}
-                                style={{ width: rem(150), flexShrink: 0 }}
-                                value={formData.countryCode}
-                                onChange={(val) => setFormData({ ...formData, countryCode: val || '' })}
-                              />
-                              <TextInput
-                                placeholder="712 345 678"
-                                required
-                                radius={0}
-                                style={{ flexGrow: 1 }}
-                                value={formData.phone}
-                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                              />
-                            </Group>
-                            <Text size="xs" c="dimmed" mt={4}>
-                              We will contact you via email if international.
-                            </Text>
-                          </Box>
-                        </SimpleGrid>
-
-                        <Radio.Group
-                          label="Would you like for us to call you today to discuss your quote?"
-                          required
-                          mt="xl"
-                          value={formData.contactPreference}
-                          onChange={(val) => setFormData({ ...formData, contactPreference: val })}
-                        >
-                          <Group mt="xs">
-                            <Radio value="call" label="Yes, please call me" color="dark" />
-                            <Radio value="email" label="No, please send me an email" color="dark" />
-                          </Group>
-                        </Radio.Group>
-                      </Box>
-
-                      {/* NDA Section */}
-                      <Box>
-                        {/* Premium trust badge banner */}
-                        <Box 
-                          p="md" 
-                          style={{ 
-                            border: `1px solid oklch(0% 0 0 / 0.05)`, 
-                            backgroundColor: active.surface,
-                            display: 'flex',
-                            gap: rem(16),
-                            alignItems: 'center'
-                          }}
-                        >
-                          <ThemeIcon size={40} radius="xl" variant="light" color={active.accent}>
-                            <IconShieldLock size={22} stroke={1.5} />
-                          </ThemeIcon>
-                          <Stack gap={2} style={{ flexGrow: 1 }}>
-                            <Text size="sm" fw={700} c={active.primary}>
-                              Legally Protected Manuscript & Data
-                            </Text>
-                            <Text size="xs" c="dimmed" lh={1.4}>
-                              All uploaded manuscripts, datasets, and personal details are strictly confidential and protected by our automatic Academic Non-Disclosure Agreement.
-                            </Text>
-                          </Stack>
-                        </Box>
-
-                        <Checkbox
-                          mt="md"
-                          label={
-                            <Text size="sm">
-                              I consent to the{' '}
-                              <Text 
-                                span 
-                                fw={700} 
-                                style={{ 
-                                  color: active.accent, 
-                                  cursor: 'pointer',
-                                  textDecoration: 'underline'
-                                }} 
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  setNdaOpened(true)
-                                }}
-                              >
-                                Confidentiality and Non-Disclosure Terms
-                              </Text>
-                              .
-                            </Text>
-                          }
-                          required
-                          color="dark"
-                          checked={formData.consent}
-                          onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                        />
-                      </Box>
-
-                      <Group justify="space-between" mt="xl">
-                        <Button
-                          size="md"
-                          variant="outline"
-                          color={active.primary}
-                          radius={0}
-                          onClick={() => setStep(2)}
-                          style={{ borderColor: active.primary, letterSpacing: '0.05em' }}
-                          className="impeccable-button"
-                        >
-                          Back to Upload
-                        </Button>
-                        <Button
-                          size="md"
-                          variant="filled"
-                          bg={active.primary}
-                          radius={0}
-                          onClick={handleSubmit}
-                          disabled={!isStep3Valid}
-                          style={{ letterSpacing: '0.05em' }}
-                          className="impeccable-button"
-                        >
-                          Submit Request
-                        </Button>
-                      </Group>
-
-                      <Text size="xs" c="dimmed" style={{ textAlign: 'center' }} mt="md">
-                        By submitting, you agree to our Terms of Service and Privacy Policy. 
-                        A deposit may be required to secure scheduling for future work.
-                      </Text>
-                    </Stack>
-                  )}
-
-                </Stack>
-              </Box>
-            </Container>
-          </Box>
-        </>
-      )}
-
-      <Modal
-        opened={ndaOpened}
-        onClose={() => setNdaOpened(false)}
-        title="Confidentiality & Non-Disclosure Agreement"
-        centered
-        radius={0}
-        size="lg"
-        overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
-        styles={{
-          header: { backgroundColor: active.background, borderBottom: '1px solid oklch(0% 0 0 / 0.05)' },
-          title: { fontWeight: 700, color: active.primary, fontFamily: 'var(--font-serif)' },
-          content: { backgroundColor: active.background },
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
+      <Box 
+        py={rem(20)} 
+        style={{ 
+          borderBottom: `1px solid ${active.primary}11`,
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000,
+          backgroundColor: `${active.background}f2`,
+          backdropFilter: 'blur(12px)',
+          flexShrink: 0
         }}
       >
-        <ScrollArea h={300} type="always" p="md" offsetScrollbars>
-          <Text size="xs" lh={1.6} c="dimmed" component="div">
-            <Text fw={700} mb="xs" c="dark">CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT</Text>
-            This Agreement is made between Scholarcrafted (referred to as the &quot;Company&quot;) and the client (referred to as the &quot;Client&quot;). The purpose of this Agreement is to ensure the confidentiality of information shared...
-            <br /><br />
-            <Text fw={700} c="dark">CONFIDENTIAL INFORMATION.</Text> Includes, but is not limited to, documents, records, data (verbal, electronic, or written), models, designs, technical procedures, analyses, compilations, studies, software, prototypes, formulas, methodologies, formulations, know-how, experimental results, specifications, and other business information...
-            <br /><br />
-            <Text fw={700} c="dark">SURVIVAL OF CONFIDENTIALITY AND NON-USE.</Text> The Company will ensure that its affiliates, employees, officers, directors, owners, agents, consultants, and representatives given access to the Confidential Information comply with this Agreement&apos;s terms. The Company and the Client will maintain confidentiality indefinitely unless otherwise agreed in writing...
-            <br /><br />
-            <Text fw={700} c="dark">GOVERNING LAW.</Text> This Agreement is governed by the laws of North Carolina, with venue and jurisdiction in the state and federal courts of the Company&apos;s jurisdiction.
-            <br /><br />
-            <Text fw={700} c="dark">ELECTRONIC SIGNATURE.</Text> The Client&apos;s electronic signature (consent below) is valid and binding for this Agreement.
-          </Text>
-        </ScrollArea>
-      </Modal>
+        <Container size={INNER_WIDTH}>
+          <Group justify="space-between" align="center">
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: active.primary }}>
+              <Text fw={700} size="xl" >
+                ScholarCrafted
+              </Text>
+            </Link>
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+              <Group 
+                gap="xs" 
+                align="center" 
+                p="xs" 
+                style={{ 
+                  borderRadius: rem(100), 
+                  border: `1px solid ${active.primary}40`, 
+                  cursor: 'pointer',
+                  paddingLeft: rem(16),
+                  paddingRight: rem(12),
+                }}
+              >
+                <Text className="impeccable-eyebrow" size="xs" c={active.primary}>EXIT</Text>
+                <IconX size={14} color={active.primary} />
+              </Group>
+            </Link>
+          </Group>
+        </Container>
+      </Box>
 
-      <Footer />
+      {/* Top Section - Background */}
+      <Box 
+        component="section" 
+        pt={isSuccessStep ? { base: rem(30), md: rem(50) } : { base: rem(60), md: rem(100) }} 
+        pb={isSuccessStep ? rem(20) : rem(60)} 
+        bg={active.background} 
+        style={{ flexShrink: 0 }}
+      >
+        <Container size={INNER_WIDTH}>
+          <Group justify="space-between" align="center" mb={isSuccessStep ? rem(24) : rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
+            <Box w={100} />
+            
+            {step < totalSteps && !isSuccessStep && (
+              <Stack gap="xs" align="center">
+                <Text className="impeccable-eyebrow" size="xs" c="dimmed">
+                  Quote Request Step {step + 1}
+                </Text>
+                <Progress
+                  value={(step / (totalSteps - 2)) * 100}
+                  color={active.accent || active.primary}
+                  size="md"
+                  radius={0}
+                  style={{ width: rem(200), backgroundColor: `${active.primary}20` }}
+                />
+              </Stack>
+            )}
+            
+            <Box w={100} /> {/* Spacer to perfectly center the progress bar */}
+          </Group>
+          {step < totalSteps && (
+            <Box style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
+              <Title
+                order={1}
+                style={{
+                  fontSize: isSuccessStep ? rem(32) : rem(42),
+                  lineHeight: 1.2,
+                  color: active.primary }}
+              >
+                {stepHeadlines[step].title}
+              </Title>
+              {stepHeadlines[step].desc && (
+                <Text size={isSuccessStep ? "md" : "lg"} c="dimmed" lh={1.6} style={{ 
+                  marginTop: isSuccessStep ? '0.75rem' : '1.5rem',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginBottom: 0
+                }}>
+                  {stepHeadlines[step].desc}
+                </Text>
+              )}
+            </Box>
+          )}
+        </Container>
+      </Box>
+
+      {/* Main Content Section - Surface */}
+      <Box 
+        component="section" 
+        className="academic-watermark"
+        py={isSuccessStep ? rem(30) : rem(80)} 
+        bg={active.surface} 
+        style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}
+      >
+        <Container size={isSuccessStep ? 1000 : "md"}>
+          <Box style={{ maxWidth: isSuccessStep ? 1000 : 800, margin: '0 auto' }}>
+            {step > 0 && !isSuccessStep && (
+              <UnstyledButton
+                onClick={prevStep}
+                style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease', marginBottom: rem(32) }}
+              >
+                <IconArrowLeft size={16} color={active.primary} />
+                <Text className="impeccable-eyebrow" size="xs" style={{ color: active.primary }}>
+                  Back
+                </Text>
+              </UnstyledButton>
+            )}
+            {stepsContent[step]}
+          </Box>
+        </Container>
+      </Box>
+    </Box>
+  )
+}
+
+function StepService({ data, selectOption }: any) {
+  return (
+    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
+      {[
+        {
+          id: 'editing',
+          title: 'Structural Editing & Proofreading',
+          desc: 'Manuscript refinement, formatting, and proofing',
+          icon: <IconEdit size={28} />,
+        },
+        {
+          id: 'data_support',
+          title: 'Custom Research & Data Support',
+          desc: 'Technical assistance, NVivo, SPSS, methodology',
+          icon: <IconMicroscope size={28} />,
+        },
+        {
+          id: 'technical',
+          title: 'Targeted Technical Support',
+          desc: 'Reference styling, compliance matrices, indexing',
+          icon: <IconFileText size={28} />,
+        },
+        {
+          id: 'other',
+          title: 'Unsure / Other',
+          desc: 'Submit for a custom faculty assessment',
+          icon: <IconSearch size={28} />,
+        },
+      ].map((item) => (
+        <SelectionCard
+          key={item.id}
+          title={item.title}
+          description={item.desc}
+          icon={item.icon}
+          active={data.service === item.id}
+          onClick={() => selectOption('service', item.id)}
+        />
+      ))}
+    </SimpleGrid>
+  )
+}
+
+function StepAcademicLevel({ data, selectOption }: any) {
+  return (
+    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
+      {[
+        {
+          id: 'undergrad',
+          title: 'Undergraduate',
+          desc: 'Coursework assignments, honor theses, or capstone projects.',
+          icon: <IconNotebook size={28} />,
+        },
+        {
+          id: 'masters',
+          title: "Master's Degree",
+          desc: 'Master theses, research essays, or course projects.',
+          icon: <IconSchool size={28} />,
+        },
+        {
+          id: 'doctoral',
+          title: 'Doctoral (PhD / EdD / DBA)',
+          desc: 'Doctoral dissertations, proposals, or complex monographs.',
+          icon: <IconCertificate size={28} />,
+        },
+        {
+          id: 'professional',
+          title: 'Professional / Post-Doc',
+          desc: 'Journal manuscripts, grant proposals, or book drafts.',
+          icon: <IconUser size={28} />,
+        },
+      ].map((item) => (
+        <SelectionCard
+          key={item.id}
+          title={item.title}
+          description={item.desc}
+          icon={item.icon}
+          active={data.academicLevel === item.id}
+          onClick={() => selectOption('academicLevel', item.id)}
+        />
+      ))}
+    </SimpleGrid>
+  )
+}
+
+function StepScope({ data, setData, nextStep, isValid }: any) {
+  const { other: active } = useMantineTheme()
+  return (
+    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
+      <Stack gap="xl">
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+          <TextInput
+            label="University / Institution Affiliation"
+            placeholder="e.g. Harvard University"
+            required
+            radius={0}
+            value={data.university}
+            onChange={(e) => setData({ ...data, university: e.target.value })}
+            description="Allows us to match university-specific formatting guidelines."
+          />
+          <NumberInput
+            label="Approximate Word Count"
+            placeholder="e.g. 15000"
+            radius={0}
+            min={0}
+            value={data.wordCount}
+            onChange={(val) => setData({ ...data, wordCount: typeof val === 'number' ? val : 0 })}
+            description="Optional for technical or hourly support."
+          />
+        </SimpleGrid>
+
+        <DatePickerInput
+          label="Desired Return Date"
+          placeholder="Select a date"
+          required
+          radius={0}
+          minDate={new Date()}
+          value={data.deadline}
+          onChange={(val) => setData({ ...data, deadline: val as Date | null })}
+          description="Include a 24-48h buffer before your actual deadline."
+        />
+
+        <Group justify="flex-end" mt="md">
+          <Button
+            size="lg"
+            bg={active.primary}
+            radius={0}
+            onClick={nextStep}
+            disabled={!isValid}
+            className="impeccable-button"
+          >
+            CONTINUE
+          </Button>
+        </Group>
+      </Stack>
+    </Box>
+  )
+}
+
+function StepDetails({ data, setData, nextStep, isValid }: any) {
+  const { other: active } = useMantineTheme()
+  return (
+    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
+      <Stack gap="xl">
+        <Textarea
+          label="How would you like us to help?"
+          placeholder="Specify unique formatting needs, style guides (APA, MLA), or specific concerns you want the faculty to address..."
+          required
+          radius={0}
+          minRows={5}
+          value={data.details}
+          onChange={(e) => setData({ ...data, details: e.target.value })}
+        />
+
+        <Group justify="flex-end" mt="md">
+          <Button
+            size="lg"
+            bg={active.primary}
+            radius={0}
+            onClick={nextStep}
+            disabled={!isValid}
+            className="impeccable-button"
+          >
+            CONTINUE TO CONTACT
+          </Button>
+        </Group>
+      </Stack>
+    </Box>
+  )
+}
+
+function StepIdentity({ data, setData, nextStep, isValid }: any) {
+  const { other: active } = useMantineTheme()
+  return (
+    <Box bg={active.background} p={rem(40)} style={{ border: `1px solid ${active.primary}12` }} mt={rem(40)}>
+      <Stack gap="xl">
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+          <TextInput
+            label="First Name"
+            placeholder="e.g. Jane"
+            required
+            radius={0}
+            value={data.firstName}
+            onChange={(e) => setData({ ...data, firstName: e.target.value })}
+          />
+          <TextInput
+            label="Last Name"
+            placeholder="e.g. Doe"
+            required
+            radius={0}
+            value={data.lastName}
+            onChange={(e) => setData({ ...data, lastName: e.target.value })}
+          />
+        </SimpleGrid>
+
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+          <TextInput
+            label="Email Address"
+            placeholder="e.g. jane.doe@university.edu"
+            required
+            radius={0}
+            type="email"
+            value={data.email}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+            description="We recommend using your academic email if possible."
+          />
+          <TextInput
+            label="Phone Number"
+            placeholder="e.g. +1 (555) 000-0000"
+            radius={0}
+            value={data.phone}
+            onChange={(e) => setData({ ...data, phone: e.target.value })}
+            description="Optional. Used only for text alerts regarding your quote."
+          />
+        </SimpleGrid>
+
+        <Group justify="flex-end" mt="xl">
+          <Button
+            size="lg"
+            bg={active.primary}
+            radius={0}
+            onClick={nextStep}
+            disabled={!isValid}
+            className="impeccable-button"
+          >
+            REQUEST CUSTOM QUOTE
+          </Button>
+        </Group>
+      </Stack>
+    </Box>
+  )
+}
+
+function StepSuccess({ data }: any) {
+  const { other: active } = useMantineTheme()
+  return (
+    <Box bg={active.background} p={rem(60)} style={{ border: `1px solid ${active.primary}12`, textAlign: 'center' }} mt={rem(40)}>
+      <Stack align="center" gap="lg">
+        <Box c={active.accent}>
+          <IconCheck size={64} stroke={1.5} />
+        </Box>
+        <Title order={2} style={{ color: active.primary }}>
+          Submission Securely Received
+        </Title>
+        <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
+          Thank you, {data.firstName || 'there'}. We have securely received your details. A
+          faculty coordinator will review your submission and issue a formal quote to{' '}
+          <strong>{data.email}</strong> within 24 hours.
+        </Text>
+        <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+          <Button variant="outline" color={active.primary} radius={0} mt="xl">
+            RETURN TO HOME
+          </Button>
+        </Link>
+      </Stack>
     </Box>
   )
 }

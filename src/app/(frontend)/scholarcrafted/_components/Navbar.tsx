@@ -81,7 +81,7 @@ export function Navbar() {
         }}
       >
         <Container size={1200}>
-        <Group justify="space-between" align="center">
+        <Group justify="space-between" align="center" wrap="nowrap">
           <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit' }}>
             <Stack gap={0}>
               <Text
@@ -105,7 +105,7 @@ export function Navbar() {
             </Stack>
           </Link>
 
-          <Group gap="xl" visibleFrom="sm" align="center" style={{ gap: '1.25rem' }}>
+          <Group gap="lg" visibleFrom="md" align="center" style={{ gap: '1rem' }} wrap="nowrap">
             <HoverCard 
               width={600} 
               position="bottom" 
@@ -127,7 +127,8 @@ export function Navbar() {
                       c="rgba(255,255,255,0.85)"
                       style={{
                         color: 'rgba(255,255,255,0.85)',
-                        letterSpacing: '0.1em'
+                        letterSpacing: '0.1em',
+                        whiteSpace: 'nowrap'
                       }}
                     >
                       SERVICES 
@@ -199,7 +200,8 @@ export function Navbar() {
                     c="rgba(255,255,255,0.85)"
                     style={{
                       color: 'rgba(255,255,255,0.85)',
-                      letterSpacing: '0.1em'
+                      letterSpacing: '0.1em',
+                      whiteSpace: 'nowrap'
                     }}
                   >
                     OUR APPROACH
@@ -229,7 +231,8 @@ export function Navbar() {
                       c="rgba(255,255,255,0.85)"
                       style={{
                         color: 'rgba(255,255,255,0.85)',
-                        letterSpacing: '0.1em'
+                        letterSpacing: '0.1em',
+                        whiteSpace: 'nowrap'
                       }}
                     >
                       RESOURCES 
@@ -287,7 +290,8 @@ export function Navbar() {
                     c="rgba(255,255,255,0.85)"
                     style={{
                       color: 'rgba(255,255,255,0.85)',
-                      letterSpacing: '0.1em'
+                      letterSpacing: '0.1em',
+                      whiteSpace: 'nowrap'
                     }}
                   >
                     ABOUT
@@ -296,20 +300,21 @@ export function Navbar() {
               </Box>
             </Link>
 
-            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
               <Button
                 variant="filled"
                 bg="white"
                 c={active.primary}
-                size="md"
+                size="sm"
                 radius={0}
                 className="impeccable-button"
+                style={{ whiteSpace: 'nowrap' }}
               >
-                GET A QUOTE
+                SPEAK WITH AN EXPERT
               </Button>
             </Link>
           </Group>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" color="white" />
+          <Burger opened={opened} onClick={toggle} hiddenFrom="md" size="sm" color="white" />
         </Group>
       </Container>
       
@@ -318,7 +323,7 @@ export function Navbar() {
         onClose={close}
         size="100%"
         padding="xl"
-        hiddenFrom="sm"
+        hiddenFrom="md"
         zIndex={1000000}
         transitionProps={{ transition: 'fade', duration: 300 }}
         withCloseButton={true}
@@ -435,11 +440,19 @@ export function Navbar() {
             </Group>
           </Link>
 
+          {/* General Link to Get a Quote */}
+          <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }} onClick={close}>
+            <Group wrap="nowrap" justify="space-between" p="md" style={{ borderBottom: `1px solid ${active.primary}12` }}>
+              <Text fw={600} size="md" c={active.primary}>Get a Project Quote</Text>
+              <Text fw={700} c={active.accent} size="sm">&rarr;</Text>
+            </Group>
+          </Link>
+
           {/* Call to Action & Social Drawer Footer */}
           <Stack gap="md" mt="auto" pt="xl">
-            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }} onClick={close}>
               <Button variant="filled" bg={active.primary} fullWidth size="lg" radius={0} className="impeccable-button">
-                GET A QUOTE
+                SPEAK WITH AN EXPERT
               </Button>
             </Link>
             
@@ -478,7 +491,7 @@ export function Navbar() {
           color: #ffffff !important;
         }
         .nav-link-wrapper {
-          padding: 8px 16px;
+          padding: 8px 12px;
           border-radius: 4px;
           transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }

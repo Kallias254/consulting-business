@@ -226,21 +226,21 @@ export default function ScholarCraftedLanding() {
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', display: 'block' }}>
+                      <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none', display: 'block' }}>
                         <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
-                          GET A QUOTE
+                          SPEAK WITH AN EXPERT
                         </Button>
                       </Link>
-                      <Link href="/scholarcrafted/login" style={{ textDecoration: 'none', display: 'block' }}>
+                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', display: 'block' }}>
                         <Button size="lg" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }} fullWidth>
-                          CLIENT LOGIN
+                          GET A QUOTE
                         </Button>
                       </Link>
                     </SimpleGrid>
                     <Text size="sm" c="dimmed" lh={1.4}>
-                      Secure, confidential project review within 24 hours.{' '}
+                      Book a live consultation or request a custom project quote.{' '}
                       <Link href="/scholarcrafted/how-it-works" style={{ color: 'inherit', textDecoration: 'underline' }}>
-                        Find out more here.
+                        Learn about our process.
                       </Link>
                     </Text>
                   </Stack>
@@ -496,9 +496,9 @@ export default function ScholarCraftedLanding() {
               </Stack>
             </SimpleGrid>
 
-            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
               <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                GET A QUOTE
+                SPEAK WITH AN EXPERT
               </Button>
             </Link>
           </Stack>
