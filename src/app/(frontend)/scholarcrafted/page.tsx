@@ -226,11 +226,6 @@ export default function ScholarCraftedLanding() {
                 <Box className="hero-primary-container">
                   <Stack gap="xs">
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-                      <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none', display: 'block' }}>
-                        <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
-                          SPEAK WITH AN EXPERT
-                        </Button>
-                      </Link>
                       <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', display: 'block' }}>
                         <Button size="lg" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }} fullWidth>
                           GET A QUOTE
