@@ -411,7 +411,7 @@ func ensureCollections(app *pocketbase.PocketBase) error {
 		leads := core.NewBaseCollection("leads")
 		leads.ListRule = types.Pointer("@request.auth.roles:each = 'admin'")
 		leads.ViewRule = types.Pointer("@request.auth.roles:each = 'admin'")
-		leads.CreateRule = nil // open — public intake form will POST here
+		leads.CreateRule = types.Pointer("") // open — public intake form can POST here
 		leads.UpdateRule = types.Pointer("@request.auth.roles:each = 'admin'")
 		leads.DeleteRule = types.Pointer("@request.auth.roles:each = 'admin'")
 
