@@ -39,6 +39,53 @@ export default function ProjectDetailPage() {
       })
       .catch(() => navigate('/projects'))
       .finally(() => setLoading(false))
+
+    // Realtime subscriptions
+    pb.collection('projects').subscribe(id, (e) => {
+      if (e.action === 'update') {
+        pb.collection('projects').getOne(id, { expand: 'client,leadResearcher' })
+          .then(setProject)
+          .catch(() => setProject(e.record))
+      } else if (e.action === 'delete') {
+        navigate('/projects', { replace: true })
+      }
+    })
+
+    pb.collection('tasks').subscribe('*', (e) => {
+      // Filter actions for this project ID
+      const targetProj = e.record.project
+      if (targetProj !== id) return
+
+      if (e.action === 'create') {
+        pb.collection('tasks').getOne(e.record.id, { expand: 'assignedTo' })
+          .then(newT => setTasks(prev => [...prev.filter(t => t.id !== newT.id), newT].sort((a,b) => new Date(a.due).getTime() - new Date(b.due).getTime())))
+          .catch(() => setTasks(prev => [...prev.filter(t => t.id !== e.record.id), e.record]))
+      } else if (e.action === 'update') {
+        pb.collection('tasks').getOne(e.record.id, { expand: 'assignedTo' })
+          .then(upT => setTasks(prev => prev.map(t => t.id === upT.id ? upT : t)))
+          .catch(() => setTasks(prev => prev.map(t => t.id === e.record.id ? e.record : t)))
+      } else if (e.action === 'delete') {
+        setTasks(prev => prev.filter(t => t.id !== e.record.id))
+      }
+    })
+
+    pb.collection('media').subscribe('*', (e) => {
+      if (e.record.project !== id) return
+
+      if (e.action === 'create') {
+        setMedia(prev => [e.record, ...prev.filter(m => m.id !== e.record.id)])
+      } else if (e.action === 'update') {
+        setMedia(prev => prev.map(m => m.id === e.record.id ? e.record : m))
+      } else if (e.action === 'delete') {
+        setMedia(prev => prev.filter(m => m.id !== e.record.id))
+      }
+    })
+
+    return () => {
+      pb.collection('projects').unsubscribe(id)
+      pb.collection('tasks').unsubscribe('*')
+      pb.collection('media').unsubscribe('*')
+    }
   }, [id, navigate])
 
   const handleUpload = async () => {
