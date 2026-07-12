@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import {
   Container, Title, Text, Stack, Paper, Group, Badge,
-  Loader, Center, Table, Box, SimpleGrid, Divider, Button, Alert,
+  Loader, Center, Table, Box, SimpleGrid, Divider, Button, Alert, Tabs, Card, RingProgress, ActionIcon, Tooltip,
 } from '@mantine/core'
-import { IconUsers, IconShieldCheck, IconMail, IconGitPullRequest, IconUserPlus, IconAlertCircle } from '@tabler/icons-react'
+import {
+  IconUsers, IconShieldCheck, IconMail, IconGitPullRequest, IconUserPlus,
+  IconAlertCircle, IconCheck, IconX, IconInbox, IconSearch, IconNotification, IconBook
+} from '@tabler/icons-react'
 import pb from '@/lib/pb'
 import type { RecordModel } from 'pocketbase'
 
@@ -14,7 +17,9 @@ export default function AdminPage() {
   const [leads, setLeads] = useState<RecordModel[]>([])
   const [loading, setLoading] = useState(true)
   const [convertingId, setConvertingId] = useState<string | null>(null)
+  const [approvingId, setApprovingId] = useState<string | null>(null)
   const [conversionError, setConversionError] = useState('')
+  const [activeTab, setActiveTab] = useState<string | null>('triage')
 
   useEffect(() => {
     Promise.all([
@@ -153,178 +158,360 @@ export default function AdminPage() {
     }
   }
 
+  const handleApproveEmail = async (corrId: string) => {
+    setApprovingId(corrId)
+    try {
+      await pb.collection('correspondence').update(corrId, {
+        status: 'sent',
+      })
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setApprovingId(null)
+    }
+  }
+
+  const handleRejectEmail = async (corrId: string) => {
+    try {
+      await pb.collection('correspondence').update(corrId, {
+        status: 'draft',
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   if (loading) return <Center style={{ minHeight: '50vh' }}><Loader color="yellow" /></Center>
 
   function roleColor(r: string) {
     return r === 'admin' ? 'red' : r === 'lead_researcher' ? 'blue' : r === 'researcher' ? 'green' : 'gray'
   }
 
+  const pendingApprovals = correspondence.filter(c => c.status === 'pending_approval')
+  const newLeads = leads.filter(l => l.status === 'new' || !l.status)
+
   return (
-    <Container size="xl" fluid>
+    <Container size="xl" fluid style={{ background: '#F4F1EA', minHeight: '100vh', paddingTop: 20 }}>
       <Stack gap={40}>
-        <Box>
-          <Title order={2} style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.5rem', textTransform: 'uppercase' }}>
-            Admin <Text component="span" inherit c="yellow.6">Control Panel</Text>
-          </Title>
-          <Text c="dimmed" size="sm" mt={4}>System overview — users, intake pipeline, audit logs, correspondence.</Text>
+        {/* Header Block */}
+        <Box
+          p="xl"
+          style={{
+            background: 'linear-gradient(135deg, #0A1A10 0%, #162E1D 100%)',
+            border: '1px solid #1A3A22',
+            color: '#FBFBF9',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+            borderRadius: 0,
+          }}
+        >
+          <Group justify="space-between">
+            <Stack gap={4}>
+              <Title
+                order={2}
+                style={{
+                  fontFamily: 'Cormorant Garamond, serif',
+                  fontSize: '2.5rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                }}
+              >
+                Vance Lab <Text component="span" inherit c="yellow.6">Control Board</Text>
+              </Title>
+              <Text c="dimmed" size="xs" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
+                Operational Triage, Clearance Chain & Lifecycle Analytics
+              </Text>
+            </Stack>
+            <Badge color="yellow" variant="outline" size="lg" style={{ borderRadius: 0 }}>
+              SECURE CONNECT
+            </Badge>
+          </Group>
         </Box>
 
-        {/* Stat cards */}
+        {/* Dynamic Metric Cards */}
         <SimpleGrid cols={{ base: 1, sm: 4 }}>
           {[
-            { icon: IconUsers, label: 'Total Users', value: users.length },
-            { icon: IconGitPullRequest, label: 'Intake Queue', value: leads.length },
-            { icon: IconShieldCheck, label: 'Audit Events', value: auditLogs.length },
-            { icon: IconMail, label: 'Correspondence', value: correspondence.length },
-          ].map(({ icon: Icon, label, value }) => (
-            <Paper key={label} withBorder p="lg" style={{ borderColor: '#E0DBCC', background: '#FBFBF9' }}>
-              <Group gap="xs" mb="xs">
-                <Icon size={16} color="#B8873A" />
-                <Text size="xs" style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '10px', color: '#9A9A9A' }}>{label}</Text>
+            { label: 'Triage Queue', value: newLeads.length, desc: 'Unassigned prospects', color: 'yellow' },
+            { label: 'Clearance Chain', value: pendingApprovals.length, desc: 'Emails awaiting approval', color: 'red' },
+            { label: 'User Registry', value: users.length, desc: 'Enrolled staff & clients', color: 'green' },
+            { label: 'Log Records', value: auditLogs.length, desc: 'Lifecycle audit log events', color: 'gray' },
+          ].map((stat) => (
+            <Card key={stat.label} withBorder radius={0} p="lg" style={{ background: '#FBFBF9', borderColor: '#E0DBCC' }}>
+              <Group justify="space-between">
+                <Stack gap={2}>
+                  <Text size="xs" c="dimmed" style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '9px', fontWeight: 700 }}>
+                    {stat.label}
+                  </Text>
+                  <Text size="2.2rem" fw={700} style={{ fontFamily: 'Cormorant Garamond, serif', color: '#0A1A10' }}>
+                    {stat.value}
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    {stat.desc}
+                  </Text>
+                </Stack>
+                <RingProgress
+                  size={50}
+                  thickness={4}
+                  sections={[{ value: 100, color: stat.color }]}
+                  label={
+                    <Center>
+                      <IconBook size={16} style={{ color: 'var(--mantine-color-dimmed)' }} />
+                    </Center>
+                  }
+                />
               </Group>
-              <Text size="2rem" fw={700} style={{ fontFamily: 'Cormorant Garamond, serif' }}>{value}</Text>
-            </Paper>
+            </Card>
           ))}
         </SimpleGrid>
 
-        {/* Conversion error banner */}
         {conversionError && (
-          <Alert icon={<IconAlertCircle size={16} />} title="Conversion Failed" color="red">
+          <Alert icon={<IconAlertCircle size={16} />} title="Operational Failure" color="red" radius={0}>
             {conversionError}
           </Alert>
         )}
 
-        {/* Intake Pipeline Table */}
-        <Stack gap="md">
-          <Group gap="xs">
-            <IconGitPullRequest size={18} color="#B8873A" />
-            <Title order={4} style={{ fontFamily: 'Inter, sans-serif' }}>Intake Pipeline</Title>
-          </Group>
-          <Paper withBorder style={{ borderColor: '#E0DBCC', overflow: 'hidden', background: '#FBFBF9' }}>
-            <Table striped highlightOnHover>
-              <Table.Thead style={{ background: '#F4F1EA' }}>
-                <Table.Tr>
-                  {['Prospect', 'Academic Target', 'Details', 'Actions'].map(h => (
-                    <Table.Th key={h} style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase' }}>{h}</Table.Th>
-                  ))}
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>
-                {leads.length === 0 ? (
+        {/* Tabbed Triage Deck */}
+        <Tabs value={activeTab} onChange={setActiveTab} color="yellow" variant="outline" style={{ background: '#FBFBF9', border: '1px solid #E0DBCC' }}>
+          <Tabs.List style={{ background: '#F4F1EA', borderBottom: '1px solid #E0DBCC' }}>
+            <Tabs.Tab value="triage" leftSection={<IconGitPullRequest size={16} />} style={{ borderRadius: 0, fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.5px' }}>
+              Intake Pipeline ({leads.length})
+            </Tabs.Tab>
+            <Tabs.Tab value="clearance" leftSection={<IconMail size={16} />} style={{ borderRadius: 0, fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.5px' }}>
+              Clearance Chain ({pendingApprovals.length})
+            </Tabs.Tab>
+            <Tabs.Tab value="users" leftSection={<IconUsers size={16} />} style={{ borderRadius: 0, fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.5px' }}>
+              Staff & Roster ({users.length})
+            </Tabs.Tab>
+            <Tabs.Tab value="logs" leftSection={<IconShieldCheck size={16} />} style={{ borderRadius: 0, fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.5px' }}>
+              System Logs ({auditLogs.length})
+            </Tabs.Tab>
+          </Tabs.List>
+
+          {/* 📬 Triage & Intake Pipeline */}
+          <Tabs.Panel value="triage" p="xl">
+            <Stack gap="lg">
+              <Box>
+                <Title order={4} style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem' }}>
+                  Intake & Prospect Registry
+                </Title>
+                <Text size="xs" c="dimmed">
+                  Verify and promote incoming scholar leads into client users and active workflow projects.
+                </Text>
+              </Box>
+
+              <Table striped highlightOnHover verticalSpacing="md">
+                <Table.Thead style={{ background: '#F4F1EA' }}>
                   <Table.Tr>
-                    <Table.Td colSpan={4}><Text c="dimmed" ta="center" py="md">No pending proposal submissions in queue.</Text></Table.Td>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Prospect</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Academic Target</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Proposal details</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'right' }}>Actions</Table.Th>
                   </Table.Tr>
-                ) : leads.map(lead => (
-                  <Table.Tr key={lead.id}>
-                    <Table.Td>
-                      <Text size="sm" fw={600}>{lead.name}</Text>
-                      <Text size="xs" c="dimmed">{lead.email}</Text>
-                    </Table.Td>
-                    <Table.Td>
-                      <Text size="sm">{lead.university || '—'}</Text>
-                      <Badge variant="outline" color="gray" size="xs">{lead.targetPublisher || 'unspecified'}</Badge>
-                    </Table.Td>
-                    <Table.Td>
-                      <Text size="xs">Document: <Text component="span" fw={600} inherit>{lead.documentType}</Text></Text>
-                      <Text size="xs">Proposed: <Text component="span" fw={600} inherit>{lead.projectStatus}</Text></Text>
-                    </Table.Td>
-                    <Table.Td>
-                      <Button
-                        size="xs"
-                        color="yellow"
-                        c="dark"
-                        onClick={() => handleConvertLead(lead)}
-                        loading={convertingId === lead.id}
-                        leftSection={<IconUserPlus size={14} />}
-                      >
-                        Convert Lead
-                      </Button>
-                    </Table.Td>
-                  </Table.Tr>
-                ))}
-              </Table.Tbody>
-            </Table>
-          </Paper>
-        </Stack>
-
-        <Divider color="#E0DBCC" />
-
-        {/* Users table */}
-        <Stack gap="md">
-          <Group gap="xs">
-            <IconUsers size={18} color="#B8873A" />
-            <Title order={4} style={{ fontFamily: 'Inter, sans-serif' }}>User Roster</Title>
-          </Group>
-          <Paper withBorder style={{ borderColor: '#E0DBCC', overflow: 'hidden', background: '#FBFBF9' }}>
-            <Table striped highlightOnHover>
-              <Table.Thead style={{ background: '#F4F1EA' }}>
-                <Table.Tr>
-                  {['Email', 'Name', 'Roles', 'Created'].map(h => (
-                    <Table.Th key={h} style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase' }}>{h}</Table.Th>
+                </Table.Thead>
+                <Table.Tbody>
+                  {leads.length === 0 ? (
+                    <Table.Tr>
+                      <Table.Td colSpan={4}><Text c="dimmed" ta="center" py="xl">No pending proposal submissions in queue.</Text></Table.Td>
+                    </Table.Tr>
+                  ) : leads.map(lead => (
+                    <Table.Tr key={lead.id}>
+                      <Table.Td>
+                        <Text size="sm" fw={600} c="dark">{lead.name}</Text>
+                        <Text size="xs" c="dimmed" style={{ fontFamily: 'monospace' }}>{lead.email}</Text>
+                      </Table.Td>
+                      <Table.Td>
+                        <Text size="sm">{lead.university || '—'}</Text>
+                        <Badge variant="outline" color="gray" size="xs">{lead.targetPublisher || 'unspecified'}</Badge>
+                      </Table.Td>
+                      <Table.Td>
+                        <Text size="xs">Document Type: <Text component="span" fw={600} inherit>{lead.documentType?.replace('_', ' ')}</Text></Text>
+                        <Text size="xs">Proposed: <Text component="span" fw={600} inherit>{lead.projectStatus}</Text></Text>
+                      </Table.Td>
+                      <Table.Td style={{ textAlign: 'right' }}>
+                        <Button
+                          size="xs"
+                          color="yellow"
+                          c="dark"
+                          onClick={() => handleConvertLead(lead)}
+                          loading={convertingId === lead.id}
+                          leftSection={<IconUserPlus size={14} />}
+                          style={{ borderRadius: 0 }}
+                        >
+                          Convert Lead
+                        </Button>
+                      </Table.Td>
+                    </Table.Tr>
                   ))}
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>
-                {users.map(u => (
-                  <Table.Tr key={u.id}>
-                    <Table.Td><Text size="sm">{u.email}</Text></Table.Td>
-                    <Table.Td><Text size="sm">{u.name || '—'}</Text></Table.Td>
-                    <Table.Td>
-                      <Group gap={4}>
-                        {((u.roles as string[]) || []).map(r => (
-                          <Badge key={r} color={roleColor(r)} variant="light" size="xs">{r}</Badge>
-                        ))}
-                      </Group>
-                    </Table.Td>
-                    <Table.Td><Text size="xs" c="dimmed">{new Date(u.created).toLocaleDateString()}</Text></Table.Td>
-                  </Table.Tr>
-                ))}
-              </Table.Tbody>
-            </Table>
-          </Paper>
-        </Stack>
+                </Table.Tbody>
+              </Table>
+            </Stack>
+          </Tabs.Panel>
 
-        <Divider color="#E0DBCC" />
+          {/* 🛡️ Clearance Chain Tab */}
+          <Tabs.Panel value="clearance" p="xl">
+            <Stack gap="lg">
+              <Box>
+                <Title order={4} style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem' }}>
+                  The Clearance Chain (Draft-and-Authorize)
+                </Title>
+                <Text size="xs" c="dimmed">
+                  Verify and send outgoing email drafts composed by researchers containing sensitive milestones or files.
+                </Text>
+              </Box>
 
-        {/* Audit Log */}
-        <Stack gap="md">
-          <Group gap="xs">
-            <IconShieldCheck size={18} color="#B8873A" />
-            <Title order={4} style={{ fontFamily: 'Inter, sans-serif' }}>Audit Log</Title>
-          </Group>
-          <Paper withBorder style={{ borderColor: '#E0DBCC', overflow: 'hidden', background: '#FBFBF9' }}>
-            <Table striped highlightOnHover>
-              <Table.Thead style={{ background: '#F4F1EA' }}>
-                <Table.Tr>
-                  {['Event', 'Stream', 'Project', 'Importance', 'Time'].map(h => (
-                    <Table.Th key={h} style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase' }}>{h}</Table.Th>
+              {pendingApprovals.length === 0 ? (
+                <Paper withBorder p="xl" style={{ borderColor: '#E0DBCC', background: '#F4F1EA', borderRadius: 0 }}>
+                  <Text c="dimmed" ta="center">All email correspondence drafts are currently cleared and dispatched.</Text>
+                </Paper>
+              ) : (
+                <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+                  {pendingApprovals.map(email => (
+                    <Card key={email.id} withBorder radius={0} p="lg" style={{ background: '#FBFBF9', borderColor: '#E0DBCC' }}>
+                      <Stack gap="md">
+                        <Group justify="space-between">
+                          <Box>
+                            <Badge color="red" variant="light" size="xs" style={{ borderRadius: 0, marginBottom: 4 }}>
+                              PENDING CLEARANCE
+                            </Badge>
+                            <Text fw={600} size="sm" c="dark">{email.subject}</Text>
+                          </Box>
+                          <Text size="xs" c="dimmed">{new Date(email.created).toLocaleDateString()}</Text>
+                        </Group>
+
+                        <Divider color="#E0DBCC" />
+
+                        <Box>
+                          <Text size="xs" c="dimmed">Recipient:</Text>
+                          <Text size="xs" fw={600} style={{ fontFamily: 'monospace' }}>{email.recipientEmail} ({email.target})</Text>
+                        </Box>
+
+                        <Box p="md" style={{ background: '#F4F1EA', border: '1px solid #E0DBCC', whiteSpace: 'pre-wrap', fontFamily: 'Inter, sans-serif', fontSize: '12px' }}>
+                          {email.content}
+                        </Box>
+
+                        <Group gap="xs" justify="flex-end">
+                          <Button
+                            variant="subtle"
+                            color="gray"
+                            size="xs"
+                            leftSection={<IconX size={14} />}
+                            onClick={() => handleRejectEmail(email.id)}
+                            style={{ borderRadius: 0 }}
+                          >
+                            Return to Draft
+                          </Button>
+                          <Button
+                            color="yellow"
+                            c="dark"
+                            size="xs"
+                            leftSection={<IconCheck size={14} />}
+                            onClick={() => handleApproveEmail(email.id)}
+                            loading={approvingId === email.id}
+                            style={{ borderRadius: 0 }}
+                          >
+                            Authorize & Send
+                          </Button>
+                        </Group>
+                      </Stack>
+                    </Card>
                   ))}
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>
-                {auditLogs.length === 0 ? (
+                </SimpleGrid>
+              )}
+            </Stack>
+          </Tabs.Panel>
+
+          {/* 👥 Users Tab */}
+          <Tabs.Panel value="users" p="xl">
+            <Stack gap="lg">
+              <Box>
+                <Title order={4} style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem' }}>
+                  Registry & Roster
+                </Title>
+                <Text size="xs" c="dimmed">
+                  Manage accounts, view access tiers, and check institutional alignment credentials.
+                </Text>
+              </Box>
+
+              <Table striped highlightOnHover verticalSpacing="sm">
+                <Table.Thead style={{ background: '#F4F1EA' }}>
                   <Table.Tr>
-                    <Table.Td colSpan={5}><Text c="dimmed" ta="center" py="md">No audit events yet.</Text></Table.Td>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Name / Identity</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Access tier</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Joined</Table.Th>
                   </Table.Tr>
-                ) : auditLogs.map(log => (
-                  <Table.Tr key={log.id}>
-                    <Table.Td><Text size="sm" style={{ fontFamily: 'monospace' }}>{log.eventType}</Text></Table.Td>
-                    <Table.Td><Badge color="gray" variant="outline" size="xs">{log.stream}</Badge></Table.Td>
-                    <Table.Td><Text size="sm">{log.expand?.project?.title ?? '—'}</Text></Table.Td>
-                    <Table.Td>
-                      <Badge color={log.importance === 'high' ? 'red' : log.importance === 'medium' ? 'yellow' : 'gray'} variant="light" size="xs">
-                        {log.importance}
-                      </Badge>
-                    </Table.Td>
-                    <Table.Td><Text size="xs" c="dimmed">{new Date(log.created).toLocaleString()}</Text></Table.Td>
+                </Table.Thead>
+                <Table.Tbody>
+                  {users.map(u => (
+                    <Table.Tr key={u.id}>
+                      <Table.Td>
+                        <Text size="sm" fw={600}>{u.name || '—'}</Text>
+                        <Text size="xs" c="dimmed" style={{ fontFamily: 'monospace' }}>{u.email}</Text>
+                      </Table.Td>
+                      <Table.Td>
+                        <Group gap={4}>
+                          {((u.roles as string[]) || []).map(r => (
+                            <Badge key={r} color={roleColor(r)} variant="light" size="xs" style={{ borderRadius: 0 }}>{r}</Badge>
+                          ))}
+                        </Group>
+                      </Table.Td>
+                      <Table.Td><Text size="xs" c="dimmed">{new Date(u.created).toLocaleDateString()}</Text></Table.Td>
+                    </Table.Tr>
+                  ))}
+                </Table.Tbody>
+              </Table>
+            </Stack>
+          </Tabs.Panel>
+
+          {/* 📜 Audit Stream Tab */}
+          <Tabs.Panel value="logs" p="xl">
+            <Stack gap="lg">
+              <Box>
+                <Title order={4} style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem' }}>
+                  Lifecycle Audit Stream
+                </Title>
+                <Text size="xs" c="dimmed">
+                  Dynamic database sync monitoring, security clearances, and automated script results.
+                </Text>
+              </Box>
+
+              <Table striped highlightOnHover verticalSpacing="sm">
+                <Table.Thead style={{ background: '#F4F1EA' }}>
+                  <Table.Tr>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Event</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Stream</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Project</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Importance</Table.Th>
+                    <Table.Th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>Time</Table.Th>
                   </Table.Tr>
-                ))}
-              </Table.Tbody>
-            </Table>
-          </Paper>
-        </Stack>
+                </Table.Thead>
+                <Table.Tbody>
+                  {auditLogs.length === 0 ? (
+                    <Table.Tr>
+                      <Table.Td colSpan={5}><Text c="dimmed" ta="center" py="md">No audit events logged yet.</Text></Table.Td>
+                    </Table.Tr>
+                  ) : auditLogs.map(log => (
+                    <Table.Tr key={log.id}>
+                      <Table.Td>
+                        <Text size="sm" style={{ fontFamily: 'monospace', fontWeight: 600 }}>{log.eventType}</Text>
+                        <Text size="xs" c="dimmed">{(log.payload as any)?.message || ''}</Text>
+                      </Table.Td>
+                      <Table.Td><Badge color="gray" variant="outline" size="xs" style={{ borderRadius: 0 }}>{log.stream}</Badge></Table.Td>
+                      <Table.Td><Text size="sm">{log.expand?.project?.title ?? '—'}</Text></Table.Td>
+                      <Table.Td>
+                        <Badge color={log.importance === 'high' ? 'red' : log.importance === 'medium' ? 'yellow' : 'gray'} variant="light" size="xs" style={{ borderRadius: 0 }}>
+                          {log.importance}
+                        </Badge>
+                      </Table.Td>
+                      <Table.Td><Text size="xs" c="dimmed">{new Date(log.created).toLocaleString()}</Text></Table.Td>
+                    </Table.Tr>
+                  ))}
+                </Table.Tbody>
+              </Table>
+            </Stack>
+          </Tabs.Panel>
+        </Tabs>
       </Stack>
     </Container>
   )
 }
+
 
