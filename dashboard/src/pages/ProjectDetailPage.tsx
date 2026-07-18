@@ -104,7 +104,7 @@ export default function ProjectDetailPage() {
       formData.append('visibility', 'internal')
 
       const record = await pb.collection('media').create(formData)
-      setMedia(prev => [record, ...prev])
+      setMedia(prev => [record, ...prev.filter(m => m.id !== record.id)])
       setFile(null)
       setLabel('')
       setVersion(prev => String(parseInt(prev, 10) + 1))
@@ -148,7 +148,7 @@ export default function ProjectDetailPage() {
         <Box>
           <Group justify="space-between" align="flex-start">
             <Stack gap={4}>
-              <Title order={1} style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem' }}>
+              <Title order={1} style={{ fontSize: '2.2rem' }}>
                 {project.title}
               </Title>
               <Text c="dimmed" size="sm">{project.nextMilestone}</Text>

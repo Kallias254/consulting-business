@@ -21,8 +21,50 @@ import {
   IconDeviceMobile,
   IconArrowRight
 } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setError('Please provide credentials.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data?.errors?.[0]?.message || 'Invalid credentials.');
+        setLoading(false);
+        return;
+      }
+
+      router.push('/dashboard');
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      setError('An error occurred during authentication.');
+      setLoading(false);
+    }
+  };
+
   return (
     <Box 
       component="main" 
@@ -68,7 +110,7 @@ export default function LoginPage() {
               backdropFilter: 'blur(20px)'
             }}
           >
-            <Stack gap={40}>
+            <Stack gap={40} component="form" onSubmit={handleLogin}>
               <Box ta="center">
                 <ThemeIcon color="burnished-gold" variant="outline" size={60} radius={0} mb="xl" style={{ border: '1px solid var(--mantine-color-burnished-gold-7)' }}>
                   <IconShieldLock size={35} />
@@ -81,11 +123,19 @@ export default function LoginPage() {
                 </Text>
               </Box>
 
+              {error && (
+                <Text color="red" size="sm" ta="center" ff="var(--font-body)">
+                  {error}
+                </Text>
+              )}
+
               <Stack gap="md">
                 <TextInput 
                   placeholder="Principal Identifier (Email)" 
                   variant="unstyled"
                   p="md"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   styles={{
                     input: {
                       background: 'black',
@@ -101,6 +151,8 @@ export default function LoginPage() {
                   placeholder="Access Key" 
                   variant="unstyled"
                   p="md"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   styles={{
                     input: {
                       background: 'black',
@@ -115,11 +167,13 @@ export default function LoginPage() {
               </Stack>
 
               <Button 
+                type="submit"
                 fullWidth 
                 size="lg" 
                 color="burnished-gold" 
                 c="dark-forest" 
                 radius={0}
+                loading={loading}
                 rightSection={<IconArrowRight size={18} />}
               >
                 Establish Connection

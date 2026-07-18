@@ -28,3 +28,13 @@ payload.db
 
 # Docker Logs
 docker_output.log
+
+# PocketBase local server binary & database data
+backend/pb_data/
+backend/pb_server
+
+# Frontend build tools and outputs
+dashboard/dist/
+dashboard/tsconfig.tsbuildinfo
+dashboard/package-lock.json
+tsconfig.tsbuildinfo

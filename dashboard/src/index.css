@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --color-parchment-0: #FBFBF9;
+  --color-parchment-1: #F4F1EA;
+  --color-parchment-2: #E8E3D6;
+  --color-deep-green-9: #0A1A10;
+  --color-deep-green-7: #1A3A22;
+  --color-deep-green-3: #5B8C6A;
+  --color-gold-7: #B8873A;
+  --color-gold-8: #9A6E2A;
+  --color-border: #E0DBCC;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--color-parchment-1);
+  color: var(--color-deep-green-9);
+  font-family: var(--font-body);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-parchment-1); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-deep-green-3); }
+
+/* Global Academic Typography Overrides */
+h1, h2, h3, .mantine-Title-root {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em;
+  color: #1A281E !important; /* Deep forest ink, lighter and softer than pure black */
+}
+
+h4, h5, h6 {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.015em;
+  color: #2D3A2F !important; /* Muted graphite tint for smaller subheadings */
+}

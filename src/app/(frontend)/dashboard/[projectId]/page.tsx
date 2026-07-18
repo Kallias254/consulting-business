@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Container, 
   Stack, 
@@ -16,7 +16,9 @@ import {
   RingProgress,
   Timeline,
   ActionIcon,
-  Tooltip
+  Tooltip,
+  Loader,
+  Center
 } from '@mantine/core';
 import { 
   IconShieldCheck, 
@@ -32,18 +34,84 @@ import {
   IconCertificate
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function ProjectOverviewPage({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = React.use(params);
+  const router = useRouter();
+  const [project, setProject] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  // Mock project data
+  useEffect(() => {
+    async function loadProject() {
+      try {
+        // 1. Verify user authentication
+        const meRes = await fetch('/api/users/me');
+        if (!meRes.ok) {
+          router.push('/login');
+          return;
+        }
+        const meData = await meRes.json();
+        if (!meData.user) {
+          router.push('/login');
+          return;
+        }
+
+        // 2. Fetch project details
+        const projectRes = await fetch(`/api/projects?where[slug][equals]=${projectId}&depth=2`);
+        if (!projectRes.ok) {
+          setError('Failed to load project details.');
+          setLoading(false);
+          return;
+        }
+
+        const data = await projectRes.json();
+        if (!data.docs || data.docs.length === 0) {
+          setError('Project not found.');
+          setLoading(false);
+          return;
+        }
+
+        setProject(data.docs[0]);
+      } catch (err) {
+        console.error(err);
+        setError('An error occurred while loading project.');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProject();
+  }, [projectId, router]);
+
+  if (loading) {
+    return (
+      <Center style={{ minHeight: '50vh' }}>
+        <Loader color="burnished-gold" size="xl" />
+      </Center>
+    );
+  }
+
+  if (error || !project) {
+    return (
+      <Container size="xl" fluid>
+        <Center style={{ minHeight: '50vh' }}>
+          <Text c="red" size="lg" ff="var(--font-body)">
+            {error || 'Project not found.'}
+          </Text>
+        </Center>
+      </Container>
+    );
+  }
+
   const projectVitals = {
-    phase: 'PHASE_04: THE_PIVOT',
-    progress: 72,
-    leadResearcher: 'Sarah Miller',
-    targetPublisher: 'CRC Press / Routledge',
-    lastUpdate: '14m ago',
-    principalDirective: "We have cleared the methodological audit for Chapters 1-3. Sarah is now architecting the final typeset version to ensure absolute compliance with CRC's 2026 monograph standards."
+    phase: project.status === 'active' ? 'ACTIVE SPRINT' : project.status.toUpperCase(),
+    progress: project.progress || 0,
+    leadResearcher: project.leadResearcher?.name || 'Assigned Lead',
+    targetPublisher: 'Routledge / University of Chicago Press / Harvard University Press',
+    lastUpdate: 'Just now',
+    principalDirective: project.nextMilestone || "No active principal directive at this time."
   };
 
   return (
@@ -55,7 +123,7 @@ export default function ProjectOverviewPage({ params }: { params: Promise<{ proj
             Project <Text component="span" inherit c="burnished-gold.7">Status</Text>
           </Title>
           <Text c="dimmed" size="sm" ff="var(--font-body)" mt={4}>
-            Project Dossier // Scientific Progress // Publication Readiness // Project: {projectId.replace(/-/g, ' ').toUpperCase()}
+            Project Dossier // Scientific Progress // Publication Readiness // Project: {project.title.toUpperCase()}
           </Text>
         </Box>
 
@@ -79,10 +147,10 @@ export default function ProjectOverviewPage({ params }: { params: Promise<{ proj
                         minHeight: '20px'
                       }}
                     >
-                      {projectVitals.phase.replace(/_/g, ' ')}
+                      {projectVitals.phase}
                     </Badge>
                     <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
-                      Principal&apos;s Directive
+                      Next Milestone / Directive
                     </Title>
                   </Stack>
                   <ThemeIcon variant="light" color="burnished-gold.7" radius="xl"><IconSparkles size={16} /></ThemeIcon>
@@ -170,31 +238,36 @@ export default function ProjectOverviewPage({ params }: { params: Promise<{ proj
           <Box style={{ gridColumn: 'span 2' }}>
             <Paper withBorder p={40} radius={0} bg="white" style={{ borderColor: '#E0DBCC', height: '100%' }}>
               <Stack gap="xl">
-                <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>Success Trail & Active Sprint</Title>
+                <Title order={4} ff="var(--font-display)" style={{ textTransform: 'uppercase', letterSpacing: '1px' }}>Manuscript Units & Progress</Title>
                 
-                <Timeline active={1} bulletSize={30} lineWidth={2} color="burnished-gold.7" styles={{ itemTitle: { fontFamily: 'var(--font-display)', textTransform: 'uppercase', letterSpacing: '1px' }}}>
-                  <Timeline.Item bullet={<IconCheck size={16} />} title="Manuscript Ingestion">
-                    <Text size="sm" c="dimmed">Initial Word-to-Typst conversion and structural audit completed.</Text>
-                    <Text size="xs" mt={4}>02 FEB 2026</Text>
-                  </Timeline.Item>
-
-                  <Timeline.Item bullet={<IconClock size={16} />} title="The Pivot (Formatting)">
-                    <Text size="sm">Current Sprint: Applying publisher-specific layouts and font-sets for final gallery proofs.</Text>
-                    <Text size="xs" mt={4} fw={700} c="burnished-gold.8">ACTIVE_NOW</Text>
-                  </Timeline.Item>
-
-                  <Timeline.Item bullet={<IconShieldCheck size={16} />} title="Executive Review" lineVariant="dashed">
-                    <Text size="sm" c="dimmed">Micah performs final white-glove audit before publisher hand-off.</Text>
-                    <Text size="xs" mt={4}>EST: 05 MAR 2026</Text>
-                  </Timeline.Item>
-                </Timeline>
+                {(!project.units || project.units.length === 0) ? (
+                  <Text size="sm" c="dimmed">No manuscript units defined for this project.</Text>
+                ) : (
+                  <Timeline active={project.units.findIndex((u: any) => u.status !== 'validated')} bulletSize={30} lineWidth={2} color="burnished-gold.7" styles={{ itemTitle: { fontFamily: 'var(--font-display)', textTransform: 'uppercase', letterSpacing: '1px' }}}>
+                    {project.units.map((unit: any, index: number) => {
+                      const isValidated = unit.status === 'validated';
+                      const isCurrent = unit.status === 'internal_review' || unit.status === 'scholar_review';
+                      return (
+                        <Timeline.Item 
+                          key={index}
+                          bullet={isValidated ? <IconCheck size={16} /> : isCurrent ? <IconClock size={16} /> : <IconShieldCheck size={16} />} 
+                          title={unit.title}
+                        >
+                          <Text size="sm" c={isValidated ? "dimmed" : "black"}>
+                            Status: {unit.status.replace(/_/g, ' ').toUpperCase()} ({unit.progress || 0}% Complete)
+                          </Text>
+                        </Timeline.Item>
+                      );
+                    })}
+                  </Timeline>
+                )}
 
                 <Divider my="xl" label="Institutional Oversight" labelPosition="center" color="#F4F1EA" styles={{ label: { fontSize: '9px', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--mantine-color-dimmed)' } }} />
                 
                 <Group justify="space-around">
                   <Box style={{ textAlign: 'center' }}>
                     <Text size="7px" ff="var(--font-body)" c="dimmed" style={{ letterSpacing: '2px' }}>LIAISON:</Text>
-                    <Text size="xs" ff="var(--font-body)" fw={700} c="deep-green.9">MICAH S.</Text>
+                    <Text size="xs" ff="var(--font-body)" fw={700} c="deep-green.9">{projectVitals.leadResearcher.toUpperCase()}</Text>
                   </Box>
                   <Box style={{ textAlign: 'center' }}>
                     <Text size="7px" ff="var(--font-body)" c="dimmed" style={{ letterSpacing: '2px' }}>AUTH_KEY:</Text>
@@ -208,7 +281,7 @@ export default function ProjectOverviewPage({ params }: { params: Promise<{ proj
             </Paper>
           </Box>
 
-          <Stack gap="md">
+          <Box>
             <Paper withBorder p="xl" radius={0} bg="dark-forest" style={{ borderColor: '#2A2D31', height: '100%' }}>
               <Stack gap="md" justify="center" h="100%">
                 <Text size="xs" fw={700} c="burnished-gold.7" style={{ letterSpacing: '1px' }}>LATEST_ARTIFACTS</Text>
@@ -242,7 +315,7 @@ export default function ProjectOverviewPage({ params }: { params: Promise<{ proj
                 <Text size="10px" c="dimmed" ta="center" mt="auto">LATEST_SYNC: {projectVitals.lastUpdate}</Text>
               </Stack>
             </Paper>
-          </Stack>
+          </Box>
         </SimpleGrid>
 
         {/* 5. Career Infrastructure Sync */}

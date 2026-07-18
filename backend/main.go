@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -519,24 +520,25 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 	researcherUser.SetPassword("password123")
 	researcherUser.Set("roles", []string{"lead_researcher"})
 	researcherUser.Set("name", "Dr. Jane Carter, Ph.D.")
-	researcherUser.Set("institution", "University of Michigan")
+	researcherUser.Set("institution", "NCSU / NC A&T")
 	researcherUser.Set("academicNiche", "social_sciences")
-	researcherUser.Set("keywords", []string{"ethnography", "qualitative methods", "urban sociology"})
+	researcherUser.Set("keywords", []string{"ethnography", "qualitative methods", "hip hop culture", "urban studies"})
 	researcherUser.SetEmailVisibility(true)
 	researcherUser.SetVerified(true)
 	if err := app.Save(researcherUser); err != nil {
 		return err
 	}
 
+	// Real client: Micah Dobson
 	clientUser := core.NewRecord(usersColl)
-	clientUser.Set("username", "client")
-	clientUser.SetEmail("client@scholarcrafted.com")
+	clientUser.Set("username", "micah")
+	clientUser.SetEmail("mpdobson@ncsu.edu")
 	clientUser.SetPassword("password123")
 	clientUser.Set("roles", []string{"client"})
-	clientUser.Set("name", "Dr. E. Hayes, Ph.D. Candidate")
-	clientUser.Set("institution", "Columbia University")
-	clientUser.Set("academicNiche", "humanities")
-	clientUser.Set("keywords", []string{"millennial studies", "cultural identity", "digital ethnography"})
+	clientUser.Set("name", "Dr. Micah Dobson")
+	clientUser.Set("institution", "North Carolina State University")
+	clientUser.Set("academicNiche", "social_sciences")
+	clientUser.Set("keywords", []string{"hip hop culture", "sports management", "public health", "global education"})
 	clientUser.Set("sentimentScore", 85)
 	clientUser.SetEmailVisibility(true)
 	clientUser.SetVerified(true)
@@ -550,7 +552,7 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 	routledge.Set("website", "https://www.routledge.com")
 	routledge.Set("submissionPortal", "https://routledge.submittable.com")
 	routledge.Set("primaryContact", "Executive Editor Adams")
-	routledge.Set("globalGuidelines", "Chicago style bibliography, 12pt Times New Roman.")
+	routledge.Set("globalGuidelines", "Chicago Author-Date style bibliography, 12pt Times New Roman, double-spaced.")
 	if err := app.Save(routledge); err != nil {
 		return err
 	}
@@ -565,38 +567,80 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 	routledgeTemplate.Set("publisher", routledge.Id)
 	routledgeTemplate.Set("productType", "handbook")
 	routledgeTemplate.Set("units", []map[string]interface{}{
-		{"title": "Introduction", "type": "front_matter"},
-		{"title": "Methodology", "type": "technical"},
-		{"title": "Data Analysis", "type": "data"},
-		{"title": "Bibliography", "type": "bibliography"},
+		{"title": "Proposal Outline & Scope", "type": "front_matter"},
+		{"title": "Global & Perspectives Integration", "type": "technical"},
+		{"title": "Reference & Citation Audit", "type": "bibliography"},
 	})
 	if err := app.Save(routledgeTemplate); err != nil {
 		return err
 	}
 
-	// 4. Seed Project
+	// 4. Seed Projects
 	projectsColl, err := app.FindCollectionByNameOrId("projects")
 	if err != nil {
 		return err
 	}
-	project := core.NewRecord(projectsColl)
-	project.Set("title", "The Millennial Handbook")
-	project.Set("slug", "millennial-handbook")
-	project.Set("client", clientUser.Id)
-	project.Set("leadResearcher", researcherUser.Id)
-	project.Set("publisher", routledge.Id)
-	project.Set("status", "active")
-	project.Set("nextMilestone", "Chapter 3: Qualitative Methodology validation check")
-	project.Set("progress", 75.0)
-	project.Set("sentimentScore", 85)
-	project.Set("showOnPortfolio", true)
-	project.Set("lastContactAt", time.Now().Add(-36*time.Hour))
-	project.Set("units", []map[string]interface{}{
-		{"title": "Chapter 1: Intro", "status": "validated", "progress": 100},
-		{"title": "Chapter 2: Lit Review", "status": "scholar_review", "progress": 90},
-		{"title": "Chapter 3: Methodology", "status": "internal_review", "progress": 50},
+
+	// Project A: Routledge Handbook
+	projectA := core.NewRecord(projectsColl)
+	projectA.Set("title", "Routledge Hip Hop Handbook")
+	projectA.Set("slug", "routledge-hip-hop-handbook")
+	projectA.Set("client", clientUser.Id)
+	projectA.Set("leadResearcher", researcherUser.Id)
+	projectA.Set("publisher", routledge.Id)
+	projectA.Set("status", "active")
+	projectA.Set("nextMilestone", "Incorporate Africa, Latin America & public health references")
+	projectA.Set("progress", 80.0)
+	projectA.Set("sentimentScore", 90)
+	projectA.Set("showOnPortfolio", true)
+	projectA.Set("lastContactAt", time.Now().Add(-24*time.Hour))
+	projectA.Set("units", []map[string]interface{}{
+		{"title": "Scope & Abstract Outlines", "status": "validated", "progress": 100},
+		{"title": "Core Manuscript Chapters Drafting", "status": "scholar_review", "progress": 85},
+		{"title": "Bibliography & References Check", "status": "internal_review", "progress": 60},
 	})
-	if err := app.Save(project); err != nil {
+	if err := app.Save(projectA); err != nil {
+		return err
+	}
+
+	// Project B: Fulbright Scholar Application
+	projectB := core.NewRecord(projectsColl)
+	projectB.Set("title", "Fulbright Scholar Application")
+	projectB.Set("slug", "fulbright-scholar-application")
+	projectB.Set("client", clientUser.Id)
+	projectB.Set("leadResearcher", researcherUser.Id)
+	projectB.Set("status", "active")
+	projectB.Set("nextMilestone", "Refine Research Questions & resolve citation gaps")
+	projectB.Set("progress", 65.0)
+	projectB.Set("sentimentScore", 85)
+	projectB.Set("showOnPortfolio", false)
+	projectB.Set("lastContactAt", time.Now().Add(-12*time.Hour))
+	projectB.Set("units", []map[string]interface{}{
+		{"title": "Country Selection Statement", "status": "validated", "progress": 100},
+		{"title": "Project Statement & Methodology", "status": "internal_review", "progress": 70},
+		{"title": "University Letters of Support", "status": "todo", "progress": 20},
+	})
+	if err := app.Save(projectB); err != nil {
+		return err
+	}
+
+	// Project C: Under Armor Sports Lab
+	projectC := core.NewRecord(projectsColl)
+	projectC.Set("title", "Under Armor Sports Lab Outline")
+	projectC.Set("slug", "ua-sports-lab")
+	projectC.Set("client", clientUser.Id)
+	projectC.Set("leadResearcher", researcherUser.Id)
+	projectC.Set("status", "active")
+	projectC.Set("nextMilestone", "Complete session design briefs and physical education curriculum mapping")
+	projectC.Set("progress", 45.0)
+	projectC.Set("sentimentScore", 80)
+	projectC.Set("showOnPortfolio", true)
+	projectC.Set("lastContactAt", time.Now().Add(-48*time.Hour))
+	projectC.Set("units", []map[string]interface{}{
+		{"title": "Lab Proposal & Scope", "status": "validated", "progress": 100},
+		{"title": "Curriculum Design Drafting", "status": "internal_review", "progress": 40},
+	})
+	if err := app.Save(projectC); err != nil {
 		return err
 	}
 
@@ -605,27 +649,42 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 	if err != nil {
 		return err
 	}
+
+	// Tasks for Project A (Routledge)
 	task1 := core.NewRecord(tasksColl)
-	task1.Set("title", "Audit Bibliography keys for Chapter 2")
-	task1.Set("project", project.Id)
+	task1.Set("title", "Incorporate African & Latin American Perspectives")
+	task1.Set("project", projectA.Id)
 	task1.Set("assignedTo", researcherUser.Id)
 	task1.Set("status", "in_progress")
 	task1.Set("priority", "high")
 	task1.Set("due", time.Now().Add(48*time.Hour))
-	task1.Set("description", "Scan the bibliography file and ensure citations match the text.")
+	task1.Set("description", "Integrate global scholars and references into Chapter 2 and 3 methodology outlines to ensure international publishing standards.")
 	if err := app.Save(task1); err != nil {
 		return err
 	}
 
 	task2 := core.NewRecord(tasksColl)
-	task2.Set("title", "Format tables in Chapter 3")
-	task2.Set("project", project.Id)
+	task2.Set("title", "Verify BibTeX formatting keys")
+	task2.Set("project", projectA.Id)
 	task2.Set("assignedTo", researcherUser.Id)
 	task2.Set("status", "todo")
 	task2.Set("priority", "medium")
 	task2.Set("due", time.Now().Add(96*time.Hour))
-	task2.Set("description", "Reformat quantitative data tables to Routledge style rules.")
+	task2.Set("description", "Verify formatting compliance against Chicago Author-Date standard guidelines.")
 	if err := app.Save(task2); err != nil {
+		return err
+	}
+
+	// Tasks for Project B (Fulbright)
+	task3 := core.NewRecord(tasksColl)
+	task3.Set("title", "Address country statement gaps")
+	task3.Set("project", projectB.Id)
+	task3.Set("assignedTo", researcherUser.Id)
+	task3.Set("status", "in_progress")
+	task3.Set("priority", "high")
+	task3.Set("due", time.Now().Add(72*time.Hour))
+	task3.Set("description", "Refine the Research Questions sections and resolve missing bibliographies.")
+	if err := app.Save(task3); err != nil {
 		return err
 	}
 
@@ -635,12 +694,12 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 		return err
 	}
 	corrRecord := core.NewRecord(correspondenceColl)
-	corrRecord.Set("project", project.Id)
+	corrRecord.Set("project", projectA.Id)
 	corrRecord.Set("author", adminUser.Id)
 	corrRecord.Set("target", "client")
-	corrRecord.Set("recipientEmail", "client@scholarcrafted.com")
-	corrRecord.Set("subject", "Weekly Sprint & Typesetting Update")
-	corrRecord.Set("content", "Dear Researcher,\n\nWe have completed the typesetting pass for Chapter 1. Please verify the layout proofs.")
+	corrRecord.Set("recipientEmail", "mpdobson@ncsu.edu")
+	corrRecord.Set("subject", "Weekly Strategic Alignment & Routledge Milestones")
+	corrRecord.Set("content", "Dear Micah,\n\nWe have successfully logged Tyler Bunzey's latest manuscript outlines into our database timeline.\n\nWe are executing a full reference audit to integrate African, Latin American, and public health citations as recommended by the press house. Let's touch base next week.\n\nBest,\nVance Lab Operations")
 	corrRecord.Set("status", "sent")
 	corrRecord.Set("sentAt", time.Now())
 	if err := app.Save(corrRecord); err != nil {
@@ -654,17 +713,17 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 	}
 
 	lead1 := core.NewRecord(leadsColl)
-	lead1.Set("name", "Prof. Marcus Webb")
-	lead1.Set("email", "m.webb@northeastern.edu")
-	lead1.Set("university", "Northeastern University")
-	lead1.Set("documentType", "journal_article")
+	lead1.Set("name", "Dr. Nelson Malema")
+	lead1.Set("email", "nmalema@uwc.ac.za")
+	lead1.Set("university", "University of Western Cape")
+	lead1.Set("documentType", "book_manuscript")
 	lead1.Set("projectStatus", "drafting")
-	lead1.Set("targetPublisher", "Sage Publications")
-	lead1.Set("primaryPainPoint", "APA citation formatting is inconsistent across 40+ references")
+	lead1.Set("targetPublisher", "Routledge")
+	lead1.Set("primaryPainPoint", "Support letter validation and local South African hip-hop reference compilation")
 	lead1.Set("howHeard", "Micah's referral")
-	lead1.Set("status", "auditing")
+	lead1.Set("status", "new")
 	lead1.Set("priority", "high")
-	lead1.Set("notes", "Strong candidate for Scholar tier. Follow up by Friday.")
+	lead1.Set("notes", "Critical leverage for global perspective integration. Support letter drafted from University of Western Cape.")
 	if err := app.Save(lead1); err != nil {
 		return err
 	}
@@ -685,23 +744,7 @@ func seedDatabase(app *pocketbase.PocketBase) error {
 		return err
 	}
 
-	lead3 := core.NewRecord(leadsColl)
-	lead3.Set("name", "Prof. James Okonkwo")
-	lead3.Set("email", "j.okonkwo@emory.edu")
-	lead3.Set("university", "Emory University")
-	lead3.Set("documentType", "book_manuscript")
-	lead3.Set("projectStatus", "completed")
-	lead3.Set("targetPublisher", "Oxford University Press")
-	lead3.Set("primaryPainPoint", "Needs final typeset pass to meet OUP style guidelines before submission")
-	lead3.Set("howHeard", "LinkedIn organic")
-	lead3.Set("status", "discovery")
-	lead3.Set("priority", "medium")
-	lead3.Set("notes", "Booked 30-min discovery call. Budget confirmed via department grant.")
-	if err := app.Save(lead3); err != nil {
-		return err
-	}
-
-	log.Println("Database seeded successfully.")
+	log.Println("Database seeded successfully with Micah Dobson's actual portfolio data.")
 	return nil
 }
 
@@ -856,6 +899,278 @@ func registerAIEndpoints(e *core.ServeEvent, app *pocketbase.PocketBase) {
 			"healthScore":      healthScore,
 			"missingCitations": missingCitations,
 			"totalParsedKeys":  len(bibKeys),
+		})
+	}).Bind(isAuthed)
+
+	// 4. Global Inbound "CC" Mailbox Logger
+	e.Router.POST("/api/correspondence/cc", func(re *core.RequestEvent) error {
+		type RequestBody struct {
+			Sender         string `json:"sender"`
+			RecipientEmail string `json:"recipientEmail"`
+			Subject        string `json:"subject"`
+			Content        string `json:"content"`
+			ProjectID      string `json:"projectId"`
+			Status         string `json:"status"` // e.g. "sent", "pending_approval"
+		}
+
+		var req RequestBody
+		if err := re.BindBody(&req); err != nil {
+			return apis.NewBadRequestError("Invalid request body", err)
+		}
+
+		if req.Sender == "" || req.Subject == "" || req.Content == "" {
+			return apis.NewBadRequestError("Missing required fields: sender, subject, content", nil)
+		}
+
+		if req.Status == "" {
+			req.Status = "sent"
+		}
+
+		var project *core.Record
+
+		// A. Find by specific projectId if provided
+		if req.ProjectID != "" {
+			project, _ = app.FindRecordById("projects", req.ProjectID)
+		}
+
+		// B. Match by sender email
+		if project == nil && req.Sender != "" {
+			senderUser, uErr := app.FindFirstRecordByData("users", "email", req.Sender)
+			if uErr == nil && senderUser != nil {
+				projs, pErr := app.FindRecordsByFilter("projects", "client = {:userId} || leadResearcher = {:userId}", "-created", 1, 0, map[string]any{"userId": senderUser.Id})
+				if pErr == nil && len(projs) > 0 {
+					project = projs[0]
+				}
+			}
+		}
+
+		// C. Match by keywords in subject or body
+		if project == nil {
+			projs, pErr := app.FindRecordsByFilter("projects", "id != ''", "-created", 100, 0, nil)
+			if pErr == nil {
+				subjectLower := strings.ToLower(req.Subject)
+				bodyLower := strings.ToLower(req.Content)
+				bestScore := 0
+				var bestProj *core.Record
+
+				for _, p := range projs {
+					score := 0
+					titleLower := strings.ToLower(p.GetString("title"))
+					slugLower := strings.ToLower(p.GetString("slug"))
+
+					// Tokenize title
+					words := strings.Fields(titleLower)
+					for _, w := range words {
+						if len(w) > 3 {
+							if strings.Contains(subjectLower, w) {
+								score += 10
+							}
+							if strings.Contains(bodyLower, w) {
+								score += 2
+							}
+						}
+					}
+
+					if strings.Contains(subjectLower, slugLower) {
+						score += 20
+					}
+
+					if score > bestScore {
+						bestScore = score
+						bestProj = p
+					}
+				}
+
+				if bestScore > 0 {
+					project = bestProj
+				}
+			}
+		}
+
+		// D. Fallback to first project
+		if project == nil {
+			projs, pErr := app.FindRecordsByFilter("projects", "id != ''", "-created", 1, 0, nil)
+			if pErr == nil && len(projs) > 0 {
+				project = projs[0]
+			}
+		}
+
+		if project == nil {
+			return apis.NewBadRequestError("No project found to associate with this email", nil)
+		}
+
+		// Resolve or create author user
+		var authorId string
+		senderUser, uErr := app.FindFirstRecordByData("users", "email", req.Sender)
+		if uErr == nil && senderUser != nil {
+			authorId = senderUser.Id
+		} else {
+			adminUser, aErr := app.FindFirstRecordByData("users", "username", "admin")
+			if aErr == nil && adminUser != nil {
+				authorId = adminUser.Id
+			} else {
+				authorId = project.GetString("leadResearcher")
+			}
+		}
+
+		corrColl, cErr := app.FindCollectionByNameOrId("correspondence")
+		if cErr != nil {
+			return apis.NewBadRequestError("Correspondence collection not found", cErr)
+		}
+
+		corrRec := core.NewRecord(corrColl)
+		corrRec.Set("project", project.Id)
+		corrRec.Set("author", authorId)
+		corrRec.Set("target", "client")
+		if strings.Contains(strings.ToLower(req.RecipientEmail), "publisher") || strings.Contains(strings.ToLower(req.Subject), "publisher") {
+			corrRec.Set("target", "publisher")
+		}
+
+		if req.RecipientEmail != "" {
+			corrRec.Set("recipientEmail", req.RecipientEmail)
+		} else {
+			clientRecord, clErr := app.FindRecordById("users", project.GetString("client"))
+			if clErr == nil {
+				corrRec.Set("recipientEmail", clientRecord.Email())
+			} else {
+				corrRec.Set("recipientEmail", "client@scholarcrafted.com")
+			}
+		}
+
+		corrRec.Set("subject", req.Subject)
+		corrRec.Set("content", req.Content)
+		corrRec.Set("status", req.Status)
+		if req.Status == "sent" {
+			corrRec.Set("sentAt", time.Now())
+		}
+
+		if err := app.Save(corrRec); err != nil {
+			return apis.NewBadRequestError("Failed to save logged correspondence", err)
+		}
+
+		return re.JSON(http.StatusOK, map[string]any{
+			"success":          true,
+			"correspondenceId": corrRec.Id,
+			"matchedProjectId": project.Id,
+			"matchedTitle":     project.GetString("title"),
+			"status":           corrRec.GetString("status"),
+		})
+	})
+
+	// 5. Friday Status Pulse generator
+	e.Router.POST("/api/ai/friday-pulse", func(re *core.RequestEvent) error {
+		type RequestBody struct {
+			ProjectID string `json:"projectId"`
+		}
+
+		var req RequestBody
+		if err := re.BindBody(&req); err != nil {
+			return apis.NewBadRequestError("Invalid request body", err)
+		}
+
+		if req.ProjectID == "" {
+			return apis.NewBadRequestError("Missing projectId parameter", nil)
+		}
+
+		project, err := app.FindRecordById("projects", req.ProjectID)
+		if err != nil {
+			return apis.NewNotFoundError("Project not found", err)
+		}
+
+		// Fetch tasks for summary
+		tasks, _ := app.FindRecordsByFilter("tasks", "project = {:projectId}", "-updated", 100, 0, map[string]any{"projectId": project.Id})
+
+		var completedItems []string
+		var activeItems []string
+		var upcomingItems []string
+
+		for _, t := range tasks {
+			title := t.GetString("title")
+			switch t.GetString("status") {
+			case "completed":
+				completedItems = append(completedItems, "- Done: "+title)
+			case "in_progress":
+				activeItems = append(activeItems, "- In Progress: "+title)
+			default:
+				upcomingItems = append(upcomingItems, "- Planned: "+title)
+			}
+		}
+
+		if len(completedItems) == 0 {
+			completedItems = append(completedItems, "- Reviewed target journal guidelines and verified standard bibliographic formatting.")
+		}
+		if len(activeItems) == 0 {
+			activeItems = append(activeItems, "- Formulating the draft methodology codebook validation procedures.")
+		}
+		if len(upcomingItems) == 0 {
+			upcomingItems = append(upcomingItems, "- Comprehensive peer reference alignment pass.")
+		}
+
+		// Fetch project's client email
+		recipientEmail := "client@scholarcrafted.com"
+		clientRecord, clErr := app.FindRecordById("users", project.GetString("client"))
+		if clErr == nil {
+			recipientEmail = clientRecord.Email()
+		}
+
+		// Build beautiful, bespoke Status Pulse email content
+		subject := fmt.Sprintf("Friday Status Pulse: %s Update", project.GetString("title"))
+		var sb strings.Builder
+		sb.WriteString(fmt.Sprintf("Dear Dr. %s,\n\n", clientRecord.GetString("name")))
+		sb.WriteString(fmt.Sprintf("Here is your curated weekly **Friday Status Pulse** for **%s**:\n\n", project.GetString("title")))
+		sb.WriteString(fmt.Sprintf("### 📈 Overall Status\n- Current Phase Progress: **%.0f%%**\n- Next Strategic Milestone: *%s*\n\n", project.GetFloat("progress"), project.GetString("nextMilestone")))
+		sb.WriteString("### ✅ Completed This Week\n")
+		for _, item := range completedItems {
+			sb.WriteString(item + "\n")
+		}
+		sb.WriteString("\n### ⏳ In Progress\n")
+		for _, item := range activeItems {
+			sb.WriteString(item + "\n")
+		}
+		sb.WriteString("\n### 🎯 Upcoming Next Steps\n")
+		for _, item := range upcomingItems {
+			sb.WriteString(item + "\n")
+		}
+		sb.WriteString("\n---\n*This is an automated white-glove update drafted for your immediate review. If everything looks good, this correspondence will be cleared and delivered to your inbox.*")
+
+		content := sb.String()
+
+		// Save the compiled status pulse to correspondence as a "pending_approval" draft (the Buffer communication architecture!)
+		authorId := ""
+		if re.Auth != nil {
+			authorId = re.Auth.Id
+		} else {
+			adminUser, _ := app.FindFirstRecordByData("users", "username", "admin")
+			if adminUser != nil {
+				authorId = adminUser.Id
+			} else {
+				authorId = project.GetString("leadResearcher")
+			}
+		}
+
+		corrColl, cErr := app.FindCollectionByNameOrId("correspondence")
+		if cErr != nil {
+			return apis.NewBadRequestError("Correspondence collection not found", cErr)
+		}
+
+		corrRec := core.NewRecord(corrColl)
+		corrRec.Set("project", project.Id)
+		corrRec.Set("author", authorId)
+		corrRec.Set("target", "client")
+		corrRec.Set("recipientEmail", recipientEmail)
+		corrRec.Set("subject", subject)
+		corrRec.Set("content", content)
+		corrRec.Set("status", "pending_approval") // needs manual admin clearance!
+
+		if err := app.Save(corrRec); err != nil {
+			return apis.NewBadRequestError("Failed to save draft status pulse", err)
+		}
+
+		return re.JSON(http.StatusOK, map[string]any{
+			"success":          true,
+			"correspondenceId": corrRec.Id,
+			"subject":          subject,
+			"content":          content,
 		})
 	}).Bind(isAuthed)
 }
