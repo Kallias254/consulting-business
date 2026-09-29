@@ -9,36 +9,45 @@ import {
   SimpleGrid,
   Stack,
   Button,
-  Divider,
-  Center,
   rem,
   Group,
   useMantineTheme,
   Accordion,
   ThemeIcon,
+  Badge,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
-import { IconCheck, IconArrowRight, IconMessageChatbot, IconShieldCheck, IconRocket } from '@tabler/icons-react'
-import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
+import { 
+  IconCheck, 
+  IconArrowRight, 
+  IconMessageChatbot, 
+  IconShieldCheck, 
+  IconRocket, 
+  IconBook2, 
+  IconFileText, 
+  IconCompass, 
+  IconDatabase 
+} from '@tabler/icons-react'
+import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
 
 const faqs = [
   {
-    q: 'What software do you support?',
-    a: 'We have specialists in SPSS, R, STATA, NVivo, ATLAS.ti, MAXQDA, and more. Please specify your needs in your inquiry.',
+    q: 'Can you help convert a Master’s thesis or PhD dissertation into journal articles?',
+    a: 'Yes. This is one of our most requested services. We help graduate scholars decompose a 100+ page dissertation into one or more tightly scoped, 6,000–8,000 word peer-reviewed manuscripts aligned with specific tier-1 journal guidelines.',
   },
   {
-    q: 'Can you help with survey design?',
-    a: 'Yes, we can provide expert guidance on constructing methodologically sound surveys for quantitative or qualitative research, including validity and reliability testing.',
+    q: 'How do you assist with academic book proposals?',
+    a: 'We evaluate your manuscript or dissertation core, identify target presses (e.g., Routledge, Oxford, Palgrave, Cambridge), and help craft the market justification, chapter summaries, prospectus, and sample chapters required by acquisition editors.',
   },
   {
-    q: 'Is this service confidential?',
-    a: 'Absolutely. All data and research materials are handled with the strictest academic confidentiality. We are happy to sign an NDA upon request.',
+    q: 'Do you provide qualitative and statistical methodology support?',
+    a: 'Yes. We support survey validation, quantitative statistical models (SPSS, R, STATA), and qualitative coding schemes (NVivo, ATLAS.ti) to ensure your methodology chapter is bulletproof before defense or peer review.',
   },
   {
-    q: 'Will you write my methodology chapter?',
-    a: 'No. We provide the technical support, analysis outputs, and coding structures, but you remain the sole author of your manuscript. We do not provide ghostwriting services.',
+    q: 'Will you write my paper or methodology chapter for me?',
+    a: 'No. ScholarCrafted upholds absolute academic integrity. We structure frameworks, verify research design, and organize empirical evidence, but you remain the sole author. We do not provide ghostwriting.',
   },
 ]
 
@@ -51,373 +60,203 @@ export default function ResearchSupportPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
+      <Box component="section" pt={rem(140)} pb={rem(90)} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <Box style={{ maxWidth: 800 }}>
-            <Text
-              size="xs"
-              fw={700}
-              style={{ letterSpacing: '0.15em' }}
-              c={active.accent}
-            >
-              TECHNICAL ASSISTANCE
-            </Text>
+          <Box style={{ maxWidth: 860 }}>
+            <Badge variant="outline" color="dark" radius={0} size="sm" mb="sm">
+              PILLAR 2: STRATEGIC PUBLICATION & RESEARCH
+            </Badge>
             <Title
               order={1}
-              mt="md"
+              mt="xs"
               style={{
                 fontSize: rem(56),
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
-                color: active.primary }}
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+              }}
             >
-              Methodological design and <br />
-              custom data support.
+              Academic Publishing Advisory & Research Design.
             </Title>
-            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              Offline technical support for complex survey construction, qualitative coding, 
-              and advanced statistical analysis for your methodology findings.
+            <Text size="lg" mt="xl" c="dimmed" lh={1.7} style={{ fontSize: rem(20) }}>
+              From transforming Master’s theses and doctoral dissertations into peer-reviewed journal articles, to structuring major university press book proposals and defending complex empirical methodologies.
             </Text>
             
-            <Link href="/scholarcrafted/request-review?service=Custom%20Research%20%26%20Data%20Support" style={{ textDecoration: 'none' }}>
-              <Button size="lg" variant="filled" bg={active.primary} radius={0} mt={rem(40)}>
-                GET A QUOTE
-              </Button>
-            </Link>
+            <Box mt={rem(40)}>
+              <Link href="/scholarcrafted/consultation?service=Publishing%20%26%20Research%20Advisory" style={{ textDecoration: 'none' }}>
+                <Button size="lg" variant="filled" bg={active.primary} radius={0} rightSection={<IconArrowRight size={18} />}>
+                  BOOK STRATEGY CALL WITH DR. DOBSON
+                </Button>
+              </Link>
+            </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* Why Choose Custom Research Support */}
-      <Box py={rem(80)} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(40)}>
-            <Box>
-              <Title order={2} >
-                Why Choose Custom Research Support?
-              </Title>
-              <Text c="dimmed" mt="md" size="lg" lh={1.7} style={{ maxWidth: 800 }}>
-                Quantitative and qualitative methodologies require extreme precision. A single flaw in your survey instrument or statistical model can derail your entire findings chapter.
-              </Text>
-            </Box>
-            <Stack gap="lg">
-              {[
-                { title: 'Methodological Defensibility', desc: 'Ensure your research design stands up to the most rigorous committee scrutiny.' },
-                { title: 'Accelerated Timelines', desc: 'Stop struggling with SPSS, R, or NVivo. Let our specialists handle the technical heavy lifting so you can focus on writing.' },
-                { title: 'Data Integrity', desc: 'Eliminate errors in your dataset, coding scheme, or statistical outputs before they become major revisions.' },
-              ].map((item, i) => (
-                <Group key={i} align="flex-start" wrap="nowrap" gap="md">
-                  <ThemeIcon size={24} radius="xl" variant="light" color="dark" style={{ marginTop: rem(4) }}>
-                    <IconCheck size={14} stroke={2} />
-                  </ThemeIcon>
-                  <Box>
-                    <Text fw={700} size="md" c={active.primary}>{item.title}</Text>
-                    <Text size="sm" c="dimmed" lh={1.6}>{item.desc}</Text>
-                  </Box>
-                </Group>
-              ))}
-            </Stack>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* Core Technical Deliverables */}
-      <Box py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box>
-              <Text
-                size="xs"
-                
-                c={active.accent}
-              >
-                The Analytical Framework
-              </Text>
-              <Title order={3} mt="sm" style={{ fontSize: rem(36) }}>
-                Core Technical Deliverables
-              </Title>
-              <Text size="lg" lh={1.7} c="dimmed" mt="md" style={{ maxWidth: 800 }}>
-                We provide comprehensive technical support for both qualitative and quantitative research designs, ensuring your methodology is bulletproof.
-              </Text>
-            </Box>
-            
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
-              <Box>
-                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
-                  1. Qualitative Coding & Analysis
-                </Text>
-                <Text c="dimmed" lh={1.6} mb="lg">
-                  Rigorous thematic extraction and qualitative framework development. We ensure your qualitative data is systematic, transparent, and reproducible.
-                </Text>
-                <SimpleGrid cols={2} spacing="sm">
-                  {['NVivo / ATLAS.ti', 'Codebook Development', 'Thematic Extraction', 'Interview Protocol Review'].map((item, i) => (
-                    <Group key={i} align="center" gap="sm" wrap="nowrap">
-                      <IconCheck size={18} color={active.accent || active.primary} />
-                      <Text size="sm" fw={500} c="dimmed">{item}</Text>
-                    </Group>
-                  ))}
-                </SimpleGrid>
-              </Box>
-
-              <Box>
-                <Text className="impeccable-eyebrow" style={{ color: active.primary }} size="sm" mb="md">
-                  2. Quantitative & Statistical Support
-                </Text>
-                <Text c="dimmed" lh={1.6} mb="lg">
-                  Advanced statistical modeling and survey instrument validation. We provide clean, organized outputs ready for your interpretation.
-                </Text>
-                <SimpleGrid cols={2} spacing="sm">
-                  {['SPSS / R / STATA', 'Descriptive Statistics', 'Inferential Statistics', 'Survey Construction & Validation'].map((item, i) => (
-                    <Group key={i} align="center" gap="sm" wrap="nowrap">
-                      <IconCheck size={18} color={active.accent || active.primary} />
-                      <Text size="sm" fw={500} c="dimmed">{item}</Text>
-                    </Group>
-                  ))}
-                </SimpleGrid>
-              </Box>
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* What You'll Gain */}
+      {/* 3 Core Publishing Tracks */}
       <Box py={SECTION_SPACING} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Title order={2} style={{ fontSize: rem(42) }}>
-                What You&rsquo;ll Gain
-              </Title>
-              <Text c="dimmed" mt="md" size="lg">
-                Beyond raw data processing, our support provides a comprehensive elevation of your entire methodology chapter.
+          <Stack gap={rem(60)}>
+            <Box style={{ maxWidth: 800 }}>
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                Core Publishing Tracks
               </Text>
+              <Title order={2} mt="xs" style={{ fontSize: rem(40), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Move beyond the dissertation into press-ready publication.
+              </Title>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" style={{ textAlign: 'left' }}>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Institutional Alignment</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We ensure your methodological approach strictly adheres to your university&rsquo;s specific guidelines, removing a major hurdle to final defense approval.</Text>
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
+              <Box p={rem(36)} bg={active.background} style={{ border: `1px solid ${active.primary}18` }}>
+                <Stack gap="md">
+                  <IconFileText size={32} color={active.accent} stroke={1.5} />
+                  <Title order={3} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
+                    Thesis & Dissertation to Journal Conversion
+                  </Title>
+                  <Text size="sm" c="dimmed" lh={1.6}>
+                    Turn your defense into publication equity. We help you extract standalone empirical papers from your Master’s thesis or doctoral monograph, reframing the literature review and discussion for target peer-reviewed journals.
+                  </Text>
+                  <Stack gap="xs" mt="xs">
+                    {['6,000–8,000 word scoping', 'Journal aim & scope alignment', 'IMRaD synthesis', 'Reviewer response strategy'].map((item, i) => (
+                      <Group key={i} gap="xs" align="center">
+                        <IconCheck size={14} color={active.accent} />
+                        <Text size="xs" c="dimmed">{item}</Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                </Stack>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Elevated Analysis</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We don&rsquo;t just run the numbers or extract themes; we help organize the outputs so you can easily interpret them in the context of your core research questions.</Text>
+
+              <Box p={rem(36)} bg={active.background} style={{ border: `1px solid ${active.primary}18` }}>
+                <Stack gap="md">
+                  <IconBook2 size={32} color={active.accent} stroke={1.5} />
+                  <Title order={3} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
+                    Book Proposals & Press Acquisition
+                  </Title>
+                  <Text size="sm" c="dimmed" lh={1.6}>
+                    Secure acquisition interest with leading academic publishers (Routledge, Oxford, Palgrave, Cambridge). We assist in prospectus drafting, market positioning, chapter outlines, and sample chapter refinement.
+                  </Text>
+                  <Stack gap="xs" mt="xs">
+                    {['Prospectus development', 'Market & peer review analysis', 'Handbook & edited volume strategy', 'Acquisitions editor alignment'].map((item, i) => (
+                      <Group key={i} gap="xs" align="center">
+                        <IconCheck size={14} color={active.accent} />
+                        <Text size="xs" c="dimmed">{item}</Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                </Stack>
               </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Structural Integrity</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>We validate your instruments to ensure they accurately measure exactly what they claim to measure, preventing critical flaws in your findings.</Text>
-              </Box>
-              <Box p={rem(32)} bg={active.background} style={{ border: `1px solid #eee` }}>
-                <Text fw={700} size="lg" mb="sm">Peace of Mind</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>Handing the raw data processing over to a specialist allows you to step away and return refreshed for the critical interpretation and discussion phase.</Text>
+
+              <Box p={rem(36)} bg={active.background} style={{ border: `1px solid ${active.primary}18` }}>
+                <Stack gap="md">
+                  <IconDatabase size={32} color={active.accent} stroke={1.5} />
+                  <Title order={3} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
+                    Methodology Design & Systematic Reviews
+                  </Title>
+                  <Text size="sm" c="dimmed" lh={1.6}>
+                    Bulletproof your research design. We audit qualitative codebooks, validate quantitative instruments (SPSS/R), and structure systematic PRISMA literature review evidence matrices.
+                  </Text>
+                  <Stack gap="xs" mt="xs">
+                    {['Qualitative thematic extraction', 'Survey construct validation', '10-year intellectual genealogy', 'PRISMA / Systematic protocols'].map((item, i) => (
+                      <Group key={i} gap="xs" align="center">
+                        <IconCheck size={14} color={active.accent} />
+                        <Text size="xs" c="dimmed">{item}</Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                </Stack>
               </Box>
             </SimpleGrid>
           </Stack>
         </Container>
       </Box>
 
-      {/* Editing vs Consulting - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} className="academic-watermark" bg={active.background}>
-        <Container size={800}>
-          <Stack gap="xl" align="center" style={{ textAlign: 'center' }}>
-            <Text
-              size="xs"
-              
-              c={active.accent}
-            >
-              Crucial Distinction
-            </Text>
-            <Title order={2} style={{ fontSize: rem(36) }}>
-              Technical Support vs. Consulting
-            </Title>
-            <Text size="lg" c="dimmed" lh={1.7}>
-              It is important to differentiate between our asynchronous technical support and our live coaching.
-            </Text>
-            
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt="md" style={{ textAlign: 'left', width: '100%' }}>
-              <Box p={rem(32)} bg={active.surface} className="impeccable-card">
-                <Text fw={700} size="lg" mb="xs" c={active.primary}>Custom Data Support</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  An asynchronous service where you hand over raw data or instruments. We process the technical aspects (coding, statistics) offline and return organized outputs.
-                </Text>
-              </Box>
-              <Box p={rem(32)} bg={active.surface} className="impeccable-card">
-                <Text fw={700} size="lg" mb="xs" c={active.accent}>Live Consulting</Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  A real-time instructional opportunity (1-on-1 coaching) meant to teach you <i>how</i> to conduct the research yourself, overcome roadblocks, or prepare for defense.
-                </Text>
-              </Box>
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* How It Works - DEDICATED SECTION */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
+      {/* The 3-Step Engagement Workflow */}
+      <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
-                The Process
+            <Box style={{ maxWidth: 740 }}>
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                How We Collaborate
               </Text>
-              <Title order={2} mt="sm" style={{ fontSize: rem(42) }}>
-                How It Works
+              <Title order={2} mt="sm" style={{ fontSize: rem(40), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                A structured, milestone-driven publication sprint.
               </Title>
-              <Text c="dimmed" mt="md" size="lg">
-                A seamless, professional workflow designed to align your data with rigorous methodological standards.
+              <Text c="dimmed" mt="md" size="lg" lh={1.7}>
+                We partner as your academic research and editorial liaison, removing publication bottlenecks without taking away your scholarly ownership.
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)} mt="lg">
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconMessageChatbot size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  01. Initial Assessment
-                </Text>
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(48)} mt="lg" style={{ textAlign: 'left' }}>
+              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+                <Text fw={700} size="sm" c={active.accent} mb="xs">PHASE 01</Text>
+                <Title order={4} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
+                  Diagnostic Consultation
+                </Title>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Book a free introductory call to discuss your specific data needs, software requirements, and methodological approach.
+                  We review your thesis, dissertation, or manuscript draft to determine the highest-leverage target journals or presses.
                 </Text>
-              </Stack>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconShieldCheck size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  02. Scope & Secure Transfer
-                </Text>
+              </Box>
+
+              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+                <Text fw={700} size="sm" c={active.accent} mb="xs">PHASE 02</Text>
+                <Title order={4} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
+                  Structural Sprint & Synthesis
+                </Title>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  We provide a precise quote and timeline. Upon agreement, you securely transfer your raw data, codebooks, or instruments to our specialists.
+                  We decompose the research into modular milestones—rebuilding the theoretical framing, mapping evidence, and verifying citations.
                 </Text>
-              </Stack>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconRocket size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg">
-                  03. Execution & Delivery
-                </Text>
+              </Box>
+
+              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+                <Text fw={700} size="sm" c={active.accent} mb="xs">PHASE 03</Text>
+                <Title order={4} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
+                  Press-Ready Delivery
+                </Title>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  We perform the rigorous technical analysis and deliver clean, organized outputs ready for you to interpret and write into your final manuscript.
+                  You receive an exhaustively polished, formatted, and defense-ready deliverable ready for immediate journal submission or publisher review.
                 </Text>
-              </Stack>
+              </Box>
             </SimpleGrid>
 
-            <Center mt={rem(40)}>
-              <Link
-                href="/scholarcrafted/request-review?service=Custom%20Research%20%26%20Data%20Support"
-                style={{ textDecoration: 'none' }}
-              >
+            <Box mt={rem(30)}>
+              <Link href="/scholarcrafted/consultation?service=Publishing%20%26%20Research%20Advisory" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  GET A QUOTE
+                  START YOUR PUBLISHING SPRINT
                 </Button>
               </Link>
-            </Center>
+            </Box>
           </Stack>
         </Container>
       </Box>
 
       {/* FAQ Section */}
-      <Box component="section" py={SECTION_SPACING} className="academic-watermark" bg={active.background}>
+      <Box component="section" py={SECTION_SPACING} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={800}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
-                FAQ
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                Frequently Asked Questions
               </Text>
-              <Title
-                order={2}
-                mt="md"
-                style={{ fontSize: rem(36), color: active.primary }}
-              >
-                Common Questions
+              <Title order={2} mt="xs" style={{ fontSize: rem(36), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Publishing & Research Inquiries
               </Title>
             </Box>
-            <Accordion>
-              {faqs.map((faq: any, i: number) => (
-                <Accordion.Item key={i} value={`faq-${i}`}>
+            <Accordion variant="separated" radius={0}>
+              {faqs.map((faq, i) => (
+                <Accordion.Item key={i} value={`faq-${i}`} style={{ backgroundColor: active.background }}>
                   <Accordion.Control>
-                    {faq.q}
+                    <Text fw={600} size="md">{faq.q}</Text>
                   </Accordion.Control>
                   <Accordion.Panel>
-                    <Text size="md" lh={1.7} c="dimmed">
+                    <Text size="sm" lh={1.7} c="dimmed">
                       {faq.a}
                     </Text>
                   </Accordion.Panel>
                 </Accordion.Item>
               ))}
             </Accordion>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* Explore Other Services */}
-      <Box py={SECTION_SPACING} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}12` }}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ textAlign: 'center' }}>
-              <Title order={2} style={{ fontSize: rem(36) }}>
-                Explore Other Services
-              </Title>
-              <Text size="lg" c="dimmed" mt="md">
-                Need a different type of support? We have you covered.
-              </Text>
-            </Box>
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      MANUSCRIPT REFINEMENT
-                    </Text>
-                    <Title order={3} >
-                      Structural Editing & Proofreading
-                    </Title>
-                  </Stack>
-                  <Text size="sm" c="dimmed" lh={1.6}>
-                    From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.
-                  </Text>
-                </Stack>
-                <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
-                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      View Editing Services
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
-
-              <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Stack gap="xs">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                      1-ON-1 GUIDANCE
-                    </Text>
-                    <Title order={3} >
-                      Live Academic Coaching
-                    </Title>
-                  </Stack>
-                  <Text size="sm" c="dimmed" lh={1.6}>
-                    A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence. Perfect for when you are stuck and need real-time instructional support.
-                  </Text>
-                </Stack>
-                <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
-                    <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      View Coaching Services
-                    </Button>
-                  </Link>
-                </Box>
-              </Box>
-            </SimpleGrid>
           </Stack>
         </Container>
       </Box>

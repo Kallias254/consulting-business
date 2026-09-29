@@ -248,142 +248,53 @@ export default function EditingProofreadingPage() {
         </Box>
       </Box>
 
-      {/* How the Process Works (The Roadmap) */}
+      {/* The 3-Step Client Workflow */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <Stack gap={rem(80)}>
-            <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
+          <Stack gap={rem(60)}>
+            <Box style={{ textAlign: 'center', maxWidth: 740, margin: '0 auto' }}>
               <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                Manuscript Pathway
+                How It Works
               </Text>
-              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                Rigorous Editing, Stage by Stage.
+              <Title order={2} style={{ fontSize: rem(42), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                A Simple, Predictable Editorial Process.
               </Title>
               <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                We take your raw draft through a structural, mechanical, and stylistic refining loop 
-                to ensure it meets the highest standards of senior faculty reviews.
+                No complex portals or endless back-and-forth. We work directly with your Word documents and university formatting manual.
               </Text>
             </Box>
 
-            <Box style={{ position: 'relative', marginTop: rem(40) }}>
-              {/* Vertical Timeline Connection Line */}
-              <Box 
-                style={{ 
-                  position: 'absolute', 
-                  left: rem(24), 
-                  top: rem(24), 
-                  bottom: rem(24), 
-                  width: '2px', 
-                  backgroundColor: `${active.accent}20`,
-                  zIndex: 0
-                }}
-                visibleFrom="sm"
-              />
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(36)}>
+              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+                <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 01</Text>
+                <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
+                  Upload Manuscript & Style Guide
+                </Title>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  Submit your draft (.docx) along with your university or journal guidelines. We confirm your word count and provide an exact turnaround date within 24 hours.
+                </Text>
+              </Box>
 
-              <Stack gap={rem(80)}>
-                {[
-                  {
-                    step: '01',
-                    title: 'Deep Structural Audit',
-                    subtitle: 'Forensic Review',
-                    desc: 'We perform a comprehensive forensic audit of your entire draft. We check for conceptual alignment, literature integration, argument flow, and structural vulnerabilities.',
-                    icon: IconSearch,
-                    tasks: [
-                      'Forensic audit of your draft logic & flow',
-                      'Direct mapping of structural inconsistencies',
-                      'Alignment analysis against committee feedback',
-                      'Detailed, chapter-by-chapter gap reports'
-                    ]
-                  },
-                  {
-                    step: '02',
-                    title: 'The Precision Edit',
-                    subtitle: 'Linguistic & Mechanical Polish',
-                    desc: 'Our PhD-level editors undertake the mechanical and linguistic heavy lifting. We correct syntax errors, improve transitions, and tune the text to a senior academic tone.',
-                    icon: IconPencil,
-                    tasks: [
-                      'Comprehensive grammatical & syntax correction',
-                      'Authoritative scholarly voice tuning',
-                      'Flow, readability & paragraph transition work',
-                      'Refining terminology to align with your field'
-                    ]
-                  },
-                  {
-                    step: '03',
-                    title: 'Formatting & Compliance',
-                    subtitle: 'Style & Template Alignment',
-                    desc: 'We conform your manuscript perfectly to your target style guidelines (APA, Harvard, Chicago, or specific institutional template). We rebuild references and cross-link citations.',
-                    icon: IconFileCheck,
-                    tasks: [
-                      'Strict style-guide conformity (APA, Harvard, etc.)',
-                      'Complete reference list & bibliography rebuild',
-                      'Rigorous citation-to-reference cross-checking',
-                      'ProQuest & university repository layout compliance'
-                    ]
-                  },
-                  {
-                    step: '04',
-                    title: 'The Verification Loop',
-                    subtitle: 'Quality & Revision Guarantee',
-                    desc: 'You receive a fully tracked, polished manuscript along with a complete report. We stand by our work: if your committee requests editing-related revisions, we perform them at no cost.',
-                    icon: IconShieldCheck,
-                    tasks: [
-                      'Comprehensive side-by-side tracked changes',
-                      'Detailed, marginal comments explaining edits',
-                      'Free committee editing revision guarantee',
-                      'Direct faculty support loop'
-                    ]
-                  }
-                ].map((phase, i) => (
-                  <Group key={i} align="flex-start" wrap="nowrap" gap="xl" style={{ position: 'relative', zIndex: 1 }}>
-                    {/* Timeline Node Badge */}
-                    <Box 
-                      style={{ 
-                        flex: '0 0 50px', 
-                        height: '50px', 
-                        borderRadius: '50%', 
-                        backgroundColor: active.background,
-                        border: `2px solid ${active.accent}`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: `0 0 0 4px ${active.background}`,
-                      }}
-                      visibleFrom="sm"
-                    >
-                      <Text fw={700} style={{ fontSize: rem(18), color: active.accent, fontFamily: 'var(--font-serif)' }}>{phase.step}</Text>
-                    </Box>
+              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+                <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 02</Text>
+                <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
+                  Faculty Edit & Citation Audit
+                </Title>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  Our PhD editors refine your syntax, tone, and transitions, while our research engine checks inline citations against primary literature and DOIs.
+                </Text>
+              </Box>
 
-                    <Box style={{ flex: 1, paddingLeft: rem(10) }}>
-                      <Group gap="sm" mb="xs">
-                        <ThemeIcon size={24} radius="xl" variant="light" color={active.accent} style={{ display: 'inline-flex' }}>
-                          <phase.icon size={14} />
-                        </ThemeIcon>
-                        <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>{phase.subtitle}</Text>
-                      </Group>
-                      
-                      <Title order={3} style={{ fontSize: rem(28), color: active.primary, marginBottom: rem(12), fontFamily: 'var(--font-serif)' }}>
-                        {phase.title}
-                      </Title>
-                      
-                      <Text size="md" lh={1.7} c="dimmed" mb="lg" style={{ maxWidth: 700 }}>
-                        {phase.desc}
-                      </Text>
-                      
-                      {/* Vertical Bullets List */}
-                      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" style={{ maxWidth: 700 }}>
-                        {phase.tasks.map((task, j) => (
-                          <Group key={j} gap="sm" wrap="nowrap" align="flex-start">
-                            <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
-                            <Text size="sm" c={active.primary} lh={1.4}>{task}</Text>
-                          </Group>
-                        ))}
-                      </SimpleGrid>
-                    </Box>
-                  </Group>
-                ))}
-              </Stack>
-            </Box>
+              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+                <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 03</Text>
+                <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
+                  Defense-Ready Galley & Guarantee
+                </Title>
+                <Text size="sm" c="dimmed" lh={1.6}>
+                  Receive a fully tracked manuscript with margin annotations. If your committee requests revisions related specifically to our editing, we perform them at no cost.
+                </Text>
+              </Box>
+            </SimpleGrid>
           </Stack>
         </Container>
       </Box>
@@ -405,20 +316,20 @@ export default function EditingProofreadingPage() {
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(32)}>
+            <SimpleGrid cols={{ base: 1, lg: 3 }} spacing={rem(24)}>
               {/* Card 1: Dissertation & Thesis Formatting */}
-              <Box p={{ base: rem(24), md: rem(32) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
-                <Stack gap="xl">
+              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
+                <Stack gap="xl" flex={1}>
                   <Box>
-                    <Badge radius={0} color={active.primary} mb="md">MOST POPULAR</Badge>
-                    <Title order={3} style={{ fontSize: rem(32) }}>Dissertation & Thesis Formatting</Title>
-                    <Text size="md" c="dimmed" mt="sm">The gold standard for final-stage manuscripts.</Text>
+                    <Badge radius={0} color={active.primary} mb="md">TIER 1 — FLAT RATE</Badge>
+                    <Title order={3} style={{ fontSize: rem(26), fontFamily: 'var(--font-serif)' }}>Dissertation & Thesis Formatting</Title>
+                    <Text size="sm" c="dimmed" mt="xs">The gold standard for Master's theses and doctoral dissertations.</Text>
                   </Box>
                   
                   <Stack gap="sm">
-                    {['APA, MLA, Chicago Compliance', 'Mechanical & Grammatical Polish', 'Reference & Citation Audit', 'Table of Contents & Pagination'].map((item, i) => (
-                      <Group key={i} gap="xs">
-                        <IconCheck size={16} color={active.accent} stroke={3} />
+                    {['APA, MLA, Chicago Compliance', 'Mechanical & Grammatical Polish', 'Passage-Grounded Citation Audit', 'Table of Contents & ProQuest Layout'].map((item, i) => (
+                      <Group key={i} gap="xs" align="flex-start">
+                        <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
                         <Text size="sm" fw={600}>{item}</Text>
                       </Group>
                     ))}
@@ -428,7 +339,7 @@ export default function EditingProofreadingPage() {
 
                   <Box>
                     <Group justify="space-between" mb="xs">
-                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>ESTIMATE FOR YOUR WORD COUNT</Text>
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>WORD COUNT</Text>
                       <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
                     </Group>
                     <Slider
@@ -450,16 +361,13 @@ export default function EditingProofreadingPage() {
 
                   <Divider color="oklch(0% 0 0 / 0.05)" />
 
-                  <Group justify="space-between" align="flex-end">
+                  <Group justify="space-between" align="flex-end" mt="auto">
                     <Stack gap={2}>
-                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED BASELINE</Text>
-                      <Text fw={700} size="xl" style={{ fontSize: rem(28), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
+                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
+                      <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
                         ${(wordCount * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </Text>
                       <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.044 / word rate</Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(9), fontStyle: 'italic', maxWidth: rem(200), marginTop: rem(2) }}>
-                        *Est. baseline rate. Final quote subject to manuscript review.
-                      </Text>
                     </Stack>
                     <Link href={`/scholarcrafted/request-review?service=Formatting&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
                       <Button size="sm" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
@@ -471,18 +379,18 @@ export default function EditingProofreadingPage() {
               </Box>
 
               {/* Card 2: Targeted Technical Support */}
-              <Box p={{ base: rem(24), md: rem(32) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)` }}>
-                <Stack gap="xl">
+              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
+                <Stack gap="xl" flex={1}>
                   <Box>
-                    <Badge radius={0} variant="outline" color={active.primary} mb="md">TECHNICAL</Badge>
-                    <Title order={3} style={{ fontSize: rem(32) }}>Targeted Technical Support</Title>
-                    <Text size="md" c="dimmed" mt="sm">Hourly assistance for specific technical hurdles.</Text>
+                    <Badge radius={0} variant="outline" color={active.primary} mb="md">HOURLY MILESTONES</Badge>
+                    <Title order={3} style={{ fontSize: rem(26), fontFamily: 'var(--font-serif)' }}>Technical Reference Support</Title>
+                    <Text size="sm" c="dimmed" mt="xs">Targeted assistance for bibliographies, tables, and ProQuest.</Text>
                   </Box>
 
                   <Stack gap="sm">
                     {['Reference List Reconstruction', 'Citation Cross-checking', 'ProQuest Compliance', 'Complex Table/Figure Assembly'].map((item, i) => (
-                      <Group key={i} gap="xs">
-                        <IconCheck size={16} color={active.accent} stroke={3} />
+                      <Group key={i} gap="xs" align="flex-start">
+                        <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
                         <Text size="sm" fw={600}>{item}</Text>
                       </Group>
                     ))}
@@ -492,7 +400,7 @@ export default function EditingProofreadingPage() {
 
                   <Box>
                     <Group justify="space-between" mb="xs">
-                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>ESTIMATE FOR YOUR HOURS</Text>
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>ESTIMATED HOURS</Text>
                       <Text size="sm" fw={700} c={active.primary}>{hours} hours</Text>
                     </Group>
                     <Slider
@@ -514,20 +422,78 @@ export default function EditingProofreadingPage() {
 
                   <Divider color="oklch(0% 0 0 / 0.05)" />
 
-                  <Group justify="space-between" align="flex-end">
+                  <Group justify="space-between" align="flex-end" mt="auto">
                     <Stack gap={2}>
-                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED BASELINE</Text>
-                      <Text fw={700} size="xl" style={{ fontSize: rem(28), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
+                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
+                      <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
                         ${(hours * 90).toLocaleString()}
                       </Text>
                       <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$90 / hour rate</Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(9), fontStyle: 'italic', maxWidth: rem(200), marginTop: rem(2) }}>
-                        *Est. baseline rate. Final quote subject to technical review.
-                      </Text>
                     </Stack>
                     <Link href={`/scholarcrafted/request-review?service=TechnicalSupport&hours=${hours}`} style={{ textDecoration: 'none' }}>
                       <Button size="sm" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
                         Enquire
+                      </Button>
+                    </Link>
+                  </Group>
+                </Stack>
+              </Box>
+
+              {/* Card 3: Evidence Reconstruction & Grounding (AI Draft Rescue) */}
+              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `2px solid ${active.accent}`, display: 'flex', flexDirection: 'column' }}>
+                <Stack gap="xl" flex={1}>
+                  <Box>
+                    <Badge radius={0} color={active.accent} mb="md">SPECIALIZED — PROTOTYPE RESCUE</Badge>
+                    <Title order={3} style={{ fontSize: rem(26), fontFamily: 'var(--font-serif)' }}>Evidence Reconstruction</Title>
+                    <Text size="sm" c="dimmed" mt="xs">Transform exploratory or AI-assisted drafts into authentic, verified scholarship.</Text>
+                  </Box>
+
+                  <Stack gap="sm">
+                    {['Passage-Grounded Citation Audit', 'Replace & Repair Hallucinated Sources', '100% Human-Authored Prose Rewrite', 'Zero AI-Detection & Complete Integrity'].map((item, i) => (
+                      <Group key={i} gap="xs" align="flex-start">
+                        <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
+                        <Text size="sm" fw={600}>{item}</Text>
+                      </Group>
+                    ))}
+                  </Stack>
+
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+
+                  <Box>
+                    <Group justify="space-between" mb="xs">
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>WORD COUNT</Text>
+                      <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
+                    </Group>
+                    <Slider
+                      value={wordCount}
+                      onChange={setWordCount}
+                      min={5000}
+                      max={120000}
+                      step={5000}
+                      label={(val) => `${val.toLocaleString()} words`}
+                      color={active.accent}
+                      radius={0}
+                      size="sm"
+                      thumbSize={16}
+                      styles={{
+                        track: { backgroundColor: 'oklch(0% 0 0 / 0.05)' },
+                      }}
+                    />
+                  </Box>
+
+                  <Divider color="oklch(0% 0 0 / 0.05)" />
+
+                  <Group justify="space-between" align="flex-end" mt="auto">
+                    <Stack gap={2}>
+                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
+                      <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.accent, lineHeight: 1.1 }}>
+                        ${(wordCount * 0.07).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.07 / word rate · Full Audit & Grounding</Text>
+                    </Stack>
+                    <Link href={`/scholarcrafted/request-review?service=EvidenceReconstruction&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
+                      <Button size="sm" variant="filled" bg={active.accent} radius={0} className="impeccable-button" style={{ color: '#fff' }}>
+                        Rescue Draft
                       </Button>
                     </Link>
                   </Group>

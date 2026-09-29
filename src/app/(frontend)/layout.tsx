@@ -3,20 +3,14 @@ import { cn } from '@/utilities/ui'
 import { Inter, EB_Garamond } from 'next/font/google'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
 import { ColorSchemeScript } from '@mantine/core'
 
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css'
 import '@mantine/dates/styles.css'
 import './globals.css'
-import { getServerSideURL } from '@/utilities/getURL'
 
 const ebGaramond = EB_Garamond({
   subsets: ['latin'],
@@ -30,9 +24,7 @@ const inter = Inter({
   display: 'swap',
 })
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={cn(ebGaramond.variable, inter.variable)} lang="en" suppressHydrationWarning>
       <head>
@@ -43,15 +35,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-
-          <Header />
           {children}
-          <Footer />
         </Providers>
       </body>
     </html>
@@ -59,10 +43,5 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@payloadcms',
-  },
+  title: 'Consulting Business',
 }

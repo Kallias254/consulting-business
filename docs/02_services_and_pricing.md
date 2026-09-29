@@ -76,7 +76,7 @@ Our service tiers are designed to solve specific client problems at different st
 - **Services:**
     - Includes all services from **The Scholar** tier.
     - **Impact Portfolio:** A self-updating, high-end professional website synced to your dossier.
-    - **Opportunity Engine:** Automated scanning for grants, fellowships, and publisher calls.
+    - **Opportunity Engine (CFCs & Collaborations):** Automated scanning for grants, fellowships, and publisher calls. We actively seek out Call for Chapters (CFCs) and high-impact researcher collaboration opportunities tailored to your niche.
     - **Strategic Project Management:** We manage the project from initial draft to final submission.
     - **Simultaneous Publisher Submission:** For book proposals, we manage a multi-press strategy, submitting to multiple houses simultaneously to maximize leverage and reduce the risk of a single rejection (see "The Leverage Strategy" below).
     - **Publication Liaison Service:** We handle the administrative headache of communicating with journal editors, managing revisions, and tracking submission status.
@@ -103,6 +103,8 @@ We don't compete with "Editing Factories." Here is how we differ from the standa
 | **Wordvice** | Speed and volume (e.g., 24-hour turnaround). | **Purely Transactional:** They edit words, but don't understand the *strategy* of the argument or the publisher's specific politics. |
 | **AJE (American Journal Experts)** | Institutional/Corporate authority. Focus on "Resource Center" content. | **Faceless Corporate:** High-priced but lacks the "Principal-to-Principal" faculty connection. They are a vendor, not a partner. |
 | **Enago** | Global reach, heavy focus on ESL/Non-native speakers. | **Mass Market:** Their "Technical Review" is often generic. They cannot offer a personal "Liaison" service with a US faculty member. |
+| **Ideas on Fire** | Academic publishing, indexing, and editing agency. | **Siloed Services:** They are an excellent agency, but lack the proprietary Sovereign Dashboard & active "Micah Advantage" oversight that integrates project management with career trajectory. |
+| **OpenScholar** | Academic portfolio website builder. | **Static Brochureware:** They only give you a website. We combine the Sovereign Portfolio (Next.js) with the *actual production* of the work that feeds into it. |
 
 **The "Micah" Difference:** We are the only agency where the client's work is overseen by an active US Professor who understands the "hidden curriculum" of the top houses. We aren't just "fixing grammar"; we are **engineering a publication success.**
 

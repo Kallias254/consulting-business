@@ -21,9 +21,47 @@ Micah is the **Executive Principal** and the face of the brand. Our marketing is
 
 This strategy allows us to charge **Consultant Rates** rather than **Freelancer Rates**.
 
+### 4. The Landing Page Demeanor (Personal vs Institutional)
+- **The Core Debate:** Should the landing page look like a massive research institute or a personal, boutique consultancy?
+- **The Strategy:** Go **Personal with Institutional Authority**. 
+- **Implementation:** If we look like a generic corporate entity (like American Journal Experts or Wordvice), we are forced to compete on price. By leading with Micah as the "Executive Principal"—featuring real photos, his faculty credentials, and genuine testimonials—we build immense trust. We sell the "Micah Difference." Clients buy from people they trust, especially academics seeking career-defining support.
+
+### 5. Pricing Strategy Display
+- **Tier 1 (The Finisher):** Display starting prices on the landing page (e.g., "Starting at $0.04/word"). This acts as a necessary filter to keep away low-budget leads.
+- **Tier 2 & 3 (Scholar & Professional):** Do NOT list prices. Use calls-to-action like *"Apply to Work With Us"* or *"Request a Custom Proposal"*. High-ticket services ($5k-$15k) require a conversation to diagnose the problem and anchor the value before dropping the price.
+
 ## The Sales Funnel: From Visitor to Client
 
 We will continue to use the "Diagnostic" and "Audit" hooks from the previous plan, but they will now be framed as the entry point to a premium, faculty-led consultation.
+
+### 0. Lead Generation Sourcing (Channels & Outbound Engine)
+- **The Upwork Channel (The "Trojan Horse" Strategy):** Upwork is a high-intent acquisition channel for *smaller, immediate tasks*. We do not sell our Tier 3 retainers natively on Upwork. Instead, we use it to solve acute pain points fast, earn trust, and then offboard the client into our sovereign Dashboard. 
+    - **What goes on the Upwork Profile (Micro-Services):** 
+        - APA/Chicago/MLA Citation Cleanup & BibTeX Auditing
+        - SPSS / R Statistical Scripting & Data Cleaning
+        - Typst / LaTeX Manuscript Formatting (Publisher Compliance)
+        - Academic Proofreading (The Finisher tier tasks)
+        - Custom Web Scraping for Literature Reviews
+    - **The Website vs. Upwork Dichotomy:** Your main landing page should **not** look like a menu of these micro-tasks. The main website sells the *Strategic Partnership* (The Scholar, The Professional retainers). Upwork is where we catch people desperate for a 48-hour turnaround on a formatting issue. We fix the formatting flawlessly via Upwork, then say: *"By the way, my lab offers full project management and grant tracking. Here is a link to our secure portal."*
+- **The Outbound Engine (The Prized Lot):** Moving direct outbound is how we scale into high-value enterprise partnerships, avoiding the "race to the bottom" on price. We target specific professors at distinct execution windows:
+
+#### Target 1: The Assistant Professor (The Urgent Sprint)
+- **The Mindset:** Tenure-track faculty on a 5-7 year "publish or perish" countdown.
+- **Why they are prized:** They have **Startup Funds** ($50k-$200k) to spend on external technical support, and they have **High Urgency**. They have the money but are drowning in teaching and administrative paperwork.
+
+#### Target 2: The Associate Professor (The Heavy Hitter)
+- **The Mindset:** Post-tenure, chasing "Full Professor" status and institutional clout. They act as CEO managers of research labs.
+- **Why they are prized:** They pull **Huge Grant Budgets** ($100k-$500k+) specifically allocated for "infrastructure and technology." They also suffer the **Multi-Author Nightmare**, managing 15-30 external contributors for major handbooks.
+
+#### The Outbound Triggers (When to Scrape & Pitch)
+We do not scrape blindly. We use OpenAlex, Google Scholar, and Grant Registries to find operational bottlenecks:
+- **Trigger A (Just Funded):** Awarded a major grant in the last 3-6 months. Budget is active, and they need operational software.
+- **Trigger B (Handbook/Edited Volume):** Just announced a Call for Papers (CFP) for a major publisher (Routledge, Springer). They need contributor management.
+- **Trigger C (High Output, Low Infrastructure):** 5+ high-impact papers recently, but their web presence/lab site is outdated.
+
+#### The Pitch Execution
+We do not pitch "we are software engineers." We pitch custom data infrastructure. 
+*Example:* "Dr. [Name], noticed you are heading up the upcoming edited volume on [Topic]. Managing 20+ academic contributors while maintaining strict publisher formatting is an administrative bottleneck. We build custom data infrastructure specifically for high-output research tracks to automate that friction..."
 
 ### Step 1: The "Permanent Utility" Hook (Small Favor 2.0)
 We offer "Set and Forget" tools that provide immediate value and keep our brand in the client's peripheral vision while they "wait" to hire us:
@@ -51,6 +89,7 @@ We offer "Set and Forget" tools that provide immediate value and keep our brand 
 - **Offer:** A 20-minute "Scientific Strategy Session" with Micah or another Principal.
 - **The Flow:** This is not a sales call; it's a consultation. We discuss their research, their goals, and how our team can help them get there. The goal is to establish trust and co-create a project plan.
 - **The Close:** At the end of the session, we recommend one of our service tiers ("The Finisher," "The Scholar," or "The Professional") as the solution.
+- **Asynchronous Consulting Shift:** If live "coaching" calls become too burdensome or time-consuming, we pivot to asynchronous high-value touchpoints. Instead of a 1-hour live Zoom, Micah provides a 15-minute Loom video review of their dissertation chapter. This protects our time while maintaining the white-glove, premium feel.
 
 ### Step 4: Bridging to the Retainer (The "Starter Project")
 For high-potential clients, we de-risk the decision by proposing a **"Starter Project"** (e.g., a single journal article).

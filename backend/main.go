@@ -193,10 +193,23 @@ func ensureCollections(app *pocketbase.PocketBase) error {
 		projects.Fields.Add(&core.BoolField{Name: "showOnPortfolio"}) // expose on public impact portfolio
 		projects.Fields.Add(&core.NumberField{Name: "sentimentScore"}) // 0-100, auto-updated
 		projects.Fields.Add(&core.DateField{Name: "lastContactAt"})    // set when correspondence sent
+		projects.Fields.Add(&core.TextField{Name: "statusRecap"})
 		projects.Fields.Add(&core.AutodateField{Name: "created", OnCreate: true})
 		projects.Fields.Add(&core.AutodateField{Name: "updated", OnCreate: true, OnUpdate: true})
 
 		if err := app.Save(projects); err != nil {
+			return err
+		}
+	}
+
+	// Ensure statusRecap exists on projects collection dynamically if it already exists
+	projectsColl, err := app.FindCollectionByNameOrId("projects")
+	if err != nil {
+		return err
+	}
+	if projectsColl.Fields.GetByName("statusRecap") == nil {
+		projectsColl.Fields.Add(&core.TextField{Name: "statusRecap"})
+		if err := app.Save(projectsColl); err != nil {
 			return err
 		}
 	}

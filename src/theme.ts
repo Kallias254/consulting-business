@@ -50,12 +50,11 @@ export const palettes = {
     action: '#005F5F',
   },
   terracotta: {
-    // Vibrant Earth & Warm Clay (Warm, welcoming, lively academic)
     background: '#FFFFFF',
-    surface: '#FFFBF9', // Soft warm sand/clay tone
-    primary: '#2E1912', // Deep rich espresso for text contrast
-    accent: '#E65C38', // Beautiful, energetic terracotta orange
-    action: '#BD3B19', // Deep clay orange
+    surface: '#F5F5F5',
+    primary: '#1a1a1a',
+    accent: '#E65C38',
+    action: '#BD3B19',
   },
   solar: {
     // Golden Scholar & Honey (Very inviting, prestigious, sunny)
@@ -76,7 +75,7 @@ export const palettes = {
 }
 
 // TOGGLE THIS to change the entire site vibe (options: terracotta, solar, cerulean, heritage, midnight, emerald, crimson, royal, slate):
-const active = palettes.midnight
+const active = palettes.terracotta
 
 
 export const theme = createTheme({
@@ -94,6 +93,18 @@ export const theme = createTheme({
       active.primary, // 8
       active.primary, // 9
     ],
+    'dark-forest': [
+      '#0a140f', '#0a140f', '#0a140f', '#0a140f', '#0a140f', '#0a140f', '#0a140f', '#0a140f', '#0a140f', '#0a140f'
+    ],
+    'deep-green': [
+      '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16', '#0e1d16'
+    ],
+    'burnished-gold': [
+      '#b08d57', '#b08d57', '#b08d57', '#b08d57', '#b08d57', '#b08d57', '#b08d57', '#b08d57', '#b08d57', '#b08d57'
+    ],
+    'parchment': [
+      '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea', '#f4f1ea'
+    ]
   },
   other: {
     ...active,

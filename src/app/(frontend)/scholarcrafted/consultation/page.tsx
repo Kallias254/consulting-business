@@ -1,791 +1,231 @@
 'use client'
 
-import React, { useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import React, { Suspense } from 'react'
 import {
   Container,
   Title,
   Text,
   Box,
-  SimpleGrid,
-  Stack,
-  Button,
-  TextInput,
-  Textarea,
   rem,
+  Stack,
   Group,
-  UnstyledButton,
-  Progress,
   Badge,
-  ActionIcon,
-  Center,
   Divider,
+  ThemeIcon,
+  Button,
   useMantineTheme,
 } from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
-import dayjs from 'dayjs'
 import {
-  IconUsers,
-  IconEdit,
-  IconMicroscope,
   IconCheck,
-  IconArrowRight,
-  IconArrowLeft,
-  IconCertificate,
+  IconAward,
+  IconCalendarEvent,
   IconClock,
-  IconFileText,
-  IconSearch,
-  IconX,
+  IconArrowRight,
 } from '@tabler/icons-react'
-import Link from 'next/link'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
-import { ScrollToTop } from '../_components/ScrollToTop'
+import { INNER_WIDTH } from '@/layout'
 
-const INNER_WIDTH = 1100
+// ─── SWAP THIS WHEN MICAH SENDS HIS CALENDLY LINK ───────────────────────────
+const CALENDLY_URL = 'https://calendly.com/misedajoseph-30-minutes-call/discovery-session'
+// ─────────────────────────────────────────────────────────────────────────────
 
-interface StepData {
-  interest: string
-  metBefore: string
-  coach: string
-  specifics: string
-  discipline: string
-  stage: string
-  preferredDate: Date | null
-  preferredTime: string
-  name: string
-  email: string
-  description: string
-}
+// Colour params matched to midnight palette (no # prefix)
+const CALENDLY_THEMED_URL = `${CALENDLY_URL}?background_color=F1F3F5&text_color=002147&primary_color=708090&hide_gdpr_banner=1`
 
-const COACHES = [
-  'Brandon',
-  'Denise',
-  'Ethar',
-  'Kerryn',
-  'Lani',
-  'Matthew',
-  'Nichole',
-  'Suzanne',
-  'Tara',
-]
+function ConsultationPageContent() {
+  const theme = useMantineTheme()
+  const active = theme.other
 
-const COACH_CALENDLY_URLS: Record<string, string> = {
-  brandon: 'https://calendly.com/scholarcrafted-brandon',
-  denise: 'https://calendly.com/scholarcrafted-denise',
-  ethar: 'https://calendly.com/scholarcrafted-ethar',
-  kerryn: 'https://calendly.com/scholarcrafted-kerryn',
-  lani: 'https://calendly.com/scholarcrafted-lani',
-  matthew: 'https://calendly.com/scholarcrafted-matthew',
-  nichole: 'https://calendly.com/scholarcrafted-nichole',
-  suzanne: 'https://calendly.com/scholarcrafted-suzanne',
-  tara: 'https://calendly.com/scholarcrafted-tara',
-  general: 'https://calendly.com/scholarcrafted-advisor',
-}
+  return (
+    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <Navbar />
 
-const getCalendlyUrl = (coachName: string) => {
-  const key = coachName.toLowerCase().trim()
-  return COACH_CALENDLY_URLS[key] || COACH_CALENDLY_URLS.general
-}
+      <Box component="section" pt={rem(120)} pb={rem(100)} bg={active.background}>
+        <Container size={INNER_WIDTH}>
 
-const FORMATTED_VALUES: Record<string, string> = {
-  // Interest
-  coaching: 'Live Academic Coaching',
-  data_support: 'Custom Research & Data Support',
-  editing: 'Structural Editing & Proofreading',
-  other: 'Not Sure Yet',
-  
-  // MetBefore
-  no: 'No, first time',
-  yes: 'Yes, had intro call',
-  
-  // Specifics
-  friction: 'Committee Friction',
-  block: 'Methodology or Data Hurdles',
-  narrative: 'Argument Flow & Structure',
-  momentum: 'Stalled Momentum',
-  
-  // Discipline
-  social: 'Social Sciences',
-  stem: 'STEM',
-  humanities: 'Humanities & Arts',
-  professional: 'Professional Doctorates',
-  
-  // Stage
-  proposal: 'Proposal Phase',
-  collection: 'Data Collection',
-  drafting: 'Drafting Chapters',
-  review: 'Final Review',
+          {/* Page Header */}
+          <Stack gap="xs" mb={rem(60)} style={{ maxWidth: 680 }}>
+            <Badge variant="outline" color="dark" radius={0} size="sm" style={{ alignSelf: 'flex-start' }}>
+              DIRECT FACULTY ADVISORY
+            </Badge>
+            <Title
+              order={1}
+              style={{
+                fontSize: rem(44),
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+              }}
+            >
+              Schedule a Consultation with Dr. Micah Dobson
+            </Title>
+            <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: '58ch' }}>
+              A focused 20-minute session. Dr. Dobson reviews your project details beforehand and comes prepared — this is a working conversation, not a discovery call.
+            </Text>
+          </Stack>
 
-  // Time
-  morning: 'Morning (09:00 - 12:00)',
-  afternoon: 'Afternoon (13:00 - 17:00)',
-  evening: 'Evening (18:00 - 20:00)',
+          {/* Two-column layout */}
+          <Box
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(12, 1fr)',
+              gap: rem(48),
+              alignItems: 'flex-start',
+            }}
+          >
+            {/* LEFT: Credentials & what to expect */}
+            <Box style={{ gridColumn: 'span 5' }}>
+              <Stack gap="xl">
+
+                {/* Dr. Dobson credentials */}
+                <Box p={rem(28)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
+                  <Stack gap="md">
+                    <Group gap="sm" align="center">
+                      <ThemeIcon size={32} radius="xl" variant="light" color={active.accent}>
+                        <IconAward size={18} />
+                      </ThemeIcon>
+                      <Text fw={700} size="sm" c={active.primary}>
+                        College Board AP Research Reader
+                      </Text>
+                    </Group>
+                    <Text size="xs" c="dimmed" lh={1.6}>
+                      Certified evaluator of high-stakes academic research design and methodology. Your manuscript is reviewed with senior faculty standards — never an automated summary.
+                    </Text>
+
+                    <Divider color={`${active.primary}10`} />
+
+                    <Stack gap="xs">
+                      <Group gap="xs" align="center">
+                        <IconCheck size={14} color={active.accent} />
+                        <Text size="xs" c="dimmed">Strict Non-Disclosure & Confidentiality</Text>
+                      </Group>
+                      <Group gap="xs" align="center">
+                        <IconCheck size={14} color={active.accent} />
+                        <Text size="xs" c="dimmed">Zero Ghostwriting — Absolute Academic Ethics</Text>
+                      </Group>
+                      <Group gap="xs" align="center">
+                        <IconCheck size={14} color={active.accent} />
+                        <Text size="xs" c="dimmed">Direct Peer-to-Peer Consultation via Zoom</Text>
+                      </Group>
+                    </Stack>
+                  </Stack>
+                </Box>
+
+                {/* What to expect */}
+                <Box p={rem(28)} bg={active.surface} style={{ border: `1px solid ${active.primary}15` }}>
+                  <Stack gap="lg">
+                    <Text
+                      fw={700}
+                      size="xs"
+                      c={active.primary}
+                      style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                    >
+                      What to Expect
+                    </Text>
+
+                    <Stack gap="md">
+                      <Group gap="sm" align="flex-start" wrap="nowrap">
+                        <Box mt={3}>
+                          <IconCalendarEvent size={16} color={active.accent} />
+                        </Box>
+                        <Stack gap={2}>
+                          <Text size="sm" fw={600} c={active.primary}>20-Minute Working Session</Text>
+                          <Text size="xs" c="dimmed" lh={1.5}>
+                            Not a sales call. Come with your bottleneck clearly in mind — Dr. Dobson will give you a direct faculty perspective and a clear path forward.
+                          </Text>
+                        </Stack>
+                      </Group>
+
+                      <Group gap="sm" align="flex-start" wrap="nowrap">
+                        <Box mt={3}>
+                          <IconClock size={16} color={active.accent} />
+                        </Box>
+                        <Stack gap={2}>
+                          <Text size="sm" fw={600} c={active.primary}>Zoom Link Generated on Booking</Text>
+                          <Text size="xs" c="dimmed" lh={1.5}>
+                            A private meeting room is created automatically and sent to your email the moment you confirm.
+                          </Text>
+                        </Stack>
+                      </Group>
+                    </Stack>
+                  </Stack>
+                </Box>
+
+              </Stack>
+            </Box>
+
+            {/* RIGHT: CTA panel */}
+            <Box style={{ gridColumn: 'span 7' }}>
+              <Box
+                p={{ base: rem(40), md: rem(60) }}
+                bg={active.surface}
+                style={{
+                  border: `1px solid ${active.primary}15`,
+                  textAlign: 'center',
+                }}
+              >
+                <Stack align="center" gap="xl">
+                  <Stack gap="sm" align="center">
+                    <Title
+                      order={2}
+                      style={{
+                        fontSize: rem(28),
+                        fontFamily: 'var(--font-serif)',
+                        color: active.primary,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      Bring your project wherever it is.
+                    </Title>
+                    <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: '48ch' }}>
+                      A stalled chapter, a committee concern, a thesis you&apos;re converting to a journal article. There&apos;s no obligation afterward — if it&apos;s not the right fit, you&apos;ll still leave with a clear next step.
+                    </Text>
+                  </Stack>
+
+                  <a
+                    href={CALENDLY_THEMED_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Button
+                      size="xl"
+                      radius={0}
+                      bg={active.primary}
+                      className="impeccable-button"
+                      rightSection={<IconArrowRight size={20} />}
+                      style={{ minWidth: rem(280) }}
+                    >
+                      SCHEDULE YOUR SESSION
+                    </Button>
+                  </a>
+
+                  <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
+                    20 minutes · Zoom · No obligation
+                  </Text>
+                </Stack>
+              </Box>
+            </Box>
+
+          </Box>
+        </Container>
+      </Box>
+
+      <Footer />
+    </Box>
+  )
 }
 
 export default function ConsultationPage() {
   return (
-    <Suspense fallback={<Box style={{ minHeight: '100vh' }} />}>
-      <ConsultationWizard />
+    <Suspense fallback={
+      <Box p="xl" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Text c="dimmed">Loading scheduling portal...</Text>
+      </Box>
+    }>
+      <ConsultationPageContent />
     </Suspense>
-  )
-}
-
-function ConsultationWizard() {
-  const searchParams = useSearchParams()
-  const initialInterest = searchParams.get('interest') || ''
-  const initialMetBefore = searchParams.get('metBefore') || ''
-
-  let initialStep = 0
-  if (initialInterest) {
-    if (initialInterest !== 'editing') {
-      initialStep = 1
-      if (initialMetBefore === 'no') {
-        initialStep = 3 // skip to specifics
-      } else if (initialMetBefore === 'yes') {
-        initialStep = 2 // select coach
-      }
-    }
-  }
-
-  const [step, setStep] = useState(initialStep)
-  const [data, setData] = useState<StepData>({
-    interest: initialInterest,
-    metBefore: initialMetBefore,
-    coach: '',
-    specifics: '',
-    discipline: '',
-    stage: '',
-    preferredDate: new Date(),
-    preferredTime: '',
-    name: '',
-    email: '',
-    description: '',
-  })
-
-  const theme = useMantineTheme()
-  const active = theme.other
-  const totalSteps = 8
-  const isSuccessStep = step === totalSteps - 1
-
-  const nextStep = () => {
-    setStep((s) => {
-      if (s === 0) {
-        if (data.interest === 'coaching' || data.interest === 'data_support') return 1
-        return 3 // Skip to specifics
-      }
-      if (s === 1) {
-        if (data.metBefore === 'yes') return 2
-        return 3 // Skip to specifics
-      }
-      return Math.min(s + 1, totalSteps)
-    })
-  }
-
-  const prevStep = () => {
-    setStep((s) => {
-      if (s === 3) {
-        if (data.interest === 'coaching' || data.interest === 'data_support') {
-          return data.metBefore === 'yes' ? 2 : 1
-        }
-        return 0
-      }
-      if (s === 2) return 1
-      return Math.max(s - 1, 0)
-    })
-  }
-
-  const selectOption = (field: keyof StepData, value: any) => {
-    setData((prev) => ({ ...prev, [field]: value }))
-
-    // Immediate actions for specific selections
-    if (field === 'interest') {
-      if (value === 'editing') {
-        window.location.href = '/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading'
-        return
-      }
-      if (value === 'coaching' || value === 'data_support') setStep(1)
-      else setStep(3)
-    } else if (field === 'metBefore') {
-      if (value === 'yes') setStep(2)
-      else setStep(3)
-    } else if (field === 'coach') {
-      // Redirect to login if coach is selected
-      window.location.href = '/admin/login'
-    } else if (field !== 'preferredDate' && field !== 'preferredTime') {
-      nextStep()
-    }
-  }
-
-  const stepHeadlines = [
-    {
-      title: 'How can we best support you today?',
-      desc: "This short diagnostic helps us match you with the right faculty lead, ensuring our first conversation is focused on your specific goals.",
-    },
-    {
-      title: 'Have we met before?',
-      desc: "Let us know if you've already had an introductory consultation with one of our coaches.",
-    },
-    {
-      title: 'Who did you meet with?',
-      desc: "If you're already working with a specific coach, we'll keep you in their loop.",
-    },
-    {
-      title: 'Where are you currently feeling stuck?',
-      desc: 'Identify the biggest hurdle currently preventing your progress so we can jump straight to the solution.',
-    },
-    {
-      title: 'What is your field of study?',
-      desc: 'This allows us to pair you with an advisor who understands the specific conventions and expectations of your discipline.',
-    },
-    {
-      title: 'Where are you in the process?',
-      desc: "Whether you're just starting your proposal or pushing through the final chapters, we'll meet you exactly where you are.",
-    },
-    {
-      title: 'Schedule Your Discovery Call',
-      desc: "Select a convenient time for your introductory 15-minute consultation. We will connect to map out your roadmap.",
-    },
-    {
-      title: 'Thank You. Consultation Confirmed.',
-      desc: 'Thank you for scheduling your introductory call. Your advisor pairing has been initialized, and you should receive a calendar invitation shortly.',
-    },
-  ]
-
-  const stepsContent = [
-    <StepInterest key={0} data={data} selectOption={selectOption} />,
-    <StepMetBefore key={1} data={data} selectOption={selectOption} />,
-    <StepSelectCoach key={2} data={data} selectOption={selectOption} />,
-    <StepSpecifics key={3} data={data} selectOption={selectOption} />,
-    <StepDiscipline key={4} data={data} selectOption={selectOption} />,
-    <StepStage key={5} data={data} selectOption={selectOption} />,
-    <StepCalendly key={6} data={data} nextStep={nextStep} />,
-    <StepSuccess key={7} data={data} setStep={setStep} />,
-  ]
-  return (
-    <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
-      <Box 
-        py={rem(20)} 
-        style={{ 
-          borderBottom: `1px solid ${active.primary}11`,
-          position: 'sticky',
-          top: 0,
-          zIndex: 1000,
-          backgroundColor: `${active.background}f2`,
-          backdropFilter: 'blur(12px)',
-          flexShrink: 0
-        }}
-      >
-        <Container size={INNER_WIDTH}>
-          <Group justify="space-between" align="center">
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: active.primary }}>
-              <Text fw={700} size="xl" >
-                ScholarCrafted
-              </Text>
-            </Link>
-            <Button 
-              component={Link}
-              href="/scholarcrafted"
-              variant="outline" 
-              size="xs" 
-              radius="xl" 
-              rightSection={<IconX size={14} />}
-              style={{ 
-                borderColor: `${active.primary}40`, 
-                color: active.primary,
-                backgroundColor: 'transparent',
-                opacity: 0.8,
-                textDecoration: 'none'
-              }}
-            >
-              <Text className="impeccable-eyebrow" size="xs">EXIT</Text>
-            </Button>
-          </Group>
-        </Container>
-      </Box>
-      
-      {/* Top Section - Background */}
-      <Box 
-        component="section" 
-        pt={isSuccessStep ? { base: rem(30), md: rem(50) } : { base: rem(60), md: rem(100) }} 
-        pb={isSuccessStep ? rem(20) : rem(60)} 
-        bg={active.background} 
-        style={{ flexShrink: 0 }}
-      >
-        <Container size={INNER_WIDTH}>
-          <Group justify="space-between" align="center" mb={isSuccessStep ? rem(24) : rem(60)} style={{ opacity: step < totalSteps ? 1 : 0, transition: 'opacity 0.3s ease' }}>
-            <Box w={100} />
-            
-            {step < totalSteps && (
-              <Stack gap="xs" align="center">
-                <Text className="impeccable-eyebrow" size="xs"  c="dimmed">
-                  Diagnostic Step {step + 1}
-                </Text>
-                <Progress
-                  value={(step / (totalSteps - 1)) * 100}
-                  color={active.accent || active.primary}
-                  size="md"
-                  radius={0}
-                  style={{ width: rem(200), backgroundColor: `${active.primary}20` }}
-                />
-              </Stack>
-            )}
-            
-            <Box w={100} /> {/* Spacer to perfectly center the progress bar */}
-          </Group>
-          {step < totalSteps && (
-            <Box style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
-              <Title
-                order={1}
-                style={{
-                  fontSize: isSuccessStep ? rem(32) : rem(42),
-                  lineHeight: 1.2,
-                  color: active.primary }}
-              >
-                {stepHeadlines[step].title}
-              </Title>
-              {stepHeadlines[step].desc && (
-                <Text size={isSuccessStep ? "md" : "lg"} c="dimmed" lh={1.6} style={{ 
-                  marginTop: isSuccessStep ? '0.75rem' : '1.5rem',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  marginBottom: 0
-                }}>
-                  {stepHeadlines[step].desc}
-                </Text>
-              )}
-            </Box>
-          )}
-        </Container>
-      </Box>
-      {/* Main Content Section - Surface */}
-      <Box 
-        component="section" 
-        className="academic-watermark"
-        py={isSuccessStep ? rem(30) : rem(80)} 
-        bg={active.surface} 
-        style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}
-      >
-        <Container size={isSuccessStep ? 1000 : "md"}>
-          <Box style={{ maxWidth: isSuccessStep ? 1000 : 800, margin: '0 auto' }}>
-            {step > 0 && !isSuccessStep && (
-              <UnstyledButton
-                onClick={prevStep}
-                style={{ display: 'flex', alignItems: 'center', gap: rem(8), transition: 'opacity 0.2s ease', marginBottom: rem(32) }}
-              >
-                <IconArrowLeft size={16} color={active.primary} />
-                <Text className="impeccable-eyebrow" size="xs" style={{ color: active.primary }}>
-                  Back
-                </Text>
-              </UnstyledButton>
-            )}
-            {stepsContent[step]}
-          </Box>
-        </Container>
-      </Box>
-    </Box>
-  )
-}
-
-// Step Components
-function StepInterest({ data, selectOption }: any) {
-  return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
-      {[
-        {
-          id: 'coaching',
-          title: 'Live Academic Coaching',
-          desc: '1-on-1 strategic support and mentorship',
-          icon: <IconUsers size={28} />,
-        },
-        {
-          id: 'data_support',
-          title: 'Custom Research & Data Support',
-          desc: 'Technical assistance, NVivo, SPSS, and methodology review',
-          icon: <IconMicroscope size={28} />,
-        },
-        {
-          id: 'editing',
-          title: 'Structural Editing & Proofreading',
-          desc: 'Manuscript refinement and formatting',
-          icon: <IconEdit size={28} />,
-        },
-        {
-          id: 'other',
-          title: 'Not Sure Yet',
-          desc: 'Let us help diagnose your exact needs',
-          icon: <IconSearch size={28} />,
-        },
-      ].map((item) => (
-        <SelectionCard
-          key={item.id}
-          title={item.title}
-          description={item.desc}
-          icon={item.icon}
-          active={data.interest === item.id}
-          onClick={() => selectOption('interest', item.id)}
-        />
-      ))}
-    </SimpleGrid>
-  )
-}
-
-function StepMetBefore({ data, selectOption }: any) {
-  return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
-      {[
-        {
-          id: 'no',
-          title: 'No, this is my first time.',
-          desc: "I'm looking for a diagnostic session to discuss my research.",
-          icon: <IconSearch size={28} />,
-        },
-        {
-          id: 'yes',
-          title: "Yes, I've had an introductory call.",
-          desc: "I want to be routed to my existing coach's dashboard.",
-          icon: <IconUsers size={28} />,
-        },
-      ].map((item) => (
-        <SelectionCard
-          key={item.id}
-          title={item.title}
-          description={item.desc}
-          icon={item.icon}
-          active={data.metBefore === item.id}
-          onClick={() => selectOption('metBefore', item.id)}
-        />
-      ))}
-    </SimpleGrid>
-  )
-}
-
-function StepSelectCoach({ data, selectOption }: any) {
-  return (
-    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg" mt={rem(40)}>
-      {COACHES.map((coach) => (
-        <SelectionCard
-          key={coach}
-          title={coach}
-          description="ScholarCrafted Faculty"
-          icon={<IconUsers size={20} />}
-          active={data.coach === coach}
-          onClick={() => selectOption('coach', coach)}
-        />
-      ))}
-    </SimpleGrid>
-  )
-}
-
-function StepSpecifics({ data, selectOption }: any) {
-  return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
-      {[
-        {
-          id: 'momentum',
-          title: 'Stalled Momentum',
-          desc: 'Stalled after a long break or life event.',
-          icon: <IconClock size={28} />,
-        },
-        {
-          id: 'block',
-          title: 'Methodology or Data Hurdles',
-          desc: 'Stuck on research design, logic, or data analysis.',
-          icon: <IconMicroscope size={28} />,
-        },
-        {
-          id: 'narrative',
-          title: 'Argument Flow & Structure',
-          desc: "The data exists, but the scholarly story isn't flowing.",
-          icon: <IconEdit size={28} />,
-        },
-        {
-          id: 'friction',
-          title: 'Committee Friction',
-          desc: 'Navigating contradictory feedback or stagnant reviews.',
-          icon: <IconSearch size={28} />,
-        },
-      ].map((item) => (
-        <SelectionCard
-          key={item.id}
-          title={item.title}
-          description={item.desc}
-          icon={item.icon}
-          active={data.specifics === item.id}
-          onClick={() => selectOption('specifics', item.id)}
-        />
-      ))}
-    </SimpleGrid>
-  )
-}
-
-function StepDiscipline({ data, selectOption }: any) {
-  return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
-      {[
-        {
-          id: 'social',
-          title: 'Social Sciences',
-          desc: 'Psychology, Education, Sociology, etc.',
-          icon: <IconUsers size={28} />,
-        },
-        {
-          id: 'stem',
-          title: 'STEM',
-          desc: 'Science, Tech, Engineering, Math.',
-          icon: <IconMicroscope size={28} />,
-        },
-        {
-          id: 'humanities',
-          title: 'Humanities & Arts',
-          desc: 'History, Literature, Philosophy, etc.',
-          icon: <IconFileText size={28} />,
-        },
-        {
-          id: 'professional',
-          title: 'Professional Doctorates',
-          desc: 'EdD, DBA, DNP, Clinical Degrees.',
-          icon: <IconCertificate size={28} />,
-        },
-      ].map((item) => (
-        <SelectionCard
-          key={item.id}
-          title={item.title}
-          description={item.desc}
-          icon={item.icon}
-          active={data.discipline === item.id}
-          onClick={() => selectOption('discipline', item.id)}
-        />
-      ))}
-    </SimpleGrid>
-  )
-}
-
-function StepStage({ data, selectOption }: any) {
-  return (
-    <SimpleGrid cols={1} spacing="lg" mt={rem(40)}>
-      {[
-        {
-          id: 'proposal',
-          title: 'Proposal Phase',
-          desc: 'Conceptualizing and initial drafting',
-          icon: <IconFileText size={28} />,
-        },
-        {
-          id: 'collection',
-          title: 'Data Collection',
-          desc: 'Gathering field data or literature',
-          icon: <IconSearch size={28} />,
-        },
-        {
-          id: 'drafting',
-          title: 'Drafting Chapters',
-          desc: 'Transforming data into analysis',
-          icon: <IconEdit size={28} />,
-        },
-        {
-          id: 'review',
-          title: 'Final Review',
-          desc: 'Polishing for committee submission',
-          icon: <IconCheck size={28} />,
-        },
-      ].map((item) => (
-        <SelectionCard
-          key={item.id}
-          title={item.title}
-          description={item.desc}
-          icon={item.icon}
-          active={data.stage === item.id}
-          onClick={() => selectOption('stage', item.id)}
-        />
-      ))}
-    </SimpleGrid>
-  )
-}
-
-function StepCalendly({ data, nextStep }: { data: StepData; nextStep: () => void }) {
-  const { other: active } = useMantineTheme()
-  const coachName = data.coach || 'general'
-  const calendlyUrl = getCalendlyUrl(coachName)
-
-  // Pre-fill fields if needed
-  const projectDetails = `Field: ${FORMATTED_VALUES[data.discipline] || data.discipline}. Stage: ${FORMATTED_VALUES[data.stage] || data.stage}. Stalled due to: ${FORMATTED_VALUES[data.specifics] || data.specifics}.`
-  const encodedDetails = encodeURIComponent(projectDetails)
-  const fullUrl = `${calendlyUrl}?hide_event_type_details=1&hide_gdpr_banner=1&a1=${encodedDetails}`
-
-  React.useEffect(() => {
-    const handleCalendlyEvent = (e: MessageEvent) => {
-      if (e.data.event && e.data.event.indexOf('calendly') === 0) {
-        if (e.data.event === 'calendly.event_scheduled') {
-          nextStep()
-        }
-      }
-    }
-    window.addEventListener('message', handleCalendlyEvent)
-    return () => window.removeEventListener('message', handleCalendlyEvent)
-  }, [nextStep])
-
-  return (
-    <Box 
-      bg="white" 
-      style={{ 
-        border: `1px solid ${active.primary}12`,
-        borderRadius: rem(8),
-        overflow: 'hidden',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
-      }} 
-      mt={rem(40)}
-    >
-      <iframe
-        src={fullUrl}
-        width="100%"
-        height="700px"
-        frameBorder="0"
-        title="Schedule Consultation"
-      />
-    </Box>
-  )
-}
-
-function StepSuccess({ data, setStep }: any) {
-  const { other: active } = useMantineTheme()
-  return (
-    <Stack gap={rem(32)} align="center" style={{ textAlign: 'center', width: '100%' }}>
-      {/* Explore Other Services Section */}
-      <Stack gap={rem(40)} mt={0} style={{ width: '100%', textAlign: 'left', maxWidth: rem(1000) }}>
-        <Divider style={{ opacity: 0.15 }} />
-        <Stack gap="xs" style={{ textAlign: 'center' }}>
-          <Title order={2} style={{ fontSize: rem(36), color: active.primary }}>
-            Explore Other Services
-          </Title>
-          <Text size="lg" c="dimmed">
-            Need a different type of support? We have you covered.
-          </Text>
-        </Stack>
-        
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
-          {/* Card 1 */}
-          <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column', height: '100%' }}>
-            <Stack gap="xl" flex={1}>
-              <Stack gap="xs">
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                  MANUSCRIPT REFINEMENT
-                </Text>
-                <Title order={3} style={{ color: active.primary }}>
-                  Structural Editing &amp; Proofreading
-                </Title>
-              </Stack>
-              <Text size="sm" c="dimmed" lh={1.6}>
-                From macro-level argument flow to micro-level prose precision, we ensure your research is presented with the clarity, tone, and authority expected by your committee.
-              </Text>
-            </Stack>
-            <Box mt={rem(40)}>
-              <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
-                <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                  View Editing Services
-                </Button>
-              </Link>
-            </Box>
-          </Box>
-
-          {/* Card 2 */}
-          <Box p={rem(40)} bg={active.background} style={{ border: `1px solid #eee`, display: 'flex', flexDirection: 'column', height: '100%' }}>
-            <Stack gap="xl" flex={1}>
-              <Stack gap="xs">
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em' }}>
-                  1-ON-1 GUIDANCE
-                </Text>
-                <Title order={3} style={{ color: active.primary }}>
-                  Live Academic Coaching
-                </Title>
-              </Stack>
-              <Text size="sm" c="dimmed" lh={1.6}>
-                A strategic partnership to help you overcome roadblocks, manage your project, and finish with confidence. Perfect for when you are stuck and need real-time instructional support.
-              </Text>
-            </Stack>
-            <Box mt={rem(40)}>
-              <Link href="/scholarcrafted/services/private-coaching" style={{ textDecoration: 'none' }}>
-                <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                  View Coaching Services
-                </Button>
-              </Link>
-            </Box>
-          </Box>
-        </SimpleGrid>
-      </Stack>
-
-      <Link href="/scholarcrafted" style={{ textDecoration: 'none', marginTop: rem(24) }}>
-        <Button
-          variant="outline"
-          color={active.primary}
-          px={rem(60)}
-          style={{ borderColor: active.primary, color: active.primary }}
-        >
-          RETURN TO HOME
-        </Button>
-      </Link>
-    </Stack>
-  )
-}
-
-
-
-
-
-function SelectionCard({ title, description, icon, active, onClick }: any) {
-  const theme = useMantineTheme()
-  const activeTheme = theme.other
-
-  return (
-    <UnstyledButton
-      onClick={onClick}
-      style={{
-        display: 'block',
-        padding: rem(20),
-        backgroundColor: active ? activeTheme.background : activeTheme.surface,
-        border: `1px solid ${active ? activeTheme.primary : `${activeTheme.primary}22`}`,
-        transition: 'all 0.2s ease',
-        position: 'relative',
-        textAlign: 'left',
-        width: '100%',
-        height: '100%',
-      }}
-      onMouseEnter={(e) => {
-        if (!active) {
-          e.currentTarget.style.backgroundColor = activeTheme.background;
-          e.currentTarget.style.borderColor = activeTheme.primary;
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!active) {
-          e.currentTarget.style.backgroundColor = activeTheme.surface;
-          e.currentTarget.style.borderColor = `${activeTheme.primary}22`;
-        }
-      }}
-    >
-      <Group align="center" wrap="nowrap" gap="xl" style={{ height: '100%' }}>
-        <Box 
-          c={active ? activeTheme.primary : 'dimmed'} 
-          style={{ transition: 'color 0.2s ease', flexShrink: 0 }}
-        >
-          {icon}
-        </Box>
-        
-        <Stack gap={rem(4)} style={{ flex: 1 }}>
-          <Text fw={600} size="xl" style={{ color: activeTheme.primary, lineHeight: 1.2 }}>
-            {title}
-          </Text>
-          <Text size="sm" c="dimmed" lh={1.5}>
-            {description}
-          </Text>
-        </Stack>
-
-        {active && (
-          <Box c={activeTheme.primary} style={{ flexShrink: 0 }}>
-            <IconCheck size={24} stroke={3} />
-          </Box>
-        )}
-      </Group>
-    </UnstyledButton>
   )
 }

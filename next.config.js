@@ -1,4 +1,3 @@
-import { withPayload } from '@payloadcms/next/withPayload'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import redirects from './redirects.js'
@@ -47,4 +46,4 @@ const nextConfig = {
   redirects,
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default nextConfig

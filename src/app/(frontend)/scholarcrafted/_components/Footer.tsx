@@ -17,6 +17,7 @@ import {
   IconBrandLinkedin,
   IconBrandInstagram,
 } from '@tabler/icons-react'
+import { Logo } from './Logo'
 
 export function Footer({ bg }: { bg?: string }) {
   const theme = useMantineTheme()
@@ -30,7 +31,7 @@ export function Footer({ bg }: { bg?: string }) {
       bg={active.primary}
       c="white"
       style={{
-        borderTop: 'none',
+        borderTop: `3px solid ${active.accent}`,
         position: 'relative'
       }}
       className="scholarcrafted-footer academic-watermark dark-scholar-section"
@@ -39,31 +40,16 @@ export function Footer({ bg }: { bg?: string }) {
         <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(60)} mb={rem(80)}>
           {/* Brand Column */}
           <Stack gap="xl">
-            <Stack gap={0}>
-              <Text
-                fw={700}
-                c="white"
-                style={{
-                  fontSize: rem(24),
-                  lineHeight: 1 }}
-              >
-                SCHOLARCRAFTED
-              </Text>
-              <Text
-                size="xs"
-                c="rgba(255,255,255,0.6)"
-                style={{ fontSize: rem(10) }}
-              >
-                ESTABLISHED 2016
-              </Text>
-            </Stack>
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit', display: 'inline-block' }}>
+              <Logo height={32} boxColor={active.accent} textColor="#ffffff" />
+            </Link>
             <Text
               size="sm"
               lh={1.7}
               c="rgba(255,255,255,0.8)"
             >
               A prestigious advisory firm dedicated to the rigorous oversight and structural
-              refinement of doctoral research across the global academic community.
+              refinement of scholarly and doctoral research across the global academic community.
             </Text>
 
             {/* Social Channels */}
@@ -111,7 +97,7 @@ export function Footer({ bg }: { bg?: string }) {
                   className="footer-link"
                   c="rgba(255,255,255,0.6)"
                 >
-                  Private Coaching
+                  Doctoral & Faculty Coaching
                 </Text>
               </Link>
               <Link

@@ -34,12 +34,8 @@ import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
 const faqs = [
   {
-    q: 'Is the introductory consultation really free?',
-    a: 'Yes. We offer a 15-minute introductory call at no cost. This is a diagnostic conversation to understand your specific challenges and determine if our advisory approach is the right fit for your project.',
-  },
-  {
     q: 'Is this service allowed by my university?',
-    a: 'Absolutely. Our coaching is strictly instructional and developmental. We provide the same type of high-level advisory support that a faculty mentor or committee member provides—just with more frequency and accessibility. We do not do the work for you.',
+    a: 'Absolutely. Our advisory is strictly instructional and developmental. We provide the same type of high-level advisory support that a faculty mentor or senior research director provides—just with more frequency and accessibility. We do not do the work for you.',
   },
   {
     q: 'Will my research be treated confidentially?',
@@ -100,18 +96,17 @@ export default function PrivateCoachingPage() {
                     fontFamily: 'var(--font-serif)'
                   }}
                 >
-                  Live Academic Coaching
+                  Strategic Advisory & Academic Counsel
                 </Title>
               </Stack>
               <Text size="lg" lh={1.6} c="dimmed" style={{ fontSize: rem(20) }}>
-                Overcome structural roadblocks, contradictory feedback, and methodological anxiety with 
-                intensive, personalized coaching from our faculty-level academic advisors.
+                Defend your Master's thesis or doctoral dissertation, dismantle advisor roadblocks, and navigate early-career tenure with 1-on-1 counsel led by Dr. Micah Dobson—College Board AP Research Reader and faculty peer.
               </Text>
               
               <Group gap="md">
                 <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                   <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                    SPEAK WITH AN EXPERT
+                    BOOK ADVISORY SESSION
                   </Button>
                 </Link>
                 <Box>
@@ -132,31 +127,34 @@ export default function PrivateCoachingPage() {
               }}
             >
               <Stack gap="md">
-                <Title order={3} style={{ fontSize: rem(28), color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                <Badge variant="outline" color="dark" radius={0} size="sm" style={{ alignSelf: 'flex-start' }}>
+                  CERTIFIED EVALUATION
+                </Badge>
+                <Title order={3} style={{ fontSize: rem(26), color: active.primary, fontFamily: 'var(--font-serif)' }}>
                   Who this is for
                 </Title>
                 <Text size="sm" lh={1.7} c={active.primary} style={{ fontSize: rem(15) }}>
                   Designed for{' '}
                   <span className="text-hover-underline">
-                    doctoral candidates stuck at the ABD stage
+                    Master's and doctoral scholars preparing for proposal or final defense
                   </span>
                   ,{' '}
                   <span className="text-hover-underline">
-                    working professionals balancing high-demand careers
+                    candidates stalled by contradictory committee feedback
                   </span>
                   , and{' '}
                   <span className="text-hover-underline">
-                    first-generation researchers navigating vague committee feedback
+                    tenure-track faculty orchestrating publication pipelines
                   </span>
                   —providing the{' '}
                   <span className="text-hover-underline">
-                    rigorous structural oversight and momentum
+                    rigorous research design evaluation and momentum
                   </span>{' '}
-                  needed to finish with confidence.
+                  needed to finish with complete confidence.
                 </Text>
                 <Divider color="oklch(0% 0 0 / 0.06)" />
                 <Text size="xs" c="dimmed" style={{ fontStyle: 'italic', lineHeight: 1.4 }}>
-                  Coaching is a partnership. We provide the structural scaffolding while you maintain the authorial voice.
+                  Led by an AP Research Reader for the College Board, evaluating high-stakes academic research design.
                 </Text>
               </Stack>
             </Box>
@@ -180,32 +178,31 @@ export default function PrivateCoachingPage() {
                 Our coaching is designed specifically to dismantle these hurdles.
               </Text>
             </Box>
-
             <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(32)}>
               {[
                 {
-                  title: 'The "Vague Feedback" Loop',
-                  desc: 'Your chair gives you two vague sentences after three months of waiting. You don\'t know how to respond or what to change.',
+                  title: 'The Peer-Review Deadlock',
+                  desc: 'A journal reviewer sends a list of structural objections. You need a strategic response matrix to defend your design choices without provoking rejection.',
                 },
                 {
-                  title: 'Structural Paralysis',
-                  desc: 'You have your data, but you can\'t figure out how to organize it into a coherent argument that flows across chapters.',
+                  title: 'Structural Narrative Flow',
+                  desc: 'You have generated substantial findings, but are struggling to frame the macro-level argument and logical transitions across chapters.',
                 },
                 {
-                  title: 'The Literature Sinkhole',
-                  desc: 'You keep reading "just one more article" to feel ready, but your own draft remains unwritten and stalled.',
+                  title: 'Grant Narrative Strain',
+                  desc: 'Your NSF, NIH, or fellowship proposals are getting rejected because the methodology isn\'t aligned with the funding agency\'s priorities.',
                 },
                 {
-                  title: 'Isolation & Imposter Syndrome',
-                  desc: 'Working entirely alone makes every decision feel heavy. You start to doubt if your research is even valid.',
+                  title: 'Contributor Logistical Friction',
+                  desc: 'You are editing a handbook or volume and need to manage multiple external authors, all submitting inconsistent layouts and citations.',
                 },
                 {
-                  title: 'Methodology Gridlock',
-                  desc: 'You are terrified your research design won\'t hold up to committee scrutiny or during your final defense.',
+                  title: 'Methodological Defensibility',
+                  desc: 'Ensuring your R, SPSS, or qualitative thematic codebooks hold up to rigorous auditor scrutiny and reviewer methodologies.',
                 },
                 {
-                  title: 'Balancing Life & Research',
-                  desc: 'Work and family take priority, and you lack the structured accountability to make consistent progress every week.',
+                  title: 'Version & Revision Control Chaos',
+                  desc: 'Managing revisions across multiple co-authors, lost email threads, and mismatched draft versions.',
                 }
               ].map((challenge, i) => (
                 <Box
@@ -230,7 +227,7 @@ export default function PrivateCoachingPage() {
           </Stack>
         </Container>
       </Box>
-
+ 
       {/* How Coaching Supports You (The Roadmap) */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
@@ -243,11 +240,10 @@ export default function PrivateCoachingPage() {
                 How we walk with you.
               </Title>
               <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                We provide a rigorous, faculty-led partnership that takes you from 
-                structural confusion to a defensible, finished manuscript.
+                We provide a rigorous, faculty-led operations pipeline that moves your draft from raw text to publication compliance.
               </Text>
             </Box>
-
+ 
             <Box style={{ position: 'relative', marginTop: rem(40) }}>
               {/* Vertical Timeline Connection Line */}
               <Box 
@@ -262,59 +258,59 @@ export default function PrivateCoachingPage() {
                 }}
                 visibleFrom="sm"
               />
-
+ 
               <Stack gap={rem(80)}>
                 {[
                   {
                     step: '01',
-                    title: 'The Diagnostic Phase',
-                    subtitle: 'Untangling the Roadmap',
-                    desc: 'We start by auditing your current progress, your committee feedback, and your research design. We identify exactly where the stall is happening and why.',
+                    title: 'The Pipeline Audit',
+                    subtitle: 'Diagnostic Phase',
+                    desc: 'We start by auditing your current progress, your reviewer comments, and your research outline. We identify exactly where the structural stall is happening.',
                     icon: IconCompass,
                     tasks: [
-                      'Detailed audit of your current drafts',
-                      'Direct de-coding of committee feedback',
+                      'Detailed audit of your draft manuscripts',
+                      'Direct de-coding of reviewer feedback',
                       'Identifying and mapping structural gaps',
-                      'Locating logic or data bottlenecks'
+                      'Locating logic or references bottlenecks'
                     ]
                   },
                   {
                     step: '02',
-                    title: 'Strategic Milestones',
+                    title: 'The Milestone Map',
                     subtitle: 'Building the Schedule',
-                    desc: 'We move from "hoping to finish" to a concrete calendar. We break your dissertation into manageable pieces with hyper-specific deliverables for each week.',
+                    desc: 'We establish a clear schedule mapped to target journal submission cycles. We break the manuscript into scoped, logical writing deliverables.',
                     icon: IconTarget,
                     tasks: [
-                      'Custom, weekly writing schedules',
+                      'Custom manuscript writing schedules',
                       'Regular conceptual alignment checks',
-                      'Detailed, chapter-level milestone roadmaps',
-                      'Setting highly realistic deliverables'
+                      'Detailed milestone roadmaps per chapter',
+                      'Setting realistic journal submission goals'
                     ]
                   },
                   {
                     step: '03',
-                    title: 'Iterative Refinement',
-                    subtitle: 'Execution & Feedback',
-                    desc: 'This is where the real work happens. We meet via video to solve methodological puzzles, review new drafts, and sharpen your authentic academic voice.',
+                    title: 'Iterative Async Refinement',
+                    subtitle: 'Execution & Loom Reviews',
+                    desc: 'This is where the heavy lifting happens. We conduct deep-dive audits of your drafts asynchronously, sending high-impact Loom feedback videos and PDF markups.',
                     icon: IconMessageCircle,
                     tasks: [
-                      'Ongoing 1-on-1 video deep dives',
-                      'Complete structural draft reviews',
-                      'Proactive accountability check-ins',
-                      'Step-by-step drafting and editing support'
+                      'Asynchronous structural manuscript audits',
+                      'Detailed, marginal PDF feedback commentary',
+                      'Loom video walkthroughs of logic edits',
+                      'Step-by-step drafting and layout counsel'
                     ]
                   },
                   {
                     step: '04',
-                    title: 'Defense Readiness',
+                    title: 'Publisher Clearance',
                     subtitle: 'Final Validation',
-                    desc: 'As you approach submission, we pivot to defense coaching. We help you conceptualize your arguments so you can stand before your committee with absolute authority.',
+                    desc: 'As you approach submission, we verify layout compliance, bibliography integrity, and the formatting of your Response to Reviewers matrix.',
                     icon: IconCertificate,
                     tasks: [
-                      'Realistic mock defense prep sessions',
-                      'Clear synthesis of arguments',
-                      'Technical pre-submission formatting audit',
-                      'Guidance on addressing final committee revisions'
+                      'Strict publisher style-guide audits',
+                      'Verification of Response to Reviewers matrices',
+                      'Technical pre-submission BibTeX auditing',
+                      'Liaison support for editorial queries'
                     ]
                   }
                 ].map((phase, i) => (
@@ -398,8 +394,7 @@ export default function PrivateCoachingPage() {
                 All packages are activated following your free introductory call, where we assess your
                 needs and confirm the right level of engagement.
               </Text>            </Box>
-            
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(32)}>
+                 <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(32)}>
               {/* Option A: 5 Hours */}
               <Box p={rem(40)} bg="white" style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
@@ -408,29 +403,33 @@ export default function PrivateCoachingPage() {
                       THE STRATEGIC SPRINT
                     </Text>
                     <Title order={3} style={{ fontSize: rem(28) }}>
-                      5-Hour Retainer
+                      Advisory Sprint
                     </Title>
                     <Text fw={700} size="xl" c={active.primary}>$750 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Ideal for overcoming a specific roadblock, restructuring a single chapter, or preparing for an upcoming committee meeting.
+                    Ideal for overcoming a specific reviewer deadlock, restructuring a single chapter, or preparing a grant brief.
                   </Text>
                   <Divider color="oklch(0% 0 0 / 0.05)" />
                   <Stack gap="xs">
                     <Group gap="xs">
                       <IconCheck size={14} color={active.accent} />
-                      <Text size="xs">1-on-1 Video Advisory</Text>
+                      <Text size="xs">1 Structural Manuscript Audit</Text>
                     </Group>
                     <Group gap="xs">
                       <IconCheck size={14} color={active.accent} />
-                      <Text size="xs">Offline Document Review</Text>
+                      <Text size="xs">1 Loom Video Walkthrough</Text>
+                    </Group>
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">Dashboard Q&A Access</Text>
                     </Group>
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
                   <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Speak with an Expert
+                      Request Advisory Sprint
                     </Button>
                   </Link>
                 </Box>
@@ -451,65 +450,73 @@ export default function PrivateCoachingPage() {
                       THE MILESTONE PARTNERSHIP
                     </Text>
                     <Title order={3} style={{ fontSize: rem(28) }}>
-                      10-Hour Retainer
+                      Milestone Retainer
                     </Title>
                     <Text fw={700} size="xl" c={active.primary}>$1,400 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Perfect for navigating a major academic milestone, such as defending your proposal or analyzing complex data sets.
+                    Perfect for major milestones: book proposals, full grant cycles, or response to journal revision requests.
                   </Text>
                   <Divider color="oklch(0% 0 0 / 0.05)" />
                   <Stack gap="xs">
                     <Group gap="xs">
                       <IconCheck size={14} color={active.accent} />
-                      <Text size="xs">Priority Scheduling</Text>
+                      <Text size="xs">2 Detailed Manuscript Audits</Text>
                     </Group>
                     <Group gap="xs">
                       <IconCheck size={14} color={active.accent} />
-                      <Text size="xs">Full Structural Feedback</Text>
+                      <Text size="xs">2 Loom Feedback Walkthroughs</Text>
+                    </Group>
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">1 Strategic Alignment Call (30 min)</Text>
                     </Group>
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
                   <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="filled" bg={active.primary} radius={0} fullWidth>
-                      Speak with an Expert
+                      Request Milestone Retainer
                     </Button>
                   </Link>
                 </Box>
               </Box>
-
+ 
               {/* Option C: 20 Hours */}
               <Box p={rem(40)} bg="white" style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Stack gap="xs">
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                      THE FULL-CYCLE JOURNEY
+                      THE PIPELINE RETINER
                     </Text>
                     <Title order={3} style={{ fontSize: rem(28) }}>
-                      20-Hour Retainer
+                      Full Pipeline Retainer
                     </Title>
                     <Text fw={700} size="xl" c={active.primary}>$2,600 USD</Text>
                   </Stack>
                   <Text size="sm" c="dimmed" lh={1.6}>
-                    Complete, high-touch support from stalled draft to final submission. We provide an expert sounding board and rigorous accountability.
+                    Continuous monthly async support for your active lab team, grant submissions, and publisher correspondence loops.
                   </Text>
                   <Divider color="oklch(0% 0 0 / 0.05)" />
                   <Stack gap="xs">
                     <Group gap="xs">
                       <IconCheck size={14} color={active.accent} />
-                      <Text size="xs">Strategic Oversight</Text>
+                      <Text size="xs">Continuous Async Document Audits</Text>
                     </Group>
                     <Group gap="xs">
                       <IconCheck size={14} color={active.accent} />
-                      <Text size="xs">Unlimited Document Access</Text>
+                      <Text size="xs">Unlimited Loom Feedback Walkthroughs</Text>
+                    </Group>
+                    <Group gap="xs">
+                      <IconCheck size={14} color={active.accent} />
+                      <Text size="xs">2 Priority Alignment Syncs</Text>
                     </Group>
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
                   <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
-                      Speak with an Expert
+                      Request Pipeline Retainer
                     </Button>
                   </Link>
                 </Box>

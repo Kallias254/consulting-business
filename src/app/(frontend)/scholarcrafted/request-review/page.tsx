@@ -107,17 +107,18 @@ function RequestReviewContent() {
   const totalSteps = 6
   const isSuccessStep = step === totalSteps - 1
 
-  // Handle direct links from Service pages (e.g. ?service=Custom%20Research)
+  // Handle direct links from Service pages (e.g. ?service=Publishing)
   React.useEffect(() => {
     const queryService = searchParams.get('service')
     if (queryService && step === 0 && !data.service) {
-      let mappedService = queryService
-      if (queryService.includes('Editing') || queryService === 'Formatting') mappedService = 'editing'
-      if (queryService.includes('Research') || queryService.includes('Data')) mappedService = 'data_support'
-      if (queryService.includes('Technical')) mappedService = 'technical'
-
+      const lower = queryService.toLowerCase()
+      let mappedService = 'editing'
+      if (lower.includes('consult') || lower.includes('publish') || lower.includes('coach') || lower.includes('research')) {
+        window.location.href = '/scholarcrafted/consultation'
+        return
+      }
       setData((prev) => ({ ...prev, service: mappedService }))
-      setStep(1) // skip the first step since it's pre-filled
+      setStep(1) // skip step 0 and proceed directly to academic level, word count & scope
     }
   }, [searchParams])
 
@@ -125,6 +126,10 @@ function RequestReviewContent() {
   const prevStep = () => setStep((s) => Math.max(s - 1, 0))
 
   const selectOption = (field: keyof typeof data, value: any) => {
+    if (field === 'service' && value === 'consulting') {
+      window.location.href = '/scholarcrafted/consultation'
+      return
+    }
     setData((prev) => ({ ...prev, [field]: value }))
     nextStep()
   }
@@ -147,12 +152,12 @@ function RequestReviewContent() {
       desc: 'Specify unique formatting needs, style guides (e.g. APA, Harvard), or specific goals you want us to address.',
     },
     {
-      title: 'Identity & Contact',
-      desc: 'Please provide your details so we can email your secure project proposal within 24 hours.',
+      title: 'Scholarly Identity & Contact',
+      desc: 'Provide your primary academic correspondence details. All inquiries are held under strict non-disclosure.',
     },
     {
-      title: 'Request Received',
-      desc: 'Thank you for submitting your project details. A faculty coordinator will review your materials and issue a formal quote shortly.',
+      title: 'Confidential Intake Initiated',
+      desc: 'Your project parameters have been logged with Dr. Dobson’s editorial desk.',
     },
   ]
 
@@ -240,20 +245,20 @@ function RequestReviewContent() {
             
             <Box w={100} /> {/* Spacer to perfectly center the progress bar */}
           </Group>
-          {step < totalSteps && (
+          {step < totalSteps && !isSuccessStep && (
             <Box style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
               <Title
                 order={1}
                 style={{
-                  fontSize: isSuccessStep ? rem(32) : rem(42),
+                  fontSize: rem(42),
                   lineHeight: 1.2,
                   color: active.primary }}
               >
                 {stepHeadlines[step].title}
               </Title>
               {stepHeadlines[step].desc && (
-                <Text size={isSuccessStep ? "md" : "lg"} c="dimmed" lh={1.6} style={{ 
-                  marginTop: isSuccessStep ? '0.75rem' : '1.5rem',
+                <Text size="lg" c="dimmed" lh={1.6} style={{ 
+                  marginTop: '1.5rem',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginBottom: 0
@@ -274,8 +279,8 @@ function RequestReviewContent() {
         bg={active.surface} 
         style={{ borderTop: `1px solid ${active.primary}12`, flex: 1 }}
       >
-        <Container size={isSuccessStep ? 1000 : "md"}>
-          <Box style={{ maxWidth: isSuccessStep ? 1000 : 800, margin: '0 auto' }}>
+        <Container size={isSuccessStep ? "sm" : "md"}>
+          <Box style={{ maxWidth: isSuccessStep ? 620 : 800, margin: '0 auto' }}>
             {step > 0 && !isSuccessStep && (
               <UnstyledButton
                 onClick={prevStep}
@@ -297,42 +302,21 @@ function RequestReviewContent() {
 
 function StepService({ data, selectOption }: any) {
   return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mt={rem(40)}>
-      {[
-        {
-          id: 'editing',
-          title: 'Structural Editing & Proofreading',
-          desc: 'Manuscript refinement, formatting, and proofing',
-          icon: <IconEdit size={28} />,
-        },
-        {
-          id: 'data_support',
-          title: 'Custom Research & Data Support',
-          desc: 'Technical assistance, NVivo, SPSS, methodology',
-          icon: <IconMicroscope size={28} />,
-        },
-        {
-          id: 'technical',
-          title: 'Targeted Technical Support',
-          desc: 'Reference styling, compliance matrices, indexing',
-          icon: <IconFileText size={28} />,
-        },
-        {
-          id: 'other',
-          title: 'Unsure / Other',
-          desc: 'Submit for a custom faculty assessment',
-          icon: <IconSearch size={28} />,
-        },
-      ].map((item) => (
-        <SelectionCard
-          key={item.id}
-          title={item.title}
-          description={item.desc}
-          icon={item.icon}
-          active={data.service === item.id}
-          onClick={() => selectOption('service', item.id)}
-        />
-      ))}
+    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl" mt={rem(40)}>
+      <SelectionCard
+        title="Manuscript Editing & Formatting Quote"
+        description="I have a draft that needs proofreading, APA/ProQuest formatting, citation auditing, or AI draft rescue. ($0.044/word)"
+        icon={<IconEdit size={32} />}
+        active={data.service === 'editing'}
+        onClick={() => selectOption('service', 'editing')}
+      />
+      <SelectionCard
+        title="Academic Strategy & Publishing Consultation"
+        description="I need strategic faculty direction from Dr. Micah Dobson (thesis-to-journal conversion, book proposals, or defense stalls)."
+        icon={<IconCertificate size={32} />}
+        active={data.service === 'consulting'}
+        onClick={() => selectOption('service', 'consulting')}
+      />
     </SimpleGrid>
   )
 }
@@ -519,7 +503,7 @@ function StepIdentity({ data, setData, nextStep, isValid }: any) {
             disabled={!isValid}
             className="impeccable-button"
           >
-            REQUEST CUSTOM QUOTE
+            INITIATE FACULTY REVIEW
           </Button>
         </Group>
       </Stack>
@@ -530,21 +514,19 @@ function StepIdentity({ data, setData, nextStep, isValid }: any) {
 function StepSuccess({ data }: any) {
   const { other: active } = useMantineTheme()
   return (
-    <Box bg={active.background} p={rem(60)} style={{ border: `1px solid ${active.primary}12`, textAlign: 'center' }} mt={rem(40)}>
-      <Stack align="center" gap="lg">
+    <Box bg={active.background} p={{ base: rem(40), md: rem(60) }} style={{ border: `1px solid ${active.primary}12`, textAlign: 'center' }} mt={0}>
+      <Stack align="center" gap="md">
         <Box c={active.accent}>
-          <IconCheck size={64} stroke={1.5} />
+          <IconCheck size={48} stroke={1.5} />
         </Box>
-        <Title order={2} style={{ color: active.primary }}>
-          Submission Securely Received
+        <Title order={2} style={{ color: active.primary, fontFamily: 'var(--font-serif)', fontSize: rem(28) }}>
+          We&apos;ve received your project details.
         </Title>
-        <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 600 }}>
-          Thank you, {data.firstName || 'there'}. We have securely received your details. A
-          faculty coordinator will review your submission and issue a formal quote to{' '}
-          <strong>{data.email}</strong> within 24 hours.
+        <Text size="md" c="dimmed" lh={1.6} style={{ maxWidth: 520 }}>
+          Dr. Dobson&apos;s office has sent a direct confirmation to <strong>{data.email}</strong>. Simply reply to that email with your draft when you&apos;re ready.
         </Text>
         <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
-          <Button variant="outline" color={active.primary} radius={0} mt="xl">
+          <Button variant="outline" color={active.primary} radius={0} mt="lg">
             RETURN TO HOME
           </Button>
         </Link>

@@ -18,11 +18,11 @@ export default defineConfig({
     // Proxy PocketBase API in dev so no CORS config needed
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8099',
+        target: 'http://127.0.0.1:8091',
         changeOrigin: true,
       },
       '/_': {
-        target: 'http://127.0.0.1:8099',
+        target: 'http://127.0.0.1:8091',
         changeOrigin: true,
       },
     },

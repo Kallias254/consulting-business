@@ -7,7 +7,7 @@ This master document details the design system, completed features, deliberate e
 
 ## 📊 1. Master Feature Registry: Complete Status Matrix
 
-We have aligned our operational plans in [docs](file:///home/miseda/Documents/projects/consulting-business/docs) with active codebases. Here is our official feature log:
+We have aligned our operational plans in [docs](./docs) (including the target audience levels and the multi-agent design in [docs/24_agentic_workflow_methodology.md](./docs/24_agentic_workflow_methodology.md)) with active codebases. Here is our official feature log:
 
 | Functional Area | Feature & Architecture | Target Tier | Status | Origin / Rationale (from @docs) |
 | :--- | :--- | :---: | :---: | :--- |
@@ -25,7 +25,7 @@ We have aligned our operational plans in [docs](file:///home/miseda/Documents/pr
 | **Integrations** | Zotero "Better BibTeX" Bridge | Tier 2 | 🟢 **COMPLETED** | Ingesting client `.bib` bibliographies directly into the sandboxed project File Vault. |
 | **Integrations** | Stripe Payment Webhook Gateway | Tier 2 | 🟡 **PENDING** | Activates phase locks or unlocks next chapters upon receiving `payment_intent.succeeded`. |
 | **Intelligence** | Opportunity Matcher Engine | Tier 2 | 🟡 **PENDING** | Automated scraper parsing CFP RSS feeds and grants, matching keywords to client interests. |
-| **Intelligence** | Bespoke AI Manuscript Graphs | Tier 2 | 🟡 **PENDING** | PydanticAI / LangGraph workflows translating outline briefs into citation-rich drafts. |
+| **Intelligence** | Terminal-Native Deep Research | Tier 2 | 🟡 **PENDING** | Custom Go/Gemini API loops & `mods`/Fabric CLI, deprecating heavy LangGraph/Pydantic setups. |
 | **Intelligence** | Typst WASM Scholar Report | Tier 2 | 🟡 **PENDING** | Monthly typeset report compilation ready for Tenure Boards and Graduate Deans. |
 | **Public Profiles** | Sovereign Portfolio Sites | Tier 3 | 🟡 **PENDING** | Public impact showcases displaying dynamic timelines of completed projects. |
 
@@ -89,7 +89,7 @@ timeline
     July 17 : Built Real-time Friday Pulse & CC Logger with Micah's Live Data
     July 24 : Micah Meeting : Pitch DIG LLC, Settle Ledger, Secure NCSU/A&T GAs
     August : Integrate SMTP Outbound (Resend) & Stripe Phase Locks
-    September : Integrate Opportunity Matcher & PydanticAI Graph Writers
+    September : Integrate Opportunity Matcher & Terminal-Native Deep Research (Go/Gemini)
     Late 2026 : Open Public SaaS Portal for NC Academics
 ```
 
@@ -97,3 +97,30 @@ timeline
 1.  **DIG, LLC Registration**: Incorporate **Dobson Innovation Group, LLC (DIG)** in North Carolina. Register **M&J ScholarCrafted™** as an active DBA brand running under DIG. This houses all consulting operations under a single corporate umbrella.
 2.  **Clear the Ledger**: Secure the outstanding consulting ledger balance of **$2,250.00** up to July 16, 2026.
 3.  **GA Admissions Leverage**: Use this active running Cockpit prototype (complete with Micah's actual projects, tasks, and real-time CC simulator) to demonstrate technical capabilities to NC State or NC A&T Graduate Directors, securing tuition-waiving Graduate Assistantships (GAs).
+
+---
+
+## 📈 5. Go-To-Market & Front-Facing UI Architecture
+
+This section bridges our technical execution with our client acquisition strategies, detailed heavily in [docs/04_marketing_and_sales.md](./docs/04_marketing_and_sales.md).
+
+### Landing Page Demeanor (Personal Authority)
+- **The Core Debate**: Should the landing page project a massive, faceless institutional research group or a boutique, personal consultancy?
+- **The Decision**: **Personal with Institutional Authority.** The landing page UI must highlight the "Micah Difference." We compete on value, not price. By featuring Micah as the Executive Principal—with real photos, faculty credentials, and genuine testimonials—we establish immediate trust. We are not a generic editing factory (like AJE or Wordvice); we are a faculty-led boutique.
+
+### UI Pricing Display Strategy
+- **Tier 1 (The Finisher)**: Display starting prices (e.g., "Starting at $0.04/word") to filter out low-intent/low-budget leads.
+- **Tier 2 & 3 (Scholar & Professional)**: Hide exact pricing. Use CTAs like "Apply to Work With Us" or "Request a Custom Proposal." High-ticket retainers require an anchor-value consultation first. (See [docs/02_services_and_pricing.md](./docs/02_services_and_pricing.md)).
+
+### Lead Generation Pipelines
+- **The Upwork Engine (Cashflow)**: Use Micah's US-based Upwork profile to capture high-intent, immediate-need academics (formatting, stats). Over-deliver, then upsell them off-platform into our Tier 3 Sovereign Dashboard.
+- **The Outbound Engine (Whales)**: Direct outreach (LinkedIn/Email) to hunt for institutional accounts—Departments, Deans, and funded research groups needing ongoing support.
+
+### Coaching vs. Asynchronous Consulting
+- Recognizing that "private coaching/live sessions" are too time-intensive right now, the UI and service offering will pivot towards **Asynchronous Consulting**. Instead of live 1-hour Zoom calls, Micah will provide high-value 15-minute Loom video reviews or use the secure Dashboard for messaging. This protects Micah's time while preserving the premium "white-glove" experience.
+
+### Competitor Strategy & The Opportunity Engine (CFCs)
+- **Ideas on Fire vs. Us**: They are a siloed agency; we provide the active "Micah Advantage" with full dashboard integration.
+- **OpenScholar vs. Us**: They provide static brochureware; we build dynamic Sovereign Portfolios powered by the actual projects we are executing for the client.
+- **Call for Chapters (CFCs)**: Our "Opportunity Engine" actively seeks out CFCs and collaborations tailored to the client's niche, shifting us from mere editors to proactive career partners. (See [docs/02_services_and_pricing.md](./docs/02_services_and_pricing.md) for full details).
+

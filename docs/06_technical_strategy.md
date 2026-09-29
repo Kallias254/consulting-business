@@ -2,7 +2,7 @@
 
 The shift to an agency model requires an evolution of our technical strategy. The goal is no longer to build a "self-correcting" tool for a single writer, but to create an **Agency Operating System (OS)** for managing a team, projects, and clients efficiently.
 
-Our core technologies (Payload, Mantine, Typst) are still ideal, but they will be repurposed to serve this new mission.
+Our core technologies (PocketBase, Next.js/Vite, Typst, Pandoc) are still ideal, but they will be repurposed to serve this new mission.
 
 ## The Vision: A Centralized Project Management Dashboard
 
@@ -29,21 +29,27 @@ The Mantine frontend will become the central hub for the entire agency workflow.
 
 ## Backend and "Finishing" Technology
 
+### Academic Outreach & Intel Gathering (The Developer Edge)
+To hunt "Whales" (Deans, lab directors), we bypass generic cold emails by using open-source programmatic recon:
+- **`zotero-cli` (Reconnaissance Engine):** We use Zotero's web API and CLI tools to programmatically scrape a target professor’s full publication history and abstracts. This feeds our LLMs the exact context needed for a hyper-targeted outreach email.
+- **`mitmproxy` (Directory Scraping):** When targeting university directories without public APIs, we boot up `mitmproxy` in the terminal to intercept the HTTP traffic. We capture the exact API endpoints and headers the directory uses, and replicate that payload in a lean Go script to pull clean department contact lists instantly.
+- **Mermaid.js (Architecture Proving):** Instead of a wall of text, we script clean system architecture diagrams of our SaaS projects using Mermaid markdown. We render them as SVGs and attach them to departmental emails to instantly prove our engineering depth.
+
 ### Lead Generation Micro-Tools
 To support the "Small Favor" marketing strategy, the Agency OS provides automated utility endpoints:
-- **Niche Grant Pulse (ICS Engine):** A Node.js service that queries the `Opportunities` collection and generates dynamic `.ics` calendar files based on research niche tags.
+- **Niche Grant Pulse (ICS Engine):** A Go service that queries the `Opportunities` collection and generates dynamic `.ics` calendar files based on research niche tags.
 - **BibTeX Auditor:** A Python/Pandas script that parses uploaded bibliography files, cross-references Crossref/DOI databases, and returns a JSON report of metadata anomalies.
 - **Abstract Matcher:** A lightweight NLP script that compares user-provided abstracts against our internal "Publisher Persona" database to suggest target presses.
 
-### Payload CMS: The Single Source of Truth
-Payload remains the perfect backend for the Agency OS. It will store:
+### PocketBase Core: The Single Source of Truth
+We have fully migrated away from Payload CMS. PocketBase (Go/SQLite) is our high-performance backend. It stores:
 - **Collections:** Clients, Projects, Researchers, Tasks, Invoices, and **Audit Logs**.
-- **The Correspondence Buffer:** Where internal teams draft emails for Micah to approve and send via Resend.
-- **File Storage:** The "Project Vault" linked to Cloudflare R2.
+- **The Correspondence Buffer:** Where internal teams draft emails for Micah to approve and send.
+- **NocoDB (The Collaborator View):** Instead of building custom admin dashboards for non-technical RAs, we self-host NocoDB connected directly to a read-only staging schema of our PocketBase data. RAs get a smart, collaborative spreadsheet interface to filter and manage research rosters securely while keeping our core Go architecture lean.
 
 ### Typst & Pandoc: The "Word-to-Typst" Bridge
-We bridge the gap between researcher habits (MS Word) and elite output (Typst) using **Pandoc**.
-- **The Workflow:** Researchers write in MS Word using standard styles. Upon upload, the Agency OS uses Pandoc to convert the `.docx` into structured Markdown/Typst code.
+We bridge the gap between researcher habits (MS Word) and elite output (Typst, LaTeX, PDF) using **Pandoc** (The Universal Document Converter).
+- **The Workflow (AST Transformation):** Researchers write in MS Word using standard styles. Upon upload, our Go server invokes Pandoc directly via the `os/exec` package. Pandoc flawlessly handles the complex AST (Abstract Syntax Tree) transformations, feeding it into a custom reference template to output perfectly structured documents every single time.
 - **The "Reference Integrity" Auditor:** Since we avoid the third-party `typst.app` Zotero sync to maintain sovereignty, we use a local auditor script:
     - **How it works:** The script parses the **converted Typst/Markdown text** for citation keys (e.g., `[@smith2024]`) and cross-references them against the **uploaded `.bib` file** from the project vault.
     - **Validation Logic:** It checks for: 
