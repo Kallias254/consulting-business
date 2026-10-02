@@ -265,7 +265,7 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl" align="flex-start">
 
                 <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
-                  Academic Operations & Advisory
+                  Academic Advisory
                 </p>
 
                 <Title

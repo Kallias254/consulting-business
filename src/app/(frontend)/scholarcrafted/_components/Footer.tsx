@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   SimpleGrid,
@@ -19,9 +19,27 @@ import {
 } from '@tabler/icons-react'
 import { Logo } from './Logo'
 
+const QUOTES = [
+  { text: 'Big results require big ambitions.', author: 'Heraclitus' },
+  { text: 'A good decision is based on knowledge and not on numbers.', author: 'Plato' },
+  { text: 'Friendship is always a sweet responsibility, never an opportunity.', author: 'Kahlil Gibran' },
+  { text: 'Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.', author: 'Thomas Edison' },
+  { text: 'The roots of education are bitter, but the fruit is sweet.', author: 'Aristotle' },
+  { text: 'An investment in knowledge pays the best interest.', author: 'Benjamin Franklin' },
+  { text: 'The mind is not a vessel to be filled, but a fire to be kindled.', author: 'Plutarch' },
+  { text: 'Excellence is never an accident. It is always the result of high intention, sincere effort, and intelligent execution.', author: 'Aristotle' },
+  { text: 'It always seems impossible until it is done.', author: 'Nelson Mandela' },
+  { text: 'The secret of getting ahead is getting started.', author: 'Mark Twain' },
+]
+
 export function Footer({ bg }: { bg?: string }) {
   const theme = useMantineTheme()
   const active = theme.other
+  const [quote, setQuote] = useState(QUOTES[0])
+
+  useEffect(() => {
+    setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)])
+  }, [])
 
   return (
     <Box
@@ -217,14 +235,19 @@ export function Footer({ bg }: { bg?: string }) {
                 +1 (617) 555-0123
               </Text>
             </Stack>
-            <Text
-              size="xs"
-              lh={1.6}
-              fs="italic"
-              c="rgba(255,255,255,0.5)"
-            >
-              &quot;Guidance is not just advice; it is the transfer of structural authority.&quot;
-            </Text>
+            <Stack gap={rem(6)}>
+              <Text
+                size="xs"
+                lh={1.65}
+                fs="italic"
+                c="rgba(255,255,255,0.55)"
+              >
+                &ldquo;{quote.text}&rdquo;
+              </Text>
+              <Text size="xs" c={active.accent} fw={600} style={{ letterSpacing: '0.06em' }}>
+                — {quote.author}
+              </Text>
+            </Stack>
           </Stack>
         </SimpleGrid>
 
