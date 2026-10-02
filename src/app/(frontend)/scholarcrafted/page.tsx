@@ -158,10 +158,6 @@ export default function ScholarCraftedLanding() {
               background-color: ${active.primary} !important;
             }
 
-            .hero-primary-container {
-              min-width: 280px;
-            }
-
             .home-accordion-item[data-active] {
               border-color: ${active.primary} !important;
             }
@@ -170,11 +166,52 @@ export default function ScholarCraftedLanding() {
               background-color: transparent !important;
             }
 
-            @media (max-width: 768px) {
-              .hero-primary-container {
-                width: 100% !important;
-                max-width: 100% !important;
+            /* Hero overlays: mobile = flat dark, desktop = directional */
+            .hero-overlay-mobile { display: block; }
+            .hero-overlay-desktop { display: none; }
+
+            /* Hero buttons: full-width on small mobile */
+            .hero-btn-group { width: 100%; }
+            .hero-btn-link { display: block; width: 100%; }
+            .hero-btn-link > button { width: 100% !important; }
+
+            /* Back-to-top: smaller on mobile */
+            .back-to-top-btn {
+              bottom: 20px !important;
+              right: 20px !important;
+              width: 42px !important;
+              height: 42px !important;
+            }
+
+            @media (min-width: 640px) {
+              /* Desktop: directional gradient */
+              .hero-overlay-mobile { display: none; }
+              .hero-overlay-desktop { display: block; }
+
+              /* Buttons sit side by side */
+              .hero-btn-link { display: inline-block; width: auto; }
+              .hero-btn-link > button { width: auto !important; }
+
+              .back-to-top-btn {
+                bottom: 40px !important;
+                right: 40px !important;
+                width: 50px !important;
+                height: 50px !important;
               }
+            }
+
+            /* Hide Dr. Micah headshot on mobile */
+            .micah-headshot { display: none; }
+            @media (min-width: 768px) {
+              .micah-headshot { display: block; }
+            }
+
+            /* Services grid on mobile: stack label/title/desc and CTA vertically */
+            @media (max-width: 600px) {
+              .service-row-grid {
+                grid-template-columns: 1fr !important;
+              }
+              .service-row-num { display: none; }
             }
           `,
         }}
@@ -185,7 +222,7 @@ export default function ScholarCraftedLanding() {
         component="section"
         style={{
           position: 'relative',
-          minHeight: 'clamp(580px, 88vh, 840px)',
+          minHeight: 'clamp(480px, 88vh, 840px)',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
@@ -202,14 +239,24 @@ export default function ScholarCraftedLanding() {
             zIndex: 0,
           }}
         />
-        {/* Directional gradient: solid dark behind text, transitions gracefully across viewport */}
+        {/* Directional gradient: solid dark behind text on desktop; full dark on mobile */}
+        <Box
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(10,10,10,0.88)',
+            zIndex: 1,
+          }}
+          className="hero-overlay-mobile"
+        />
         <Box
           style={{
             position: 'absolute',
             inset: 0,
             background: 'linear-gradient(to right, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.92) 45%, rgba(10,10,10,0.70) 75%, rgba(10,10,10,0.30) 100%)',
-            zIndex: 1,
+            zIndex: 2,
           }}
+          className="hero-overlay-desktop"
         />
         {/* Bottom subtle blend */}
         <Box
@@ -223,7 +270,7 @@ export default function ScholarCraftedLanding() {
         />
 
         {/* Content — responsive container */}
-        <Box style={{ position: 'relative', zIndex: 2, width: '100%', paddingTop: rem(120), paddingBottom: rem(80) }}>
+        <Box style={{ position: 'relative', zIndex: 3, width: '100%', paddingTop: 'clamp(88px, 14vw, 140px)', paddingBottom: 'clamp(48px, 8vw, 100px)' }}>
           <Container size={1200} px={{ base: 'md', sm: 'xl' }}>
             <Box style={{ maxWidth: rem(640) }}>
               <Stack gap="xl" align="flex-start">
@@ -235,7 +282,7 @@ export default function ScholarCraftedLanding() {
                 <Title
                   order={1}
                   style={{
-                    fontSize: 'clamp(2.1rem, 5.2vw, 3.8rem)',
+                    fontSize: 'clamp(2rem, 5.2vw, 3.8rem)',
                     lineHeight: 1.1,
                     letterSpacing: '-0.02em',
                     color: '#ffffff',
@@ -245,22 +292,23 @@ export default function ScholarCraftedLanding() {
                   Your Research<br />Doesn&apos;t Stall Here.
                 </Title>
 
-                <p style={{ margin: 0, fontSize: 'clamp(1rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.80)', maxWidth: '48ch' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.80)', maxWidth: '48ch' }}>
                   Faculty-led academic operations. We handle the formatting, compliance, and correspondence pipelines so you can focus on the research.
                 </p>
 
-                {/* Buttons — responsive side-by-side or stack on small mobile */}
-                <Group gap={rem(12)} wrap="wrap" style={{ width: '100%' }}>
-                  <Link href="/scholarcrafted/request-review?service=editing" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
+                <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
+                  <Link href="/scholarcrafted/request-review?service=editing" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
+                      fullWidth
                       style={{
                         backgroundColor: active.accent,
                         color: '#fff',
                         height: rem(52),
-                        paddingLeft: rem(28),
-                        paddingRight: rem(28),
+                        paddingLeft: rem(24),
+                        paddingRight: rem(24),
                         border: 'none',
                         fontWeight: 600,
                         fontSize: rem(15),
@@ -269,10 +317,11 @@ export default function ScholarCraftedLanding() {
                       Get it off your plate
                     </Button>
                   </Link>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
+                      fullWidth
                       style={{
                         borderColor: 'rgba(255,255,255,0.4)',
                         borderWidth: 1,
@@ -280,12 +329,12 @@ export default function ScholarCraftedLanding() {
                         color: '#ffffff',
                         background: 'rgba(255,255,255,0.06)',
                         height: rem(52),
-                        paddingLeft: rem(28),
-                        paddingRight: rem(28),
+                        paddingLeft: rem(24),
+                        paddingRight: rem(24),
                         fontSize: rem(15),
                       }}
                     >
-                      Work through it with a coach
+                      Book a session
                     </Button>
                   </Link>
                 </Group>
@@ -397,8 +446,8 @@ export default function ScholarCraftedLanding() {
       <Box component="section" style={{ backgroundColor: "#111111" }} py={{ base: rem(60), md: rem(100) }}>
         <Container size={1100} px={{ base: "md", sm: "xl" }}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(36), md: rem(80) }} style={{ alignItems: 'center' }}>
-            {/* Headshot */}
-            <Box style={{ position: "relative", height: "clamp(320px, 45vw, 540px)", overflow: "hidden" }}>
+            {/* Headshot — hidden on mobile to avoid layout bloat */}
+            <Box className="micah-headshot" style={{ position: "relative", height: "clamp(320px, 45vw, 540px)", overflow: "hidden" }}>
               <img
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=900"
                 alt="Dr. Micah Dobson — ScholarCrafted"
@@ -482,7 +531,7 @@ export default function ScholarCraftedLanding() {
                     style={{ borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}
                     className="impeccable-button"
                   >
-                    Work through it with a coach →
+                    Book a session →
                   </Button>
                 </Link>
               </Box>
@@ -493,9 +542,9 @@ export default function ScholarCraftedLanding() {
 
 
       {/* The 3-Step Process */}
-      <Box id="getting-started" component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={1100}>
-          <Stack gap={rem(80)} align="center" style={{ textAlign: 'center' }}>
+      <Box id="getting-started" component="section" py={{ base: rem(60), md: SECTION_SPACING }} bg={active.background}>
+        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(56)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
               <Text
                 size="xs"
@@ -507,13 +556,13 @@ export default function ScholarCraftedLanding() {
               <Title
                 order={2}
                 mt="md"
-                style={{ fontSize: rem(48), color: active.primary }}
+                style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', color: active.primary }}
               >
                 Three steps. No friction.
               </Title>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={{ base: rem(16), md: rem(2) }}>
+            <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={{ base: rem(16), md: rem(2) }} style={{ width: '100%' }}>
               {[
                 { num: '01', label: 'Book', desc: "Pick a time on Dr. Dobson's calendar. 20 minutes, Zoom." },
                 { num: '02', label: 'Talk', desc: 'Bring the project wherever it is. He comes prepared.' },
@@ -521,7 +570,7 @@ export default function ScholarCraftedLanding() {
               ].map((step, i) => (
                 <Box
                   key={i}
-                  p={rem(40)}
+                  p={{ base: rem(28), md: rem(40) }}
                   bg={active.surface}
                   style={{
                     borderTop: `3px solid ${i === 0 ? active.accent : `${active.primary}20`}`,
@@ -541,7 +590,7 @@ export default function ScholarCraftedLanding() {
                     el.style.borderTopColor = i === 0 ? active.accent : `${active.primary}20`;
                   }}
                 >
-                  <Stack gap="sm">
+                  <Stack gap="sm" style={{ textAlign: 'left' }}>
                     <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>{step.num}</Text>
                     <Text fw={700} size="xl" c={active.primary}>{step.label}</Text>
                     <Text size="sm" c="dimmed" lh={1.6}>{step.desc}</Text>
@@ -557,7 +606,7 @@ export default function ScholarCraftedLanding() {
                 className="impeccable-button"
                 style={{ backgroundColor: active.accent, color: '#fff', border: 'none', fontWeight: 600 }}
               >
-                Work through it with a coach
+                Book a session
               </Button>
             </Link>
           </Stack>
@@ -616,10 +665,11 @@ export default function ScholarCraftedLanding() {
                   key={i}
                   py={{ base: rem(28), sm: rem(36), md: rem(40) }}
                   px={{ base: rem(16), sm: rem(24), md: rem(28) }}
+                  className="service-row-grid"
                   style={{
                     borderBottom: `1px solid ${active.primary}10`,
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gridTemplateColumns: 'auto 1fr auto',
                     gap: rem(24),
                     alignItems: 'center',
                     transition: 'background-color 0.25s ease, transform 0.25s ease',
@@ -636,6 +686,7 @@ export default function ScholarCraftedLanding() {
                 >
                   {/* Number */}
                   <Text
+                    className="service-row-num"
                     style={{
                       fontSize: rem(13),
                       fontWeight: 700,
@@ -710,10 +761,10 @@ export default function ScholarCraftedLanding() {
                   <Stack align="center" style={{ textAlign: 'center' }} gap={rem(40)}>
                     <Text
                       style={{
-                        fontSize: rem(100),
+                        fontSize: 'clamp(60px, 12vw, 100px)',
                         lineHeight: 0,
                         opacity: 0.1,
-                        marginBottom: rem(-40),
+                        marginBottom: 'clamp(-24px, -4vw, -40px)',
                         color: active.primary }}
                     >
                       &ldquo;
@@ -954,6 +1005,7 @@ export default function ScholarCraftedLanding() {
 
       <Box
         onClick={scrollToTop}
+        className="back-to-top-btn"
         style={{
           position: 'fixed',
           bottom: rem(40),
