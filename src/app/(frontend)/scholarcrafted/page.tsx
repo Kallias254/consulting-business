@@ -145,13 +145,7 @@ export default function ScholarCraftedLanding() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-            .carousel-indicator {
-              transform-origin: left;
-            }
-            .carousel-indicator[data-active] {
-              transform: scaleX(3) !important;
-              background-color: ${active.primary} !important;
-            }
+            /* Carousel indicators handled by bottom <style> block */
 
             .home-accordion-item[data-active] {
               border-color: ${active.primary} !important;
@@ -438,7 +432,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* Meet Dr. Micah Dobson */}
-      <Box component="section" style={{ backgroundColor: "#111111" }} py={{ base: rem(60), md: rem(100) }}>
+      <Box component="section" style={{ backgroundColor: active.primary }} py={{ base: rem(60), md: rem(100) }}>
         <Container size={1100} px={{ base: "md", sm: "xl" }}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(36), md: rem(80) }} style={{ alignItems: 'center' }}>
             {/* Headshot — hidden on mobile to avoid layout bloat */}
@@ -1034,18 +1028,19 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       <style>{`
-        /* Force perfectly circular indicators in all states */
+        /* Carousel dot indicators — always circular, no oval stretching */
         button.carousel-indicator {
-          width: 8px !important;
-          height: 8px !important;
+          width: 7px !important;
+          height: 7px !important;
           border-radius: 50% !important;
-          background-color: oklch(0% 0 0 / 0.15) !important;
-          transition: width 250ms ease, background-color 250ms ease !important;
+          background-color: rgba(0,0,0,0.15) !important;
+          transform: none !important;
+          transition: background-color 300ms ease, width 300ms ease, height 300ms ease !important;
         }
         button.carousel-indicator[data-active="true"] {
-          width: 8px !important;
-          height: 8px !important;
-          background-color: ${active.primary} !important;
+          width: 10px !important;
+          height: 10px !important;
+          background-color: ${active.accent} !important;
         }
       `}</style>
     </Box>
