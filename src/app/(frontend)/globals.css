@@ -312,17 +312,22 @@ html[data-theme='light'] {
   white-space: nowrap;
   position: relative;
   width: 100%;
-  padding: 2.5rem 0;
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  padding: 3rem 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .marquee-content {
   display: inline-flex;
-  gap: 4rem;
-  animation: marquee-scroll 35s linear infinite;
+  gap: 7rem;
+  animation: marquee-scroll 65s linear infinite;
   align-items: center;
   width: max-content;
+}
+
+/* Pause on hover for elegance */
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
 }
 
 @keyframes marquee-scroll {
@@ -335,40 +340,30 @@ html[data-theme='light'] {
 }
 
 .university-logo-img {
-  height: 38px;
+  height: 76px;
   width: auto;
   object-fit: contain;
-  opacity: 0.45;
+  opacity: 0.5;
   filter: grayscale(100%) brightness(0);
-  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.3s ease;
   user-select: none;
-}
-
-.university-logo-img[alt="Michigan"],
-.university-logo-img[alt="ANU"],
-.university-logo-img[alt="GCU"],
-.university-logo-img[alt="K-State"],
-.university-logo-img[alt="Princeton"],
-.university-logo-img[alt="Stanford"],
-.university-logo-img[alt="Oxford"],
-.university-logo-img[alt="Cambridge"] {
-  height: 56px;
+  pointer-events: none;
 }
 
 [data-theme='dark'] .university-logo-img {
-  opacity: 0.35;
+  opacity: 0.45;
   filter: grayscale(100%) brightness(0) invert(1);
 }
 
 .university-logo-img:hover {
-  opacity: 0.85;
+  opacity: 0.9;
   transform: translateY(-2px);
 }
 
 /* Force light-theme styling for watermarks and logos inside the light-themed scholarcrafted pages,
    regardless of whether the global HTML element has data-theme='dark' (e.g. system dark mode). */
 .scholarcrafted-root .university-logo-img {
-  opacity: 0.45 !important;
+  opacity: 0.5 !important;
   filter: grayscale(100%) brightness(0) !important;
 }
 
@@ -384,10 +379,10 @@ html[data-theme='light'] {
 }
 
 .scholarcrafted-root .dark-scholar-section .university-logo-img {
-  opacity: 0.45 !important;
+  opacity: 0.55 !important;
   filter: grayscale(100%) brightness(0) invert(1) !important;
 }
 
 .scholarcrafted-root .dark-scholar-section .university-logo-img:hover {
-  opacity: 0.95 !important;
+  opacity: 1 !important;
 }

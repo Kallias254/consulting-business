@@ -89,20 +89,15 @@ const homeFaqs = [
 
 const universities = [
   { name: 'Yale', logo: '/logos/Yale_University_logo.svg' },
-  { name: 'Princeton', logo: '/logos/Princeton_University-Logo.wine.svg' },
   { name: 'Stanford', logo: '/logos/stanford-university-logo-svgrepo-com.svg' },
   { name: 'Oxford', logo: '/logos/university-of-oxford-logo-1.svg' },
-  { name: 'Cambridge', logo: '/logos/University_of_Cambridge-Logo.wine.svg' },
   { name: 'MIT', logo: '/logos/Massachusetts_Institute_of_Technology-Logo.wine.svg' },
   { name: 'Columbia', logo: '/logos/cu-header.svg' },
   { name: 'Duke', logo: '/logos/duke-wordmark-white.svg' },
   { name: 'Michigan', logo: '/logos/University_of_Michigan-Logo.wine.svg' },
-  { name: 'ANU', logo: '/logos/Australian_National_University-Logo.wine.svg' },
-  { name: 'GCU', logo: '/logos/Grand_Canyon_University-Logo.wine.svg' },
-  { name: 'K-State', logo: '/logos/Kansas_State_University-Logo.wine.svg' },
-  { name: 'Harvard', logo: '/logos/Harvard_University_logo.svg' },
   { name: 'Johns Hopkins', logo: '/logos/Johns_Hopkins_University-Logo.wine.svg' },
-  { name: 'NCSU', logo: '/logos/North_Carolina_State_University_Athletic_logo.svg' },
+  { name: 'ANU', logo: '/logos/Australian_National_University-Logo.wine.svg' },
+  { name: 'K-State', logo: '/logos/Kansas_State_University-Logo.wine.svg' },
 ]
 
 const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
@@ -805,7 +800,7 @@ export default function ScholarCraftedLanding() {
       </Box>
 
       {/* University Logo Marquee */}
-      <Box component="section" className="dark-scholar-section" py={rem(60)} bg={active.primary}>
+      <Box component="section" className="dark-scholar-section" py={rem(48)} bg={active.primary}>
         
         {/* Full-width marquee outside container */}
         <Box style={{ width: '100%', overflow: 'hidden' }}>
