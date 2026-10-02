@@ -350,6 +350,13 @@ html[data-theme='light'] {
   pointer-events: none;
 }
 
+/* Logos that render too large at 76px — keep at original scale */
+.university-logo-img[alt="Columbia"],
+.university-logo-img[alt="Yale"],
+.university-logo-img[alt="Duke"] {
+  height: 40px;
+}
+
 [data-theme='dark'] .university-logo-img {
   opacity: 0.45;
   filter: grayscale(100%) brightness(0) invert(1);
