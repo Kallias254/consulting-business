@@ -66,8 +66,7 @@ export function Footer({ bg }: { bg?: string }) {
               lh={1.7}
               c="rgba(255,255,255,0.8)"
             >
-              A prestigious advisory firm dedicated to the rigorous oversight and structural
-              refinement of scholarly and doctoral research across the global academic community.
+              A faculty-led post-draft execution firm. We handle the technical production work — editing, indexing, citation audits, and publisher preparation — that turns a finished manuscript into a published work.
             </Text>
 
             {/* Social Channels */}
@@ -76,17 +75,17 @@ export function Footer({ bg }: { bg?: string }) {
                 CONNECT WITH OUR FACULTY
               </Text>
               <Group gap="md">
-                <a 
-                  href="https://www.linkedin.com" 
-                  target="_blank" 
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
                   rel="noreferrer"
                   className="social-icon-link"
                 >
                   <IconBrandLinkedin size={24} />
                 </a>
-                <a 
-                  href="https://instagram.com" 
-                  target="_blank" 
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
                   rel="noreferrer"
                   className="social-icon-link"
                 >
@@ -103,55 +102,27 @@ export function Footer({ bg }: { bg?: string }) {
               c="white"
               style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600 }}
             >
-              Advisory
+              Services
             </Text>
             <Stack gap="sm">
-              <Link
-                href="/scholarcrafted/services/private-coaching"
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <Text
-                  size="sm"
-                  className="footer-link"
-                  c="rgba(255,255,255,0.6)"
-                >
-                  Doctoral & Faculty Coaching
+              <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link" c="rgba(255,255,255,0.6)">
+                  Manuscript Editing & Compliance
                 </Text>
               </Link>
-              <Link
-                href="/scholarcrafted/services/editing-proofreading"
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <Text
-                  size="sm"
-                  className="footer-link"
-                  c="rgba(255,255,255,0.6)"
-                >
-                  Structural Editing & Proofreading
+              <Link href="/scholarcrafted/services/citation-audits" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link" c="rgba(255,255,255,0.6)">
+                  Citation & Reference Audits
                 </Text>
               </Link>
-              <Link
-                href="/scholarcrafted/services/research-support"
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <Text
-                  size="sm"
-                  className="footer-link"
-                  c="rgba(255,255,255,0.6)"
-                >
-                  Methodology Oversight
+              <Link href="/scholarcrafted/services/manuscript-preparation" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link" c="rgba(255,255,255,0.6)">
+                  Book & Journal Preparation
                 </Text>
               </Link>
-              <Link
-                href="/scholarcrafted/request-review"
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <Text
-                  size="sm"
-                  className="footer-link"
-                  c="rgba(255,255,255,0.6)"
-                >
-                  Strategic Review
+              <Link href="/scholarcrafted/services/indexing-proofs" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link" c="rgba(255,255,255,0.6)">
+                  Book Indexing & Page Proofs
                 </Text>
               </Link>
             </Stack>

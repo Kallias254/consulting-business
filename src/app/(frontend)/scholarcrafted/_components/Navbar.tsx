@@ -23,7 +23,8 @@ import { usePathname } from 'next/navigation'
 import {
   IconPencil,
   IconBook2,
-  IconCompass,
+  IconListCheck,
+  IconFileText,
   IconChevronDown,
 } from '@tabler/icons-react'
 
@@ -134,37 +135,51 @@ export function Navbar() {
                           <IconPencil size={22} />
                         </ThemeIcon>
                         <div>
-                          <Text size="sm" fw={600} c={active.primary}>Manuscript Editing & Evidence Grounding</Text>
+                          <Text size="sm" fw={600} c={active.primary}>Manuscript Editing & Compliance</Text>
                           <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            $0.044/word. Formatting, citation audits & exploratory AI draft reconstruction.
+                            Copyediting, style conformity, ProQuest & university deposit formatting.
                           </Text>
                         </div>
                       </Group>
                     </Link>
 
-                    <Link href="/scholarcrafted/services/research-support" className="mega-link">
+                    <Link href="/scholarcrafted/services/citation-audits" className="mega-link">
+                      <Group wrap="nowrap" align="center" p="lg">
+                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
+                          <IconListCheck size={22} />
+                        </ThemeIcon>
+                        <div>
+                          <Text size="sm" fw={600} c={active.primary}>Citation & Reference Audits</Text>
+                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
+                            DOI verification, reference list rebuilding & Zotero/EndNote cleanup.
+                          </Text>
+                        </div>
+                      </Group>
+                    </Link>
+
+                    <Link href="/scholarcrafted/services/manuscript-preparation" className="mega-link">
+                      <Group wrap="nowrap" align="center" p="lg">
+                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
+                          <IconFileText size={22} />
+                        </ThemeIcon>
+                        <div>
+                          <Text size="sm" fw={600} c={active.primary}>Book & Journal Preparation</Text>
+                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
+                            Thesis-to-article conversion, publisher proposals & submission packaging.
+                          </Text>
+                        </div>
+                      </Group>
+                    </Link>
+
+                    <Link href="/scholarcrafted/services/indexing-proofs" className="mega-link">
                       <Group wrap="nowrap" align="center" p="lg">
                         <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
                           <IconBook2 size={22} />
                         </ThemeIcon>
                         <div>
-                          <Text size="sm" fw={600} c={active.primary}>Research Support & Publishing Advisory</Text>
+                          <Text size="sm" fw={600} c={active.primary}>Book Indexing & Page Proofs</Text>
                           <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            Thesis-to-journal conversion, Routledge/Oxford book proposals & literature reviews.
-                          </Text>
-                        </div>
-                      </Group>
-                    </Link>
-
-                    <Link href="/scholarcrafted/services/private-coaching" className="mega-link">
-                      <Group wrap="nowrap" align="center" p="lg">
-                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
-                          <IconCompass size={22} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" fw={600} c={active.primary}>Doctoral & Faculty Career Coaching</Text>
-                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            1-on-1 mentorship with Dr. Micah Dobson (College Board AP Research Reader).
+                            Back-of-book indexing, galley proof review & publisher query resolution.
                           </Text>
                         </div>
                       </Group>
@@ -203,7 +218,7 @@ export function Navbar() {
                   className="impeccable-button"
                   style={{ backgroundColor: active.accent, color: '#ffffff', whiteSpace: 'nowrap', fontWeight: 600, border: 'none' }}
                 >
-                  GET STARTED
+                  SUBMIT A PROJECT
                 </Button>
               </Link>
             </Group>
@@ -286,9 +301,10 @@ export function Navbar() {
               </Text>
               <Stack gap={0}>
                 {[
-                  { href: '/scholarcrafted/services/editing-proofreading', label: 'Manuscript Editing & Evidence Grounding' },
-                  { href: '/scholarcrafted/services/research-support', label: 'Research & Publishing Advisory' },
-                  { href: '/scholarcrafted/services/private-coaching', label: 'Doctoral & Faculty Coaching' },
+                  { href: '/scholarcrafted/services/editing-proofreading', label: 'Manuscript Editing & Compliance' },
+                  { href: '/scholarcrafted/services/citation-audits', label: 'Citation & Reference Audits' },
+                  { href: '/scholarcrafted/services/manuscript-preparation', label: 'Book & Journal Preparation' },
+                  { href: '/scholarcrafted/services/indexing-proofs', label: 'Book Indexing & Page Proofs' },
                 ].map((item) => (
                   <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }} onClick={close}>
                     <Box
@@ -359,11 +375,11 @@ export function Navbar() {
                 radius={0}
                 style={{ backgroundColor: active.accent, color: '#fff', fontWeight: 700, border: 'none' }}
               >
-                GET STARTED
+                SUBMIT A PROJECT
               </Button>
             </Link>
             <Text size="xs" c="dimmed" mt={rem(10)} style={{ textAlign: 'center', letterSpacing: '0.04em' }}>
-              Strictly Confidential Faculty Advisory
+              100% Confidential · Faculty-Led Production
             </Text>
           </Box>
         </Drawer>

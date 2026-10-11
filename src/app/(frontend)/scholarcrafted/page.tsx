@@ -265,7 +265,7 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl" align="flex-start">
 
                 <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
-                  Academic Advisory
+                  Post-Draft Execution
                 </p>
 
                 <Title
@@ -278,16 +278,16 @@ export default function ScholarCraftedLanding() {
                     fontFamily: 'var(--font-serif)',
                   }}
                 >
-                  Your Research<br />Doesn&apos;t Stall Here.
+                  Your Manuscript<br />Doesn&apos;t End at Done.
                 </Title>
 
                 <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.80)', maxWidth: '48ch' }}>
-                  Faculty-led academic operations. We handle the formatting, compliance, and correspondence pipelines so you can focus on the research.
+                  Faculty-led post-draft execution. Formatting, indexing, citation audits, and publisher preparation — handled precisely so your work reaches publication on schedule.
                 </p>
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
                 <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
-                  <Link href="/scholarcrafted/request-review?service=editing" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -303,7 +303,7 @@ export default function ScholarCraftedLanding() {
                         fontSize: rem(15),
                       }}
                     >
-                      Get it off your plate
+                      Get It Off Your Plate
                     </Button>
                   </Link>
                   <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }} className="hero-btn-link">
@@ -323,7 +323,7 @@ export default function ScholarCraftedLanding() {
                         fontSize: rem(15),
                       }}
                     >
-                      Book a session
+                      Book a Project Review
                     </Button>
                   </Link>
                 </Group>
@@ -359,13 +359,13 @@ export default function ScholarCraftedLanding() {
             {/* GradCoach-style dual headline */}
             <Stack gap={rem(4)}>
               <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.18em' }}>
-                WHY YOU&apos;RE STUCK
+                THE POST-DRAFT PROBLEM
               </Text>
               <Title order={2} style={{ fontSize: "clamp(1.85rem, 4.2vw, 2.75rem)", color: active.primary, lineHeight: 1.15 }}>
-                It&apos;s not a capability problem.
+                Writing it was the hard part.
               </Title>
               <Title order={2} style={{ fontSize: "clamp(1.85rem, 4.2vw, 2.75rem)", color: `${active.primary}40`, lineHeight: 1.15, fontStyle: "italic" }}>
-                It&apos;s a clarity problem.
+                Getting it published is a different job.
               </Title>
             </Stack>
 
@@ -374,23 +374,23 @@ export default function ScholarCraftedLanding() {
               {[
                 {
                   num: '01',
-                  title: 'No clear direction',
-                  desc: 'You know what the work is — but not what to do next. So you keep circling the same decisions.',
+                  title: 'Index due in two weeks',
+                  desc: "You have no idea how to build a 300-entry back-of-book index, and the publisher isn't waiting.",
                 },
                 {
                   num: '02',
-                  title: "Feedback you can't action",
-                  desc: "Your advisor's comments are delayed, vague, or impossible to apply without a second conversation that never happens.",
+                  title: 'References that won\'t format right',
+                  desc: 'Zotero exported 200 entries with the wrong punctuation. Fixing them by hand will take a week.',
                 },
                 {
                   num: '03',
-                  title: 'Stuck in rewrite loops',
-                  desc: "The same sections, again and again. Hard work that doesn't move the needle.",
+                  title: 'Page proofs no one explained',
+                  desc: 'The publisher sent a typeset PDF with 40 margin queries and a 10-day deadline.',
                 },
                 {
                   num: '04',
-                  title: 'Formatting and admin overhead',
-                  desc: 'Citations, contributor chaos, journal style guides. Weeks that should go back into the research.',
+                  title: 'Proposal rejected on structure',
+                  desc: "The manuscript is ready. The proposal that gets it in front of an editor is not.",
                 },
               ].map((item, i) => (
                 <Box
@@ -425,7 +425,7 @@ export default function ScholarCraftedLanding() {
             </SimpleGrid>
 
             <p style={{ margin: 0, fontSize: rem(15), fontWeight: 500, color: `${active.primary}60`, borderTop: `1px solid ${active.primary}12`, paddingTop: rem(28) }}>
-              That&apos;s exactly what we help with.
+              That&apos;s exactly what we execute — so you can stay focused on the research.
             </p>
           </Stack>
         </Container>
@@ -616,7 +616,7 @@ export default function ScholarCraftedLanding() {
                 order={2}
                 mt="sm"
                 style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", color: active.primary, lineHeight: 1.15 }}>
-                Three ways we work with you.
+                Four execution services. One clear pipeline.
               </Title>
             </Box>
 
@@ -624,29 +624,38 @@ export default function ScholarCraftedLanding() {
               {[
                 {
                   num: '01',
-                  title: 'Manuscript Editing & Evidence Grounding',
-                  label: 'MANUSCRIPT COHERENCE',
-                  desc: 'APA/MLA/Chicago formatting, reference database auditing, publisher layout compliance, citation reconstruction, and AI draft rescue. Priced per word — transparent, no surprises.',
+                  title: 'Manuscript Editing & Compliance',
+                  label: 'MANUSCRIPT EDITING & COMPLIANCE',
+                  desc: 'Line-by-line copyediting, style conformity (APA, Chicago, MLA, Harvard), front and back matter formatting, ProQuest deposit compliance, and institutional guideline alignment. Priced per word — transparent, no surprises.',
                   link: '/scholarcrafted/services/editing-proofreading',
                   cta: 'Get an Editing Quote',
                   ctaVariant: 'filled' as const,
                 },
                 {
                   num: '02',
-                  title: 'Research Support & Publishing Advisory',
-                  label: 'METHODOLOGY & PUBLISHING',
-                  desc: 'Thesis-to-journal conversion, book proposals for Routledge, Oxford, and Springer, systematic literature reviews, and statistical scripting (SPSS/R/Python). Requires a strategy session first.',
-                  link: '/scholarcrafted/services/research-support',
-                  cta: 'Talk with Dr. Dobson',
+                  title: 'Citation & Reference Audits',
+                  label: 'CITATION & REFERENCE AUDITS',
+                  desc: 'Every inline citation cross-checked against its reference entry. DOI verification, dead link repair, Zotero and EndNote export cleanup, full reference list reformatting, and citation style conversion.',
+                  link: '/scholarcrafted/services/citation-audits',
+                  cta: 'Get a Reference Audit',
                   ctaVariant: 'outline' as const,
                 },
                 {
                   num: '03',
-                  title: 'Doctoral & Faculty Career Coaching',
-                  label: 'FACULTY MENTORSHIP',
-                  desc: '1-on-1 mentorship with Dr. Micah Dobson — AP Research Reader and active faculty. Defense preparation, career trajectory planning, and committee navigation for PhD and post-doctoral researchers.',
-                  link: '/scholarcrafted/services/private-coaching',
-                  cta: 'Talk with Dr. Dobson',
+                  title: 'Book & Journal Preparation',
+                  label: 'BOOK & JOURNAL PREPARATION',
+                  desc: 'Thesis-to-journal article conversion, publisher proposal packaging for major academic presses (Routledge, Oxford, SAGE, Cambridge), and journal submission formatting to exact target journal guidelines.',
+                  link: '/scholarcrafted/services/manuscript-preparation',
+                  cta: 'Explore Preparation',
+                  ctaVariant: 'outline' as const,
+                },
+                {
+                  num: '04',
+                  title: 'Book Indexing & Page Proofs',
+                  label: 'BOOK INDEXING & PAGE PROOFS',
+                  desc: 'Professional back-of-book subject and author indexing. Galley proof review — typesetting errors, broken tables, figure placement, copyeditor queries. Artwork and figure preparation available as an add-on.',
+                  link: '/scholarcrafted/services/indexing-proofs',
+                  cta: 'Enquire About Indexing',
                   ctaVariant: 'outline' as const,
                 },
               ].map((service, i) => (

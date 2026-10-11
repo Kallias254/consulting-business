@@ -17,54 +17,69 @@ import {
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
 import Link from 'next/link'
-import { IconFileCheck, IconBook2, IconCompass, IconArrowRight, IconShieldCheck } from '@tabler/icons-react'
+import { IconFileCheck, IconBook2, IconListCheck, IconFileText, IconArrowRight, IconShieldCheck } from '@tabler/icons-react'
 import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
 
 const coreServices = [
   {
-    title: 'Manuscript Editing & Production Support',
-    label: 'PILLAR 1: NO-CALL ASYNCHRONOUS REFINEMENT',
+    title: 'Manuscript Editing & Compliance',
+    label: 'PILLAR 1 — PER WORD FLAT RATE',
     badge: '$0.044 / word',
     icon: IconFileCheck,
-    desc: 'Exhaustive copyediting, APA/Chicago/ProQuest styling, and passage-grounded reference verification for Master’s theses, doctoral dissertations, and journal manuscripts. Includes specialized Evidence Reconstruction for client-brought exploratory AI drafts.',
+    desc: 'Line-by-line copyediting, style conformity, front and back matter layout, ProQuest deposit alignment, and institutional guideline compliance for Master\'s theses, doctoral dissertations, and journal manuscripts.',
     features: [
-      'Line-by-line grammar, flow, and scholarly syntax',
-      'Passage-grounded citation and DOI audit',
-      'ProQuest & university guideline alignment',
-      'Exploratory AI draft de-fusing & grounding',
+      'Line-by-line grammar, flow & scholarly syntax',
+      'APA, Chicago, MLA, Harvard & Turabian compliance',
+      'Front matter, back matter & TOC formatting',
+      'ProQuest & institutional deposit guidelines',
     ],
     link: '/scholarcrafted/services/editing-proofreading',
     cta: 'View Editing & Rate Calculator',
   },
   {
-    title: 'Research Support & Publishing Advisory',
-    label: 'PILLAR 2: STRATEGIC PUBLICATION CONSULTING',
-    badge: 'Milestone / Retainer',
-    icon: IconBook2,
-    desc: 'Transforming completed Master’s theses and doctoral dissertations into peer-reviewed journal articles, developing press-ready academic book proposals (Routledge, Oxford), and structuring complex literature reviews.',
+    title: 'Citation & Reference Audits',
+    label: 'PILLAR 2 — HOURLY / PER CHAPTER',
+    badge: '$90 / hour',
+    icon: IconListCheck,
+    desc: 'Systematic cross-checking of every inline citation against its reference entry. DOI verification, Zotero and EndNote export repair, reference list reconstruction, and full style conversion when needed.',
     features: [
-      'Thesis-to-journal article conversion sprints',
-      'Academic press proposal development & publisher pitches',
-      'Systematic literature review synthesis',
-      'Methodological design & qualitative/quantitative audit',
+      'Inline citation-to-reference matching',
+      'DOI verification & dead link repair',
+      'Zotero / EndNote export cleanup',
+      'Reference list rebuilt to required style',
     ],
-    link: '/scholarcrafted/services/research-support',
-    cta: 'Explore Publishing & Research',
+    link: '/scholarcrafted/services/citation-audits',
+    cta: 'Enquire About an Audit',
   },
   {
-    title: 'Doctoral & Academic Career Coaching',
-    label: 'PILLAR 3: 1-ON-1 FACULTY MENTORSHIP',
-    badge: 'Strategy Sessions',
-    icon: IconCompass,
-    desc: 'Direct advisory partnership led by Dr. Micah Dobson (Certified College Board AP Research Reader). Strategic guidance for overcoming committee gridlock, stalled writing milestones, defense preparation, and early-career tenure navigation.',
+    title: 'Book & Journal Preparation',
+    label: 'PILLAR 3 — FLAT PER PROJECT',
+    badge: 'Custom Scope',
+    icon: IconFileText,
+    desc: 'Thesis-to-journal article structural conversion, publisher proposal packaging to press templates (Routledge, Oxford, SAGE, Cambridge), and journal submission formatting to exact target journal guidelines.',
     features: [
-      'Defense preparation & committee feedback triage',
-      'Chapter-by-chapter accountability sprints',
-      'Tenure-track publication pipeline planning',
-      'Senior faculty-to-peer advisory sounding board',
+      'Thesis-to-article structural conversion',
+      'Publisher proposal & prospectus packaging',
+      'Journal submission formatting & word count compliance',
+      'Section-by-section advisory memo (add-on)',
     ],
-    link: '/scholarcrafted/services/private-coaching',
-    cta: 'Explore Coaching Packages',
+    link: '/scholarcrafted/services/manuscript-preparation',
+    cta: 'Explore Preparation Services',
+  },
+  {
+    title: 'Book Indexing & Page Proofs',
+    label: 'PILLAR 4 — PER TYPESET PAGE',
+    badge: 'From $3 / page',
+    icon: IconBook2,
+    desc: 'Professional back-of-book subject and author indexing to press specification. First-pass and second-pass galley proof review, typesetting error correction, and publisher copyeditor query resolution.',
+    features: [
+      'Subject & author index construction (Cindex spec)',
+      'Galley proof review — all typesetting error types',
+      'Publisher copyeditor query responses',
+      'Artwork & figure preparation (add-on)',
+    ],
+    link: '/scholarcrafted/services/indexing-proofs',
+    cta: 'Enquire About Indexing',
   },
 ]
 
@@ -86,7 +101,7 @@ export default function ServicesPage() {
               c={active.accent}
               style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
             >
-              Our Three Service Pillars
+              Post-Draft Execution Services
             </Text>
             <Title
               order={1}
@@ -99,16 +114,16 @@ export default function ServicesPage() {
                 fontFamily: 'var(--font-serif)',
               }}
             >
-              Faculty-level consulting, editorial polish, and scholarly publication.
+              From finished draft to published work — executed with precision.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.7} style={{ fontSize: rem(20) }}>
-              Whether you need rapid line-by-line dissertation compliance without a meeting, strategic guidance to convert your thesis into tier-1 journal articles, or 1-on-1 defense coaching from a certified evaluator of research design.
+              ScholarCrafted handles the technical production work that stands between your completed manuscript and publication. No coaching. No scope creep. Defined deliverables, transparent pricing, faculty-level execution.
             </Text>
           </Box>
         </Container>
       </Box>
 
-      {/* 3 Pillars Grid */}
+      {/* 4 Service Cards Grid */}
       <Box
         component="section"
         className="academic-watermark"
@@ -123,11 +138,11 @@ export default function ServicesPage() {
                 Structured Academic Solutions
               </Text>
               <Title order={2} mt="xs" style={{ fontSize: rem(40), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                Select the engagement model built for your current milestone.
+                Select the service that matches where your manuscript is right now.
               </Title>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, lg: 3 }} spacing="xl">
+            <SimpleGrid cols={{ base: 1, lg: 2 }} spacing="xl">
               {coreServices.map((service, i) => {
                 const Icon = service.icon
                 return (
@@ -207,29 +222,29 @@ export default function ServicesPage() {
         </Container>
       </Box>
 
-      {/* Trust & Moat Banner */}
+      {/* Trust Bar */}
       <Box py={rem(60)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={INNER_WIDTH}>
           <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
             <Group align="flex-start" gap="md">
               <IconShieldCheck size={28} color={active.accent} stroke={1.5} />
               <Stack gap={rem(4)}>
-                <Text fw={700} size="sm">Passage-Grounded Verification</Text>
-                <Text size="xs" c="dimmed">Unlike standard proofreading, our research harness audits inline citations directly against primary literature and DOIs.</Text>
+                <Text fw={700} size="sm">Zero Ghostwriting Guarantee</Text>
+                <Text size="xs" c="dimmed">We refine, format, and structure your own manuscript. Your intellectual content is always yours.</Text>
               </Stack>
             </Group>
             <Group align="flex-start" gap="md">
-              <IconCompass size={28} color={active.accent} stroke={1.5} />
+              <IconFileCheck size={28} color={active.accent} stroke={1.5} />
               <Stack gap={rem(4)}>
-                <Text fw={700} size="sm">Certified Research Evaluator</Text>
-                <Text size="xs" c="dimmed">Led by Dr. Micah Dobson, College Board AP Research Reader evaluating high-stakes academic research design.</Text>
+                <Text fw={700} size="sm">Track-Changes Delivery</Text>
+                <Text size="xs" c="dimmed">Every edit delivered in tracked-changes mode. You approve or reject each change. Nothing is silent.</Text>
               </Stack>
             </Group>
             <Group align="flex-start" gap="md">
               <IconBook2 size={28} color={active.accent} stroke={1.5} />
               <Stack gap={rem(4)}>
-                <Text fw={700} size="sm">Zero Ghostwriting Guarantee</Text>
-                <Text size="xs" c="dimmed">We honor university ethics and publisher guidelines. We refine and reconstruct your voice without compromising your authorship.</Text>
+                <Text fw={700} size="sm">Certified Academic Faculty</Text>
+                <Text size="xs" c="dimmed">Led by a College Board AP Research Reader. We understand what your press and committee expect.</Text>
               </Stack>
             </Group>
           </SimpleGrid>
