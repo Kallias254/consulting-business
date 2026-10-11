@@ -28,31 +28,25 @@ import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
 import { 
   IconCheck, 
-  IconMessageChatbot, 
-  IconRocket, 
-  IconFileCheck, 
-  IconShieldCheck, 
-  IconSearch, 
   IconDownload,
-  IconSend,
   IconClock,
   IconScale,
-  IconPencil
+  IconShieldCheck
 } from '@tabler/icons-react'
-import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
+import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
 
 const faqs = [
   {
-    q: 'How do I know if I need Editing or Consulting?',
-    a: "Editing is for manuscripts that are already written and need polishing. Consulting (Coaching) is for when you are stuck in the writing process itself. Our full Services Guide contains a detailed breakdown of this distinction.",
+    q: 'How do I know which editing tier my manuscript needs?',
+    a: "If your draft is already well-structured and written, but needs strict style manual compliance, mechanical polish, and formatting check, choose Tier 1 (Proofreading). If you want paragraph-level sentence polishing, academic tone refinement, and cadence, choose Tier 2 (Substantive Line Editing). If your manuscript needs chapter reorganization, section pacing, and argument flow, choose Tier 3 (Structural Refinement).",
   },
   {
-    q: 'What is your policy on ghostwriting?',
-    a: "We maintain absolute ethical standards. We do not provide ghostwriting services under any circumstances. We refine your voice; we do not replace it.",
+    q: 'What is your policy on ghostwriting or AI generation?',
+    a: "We maintain strict ethical standards. We work exclusively with human-authored prose in Track Changes. We do not generate new text, ghostwrite, or falsify scholarship under any circumstances. You retain 100% intellectual ownership of your work.",
   },
   {
-    q: 'Can you format to my specific university template?',
-    a: "Yes. While we default to APA, MLA, or Chicago, we can adapt to any specific institutional guidelines you provide during the intake process.",
+    q: 'Can you format to my specific university or journal template?',
+    a: "Yes. In addition to standard APA 7th, Chicago/Turabian, MLA 9th, and IEEE, we configure your document according to your university's exact graduate school handbook, ProQuest criteria, or publisher guidelines.",
   },
 ]
 
@@ -60,7 +54,6 @@ export default function EditingProofreadingPage() {
   const theme = useMantineTheme()
   const active = theme.other
   const [wordCount, setWordCount] = useState(30000)
-  const [hours, setHours] = useState(10)
   const [opened, { open, close }] = useDisclosure(false)
   const [selectedResource, setSelectedResource] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -87,31 +80,35 @@ export default function EditingProofreadingPage() {
                   style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                   c={active.accent}
                 >
-                  Manuscript Refinement
+                  Manuscript Refinement & Production
                 </Text>
                 <Title
                   order={1}
                   style={{
-                    fontSize: rem(64),
+                    fontSize: rem(60),
                     lineHeight: 1.1,
                     letterSpacing: '-0.02em',
                     color: active.primary,
                     fontFamily: 'var(--font-serif)'
                   }}
                 >
-                  Precision editing <br />
-                  for scholars.
+                  Precision technical editing for scholars.
                 </Title>
               </Stack>
               <Text size="lg" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-                Move from a working draft to a submission-ready manuscript with the clarity, 
-                tone, and authority required by your committee.
+                Move from a finished draft to a submission-ready manuscript with the strict style compliance,
+                prose clarity, and authoritative voice required by academic presses and graduate committees.
               </Text>
               
               <Group gap="md">
                 <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
                   <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                     GET A FREE QUOTE
+                  </Button>
+                </Link>
+                <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                  <Button size="lg" variant="outline" radius={0} style={{ borderColor: active.primary, color: active.primary }}>
+                    BOOK A PROJECT REVIEW
                   </Button>
                 </Link>
               </Group>
@@ -130,14 +127,14 @@ export default function EditingProofreadingPage() {
               >
                 <Stack gap="xl">
                   <Badge color="dark" variant="light" radius={0} style={{ alignSelf: 'flex-start' }} className="impeccable-eyebrow">
-                    SERVICES GUIDE
+                    EDITORIAL GUIDE
                   </Badge>
                   <Stack gap="xs">
                     <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary }}>
                       The Manuscript Refinement Guide
                     </Title>
                     <Text size="sm" c="dimmed" lh={1.6}>
-                      A comprehensive, step-by-step overview of our doctoral-level copyediting, formatting rules, compliance checks, and pricing tiers.
+                      A comprehensive, step-by-step overview of our doctoral-level copyediting, institutional formatting rules, style manuals (APA, Chicago, MLA), and delivery standards.
                     </Text>
                   </Stack>
                   <Button
@@ -163,27 +160,27 @@ export default function EditingProofreadingPage() {
           <Stack gap={rem(48)} align="center" style={{ textAlign: 'center' }}>
             <Box style={{ maxWidth: 700 }}>
               <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                The Quality Guarantee
+                Institutional-Grade Rigor
               </Text>
               <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)', lineHeight: 1.15 }}>
-                A higher standard of <br />academic rigor.
+                A higher standard of <br />academic editing.
               </Title>
             </Box>
 
             <Box style={{ maxWidth: 750 }}>
               <Text size="lg" c="dimmed" lh={1.8} style={{ fontSize: rem(20) }}>
-                Our editors are not just &ldquo;proofreaders&rdquo;—they are PhD-level academics who understand the 
-                nuance of your discipline. We don&apos;t just check for typos; we ensure your argument carries 
-                the authoritative voice expected by senior faculty.
+                Our editors are not generalist proofreaders—they are PhD-level academics who understand the 
+                nuance and conventions of scholarly publishing. We work exclusively in Microsoft Word Track Changes 
+                on human-authored manuscripts to ensure full transparency, authorship protection, and committee readiness.
               </Text>
             </Box>
 
             <Stack gap="md" style={{ width: '100%', maxWidth: 500, textAlign: 'left' }} mt="md">
               {[
-                'PhD-level subject matter expertise',
-                'Strict adherence to institutional guidelines',
-                'No-risk satisfaction guarantee on revisions',
-                'Asynchronous, secure manuscript handling'
+                'PhD-level academic editors in your disciplinary cluster',
+                'Strict compliance with institutional and publisher style guides',
+                'Delivered 100% in Track Changes with marginal annotations',
+                'Zero ghostwriting — authentic human scholarly voice preserved'
               ].map((item, i) => (
                 <Group key={i} gap="md" wrap="nowrap" align="center">
                   <ThemeIcon size={28} radius="xl" variant="light" color={active.accent}>
@@ -240,9 +237,9 @@ export default function EditingProofreadingPage() {
           ` }} />
           <div className="marquee-wrapper">
             <div className="marquee-content">
-              <span>✦ <strong>THE GUARANTEE:</strong> IF YOUR COMMITTEE REQUESTS REVISIONS RELATED SPECIFICALLY TO THE EDITING WE PERFORMED, WE WILL UNDERTAKE THOSE REVISIONS AT NO ADDITIONAL COST. WE STAND BY OUR RIGOR.</span>
-              <span>✦ <strong>THE GUARANTEE:</strong> IF YOUR COMMITTEE REQUESTS REVISIONS RELATED SPECIFICALLY TO THE EDITING WE PERFORMED, WE WILL UNDERTAKE THOSE REVISIONS AT NO ADDITIONAL COST. WE STAND BY OUR RIGOR.</span>
-              <span>✦ <strong>THE GUARANTEE:</strong> IF YOUR COMMITTEE REQUESTS REVISIONS RELATED SPECIFICALLY TO THE EDITING WE PERFORMED, WE WILL UNDERTAKE THOSE REVISIONS AT NO ADDITIONAL COST. WE STAND BY OUR RIGOR.</span>
+              <span>✦ <strong>THE RIGOR GUARANTEE:</strong> IF YOUR COMMITTEE OR PUBLISHER REQUESTS REVISIONS RELATED DIRECTLY TO EDITING WE PERFORMED, WE UNDERTAKE THOSE CORRECTIONS AT NO ADDITIONAL COST.</span>
+              <span>✦ <strong>THE RIGOR GUARANTEE:</strong> IF YOUR COMMITTEE OR PUBLISHER REQUESTS REVISIONS RELATED DIRECTLY TO EDITING WE PERFORMED, WE UNDERTAKE THOSE CORRECTIONS AT NO ADDITIONAL COST.</span>
+              <span>✦ <strong>THE RIGOR GUARANTEE:</strong> IF YOUR COMMITTEE OR PUBLISHER REQUESTS REVISIONS RELATED DIRECTLY TO EDITING WE PERFORMED, WE UNDERTAKE THOSE CORRECTIONS AT NO ADDITIONAL COST.</span>
             </div>
           </div>
         </Box>
@@ -257,10 +254,10 @@ export default function EditingProofreadingPage() {
                 How It Works
               </Text>
               <Title order={2} style={{ fontSize: rem(42), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                A Simple, Predictable Editorial Process.
+                Predictable, Asynchronous Workflow.
               </Title>
               <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                No complex portals or endless back-and-forth. We work directly with your Word documents and university formatting manual.
+                No endless meetings or back-and-forth ambiguity. We work directly with your complete draft and target style manual.
               </Text>
             </Box>
 
@@ -268,30 +265,30 @@ export default function EditingProofreadingPage() {
               <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
                 <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 01</Text>
                 <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
-                  Upload Manuscript & Style Guide
+                  Submit Draft & Guidelines
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Submit your draft (.docx) along with your university or journal guidelines. We confirm your word count and provide an exact turnaround date within 24 hours.
+                  Send your complete manuscript (.docx) and target guidelines (APA, Chicago, university template). We confirm your exact word count and delivery schedule within 24 hours.
                 </Text>
               </Box>
 
               <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
                 <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 02</Text>
                 <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
-                  Faculty Edit & Citation Audit
+                  Faculty Editorial Execution
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Our PhD editors refine your syntax, tone, and transitions, while our research engine checks inline citations against primary literature and DOIs.
+                  Our academic editors execute line-by-line refinements, polish syntax and transitions, and ensure strict style manual compliance throughout your document.
                 </Text>
               </Box>
 
               <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
                 <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 03</Text>
                 <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
-                  Defense-Ready Galley & Guarantee
+                  Tracked Delivery & Final Galley
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.6}>
-                  Receive a fully tracked manuscript with margin annotations. If your committee requests revisions related specifically to our editing, we perform them at no cost.
+                  Receive your manuscript with full tracked changes and margin queries, accompanied by a clean submission-ready version and editorial memo.
                 </Text>
               </Box>
             </SimpleGrid>
@@ -299,35 +296,40 @@ export default function EditingProofreadingPage() {
         </Container>
       </Box>
 
-      {/* Levels of Service (Simplified) */}
+      {/* Levels of Service (Editorial Tiers) */}
       <Box py={SECTION_SPACING} className="academic-watermark" bg={active.background}>
         <Container size={INNER_WIDTH}>
           <Stack gap={rem(60)}>
             <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
               <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                Our Services
+                Editorial Tiers
               </Text>
               <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                Comprehensive Refinement.
+                Choose Your Depth of Editing.
               </Title>
               <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                We provide a tiered approach to manuscript editing, from light proofreading to deep 
-                structural analysis and technical formatting.
+                Transparent word-based rates for dissertations, theses, journal submissions, and scholarly monographs.
               </Text>
             </Box>
 
             <SimpleGrid cols={{ base: 1, lg: 3 }} spacing={rem(24)}>
-              {/* Card 1: Dissertation & Thesis Formatting */}
+              {/* Card 1: Proofreading & Formatting */}
               <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Box>
-                    <Badge radius={0} color={active.primary} mb="md">TIER 1 — FLAT RATE</Badge>
-                    <Title order={3} style={{ fontSize: rem(26), fontFamily: 'var(--font-serif)' }}>Dissertation & Thesis Formatting</Title>
-                    <Text size="sm" c="dimmed" mt="xs">The gold standard for Master's theses and doctoral dissertations.</Text>
+                    <Badge radius={0} variant="outline" color={active.primary} mb="md">TIER 1 — POLISH & FORMAT</Badge>
+                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)' }}>Proofreading & Style Compliance</Title>
+                    <Text size="sm" c="dimmed" mt="xs">Ideal for clean, well-developed drafts needing final mechanical polish before deposit.</Text>
                   </Box>
                   
                   <Stack gap="sm">
-                    {['APA, MLA, Chicago Compliance', 'Mechanical & Grammatical Polish', 'Passage-Grounded Citation Audit', 'Table of Contents & ProQuest Layout'].map((item, i) => (
+                    {[
+                      'Mechanical & Grammatical Error Elimination',
+                      'Style Manual Adherence (APA, Chicago, MLA)',
+                      'Layout, Margins & Heading Hierarchy',
+                      'Table of Contents & Pagination Alignment',
+                      'Tracked Changes & Clean Formatted Copy'
+                    ].map((item, i) => (
                       <Group key={i} gap="xs" align="flex-start">
                         <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
                         <Text size="sm" fw={600}>{item}</Text>
@@ -365,12 +367,12 @@ export default function EditingProofreadingPage() {
                     <Stack gap={2}>
                       <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
                       <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
-                        ${(wordCount * 0.044).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ${(wordCount * 0.032).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.044 / word rate</Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.032 / word rate</Text>
                     </Stack>
-                    <Link href={`/scholarcrafted/request-review?service=Formatting&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
-                      <Button size="sm" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                    <Link href={`/scholarcrafted/request-review?service=Proofreading&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
+                      <Button size="sm" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
                         Get Quote
                       </Button>
                     </Link>
@@ -378,17 +380,24 @@ export default function EditingProofreadingPage() {
                 </Stack>
               </Box>
 
-              {/* Card 2: Targeted Technical Support */}
-              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
+              {/* Card 2: Substantive Line Editing (Primary Demand) */}
+              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `2px solid ${active.primary}`, display: 'flex', flexDirection: 'column', position: 'relative' }}>
                 <Stack gap="xl" flex={1}>
                   <Box>
-                    <Badge radius={0} variant="outline" color={active.primary} mb="md">HOURLY MILESTONES</Badge>
-                    <Title order={3} style={{ fontSize: rem(26), fontFamily: 'var(--font-serif)' }}>Technical Reference Support</Title>
-                    <Text size="sm" c="dimmed" mt="xs">Targeted assistance for bibliographies, tables, and ProQuest.</Text>
+                    <Badge radius={0} color={active.primary} mb="md">TIER 2 — MOST REQUESTED</Badge>
+                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)' }}>Substantive Line Editing</Title>
+                    <Text size="sm" c="dimmed" mt="xs">The gold standard for dissertations, scholarly articles, and book manuscripts.</Text>
                   </Box>
 
                   <Stack gap="sm">
-                    {['Reference List Reconstruction', 'Citation Cross-checking', 'ProQuest Compliance', 'Complex Table/Figure Assembly'].map((item, i) => (
+                    {[
+                      'Line-by-Line Sentence Rhythm & Clarity',
+                      'Discipline-Specific Academic Tone & Register',
+                      'Transitions, Coherence & Flow Refinement',
+                      'Trimming Wordiness & Passive Constructions',
+                      'Full Style Manual & Heading Compliance',
+                      'Editorial Margin Queries on Ambiguities'
+                    ].map((item, i) => (
                       <Group key={i} gap="xs" align="flex-start">
                         <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
                         <Text size="sm" fw={600}>{item}</Text>
@@ -400,16 +409,16 @@ export default function EditingProofreadingPage() {
 
                   <Box>
                     <Group justify="space-between" mb="xs">
-                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>ESTIMATED HOURS</Text>
-                      <Text size="sm" fw={700} c={active.primary}>{hours} hours</Text>
+                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>WORD COUNT</Text>
+                      <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
                     </Group>
                     <Slider
-                      value={hours}
-                      onChange={setHours}
-                      min={2}
-                      max={40}
-                      step={1}
-                      label={(val) => `${val} hours`}
+                      value={wordCount}
+                      onChange={setWordCount}
+                      min={5000}
+                      max={120000}
+                      step={5000}
+                      label={(val) => `${val.toLocaleString()} words`}
                       color={active.primary}
                       radius={0}
                       size="sm"
@@ -426,30 +435,37 @@ export default function EditingProofreadingPage() {
                     <Stack gap={2}>
                       <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
                       <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
-                        ${(hours * 90).toLocaleString()}
+                        ${(wordCount * 0.046).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$90 / hour rate</Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.046 / word rate</Text>
                     </Stack>
-                    <Link href={`/scholarcrafted/request-review?service=TechnicalSupport&hours=${hours}`} style={{ textDecoration: 'none' }}>
-                      <Button size="sm" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
-                        Enquire
+                    <Link href={`/scholarcrafted/request-review?service=LineEditing&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
+                      <Button size="sm" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                        Get Quote
                       </Button>
                     </Link>
                   </Group>
                 </Stack>
               </Box>
 
-              {/* Card 3: Evidence Reconstruction & Grounding (AI Draft Rescue) */}
-              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `2px solid ${active.accent}`, display: 'flex', flexDirection: 'column' }}>
+              {/* Card 3: Developmental & Structural Refinement */}
+              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
                 <Stack gap="xl" flex={1}>
                   <Box>
-                    <Badge radius={0} color={active.accent} mb="md">SPECIALIZED — PROTOTYPE RESCUE</Badge>
-                    <Title order={3} style={{ fontSize: rem(26), fontFamily: 'var(--font-serif)' }}>Evidence Reconstruction</Title>
-                    <Text size="sm" c="dimmed" mt="xs">Transform exploratory or AI-assisted drafts into authentic, verified scholarship.</Text>
+                    <Badge radius={0} color={active.accent} mb="md">TIER 3 — DEEP REFINEMENT</Badge>
+                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)' }}>Structural & Developmental Polish</Title>
+                    <Text size="sm" c="dimmed" mt="xs">Comprehensive structural analysis for dense monographs and multi-chapter works.</Text>
                   </Box>
 
                   <Stack gap="sm">
-                    {['Passage-Grounded Citation Audit', 'Replace & Repair Hallucinated Sources', '100% Human-Authored Prose Rewrite', 'Zero AI-Detection & Complete Integrity'].map((item, i) => (
+                    {[
+                      'Chapter & Section Sequencing Optimization',
+                      'Argument Pacing & Thematic Progression',
+                      'Synthesis & Transition Strengthening',
+                      'In-depth Marginal Editorial Diagnostics',
+                      'Includes Complete Line Editing & Proofreading',
+                      'Two Editorial Passes with Author Review'
+                    ].map((item, i) => (
                       <Group key={i} gap="xs" align="flex-start">
                         <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
                         <Text size="sm" fw={600}>{item}</Text>
@@ -487,13 +503,13 @@ export default function EditingProofreadingPage() {
                     <Stack gap={2}>
                       <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
                       <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.accent, lineHeight: 1.1 }}>
-                        ${(wordCount * 0.07).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ${(wordCount * 0.065).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.07 / word rate · Full Audit & Grounding</Text>
+                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.065 / word rate</Text>
                     </Stack>
-                    <Link href={`/scholarcrafted/request-review?service=EvidenceReconstruction&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/scholarcrafted/request-review?service=StructuralEditing&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
                       <Button size="sm" variant="filled" bg={active.accent} radius={0} className="impeccable-button" style={{ color: '#fff' }}>
-                        Rescue Draft
+                        Get Quote
                       </Button>
                     </Link>
                   </Group>
