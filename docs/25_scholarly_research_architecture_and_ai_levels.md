@@ -71,17 +71,18 @@ graph TD
 
 ### The 4-Step De-Fuser Protocol:
 1. **Atomic Claim Extraction**: Parse the client's draft into discrete factual assertions $C_1, C_2, \dots, C_n$, identifying the attached citations.
-2. **Academic Reality Check**: Query Crossref, Semantic Scholar, OpenAlex, or Google Scholar for each DOI/title:
+2. **Academic Reality Check (Powered by SemanticCite, OpenAlex & Crossref)**:
+   - Run **SemanticCite** against the Semantic Scholar Academic Graph (S2AG), Crossref, and OpenAlex for each DOI/title:
    - *Valid*: Paper exists, authors match, topic aligns.
    - *Hallucinated Metadata*: Paper does not exist or author/title is fabricated.
-   - *Misattributed*: Paper exists, but does not support the client's assertion.
-3. **The "Replace & Repair" Search**:
-   - If a citation is fabricated or misattributed, the engine searches the scholarly corpus for the *actual foundational literature* that establishes the claim.
+   - *Misattributed*: Paper exists, but SemanticCite citation-context analysis reveals the paper does not support the client's assertion.
+3. **The "Replace & Repair" Search (SemanticCite Discovery)**:
+   - If a citation is fabricated or misattributed, **SemanticCite** searches citation graphs and highly influential citations for the *actual foundational literature* that establishes the claim.
    - If peer-reviewed evidence exists, the citation is replaced with the authentic primary source.
    - If no peer-reviewed support exists, the claim is flagged to be cut or reframed.
 4. **Passage-Grounding & Audit Matrix**:
    - For every approved claim, extract the exact supporting quotation, section/page number, and evaluation status:
-     - `SUPPORTED`: Direct evidence supports the claim.
+     - `SUPPORTED`: Direct evidence supports the claim (verified via SemanticCite passage matching).
      - `PARTIAL`: Supports with caveats or narrower scope.
      - `CONTRADICTS`: Primary source states the opposite.
      - `FABRICATED`: No literature found.

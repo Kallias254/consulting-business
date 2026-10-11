@@ -203,6 +203,8 @@ export const CitationFlag = Node.create({
       verified: { default: false },
       doi: { default: '' },
       primaryPdfMatch: { default: false },
+      semanticCiteScore: { default: null }, // Cosine similarity & intent score from SemanticCite
+      citationIntent: { default: 'background' }, // 'methodology' | 'support' | 'contrast' | 'background'
     }
   },
 
@@ -269,7 +271,8 @@ graph TD
     end
 
     subgraph External_Scholarly_Corpus
-        OpenAlex[(OpenAlex / Crossref / Semantic Scholar)]
+        SemanticCiteEngine[(SemanticCite & S2AG Graph)]
+        OpenAlex[(OpenAlex & Crossref Metadata)]
         LocalPDFs[(Primary Uploaded PDFs)]
         KnowledgeBase[(concepts.yaml & debates.yaml)]
     end
@@ -280,8 +283,10 @@ graph TD
     Selection --> StyleThesify
     Selection --> Architect
 
+    DeFuser <--> SemanticCiteEngine
     DeFuser <--> OpenAlex
     DeFuser <--> LocalPDFs
+    Genealogy <--> SemanticCiteEngine
     Genealogy <--> OpenAlex
     Architect <--> KnowledgeBase
 
@@ -291,25 +296,26 @@ graph TD
     Architect -->|Contradiction Alerts| SidebarUI
 ```
 
-### Module 1: The De-Fuser Audit (Arm A)
+### Module 1: The De-Fuser Audit (Arm A — Powered by SemanticCite)
 - **Trigger**: New text pasted into editor, or explicit `sc-cli defuse` command.
 - **Process**:
   1. Extracts atomic claims ($C_1, C_2, \dots, C_n$).
-  2. Queries Crossref and OpenAlex API.
-  3. Executes vector similarity search against local `sources/primary_pdfs/`.
-  4. Returns claim status (`SUPPORTED`, `PARTIAL`, `CONTRADICTS`, `FABRICATED`).
+  2. Dispatches claims to **SemanticCite** for citation intent analysis (methodological, background, supportive, contrasting) and semantic similarity scoring.
+  3. Validates DOI metadata across Crossref, OpenAlex, and the Semantic Scholar Academic Graph (S2AG).
+  4. Executes vector similarity search against local `sources/primary_pdfs/`.
+  5. Evaluates passage-level alignment and outputs claim status (`SUPPORTED`, `PARTIAL`, `CONTRADICTS`, `FABRICATED`).
 - **Sidebar Action**:
-  - `[Replace & Ground]`: Swaps hallucinated citation with verified literature and applies tracked change.
-  - `[Attach Page Quote]`: Inserts supporting blockquote into manuscript comments.
+  - `[Replace & Ground]`: SemanticCite identifies the authentic foundational paper from the co-citation network and replaces the hallucinated reference via a Tracked Suggestion.
+  - `[Attach Page Quote]`: Inserts supporting verbatim blockquote into TipTap manuscript comments.
 
-### Module 2: 10-Year Intellectual Genealogy (Arm B)
+### Module 2: 10-Year Intellectual Genealogy (Arm B — SemanticCite Graph Traversal)
 - **Trigger**: Section outline build or bibliography pass.
 - **Process**:
-  - Parses cited publication years across the section.
-  - Builds citation histogram (e.g., 1995: 1, 2024: 6, 2025: 4).
+  - Traces the co-citation graph and citation velocity via **SemanticCite**.
+  - Parses cited publication years across the section and identifies seminal vs. incremental papers.
   - Flags chronological blindspots (e.g., *"0 citations between 2005–2020: Skips key structural critiques"*).
 - **Sidebar Action**:
-  - Recommends foundational papers bridging theoretical origins to current empirical work.
+  - Recommends foundational papers bridging theoretical origins to current empirical work based on high-influence citation centrality.
 
 ### Module 3: Thesify-Class Style, Tone & Cadence Engine
 - **Trigger**: Real-time keystroke debounce (500ms).
