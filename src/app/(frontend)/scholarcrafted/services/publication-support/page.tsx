@@ -14,6 +14,7 @@ import {
   Group,
   Accordion,
   Badge,
+  UnstyledButton,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
@@ -134,17 +135,18 @@ const journalTiers: JournalTier[] = [
 interface BookStage {
   step: string
   title: string
+  subtitle: string
   desc: string
   price: string
   turnaround: string
   includes: string[]
-  icon: React.ElementType
 }
 
 const bookStages: BookStage[] = [
   {
     step: '01',
     title: 'Publisher Selection',
+    subtitle: 'Find the right press before you write a word of your proposal.',
     desc: 'Identify the right academic press for your book before you write a single line of your proposal.',
     price: 'From $280',
     turnaround: '5–7 days',
@@ -154,12 +156,12 @@ const bookStages: BookStage[] = [
       'Routledge, Oxford, SAGE, Cambridge, Michigan, Cornell, and field-specific presses',
       'Guidance on open-access and hybrid publishing options',
     ],
-    icon: IconAward,
   },
   {
     step: '02',
     title: 'Book Proposal',
-    desc: 'A complete acquisition-ready proposal written to the publisher\'s template — the document that gets your book commissioned.',
+    subtitle: 'The document that gets your book commissioned.',
+    desc: 'A complete acquisition-ready proposal written to the publisher\'s template.',
     price: 'From $480',
     turnaround: '7–10 days',
     includes: [
@@ -170,12 +172,12 @@ const bookStages: BookStage[] = [
       'Sample chapter editing and polish',
       'Formatted to target publisher\'s proposal requirements',
     ],
-    icon: IconFileText,
   },
   {
     step: '03',
     title: 'Manuscript Editing',
-    desc: 'Full book-length editing to academic press standards — same rigour as our Editing & Compliance service, scaled to book scope.',
+    subtitle: 'Full book-length editing to academic press standards.',
+    desc: 'Same rigour as our Editing & Compliance service, scaled to book scope.',
     price: 'Per word — see Editing & Compliance',
     turnaround: 'Project-dependent',
     includes: [
@@ -185,11 +187,11 @@ const bookStages: BookStage[] = [
       'Reference list audit and DOI verification',
       'Front and back matter formatting',
     ],
-    icon: IconBooks,
   },
   {
     step: '04',
     title: 'Galley Proof Review',
+    subtitle: 'Catch errors before the final press run.',
     desc: 'First- and second-pass review of typeset page proofs before final press run.',
     price: 'Project-based',
     turnaround: '5–10 days',
@@ -200,12 +202,12 @@ const bookStages: BookStage[] = [
       'Table integrity and heading hierarchy verification',
       'Errata preparation and margin notes for press production editors',
     ],
-    icon: IconList,
   },
   {
     step: '05',
     title: 'Back-of-Book Indexing',
-    desc: 'Professional subject and author index built to press specification and delivered press-ready.',
+    subtitle: 'Professional index delivered press-ready.',
+    desc: 'Professional subject and author index built to press specification.',
     price: 'From $3 / typeset page',
     turnaround: '10–14 days',
     includes: [
@@ -215,23 +217,7 @@ const bookStages: BookStage[] = [
       'Delivered in press-ready Word, RTF, or plain text format',
       'Built using professional indexing software (Cindex / SKY Index)',
     ],
-    icon: IconList,
   },
-]
-
-// ─── PROBLEMS MAP ─────────────────────────────────────────────────────────────
-
-const problemsMap = [
-  { problem: 'Submitted to the wrong journal — desk rejected immediately', solution: 'Journal selection with rejection rate and scope analysis' },
-  { problem: 'No cover letter, or a cover letter that reads generic', solution: 'Cover letter written to the specific journal and contribution' },
-  { problem: 'Paper formatted wrong for the target journal', solution: 'Reformatting to exact Author Guidelines' },
-  { problem: 'Received a Revise & Resubmit — don\'t know how to respond', solution: 'Point-by-point response letter with editorial diplomacy check' },
-  { problem: 'Rejected — need to reformat for a different journal fast', solution: 'Resubmission formatting to new target journal' },
-  { problem: 'Want to turn a dissertation into a journal article', solution: 'Thesis-to-article structural conversion (under Essentials / Pro)' },
-  { problem: 'Don\'t know which publisher to approach for a book', solution: 'Publisher selection with ranked press recommendations' },
-  { problem: 'Need a book proposal but don\'t know what to include', solution: 'Acquisition-ready proposal built to publisher template' },
-  { problem: 'Galley proofs arrived with 2 weeks to return them', solution: 'Galley proof review — errors caught before final press run' },
-  { problem: 'Press needs an index and I have no idea where to start', solution: 'Back-of-book indexing to press specification' },
 ]
 
 // ─── FAQ ─────────────────────────────────────────────────────────────────────
@@ -270,9 +256,12 @@ const faqs = [
 // ─── PAGE COMPONENT ──────────────────────────────────────────────────────────
 
 export default function PublicationSupportPage() {
+  const [activeSection, setActiveSection] = useState<'journal' | 'book'>('journal')
   const [activeJournalTier, setActiveJournalTier] = useState<string>('pro')
+  const [activeBookStage, setActiveBookStage] = useState<number>(0)
 
   const selectedTier = journalTiers.find(t => t.id === activeJournalTier) ?? journalTiers[1]
+  const selectedStage = bookStages[activeBookStage] ?? bookStages[0]
 
   return (
     <>
@@ -281,254 +270,462 @@ export default function PublicationSupportPage() {
       {/* ── PAGE HEADER ──────────────────────────────────────────── */}
       <Box
         component="section"
-        pt={{ base: rem(100), md: rem(130) }}
-        pb={rem(72)}
-        style={{ backgroundColor: active.primary }}
+        pt={{ base: rem(120), md: rem(150) }}
+        pb={{ base: rem(60), md: rem(90) }}
+        bg={active.background}
+        style={{ borderBottom: `1px solid ${active.primary}12` }}
       >
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap={rem(20)} maw={720}>
-            <Text
-              size="xs"
-              fw={700}
-              style={{
-                letterSpacing: '0.16em',
-                color: active.accent,
-                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-              }}
-            >
-              PUBLICATION SUPPORT
-            </Text>
-            <Title
-              order={1}
-              style={{
-                fontSize: 'clamp(2.2rem, 4.8vw, 3.6rem)',
-                color: '#ffffff',
-                fontFamily: 'var(--font-serif)',
-                fontWeight: 600,
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              From submission to acceptance. We stay with you.
-            </Title>
-            <Text
-              size="lg"
-              lh={1.7}
-              style={{ color: 'rgba(255,255,255,0.75)', maxWidth: '58ch' }}
-            >
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap="xl" style={{ maxWidth: 860 }}>
+            <Box>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Submission &amp; Publication Pipeline
+              </Text>
+              <Title
+                order={1}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2.4rem, 5.2vw, 3.8rem)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.025em',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                From submission to acceptance. We stay with you.
+              </Title>
+            </Box>
+
+            <Text size="lg" c="dimmed" lh={1.75} style={{ fontSize: rem(19), maxWidth: '64ch' }}>
               Journal selection, cover letters, and response matrices for peer-reviewed articles.
               Publisher selection, book proposals, galley proofs, and indexing for book manuscripts.
               Two distinct pipelines — one team.
             </Text>
-            <Group gap={rem(12)} mt={rem(8)} wrap="wrap">
-              <a href="#journal-articles" style={{ textDecoration: 'none' }}>
-                <Button
-                  size="md"
-                  radius={0}
-                  style={{
-                    backgroundColor: active.accent,
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Journal Articles
-                </Button>
-              </a>
-              <a href="#book-manuscripts" style={{ textDecoration: 'none' }}>
-                <Button
-                  size="md"
-                  radius={0}
-                  variant="outline"
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    color: '#ffffff',
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Book Manuscripts
-                </Button>
-              </a>
+
+            {/* Quick stats */}
+            <Group gap="xl" wrap="wrap" pt="sm">
+              {[
+                'No call required to start',
+                'Firm price within 24 hours',
+                'Strict NDA on all manuscripts',
+              ].map(stat => (
+                <Group key={stat} gap="xs" align="center">
+                  <IconCheck size={18} color={active.accent} />
+                  <Text size="sm" fw={600} c={active.primary}>{stat}</Text>
+                </Group>
+              ))}
             </Group>
           </Stack>
         </Container>
       </Box>
 
-      {/* ── JOURNAL ARTICLES ──────────────────────────────────────── */}
+      {/* ── TOP-LEVEL SECTION TABS ────────────────────────────────── */}
       <Box
-        id="journal-articles"
-        component="section"
-        py={SECTION_SPACING}
-        bg={active.background}
+        style={{ borderBottom: `2px solid ${active.primary}10`, backgroundColor: active.background }}
+        py={0}
       >
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap={rem(64)}>
-
-            {/* Section header */}
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                mb="xs"
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Group gap={0}>
+            {([
+              { id: 'journal' as const, label: 'Journal Articles', icon: <IconFileText size={16} /> },
+              { id: 'book' as const, label: 'Book Manuscripts', icon: <IconBooks size={16} /> },
+            ]).map(tab => (
+              <UnstyledButton
+                key={tab.id}
+                onClick={() => setActiveSection(tab.id)}
+                px={rem(32)}
+                py={rem(20)}
                 style={{
-                  letterSpacing: '0.16em',
-                  color: active.accent,
-                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  borderBottom: activeSection === tab.id
+                    ? `2px solid ${active.accent}`
+                    : '2px solid transparent',
+                  marginBottom: rem(-2),
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: rem(8),
                 }}
               >
-                FOR JOURNAL ARTICLES
-              </Text>
-              <Title
-                order={2}
-                style={{
-                  fontSize: 'clamp(1.9rem, 3.6vw, 2.6rem)',
-                  fontFamily: 'var(--font-serif)',
-                  fontWeight: 600,
-                  lineHeight: 1.15,
-                  color: active.primary,
-                  letterSpacing: '-0.015em',
-                  maxWidth: '22ch',
-                }}
-              >
-                Get your paper in front of the right editors.
-              </Title>
-              <Text size="md" c="dimmed" mt="md" lh={1.75} style={{ maxWidth: '62ch' }}>
-                Most desk rejections have nothing to do with the quality of your research.
-                Wrong journal, missing disclosures, weak cover letter, formatting errors — these are fixable.
-                We fix them before your manuscript reaches an editor.
-              </Text>
-            </Box>
+                <Box style={{ color: activeSection === tab.id ? active.accent : '#aaa', display: 'flex', alignItems: 'center' }}>
+                  {tab.icon}
+                </Box>
+                <Text
+                  fw={activeSection === tab.id ? 700 : 500}
+                  size="sm"
+                  style={{
+                    color: activeSection === tab.id ? active.primary : '#888',
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    letterSpacing: '0.03em',
+                    transition: 'color 0.2s ease',
+                  }}
+                >
+                  {tab.label}
+                </Text>
+              </UnstyledButton>
+            ))}
+          </Group>
+        </Container>
+      </Box>
 
-            {/* Tier selector tabs */}
-            <Box>
-              <Group gap={0} mb={rem(0)} style={{ borderBottom: `2px solid ${active.primary}10` }}>
-                {journalTiers.map(tier => (
-                  <Box
-                    key={tier.id}
-                    onClick={() => setActiveJournalTier(tier.id)}
-                    px={rem(28)}
-                    py={rem(16)}
-                    style={{
-                      cursor: 'pointer',
-                      borderBottom: activeJournalTier === tier.id
-                        ? `2px solid ${active.accent}`
-                        : '2px solid transparent',
-                      marginBottom: rem(-2),
-                      position: 'relative',
-                    }}
-                  >
-                    <Group gap={rem(8)} align="center">
-                      <Text
-                        fw={activeJournalTier === tier.id ? 700 : 500}
-                        size="sm"
-                        style={{
-                          color: activeJournalTier === tier.id ? active.primary : '#888',
-                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                          letterSpacing: '0.02em',
-                          transition: 'color 0.2s ease',
-                        }}
-                      >
-                        {tier.name}
-                      </Text>
-                      {tier.isPopular && (
-                        <Badge
-                          size="xs"
-                          radius={0}
+      {/* ── JOURNAL ARTICLES SECTION ──────────────────────────────── */}
+      {activeSection === 'journal' && (
+        <Box component="section" py={SECTION_SPACING} bg={active.background}>
+          <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+            <Stack gap={rem(64)}>
+
+              {/* Section header */}
+              <Box>
+                <Text
+                  size="xs"
+                  fw={700}
+                  mb="xs"
+                  style={{
+                    letterSpacing: '0.16em',
+                    color: active.accent,
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
+                >
+                  FOR JOURNAL ARTICLES
+                </Text>
+                <Title
+                  order={2}
+                  style={{
+                    fontSize: 'clamp(1.9rem, 3.6vw, 2.6rem)',
+                    fontFamily: 'var(--font-serif)',
+                    fontWeight: 600,
+                    lineHeight: 1.15,
+                    color: active.primary,
+                    letterSpacing: '-0.015em',
+                    maxWidth: '22ch',
+                  }}
+                >
+                  Get your paper in front of the right editors.
+                </Title>
+                <Text size="md" c="dimmed" mt="md" lh={1.75} style={{ maxWidth: '62ch' }}>
+                  Most desk rejections have nothing to do with the quality of your research.
+                  Wrong journal, missing disclosures, weak cover letter, formatting errors — these are fixable.
+                  We fix them before your manuscript reaches an editor.
+                </Text>
+              </Box>
+
+              {/* Tier selector tabs */}
+              <Box>
+                <Group gap={0} style={{ borderBottom: `2px solid ${active.primary}10` }}>
+                  {journalTiers.map(tier => (
+                    <Box
+                      key={tier.id}
+                      onClick={() => setActiveJournalTier(tier.id)}
+                      px={rem(28)}
+                      py={rem(16)}
+                      style={{
+                        cursor: 'pointer',
+                        borderBottom: activeJournalTier === tier.id
+                          ? `2px solid ${active.accent}`
+                          : '2px solid transparent',
+                        marginBottom: rem(-2),
+                        position: 'relative',
+                      }}
+                    >
+                      <Group gap={rem(8)} align="center">
+                        <Text
+                          fw={activeJournalTier === tier.id ? 700 : 500}
+                          size="sm"
                           style={{
-                            backgroundColor: active.accent,
-                            color: '#fff',
+                            color: activeJournalTier === tier.id ? active.primary : '#888',
                             fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                            letterSpacing: '0.08em',
+                            letterSpacing: '0.02em',
+                            transition: 'color 0.2s ease',
                           }}
                         >
-                          POPULAR
-                        </Badge>
-                      )}
-                    </Group>
-                  </Box>
-                ))}
-              </Group>
+                          {tier.name}
+                        </Text>
+                        {tier.isPopular && (
+                          <Badge
+                            size="xs"
+                            radius={0}
+                            style={{
+                              backgroundColor: active.accent,
+                              color: '#fff',
+                              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                              letterSpacing: '0.08em',
+                            }}
+                          >
+                            POPULAR
+                          </Badge>
+                        )}
+                      </Group>
+                    </Box>
+                  ))}
+                </Group>
 
-              {/* Tier detail panel */}
+                {/* Tier detail panel */}
+                <Box
+                  p={{ base: rem(28), md: rem(44) }}
+                  style={{
+                    border: `1px solid ${active.primary}12`,
+                    borderTop: 'none',
+                    backgroundColor: active.surface,
+                  }}
+                >
+                  <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(48)}>
+                    {/* Left col */}
+                    <Stack gap={rem(24)}>
+                      <Box>
+                        <Text
+                          size="xs"
+                          fw={700}
+                          mb={rem(6)}
+                          style={{
+                            letterSpacing: '0.12em',
+                            color: active.accent,
+                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          }}
+                        >
+                          {selectedTier.badge}
+                        </Text>
+                        <Title
+                          order={3}
+                          style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: 'clamp(1.4rem, 2.4vw, 1.75rem)',
+                            fontWeight: 600,
+                            color: active.primary,
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {selectedTier.tagline}
+                        </Title>
+                      </Box>
+
+                      <SimpleGrid cols={2} spacing={rem(16)}>
+                        {[
+                          { label: 'Starting from', val: selectedTier.price },
+                          { label: 'Turnaround', val: selectedTier.turnaround },
+                        ].map(s => (
+                          <Box key={s.label} p={rem(16)} bg={active.background} style={{ border: `1px solid ${active.primary}10` }}>
+                            <Text size="xs" c="dimmed" mb={rem(4)} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)', letterSpacing: '0.08em' }}>
+                              {s.label}
+                            </Text>
+                            <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                              {s.val}
+                            </Text>
+                          </Box>
+                        ))}
+                      </SimpleGrid>
+
+                      <Box>
+                        <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.1em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                          BEST FOR
+                        </Text>
+                        <Text size="sm" c="dimmed" lh={1.7}>
+                          {selectedTier.bestFor}
+                        </Text>
+                      </Box>
+
+                      <Box>
+                        <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.1em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                          DELIVERABLES
+                        </Text>
+                        <Stack gap={rem(6)}>
+                          {selectedTier.deliverables.map((d, i) => (
+                            <Group key={i} gap={rem(8)} align="flex-start" wrap="nowrap">
+                              <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                              <Text size="sm" c="dimmed" lh={1.6}>{d}</Text>
+                            </Group>
+                          ))}
+                        </Stack>
+                      </Box>
+
+                      <Link href={`/scholarcrafted/request-review?service=publication-journal`} style={{ textDecoration: 'none' }}>
+                        <Button
+                          size="md"
+                          radius={0}
+                          rightSection={<IconArrowRight size={16} />}
+                          style={{
+                            backgroundColor: active.accent,
+                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            letterSpacing: '0.04em',
+                          }}
+                        >
+                          Enquire About {selectedTier.name}
+                        </Button>
+                      </Link>
+                    </Stack>
+
+                    {/* Right col — features */}
+                    <Stack gap={rem(8)}>
+                      <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.1em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                        WHAT&apos;S INCLUDED
+                      </Text>
+                      {selectedTier.features.map((f, i) => (
+                        <Group key={i} gap={rem(12)} align="flex-start" wrap="nowrap" py={rem(10)} style={{ borderBottom: `1px solid ${active.primary}08` }}>
+                          <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                          <Text size="sm" lh={1.65} c={active.primary}>{f}</Text>
+                        </Group>
+                      ))}
+                    </Stack>
+                  </SimpleGrid>
+                </Box>
+              </Box>
+            </Stack>
+          </Container>
+        </Box>
+      )}
+
+      {/* ── BOOK MANUSCRIPTS SECTION ──────────────────────────────── */}
+      {activeSection === 'book' && (
+        <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+          <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+            <Stack gap={rem(56)}>
+
+              {/* Section header */}
+              <Box>
+                <Text
+                  size="xs"
+                  fw={700}
+                  mb="xs"
+                  style={{
+                    letterSpacing: '0.16em',
+                    color: active.accent,
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
+                >
+                  FOR BOOK MANUSCRIPTS
+                </Text>
+                <Title
+                  order={2}
+                  style={{
+                    fontSize: 'clamp(1.9rem, 3.6vw, 2.6rem)',
+                    fontFamily: 'var(--font-serif)',
+                    fontWeight: 600,
+                    lineHeight: 1.15,
+                    color: active.primary,
+                    letterSpacing: '-0.015em',
+                    maxWidth: '24ch',
+                  }}
+                >
+                  From proposal to press. One team, every stage.
+                </Title>
+                <Text size="md" c="dimmed" mt="md" lh={1.75} style={{ maxWidth: '62ch' }}>
+                  Book publication moves in stages, not in one submission. Pick the stage you need now.
+                  We work with major academic presses — Routledge, Oxford, SAGE, Cambridge, Michigan, Cornell —
+                  and know exactly what each press expects at each stage.
+                </Text>
+              </Box>
+
+              {/* Stage tab buttons — horizontal row */}
+              <SimpleGrid cols={{ base: 2, sm: 3, md: 5 }} spacing={rem(2)}>
+                {bookStages.map((stage, i) => (
+                  <UnstyledButton
+                    key={i}
+                    onClick={() => setActiveBookStage(i)}
+                    p={rem(20)}
+                    style={{
+                      backgroundColor: activeBookStage === i ? active.background : 'transparent',
+                      borderBottom: activeBookStage === i
+                        ? `3px solid ${active.accent}`
+                        : `3px solid transparent`,
+                      borderTop: `1px solid ${active.primary}10`,
+                      borderLeft: `1px solid ${active.primary}10`,
+                      borderRight: `1px solid ${active.primary}10`,
+                      transition: 'background-color 0.2s ease',
+                      textAlign: 'left',
+                    }}
+                  >
+                    <Text
+                      size="xs"
+                      fw={700}
+                      mb={rem(4)}
+                      style={{
+                        color: activeBookStage === i ? active.accent : '#aaa',
+                        letterSpacing: '0.12em',
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        transition: 'color 0.2s ease',
+                      }}
+                    >
+                      {stage.step}
+                    </Text>
+                    <Text
+                      size="sm"
+                      fw={activeBookStage === i ? 700 : 500}
+                      style={{
+                        color: activeBookStage === i ? active.primary : '#666',
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        lineHeight: 1.35,
+                        transition: 'color 0.2s ease',
+                      }}
+                    >
+                      {stage.title}
+                    </Text>
+                  </UnstyledButton>
+                ))}
+              </SimpleGrid>
+
+              {/* Stage detail panel */}
               <Box
-                mt={rem(0)}
                 p={{ base: rem(28), md: rem(44) }}
-                style={{
-                  border: `1px solid ${active.primary}12`,
-                  borderTop: 'none',
-                  backgroundColor: active.surface,
-                }}
+                bg={active.background}
+                style={{ border: `1px solid ${active.primary}10` }}
               >
-                <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(48)}>
+                <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(56)}>
                   {/* Left col */}
-                  <Stack gap={rem(24)}>
+                  <Stack gap={rem(28)}>
                     <Box>
                       <Text
                         size="xs"
                         fw={700}
                         mb={rem(6)}
                         style={{
-                          letterSpacing: '0.12em',
                           color: active.accent,
+                          letterSpacing: '0.12em',
                           fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                         }}
                       >
-                        {selectedTier.badge}
+                        STAGE {selectedStage.step}
                       </Text>
                       <Title
                         order={3}
                         style={{
                           fontFamily: 'var(--font-serif)',
-                          fontSize: 'clamp(1.4rem, 2.4vw, 1.75rem)',
+                          fontSize: 'clamp(1.5rem, 2.6vw, 2rem)',
                           fontWeight: 600,
                           color: active.primary,
                           lineHeight: 1.2,
                         }}
                       >
-                        {selectedTier.tagline}
+                        {selectedStage.title}
                       </Title>
+                      <Text size="md" c="dimmed" mt={rem(8)} lh={1.7}>
+                        {selectedStage.desc}
+                      </Text>
                     </Box>
 
                     <SimpleGrid cols={2} spacing={rem(16)}>
                       {[
-                        { label: 'Starting from', val: selectedTier.price },
-                        { label: 'Turnaround', val: selectedTier.turnaround },
+                        { label: 'Pricing', val: selectedStage.price },
+                        { label: 'Turnaround', val: selectedStage.turnaround },
                       ].map(s => (
-                        <Box key={s.label} p={rem(16)} bg={active.background} style={{ border: `1px solid ${active.primary}10` }}>
+                        <Box key={s.label} p={rem(16)} bg={active.surface} style={{ border: `1px solid ${active.primary}08` }}>
                           <Text size="xs" c="dimmed" mb={rem(4)} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)', letterSpacing: '0.08em' }}>
                             {s.label}
                           </Text>
-                          <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                          <Text fw={700} size="md" c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)', lineHeight: 1.3 }}>
                             {s.val}
                           </Text>
                         </Box>
                       ))}
                     </SimpleGrid>
 
-                    <Box>
-                      <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.1em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                        BEST FOR
-                      </Text>
-                      <Text size="sm" c="dimmed" lh={1.7}>
-                        {selectedTier.bestFor}
-                      </Text>
-                    </Box>
-
-                    <Box>
-                      <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.1em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                        DELIVERABLES
-                      </Text>
-                      <Stack gap={rem(6)}>
-                        {selectedTier.deliverables.map((d, i) => (
-                          <Group key={i} gap={rem(8)} align="flex-start" wrap="nowrap">
-                            <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                            <Text size="sm" c="dimmed" lh={1.6}>{d}</Text>
-                          </Group>
-                        ))}
-                      </Stack>
-                    </Box>
-
-                    <Link href="/scholarcrafted/request-review?service=publication-journal" style={{ textDecoration: 'none' }}>
+                    <Link href={`/scholarcrafted/request-review?service=publication-book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
                       <Button
                         size="md"
                         radius={0}
@@ -539,262 +736,72 @@ export default function PublicationSupportPage() {
                           letterSpacing: '0.04em',
                         }}
                       >
-                        Enquire About {selectedTier.name}
+                        Enquire About Stage {selectedStage.step}
                       </Button>
                     </Link>
                   </Stack>
 
-                  {/* Right col — features */}
+                  {/* Right col — includes */}
                   <Stack gap={rem(8)}>
                     <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.1em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
                       WHAT&apos;S INCLUDED
                     </Text>
-                    {selectedTier.features.map((f, i) => (
+                    {selectedStage.includes.map((item, i) => (
                       <Group key={i} gap={rem(12)} align="flex-start" wrap="nowrap" py={rem(10)} style={{ borderBottom: `1px solid ${active.primary}08` }}>
                         <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
-                        <Text size="sm" lh={1.65} c={active.primary}>{f}</Text>
+                        <Text size="sm" lh={1.65} c={active.primary}>{item}</Text>
                       </Group>
                     ))}
+
+                    {/* Stage navigation hint */}
+                    <Group gap={rem(8)} mt={rem(16)} wrap="nowrap">
+                      {activeBookStage > 0 && (
+                        <UnstyledButton
+                          onClick={() => setActiveBookStage(activeBookStage - 1)}
+                          style={{
+                            fontSize: rem(13),
+                            color: '#888',
+                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            letterSpacing: '0.04em',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: rem(4),
+                          }}
+                        >
+                          ← Stage {bookStages[activeBookStage - 1]?.step}
+                        </UnstyledButton>
+                      )}
+                      {activeBookStage < bookStages.length - 1 && (
+                        <UnstyledButton
+                          onClick={() => setActiveBookStage(activeBookStage + 1)}
+                          style={{
+                            fontSize: rem(13),
+                            color: active.accent,
+                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            letterSpacing: '0.04em',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: rem(4),
+                            marginLeft: 'auto',
+                          }}
+                        >
+                          Stage {bookStages[activeBookStage + 1]?.step} →
+                        </UnstyledButton>
+                      )}
+                    </Group>
                   </Stack>
                 </SimpleGrid>
               </Box>
-            </Box>
-          </Stack>
-        </Container>
-      </Box>
-
-      <Divider color={`${active.primary}08`} />
-
-      {/* ── BOOK MANUSCRIPTS ──────────────────────────────────────── */}
-      <Box
-        id="book-manuscripts"
-        component="section"
-        py={SECTION_SPACING}
-        bg={active.surface}
-      >
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap={rem(64)}>
-
-            {/* Section header */}
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                mb="xs"
-                style={{
-                  letterSpacing: '0.16em',
-                  color: active.accent,
-                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                }}
-              >
-                FOR BOOK MANUSCRIPTS
-              </Text>
-              <Title
-                order={2}
-                style={{
-                  fontSize: 'clamp(1.9rem, 3.6vw, 2.6rem)',
-                  fontFamily: 'var(--font-serif)',
-                  fontWeight: 600,
-                  lineHeight: 1.15,
-                  color: active.primary,
-                  letterSpacing: '-0.015em',
-                  maxWidth: '24ch',
-                }}
-              >
-                From proposal to press. One team, every stage.
-              </Title>
-              <Text size="md" c="dimmed" mt="md" lh={1.75} style={{ maxWidth: '62ch' }}>
-                Book publication moves in stages, not in one submission. Pick the stage you need now.
-                We work with major academic presses — Routledge, Oxford, SAGE, Cambridge, Michigan, Cornell —
-                and know exactly what each press expects at each stage.
-              </Text>
-            </Box>
-
-            {/* Stage cards */}
-            <Stack gap={rem(2)}>
-              {bookStages.map((stage, i) => (
-                <Box
-                  key={i}
-                  p={{ base: rem(24), md: rem(36) }}
-                  bg={active.background}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 2fr 1fr',
-                    gap: rem(40),
-                    alignItems: 'start',
-                    borderTop: `1px solid ${active.primary}08`,
-                  }}
-                  className="book-stage-row"
-                >
-                  {/* Step + title */}
-                  <Stack gap={rem(6)}>
-                    <Text
-                      size="xs"
-                      fw={700}
-                      style={{
-                        color: active.accent,
-                        letterSpacing: '0.14em',
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      STAGE {stage.step}
-                    </Text>
-                    <Title
-                      order={3}
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: rem(20),
-                        fontWeight: 600,
-                        color: active.primary,
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      {stage.title}
-                    </Title>
-                    <Text size="sm" c="dimmed" lh={1.65} mt={rem(4)}>
-                      {stage.desc}
-                    </Text>
-                  </Stack>
-
-                  {/* What's included */}
-                  <Stack gap={rem(6)}>
-                    {stage.includes.map((item, j) => (
-                      <Group key={j} gap={rem(10)} align="flex-start" wrap="nowrap">
-                        <IconCheck size={13} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                        <Text size="sm" c="dimmed" lh={1.6}>{item}</Text>
-                      </Group>
-                    ))}
-                  </Stack>
-
-                  {/* Pricing + CTA */}
-                  <Stack gap={rem(10)} align="flex-start">
-                    <Box>
-                      <Text size="xs" c="dimmed" mb={rem(2)} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)', letterSpacing: '0.08em' }}>
-                        PRICING
-                      </Text>
-                      <Text fw={700} size="md" c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                        {stage.price}
-                      </Text>
-                    </Box>
-                    <Box>
-                      <Text size="xs" c="dimmed" mb={rem(2)} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)', letterSpacing: '0.08em' }}>
-                        TURNAROUND
-                      </Text>
-                      <Text size="sm" c={active.primary}>
-                        {stage.turnaround}
-                      </Text>
-                    </Box>
-                    <Link href={`/scholarcrafted/request-review?service=publication-book&stage=${stage.step}`} style={{ textDecoration: 'none' }}>
-                      <Button
-                        size="xs"
-                        radius={0}
-                        variant="outline"
-                        rightSection={<IconArrowRight size={13} />}
-                        style={{
-                          borderColor: `${active.primary}25`,
-                          color: active.primary,
-                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                          letterSpacing: '0.04em',
-                          marginTop: rem(4),
-                        }}
-                      >
-                        Enquire
-                      </Button>
-                    </Link>
-                  </Stack>
-                </Box>
-              ))}
             </Stack>
-
-            <style>{`
-              @media (max-width: 768px) {
-                .book-stage-row {
-                  grid-template-columns: 1fr !important;
-                  gap: 20px !important;
-                }
-              }
-            `}</style>
-          </Stack>
-        </Container>
-      </Box>
-
-      <Divider color={`${active.primary}08`} />
-
-      {/* ── PROBLEMS MAP ─────────────────────────────────────────── */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)}>
-            <Box>
-              <Text
-                size="xs"
-                fw={700}
-                mb="xs"
-                style={{
-                  letterSpacing: '0.16em',
-                  color: active.accent,
-                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                }}
-              >
-                COMMON SITUATIONS
-              </Text>
-              <Title
-                order={2}
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.7rem, 3.2vw, 2.3rem)',
-                  fontWeight: 600,
-                  color: active.primary,
-                  lineHeight: 1.2,
-                  letterSpacing: '-0.015em',
-                }}
-              >
-                Every situation has a solution.
-              </Title>
-              <Text size="md" c="dimmed" mt="md" lh={1.75}>
-                Most publication problems are predictable. We have handled all of them.
-                Match your situation to the right service below.
-              </Text>
-            </Box>
-
-            <Stack gap={rem(0)}>
-              {problemsMap.map((item, i) => (
-                <Box
-                  key={i}
-                  py={rem(16)}
-                  style={{ borderBottom: `1px solid ${active.primary}08` }}
-                >
-                  <Group gap={rem(16)} align="flex-start" wrap="nowrap">
-                    <Box
-                      style={{
-                        width: rem(6),
-                        height: rem(6),
-                        borderRadius: '50%',
-                        backgroundColor: active.accent,
-                        flexShrink: 0,
-                        marginTop: rem(8),
-                      }}
-                    />
-                    <Box style={{ flex: 1 }}>
-                      <Text size="sm" fw={500} c={active.primary} lh={1.5} mb={rem(3)}>
-                        {item.problem}
-                      </Text>
-                      <Text size="xs" c="dimmed" lh={1.5} style={{ fontStyle: 'italic' }}>
-                        → {item.solution}
-                      </Text>
-                    </Box>
-                  </Group>
-                </Box>
-              ))}
-            </Stack>
-          </SimpleGrid>
-        </Container>
-      </Box>
+          </Container>
+        </Box>
+      )}
 
       <Divider color={`${active.primary}08`} />
 
       {/* ── HOW IT WORKS ──────────────────────────────────────────── */}
-      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
+      <Box component="section" py={SECTION_SPACING} bg={activeSection === 'book' ? active.background : active.surface}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Box mb={rem(52)}>
             <Text
               size="xs"
@@ -960,7 +967,7 @@ export default function PublicationSupportPage() {
         py={rem(80)}
         style={{ backgroundColor: active.primary }}
       >
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)} style={{ alignItems: 'center' }}>
             <Stack gap={rem(16)}>
               <Title
@@ -1007,7 +1014,7 @@ export default function PublicationSupportPage() {
                     letterSpacing: '0.04em',
                   }}
                 >
-                  View Editing & Compliance
+                  View Editing &amp; Compliance
                 </Button>
               </Link>
             </Group>
