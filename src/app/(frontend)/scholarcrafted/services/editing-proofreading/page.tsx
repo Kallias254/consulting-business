@@ -566,11 +566,12 @@ export default function EditingProofreadingPage() {
                     <UnstyledButton
                       key={t.id}
                       onClick={() => setSelectedTierId(t.id)}
+                      data-dark-bg={selectedTierId === t.id ? 'true' : undefined}
                       style={{
                         padding: `${rem(12)} ${rem(14)}`,
                         border: `1px solid ${selectedTierId === t.id ? active.primary : `${active.primary}20`}`,
                         backgroundColor: selectedTierId === t.id ? active.primary : active.surface,
-                        color: selectedTierId === t.id ? active.background : active.primary,
+                        color: selectedTierId === t.id ? '#ffffff' : active.primary,
                         textAlign: 'center',
                         transition: 'all 0.15s ease',
                       }}
@@ -578,11 +579,12 @@ export default function EditingProofreadingPage() {
                       <Text
                         size="xs"
                         fw={700}
-                        style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                        c={selectedTierId === t.id ? '#ffffff' : active.primary}
+                        style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)', color: selectedTierId === t.id ? '#ffffff !important' : active.primary }}
                       >
                         {t.name}
                       </Text>
-                      <Text size="xs" c={selectedTierId === t.id ? active.accent : 'dimmed'} mt={2}>
+                      <Text size="xs" c={selectedTierId === t.id ? active.accent : 'dimmed'} data-accent={selectedTierId === t.id ? 'true' : undefined} mt={2}>
                         ${t.ratePerWord.toFixed(4)}/wd
                       </Text>
                     </UnstyledButton>

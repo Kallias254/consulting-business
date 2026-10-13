@@ -970,6 +970,8 @@ function PublicationSupportPageInner() {
       <Box
         component="section"
         py={rem(80)}
+        className="dark-scholar-section"
+        data-dark-bg="true"
         style={{ backgroundColor: active.primary }}
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>

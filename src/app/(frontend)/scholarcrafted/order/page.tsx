@@ -340,12 +340,13 @@ function OrderContent() {
                   onClick={() => setActiveTab(tab.id)}
                   px={rem(22)}
                   py={rem(14)}
+                  data-dark-bg={isCurrent ? 'true' : undefined}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: rem(12),
                     backgroundColor: isCurrent ? active.primary : active.surface,
-                    color: isCurrent ? '#fff' : active.primary,
+                    color: isCurrent ? '#ffffff' : active.primary,
                     border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
                     borderRadius: 0,
                     fontFamily: 'var(--font-heading-sans), var(--font-sans)',
@@ -360,10 +361,10 @@ function OrderContent() {
                     {tab.icon}
                   </Box>
                   <Box>
-                    <Text size="sm" fw={isCurrent ? 700 : 600} style={{ color: isCurrent ? '#fff' : active.primary, lineHeight: 1.2 }}>
+                    <Text size="sm" fw={isCurrent ? 700 : 600} c={isCurrent ? '#ffffff' : active.primary} style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}>
                       {tab.label}
                     </Text>
-                    <Text size="xs" style={{ color: isCurrent ? 'rgba(255,255,255,0.7)' : '#888', marginTop: rem(2) }}>
+                    <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
                       {tab.sub}
                     </Text>
                   </Box>
@@ -371,14 +372,16 @@ function OrderContent() {
                     px={rem(8)}
                     py={rem(3)}
                     style={{
-                      backgroundColor: isCurrent ? 'rgba(255,255,255,0.18)' : `${active.primary}08`,
+                      backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
                       fontSize: rem(11),
                       fontWeight: 700,
-                      color: isCurrent ? '#fff' : '#666',
+                      color: isCurrent ? '#ffffff' : '#666',
                       marginLeft: rem(4),
                     }}
                   >
-                    {tab.badge}
+                    <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
+                      {tab.badge}
+                    </Text>
                   </Box>
                 </UnstyledButton>
               )
@@ -674,17 +677,17 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
   return (
     <Box>
       {/* Full Pipeline Banner */}
-      <Box py={rem(32)} bg={active.primary} style={{ color: '#fff' }}>
+      <Box py={rem(32)} bg={active.primary} style={{ color: '#fff' }} data-dark-bg="true" className="dark-scholar-section">
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Group justify="space-between" align="center" wrap="wrap" gap="md">
             <Box style={{ maxWidth: 640 }}>
-              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
+              <Text size="xs" fw={700} c={active.accent} data-accent="true" style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
                 End-to-End Book Publication Pack
               </Text>
-              <Title order={2} mt={rem(4)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(22), fontWeight: 600, color: '#fff' }}>
+              <Title order={2} mt={rem(4)} c="#ffffff" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(22), fontWeight: 600, color: '#ffffff !important' }}>
                 Full 5-Stage Publishing Pipeline
               </Title>
-              <Text size="xs" mt={rem(6)} lh={1.6} style={{ color: 'rgba(255,255,255,0.7)' }}>
+              <Text size="xs" mt={rem(6)} lh={1.6} c="rgba(255,255,255,0.85)" data-dimmed-light="true" style={{ color: 'rgba(255,255,255,0.85) !important' }}>
                 Publisher selection → acquisition proposal → line editing → galley review → back-of-book indexing.
                 Coordinated by Micah Dobson from contract to press.
               </Text>
@@ -708,17 +711,18 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                 key={s.step}
                 onClick={() => setActiveIdx(i)}
                 px={rem(18)} py={rem(12)}
+                data-dark-bg={i === activeIdx ? 'true' : undefined}
                 style={{
                   backgroundColor: i === activeIdx ? active.primary : active.background,
-                  color: i === activeIdx ? '#fff' : active.primary,
+                  color: i === activeIdx ? '#ffffff' : active.primary,
                   border: `1px solid ${i === activeIdx ? active.primary : `${active.primary}14`}`,
                   flexShrink: 0,
                   transition: 'all 0.15s ease',
                   cursor: 'pointer',
                 }}
               >
-                <Text size="xs" fw={700} style={{ letterSpacing: '0.08em', color: i === activeIdx ? active.accent : '#888' }}>{s.step}</Text>
-                <Text size="xs" fw={i === activeIdx ? 700 : 500} mt={rem(2)} style={{ color: i === activeIdx ? '#fff' : active.primary }}>{s.title}</Text>
+                <Text size="xs" fw={700} c={i === activeIdx ? active.accent : '#888'} data-accent={i === activeIdx ? 'true' : undefined} style={{ letterSpacing: '0.08em' }}>{s.step}</Text>
+                <Text size="xs" fw={i === activeIdx ? 700 : 500} mt={rem(2)} c={i === activeIdx ? '#ffffff' : active.primary} style={{ color: i === activeIdx ? '#ffffff !important' : active.primary }}>{s.title}</Text>
               </UnstyledButton>
             ))}
           </Group>
