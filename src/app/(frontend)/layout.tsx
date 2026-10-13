@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
-import { Inter, EB_Garamond } from 'next/font/google'
+import { Inter, EB_Garamond, Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google'
 import React from 'react'
 
 import { Providers } from '@/providers'
@@ -18,6 +18,20 @@ const ebGaramond = EB_Garamond({
   display: 'swap',
 })
 
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-heading-sans',
+  display: 'swap',
+})
+
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
@@ -26,7 +40,11 @@ const inter = Inter({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className={cn(ebGaramond.variable, inter.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(ebGaramond.variable, cormorant.variable, jakarta.variable, inter.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <ColorSchemeScript defaultColorScheme="dark" />

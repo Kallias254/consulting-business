@@ -561,390 +561,543 @@ const stageData: ResearchStageItem[] = [
   },
 ]
 
-function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
-  // Deterministic mode selection on mount (one mode per visit, no toggle clutter)
-  const [viewMode, setViewMode] = useState<'need' | 'stage'>('need')
-  const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
+// ─── SECTION 1: Solutions for Every Stage (Research Journey) ───────────────
+
+function ResearchStageSection({ active }: { active: Record<string, string> }) {
   const [selectedStageIndex, setSelectedStageIndex] = useState(1) // Default to "Get expert editing"
-
-  useEffect(() => {
-    // Pick one clean view mode per refresh (50% chance of either view mode)
-    const pickedMode = Math.random() > 0.5 ? 'stage' : 'need'
-    setViewMode(pickedMode)
-  }, [])
-
-  const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
   const currentStage = stageData[selectedStageIndex] ?? stageData[1]
 
   return (
     <Box
+      id="research-stages"
       component="section"
       py={SECTION_SPACING}
-      bg={active.surface}
-      style={{ borderTop: `1px solid ${active.primary}12` }}
+      bg={active.background}
+      style={{
+        borderTop: `1px solid ${active.primary}12`,
+      }}
     >
-      <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
-        <Stack gap={rem(48)}>
-
-          {/* Section Header — Clean & Direct (No Mode Switch Buttons) */}
-          <Box style={{ maxWidth: 760 }}>
+      <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Stack gap={rem(40)}>
+          {/* Section Header */}
+          <Box style={{ maxWidth: 840 }}>
             <Text
               size="xs"
               fw={700}
               c={active.accent}
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+              style={{
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+              }}
             >
-              {viewMode === 'need' ? 'Find Your Starting Point' : 'Solutions for Every Stage'}
+              Solutions for Every Stage
             </Text>
             <Title
               order={2}
               mt="xs"
               style={{
-                fontSize: rem(38),
+                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
                 color: active.primary,
-                fontFamily: 'var(--font-serif)',
+                fontFamily: 'var(--font-display), var(--font-serif)',
+                fontWeight: 600,
                 lineHeight: 1.2,
+                letterSpacing: '-0.015em',
               }}
             >
-              {viewMode === 'need'
-                ? 'Where is your manuscript right now?'
-                : 'Solutions for every stage of your research journey.'}
+              Solutions for every stage of your research journey.
             </Title>
-            <Text size="md" mt="md" c="dimmed" lh={1.7}>
-              {viewMode === 'need'
-                ? 'Select the situation that matches yours. We will show you exactly what to do next.'
-                : 'From initial manuscript drafting to peer review response matrices and galley proofs — select your stage to view dedicated services.'}
+            <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '68ch' }}>
+              From initial draft scoping and thesis-to-article conversion to high-impact line editing, peer review reply matrices, and press galley proofs &mdash; select your stage to view dedicated execution tracks.
             </Text>
           </Box>
 
-          {/* VIEW MODE 1: By Situation (Interactive Vertical Tabs) */}
-          {viewMode === 'need' && (
-            <Box
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: rem(24),
-                alignItems: 'start',
-              }}
-              className="home-need-grid"
-            >
-              {/* Left Column: Situations List */}
-              <Box style={{ border: `1px solid ${active.primary}14`, backgroundColor: active.background }}>
-                {homeNeeds.map((need, i) => {
-                  const isActive = need.id === selectedId
-                  return (
-                    <UnstyledButton
-                      key={need.id}
-                      onClick={() => setSelectedId(need.id)}
-                      style={{ width: '100%', display: 'block' }}
+          {/* 6 Step Navigator Tabs */}
+          <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing={rem(6)}>
+            {stageData.map((stg, idx) => {
+              const isActive = idx === selectedStageIndex
+              return (
+                <UnstyledButton
+                  key={idx}
+                  onClick={() => setSelectedStageIndex(idx)}
+                  style={{ height: '100%' }}
+                >
+                  <Box
+                    p={rem(18)}
+                    bg={isActive ? active.primary : active.surface}
+                    style={{
+                      border: `1px solid ${isActive ? active.primary : `${active.primary}18`}`,
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: rem(6),
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Text
+                      size="xs"
+                      fw={700}
+                      c={active.accent}
+                      style={{
+                        letterSpacing: '0.14em',
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
                     >
-                      <Box
-                        px={rem(28)}
-                        py={rem(22)}
-                        style={{
-                          borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
-                          backgroundColor: isActive ? active.surface : 'transparent',
-                          transition: 'background-color 0.15s ease',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Group justify="space-between" align="center" wrap="nowrap" gap="md">
-                          <Stack gap={rem(4)}>
-                            <Text
-                              fw={isActive ? 700 : 500}
-                              size="sm"
-                              lh={1.4}
-                              style={{ color: isActive ? active.primary : `${active.primary}cc` }}
-                            >
-                              {need.label}
-                            </Text>
-                            <Text size="xs" c="dimmed" lh={1.4}>{need.subLabel}</Text>
-                          </Stack>
-                          <IconChevronRight
-                            size={16}
-                            color={isActive ? active.accent : `${active.primary}40`}
-                            style={{ flexShrink: 0, transition: 'color 0.15s ease' }}
-                          />
-                        </Group>
-                      </Box>
-                    </UnstyledButton>
-                  )
-                })}
-              </Box>
+                      {stg.step}
+                    </Text>
+                    <Text
+                      size="sm"
+                      fw={700}
+                      c={isActive ? active.background : active.primary}
+                      lh={1.3}
+                      style={{
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
+                    >
+                      {stg.label}
+                    </Text>
+                  </Box>
+                </UnstyledButton>
+              )
+            })}
+          </SimpleGrid>
 
-              {/* Right Column: Matched Service Cards */}
+          {/* Active Stage Header & Overview */}
+          <Box
+            p={rem(28)}
+            bg={active.surface}
+            style={{
+              border: `1px solid ${active.primary}16`,
+            }}
+          >
+            <Group justify="space-between" align="center" wrap="wrap" gap="md">
               <Box>
-                <Stack gap={rem(16)}>
-                  {selectedNeed.serviceIds.map((sid) => {
-                    const svc = homeServices[sid]
-                    if (!svc) return null
-                    const isRecommended = sid === selectedNeed.recommended
-                    return (
-                      <Box
-                        key={sid}
-                        p={rem(28)}
-                        bg={active.background}
-                        style={{
-                          border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}`,
-                        }}
-                      >
-                        <Stack gap="md">
-                          {isRecommended && (
-                            <Box
-                              px={rem(10)}
-                              py={rem(4)}
-                              style={{
-                                backgroundColor: active.accent,
-                                display: 'inline-flex',
-                                alignSelf: 'flex-start',
-                              }}
-                            >
-                              <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
-                                RECOMMENDED FOR YOU
-                              </Text>
-                            </Box>
-                          )}
-                          <Group justify="space-between" align="flex-start">
-                            <Title
-                              order={3}
-                              style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)', flex: 1 }}
-                            >
-                              {svc.title}
-                            </Title>
+                <Group gap="xs" align="center">
+                  <Text
+                    size="xs"
+                    fw={700}
+                    c={active.accent}
+                    style={{
+                      letterSpacing: '0.14em',
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}
+                  >
+                    {currentStage.step}
+                  </Text>
+                  <Text size="xs" c="dimmed">•</Text>
+                  <Text
+                    size="xs"
+                    fw={700}
+                    c={active.primary}
+                    style={{
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}
+                  >
+                    {currentStage.label}
+                  </Text>
+                </Group>
+                <Title
+                  order={3}
+                  mt={rem(6)}
+                  style={{
+                    fontSize: 'clamp(1.35rem, 2.4vw, 1.7rem)',
+                    fontFamily: 'var(--font-display), var(--font-serif)',
+                    color: active.primary,
+                    fontWeight: 600,
+                  }}
+                >
+                  {currentStage.subtitle}
+                </Title>
+                <Text size="sm" c="dimmed" mt={rem(4)} lh={1.65} style={{ maxWidth: '80ch' }}>
+                  {currentStage.stageOverview}
+                </Text>
+              </Box>
+            </Group>
+          </Box>
+
+          {/* Relevant Services for Selected Stage */}
+          <SimpleGrid
+            cols={{ base: 1, md: currentStage.services.length === 3 ? 3 : 2 }}
+            spacing="lg"
+          >
+            {currentStage.services.map((svc, sIdx) => (
+              <Box
+                key={sIdx}
+                p={{ base: rem(24), md: rem(36) }}
+                bg={active.background}
+                style={{
+                  border: `1px solid ${svc.isRecommended ? active.accent : `${active.primary}18`}`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  position: 'relative',
+                  boxShadow: svc.isRecommended ? `0 8px 32px ${active.accent}14` : 'none',
+                }}
+              >
+                {svc.isRecommended && (
+                  <Box
+                    px={rem(12)}
+                    py={rem(4)}
+                    mb="xs"
+                    style={{
+                      backgroundColor: active.accent,
+                      alignSelf: 'flex-start',
+                    }}
+                  >
+                    <Text
+                      size="xs"
+                      fw={700}
+                      c={active.background}
+                      style={{
+                        letterSpacing: '0.12em',
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
+                    >
+                      RECOMMENDED FOR THIS STAGE
+                    </Text>
+                  </Box>
+                )}
+
+                <Stack gap="xs">
+                  <Title
+                    order={3}
+                    style={{
+                      fontSize: 'clamp(1.25rem, 2vw, 1.45rem)',
+                      fontFamily: 'var(--font-display), var(--font-serif)',
+                      fontWeight: 600,
+                      lineHeight: 1.25,
+                      color: active.primary,
+                    }}
+                  >
+                    {svc.title}
+                  </Title>
+                  <Text size="xs" c="dimmed" lh={1.6} style={{ minHeight: rem(38) }}>
+                    {svc.tagline}
+                  </Text>
+                </Stack>
+
+                <Text
+                  fw={700}
+                  size="sm"
+                  c={active.accent}
+                  mt="sm"
+                  style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                >
+                  {svc.rate}
+                </Text>
+
+                <Box mt="md" mb="md">
+                  <Link href={svc.link} style={{ textDecoration: 'none' }}>
+                    <Button
+                      fullWidth
+                      radius={0}
+                      variant={svc.isRecommended ? 'filled' : 'outline'}
+                      style={{
+                        backgroundColor: svc.isRecommended ? active.accent : 'transparent',
+                        color: svc.isRecommended ? '#fff' : active.primary,
+                        borderColor: svc.isRecommended ? active.accent : active.primary,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        letterSpacing: '0.06em',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {svc.cta}
+                    </Button>
+                  </Link>
+                </Box>
+
+                {/* Features list */}
+                <Stack gap="xs" mb="lg">
+                  {svc.features.map((feat, fIdx) => (
+                    <Group key={fIdx} gap="xs" align="flex-start" wrap="nowrap">
+                      <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                      <Text size="xs" c={active.primary} lh={1.5}>
+                        {feat}
+                      </Text>
+                    </Group>
+                  ))}
+                </Stack>
+
+                <Divider color={`${active.primary}12`} my="sm" />
+
+                {/* When to choose */}
+                <Stack gap={rem(6)} mt="auto">
+                  <Text
+                    size="xs"
+                    fw={700}
+                    c={active.accent}
+                    style={{
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}
+                  >
+                    When to choose
+                  </Text>
+                  {svc.whenToChoose.map((wtc, wIdx) => (
+                    <Text key={wIdx} size="xs" c="dimmed" lh={1.5}>
+                      • {wtc}
+                    </Text>
+                  ))}
+                </Stack>
+              </Box>
+            ))}
+          </SimpleGrid>
+
+          {/* Compare Link */}
+          <Box style={{ textAlign: 'center' }}>
+            <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="subtle"
+                radius={0}
+                color={active.primary}
+                rightSection={<IconArrowRight size={16} />}
+                style={{
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                Explore all Academic Execution Services & Rates
+              </Button>
+            </Link>
+          </Box>
+        </Stack>
+      </Container>
+    </Box>
+  )
+}
+
+// ─── SECTION 2: Find Your Starting Point (By Situation) ──────────────────────
+
+function ManuscriptSituationSection({ active }: { active: Record<string, string> }) {
+  const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
+  const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
+
+  return (
+    <Box
+      id="starting-point"
+      component="section"
+      py={SECTION_SPACING}
+      bg={active.surface}
+      style={{
+        borderTop: `1px solid ${active.primary}12`,
+        borderBottom: `1px solid ${active.primary}12`,
+      }}
+    >
+      <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Stack gap={rem(48)}>
+          {/* Section Header */}
+          <Box style={{ maxWidth: 840 }}>
+            <Text
+              size="xs"
+              fw={700}
+              c={active.accent}
+              style={{
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+              }}
+            >
+              Find Your Starting Point
+            </Text>
+            <Title
+              order={2}
+              mt="xs"
+              style={{
+                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                color: active.primary,
+                fontFamily: 'var(--font-display), var(--font-serif)',
+                fontWeight: 600,
+                lineHeight: 1.2,
+                letterSpacing: '-0.015em',
+              }}
+            >
+              Where is your manuscript right now?
+            </Title>
+            <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '68ch' }}>
+              Select the situation that matches where your draft stands right now. We will map you directly to the exact editorial or compliance protocol you need.
+            </Text>
+          </Box>
+
+          {/* Interactive Situations Grid */}
+          <Box
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1.05fr 1.15fr',
+              gap: rem(28),
+              alignItems: 'start',
+            }}
+            className="home-need-grid"
+          >
+            {/* Left Column: Situations List */}
+            <Box style={{ border: `1px solid ${active.primary}14`, backgroundColor: active.background }}>
+              {homeNeeds.map((need, i) => {
+                const isActive = need.id === selectedId
+                return (
+                  <UnstyledButton
+                    key={need.id}
+                    onClick={() => setSelectedId(need.id)}
+                    style={{ width: '100%', display: 'block' }}
+                  >
+                    <Box
+                      px={{ base: rem(20), md: rem(28) }}
+                      py={{ base: rem(18), md: rem(22) }}
+                      style={{
+                        borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
+                        backgroundColor: isActive ? active.surface : 'transparent',
+                        transition: 'background-color 0.15s ease',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <Group justify="space-between" align="center" wrap="nowrap" gap="md">
+                        <Stack gap={rem(4)}>
+                          <Text
+                            fw={isActive ? 700 : 500}
+                            size="sm"
+                            lh={1.4}
+                            style={{
+                              color: isActive ? active.primary : `${active.primary}cc`,
+                              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            }}
+                          >
+                            {need.label}
+                          </Text>
+                          <Text size="xs" c="dimmed" lh={1.4}>{need.subLabel}</Text>
+                        </Stack>
+                        <IconChevronRight
+                          size={16}
+                          color={isActive ? active.accent : `${active.primary}40`}
+                          style={{ flexShrink: 0, transition: 'color 0.15s ease' }}
+                        />
+                      </Group>
+                    </Box>
+                  </UnstyledButton>
+                )
+              })}
+            </Box>
+
+            {/* Right Column: Matched Service Cards */}
+            <Box>
+              <Stack gap={rem(18)}>
+                {selectedNeed.serviceIds.map((sid) => {
+                  const svc = homeServices[sid]
+                  if (!svc) return null
+                  const isRecommended = sid === selectedNeed.recommended
+                  return (
+                    <Box
+                      key={sid}
+                      p={{ base: rem(24), md: rem(32) }}
+                      bg={active.background}
+                      style={{
+                        border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}`,
+                        boxShadow: isRecommended ? `0 8px 32px ${active.accent}14` : 'none',
+                      }}
+                    >
+                      <Stack gap="md">
+                        {isRecommended && (
+                          <Box
+                            px={rem(10)}
+                            py={rem(4)}
+                            style={{
+                              backgroundColor: active.accent,
+                              display: 'inline-flex',
+                              alignSelf: 'flex-start',
+                            }}
+                          >
                             <Text
                               size="xs"
                               fw={700}
-                              c={active.accent}
+                              c={active.background}
                               style={{
-                                border: `1px solid ${active.accent}`,
-                                padding: `${rem(3)} ${rem(8)}`,
-                                whiteSpace: 'nowrap',
-                                flexShrink: 0,
-                                marginLeft: rem(12),
+                                letterSpacing: '0.12em',
+                                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                               }}
                             >
-                              {svc.badge}
+                              RECOMMENDED FOR YOU
                             </Text>
-                          </Group>
-                          <Text size="sm" c="dimmed" lh={1.65}>{svc.desc}</Text>
-                          <Link href={svc.link} style={{ textDecoration: 'none' }}>
-                            <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.04em' }}>
-                              {svc.cta} →
-                            </Text>
-                          </Link>
-                        </Stack>
-                      </Box>
-                    )
-                  })}
-
-                  <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
-                    <Group justify="space-between" align="center" wrap="nowrap">
-                      <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
-                        Not sure which tier? Submit your manuscript for a free scope assessment — reply in 24 hours.
-                      </Text>
-                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
-                        <Button
-                          variant="filled"
-                          radius={0}
-                          size="sm"
-                          style={{ backgroundColor: active.primary, color: active.background }}
-                          rightSection={<IconArrowRight size={14} />}
-                        >
-                          Free Assessment
-                        </Button>
-                      </Link>
-                    </Group>
-                  </Box>
-                </Stack>
-              </Box>
-            </Box>
-          )}
-
-          {/* VIEW MODE 2: By Research Stage (Stage Navigator + Relevant Services) */}
-          {viewMode === 'stage' && (
-            <Stack gap={rem(32)}>
-              {/* 6 Step Navigator Tabs */}
-              <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing={rem(4)}>
-                {stageData.map((stg, idx) => {
-                  const isActive = idx === selectedStageIndex
-                  return (
-                    <UnstyledButton
-                      key={idx}
-                      onClick={() => setSelectedStageIndex(idx)}
-                      style={{ height: '100%' }}
-                    >
-                      <Box
-                        p={rem(16)}
-                        bg={isActive ? active.primary : active.background}
-                        style={{
-                          border: `1px solid ${isActive ? active.primary : `${active.primary}18`}`,
-                          height: '100%',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: rem(4),
-                          transition: 'all 0.15s ease',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Text
-                          size="xs"
-                          fw={700}
-                          c={isActive ? active.accent : active.accent}
-                          style={{ letterSpacing: '0.12em' }}
-                        >
-                          {stg.step}
-                        </Text>
-                        <Text
-                          size="sm"
-                          fw={700}
-                          c={isActive ? active.background : active.primary}
-                          lh={1.25}
-                        >
-                          {stg.label}
-                        </Text>
-                      </Box>
-                    </UnstyledButton>
-                  )
-                })}
-              </SimpleGrid>
-
-              {/* Active Stage Header & Description */}
-              <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
-                <Group justify="space-between" align="center" wrap="wrap" gap="md">
-                  <Box>
-                    <Group gap="xs" align="center">
-                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>
-                        {currentStage.step}
-                      </Text>
-                      <Text size="xs" c="dimmed">•</Text>
-                      <Text size="xs" fw={700} c={active.primary} style={{ textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {currentStage.label}
-                      </Text>
-                    </Group>
-                    <Title order={3} mt={rem(4)} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
-                      {currentStage.subtitle}
-                    </Title>
-                    <Text size="sm" c="dimmed" mt={rem(4)} lh={1.6}>
-                      {currentStage.stageOverview}
-                    </Text>
-                  </Box>
-                </Group>
-              </Box>
-
-              {/* Relevant Services for Selected Stage */}
-              <SimpleGrid
-                cols={{ base: 1, md: currentStage.services.length === 3 ? 3 : 2 }}
-                spacing="lg"
-              >
-                {currentStage.services.map((svc, sIdx) => (
-                  <Box
-                    key={sIdx}
-                    p={rem(32)}
-                    bg={active.background}
-                    style={{
-                      border: `1px solid ${svc.isRecommended ? active.accent : `${active.primary}18`}`,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      position: 'relative',
-                    }}
-                  >
-                    {svc.isRecommended && (
-                      <Box
-                        px={rem(10)}
-                        py={rem(3)}
-                        mb="xs"
-                        style={{
-                          backgroundColor: active.accent,
-                          alignSelf: 'flex-start',
-                        }}
-                      >
-                        <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
-                          RECOMMENDED FOR THIS STAGE
-                        </Text>
-                      </Box>
-                    )}
-
-                    <Stack gap="xs">
-                      <Title order={3} style={{ fontSize: rem(21), fontFamily: 'var(--font-serif)' }}>
-                        {svc.title}
-                      </Title>
-                      <Text size="xs" c="dimmed" lh={1.5} style={{ minHeight: rem(36) }}>
-                        {svc.tagline}
-                      </Text>
-                    </Stack>
-
-                    <Text fw={700} size="sm" c={active.accent} mt="sm">
-                      {svc.rate}
-                    </Text>
-
-                    <Box mt="md" mb="md">
-                      <Link href={svc.link} style={{ textDecoration: 'none' }}>
-                        <Button
-                          fullWidth
-                          radius={0}
-                          variant={svc.isRecommended ? 'filled' : 'outline'}
-                          style={{
-                            backgroundColor: svc.isRecommended ? active.accent : 'transparent',
-                            color: svc.isRecommended ? '#fff' : active.primary,
-                            borderColor: svc.isRecommended ? active.accent : active.primary,
-                          }}
-                        >
-                          {svc.cta}
-                        </Button>
-                      </Link>
-                    </Box>
-
-                    {/* Features list */}
-                    <Stack gap="xs" mb="lg">
-                      {svc.features.map((feat, fIdx) => (
-                        <Group key={fIdx} gap="xs" align="flex-start" wrap="nowrap">
-                          <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
-                          <Text size="xs" c={active.primary} lh={1.4}>
-                            {feat}
+                          </Box>
+                        )}
+                        <Group justify="space-between" align="flex-start">
+                          <Title
+                            order={3}
+                            style={{
+                              fontSize: 'clamp(1.25rem, 2vw, 1.45rem)',
+                              fontFamily: 'var(--font-display), var(--font-serif)',
+                              fontWeight: 600,
+                              color: active.primary,
+                              flex: 1,
+                            }}
+                          >
+                            {svc.title}
+                          </Title>
+                          <Text
+                            size="xs"
+                            fw={700}
+                            c={active.accent}
+                            style={{
+                              border: `1px solid ${active.accent}`,
+                              padding: `${rem(3)} ${rem(8)}`,
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                              marginLeft: rem(12),
+                              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            }}
+                          >
+                            {svc.badge}
                           </Text>
                         </Group>
-                      ))}
-                    </Stack>
+                        <Text size="sm" c="dimmed" lh={1.7}>{svc.desc}</Text>
+                        <Link href={svc.link} style={{ textDecoration: 'none' }}>
+                          <Text
+                            size="sm"
+                            fw={700}
+                            c={active.accent}
+                            style={{
+                              letterSpacing: '0.04em',
+                              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            }}
+                          >
+                            {svc.cta} →
+                          </Text>
+                        </Link>
+                      </Stack>
+                    </Box>
+                  )
+                })}
 
-                    <Divider color={`${active.primary}12`} my="sm" />
-
-                    {/* When to choose */}
-                    <Stack gap={rem(6)} mt="auto">
-                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                        When to choose
-                      </Text>
-                      {svc.whenToChoose.map((wtc, wIdx) => (
-                        <Text key={wIdx} size="xs" c="dimmed" lh={1.5}>
-                          • {wtc}
-                        </Text>
-                      ))}
-                    </Stack>
-                  </Box>
-                ))}
-              </SimpleGrid>
-
-              {/* Bottom Navigation Prompt */}
-              <Box style={{ textAlign: 'center' }}>
-                <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
-                  <Button
-                    variant="subtle"
-                    radius={0}
-                    color={active.primary}
-                    rightSection={<IconArrowRight size={16} />}
-                  >
-                    Explore all Academic Execution Services & Rates
-                  </Button>
-                </Link>
-              </Box>
-            </Stack>
-          )}
-
+                <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
+                  <Group justify="space-between" align="center" wrap="nowrap">
+                    <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
+                      Not sure which tier? Submit your manuscript for a free scope assessment — reply in 24 hours.
+                    </Text>
+                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
+                      <Button
+                        variant="filled"
+                        radius={0}
+                        size="sm"
+                        style={{
+                          backgroundColor: active.primary,
+                          color: active.background,
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        }}
+                        rightSection={<IconArrowRight size={14} />}
+                      >
+                        Free Assessment
+                      </Button>
+                    </Link>
+                  </Group>
+                </Box>
+              </Stack>
+            </Box>
+          </Box>
         </Stack>
       </Container>
 
       {/* Mobile: stack columns */}
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
           .home-need-grid {
             grid-template-columns: 1fr !important;
           }
@@ -1099,11 +1252,12 @@ export default function ScholarCraftedLanding() {
                 <Title
                   order={1}
                   style={{
-                    fontSize: 'clamp(2rem, 5.2vw, 3.8rem)',
-                    lineHeight: 1.1,
-                    letterSpacing: '-0.02em',
+                    fontSize: 'clamp(2.4rem, 5.6vw, 4.2rem)',
+                    lineHeight: 1.08,
+                    letterSpacing: '-0.025em',
                     color: '#ffffff',
-                    fontFamily: 'var(--font-serif)',
+                    fontFamily: 'var(--font-display), var(--font-serif)',
+                    fontWeight: 600,
                   }}
                 >
                   Everything a Researcher Needs, All in One Place.
@@ -1129,6 +1283,8 @@ export default function ScholarCraftedLanding() {
                         border: 'none',
                         fontWeight: 600,
                         fontSize: rem(15),
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        letterSpacing: '0.04em',
                       }}
                     >
                       Get It Off Your Plate
@@ -1149,6 +1305,8 @@ export default function ScholarCraftedLanding() {
                         paddingLeft: rem(24),
                         paddingRight: rem(24),
                         fontSize: rem(15),
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        letterSpacing: '0.04em',
                       }}
                     >
                       Book a Project Review
@@ -1178,24 +1336,26 @@ export default function ScholarCraftedLanding() {
         </Box>
       </Box>
 
-
-
-
-      {/* ── Floating 3-Panel Card (Editage-style "How it works" strip) ── */}
+      {/* ── Floating 3-Panel Card (How it works strip seamlessly aligned) ── */}
       <Box
         id="getting-started"
         component="section"
         bg={active.background}
-        style={{ position: 'relative', zIndex: 10 }}
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          borderBottom: `1px solid ${active.primary}10`,
+          paddingBottom: rem(24),
+        }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
-          {/* Pulled up to overlap hero bottom edge cleanly */}
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          {/* Pulled up to overlap hero bottom edge cleanly with intentional card surface */}
           <Box
             style={{
               marginTop: rem(-52),
-              backgroundColor: active.background,
+              backgroundColor: active.surface,
               border: `1px solid ${active.primary}18`,
-              boxShadow: `0 12px 48px rgba(0,0,0,0.14)`,
+              boxShadow: `0 16px 48px rgba(0,0,0,0.16)`,
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
             }}
@@ -1229,18 +1389,22 @@ export default function ScholarCraftedLanding() {
                 px={{ base: rem(24), md: rem(36) }}
                 py={{ base: rem(28), md: rem(36) }}
                 style={{
-                  borderLeft: i > 0 ? `1px solid ${active.primary}12` : undefined,
+                  borderLeft: i > 0 ? `1px solid ${active.primary}14` : undefined,
                   display: 'flex',
                   flexDirection: 'column',
                   gap: rem(12),
-                  transition: 'background-color 0.15s ease',
+                  backgroundColor: active.surface,
+                  transition: 'background-color 0.2s ease',
                 }}
               >
                 <Text
                   size="xs"
                   fw={700}
                   c={active.accent}
-                  style={{ letterSpacing: '0.15em' }}
+                  style={{
+                    letterSpacing: '0.16em',
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
                 >
                   {step.num}
                 </Text>
@@ -1248,8 +1412,12 @@ export default function ScholarCraftedLanding() {
                   fw={700}
                   size="md"
                   c={active.primary}
-                  lh={1.35}
-                  style={{ fontFamily: 'var(--font-serif)', fontSize: rem(19) }}
+                  lh={1.3}
+                  style={{
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    fontSize: rem(19),
+                    letterSpacing: '-0.01em',
+                  }}
                 >
                   {step.label}
                 </Text>
@@ -1261,7 +1429,10 @@ export default function ScholarCraftedLanding() {
                     size="sm"
                     fw={700}
                     c={active.accent}
-                    style={{ letterSpacing: '0.04em' }}
+                    style={{
+                      letterSpacing: '0.04em',
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}
                   >
                     {step.cta}
                   </Text>
@@ -1280,7 +1451,7 @@ export default function ScholarCraftedLanding() {
             }
             .floating-panel-grid > div {
               border-left: none !important;
-              border-top: 1px solid rgba(0,0,0,0.07);
+              border-top: 1px solid rgba(0,0,0,0.08);
             }
             .floating-panel-grid > div:first-child {
               border-top: none;
@@ -1289,16 +1460,15 @@ export default function ScholarCraftedLanding() {
         `}</style>
       </Box>
 
-      {/* ── SELECT YOUR NEED — Vertical Tabs ────────────────────────── */}
-      <HomepageNeedSelector active={active} />
+      {/* ── PATH 1: Research Journey Stages (Wide 1240 Content) ── */}
+      <ResearchStageSection active={active} />
 
-
-
-
+      {/* ── PATH 2: Find Your Starting Point / By Situation (Wide 1240 Content) ── */}
+      <ManuscriptSituationSection active={active} />
 
       {/* Testimonials Carousel */}
       <Box component="section" py={{ base: rem(60), md: rem(100) }} bg={active.background}>
-        <Container size={1100} px={{ base: "md", sm: "xl" }}>
+        <Container size={1240} px={{ base: "md", sm: "xl" }}>
           <Carousel
             withIndicators
             emblaOptions={{ loop: true }}
@@ -1393,16 +1563,33 @@ export default function ScholarCraftedLanding() {
 
       {/* Specialist Team on the Painful Parts */}
       <Box component="section" py={{ base: rem(60), md: SECTION_SPACING }} bg={active.background}>
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="xl">
             
             {/* Header + Intro */}
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(60) }} style={{ alignItems: 'flex-start' }}>
               <Stack gap="sm">
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.18em' }}>
+                <Text
+                  size="xs"
+                  fw={700}
+                  c={active.accent}
+                  style={{
+                    letterSpacing: '0.18em',
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
+                >
                   SPECIALIST OPERATIONS
                 </Text>
-                <Title order={2} style={{ fontSize: 'clamp(2rem, 4vw, 2.85rem)', color: active.primary, fontFamily: 'var(--font-serif)', lineHeight: 1.15 }}>
+                <Title
+                  order={2}
+                  style={{
+                    fontSize: 'clamp(2rem, 4vw, 2.85rem)',
+                    color: active.primary,
+                    fontFamily: 'var(--font-display), var(--font-serif)',
+                    fontWeight: 600,
+                    lineHeight: 1.15,
+                  }}
+                >
                   A specialist team, on the painful parts.
                 </Title>
               </Stack>
@@ -1418,7 +1605,13 @@ export default function ScholarCraftedLanding() {
                       size="md"
                       radius={0}
                       className="impeccable-button"
-                      style={{ backgroundColor: active.accent, color: '#fff', border: 'none', fontWeight: 600 }}
+                      style={{
+                        backgroundColor: active.accent,
+                        color: '#fff',
+                        border: 'none',
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
                     >
                       Get an editing quote
                     </Button>
@@ -1429,7 +1622,10 @@ export default function ScholarCraftedLanding() {
                       variant="outline"
                       color={active.primary}
                       radius={0}
-                      style={{ borderColor: `${active.primary}30` }}
+                      style={{
+                        borderColor: `${active.primary}30`,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
                     >
                       Explore the options
                     </Button>
@@ -1482,10 +1678,24 @@ export default function ScholarCraftedLanding() {
                   }}
                 >
                   <Stack gap="xs">
-                    <p style={{ margin: 0, fontSize: rem(16), fontWeight: 700, color: active.primary, lineHeight: 1.2 }}>
+                    <p style={{
+                      margin: 0,
+                      fontSize: rem(16),
+                      fontWeight: 700,
+                      color: active.primary,
+                      lineHeight: 1.2,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}>
                       {member.name}
                     </p>
-                    <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, color: active.accent, letterSpacing: '0.08em' }}>
+                    <p style={{
+                      margin: 0,
+                      fontSize: rem(11),
+                      fontWeight: 700,
+                      color: active.accent,
+                      letterSpacing: '0.08em',
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}>
                       {member.degree}
                     </p>
                     <p style={{ margin: 0, fontSize: rem(13), color: '#666', lineHeight: 1.5, marginTop: rem(4) }}>
@@ -1508,7 +1718,12 @@ export default function ScholarCraftedLanding() {
                 &ldquo;Working with the ScholarCrafted specialist team was the single best decision I made for my book volume. They caught structural citation anomalies three reviewers missed, and delivered a flawless volume ahead of deadline.&rdquo;
               </Text>
               <Group gap="xs" mt="sm">
-                <Text size="xs" fw={700} c={active.accent}>
+                <Text
+                  size="xs"
+                  fw={700}
+                  c={active.accent}
+                  style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                >
                   Dr. Claire Robinson
                 </Text>
                 <Text size="xs" c="dimmed">
@@ -1525,13 +1740,22 @@ export default function ScholarCraftedLanding() {
       <Box
         component="section"
         py={{ base: rem(60), md: SECTION_SPACING }}
-        bg={active.background}
+        bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}12`, borderBottom: `1px solid ${active.primary}12` }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(48)}>
             <Box style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
-              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
                 Institutional Partnerships
               </Text>
               <Title
@@ -1540,7 +1764,8 @@ export default function ScholarCraftedLanding() {
                 style={{
                   fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
                   color: active.primary,
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
                   lineHeight: 1.2,
                 }}
               >
@@ -1579,7 +1804,7 @@ export default function ScholarCraftedLanding() {
                   <Box
                     key={idx}
                     p={rem(32)}
-                    bg={active.surface}
+                    bg={active.background}
                     style={{
                       border: `1px solid ${active.primary}14`,
                       display: 'flex',
@@ -1591,14 +1816,20 @@ export default function ScholarCraftedLanding() {
                     <Box
                       p={rem(10)}
                       style={{
-                        backgroundColor: active.background,
+                        backgroundColor: active.surface,
                         border: `1px solid ${active.primary}20`,
                         width: 'fit-content',
                       }}
                     >
                       <Icon size={22} color={active.accent} stroke={1.5} />
                     </Box>
-                    <Text fw={700} size="md" c={active.primary} lh={1.3}>
+                    <Text
+                      fw={700}
+                      size="md"
+                      c={active.primary}
+                      lh={1.3}
+                      style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                    >
                       {item.title}
                     </Text>
                     <Text size="sm" c="dimmed" lh={1.6}>
@@ -1614,7 +1845,11 @@ export default function ScholarCraftedLanding() {
                 <Button
                   size="md"
                   radius={0}
-                  style={{ backgroundColor: active.primary, color: active.background }}
+                  style={{
+                    backgroundColor: active.primary,
+                    color: active.background,
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
                 >
                   Explore Institutional Solutions
                 </Button>
@@ -1625,7 +1860,10 @@ export default function ScholarCraftedLanding() {
                   variant="outline"
                   radius={0}
                   color={active.primary}
-                  style={{ borderColor: active.primary }}
+                  style={{
+                    borderColor: active.primary,
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
                 >
                   Connect With Our Team
                 </Button>
