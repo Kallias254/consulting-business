@@ -227,90 +227,354 @@ const homeServices: Record<string, {
   },
 }
 
-const researchStages = [
-  { step: 'STEP 01', label: 'Write your document', sub: 'Pre-draft & initial chapter drafting' },
-  { step: 'STEP 02', label: 'Get expert editing', sub: 'Substantive line edit & structural clarity' },
-  { step: 'STEP 03', label: 'Find top journals', sub: 'Scope matching & author guidelines review' },
-  { step: 'STEP 04', label: 'Journal desk review', sub: 'Style compliance, word counts & deposit checklists' },
-  { step: 'STEP 05', label: 'Revise and resubmit', sub: 'Peer reviewer reply tables & margin corrections' },
-  { step: 'STEP 06', label: 'Create visuals & proofs', sub: 'Back-of-book indexing & typeset proof inspection' },
-]
+// ─── Research Stages & Mapped Services ──────────────────────────────────────
 
-const editingPacks = [
+interface StageService {
+  badge: string
+  title: string
+  tagline: string
+  rate: string
+  isRecommended?: boolean
+  features: string[]
+  whenToChoose: string[]
+  link: string
+  cta: string
+}
+
+interface ResearchStageItem {
+  step: string
+  label: string
+  subtitle: string
+  stageOverview: string
+  services: StageService[]
+}
+
+const stageData: ResearchStageItem[] = [
   {
-    name: 'Advanced Editing',
-    tagline: 'For thorough language editing, enhanced readability, and technical accuracy',
-    rate: 'Starts from $0.046 / word',
-    isBestValue: false,
-    features: [
-      'Editorial proofreading certificate',
-      'One round of journal style & template formatting',
-      'Re-editing support for reviewer revisions',
-      'Direct margin queries & line-by-line notes with senior editor',
-      'Edited by academic discipline subject-matter expert',
-      'Two independent editorial passes for tone & clarity',
+    step: 'STEP 01',
+    label: 'Write your document',
+    subtitle: 'Pre-draft scoping, chapter structuring & proposal preparation',
+    stageOverview:
+      'For researchers drafting their initial chapters, framing their thesis statement, or converting raw findings into structured scholarship.',
+    services: [
+      {
+        badge: 'Structural Polish',
+        title: 'Pre-Draft Scoping & Argument Architecture',
+        tagline: 'Establish bulletproof argumentative progression, chapter sequence, and literature review framing before locking in text.',
+        rate: '$0.065 / word or Custom Project Scope',
+        isRecommended: true,
+        features: [
+          'Literature positioning & theoretical framework audit',
+          'Chapter roadmap & narrative progression memo',
+          'Elimination of conceptual redundancies and discursive drift',
+          'Direct advisory memo from senior discipline editor',
+        ],
+        whenToChoose: [
+          'If you have rough chapter drafts or an unintegrated dissertation prospectus.',
+          'If your supervisor noted your overarching narrative or research question feels unfocused.',
+          'If you want to prevent weeks of rewriting later by locking in structure now.',
+        ],
+        link: '/scholarcrafted/services/manuscript-preparation',
+        cta: 'Enquire About Scoping',
+      },
+      {
+        badge: 'Turnaround: 3–5 Days',
+        title: 'Proposal & Outline Packaging',
+        tagline: 'Format and refine your book or dissertation proposal according to publisher or graduate school requirements.',
+        rate: 'Flat Project Rate',
+        isRecommended: false,
+        features: [
+          'Adherence to university graduate school prospectus rules',
+          'Chapter synopsis development & target audience framing',
+          'Sample chapter copyediting & style calibration',
+          'Executive summary / abstract polish',
+        ],
+        whenToChoose: [
+          'If you are preparing a book proposal for Routledge, Oxford, or Cambridge.',
+          'If you need committee sign-off on your dissertation proposal or candidacy dossier.',
+        ],
+        link: '/scholarcrafted/services/manuscript-preparation',
+        cta: 'Explore Proposal Tracks',
+      },
     ],
-    whenToChoose: [
-      'If you need a thorough language, syntax, and flow pass on a tight deadline.',
-      'If you are confident in your core methodology and want clean, authoritative prose.',
-      'If you are preparing journal articles, book chapters, or dissertation drafts.',
-    ],
-    link: '/scholarcrafted/services/editing-proofreading',
   },
   {
-    name: 'Premium Editing',
-    tagline: 'For substantive structural editing, impactful organization, and flow optimization',
-    rate: 'Starts from $0.065 / word',
-    isBestValue: true,
-    features: [
-      'All Advanced Editing features included',
-      'Cover letter & submission abstract packaging',
-      'Reference cross-check & citation integrity audit',
-      'Complimentary re-editing pass within 60 days of delivery',
-      'Editor advisory memorandum on argumentative progression',
-      'Undergoes two expert checks to ensure scholarly rigor',
+    step: 'STEP 02',
+    label: 'Get expert editing',
+    subtitle: 'Substantive line editing, academic tone & committee-defensible prose',
+    stageOverview:
+      'For manuscripts that are written but need rigorous language, syntax, flow, and committee-grade stylistic polish.',
+    services: [
+      {
+        badge: 'Starts from $0.046 / word',
+        title: 'Advanced Line Editing',
+        tagline: 'Comprehensive sentence-level editing for precision, academic tone, syntax, and discipline vocabulary.',
+        rate: '$0.046 / word',
+        isRecommended: false,
+        features: [
+          'Full tracked changes in Microsoft Word',
+          'Grammar, punctuation, academic idiom, and syntax refinement',
+          'Elimination of awkward phrasing and passive-voice bloat',
+          'Target journal or university style manual conformity',
+          'Edited by academic discipline subject-matter specialist',
+        ],
+        whenToChoose: [
+          'If you are confident in your methodology and want clean, authoritative prose.',
+          'If your deadline is approaching and you need an exhaustive language pass.',
+          'If English is your second academic language or your prose needs native-speaker polish.',
+        ],
+        link: '/scholarcrafted/services/editing-proofreading',
+        cta: 'View Advanced Editing',
+      },
+      {
+        badge: 'BEST VALUE PACK • $0.065 / word',
+        title: 'Premium Structural Editing',
+        tagline: 'Deep structural and rhetorical refinement to ensure arguments withstand committee defense and peer review.',
+        rate: '$0.065 / word',
+        isRecommended: true,
+        features: [
+          'All Advanced Line Editing features included',
+          'Section-by-section pacing, transitions, and argument flow critique',
+          'Reference cross-check & citation integrity check',
+          'Cover letter & submission abstract polish',
+          '60-day complimentary re-editing pass on revised sections',
+        ],
+        whenToChoose: [
+          'If you are submitting to a high-impact journal or preparing for your dissertation defense.',
+          'If your committee sent back notes regarding cohesion, clarity, or logical gaps.',
+          'If you want complete peace of mind that your work is flawless before official review.',
+        ],
+        link: '/scholarcrafted/services/editing-proofreading',
+        cta: 'View Premium Editing',
+      },
+      {
+        badge: 'High Impact Track',
+        title: 'Scientific & Technical Refinement Pro',
+        tagline: 'Rigorous critique evaluating narrative coherence against top-tier academic publishing standards.',
+        rate: '$0.095 / word',
+        isRecommended: false,
+        features: [
+          'All Premium Editing features included',
+          'In-depth Manuscript Completeness Assessment',
+          'Cross-examination of evidence-to-claim alignment in Discussion sections',
+          'Evaluation by former journal peer reviewer or editor',
+          'Priority turnaround with senior editorial oversight',
+        ],
+        whenToChoose: [
+          'If targeting high-rejection journals (Q1, Nature, Lancet, top university presses).',
+          'If submitting highly complex empirical or quantitative multi-study papers.',
+        ],
+        link: '/scholarcrafted/services/editing-proofreading',
+        cta: 'View Scientific Pro',
+      },
     ],
-    whenToChoose: [
-      'If you are submitting to a top-tier peer-reviewed journal or university press.',
-      'If you are preparing a multi-chapter dissertation for committee defense.',
-      'If you anticipate needing revisions after co-author or supervisor feedback.',
-    ],
-    link: '/scholarcrafted/services/editing-proofreading',
   },
   {
-    name: 'Scientific Editing Pro',
-    tagline: 'In-depth manuscript refinement evaluated against top peer-review standards',
-    rate: 'Starts from $0.095 / word',
-    isBestValue: false,
-    features: [
-      'All Premium Editing features included',
-      'Comprehensive Manuscript Completeness Assessment',
-      'Detailed Response Letter & Revision Matrix crosscheck',
-      'Dedicated discipline specialist with publishing track record',
-      'Evaluation of methodology narrative coherence & evidence links',
-      'Priority turnaround with senior editorial oversight',
+    step: 'STEP 03',
+    label: 'Find top journals',
+    subtitle: 'Journal matching, scope analysis & author guidelines compliance',
+    stageOverview:
+      'For researchers preparing to select target outlets, align manuscript scope, or convert dissertations to article format.',
+    services: [
+      {
+        badge: 'Conversion Track',
+        title: 'Thesis-to-Journal Article Conversion',
+        tagline: 'Condense an 80,000-word dissertation chapter into a tight 7,000-to-9,000-word standalone journal submission.',
+        rate: 'Flat Project Rate',
+        isRecommended: true,
+        features: [
+          'Extraction of core empirical contribution from sprawling thesis chapters',
+          'Restructuring into IMRaD or standard disciplinary article format',
+          'Pruning of dissertation-specific scaffolding, excessive literature, and appendices',
+          'Target journal scope alignment & word count strict enforcement',
+        ],
+        whenToChoose: [
+          'If you graduated with a thesis and must publish articles for job market or tenure applications.',
+          'If you are overwhelmed trying to cut 20,000 words down to journal length without losing rigor.',
+        ],
+        link: '/scholarcrafted/services/manuscript-preparation',
+        cta: 'Explore Conversion Track',
+      },
+      {
+        badge: 'Editorial Advisory',
+        title: 'Target Journal Scope & Guidelines Audit',
+        tagline: 'Identify and evaluate top-tier target journals for scope fit, indexing prestige, and submission requirements.',
+        rate: 'Included with Prep / Hourly Audit',
+        isRecommended: false,
+        features: [
+          'Analysis of recent publication trends in your target field',
+          'Exhaustive audit against target journal "Aims & Scope" criteria',
+          'Guidance on open-access requirements and publisher agreements',
+          'Preparation of submission checklist and tailored cover letter',
+        ],
+        whenToChoose: [
+          'If you want to minimize desk-rejection risk due to mismatched journal scope.',
+          'If you are choosing between multiple Q1/Q2 journals and need publisher intelligence.',
+        ],
+        link: '/scholarcrafted/services/manuscript-preparation',
+        cta: 'Get Journal Guidance',
+      },
     ],
-    whenToChoose: [
-      'If you seek in-depth expert critique to reinforce the core rigor of your study.',
-      'If you are aiming for high-impact journals (Nature, Lancet, Oxford, Routledge).',
-      'If you received harsh "Revise & Resubmit" peer reviewer critique.',
+  },
+  {
+    step: 'STEP 04',
+    label: 'Journal desk review',
+    subtitle: 'Citation audits, reference repair & strict style conformity',
+    stageOverview:
+      'For manuscripts undergoing initial screening where formatting errors, missing DOIs, and citation mismatches trigger immediate desk rejection.',
+    services: [
+      {
+        badge: '$90 / hour',
+        title: 'Citation & Reference Integrity Audit',
+        tagline: 'Every inline citation verified against reference entries. DOI checks, dead link repair, and software export cleanup.',
+        rate: '$90 / hour (Est. provided before start)',
+        isRecommended: true,
+        features: [
+          '100% inline citation to bibliography cross-matching',
+          'Verification of DOIs and persistent URLs for all referenced works',
+          'Repair of damaged Zotero, Mendeley, and EndNote metadata fields',
+          'Conversion between citation systems (APA, Chicago, MLA, IEEE, Harvard)',
+        ],
+        whenToChoose: [
+          'If your references accumulated errors across multiple drafts or broken reference manager syncs.',
+          'If your target journal or graduate school enforces strict automated reference verification.',
+          'If reviewers or editors cited reference inconsistencies as a requirement for review.',
+        ],
+        link: '/scholarcrafted/services/citation-audits',
+        cta: 'Enquire About an Audit',
+      },
+      {
+        badge: 'Checklist Verification',
+        title: 'Journal Desk-Check Compliance Pass',
+        tagline: 'Comprehensive audit against the target journal’s Author Guidelines and technical submission checklist.',
+        rate: 'From $0.02 / word',
+        isRecommended: false,
+        features: [
+          'Verification of abstract word counts, running headers, and keywords',
+          'Front and back matter formatting (disclosure statements, funding statements)',
+          'Table and figure title/note styling according to target manual',
+          'Verification of blinded manuscript rules for peer review',
+        ],
+        whenToChoose: [
+          'If your paper was previously returned by an editorial assistant for formatting errors.',
+          'If you need certainty that your paper clears administrative screening on day one.',
+        ],
+        link: '/scholarcrafted/services/editing-proofreading',
+        cta: 'View Compliance Services',
+      },
     ],
-    link: '/scholarcrafted/services/editing-proofreading',
+  },
+  {
+    step: 'STEP 05',
+    label: 'Revise and resubmit',
+    subtitle: 'Peer reviewer response matrices & committee revision passes',
+    stageOverview:
+      'For scholars navigating tough peer review comments, revise-and-resubmit (R&R) decisions, or supervisor revision mandates.',
+    services: [
+      {
+        badge: 'Priority Support',
+        title: 'Reviewer Response Matrix & Reply Packaging',
+        tagline: 'Line-by-line point-by-point response table aligning reviewer feedback with tracked changes in the revised text.',
+        rate: 'Project-Based / Hourly',
+        isRecommended: true,
+        features: [
+          'Point-by-point reply letter and response matrix formatting',
+          'Editorial diplomacy check: tone refinement for challenging reviewer comments',
+          'Exact cross-referencing between response table and revised page/line numbers',
+          'Tracked changes audit ensuring every reviewer query is addressed',
+        ],
+        whenToChoose: [
+          'If you received a Revise & Resubmit (R&R) from a major journal and feel overwhelmed.',
+          'If you need a second pair of eyes to ensure the reply matrix is deferential yet scientifically firm.',
+          'If your committee returned 15+ pages of defense revisions.',
+        ],
+        link: '/scholarcrafted/services/manuscript-preparation',
+        cta: 'Enquire About Revisions',
+      },
+      {
+        badge: 'Complimentary Guarantee',
+        title: '60-Day Re-Editing Protection Pass',
+        tagline: 'Dedicated re-editing for any sections revised in response to reviewer comments on ScholarCrafted-edited text.',
+        rate: 'Included with Premium & Scientific Tiers',
+        isRecommended: false,
+        features: [
+          'Complimentary re-editing pass within 60 days of manuscript delivery',
+          'Verification of newly drafted sentences and revised paragraphs',
+          'Consistent academic style and terminology retention',
+          'Rapid 48-to-72 hour revision delivery',
+        ],
+        whenToChoose: [
+          'If you used ScholarCrafted for your initial submission and received reviewer revision requests.',
+          'If you want continuous editorial partnership until your paper is officially accepted.',
+        ],
+        link: '/scholarcrafted/services/editing-proofreading',
+        cta: 'Learn About Our Guarantee',
+      },
+    ],
+  },
+  {
+    step: 'STEP 06',
+    label: 'Create visuals & proofs',
+    subtitle: 'Back-of-book indexing, galley proof inspection & typeset checking',
+    stageOverview:
+      'For books and articles accepted for publication that require back-of-book indexing, galley proof review, and final production.',
+    services: [
+      {
+        badge: 'From $3 / typeset page',
+        title: 'Back-of-Book Subject & Author Indexing',
+        tagline: 'Comprehensive, publication-grade indexing constructed to university press and Cindex specifications.',
+        rate: 'From $3 / typeset page',
+        isRecommended: true,
+        features: [
+          'Subject index, author index, and combined index generation',
+          'Headings, subheadings, cross-references ("See" and "See also")',
+          'Strict adherence to press guidelines (Oxford, Cambridge, Routledge, Harvard)',
+          'Delivered in press-ready Word, RTF, or plain text formats',
+        ],
+        whenToChoose: [
+          'If your university press has delivered final page proofs and given you 2–3 weeks to produce an index.',
+          'If you do not have the specialized indexing software (Cindex/SKY) or domain taxonomy experience.',
+        ],
+        link: '/scholarcrafted/services/indexing-proofs',
+        cta: 'Enquire About Indexing',
+      },
+      {
+        badge: 'Galley Proof Review',
+        title: 'Typeset Page Proof & Errata Review',
+        tagline: 'First- and second-pass examination of typeset page proofs to catch layout bugs, broken tables, and copyeditor errors.',
+        rate: 'Project-Based / Hourly',
+        isRecommended: false,
+        features: [
+          'Detection of typesetting errors, bad line breaks, and font dropouts',
+          'Figure placement and caption cross-check against references in text',
+          'Resolution of copyeditor queries without disrupting page flow',
+          'Errata preparation and margin notes for press production editors',
+        ],
+        whenToChoose: [
+          'If you received final galley proofs from your publisher and cannot afford embarrassing print errors.',
+          'If you want a professional proofreader to review printer proofs before final press run.',
+        ],
+        link: '/scholarcrafted/services/indexing-proofs',
+        cta: 'Enquire About Proofs',
+      },
+    ],
   },
 ]
 
 function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
+  // Deterministic mode selection on mount (one mode per visit, no toggle clutter)
   const [viewMode, setViewMode] = useState<'need' | 'stage'>('need')
   const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
-  const [selectedStageIndex, setSelectedStageIndex] = useState(1)
+  const [selectedStageIndex, setSelectedStageIndex] = useState(1) // Default to "Get expert editing"
 
   useEffect(() => {
-    // Randomize initial layout presentation on page refresh (50% chance of either view mode)
-    const randomMode = Math.random() > 0.5 ? 'stage' : 'need'
-    setViewMode(randomMode)
+    // Pick one clean view mode per refresh (50% chance of either view mode)
+    const pickedMode = Math.random() > 0.5 ? 'stage' : 'need'
+    setViewMode(pickedMode)
   }, [])
 
   const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
+  const currentStage = stageData[selectedStageIndex] ?? stageData[1]
 
   return (
     <Box
@@ -322,79 +586,49 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
       <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(48)}>
 
-          {/* Section Header with Mode Toggle & Shuffle */}
-          <Group justify="space-between" align="flex-end" wrap="wrap" gap="md">
-            <Box style={{ maxWidth: 720 }}>
-              <Text
-                size="xs"
-                fw={700}
-                c={active.accent}
-                style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
-              >
-                {viewMode === 'need' ? 'Find Your Starting Point' : 'Solutions for Every Stage'}
-              </Text>
-              <Title
-                order={2}
-                mt="xs"
-                style={{
-                  fontSize: rem(38),
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)',
-                  lineHeight: 1.2,
-                }}
-              >
-                {viewMode === 'need'
-                  ? 'Where is your manuscript right now?'
-                  : 'Solutions for every stage of your research journey.'}
-              </Title>
-              <Text size="md" mt="md" c="dimmed" lh={1.7}>
-                {viewMode === 'need'
-                  ? 'Select the situation that matches yours. We will show you exactly what to do next.'
-                  : 'From initial manuscript drafting to peer review response and galley proofs — select your stage.'}
-              </Text>
-            </Box>
+          {/* Section Header — Clean & Direct (No Mode Switch Buttons) */}
+          <Box style={{ maxWidth: 760 }}>
+            <Text
+              size="xs"
+              fw={700}
+              c={active.accent}
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+            >
+              {viewMode === 'need' ? 'Find Your Starting Point' : 'Solutions for Every Stage'}
+            </Text>
+            <Title
+              order={2}
+              mt="xs"
+              style={{
+                fontSize: rem(38),
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+                lineHeight: 1.2,
+              }}
+            >
+              {viewMode === 'need'
+                ? 'Where is your manuscript right now?'
+                : 'Solutions for every stage of your research journey.'}
+            </Title>
+            <Text size="md" mt="md" c="dimmed" lh={1.7}>
+              {viewMode === 'need'
+                ? 'Select the situation that matches yours. We will show you exactly what to do next.'
+                : 'From initial manuscript drafting to peer review response matrices and galley proofs — select your stage to view dedicated services.'}
+            </Text>
+          </Box>
 
-            {/* Toggle Switch */}
-            <Group gap="xs" style={{ border: `1px solid ${active.primary}20`, padding: rem(4) }}>
-              <Button
-                size="xs"
-                radius={0}
-                variant={viewMode === 'need' ? 'filled' : 'subtle'}
-                style={{
-                  backgroundColor: viewMode === 'need' ? active.primary : 'transparent',
-                  color: viewMode === 'need' ? active.background : active.primary,
-                }}
-                onClick={() => setViewMode('need')}
-              >
-                By Your Situation
-              </Button>
-              <Button
-                size="xs"
-                radius={0}
-                variant={viewMode === 'stage' ? 'filled' : 'subtle'}
-                style={{
-                  backgroundColor: viewMode === 'stage' ? active.primary : 'transparent',
-                  color: viewMode === 'stage' ? active.background : active.primary,
-                }}
-                onClick={() => setViewMode('stage')}
-              >
-                By Research Stage
-              </Button>
-            </Group>
-          </Group>
-
-          {/* VIEW MODE 1: By Situation (Interactive Vertical Accordion/Tabs) */}
+          {/* VIEW MODE 1: By Situation (Interactive Vertical Tabs) */}
           {viewMode === 'need' && (
             <Box
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: rem(2),
+                gap: rem(24),
                 alignItems: 'start',
               }}
               className="home-need-grid"
             >
-              {/* Left Column: Situations */}
+              {/* Left Column: Situations List */}
               <Box style={{ border: `1px solid ${active.primary}14`, backgroundColor: active.background }}>
                 {homeNeeds.map((need, i) => {
                   const isActive = need.id === selectedId
@@ -409,9 +643,8 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                         py={rem(22)}
                         style={{
                           borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
-                          borderLeft: isActive ? `3px solid ${active.accent}` : `3px solid transparent`,
                           backgroundColor: isActive ? active.surface : 'transparent',
-                          transition: 'background-color 0.15s ease, border-color 0.15s ease',
+                          transition: 'background-color 0.15s ease',
                           cursor: 'pointer',
                         }}
                       >
@@ -441,7 +674,7 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
 
               {/* Right Column: Matched Service Cards */}
               <Box>
-                <Stack gap={rem(12)}>
+                <Stack gap={rem(16)}>
                   {selectedNeed.serviceIds.map((sid) => {
                     const svc = homeServices[sid]
                     if (!svc) return null
@@ -451,7 +684,9 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                         key={sid}
                         p={rem(28)}
                         bg={active.background}
-                        style={{ border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}` }}
+                        style={{
+                          border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}`,
+                        }}
                       >
                         <Stack gap="md">
                           {isRecommended && (
@@ -472,7 +707,7 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                           <Group justify="space-between" align="flex-start">
                             <Title
                               order={3}
-                              style={{ fontSize: rem(19), fontFamily: 'var(--font-serif)', flex: 1 }}
+                              style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)', flex: 1 }}
                             >
                               {svc.title}
                             </Title>
@@ -525,12 +760,12 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
             </Box>
           )}
 
-          {/* VIEW MODE 2: By Research Stage (6 Steps + Comparison Packs) */}
+          {/* VIEW MODE 2: By Research Stage (Stage Navigator + Relevant Services) */}
           {viewMode === 'stage' && (
-            <Stack gap={rem(36)}>
-              {/* Step Navigator Bar */}
+            <Stack gap={rem(32)}>
+              {/* 6 Step Navigator Tabs */}
               <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing={rem(4)}>
-                {researchStages.map((stg, idx) => {
+                {stageData.map((stg, idx) => {
                   const isActive = idx === selectedStageIndex
                   return (
                     <UnstyledButton
@@ -573,21 +808,47 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                 })}
               </SimpleGrid>
 
-              {/* 3 Editorial Tier Comparison Cards */}
-              <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
-                {editingPacks.map((pack, idx) => (
+              {/* Active Stage Header & Description */}
+              <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
+                <Group justify="space-between" align="center" wrap="wrap" gap="md">
+                  <Box>
+                    <Group gap="xs" align="center">
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>
+                        {currentStage.step}
+                      </Text>
+                      <Text size="xs" c="dimmed">•</Text>
+                      <Text size="xs" fw={700} c={active.primary} style={{ textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        {currentStage.label}
+                      </Text>
+                    </Group>
+                    <Title order={3} mt={rem(4)} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
+                      {currentStage.subtitle}
+                    </Title>
+                    <Text size="sm" c="dimmed" mt={rem(4)} lh={1.6}>
+                      {currentStage.stageOverview}
+                    </Text>
+                  </Box>
+                </Group>
+              </Box>
+
+              {/* Relevant Services for Selected Stage */}
+              <SimpleGrid
+                cols={{ base: 1, md: currentStage.services.length === 3 ? 3 : 2 }}
+                spacing="lg"
+              >
+                {currentStage.services.map((svc, sIdx) => (
                   <Box
-                    key={idx}
+                    key={sIdx}
                     p={rem(32)}
                     bg={active.background}
                     style={{
-                      border: `1px solid ${pack.isBestValue ? active.accent : `${active.primary}18`}`,
+                      border: `1px solid ${svc.isRecommended ? active.accent : `${active.primary}18`}`,
                       display: 'flex',
                       flexDirection: 'column',
                       position: 'relative',
                     }}
                   >
-                    {pack.isBestValue && (
+                    {svc.isRecommended && (
                       <Box
                         px={rem(10)}
                         py={rem(3)}
@@ -598,44 +859,44 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                         }}
                       >
                         <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
-                          BEST VALUE PACK
+                          RECOMMENDED FOR THIS STAGE
                         </Text>
                       </Box>
                     )}
 
                     <Stack gap="xs">
-                      <Title order={3} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
-                        {pack.name}
+                      <Title order={3} style={{ fontSize: rem(21), fontFamily: 'var(--font-serif)' }}>
+                        {svc.title}
                       </Title>
                       <Text size="xs" c="dimmed" lh={1.5} style={{ minHeight: rem(36) }}>
-                        {pack.tagline}
+                        {svc.tagline}
                       </Text>
                     </Stack>
 
-                    <Text fw={700} size="md" c={active.accent} mt="sm">
-                      {pack.rate}
+                    <Text fw={700} size="sm" c={active.accent} mt="sm">
+                      {svc.rate}
                     </Text>
 
                     <Box mt="md" mb="md">
-                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+                      <Link href={svc.link} style={{ textDecoration: 'none' }}>
                         <Button
                           fullWidth
                           radius={0}
-                          variant={pack.isBestValue ? 'filled' : 'outline'}
+                          variant={svc.isRecommended ? 'filled' : 'outline'}
                           style={{
-                            backgroundColor: pack.isBestValue ? active.accent : 'transparent',
-                            color: pack.isBestValue ? '#fff' : active.primary,
-                            borderColor: pack.isBestValue ? active.accent : active.primary,
+                            backgroundColor: svc.isRecommended ? active.accent : 'transparent',
+                            color: svc.isRecommended ? '#fff' : active.primary,
+                            borderColor: svc.isRecommended ? active.accent : active.primary,
                           }}
                         >
-                          Submit Enquiry
+                          {svc.cta}
                         </Button>
                       </Link>
                     </Box>
 
                     {/* Features list */}
                     <Stack gap="xs" mb="lg">
-                      {pack.features.map((feat, fIdx) => (
+                      {svc.features.map((feat, fIdx) => (
                         <Group key={fIdx} gap="xs" align="flex-start" wrap="nowrap">
                           <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
                           <Text size="xs" c={active.primary} lh={1.4}>
@@ -652,7 +913,7 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                       <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                         When to choose
                       </Text>
-                      {pack.whenToChoose.map((wtc, wIdx) => (
+                      {svc.whenToChoose.map((wtc, wIdx) => (
                         <Text key={wIdx} size="xs" c="dimmed" lh={1.5}>
                           • {wtc}
                         </Text>
@@ -662,16 +923,16 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
                 ))}
               </SimpleGrid>
 
-              {/* Bottom compare link */}
+              {/* Bottom Navigation Prompt */}
               <Box style={{ textAlign: 'center' }}>
-                <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
+                <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
                   <Button
                     variant="subtle"
                     radius={0}
                     color={active.primary}
                     rightSection={<IconArrowRight size={16} />}
                   >
-                    Compare all Editing Services & Rates
+                    Explore all Academic Execution Services & Rates
                   </Button>
                 </Link>
               </Box>
@@ -928,13 +1189,13 @@ export default function ScholarCraftedLanding() {
         style={{ position: 'relative', zIndex: 10 }}
       >
         <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
-          {/* Pulled up to overlap the hero bottom edge */}
+          {/* Pulled up to overlap hero bottom edge cleanly */}
           <Box
             style={{
-              marginTop: rem(-48),
+              marginTop: rem(-52),
               backgroundColor: active.background,
-              border: `1px solid ${active.primary}16`,
-              boxShadow: `0 8px 40px rgba(0,0,0,0.18)`,
+              border: `1px solid ${active.primary}18`,
+              boxShadow: `0 12px 48px rgba(0,0,0,0.14)`,
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
             }}
@@ -965,13 +1226,14 @@ export default function ScholarCraftedLanding() {
             ].map((step, i) => (
               <Box
                 key={i}
-                px={rem(32)}
-                py={rem(36)}
+                px={{ base: rem(24), md: rem(36) }}
+                py={{ base: rem(28), md: rem(36) }}
                 style={{
                   borderLeft: i > 0 ? `1px solid ${active.primary}12` : undefined,
                   display: 'flex',
                   flexDirection: 'column',
                   gap: rem(12),
+                  transition: 'background-color 0.15s ease',
                 }}
               >
                 <Text
@@ -987,7 +1249,7 @@ export default function ScholarCraftedLanding() {
                   size="md"
                   c={active.primary}
                   lh={1.35}
-                  style={{ fontFamily: 'var(--font-serif)', fontSize: rem(18) }}
+                  style={{ fontFamily: 'var(--font-serif)', fontSize: rem(19) }}
                 >
                   {step.label}
                 </Text>
@@ -1031,137 +1293,7 @@ export default function ScholarCraftedLanding() {
       <HomepageNeedSelector active={active} />
 
 
-      {/* Our Core Services */}
-      <Box component="section" className="academic-watermark" py={{ base: rem(60), md: SECTION_SPACING }} bg={active.surface}>
-        <Container size={1100} px={{ base: "md", sm: "xl" }}>
-          <Stack gap="xl">
 
-            <Box style={{ borderBottom: `1px solid ${active.primary}12`, paddingBottom: rem(32) }}>
-              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em' }}>
-                SERVICES
-              </Text>
-              <Title
-                order={2}
-                mt="sm"
-                style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", color: active.primary, lineHeight: 1.15 }}>
-                Four execution services. One clear pipeline.
-              </Title>
-            </Box>
-
-            <Stack gap={0}>
-              {[
-                {
-                  num: '01',
-                  title: 'Manuscript Editing & Compliance',
-                  label: 'MANUSCRIPT EDITING & COMPLIANCE',
-                  desc: 'Line-by-line copyediting, style conformity (APA, Chicago, MLA, Harvard), front and back matter formatting, ProQuest deposit compliance, and institutional guideline alignment. Priced per word — transparent, no surprises.',
-                  link: '/scholarcrafted/services/editing-proofreading',
-                  cta: 'Get an Editing Quote',
-                  ctaVariant: 'filled' as const,
-                },
-                {
-                  num: '02',
-                  title: 'Citation & Reference Audits',
-                  label: 'CITATION & REFERENCE AUDITS',
-                  desc: 'Every inline citation cross-checked against its reference entry. DOI verification, dead link repair, Zotero and EndNote export cleanup, full reference list reformatting, and citation style conversion.',
-                  link: '/scholarcrafted/services/citation-audits',
-                  cta: 'Get a Reference Audit',
-                  ctaVariant: 'outline' as const,
-                },
-                {
-                  num: '03',
-                  title: 'Book & Journal Preparation',
-                  label: 'BOOK & JOURNAL PREPARATION',
-                  desc: 'Thesis-to-journal article conversion, publisher proposal packaging for major academic presses (Routledge, Oxford, SAGE, Cambridge), and journal submission formatting to exact target journal guidelines.',
-                  link: '/scholarcrafted/services/manuscript-preparation',
-                  cta: 'Explore Preparation',
-                  ctaVariant: 'outline' as const,
-                },
-                {
-                  num: '04',
-                  title: 'Book Indexing & Page Proofs',
-                  label: 'BOOK INDEXING & PAGE PROOFS',
-                  desc: 'Professional back-of-book subject and author indexing. Galley proof review — typesetting errors, broken tables, figure placement, copyeditor queries. Artwork and figure preparation available as an add-on.',
-                  link: '/scholarcrafted/services/indexing-proofs',
-                  cta: 'Enquire About Indexing',
-                  ctaVariant: 'outline' as const,
-                },
-              ].map((service, i) => (
-                <Box
-                  key={i}
-                  py={{ base: rem(28), sm: rem(36), md: rem(40) }}
-                  px={{ base: rem(16), sm: rem(24), md: rem(28) }}
-                  className="service-row-grid"
-                  style={{
-                    borderBottom: `1px solid ${active.primary}10`,
-                    display: 'grid',
-                    gridTemplateColumns: 'auto 1fr auto',
-                    gap: rem(24),
-                    alignItems: 'center',
-                    transition: 'background-color 0.25s ease, transform 0.25s ease',
-                    borderRadius: rem(4),
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget;
-                    el.style.backgroundColor = 'rgba(230, 92, 56, 0.03)';
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget;
-                    el.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  {/* Number */}
-                  <Text
-                    className="service-row-num"
-                    style={{
-                      fontSize: rem(13),
-                      fontWeight: 700,
-                      color: `${active.primary}30`,
-                      letterSpacing: '0.1em',
-                      fontVariantNumeric: 'tabular-nums',
-                    }}
-                  >
-                    {service.num}
-                  </Text>
-
-                  {/* Label + Title + Desc */}
-                  <Stack gap="sm">
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>
-                      {service.label}
-                    </Text>
-                    <Title order={3} style={{ fontSize: rem(22), color: active.primary, lineHeight: 1.25 }}>
-                      {service.title}
-                    </Title>
-                    <Text size="sm" c="dimmed" lh={1.65} style={{ maxWidth: '62ch' }}>
-                      {service.desc}
-                    </Text>
-                  </Stack>
-
-                  {/* CTA */}
-                  <Box style={{ flexShrink: 0 }}>
-                    <Link href={service.link} style={{ textDecoration: 'none' }}>
-                      <Button
-                        variant={service.ctaVariant}
-                        color={active.primary}
-                        radius={0}
-                        style={{
-                          borderColor: active.primary,
-                          whiteSpace: 'nowrap',
-                          ...(service.ctaVariant === 'filled' ? { backgroundColor: active.primary } : {}),
-                        }}
-                        className="impeccable-button"
-                      >
-                        {service.cta}
-                      </Button>
-                    </Link>
-                  </Box>
-                </Box>
-              ))}
-            </Stack>
-
-          </Stack>
-        </Container>
-      </Box>
 
 
       {/* Testimonials Carousel */}
