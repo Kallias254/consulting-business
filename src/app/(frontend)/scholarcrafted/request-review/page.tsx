@@ -420,9 +420,9 @@ function RequestReviewContent() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
-      {/* Minimal sticky header */}
+      {/* Minimal sticky header — contains back + logo + exit */}
       <Box
-        py={rem(16)}
+        py={rem(14)}
         style={{
           borderBottom: `1px solid ${active.primary}10`,
           position: 'sticky',
@@ -433,13 +433,27 @@ function RequestReviewContent() {
           flexShrink: 0,
         }}
       >
-        <Container size={900}>
+        <Container size={1100}>
           <Group justify="space-between" align="center">
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
-              <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
-                ScholarCrafted
-              </Text>
-            </Link>
+            {/* Left: back link + logo */}
+            <Group gap={rem(24)} align="center">
+              {hasPreSelection && (
+                <Link href={backUrl} style={{ textDecoration: 'none' }}>
+                  <Group gap={rem(6)} align="center">
+                    <IconArrowLeft size={14} color={active.accent} />
+                    <Text size="xs" fw={600} style={{ color: active.accent, letterSpacing: '0.04em' }}>
+                      Back
+                    </Text>
+                  </Group>
+                </Link>
+              )}
+              <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+                <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
+                  ScholarCrafted
+                </Text>
+              </Link>
+            </Group>
+            {/* Right: exit */}
             <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
               <Group
                 gap="xs"
@@ -460,18 +474,8 @@ function RequestReviewContent() {
 
       {/* Page header */}
       <Box pt={{ base: rem(48), md: rem(64) }} pb={rem(36)} bg={active.background}>
-        <Container size={900}>
-          <Stack gap={rem(12)} style={{ maxWidth: 680 }}>
-            {/* Back button */}
-            <Link href={backUrl} style={{ textDecoration: 'none' }}>
-              <Group gap={rem(6)} align="center" style={{ width: 'fit-content' }}>
-                <IconArrowLeft size={14} color={active.accent} />
-                <Text size="xs" fw={600} style={{ color: active.accent, letterSpacing: '0.04em' }}>
-                  {hasPreSelection ? 'Back to comparison' : 'Back to services'}
-                </Text>
-              </Group>
-            </Link>
-
+        <Container size={1100}>
+          <Stack gap={rem(12)} style={{ maxWidth: 720 }}>
             <Text
               size="xs"
               fw={700}
@@ -498,31 +502,25 @@ function RequestReviewContent() {
               One form. A scoped quote within 24 hours.
             </Title>
 
-            {/* Pre-selection pill */}
+            {/* Pre-selection confirmation pill — no Change link, EXIT handles navigation */}
             {hasPreSelection && (
-              <Group gap={rem(8)} align="center" mt={rem(4)}>
-                <Box
-                  px={rem(14)}
-                  py={rem(8)}
-                  style={{
-                    backgroundColor: `${active.accent}10`,
-                    border: `1px solid ${active.accent}30`,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: rem(8),
-                  }}
-                >
-                  <IconCheck size={13} color={active.accent} />
-                  <Text size="sm" fw={600} c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                    {preSelectionLabel}
-                  </Text>
-                </Box>
-                <Link href={backUrl} style={{ textDecoration: 'none' }}>
-                  <Text size="xs" c="dimmed" style={{ textDecoration: 'underline', cursor: 'pointer' }}>
-                    Change
-                  </Text>
-                </Link>
-              </Group>
+              <Box
+                px={rem(14)}
+                py={rem(8)}
+                mt={rem(4)}
+                style={{
+                  backgroundColor: `${active.accent}10`,
+                  border: `1px solid ${active.accent}30`,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: rem(8),
+                }}
+              >
+                <IconCheck size={13} color={active.accent} />
+                <Text size="sm" fw={600} c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                  {preSelectionLabel}
+                </Text>
+              </Box>
             )}
           </Stack>
         </Container>
@@ -530,7 +528,7 @@ function RequestReviewContent() {
 
       {/* Two-column layout: responsive via CSS grid */}
       <Box py={rem(48)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}10`, flex: 1 }}>
-        <Container size={900}>
+        <Container size={1100}>
           <Box
             style={{
               display: 'grid',
