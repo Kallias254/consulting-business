@@ -10,647 +10,1128 @@ import {
   Stack,
   Button,
   Divider,
-  Center,
   rem,
   Group,
   useMantineTheme,
   Accordion,
-  ThemeIcon,
   Badge,
   Slider,
-  Card,
-  Modal,
-  TextInput,
+  NumberInput,
+  UnstyledButton,
+  Table,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
 import Link from 'next/link'
-import { 
-  IconCheck, 
-  IconDownload,
+import {
+  IconCheck,
+  IconX,
+  IconArrowRight,
   IconClock,
-  IconScale,
-  IconShieldCheck
+  IconShieldCheck,
+  IconFileCertificate,
+  IconMessageChatbot,
+  IconRefresh,
+  IconFileText,
+  IconSparkles,
+  IconAlertTriangle,
 } from '@tabler/icons-react'
-import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
+import { SECTION_SPACING } from '@/layout'
+
+// ─── 3 EDITING TIERS DEFINITION ─────────────────────────────────────────────
+
+interface EditingTier {
+  id: string
+  name: string
+  badge: string
+  isPopular?: boolean
+  tagline: string
+  ratePerWord: number
+  standardDays: string
+  priorityDays: string
+  targetAudience: string
+  description: string
+  features: string[]
+  whenToChoose: string[]
+  deliverables: string[]
+}
+
+const editingTiers: EditingTier[] = [
+  {
+    id: 'advanced',
+    name: 'Advanced Editing',
+    badge: 'ACCURATE & FAST ON BUDGET',
+    isPopular: false,
+    tagline: 'Precision grammar, syntax, academic tone & full style manual compliance.',
+    ratePerWord: 0.0425,
+    standardDays: '3–5 days',
+    priorityDays: '48 hours',
+    targetAudience: 'Scholars with well-structured drafts seeking native-level polish, mechanical accuracy, and formatting compliance before deposit or submission.',
+    description:
+      'A dedicated subject-matter editor improves the flow, sentence-level syntax, and readability of your manuscript. Ensures your writing is articulate, free of grammatical errors, and fully formatted to APA, Chicago, MLA, or target journal specifications.',
+    features: [
+      'Line-by-line grammar, punctuation, and syntax correction',
+      'Discipline-specific terminology and phrasing verification',
+      'Target journal or university template formatting (APA, Chicago, MLA, IEEE)',
+      'Delivered in Microsoft Word with 100% Track Changes',
+      'One round of journal style & template formatting',
+      'Direct margin queries with your senior discipline editor',
+      'Official Editorial Compliance & Language Certificate',
+    ],
+    whenToChoose: [
+      'Your methodology and structural logic are already sound.',
+      'You are facing a fast-approaching defense or submission deadline.',
+      'English is your second academic language or prose requires native clarity.',
+      'You want mechanical perfection without extensive argument restructuring.',
+    ],
+    deliverables: [
+      'Tracked Changes document (.docx)',
+      'Clean submission-ready document (.docx)',
+      'Editorial Certificate of English Editing',
+      'Style manual compliance checklist',
+    ],
+  },
+  {
+    id: 'premium',
+    name: 'Premium Editing',
+    badge: 'MOST REQUESTED • COMPREHENSIVE',
+    isPopular: true,
+    tagline: 'Substantive line editing, argument flow, cadence & 365-day re-editing support.',
+    ratePerWord: 0.065,
+    standardDays: '5–7 days',
+    priorityDays: '72 hours',
+    targetAudience: 'Doctoral candidates preparing dissertations and scholars targeting high-ranking peer-reviewed journals who anticipate revision rounds.',
+    description:
+      'Our flagship editorial track. A senior discipline specialist performs substantial paragraph- and sentence-level overhauls, correcting argument progression, structural flow, transitions, and rhetoric. Includes complimentary re-editing passes for up to 365 days after delivery.',
+    features: [
+      'All Advanced Editing features included',
+      'Substantive paragraph reorganization and logical pacing polish',
+      'Elimination of discursive drift and rhetorical redundancy',
+      'Reference cross-check: inline citations verified against bibliography',
+      'Submission cover letter & abstract packaging',
+      'Unconditional complimentary re-editing support for 365 days',
+      'Detailed Editor Advisory Memorandum on thesis defensibility',
+      'Two independent editorial passes (specialist + managing editor)',
+    ],
+    whenToChoose: [
+      'Targeting top-tier peer-reviewed journals (SCI, SSCI, Scopus Q1/Q2).',
+      'Preparing a multi-chapter dissertation for committee defense.',
+      'You expect supervisor, co-author, or reviewer revision requests.',
+      'You want extensive margin feedback on narrative clarity and academic strength.',
+    ],
+    deliverables: [
+      'Tracked Changes document with extensive margin commentary',
+      'Clean publication-ready document formatted to target press',
+      'Target Journal Cover Letter',
+      'Citation & Bibliography cross-audit memo',
+      'Editorial Rigor Certificate + 365-day re-editing guarantee',
+    ],
+  },
+  {
+    id: 'scientific',
+    name: 'Scientific Editing Pro',
+    badge: 'HIGH-IMPACT FACTOR JOURNALS',
+    isPopular: false,
+    tagline: 'Dual-pass developmental critique by former journal peer reviewers and senior editors.',
+    ratePerWord: 0.095,
+    standardDays: '7–10 days',
+    priorityDays: '4–5 days',
+    targetAudience: 'Authors submitting to top university presses (Oxford, Cambridge, Routledge) or high-rejection journals (Nature, Lancet, Elsevier Q1).',
+    description:
+      'A superior developmental editor and a journal peer reviewer team up to evaluate your manuscript against top-journal acceptance criteria. Identifies critical methodological communication gaps, tests evidence-to-claim alignment in Discussion sections, and prepares response letters.',
+    features: [
+      'All Premium Editing features included',
+      'Comprehensive Manuscript Scientific Completeness Assessment',
+      'Deep analysis of narrative coherence, experimental framing, and literature synthesis',
+      'Reviewer Response Matrix & rebuttal letter cross-check for resubmissions',
+      'Direct peer reviewer commentary mimicking actual journal review committees',
+      'Unlimited rounds of re-editing and re-formatting for 365 days',
+      'Priority delivery turnaround with executive managing editor oversight',
+    ],
+    whenToChoose: [
+      'Targeting premier high-impact journals with >80% desk-rejection rates.',
+      'You received a harsh "Revise & Resubmit" decision and need response strategy.',
+      'Converting complex empirical multi-study data into cohesive prose.',
+      'You seek deep academic critique to reinforce your manuscript before initial submission.',
+    ],
+    deliverables: [
+      'Tracked Changes substantive edit',
+      'Comprehensive Scientific Review Report (strengths, gaps, review readiness)',
+      'Journal Rebuttal / Revision Response Matrix',
+      'Cover Letter + Target Journal Submission Checklist',
+      'Executive Editorial Certificate + Priority 365-day re-editing',
+    ],
+  },
+]
+
+// ─── COMPARISON MATRIX ROWS ─────────────────────────────────────────────────
+
+const comparisonMatrix = [
+  { feature: 'Grammar, punctuation & syntax correction', advanced: true, premium: true, scientific: true },
+  { feature: 'Academic tone & terminology accuracy', advanced: true, premium: true, scientific: true },
+  { feature: '100% Track Changes delivery in Word', advanced: true, premium: true, scientific: true },
+  { feature: 'Target journal style & handbook formatting', advanced: true, premium: true, scientific: true },
+  { feature: 'Editorial Certificate of English Editing', advanced: true, premium: true, scientific: true },
+  { feature: 'Sentence rhythm, flow & transitions polish', advanced: 'Basic', premium: 'Substantive', scientific: 'In-Depth' },
+  { feature: 'Paragraph restructuring & logical pacing', advanced: false, premium: true, scientific: true },
+  { feature: 'Inline citation to bibliography cross-check', advanced: false, premium: true, scientific: true },
+  { feature: 'Target Journal Cover Letter creation', advanced: false, premium: true, scientific: true },
+  { feature: 'Editor Advisory Memorandum on arguments', advanced: false, premium: true, scientific: true },
+  { feature: 'Dual-pass review by 2 independent academic editors', advanced: false, premium: true, scientific: true },
+  { feature: 'Scientific Completeness & Peer Review Assessment', advanced: false, premium: false, scientific: true },
+  { feature: 'Reviewer Response Matrix & Rebuttal letter check', advanced: false, premium: false, scientific: true },
+  { feature: 'Complimentary Re-editing Guarantee', advanced: '1 round (30 days)', premium: 'Unlimited (365 days)', scientific: 'Unlimited (365 days)' },
+]
+
+// ─── FAQS ───────────────────────────────────────────────────────────────────
 
 const faqs = [
   {
-    q: 'How do I know which editing tier my manuscript needs?',
-    a: "If your draft is already well-structured and written, but needs strict style manual compliance, mechanical polish, and formatting check, choose Tier 1 (Proofreading). If you want paragraph-level sentence polishing, academic tone refinement, and cadence, choose Tier 2 (Substantive Line Editing). If your manuscript needs chapter reorganization, section pacing, and argument flow, choose Tier 3 (Structural Refinement).",
+    q: 'How do I choose between Advanced, Premium, and Scientific Editing Pro?',
+    a: 'If your manuscript is well-organized and needs line-by-line grammar, academic tone polish, and strict target journal formatting, choose Advanced Editing. If you want structural reorganization, argument flow refinement, citation verification, and peace of mind with 365 days of free re-editing, choose Premium Editing (our most requested service). If you are targeting high-rejection Q1 journals or responding to tough reviewer critiques, choose Scientific Editing Pro for peer-reviewer developmental assessment.',
   },
   {
-    q: 'What is your policy on ghostwriting or AI generation?',
-    a: "We maintain strict ethical standards. We work exclusively with human-authored prose in Track Changes. We do not generate new text, ghostwrite, or falsify scholarship under any circumstances. You retain 100% intellectual ownership of your work.",
+    q: 'Can I upload my file and start immediately without scheduling a sales call?',
+    a: 'Yes, absolutely. Our pipeline is 100% asynchronous and designed for busy scholars. You can enter your word count, upload your manuscript (.docx), select your deadline, and receive your confirmed quote and start notification within 24 hours.',
   },
   {
-    q: 'Can you format to my specific university or journal template?',
-    a: "Yes. In addition to standard APA 7th, Chicago/Turabian, MLA 9th, and IEEE, we configure your document according to your university's exact graduate school handbook, ProQuest criteria, or publisher guidelines.",
+    q: 'What is your policy on ghostwriting and AI-generated text?',
+    a: 'We operate under a strict zero-ghostwriting policy. We do not generate text, write unoriginal prose, or falsify data. We polish, structure, audit, and refine your authentic intellectual work in Microsoft Word Track Changes so you retain 100% intellectual authorship and defense defensibility.',
+  },
+  {
+    q: 'What does the 365-Day Free Re-editing guarantee include?',
+    a: 'Under Premium Editing and Scientific Editing Pro, you can submit revised drafts of your edited manuscript within 365 days of initial delivery at zero additional charge. This covers revisions made in response to supervisor comments, committee feedback, or journal peer reviewers.',
+  },
+  {
+    q: 'Can university grants, departmental research budgets, or startup funds pay for this?',
+    a: 'Yes. Most universities, labs, and fellowship programs (NSF, NIH, Fulbright, university graduate research allowances) cover professional editorial services. We provide itemized institutional invoices and W-9 documentation.',
+  },
+  {
+    q: 'Which style manuals and academic disciplines do you support?',
+    a: 'We edit across all disciplines (humanities, social sciences, medicine, STEM, law, education) and configure documents to APA 7th, Chicago/Turabian (Notes & Bibliography or Author-Date), MLA 9th, IEEE, Harvard, AMA, and individual publisher author guidelines.',
   },
 ]
 
 export default function EditingProofreadingPage() {
   const theme = useMantineTheme()
   const active = theme.other
-  const [wordCount, setWordCount] = useState(30000)
-  const [opened, { open, close }] = useDisclosure(false)
-  const [selectedResource, setSelectedResource] = useState('')
-  const [submitted, setSubmitted] = useState(false)
 
-  const handleDownloadClick = (title: string) => {
-    setSelectedResource(title)
-    setSubmitted(false)
-    open()
-  }
+  // Live Pricing State
+  const [wordCount, setWordCount] = useState<number>(8000)
+  const [selectedTierId, setSelectedTierId] = useState<string>('premium')
+
+  const selectedTier = editingTiers.find((t) => t.id === selectedTierId) ?? editingTiers[1]
+  const estimatedPrice = (wordCount * selectedTier.ratePerWord).toFixed(2)
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <Box component="section" pt={rem(140)} pb={rem(100)} bg={active.background}>
-        <Container size={1200}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(80)} style={{ alignItems: 'center' }}>
+      {/* ── HERO SECTION ───────────────────────────────────────────────── */}
+      <Box
+        component="section"
+        pt={{ base: rem(120), md: rem(150) }}
+        pb={{ base: rem(60), md: rem(90) }}
+        bg={active.background}
+        style={{ borderBottom: `1px solid ${active.primary}12` }}
+      >
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap="xl" style={{ maxWidth: 860 }}>
+            <Box>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Manuscript Refinement & Production
+              </Text>
+              <Title
+                order={1}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2.4rem, 5.2vw, 3.8rem)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.025em',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                English Editing Services by Academic Subject Specialists.
+              </Title>
+            </Box>
+
+            <Text size="lg" c="dimmed" lh={1.75} style={{ fontSize: rem(19), maxWidth: '64ch' }}>
+              Whether you need rapid line-by-line grammar polish or substantive structural overhaul with 365 days of free re-editing &mdash; our senior PhD editors ensure your manuscript is authoritative, style-compliant, and committee-ready.
+            </Text>
+
+            {/* Quick Stats Bar */}
+            <Group gap="xl" wrap="wrap" pt="sm">
+              <Group gap="xs" align="center">
+                <IconCheck size={18} color={active.accent} />
+                <Text size="sm" fw={600} c={active.primary}>100% Track Changes Delivery</Text>
+              </Group>
+              <Group gap="xs" align="center">
+                <IconCheck size={18} color={active.accent} />
+                <Text size="sm" fw={600} c={active.primary}>Strict Zero Ghostwriting Guarantee</Text>
+              </Group>
+              <Group gap="xs" align="center">
+                <IconCheck size={18} color={active.accent} />
+                <Text size="sm" fw={600} c={active.primary}>Subject-Matched PhD Editors</Text>
+              </Group>
+            </Group>
+
+            <Group gap="md" pt="xs" wrap="wrap">
+              <Link href="#pricing-calculator" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="lg"
+                  radius={0}
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#fff',
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    fontWeight: 600,
+                    letterSpacing: '0.04em',
+                    height: rem(52),
+                    paddingLeft: rem(28),
+                    paddingRight: rem(28),
+                  }}
+                >
+                  Calculate Your Fee
+                </Button>
+              </Link>
+              <Link href="/scholarcrafted/request-review?service=editing" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  radius={0}
+                  style={{
+                    borderColor: active.primary,
+                    color: active.primary,
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    letterSpacing: '0.04em',
+                    height: rem(52),
+                    paddingLeft: rem(28),
+                    paddingRight: rem(28),
+                  }}
+                >
+                  Upload Manuscript Now
+                </Button>
+              </Link>
+            </Group>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* ── 3-TIER COMPARISON CARDS ────────────────────────────────────── */}
+      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(48)}>
+            <Box style={{ maxWidth: 800 }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Editing Plans
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                Three depths of editorial intervention.
+              </Title>
+              <Text size="md" c="dimmed" mt="sm" lh={1.7}>
+                Choose the level of rigor that matches where your manuscript stands today. Every tier is executed by human discipline specialists in Microsoft Word Track Changes.
+              </Text>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
+              {editingTiers.map((tier) => {
+                const isSelected = tier.id === selectedTierId
+                return (
+                  <Box
+                    key={tier.id}
+                    p={{ base: rem(28), md: rem(36) }}
+                    bg={active.background}
+                    style={{
+                      border: `1px solid ${tier.isPopular ? active.accent : `${active.primary}18`}`,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      boxShadow: tier.isPopular ? `0 12px 40px ${active.accent}18` : 'none',
+                    }}
+                  >
+                    {tier.isPopular && (
+                      <Box
+                        px={rem(12)}
+                        py={rem(4)}
+                        mb="xs"
+                        style={{
+                          backgroundColor: active.accent,
+                          alignSelf: 'flex-start',
+                        }}
+                      >
+                        <Text
+                          size="xs"
+                          fw={700}
+                          c={active.background}
+                          style={{
+                            letterSpacing: '0.12em',
+                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          }}
+                        >
+                          MOST POPULAR
+                        </Text>
+                      </Box>
+                    )}
+
+                    <Text
+                      size="xs"
+                      fw={700}
+                      c={active.accent}
+                      style={{
+                        letterSpacing: '0.12em',
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
+                    >
+                      {tier.badge}
+                    </Text>
+
+                    <Title
+                      order={3}
+                      mt="xs"
+                      style={{
+                        fontSize: rem(24),
+                        fontFamily: 'var(--font-display), var(--font-serif)',
+                        fontWeight: 600,
+                        color: active.primary,
+                      }}
+                    >
+                      {tier.name}
+                    </Title>
+
+                    <Text size="xs" c="dimmed" mt="xs" lh={1.6} style={{ minHeight: rem(42) }}>
+                      {tier.tagline}
+                    </Text>
+
+                    <Box my="md">
+                      <Text
+                        size="xs"
+                        fw={700}
+                        c="dimmed"
+                        style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                      >
+                        Rate per word
+                      </Text>
+                      <Text
+                        fw={700}
+                        style={{
+                          fontSize: rem(26),
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          color: active.primary,
+                          lineHeight: 1.1,
+                          marginTop: rem(4),
+                        }}
+                      >
+                        ${tier.ratePerWord.toFixed(4)} <span style={{ fontSize: rem(14), fontWeight: 500, color: '#888' }}>/ word</span>
+                      </Text>
+                    </Box>
+
+                    <Button
+                      fullWidth
+                      radius={0}
+                      variant={tier.isPopular ? 'filled' : 'outline'}
+                      style={{
+                        backgroundColor: tier.isPopular ? active.accent : 'transparent',
+                        color: tier.isPopular ? '#fff' : active.primary,
+                        borderColor: tier.isPopular ? active.accent : active.primary,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        letterSpacing: '0.04em',
+                        fontWeight: 600,
+                        marginBottom: rem(24),
+                      }}
+                      onClick={() => {
+                        setSelectedTierId(tier.id)
+                        document.getElementById('pricing-calculator')?.scrollIntoView({ behavior: 'smooth' })
+                      }}
+                    >
+                      Select Plan & Calculate Fee
+                    </Button>
+
+                    <Stack gap="xs" mb="lg">
+                      {tier.features.map((feat, fIdx) => (
+                        <Group key={fIdx} gap="xs" align="flex-start" wrap="nowrap">
+                          <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                          <Text size="xs" c={active.primary} lh={1.4}>
+                            {feat}
+                          </Text>
+                        </Group>
+                      ))}
+                    </Stack>
+
+                    <Divider color={`${active.primary}12`} my="sm" />
+
+                    <Stack gap={rem(6)} mt="auto">
+                      <Text
+                        size="xs"
+                        fw={700}
+                        c={active.accent}
+                        style={{
+                          letterSpacing: '0.08em',
+                          textTransform: 'uppercase',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        }}
+                      >
+                        When to choose
+                      </Text>
+                      {tier.whenToChoose.map((wtc, wIdx) => (
+                        <Text key={wIdx} size="xs" c="dimmed" lh={1.45}>
+                          • {wtc}
+                        </Text>
+                      ))}
+                    </Stack>
+                  </Box>
+                )
+              })}
+            </SimpleGrid>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* ── LIVE INTERACTIVE WORD-COUNT CALCULATOR ──────────────────────── */}
+      <Box
+        id="pricing-calculator"
+        component="section"
+        py={SECTION_SPACING}
+        bg={active.background}
+        style={{ borderTop: `1px solid ${active.primary}12`, borderBottom: `1px solid ${active.primary}12` }}
+      >
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(40), md: rem(80) }} style={{ alignItems: 'center' }}>
             <Stack gap="xl">
-              <Stack gap="xs">
+              <Box>
                 <Text
                   size="xs"
                   fw={700}
-                  style={{ letterSpacing: '0.2em', textTransform: 'uppercase' }}
                   c={active.accent}
-                >
-                  Manuscript Refinement & Production
-                </Text>
-                <Title
-                  order={1}
                   style={{
-                    fontSize: rem(60),
-                    lineHeight: 1.1,
-                    letterSpacing: '-0.02em',
-                    color: active.primary,
-                    fontFamily: 'var(--font-serif)'
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                   }}
                 >
-                  Precision technical editing for scholars.
+                  Instant Fee Calculator
+                </Text>
+                <Title
+                  order={2}
+                  mt="xs"
+                  style={{
+                    fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                    color: active.primary,
+                    fontFamily: 'var(--font-display), var(--font-serif)',
+                    fontWeight: 600,
+                  }}
+                >
+                  Transparent, per-word pricing. Zero hidden fees.
                 </Title>
-              </Stack>
-              <Text size="lg" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-                Move from a finished draft to a submission-ready manuscript with the strict style compliance,
-                prose clarity, and authoritative voice required by academic presses and graduate committees.
-              </Text>
-              
-              <Group gap="md">
-                <Link href="/scholarcrafted/request-review?service=Structural%20Editing%20%26%20Proofreading" style={{ textDecoration: 'none' }}>
-                  <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                    GET A FREE QUOTE
-                  </Button>
-                </Link>
-                <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-                  <Button size="lg" variant="outline" radius={0} style={{ borderColor: active.primary, color: active.primary }}>
-                    BOOK A PROJECT REVIEW
-                  </Button>
-                </Link>
-              </Group>
+                <Text size="md" c="dimmed" mt="sm" lh={1.7}>
+                  Adjust your word count to view the exact fee for each editorial tier. Submit your document directly online without mandatory sales calls.
+                </Text>
+              </Box>
+
+              {/* Tier Selection Buttons */}
+              <Box>
+                <Text size="xs" fw={700} c="dimmed" mb="xs" style={{ letterSpacing: '0.08em' }}>
+                  CHOOSE YOUR EDITING PLAN:
+                </Text>
+                <SimpleGrid cols={3} spacing={rem(8)}>
+                  {editingTiers.map((t) => (
+                    <UnstyledButton
+                      key={t.id}
+                      onClick={() => setSelectedTierId(t.id)}
+                      style={{
+                        padding: `${rem(12)} ${rem(14)}`,
+                        border: `1px solid ${selectedTierId === t.id ? active.primary : `${active.primary}20`}`,
+                        backgroundColor: selectedTierId === t.id ? active.primary : active.surface,
+                        color: selectedTierId === t.id ? active.background : active.primary,
+                        textAlign: 'center',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <Text
+                        size="xs"
+                        fw={700}
+                        style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                      >
+                        {t.name}
+                      </Text>
+                      <Text size="xs" c={selectedTierId === t.id ? active.accent : 'dimmed'} mt={2}>
+                        ${t.ratePerWord.toFixed(4)}/wd
+                      </Text>
+                    </UnstyledButton>
+                  ))}
+                </SimpleGrid>
+              </Box>
+
+              {/* Word Count Slider & Input */}
+              <Box>
+                <Group justify="space-between" mb="xs">
+                  <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.08em' }}>
+                    ENTER MANUSCRIPT WORD COUNT:
+                  </Text>
+                  <Text
+                    size="sm"
+                    fw={700}
+                    c={active.accent}
+                    style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                  >
+                    {wordCount.toLocaleString()} words
+                  </Text>
+                </Group>
+
+                <Slider
+                  value={wordCount}
+                  onChange={setWordCount}
+                  min={1000}
+                  max={80000}
+                  step={500}
+                  color={active.accent}
+                  radius={0}
+                  size="md"
+                  thumbSize={18}
+                  styles={{
+                    track: { backgroundColor: `${active.primary}14` },
+                  }}
+                />
+
+                <Group gap="xs" mt="sm">
+                  {[3000, 7000, 15000, 30000, 60000].map((preset) => (
+                    <Button
+                      key={preset}
+                      size="xs"
+                      variant="subtle"
+                      radius={0}
+                      color={active.primary}
+                      onClick={() => setWordCount(preset)}
+                      style={{ border: `1px solid ${active.primary}18`, padding: `${rem(2)} ${rem(8)}` }}
+                    >
+                      {preset >= 1000 ? `${preset / 1000}k words` : `${preset} words`}
+                    </Button>
+                  ))}
+                </Group>
+              </Box>
             </Stack>
 
-            {/* RHS Card: High-value Template Lead Magnet */}
-            <Box>
-              <Card 
-                p={rem(40)} 
-                radius={0} 
-                bg={active.surface} 
-                style={{ 
-                  border: `1px solid ${active.primary}12`,
-                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)'
+            {/* Calculated Quote Box */}
+            <Box
+              p={{ base: rem(32), md: rem(48) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${active.primary}18`,
+                boxShadow: `0 16px 48px rgba(0,0,0,0.06)`,
+              }}
+            >
+              <Stack gap="lg">
+                <Box>
+                  <Group justify="space-between" align="center">
+                    <Badge radius={0} variant="filled" style={{ backgroundColor: active.accent, color: '#fff' }}>
+                      {selectedTier.badge}
+                    </Badge>
+                    <Text size="xs" c="dimmed">
+                      {wordCount.toLocaleString()} Words
+                    </Text>
+                  </Group>
+                  <Title
+                    order={3}
+                    mt="xs"
+                    style={{
+                      fontSize: rem(26),
+                      fontFamily: 'var(--font-display), var(--font-serif)',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {selectedTier.name}
+                  </Title>
+                  <Text size="xs" c="dimmed" mt={4}>
+                    {selectedTier.targetAudience}
+                  </Text>
+                </Box>
+
+                <Divider color={`${active.primary}12`} />
+
+                <Box>
+                  <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.08em' }}>
+                    ESTIMATED TOTAL INVESTMENT
+                  </Text>
+                  <Text
+                    fw={700}
+                    style={{
+                      fontSize: 'clamp(2.5rem, 4.5vw, 3.4rem)',
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      color: active.primary,
+                      lineHeight: 1.1,
+                      marginTop: rem(4),
+                    }}
+                  >
+                    ${Number(estimatedPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </Text>
+                  <Text size="xs" c="dimmed" mt={4}>
+                    Calculated at ${selectedTier.ratePerWord.toFixed(4)} per word. Official itemized invoice provided.
+                  </Text>
+                </Box>
+
+                <SimpleGrid cols={2} spacing="md">
+                  <Box p={rem(14)} bg={active.background} style={{ border: `1px solid ${active.primary}12` }}>
+                    <Text size="xs" fw={700} c={active.accent}>STANDARD DELIVERY</Text>
+                    <Text size="sm" fw={700} c={active.primary} mt={2}>{selectedTier.standardDays}</Text>
+                  </Box>
+                  <Box p={rem(14)} bg={active.background} style={{ border: `1px solid ${active.primary}12` }}>
+                    <Text size="xs" fw={700} c={active.accent}>PRIORITY DELIVERY</Text>
+                    <Text size="sm" fw={700} c={active.primary} mt={2}>{selectedTier.priorityDays}</Text>
+                  </Box>
+                </SimpleGrid>
+
+                <Link
+                  href={`/scholarcrafted/request-review?service=${encodeURIComponent(selectedTier.name)}&wordCount=${wordCount}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    fullWidth
+                    size="lg"
+                    radius={0}
+                    style={{
+                      backgroundColor: active.primary,
+                      color: active.background,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      letterSpacing: '0.06em',
+                      fontWeight: 600,
+                      height: rem(52),
+                    }}
+                    rightSection={<IconArrowRight size={16} />}
+                  >
+                    Proceed with {selectedTier.name}
+                  </Button>
+                </Link>
+
+                <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
+                  Upload .docx draft &bull; Firm 24h assessment &bull; Zero sales calls required
+                </Text>
+              </Stack>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* ── WHAT SCHOLARCRAFTED DELIVERS THAT AI CANNOT ────────────────── */}
+      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(48)}>
+            <Box style={{ maxWidth: 840, margin: '0 auto', textAlign: 'center' }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                 }}
               >
-                <Stack gap="xl">
-                  <Badge color="dark" variant="light" radius={0} style={{ alignSelf: 'flex-start' }} className="impeccable-eyebrow">
-                    EDITORIAL GUIDE
-                  </Badge>
-                  <Stack gap="xs">
-                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary }}>
-                      The Manuscript Refinement Guide
-                    </Title>
-                    <Text size="sm" c="dimmed" lh={1.6}>
-                      A comprehensive, step-by-step overview of our doctoral-level copyediting, institutional formatting rules, style manuals (APA, Chicago, MLA), and delivery standards.
-                    </Text>
-                  </Stack>
-                  <Button
-                    variant="outline"
-                    color={active.primary}
-                    radius={0}
-                    leftSection={<IconDownload size={16} />}
-                    style={{ borderColor: active.primary }}
-                    onClick={() => handleDownloadClick('The Manuscript Refinement Guide')}
-                  >
-                    Download Services Guide
-                  </Button>
-                </Stack>
-              </Card>
-            </Box>
-          </SimpleGrid>
-        </Container>
-      </Box>
-
-      {/* The Scholar's Standard (Trust Section) */}
-      <Box py={0} className="academic-watermark" bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
-        <Container size={800} py={rem(100)}>
-          <Stack gap={rem(48)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                Institutional-Grade Rigor
+                Human Academic Intelligence
               </Text>
-              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)', lineHeight: 1.15 }}>
-                A higher standard of <br />academic editing.
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                What ScholarCrafted delivers that AI tools cannot.
               </Title>
-            </Box>
-
-            <Box style={{ maxWidth: 750 }}>
-              <Text size="lg" c="dimmed" lh={1.8} style={{ fontSize: rem(20) }}>
-                Our editors are not generalist proofreaders—they are PhD-level academics who understand the 
-                nuance and conventions of scholarly publishing. We work exclusively in Microsoft Word Track Changes 
-                on human-authored manuscripts to ensure full transparency, authorship protection, and committee readiness.
+              <Text size="md" c="dimmed" mt="sm" lh={1.75}>
+                Large language models catch surface typos, but fail on methodological nuance, discipline epistemology, and citation veracity. Here is why human academic review remains essential before peer review.
               </Text>
             </Box>
 
-            <Stack gap="md" style={{ width: '100%', maxWidth: 500, textAlign: 'left' }} mt="md">
-              {[
-                'PhD-level academic editors in your disciplinary cluster',
-                'Strict compliance with institutional and publisher style guides',
-                'Delivered 100% in Track Changes with marginal annotations',
-                'Zero ghostwriting — authentic human scholarly voice preserved'
-              ].map((item, i) => (
-                <Group key={i} gap="md" wrap="nowrap" align="center">
-                  <ThemeIcon size={28} radius="xl" variant="light" color={active.accent}>
-                    <IconCheck size={16} stroke={3} />
-                  </ThemeIcon>
-                  <Text fw={600} size="md" c={active.primary}>{item}</Text>
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+              {/* Box 1: Why AI is Risky */}
+              <Box
+                p={{ base: rem(28), md: rem(36) }}
+                bg={active.background}
+                style={{ border: `1px solid ${active.primary}18` }}
+              >
+                <Group gap="xs" align="center" mb="md">
+                  <IconAlertTriangle size={20} color="#e03131" />
+                  <Text size="sm" fw={700} c="#e03131" style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    Risks of Relying Exclusively on AI
+                  </Text>
                 </Group>
-              ))}
-            </Stack>
+                <Stack gap="md">
+                  {[
+                    {
+                      title: 'Hallucinated & Broken Citations',
+                      desc: 'AI synthesizes plausible-sounding journal titles and DOI links that do not exist, triggering immediate desk rejection.',
+                    },
+                    {
+                      title: 'Formulaic, Repetitive Phrasing',
+                      desc: 'LLMs rely on stereotypical syntactic habits that journal reviewers and automated screening systems easily identify.',
+                    },
+                    {
+                      title: 'Disregard for Theoretical Context',
+                      desc: 'Generic models do not understand the subtle epistemological debates between competing theoretical schools in your discipline.',
+                    },
+                    {
+                      title: 'Zero Accountability to Your Committee',
+                      desc: 'An AI cannot explain why a change was made or defend section pacing during an oral dissertation defense.',
+                    },
+                  ].map((item, idx) => (
+                    <Box key={idx} pl="md" style={{ borderLeft: `2px solid #e0313133` }}>
+                      <Text size="sm" fw={700} c={active.primary}>{item.title}</Text>
+                      <Text size="xs" c="dimmed" mt={2} lh={1.5}>{item.desc}</Text>
+                    </Box>
+                  ))}
+                </Stack>
+              </Box>
+
+              {/* Box 2: What ScholarCrafted Human Review Adds */}
+              <Box
+                p={{ base: rem(28), md: rem(36) }}
+                bg={active.background}
+                style={{ border: `1px solid ${active.accent}` }}
+              >
+                <Group gap="xs" align="center" mb="md">
+                  <IconSparkles size={20} color={active.accent} />
+                  <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    What Senior Human Specialists Provide
+                  </Text>
+                </Group>
+                <Stack gap="md">
+                  {[
+                    {
+                      title: '100% Verified Citation Integrity',
+                      desc: 'Our editors manually cross-check inline citations against reference entries and CrossRef DOIs.',
+                    },
+                    {
+                      title: 'Authentic Scholarly Voice & Cadence',
+                      desc: 'We preserve your unique intellectual voice while eliminating clumsy phrasing and academic jargon bloat.',
+                    },
+                    {
+                      title: 'Domain Epistemology & Methodological Rigor',
+                      desc: 'Edited by scholars with doctorates in your field who know what top peer reviewers expect to see.',
+                    },
+                    {
+                      title: '365-Day Defense & Re-editing Guarantee',
+                      desc: 'If your committee or target journal requests modifications to edited text, we support you through publication.',
+                    },
+                  ].map((item, idx) => (
+                    <Box key={idx} pl="md" style={{ borderLeft: `2px solid ${active.accent}` }}>
+                      <Text size="sm" fw={700} c={active.primary}>{item.title}</Text>
+                      <Text size="xs" c="dimmed" mt={2} lh={1.5}>{item.desc}</Text>
+                    </Box>
+                  ))}
+                </Stack>
+              </Box>
+            </SimpleGrid>
           </Stack>
         </Container>
-
-        {/* Infinite Scrolling Ribbon */}
-        <Box
-          style={{
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            backgroundColor: active.primary,
-            color: '#FFFFFF',
-            padding: '16px 0',
-            borderTop: `1px solid ${active.accent}33`,
-            borderBottom: `1px solid ${active.accent}33`,
-            position: 'relative',
-          }}
-        >
-          <style dangerouslySetInnerHTML={{ __html: `
-            @keyframes marquee {
-              0% { transform: translate3d(0, 0, 0); }
-              100% { transform: translate3d(-33.3333%, 0, 0); }
-            }
-            .marquee-wrapper {
-              display: flex;
-              overflow: hidden;
-              width: 100%;
-            }
-            .marquee-content {
-              display: flex;
-              animation: marquee 40s linear infinite;
-              white-space: nowrap;
-            }
-            .marquee-content span {
-              display: inline-block;
-              padding-right: 64px;
-              font-family: var(--font-sans);
-              font-size: 11px;
-              font-weight: 600;
-              letter-spacing: 0.18em;
-              color: rgba(255, 255, 255, 0.9);
-            }
-            .marquee-content strong {
-              color: ${active.accent};
-              font-weight: 700;
-            }
-          ` }} />
-          <div className="marquee-wrapper">
-            <div className="marquee-content">
-              <span>✦ <strong>THE RIGOR GUARANTEE:</strong> IF YOUR COMMITTEE OR PUBLISHER REQUESTS REVISIONS RELATED DIRECTLY TO EDITING WE PERFORMED, WE UNDERTAKE THOSE CORRECTIONS AT NO ADDITIONAL COST.</span>
-              <span>✦ <strong>THE RIGOR GUARANTEE:</strong> IF YOUR COMMITTEE OR PUBLISHER REQUESTS REVISIONS RELATED DIRECTLY TO EDITING WE PERFORMED, WE UNDERTAKE THOSE CORRECTIONS AT NO ADDITIONAL COST.</span>
-              <span>✦ <strong>THE RIGOR GUARANTEE:</strong> IF YOUR COMMITTEE OR PUBLISHER REQUESTS REVISIONS RELATED DIRECTLY TO EDITING WE PERFORMED, WE UNDERTAKE THOSE CORRECTIONS AT NO ADDITIONAL COST.</span>
-            </div>
-          </div>
-        </Box>
       </Box>
 
-      {/* The 3-Step Client Workflow */}
+      {/* ── FULL FEATURE COMPARISON TABLE ──────────────────────────────── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ textAlign: 'center', maxWidth: 740, margin: '0 auto' }}>
-              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                How It Works
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(40)}>
+            <Box style={{ maxWidth: 800 }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Detailed Breakdown
               </Text>
-              <Title order={2} style={{ fontSize: rem(42), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                Predictable, Asynchronous Workflow.
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                Side-by-side feature comparison.
               </Title>
-              <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                No endless meetings or back-and-forth ambiguity. We work directly with your complete draft and target style manual.
+              <Text size="md" c="dimmed" mt="sm" lh={1.7}>
+                Compare the exact deliverables, revision passes, and diagnostic reports across each editing plan.
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(36)}>
-              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
-                <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 01</Text>
-                <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
-                  Submit Draft & Guidelines
-                </Title>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Send your complete manuscript (.docx) and target guidelines (APA, Chicago, university template). We confirm your exact word count and delivery schedule within 24 hours.
-                </Text>
-              </Box>
+            <Box style={{ overflowX: 'auto', border: `1px solid ${active.primary}18` }}>
+              <Table verticalSpacing="md" horizontalSpacing="lg" highlightOnHover>
+                <Table.Thead bg={active.surface}>
+                  <Table.Tr>
+                    <Table.Th style={{ width: '40%', fontSize: rem(13), fontFamily: 'var(--font-heading-sans)' }}>
+                      FEATURE & DELIVERABLE
+                    </Table.Th>
+                    <Table.Th style={{ width: '20%', textAlign: 'center', fontSize: rem(13), fontFamily: 'var(--font-heading-sans)' }}>
+                      ADVANCED ($0.0425/wd)
+                    </Table.Th>
+                    <Table.Th style={{ width: '20%', textAlign: 'center', fontSize: rem(13), fontFamily: 'var(--font-heading-sans)', color: active.accent }}>
+                      PREMIUM ($0.065/wd) ★
+                    </Table.Th>
+                    <Table.Th style={{ width: '20%', textAlign: 'center', fontSize: rem(13), fontFamily: 'var(--font-heading-sans)' }}>
+                      SCIENTIFIC PRO ($0.095/wd)
+                    </Table.Th>
+                  </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>
+                  {comparisonMatrix.map((row, rIdx) => (
+                    <Table.Tr key={rIdx}>
+                      <Table.Td style={{ fontWeight: 500, fontSize: rem(14), color: active.primary }}>
+                        {row.feature}
+                      </Table.Td>
+                      <Table.Td style={{ textAlign: 'center' }}>
+                        {typeof row.advanced === 'boolean' ? (
+                          row.advanced ? <IconCheck size={18} color={active.accent} /> : <IconX size={16} color="#bbb" />
+                        ) : (
+                          <Text size="xs" fw={600} c={active.primary}>{row.advanced}</Text>
+                        )}
+                      </Table.Td>
+                      <Table.Td style={{ textAlign: 'center', backgroundColor: `${active.accent}08` }}>
+                        {typeof row.premium === 'boolean' ? (
+                          row.premium ? <IconCheck size={18} color={active.accent} /> : <IconX size={16} color="#bbb" />
+                        ) : (
+                          <Text size="xs" fw={700} c={active.accent}>{row.premium}</Text>
+                        )}
+                      </Table.Td>
+                      <Table.Td style={{ textAlign: 'center' }}>
+                        {typeof row.scientific === 'boolean' ? (
+                          row.scientific ? <IconCheck size={18} color={active.accent} /> : <IconX size={16} color="#bbb" />
+                        ) : (
+                          <Text size="xs" fw={600} c={active.primary}>{row.scientific}</Text>
+                        )}
+                      </Table.Td>
+                    </Table.Tr>
+                  ))}
+                </Table.Tbody>
+              </Table>
+            </Box>
+          </Stack>
+        </Container>
+      </Box>
 
-              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
-                <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 02</Text>
-                <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
-                  Faculty Editorial Execution
-                </Title>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Our academic editors execute line-by-line refinements, polish syntax and transitions, and ensure strict style manual compliance throughout your document.
-                </Text>
-              </Box>
+      {/* ── ASYNCHRONOUS 3-STEP WORKFLOW ─────────────────────────────────── */}
+      <Box component="section" py={SECTION_SPACING} bg={active.surface}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(48)}>
+            <Box style={{ maxWidth: 740, margin: '0 auto', textAlign: 'center' }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Asynchronous Workflow
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                How our editorial execution works.
+              </Title>
+              <Text size="md" c="dimmed" mt="sm" lh={1.7}>
+                No mandatory discovery calls or scheduling friction. We work directly with your manuscript and target style guidelines.
+              </Text>
+            </Box>
 
-              <Box p={rem(32)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
-                <Text fw={700} size="sm" c={active.accent} mb="xs">STEP 03</Text>
-                <Title order={3} mb="sm" style={{ fontSize: rem(20), fontFamily: 'var(--font-serif)' }}>
-                  Tracked Delivery & Final Galley
-                </Title>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Receive your manuscript with full tracked changes and margin queries, accompanied by a clean submission-ready version and editorial memo.
-                </Text>
-              </Box>
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
+              {[
+                {
+                  step: '01',
+                  title: 'Upload Manuscript & Guidelines',
+                  desc: 'Submit your document (.docx) and specify your target journal or style manual (APA, Chicago, MLA). We confirm word count and delivery schedule in 24 hours.',
+                },
+                {
+                  step: '02',
+                  title: 'Discipline-Specific Human Editing',
+                  desc: 'A doctoral editor from your subject area completes substantive revisions in Word Track Changes, leaving marginal queries for ambiguities.',
+                },
+                {
+                  step: '03',
+                  title: 'Tracked Delivery & 365-Day Guarantee',
+                  desc: 'Receive your clean and tracked copies plus Editorial Certificate. If your committee or journal requests modifications, enjoy free re-editing.',
+                },
+              ].map((st, i) => (
+                <Box
+                  key={i}
+                  p={{ base: rem(28), md: rem(36) }}
+                  bg={active.background}
+                  style={{ border: `1px solid ${active.primary}18` }}
+                >
+                  <Text
+                    size="xs"
+                    fw={700}
+                    c={active.accent}
+                    style={{ letterSpacing: '0.15em', fontFamily: 'var(--font-heading-sans)' }}
+                  >
+                    STEP {st.step}
+                  </Text>
+                  <Title
+                    order={3}
+                    mt="xs"
+                    style={{
+                      fontSize: rem(20),
+                      fontFamily: 'var(--font-display), var(--font-serif)',
+                      fontWeight: 600,
+                      color: active.primary,
+                    }}
+                  >
+                    {st.title}
+                  </Title>
+                  <Text size="sm" c="dimmed" mt="sm" lh={1.65}>
+                    {st.desc}
+                  </Text>
+                </Box>
+              ))}
             </SimpleGrid>
           </Stack>
         </Container>
       </Box>
 
-      {/* Levels of Service (Editorial Tiers) */}
-      <Box py={SECTION_SPACING} className="academic-watermark" bg={active.background}>
-        <Container size={INNER_WIDTH}>
-          <Stack gap={rem(60)}>
-            <Box style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
-              <Text size="xs" c={active.accent} fw={700} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }} mb="sm">
-                Editorial Tiers
-              </Text>
-              <Title order={2} style={{ fontSize: rem(48), color: active.primary, fontFamily: 'var(--font-serif)' }}>
-                Choose Your Depth of Editing.
-              </Title>
-              <Text size="lg" c="dimmed" lh={1.7} mt="md">
-                Transparent word-based rates for dissertations, theses, journal submissions, and scholarly monographs.
-              </Text>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, lg: 3 }} spacing={rem(24)}>
-              {/* Card 1: Proofreading & Formatting */}
-              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Box>
-                    <Badge radius={0} variant="outline" color={active.primary} mb="md">TIER 1 — POLISH & FORMAT</Badge>
-                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)' }}>Proofreading & Style Compliance</Title>
-                    <Text size="sm" c="dimmed" mt="xs">Ideal for clean, well-developed drafts needing final mechanical polish before deposit.</Text>
-                  </Box>
-                  
-                  <Stack gap="sm">
-                    {[
-                      'Mechanical & Grammatical Error Elimination',
-                      'Style Manual Adherence (APA, Chicago, MLA)',
-                      'Layout, Margins & Heading Hierarchy',
-                      'Table of Contents & Pagination Alignment',
-                      'Tracked Changes & Clean Formatted Copy'
-                    ].map((item, i) => (
-                      <Group key={i} gap="xs" align="flex-start">
-                        <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
-                        <Text size="sm" fw={600}>{item}</Text>
-                      </Group>
-                    ))}
-                  </Stack>
-
-                  <Divider color="oklch(0% 0 0 / 0.05)" />
-
-                  <Box>
-                    <Group justify="space-between" mb="xs">
-                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>WORD COUNT</Text>
-                      <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
-                    </Group>
-                    <Slider
-                      value={wordCount}
-                      onChange={setWordCount}
-                      min={5000}
-                      max={120000}
-                      step={5000}
-                      label={(val) => `${val.toLocaleString()} words`}
-                      color={active.primary}
-                      radius={0}
-                      size="sm"
-                      thumbSize={16}
-                      styles={{
-                        track: { backgroundColor: 'oklch(0% 0 0 / 0.05)' },
-                      }}
-                    />
-                  </Box>
-
-                  <Divider color="oklch(0% 0 0 / 0.05)" />
-
-                  <Group justify="space-between" align="flex-end" mt="auto">
-                    <Stack gap={2}>
-                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
-                      <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
-                        ${(wordCount * 0.032).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.032 / word rate</Text>
-                    </Stack>
-                    <Link href={`/scholarcrafted/request-review?service=Proofreading&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
-                      <Button size="sm" variant="outline" color={active.primary} radius={0} className="impeccable-button" style={{ borderColor: active.primary }}>
-                        Get Quote
-                      </Button>
-                    </Link>
-                  </Group>
-                </Stack>
-              </Box>
-
-              {/* Card 2: Substantive Line Editing (Primary Demand) */}
-              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `2px solid ${active.primary}`, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                <Stack gap="xl" flex={1}>
-                  <Box>
-                    <Badge radius={0} color={active.primary} mb="md">TIER 2 — MOST REQUESTED</Badge>
-                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)' }}>Substantive Line Editing</Title>
-                    <Text size="sm" c="dimmed" mt="xs">The gold standard for dissertations, scholarly articles, and book manuscripts.</Text>
-                  </Box>
-
-                  <Stack gap="sm">
-                    {[
-                      'Line-by-Line Sentence Rhythm & Clarity',
-                      'Discipline-Specific Academic Tone & Register',
-                      'Transitions, Coherence & Flow Refinement',
-                      'Trimming Wordiness & Passive Constructions',
-                      'Full Style Manual & Heading Compliance',
-                      'Editorial Margin Queries on Ambiguities'
-                    ].map((item, i) => (
-                      <Group key={i} gap="xs" align="flex-start">
-                        <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
-                        <Text size="sm" fw={600}>{item}</Text>
-                      </Group>
-                    ))}
-                  </Stack>
-
-                  <Divider color="oklch(0% 0 0 / 0.05)" />
-
-                  <Box>
-                    <Group justify="space-between" mb="xs">
-                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>WORD COUNT</Text>
-                      <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
-                    </Group>
-                    <Slider
-                      value={wordCount}
-                      onChange={setWordCount}
-                      min={5000}
-                      max={120000}
-                      step={5000}
-                      label={(val) => `${val.toLocaleString()} words`}
-                      color={active.primary}
-                      radius={0}
-                      size="sm"
-                      thumbSize={16}
-                      styles={{
-                        track: { backgroundColor: 'oklch(0% 0 0 / 0.05)' },
-                      }}
-                    />
-                  </Box>
-
-                  <Divider color="oklch(0% 0 0 / 0.05)" />
-
-                  <Group justify="space-between" align="flex-end" mt="auto">
-                    <Stack gap={2}>
-                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
-                      <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.primary, lineHeight: 1.1 }}>
-                        ${(wordCount * 0.046).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.046 / word rate</Text>
-                    </Stack>
-                    <Link href={`/scholarcrafted/request-review?service=LineEditing&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
-                      <Button size="sm" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                        Get Quote
-                      </Button>
-                    </Link>
-                  </Group>
-                </Stack>
-              </Box>
-
-              {/* Card 3: Developmental & Structural Refinement */}
-              <Box p={{ base: rem(24), md: rem(30) }} bg={active.surface} style={{ border: `1px solid oklch(0% 0 0 / 0.08)`, display: 'flex', flexDirection: 'column' }}>
-                <Stack gap="xl" flex={1}>
-                  <Box>
-                    <Badge radius={0} color={active.accent} mb="md">TIER 3 — DEEP REFINEMENT</Badge>
-                    <Title order={3} style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)' }}>Structural & Developmental Polish</Title>
-                    <Text size="sm" c="dimmed" mt="xs">Comprehensive structural analysis for dense monographs and multi-chapter works.</Text>
-                  </Box>
-
-                  <Stack gap="sm">
-                    {[
-                      'Chapter & Section Sequencing Optimization',
-                      'Argument Pacing & Thematic Progression',
-                      'Synthesis & Transition Strengthening',
-                      'In-depth Marginal Editorial Diagnostics',
-                      'Includes Complete Line Editing & Proofreading',
-                      'Two Editorial Passes with Author Review'
-                    ].map((item, i) => (
-                      <Group key={i} gap="xs" align="flex-start">
-                        <IconCheck size={16} color={active.accent} stroke={3} style={{ marginTop: rem(2) }} />
-                        <Text size="sm" fw={600}>{item}</Text>
-                      </Group>
-                    ))}
-                  </Stack>
-
-                  <Divider color="oklch(0% 0 0 / 0.05)" />
-
-                  <Box>
-                    <Group justify="space-between" mb="xs">
-                      <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.05em' }}>WORD COUNT</Text>
-                      <Text size="sm" fw={700} c={active.primary}>{wordCount.toLocaleString()} words</Text>
-                    </Group>
-                    <Slider
-                      value={wordCount}
-                      onChange={setWordCount}
-                      min={5000}
-                      max={120000}
-                      step={5000}
-                      label={(val) => `${val.toLocaleString()} words`}
-                      color={active.accent}
-                      radius={0}
-                      size="sm"
-                      thumbSize={16}
-                      styles={{
-                        track: { backgroundColor: 'oklch(0% 0 0 / 0.05)' },
-                      }}
-                    />
-                  </Box>
-
-                  <Divider color="oklch(0% 0 0 / 0.05)" />
-
-                  <Group justify="space-between" align="flex-end" mt="auto">
-                    <Stack gap={2}>
-                      <Text size="xs" c="dimmed" fw={600} style={{ letterSpacing: '0.05em' }}>ESTIMATED FEE</Text>
-                      <Text fw={700} size="xl" style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', color: active.accent, lineHeight: 1.1 }}>
-                        ${(wordCount * 0.065).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </Text>
-                      <Text size="xs" c="dimmed" style={{ fontSize: rem(10) }}>$0.065 / word rate</Text>
-                    </Stack>
-                    <Link href={`/scholarcrafted/request-review?service=StructuralEditing&wordCount=${wordCount}`} style={{ textDecoration: 'none' }}>
-                      <Button size="sm" variant="filled" bg={active.accent} radius={0} className="impeccable-button" style={{ color: '#fff' }}>
-                        Get Quote
-                      </Button>
-                    </Link>
-                  </Group>
-                </Stack>
-              </Box>
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* The Logistics (Simplified) */}
-      <Box py={rem(100)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}08` }}>
-        <Container size={INNER_WIDTH}>
-          <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)}>
-            <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
-              <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
-                <IconClock size={24} />
-              </ThemeIcon>
-              <Text fw={700} style={{ letterSpacing: '0.05em' }}>TURNAROUND</Text>
-              <Text size="sm" c="dimmed" lh={1.6}>Typically 10-14 business days for full manuscripts. 7-10 days for proposals.</Text>
-            </Stack>
-            <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
-              <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
-                <IconScale size={24} />
-              </ThemeIcon>
-              <Text fw={700} style={{ letterSpacing: '0.05em' }}>ETHICAL BOUNDARY</Text>
-              <Text size="sm" c="dimmed" lh={1.6}>Strict adherence to academic integrity. No ghostwriting or original data analysis.</Text>
-            </Stack>
-            <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
-              <ThemeIcon size={48} radius="xl" variant="light" color={active.accent}>
-                <IconShieldCheck size={24} />
-              </ThemeIcon>
-              <Text fw={700} style={{ letterSpacing: '0.05em' }}>THE GUARANTEE</Text>
-              <Text size="sm" c="dimmed" lh={1.6}>Committee-ready assurance. If revisions are requested for our editing, we perform them at no cost.</Text>
-            </Stack>
-          </SimpleGrid>
-        </Container>
-      </Box>
-
-      {/* FAQ Section */}
-      <Box component="section" className="academic-watermark" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
-        <Container size={800}>
+      {/* ── FAQ SECTION ─────────────────────────────────────────────────── */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+        <Container size={900} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="xl">
             <Box style={{ textAlign: 'center' }}>
-              <Text size="xs" c="dimmed" fw={700} style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}>FAQ</Text>
-              <Title order={2} mt="md" style={{ fontSize: rem(36), color: active.primary, fontFamily: 'var(--font-serif)' }}>Logistics & Policies</Title>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Editorial Logistics & Standards
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                Frequently Asked Questions
+              </Title>
             </Box>
-            <Accordion variant="separated">
-              {faqs.map((faq: any, i: number) => (
-                <Accordion.Item key={i} value={`faq-${i}`} style={{ backgroundColor: active.surface, border: '1px solid #eee' }}>
-                  <Accordion.Control style={{ fontWeight: 600, color: active.primary }}>{faq.q}</Accordion.Control>
+
+            <Accordion variant="separated" radius={0}>
+              {faqs.map((faq, i) => (
+                <Accordion.Item
+                  key={i}
+                  value={`faq-${i}`}
+                  style={{ backgroundColor: active.surface, border: `1px solid ${active.primary}12` }}
+                >
+                  <Accordion.Control
+                    style={{
+                      fontWeight: 600,
+                      color: active.primary,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    }}
+                  >
+                    {faq.q}
+                  </Accordion.Control>
                   <Accordion.Panel>
-                    <Text size="md" lh={1.7} c="dimmed">{faq.a}</Text>
+                    <Text size="sm" lh={1.75} c="dimmed">
+                      {faq.a}
+                    </Text>
                   </Accordion.Panel>
                 </Accordion.Item>
               ))}
             </Accordion>
+
+            {/* Bottom CTA Box */}
+            <Box
+              p={{ base: rem(28), md: rem(40) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${active.accent}`,
+                textAlign: 'center',
+                marginTop: rem(24),
+              }}
+            >
+              <Title
+                order={3}
+                style={{
+                  fontSize: rem(24),
+                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontWeight: 600,
+                  color: active.primary,
+                }}
+              >
+                Ready to submit your manuscript for review?
+              </Title>
+              <Text size="sm" c="dimmed" mt="xs" style={{ maxWidth: '60ch', margin: '8px auto 24px' }}>
+                Upload your document to receive a formal assessment and firm fee quote within 24 hours.
+              </Text>
+              <Link href="/scholarcrafted/request-review?service=editing" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="md"
+                  radius={0}
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#fff',
+                    fontFamily: 'var(--font-heading-sans)',
+                    letterSpacing: '0.04em',
+                    fontWeight: 600,
+                  }}
+                  rightSection={<IconArrowRight size={16} />}
+                >
+                  Submit Your Draft Online
+                </Button>
+              </Link>
+            </Box>
           </Stack>
         </Container>
       </Box>
-
-      <Modal
-        opened={opened}
-        onClose={close}
-        withCloseButton={true}
-        centered
-        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
-        styles={{
-          content: {
-            backgroundColor: active.surface,
-            border: `1px solid #eee`,
-            borderRadius: 0,
-          },
-          header: {
-            backgroundColor: active.surface,
-          } }}
-      >
-        <Box p="md" style={{ textAlign: 'center' }}>
-          <Title
-            order={2}
-            style={{
-              fontSize: rem(32),
-              color: active.primary }}
-            mb="xl"
-          >
-            Secure Your Resource
-          </Title>
-
-          {!submitted ? (
-            <Stack gap="xl">
-              <Text size="sm" c="dimmed" lh={1.6}>
-                You are about to download <strong>{selectedResource}</strong>. Please enter your preferred email address to receive your secure download link.
-              </Text>
-              <Stack gap="md">
-                <TextInput
-                  placeholder="Your Email Address"
-                  radius={0}
-                  size="md"
-                  styles={{
-                    input: {
-                      border: `1px solid #eee`,
-                      '&:focus': {
-                        borderColor: active.primary,
-                      },
-                    } }}
-                />
-                <Button
-                  fullWidth
-                  size="md"
-                  radius={0}
-                  variant="filled"
-                  bg={active.primary}
-                  onClick={() => setSubmitted(true)}
-                >
-                  Send My Download
-                </Button>
-              </Stack>
-              <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
-                We respect your privacy. Unsubscribe at any time.
-              </Text>
-            </Stack>
-          ) : (
-            <Stack gap="xl" align="center" style={{ textAlign: 'center' }} py="xl">
-              <ThemeIcon size={64} radius="xl" color="green" variant="light">
-                <IconCheck size={32} />
-              </ThemeIcon>
-              <Box>
-                <Title order={3} >
-                  Download Sent!
-                </Title>
-                <Text size="sm" c="dimmed" mt="sm">
-                  Check your inbox. We&apos;ve sent <strong>{selectedResource}</strong> directly to you.
-                </Text>
-              </Box>
-              <Button variant="outline" color={active.primary} radius={0} fullWidth onClick={close}>
-                Close
-              </Button>
-            </Stack>
-          )}
-        </Box>
-      </Modal>
 
       <Footer />
     </Box>
