@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   Container,
   Title,
@@ -255,8 +256,12 @@ const faqs = [
 
 // ─── PAGE COMPONENT ──────────────────────────────────────────────────────────
 
-export default function PublicationSupportPage() {
-  const [activeSection, setActiveSection] = useState<'journal' | 'book'>('journal')
+function PublicationSupportPageInner() {
+  const searchParams = useSearchParams()
+  const [activeSection, setActiveSection] = useState<'journal' | 'book'>(() => {
+    const tab = searchParams.get('tab')
+    return tab === 'book' ? 'book' : 'journal'
+  })
   const [activeJournalTier, setActiveJournalTier] = useState<string>('pro')
   const [activeBookStage, setActiveBookStage] = useState<number>(0)
 
@@ -725,7 +730,7 @@ export default function PublicationSupportPage() {
                       ))}
                     </SimpleGrid>
 
-                    <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/scholarcrafted/order?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
                       <Button
                         size="md"
                         radius={0}
@@ -989,7 +994,7 @@ export default function PublicationSupportPage() {
               </Text>
             </Stack>
             <Group gap={rem(12)} wrap="wrap">
-              <Link href="/scholarcrafted/request-review?service=publication" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/order?service=publication" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
@@ -1024,5 +1029,13 @@ export default function PublicationSupportPage() {
 
       <Footer />
     </>
+  )
+}
+
+export default function PublicationSupportPage() {
+  return (
+    <Suspense fallback={<Box style={{ minHeight: '100vh' }} />}>
+      <PublicationSupportPageInner />
+    </Suspense>
   )
 }
