@@ -599,7 +599,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
               style={{
                 fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
                 color: active.primary,
-                fontFamily: 'var(--font-display), var(--font-serif)',
+                fontFamily: 'var(--font-serif)',
                 fontWeight: 600,
                 lineHeight: 1.2,
                 letterSpacing: '-0.015em',
@@ -704,7 +704,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                   mt={rem(6)}
                   style={{
                     fontSize: 'clamp(1.35rem, 2.4vw, 1.7rem)',
-                    fontFamily: 'var(--font-display), var(--font-serif)',
+                    fontFamily: 'var(--font-serif)',
                     color: active.primary,
                     fontWeight: 600,
                   }}
@@ -765,7 +765,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                     order={3}
                     style={{
                       fontSize: 'clamp(1.25rem, 2vw, 1.45rem)',
-                      fontFamily: 'var(--font-display), var(--font-serif)',
+                      fontFamily: 'var(--font-serif)',
                       fontWeight: 600,
                       lineHeight: 1.25,
                       color: active.primary,
@@ -908,7 +908,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
               style={{
                 fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
                 color: active.primary,
-                fontFamily: 'var(--font-display), var(--font-serif)',
+                fontFamily: 'var(--font-serif)',
                 fontWeight: 600,
                 lineHeight: 1.2,
                 letterSpacing: '-0.015em',
@@ -1024,7 +1024,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                             order={3}
                             style={{
                               fontSize: 'clamp(1.25rem, 2vw, 1.45rem)',
-                              fontFamily: 'var(--font-display), var(--font-serif)',
+                              fontFamily: 'var(--font-serif)',
                               fontWeight: 600,
                               color: active.primary,
                               flex: 1,
@@ -1585,7 +1585,7 @@ export default function ScholarCraftedLanding() {
                   style={{
                     fontSize: 'clamp(2rem, 4vw, 2.85rem)',
                     color: active.primary,
-                    fontFamily: 'var(--font-display), var(--font-serif)',
+                    fontFamily: 'var(--font-serif)',
                     fontWeight: 600,
                     lineHeight: 1.15,
                   }}
@@ -1764,7 +1764,7 @@ export default function ScholarCraftedLanding() {
                 style={{
                   fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
                   color: active.primary,
-                  fontFamily: 'var(--font-display), var(--font-serif)',
+                  fontFamily: 'var(--font-serif)',
                   fontWeight: 600,
                   lineHeight: 1.2,
                 }}
