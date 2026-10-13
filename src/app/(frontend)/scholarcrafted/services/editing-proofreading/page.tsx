@@ -709,7 +709,7 @@ export default function EditingProofreadingPage() {
                 </SimpleGrid>
 
                 <Link
-                  href={`/scholarcrafted/request-review?service=${encodeURIComponent(selectedTier.name)}&wordCount=${wordCount}`}
+                  href={`/scholarcrafted/request-review?service=editing&tier=${selectedTier.id}&wordCount=${wordCount}`}
                   style={{ textDecoration: 'none' }}
                 >
                   <Button

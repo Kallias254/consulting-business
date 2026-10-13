@@ -545,7 +545,7 @@ export default function PublicationSupportPage() {
                         </Stack>
                       </Box>
 
-                      <Link href={`/scholarcrafted/request-review?service=publication-journal`} style={{ textDecoration: 'none' }}>
+                      <Link href={`/scholarcrafted/request-review?service=publication&section=journal&tier=${selectedTier.id}`} style={{ textDecoration: 'none' }}>
                         <Button
                           size="md"
                           radius={0}
@@ -725,7 +725,7 @@ export default function PublicationSupportPage() {
                       ))}
                     </SimpleGrid>
 
-                    <Link href={`/scholarcrafted/request-review?service=publication-book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
                       <Button
                         size="md"
                         radius={0}
