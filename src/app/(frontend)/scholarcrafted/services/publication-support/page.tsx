@@ -730,7 +730,7 @@ function PublicationSupportPageInner() {
                       ))}
                     </SimpleGrid>
 
-                    <Link href={`/scholarcrafted/order?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
                       <Button
                         size="md"
                         radius={0}
