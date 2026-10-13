@@ -12,7 +12,6 @@ import {
   useMantineTheme,
   HoverCard,
   SimpleGrid,
-  ThemeIcon,
   Center,
   Burger,
   Drawer,
@@ -23,8 +22,6 @@ import { usePathname } from 'next/navigation'
 import {
   IconPencil,
   IconBook2,
-  IconListCheck,
-  IconFileText,
   IconChevronDown,
 } from '@tabler/icons-react'
 
@@ -55,6 +52,21 @@ export function Navbar() {
     return pathname?.startsWith(path)
   }
 
+  const services = [
+    {
+      href: '/scholarcrafted/services/editing-proofreading',
+      icon: <IconPencil size={20} />,
+      label: 'Editing & Compliance',
+      desc: 'Line editing, academic tone, style conformity & editorial certificate. Priced per word.',
+    },
+    {
+      href: '/scholarcrafted/services/publication-support',
+      icon: <IconBook2 size={20} />,
+      label: 'Publication Support',
+      desc: 'Journal selection, cover letters, book proposals, galley proofs & indexing.',
+    },
+  ]
+
   return (
     <Box
       style={{
@@ -65,7 +77,6 @@ export function Navbar() {
         transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
-      {/* Main Navbar only — no secondary strip */}
       {/* Main Navbar */}
       <Box
         component="nav"
@@ -83,10 +94,12 @@ export function Navbar() {
               <Logo height={32} boxColor={active.accent} textColor={active.primary} />
             </Link>
 
+            {/* Desktop nav */}
             <Group gap="lg" visibleFrom="md" align="center" style={{ gap: '1.25rem' }} wrap="nowrap">
-              {/* Services Dropdown */}
+
+              {/* Services — word is clickable link, hover opens dropdown */}
               <HoverCard
-                width={620}
+                width={440}
                 position="bottom"
                 radius={0}
                 shadow="xl"
@@ -97,98 +110,76 @@ export function Navbar() {
                 onClose={() => setServicesOpened(false)}
               >
                 <HoverCard.Target>
-                  <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/services') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
-                    <Center inline>
-                      <Text
-                        fw={600}
-                        size="xs"
-                        className="nav-link"
-                        c={active.primary}
-                        style={{
-                          color: active.primary,
-                          letterSpacing: '0.1em',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        SERVICES
-                        <IconChevronDown
-                          size={14}
-                          style={{
-                            marginLeft: rem(6),
-                            opacity: 0.6,
-                            transform: servicesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
-                            transition: 'transform 0.3s ease',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                            flexShrink: 0,
-                          }}
-                        />
-                      </Text>
-                    </Center>
-                  </Box>
+                  {/* Wrap in Link so clicking the word navigates to /services */}
+                  <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
+                    <Box
+                      className={`nav-link-wrapper ${isActive('/scholarcrafted/services') ? 'active' : ''}`}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <Center inline>
+                        <Text
+                          fw={600}
+                          size="xs"
+                          className="nav-link"
+                          style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+                        >
+                          SERVICES
+                          <IconChevronDown
+                            size={14}
+                            style={{
+                              marginLeft: rem(6),
+                              opacity: 0.55,
+                              transform: servicesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+                              transition: 'transform 0.3s ease',
+                              display: 'inline-block',
+                              verticalAlign: 'middle',
+                              flexShrink: 0,
+                            }}
+                          />
+                        </Text>
+                      </Center>
+                    </Box>
+                  </Link>
                 </HoverCard.Target>
+
                 <HoverCard.Dropdown className="mega-menu-dropdown" style={{ overflow: 'hidden', padding: 0 }}>
-                  <SimpleGrid cols={1} spacing={0}>
-                    <Link href="/scholarcrafted/services/editing-proofreading" className="mega-link">
-                      <Group wrap="nowrap" align="center" p="lg">
-                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
-                          <IconPencil size={22} />
-                        </ThemeIcon>
+                  {services.map((svc, i) => (
+                    <Link key={svc.href} href={svc.href} className="mega-link">
+                      <Group
+                        wrap="nowrap"
+                        align="center"
+                        p="lg"
+                        gap="md"
+                        style={i > 0 ? { borderTop: '1px solid rgba(0,0,0,0.05)' } : undefined}
+                      >
+                        {/* Accent-tinted icon box */}
+                        <Box
+                          style={{
+                            width: rem(44),
+                            height: rem(44),
+                            flexShrink: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: `${active.accent}14`,
+                            color: active.accent,
+                          }}
+                        >
+                          {svc.icon}
+                        </Box>
                         <div>
-                          <Text size="sm" fw={600} c={active.primary}>Manuscript Editing & Compliance</Text>
-                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            Copyediting, style conformity, ProQuest & university deposit formatting.
+                          <Text size="sm" fw={600} c={active.primary}>{svc.label}</Text>
+                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.5, marginTop: rem(2) }}>
+                            {svc.desc}
                           </Text>
                         </div>
                       </Group>
                     </Link>
-
-                    <Link href="/scholarcrafted/services/citation-audits" className="mega-link">
-                      <Group wrap="nowrap" align="center" p="lg">
-                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
-                          <IconListCheck size={22} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" fw={600} c={active.primary}>Citation & Reference Audits</Text>
-                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            DOI verification, reference list rebuilding & Zotero/EndNote cleanup.
-                          </Text>
-                        </div>
-                      </Group>
-                    </Link>
-
-                    <Link href="/scholarcrafted/services/manuscript-preparation" className="mega-link">
-                      <Group wrap="nowrap" align="center" p="lg">
-                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
-                          <IconFileText size={22} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" fw={600} c={active.primary}>Book & Journal Preparation</Text>
-                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            Thesis-to-article conversion, publisher proposals & submission packaging.
-                          </Text>
-                        </div>
-                      </Group>
-                    </Link>
-
-                    <Link href="/scholarcrafted/services/indexing-proofs" className="mega-link">
-                      <Group wrap="nowrap" align="center" p="lg">
-                        <ThemeIcon size={40} variant="filled" bg="rgba(0,0,0,0.2)" color="white" radius={0}>
-                          <IconBook2 size={22} />
-                        </ThemeIcon>
-                        <div>
-                          <Text size="sm" fw={600} c={active.primary}>Book Indexing & Page Proofs</Text>
-                          <Text size="xs" c="dimmed" style={{ lineHeight: 1.4 }}>
-                            Back-of-book indexing, galley proof review & publisher query resolution.
-                          </Text>
-                        </div>
-                      </Group>
-                    </Link>
-                  </SimpleGrid>
+                  ))}
                 </HoverCard.Dropdown>
               </HoverCard>
 
-              {/* About Link */}
+              {/* About */}
               <Link href="/scholarcrafted/about" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
@@ -197,11 +188,7 @@ export function Navbar() {
                       size="xs"
                       className="nav-link"
                       c={active.primary}
-                      style={{
-                        color: active.primary,
-                        letterSpacing: '0.1em',
-                        whiteSpace: 'nowrap',
-                      }}
+                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
                     >
                       ABOUT
                     </Text>
@@ -209,7 +196,7 @@ export function Navbar() {
                 </Box>
               </Link>
 
-              {/* Primary Single CTA Button */}
+              {/* CTA */}
               <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
                 <Button
                   variant="filled"
@@ -227,7 +214,7 @@ export function Navbar() {
           </Group>
         </Container>
 
-        {/* Mobile Drawer — full-screen slide-in */}
+        {/* Mobile Drawer */}
         <Drawer
           opened={opened}
           onClose={close}
@@ -253,7 +240,7 @@ export function Navbar() {
             },
           }}
         >
-          {/* Drawer header — logo + close */}
+          {/* Drawer header */}
           <Box
             style={{
               display: 'flex',
@@ -267,7 +254,6 @@ export function Navbar() {
             <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }} onClick={close}>
               <Logo height={28} boxColor={active.accent} textColor={active.primary} />
             </Link>
-            {/* Close button — always visible */}
             <Box
               onClick={close}
               style={{
@@ -291,7 +277,7 @@ export function Navbar() {
             </Box>
           </Box>
 
-          {/* Nav links — scrollable middle */}
+          {/* Nav links */}
           <Box style={{ flex: 1, overflowY: 'auto', padding: `${rem(8)} ${rem(20)}` }}>
 
             {/* Services */}
@@ -300,23 +286,35 @@ export function Navbar() {
                 Services
               </Text>
               <Stack gap={0}>
-                {[
-                  { href: '/scholarcrafted/services/editing-proofreading', label: 'Manuscript Editing & Compliance' },
-                  { href: '/scholarcrafted/services/citation-audits', label: 'Citation & Reference Audits' },
-                  { href: '/scholarcrafted/services/manuscript-preparation', label: 'Book & Journal Preparation' },
-                  { href: '/scholarcrafted/services/indexing-proofs', label: 'Book Indexing & Page Proofs' },
-                ].map((item) => (
-                  <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }} onClick={close}>
+                {services.map((svc) => (
+                  <Link key={svc.href} href={svc.href} style={{ textDecoration: 'none' }} onClick={close}>
                     <Box
-                      py={rem(14)}
+                      py={rem(16)}
                       style={{
                         borderBottom: `1px solid ${active.primary}08`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
+                        gap: rem(12),
                       }}
                     >
-                      <Text fw={600} size="sm" c={active.primary}>{item.label}</Text>
+                      <Group gap={rem(12)} wrap="nowrap" align="center">
+                        <Box
+                          style={{
+                            width: rem(36),
+                            height: rem(36),
+                            flexShrink: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: `${active.accent}10`,
+                            color: active.accent,
+                          }}
+                        >
+                          {svc.icon}
+                        </Box>
+                        <Text fw={600} size="sm" c={active.primary}>{svc.label}</Text>
+                      </Group>
                       <Text fw={700} c={active.accent} size="sm">→</Text>
                     </Box>
                   </Link>
@@ -324,7 +322,7 @@ export function Navbar() {
               </Stack>
             </Box>
 
-            {/* About Us */}
+            {/* About */}
             <Link href="/scholarcrafted/about" style={{ textDecoration: 'none' }} onClick={close}>
               <Box
                 py={rem(16)}
@@ -340,7 +338,7 @@ export function Navbar() {
               </Box>
             </Link>
 
-            {/* FAQ & Policies */}
+            {/* FAQ */}
             <Link href="/scholarcrafted/faq" style={{ textDecoration: 'none' }} onClick={close}>
               <Box
                 py={rem(16)}
@@ -351,14 +349,13 @@ export function Navbar() {
                   justifyContent: 'space-between',
                 }}
               >
-                <Text fw={600} size="md" c={active.primary}>FAQ & Policies</Text>
+                <Text fw={600} size="md" c={active.primary}>FAQ &amp; Policies</Text>
                 <Text fw={700} c={active.accent} size="sm">→</Text>
               </Box>
             </Link>
-
           </Box>
 
-          {/* CTA — pinned to bottom, never scrolls away */}
+          {/* Mobile CTA — pinned bottom */}
           <Box
             style={{
               flexShrink: 0,
@@ -388,16 +385,10 @@ export function Navbar() {
           :root {
             --nav-hover-bg: rgba(0, 0, 0, 0.04);
           }
-          .topbar-link {
-            transition: color 0.2s ease;
-          }
-          .topbar-link:hover {
-            color: ${active.accent} !important;
-          }
           .nav-link-wrapper {
             padding: 8px 12px;
             border-radius: 4px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            transition: background-color 0.2s ease;
           }
           .nav-link-wrapper:hover {
             background-color: var(--nav-hover-bg);
@@ -408,16 +399,15 @@ export function Navbar() {
           .nav-link {
             color: ${active.primary} !important;
             transition: color 0.2s ease, opacity 0.2s ease;
-            position: relative;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             vertical-align: middle;
             font-weight: 600;
           }
-          .nav-link-wrapper:hover .nav-link, .nav-link-wrapper.active .nav-link {
+          .nav-link-wrapper:hover .nav-link,
+          .nav-link-wrapper.active .nav-link {
             color: ${active.accent} !important;
-            opacity: 1;
           }
           .mega-menu-dropdown {
             background-color: #ffffff !important;
@@ -428,10 +418,13 @@ export function Navbar() {
             text-decoration: none;
             color: inherit;
             display: block;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
           }
           .mega-link:hover {
             background-color: rgba(230, 92, 56, 0.04);
+          }
+          .mega-link:hover .mantine-Text-root[data-weight="600"] {
+            color: ${active.accent};
           }
         `}</style>
       </Box>
