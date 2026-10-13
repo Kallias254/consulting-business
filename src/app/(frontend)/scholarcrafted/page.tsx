@@ -18,6 +18,7 @@ import {
   Center,
   Accordion,
   UnstyledButton,
+  Badge,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
@@ -41,6 +42,13 @@ import {
   IconMicroscope,
   IconBriefcase,
   IconChevronRight,
+  IconCheck,
+  IconHeadset,
+  IconWorldWww,
+  IconCreditCard,
+  IconAdjustmentsAlt,
+  IconBuildingStore,
+  IconRefresh,
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -71,20 +79,36 @@ const testimonials = [
 
 const homeFaqs = [
   {
-    q: 'How does the Correspondence Liaison Buffer work with journal portals?',
-    a: 'We act as your editorial and administrative coordinators. We compile response tables, format drafts, and write responses. We load them into your dashboard for your 60-second review and final approval, keeping you in control of the submission portal without the inbox noise.',
+    q: 'Should I have my paper edited even if I already used an AI tool like ChatGPT or Paperpal?',
+    a: 'Yes, we strongly recommend it. AI tools catch surface spelling and generic syntax, but cannot verify domain-specific nomenclature, deep methodological nuance, or whether your narrative fulfills the exact review criteria of high-impact journals. More critically, committees and journal editors actively screen for synthetic phrasing; our senior academic editors ensure your manuscript is 100% human-verified, authoritative, and committee-defensible.',
   },
   {
-    q: 'Is this service compliant with university research standards and journal policies?',
-    a: 'Absolutely. We operate under a strict ethical framework. We do not write your content, fabricate data, or run original research for you. We provide structural formatting, methodological validation, and publication project management. You remain the sole author of your research.',
+    q: 'Is using ScholarCrafted allowed by my university, graduate committee, and target publisher?',
+    a: 'Yes, completely. Professional copyediting, structural proofreading, and citation auditing are standard, celebrated academic practices endorsed by graduate schools and publishers worldwide (including Routledge, Oxford, Elsevier, and Springer). We operate under a strict non-ghostwriting policy: we refine your clarity, rhetoric, style manual adherence, and structure, while you remain the sole intellectual author.',
   },
   {
-    q: 'Can you handle multi-contributor handbooks or edited volumes?',
-    a: 'Yes. This is one of our primary services for Associate Professors and Editors. We ingest drafts from all your external contributors, standardise citation formats (APA/Chicago/MLA), and output a cohesive, publisher-compliant volume.',
+    q: 'What is the difference between Advanced Editing and Premium / Scientific Editing?',
+    a: 'Advanced Editing focuses on line-by-line grammar, academic tone, readability, citation cross-checking, and style manual compliance (APA, Chicago, MLA). Premium & Scientific Editing goes much deeper into structural coherence, argument pacing, literature review positioning, section sequencing, and comprehensive editorial margin queries to ensure your paper withstands harsh peer review.',
   },
   {
-    q: 'Can I use startup packages or institutional grants to pay for your services?',
-    a: 'Yes. Most universities allow startup funds, departmental allocations, or external research grants to be used for external editorial support, data management, and publication design services.',
+    q: 'How does your per-word pricing work, and are there unexpected charges?',
+    a: 'Our rates are 100% transparent and calculated strictly by word count before work begins. Tier 1 starts from $0.032/word, Tier 2 substantive line editing at $0.046/word, and Tier 3 structural polish at $0.065/word. You receive a firm quote with zero hidden fees, and all work is delivered in Microsoft Word with full tracked changes.',
+  },
+  {
+    q: 'What is your turnaround time, and can you accommodate urgent defense or submission deadlines?',
+    a: 'Standard turnarounds range from 3 to 7 business days depending on document scope and word count. For time-sensitive dissertation defenses or journal revision deadlines, 48-hour to 72-hour priority delivery is available upon request with dedicated editor allocation.',
+  },
+  {
+    q: 'Do you offer re-editing support if my committee or reviewers request revisions?',
+    a: 'Yes. We support you through the review cycle. If your supervisor or journal editor returns comments on the sections we edited, we provide complimentary re-editing passes on those portions within 60 days of delivery.',
+  },
+  {
+    q: 'Can institutional funds, departmental budgets, or research grants cover the fee?',
+    a: 'Yes. Most universities allow startup funds, departmental overhead, NSF/NIH/Fulbright grant allocations, or graduate student development allowances to pay for external editorial services. We provide formal institutional itemized invoices and W-9 documentation.',
+  },
+  {
+    q: 'How do you safeguard manuscript confidentiality and intellectual property?',
+    a: 'We sign strict Non-Disclosure & Confidentiality Agreements (NDAs) prior to document ingestion. Your raw data, unpublished findings, and draft files are kept in secure, encrypted environments and are never stored for AI model training or shared with third parties.',
   },
 ]
 
@@ -122,6 +146,8 @@ const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
 )
 
 // ─── Homepage Need Selector ─────────────────────────────────────────────────
+
+// ─── Homepage Need & Stage Selectors (Dual Mode + Random Shuffle) ──────────
 
 const homeNeeds = [
   {
@@ -201,9 +227,90 @@ const homeServices: Record<string, {
   },
 }
 
+const researchStages = [
+  { step: 'STEP 01', label: 'Write your document', sub: 'Pre-draft & initial chapter drafting' },
+  { step: 'STEP 02', label: 'Get expert editing', sub: 'Substantive line edit & structural clarity' },
+  { step: 'STEP 03', label: 'Find top journals', sub: 'Scope matching & author guidelines review' },
+  { step: 'STEP 04', label: 'Journal desk review', sub: 'Style compliance, word counts & deposit checklists' },
+  { step: 'STEP 05', label: 'Revise and resubmit', sub: 'Peer reviewer reply tables & margin corrections' },
+  { step: 'STEP 06', label: 'Create visuals & proofs', sub: 'Back-of-book indexing & typeset proof inspection' },
+]
+
+const editingPacks = [
+  {
+    name: 'Advanced Editing',
+    tagline: 'For thorough language editing, enhanced readability, and technical accuracy',
+    rate: 'Starts from $0.046 / word',
+    isBestValue: false,
+    features: [
+      'Editorial proofreading certificate',
+      'One round of journal style & template formatting',
+      'Re-editing support for reviewer revisions',
+      'Direct margin queries & line-by-line notes with senior editor',
+      'Edited by academic discipline subject-matter expert',
+      'Two independent editorial passes for tone & clarity',
+    ],
+    whenToChoose: [
+      'If you need a thorough language, syntax, and flow pass on a tight deadline.',
+      'If you are confident in your core methodology and want clean, authoritative prose.',
+      'If you are preparing journal articles, book chapters, or dissertation drafts.',
+    ],
+    link: '/scholarcrafted/services/editing-proofreading',
+  },
+  {
+    name: 'Premium Editing',
+    tagline: 'For substantive structural editing, impactful organization, and flow optimization',
+    rate: 'Starts from $0.065 / word',
+    isBestValue: true,
+    features: [
+      'All Advanced Editing features included',
+      'Cover letter & submission abstract packaging',
+      'Reference cross-check & citation integrity audit',
+      'Complimentary re-editing pass within 60 days of delivery',
+      'Editor advisory memorandum on argumentative progression',
+      'Undergoes two expert checks to ensure scholarly rigor',
+    ],
+    whenToChoose: [
+      'If you are submitting to a top-tier peer-reviewed journal or university press.',
+      'If you are preparing a multi-chapter dissertation for committee defense.',
+      'If you anticipate needing revisions after co-author or supervisor feedback.',
+    ],
+    link: '/scholarcrafted/services/editing-proofreading',
+  },
+  {
+    name: 'Scientific Editing Pro',
+    tagline: 'In-depth manuscript refinement evaluated against top peer-review standards',
+    rate: 'Starts from $0.095 / word',
+    isBestValue: false,
+    features: [
+      'All Premium Editing features included',
+      'Comprehensive Manuscript Completeness Assessment',
+      'Detailed Response Letter & Revision Matrix crosscheck',
+      'Dedicated discipline specialist with publishing track record',
+      'Evaluation of methodology narrative coherence & evidence links',
+      'Priority turnaround with senior editorial oversight',
+    ],
+    whenToChoose: [
+      'If you seek in-depth expert critique to reinforce the core rigor of your study.',
+      'If you are aiming for high-impact journals (Nature, Lancet, Oxford, Routledge).',
+      'If you received harsh "Revise & Resubmit" peer reviewer critique.',
+    ],
+    link: '/scholarcrafted/services/editing-proofreading',
+  },
+]
+
 function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
+  const [viewMode, setViewMode] = useState<'need' | 'stage'>('need')
   const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
-  const selected = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
+  const [selectedStageIndex, setSelectedStageIndex] = useState(1)
+
+  useEffect(() => {
+    // Randomize initial layout presentation on page refresh (50% chance of either view mode)
+    const randomMode = Math.random() > 0.5 ? 'stage' : 'need'
+    setViewMode(randomMode)
+  }, [])
+
+  const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
 
   return (
     <Box
@@ -215,173 +322,362 @@ function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
       <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(48)}>
 
-          {/* Section header */}
-          <Box style={{ maxWidth: 700 }}>
-            <Text
-              size="xs"
-              fw={700}
-              c={active.accent}
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
-            >
-              Find Your Starting Point
-            </Text>
-            <Title
-              order={2}
-              mt="xs"
-              style={{
-                fontSize: rem(38),
-                color: active.primary,
-                fontFamily: 'var(--font-serif)',
-                lineHeight: 1.2,
-              }}
-            >
-              Where is your manuscript right now?
-            </Title>
-            <Text size="md" mt="md" c="dimmed" lh={1.7}>
-              Select the situation that matches yours. We&apos;ll show you exactly what to do next.
-            </Text>
-          </Box>
-
-          {/* Two-column selector */}
-          <Box
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: rem(2),
-              alignItems: 'start',
-            }}
-            className="home-need-grid"
-          >
-            {/* Left: Need options */}
-            <Box style={{ border: `1px solid ${active.primary}14`, backgroundColor: active.background }}>
-              {homeNeeds.map((need, i) => {
-                const isActive = need.id === selectedId
-                return (
-                  <UnstyledButton
-                    key={need.id}
-                    onClick={() => setSelectedId(need.id)}
-                    style={{ width: '100%', display: 'block' }}
-                  >
-                    <Box
-                      px={rem(28)}
-                      py={rem(22)}
-                      style={{
-                        borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
-                        borderLeft: isActive ? `3px solid ${active.accent}` : `3px solid transparent`,
-                        backgroundColor: isActive ? active.surface : 'transparent',
-                        transition: 'background-color 0.15s ease, border-color 0.15s ease',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <Group justify="space-between" align="center" wrap="nowrap" gap="md">
-                        <Stack gap={rem(4)}>
-                          <Text
-                            fw={isActive ? 700 : 500}
-                            size="sm"
-                            lh={1.4}
-                            style={{ color: isActive ? active.primary : `${active.primary}cc` }}
-                          >
-                            {need.label}
-                          </Text>
-                          <Text size="xs" c="dimmed" lh={1.4}>{need.subLabel}</Text>
-                        </Stack>
-                        <IconChevronRight
-                          size={16}
-                          color={isActive ? active.accent : `${active.primary}40`}
-                          style={{ flexShrink: 0, transition: 'color 0.15s ease' }}
-                        />
-                      </Group>
-                    </Box>
-                  </UnstyledButton>
-                )
-              })}
+          {/* Section Header with Mode Toggle & Shuffle */}
+          <Group justify="space-between" align="flex-end" wrap="wrap" gap="md">
+            <Box style={{ maxWidth: 720 }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+              >
+                {viewMode === 'need' ? 'Find Your Starting Point' : 'Solutions for Every Stage'}
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: rem(38),
+                  color: active.primary,
+                  fontFamily: 'var(--font-serif)',
+                  lineHeight: 1.2,
+                }}
+              >
+                {viewMode === 'need'
+                  ? 'Where is your manuscript right now?'
+                  : 'Solutions for every stage of your research journey.'}
+              </Title>
+              <Text size="md" mt="md" c="dimmed" lh={1.7}>
+                {viewMode === 'need'
+                  ? 'Select the situation that matches yours. We will show you exactly what to do next.'
+                  : 'From initial manuscript drafting to peer review response and galley proofs — select your stage.'}
+              </Text>
             </Box>
 
-            {/* Right: Recommended service cards */}
-            <Box>
-              <Stack gap={rem(12)}>
-                {selected.serviceIds.map((sid) => {
-                  const svc = homeServices[sid]
-                  if (!svc) return null
-                  const isRecommended = sid === selected.recommended
+            {/* Toggle Switch */}
+            <Group gap="xs" style={{ border: `1px solid ${active.primary}20`, padding: rem(4) }}>
+              <Button
+                size="xs"
+                radius={0}
+                variant={viewMode === 'need' ? 'filled' : 'subtle'}
+                style={{
+                  backgroundColor: viewMode === 'need' ? active.primary : 'transparent',
+                  color: viewMode === 'need' ? active.background : active.primary,
+                }}
+                onClick={() => setViewMode('need')}
+              >
+                By Your Situation
+              </Button>
+              <Button
+                size="xs"
+                radius={0}
+                variant={viewMode === 'stage' ? 'filled' : 'subtle'}
+                style={{
+                  backgroundColor: viewMode === 'stage' ? active.primary : 'transparent',
+                  color: viewMode === 'stage' ? active.background : active.primary,
+                }}
+                onClick={() => setViewMode('stage')}
+              >
+                By Research Stage
+              </Button>
+            </Group>
+          </Group>
+
+          {/* VIEW MODE 1: By Situation (Interactive Vertical Accordion/Tabs) */}
+          {viewMode === 'need' && (
+            <Box
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: rem(2),
+                alignItems: 'start',
+              }}
+              className="home-need-grid"
+            >
+              {/* Left Column: Situations */}
+              <Box style={{ border: `1px solid ${active.primary}14`, backgroundColor: active.background }}>
+                {homeNeeds.map((need, i) => {
+                  const isActive = need.id === selectedId
                   return (
-                    <Box
-                      key={sid}
-                      p={rem(28)}
-                      bg={active.background}
-                      style={{ border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}` }}
+                    <UnstyledButton
+                      key={need.id}
+                      onClick={() => setSelectedId(need.id)}
+                      style={{ width: '100%', display: 'block' }}
                     >
-                      <Stack gap="md">
-                        {isRecommended && (
-                          <Box
-                            px={rem(10)}
-                            py={rem(4)}
-                            style={{
-                              backgroundColor: active.accent,
-                              display: 'inline-flex',
-                              alignSelf: 'flex-start',
-                            }}
-                          >
-                            <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
-                              RECOMMENDED
+                      <Box
+                        px={rem(28)}
+                        py={rem(22)}
+                        style={{
+                          borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
+                          borderLeft: isActive ? `3px solid ${active.accent}` : `3px solid transparent`,
+                          backgroundColor: isActive ? active.surface : 'transparent',
+                          transition: 'background-color 0.15s ease, border-color 0.15s ease',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Group justify="space-between" align="center" wrap="nowrap" gap="md">
+                          <Stack gap={rem(4)}>
+                            <Text
+                              fw={isActive ? 700 : 500}
+                              size="sm"
+                              lh={1.4}
+                              style={{ color: isActive ? active.primary : `${active.primary}cc` }}
+                            >
+                              {need.label}
                             </Text>
-                          </Box>
-                        )}
-                        <Group justify="space-between" align="flex-start">
-                          <Title
-                            order={3}
-                            style={{ fontSize: rem(19), fontFamily: 'var(--font-serif)', flex: 1 }}
-                          >
-                            {svc.title}
-                          </Title>
-                          <Text
-                            size="xs"
-                            fw={700}
-                            c={active.accent}
-                            style={{
-                              border: `1px solid ${active.accent}`,
-                              padding: `${rem(3)} ${rem(8)}`,
-                              whiteSpace: 'nowrap',
-                              flexShrink: 0,
-                              marginLeft: rem(12),
-                            }}
-                          >
-                            {svc.badge}
-                          </Text>
+                            <Text size="xs" c="dimmed" lh={1.4}>{need.subLabel}</Text>
+                          </Stack>
+                          <IconChevronRight
+                            size={16}
+                            color={isActive ? active.accent : `${active.primary}40`}
+                            style={{ flexShrink: 0, transition: 'color 0.15s ease' }}
+                          />
                         </Group>
-                        <Text size="sm" c="dimmed" lh={1.65}>{svc.desc}</Text>
-                        <Link href={svc.link} style={{ textDecoration: 'none' }}>
-                          <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.04em' }}>
-                            {svc.cta} →
-                          </Text>
-                        </Link>
-                      </Stack>
-                    </Box>
+                      </Box>
+                    </UnstyledButton>
                   )
                 })}
+              </Box>
 
-                {/* Bottom CTA */}
-                <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
-                  <Group justify="space-between" align="center" wrap="nowrap">
-                    <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
-                      Not sure? Submit your manuscript for a free scope assessment — we respond in 24 hours.
-                    </Text>
-                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
-                      <Button
-                        variant="filled"
-                        radius={0}
-                        size="sm"
-                        style={{ backgroundColor: active.primary, color: active.background }}
-                        rightSection={<IconArrowRight size={14} />}
+              {/* Right Column: Matched Service Cards */}
+              <Box>
+                <Stack gap={rem(12)}>
+                  {selectedNeed.serviceIds.map((sid) => {
+                    const svc = homeServices[sid]
+                    if (!svc) return null
+                    const isRecommended = sid === selectedNeed.recommended
+                    return (
+                      <Box
+                        key={sid}
+                        p={rem(28)}
+                        bg={active.background}
+                        style={{ border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}` }}
                       >
-                        Get Free Assessment
-                      </Button>
-                    </Link>
-                  </Group>
-                </Box>
-              </Stack>
+                        <Stack gap="md">
+                          {isRecommended && (
+                            <Box
+                              px={rem(10)}
+                              py={rem(4)}
+                              style={{
+                                backgroundColor: active.accent,
+                                display: 'inline-flex',
+                                alignSelf: 'flex-start',
+                              }}
+                            >
+                              <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
+                                RECOMMENDED FOR YOU
+                              </Text>
+                            </Box>
+                          )}
+                          <Group justify="space-between" align="flex-start">
+                            <Title
+                              order={3}
+                              style={{ fontSize: rem(19), fontFamily: 'var(--font-serif)', flex: 1 }}
+                            >
+                              {svc.title}
+                            </Title>
+                            <Text
+                              size="xs"
+                              fw={700}
+                              c={active.accent}
+                              style={{
+                                border: `1px solid ${active.accent}`,
+                                padding: `${rem(3)} ${rem(8)}`,
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                                marginLeft: rem(12),
+                              }}
+                            >
+                              {svc.badge}
+                            </Text>
+                          </Group>
+                          <Text size="sm" c="dimmed" lh={1.65}>{svc.desc}</Text>
+                          <Link href={svc.link} style={{ textDecoration: 'none' }}>
+                            <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.04em' }}>
+                              {svc.cta} →
+                            </Text>
+                          </Link>
+                        </Stack>
+                      </Box>
+                    )
+                  })}
+
+                  <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
+                    <Group justify="space-between" align="center" wrap="nowrap">
+                      <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
+                        Not sure which tier? Submit your manuscript for a free scope assessment — reply in 24 hours.
+                      </Text>
+                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
+                        <Button
+                          variant="filled"
+                          radius={0}
+                          size="sm"
+                          style={{ backgroundColor: active.primary, color: active.background }}
+                          rightSection={<IconArrowRight size={14} />}
+                        >
+                          Free Assessment
+                        </Button>
+                      </Link>
+                    </Group>
+                  </Box>
+                </Stack>
+              </Box>
             </Box>
-          </Box>
+          )}
+
+          {/* VIEW MODE 2: By Research Stage (6 Steps + Comparison Packs) */}
+          {viewMode === 'stage' && (
+            <Stack gap={rem(36)}>
+              {/* Step Navigator Bar */}
+              <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing={rem(4)}>
+                {researchStages.map((stg, idx) => {
+                  const isActive = idx === selectedStageIndex
+                  return (
+                    <UnstyledButton
+                      key={idx}
+                      onClick={() => setSelectedStageIndex(idx)}
+                      style={{ height: '100%' }}
+                    >
+                      <Box
+                        p={rem(16)}
+                        bg={isActive ? active.primary : active.background}
+                        style={{
+                          border: `1px solid ${isActive ? active.primary : `${active.primary}18`}`,
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: rem(4),
+                          transition: 'all 0.15s ease',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Text
+                          size="xs"
+                          fw={700}
+                          c={isActive ? active.accent : active.accent}
+                          style={{ letterSpacing: '0.12em' }}
+                        >
+                          {stg.step}
+                        </Text>
+                        <Text
+                          size="sm"
+                          fw={700}
+                          c={isActive ? active.background : active.primary}
+                          lh={1.25}
+                        >
+                          {stg.label}
+                        </Text>
+                      </Box>
+                    </UnstyledButton>
+                  )
+                })}
+              </SimpleGrid>
+
+              {/* 3 Editorial Tier Comparison Cards */}
+              <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
+                {editingPacks.map((pack, idx) => (
+                  <Box
+                    key={idx}
+                    p={rem(32)}
+                    bg={active.background}
+                    style={{
+                      border: `1px solid ${pack.isBestValue ? active.accent : `${active.primary}18`}`,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                    }}
+                  >
+                    {pack.isBestValue && (
+                      <Box
+                        px={rem(10)}
+                        py={rem(3)}
+                        mb="xs"
+                        style={{
+                          backgroundColor: active.accent,
+                          alignSelf: 'flex-start',
+                        }}
+                      >
+                        <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
+                          BEST VALUE PACK
+                        </Text>
+                      </Box>
+                    )}
+
+                    <Stack gap="xs">
+                      <Title order={3} style={{ fontSize: rem(22), fontFamily: 'var(--font-serif)' }}>
+                        {pack.name}
+                      </Title>
+                      <Text size="xs" c="dimmed" lh={1.5} style={{ minHeight: rem(36) }}>
+                        {pack.tagline}
+                      </Text>
+                    </Stack>
+
+                    <Text fw={700} size="md" c={active.accent} mt="sm">
+                      {pack.rate}
+                    </Text>
+
+                    <Box mt="md" mb="md">
+                      <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+                        <Button
+                          fullWidth
+                          radius={0}
+                          variant={pack.isBestValue ? 'filled' : 'outline'}
+                          style={{
+                            backgroundColor: pack.isBestValue ? active.accent : 'transparent',
+                            color: pack.isBestValue ? '#fff' : active.primary,
+                            borderColor: pack.isBestValue ? active.accent : active.primary,
+                          }}
+                        >
+                          Submit Enquiry
+                        </Button>
+                      </Link>
+                    </Box>
+
+                    {/* Features list */}
+                    <Stack gap="xs" mb="lg">
+                      {pack.features.map((feat, fIdx) => (
+                        <Group key={fIdx} gap="xs" align="flex-start" wrap="nowrap">
+                          <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                          <Text size="xs" c={active.primary} lh={1.4}>
+                            {feat}
+                          </Text>
+                        </Group>
+                      ))}
+                    </Stack>
+
+                    <Divider color={`${active.primary}12`} my="sm" />
+
+                    {/* When to choose */}
+                    <Stack gap={rem(6)} mt="auto">
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                        When to choose
+                      </Text>
+                      {pack.whenToChoose.map((wtc, wIdx) => (
+                        <Text key={wIdx} size="xs" c="dimmed" lh={1.5}>
+                          • {wtc}
+                        </Text>
+                      ))}
+                    </Stack>
+                  </Box>
+                ))}
+              </SimpleGrid>
+
+              {/* Bottom compare link */}
+              <Box style={{ textAlign: 'center' }}>
+                <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant="subtle"
+                    radius={0}
+                    color={active.primary}
+                    rightSection={<IconArrowRight size={16} />}
+                  >
+                    Compare all Editing Services & Rates
+                  </Button>
+                </Link>
+              </Box>
+            </Stack>
+          )}
+
         </Stack>
       </Container>
 
@@ -536,7 +832,7 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl" align="flex-start">
 
                 <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
-                  Post-Draft Execution
+                  Complete Editorial & Publication Solutions
                 </p>
 
                 <Title
@@ -549,11 +845,11 @@ export default function ScholarCraftedLanding() {
                     fontFamily: 'var(--font-serif)',
                   }}
                 >
-                  Your Manuscript<br />Doesn&apos;t End at Done.
+                  Everything a Researcher Needs, All in One Place.
                 </Title>
 
-                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.80)', maxWidth: '48ch' }}>
-                  Faculty-led post-draft execution. Formatting, indexing, citation audits, and publisher preparation — handled precisely so your work reaches publication on schedule.
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '52ch' }}>
+                  From substantive line editing and structural polish to citation reconstruction and press-ready indexing. Human academic expertise to get your dissertation, journal article, or book proposal submission-ready.
                 </p>
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
@@ -1093,6 +1389,120 @@ export default function ScholarCraftedLanding() {
         </Container>
       </Box>
 
+      {/* ── For Labs, Universities, Journals & Companies ──────────── */}
+      <Box
+        component="section"
+        py={{ base: rem(60), md: SECTION_SPACING }}
+        bg={active.background}
+        style={{ borderTop: `1px solid ${active.primary}12`, borderBottom: `1px solid ${active.primary}12` }}
+      >
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(48)}>
+            <Box style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                Institutional Partnerships
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-serif)',
+                  lineHeight: 1.2,
+                }}
+              >
+                For Labs, Universities, Journals & Companies
+              </Title>
+              <Text size="md" c="dimmed" mt="md" lh={1.75}>
+                Looking for solutions specifically customized for the needs of research labs, university departments, journal editorial offices, or institutional cohorts? We provide dedicated, faculty-led publication pipelines.
+              </Text>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={rem(20)}>
+              {[
+                {
+                  icon: IconHeadset,
+                  title: 'Dedicated Customer Support',
+                  desc: 'Priority assistance and dedicated editor allocation for timely turnaround and milestone accountability.',
+                },
+                {
+                  icon: IconWorldWww,
+                  title: 'Special Portal for Submission',
+                  desc: 'Streamlined batch submission environment configured to respect your laboratory or department workflows.',
+                },
+                {
+                  icon: IconCreditCard,
+                  title: 'Monthly Billing & Grant Direct-Pay',
+                  desc: 'Convenient monthly billing, purchase order acceptance, and itemized invoices aligned with grant accounting rules.',
+                },
+                {
+                  icon: IconAdjustmentsAlt,
+                  title: 'Customized Editorial Solutions',
+                  desc: 'Bespoke style guide compliance packages and multi-contributor volume management engineered to your exact needs.',
+                },
+              ].map((item, idx) => {
+                const Icon = item.icon
+                return (
+                  <Box
+                    key={idx}
+                    p={rem(32)}
+                    bg={active.surface}
+                    style={{
+                      border: `1px solid ${active.primary}14`,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: rem(16),
+                      transition: 'transform 0.2s ease, border-color 0.2s ease',
+                    }}
+                  >
+                    <Box
+                      p={rem(10)}
+                      style={{
+                        backgroundColor: active.background,
+                        border: `1px solid ${active.primary}20`,
+                        width: 'fit-content',
+                      }}
+                    >
+                      <Icon size={22} color={active.accent} stroke={1.5} />
+                    </Box>
+                    <Text fw={700} size="md" c={active.primary} lh={1.3}>
+                      {item.title}
+                    </Text>
+                    <Text size="sm" c="dimmed" lh={1.6}>
+                      {item.desc}
+                    </Text>
+                  </Box>
+                )
+              })}
+            </SimpleGrid>
+
+            <Group justify="center" gap="md">
+              <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="md"
+                  radius={0}
+                  style={{ backgroundColor: active.primary, color: active.background }}
+                >
+                  Explore Institutional Solutions
+                </Button>
+              </Link>
+              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="md"
+                  variant="outline"
+                  radius={0}
+                  color={active.primary}
+                  style={{ borderColor: active.primary }}
+                >
+                  Connect With Our Team
+                </Button>
+              </Link>
+            </Group>
+          </Stack>
+        </Container>
+      </Box>
+
       {/* Frequently Asked Questions */}
       <Box component="section" className="academic-watermark" py={{ base: rem(60), md: SECTION_SPACING }} bg={active.surface}>
         <Container size={850} px={{ base: "md", sm: "xl" }}>
@@ -1100,16 +1510,17 @@ export default function ScholarCraftedLanding() {
             <Box style={{ textAlign: 'center' }}>
               <Text
                 size="xs"
-                
-                c="dimmed"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
               >
-                FAQ & Integrity
+                Frequently Asked Questions
               </Text>
-              <Title order={2} mt="xs" style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", color: active.primary }}>
-                Common Concerns
+              <Title order={2} mt="xs" style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", color: active.primary, fontFamily: 'var(--font-serif)' }}>
+                Questions Scholars Actually Ask
               </Title>
-              <Text size="lg" c="dimmed" mt="md">
-                We understand the complexities of high-level research operations. Here is how we safeguard your publication track.
+              <Text size="md" c="dimmed" mt="md" lh={1.7} style={{ maxWidth: 640, margin: '0 auto' }}>
+                Transparent answers on editorial integrity, AI screening, committee compliance, and turnaround timelines.
               </Text>
             </Box>
 
