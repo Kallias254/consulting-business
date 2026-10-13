@@ -1345,6 +1345,7 @@ export default function ScholarCraftedLanding() {
           position: 'relative',
           zIndex: 10,
           borderBottom: `1px solid ${active.primary}10`,
+          paddingTop: rem(48),
           paddingBottom: rem(24),
         }}
       >
@@ -1352,7 +1353,7 @@ export default function ScholarCraftedLanding() {
           {/* Pulled up to overlap hero bottom edge cleanly with intentional card surface */}
           <Box
             style={{
-              marginTop: rem(-52),
+              marginTop: 0,
               backgroundColor: active.surface,
               border: `1px solid ${active.primary}18`,
               boxShadow: `0 16px 48px rgba(0,0,0,0.16)`,
