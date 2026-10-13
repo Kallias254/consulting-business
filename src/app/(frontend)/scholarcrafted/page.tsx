@@ -17,6 +17,7 @@ import {
   ThemeIcon,
   Center,
   Accordion,
+  UnstyledButton,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
@@ -26,7 +27,6 @@ import {
   IconUsers,
   IconEdit,
   IconFileText,
-  IconCheck,
   IconMessageChatbot,
   IconRocket,
   IconCertificate,
@@ -40,6 +40,7 @@ import {
   IconAlignJustified,
   IconMicroscope,
   IconBriefcase,
+  IconChevronRight,
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -120,6 +121,282 @@ const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
   </svg>
 )
 
+// ─── Homepage Need Selector ─────────────────────────────────────────────────
+
+const homeNeeds = [
+  {
+    id: 'defense-coming',
+    label: 'My defense is in weeks and my manuscript needs to be clean',
+    subLabel: 'Time-sensitive polish before deposit',
+    serviceIds: ['editing', 'citations'],
+    recommended: 'editing',
+  },
+  {
+    id: 'committee-feedback',
+    label: 'My committee sent the draft back with major revision comments',
+    subLabel: 'Structural overhaul after committee review',
+    serviceIds: ['editing'],
+    recommended: 'editing',
+  },
+  {
+    id: 'citations-mess',
+    label: 'My citations are a mess — Zotero broke, references don\'t match',
+    subLabel: 'Reference audit and reconstruction',
+    serviceIds: ['citations'],
+    recommended: 'citations',
+  },
+  {
+    id: 'thesis-to-article',
+    label: 'I want to turn my dissertation into a journal article',
+    subLabel: 'Structural conversion and journal formatting',
+    serviceIds: ['preparation'],
+    recommended: 'preparation',
+  },
+  {
+    id: 'book-proposal',
+    label: 'I\'m writing a book proposal for Oxford, Routledge, or a press',
+    subLabel: 'Proposal packaging to publisher template',
+    serviceIds: ['preparation'],
+    recommended: 'preparation',
+  },
+  {
+    id: 'galley-proofs',
+    label: 'My press sent galley proofs and I need an index built',
+    subLabel: 'Back-of-book indexing and proof review',
+    serviceIds: ['indexing'],
+    recommended: 'indexing',
+  },
+]
+
+const homeServices: Record<string, {
+  badge: string; title: string; desc: string; link: string; cta: string
+}> = {
+  editing: {
+    badge: '$0.032–$0.065 / word',
+    title: 'Manuscript Editing & Compliance',
+    desc: 'Line-by-line editing across three tiers. APA, Chicago, MLA, Harvard, Turabian. Every edit in tracked changes.',
+    link: '/scholarcrafted/services/editing-proofreading',
+    cta: 'View Editing Tiers',
+  },
+  citations: {
+    badge: '$90 / hour',
+    title: 'Citation & Reference Audits',
+    desc: 'Every inline citation matched to its reference entry. DOI verification, Zotero repair, full style conversion.',
+    link: '/scholarcrafted/services/citation-audits',
+    cta: 'Enquire About an Audit',
+  },
+  preparation: {
+    badge: 'Flat Project Rate',
+    title: 'Book & Journal Preparation',
+    desc: 'Thesis-to-article conversion, book proposal packaging for Routledge/Oxford/SAGE, journal submission formatting.',
+    link: '/scholarcrafted/services/manuscript-preparation',
+    cta: 'Explore Preparation Tracks',
+  },
+  indexing: {
+    badge: 'From $3 / page',
+    title: 'Book Indexing & Page Proofs',
+    desc: 'Professional back-of-book indexing to press spec. First- and second-pass galley proof review.',
+    link: '/scholarcrafted/services/indexing-proofs',
+    cta: 'Enquire About Indexing',
+  },
+}
+
+function HomepageNeedSelector({ active }: { active: Record<string, string> }) {
+  const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
+  const selected = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
+
+  return (
+    <Box
+      component="section"
+      py={SECTION_SPACING}
+      bg={active.surface}
+      style={{ borderTop: `1px solid ${active.primary}12` }}
+    >
+      <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Stack gap={rem(48)}>
+
+          {/* Section header */}
+          <Box style={{ maxWidth: 700 }}>
+            <Text
+              size="xs"
+              fw={700}
+              c={active.accent}
+              style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+            >
+              Find Your Starting Point
+            </Text>
+            <Title
+              order={2}
+              mt="xs"
+              style={{
+                fontSize: rem(38),
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+                lineHeight: 1.2,
+              }}
+            >
+              Where is your manuscript right now?
+            </Title>
+            <Text size="md" mt="md" c="dimmed" lh={1.7}>
+              Select the situation that matches yours. We&apos;ll show you exactly what to do next.
+            </Text>
+          </Box>
+
+          {/* Two-column selector */}
+          <Box
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: rem(2),
+              alignItems: 'start',
+            }}
+            className="home-need-grid"
+          >
+            {/* Left: Need options */}
+            <Box style={{ border: `1px solid ${active.primary}14`, backgroundColor: active.background }}>
+              {homeNeeds.map((need, i) => {
+                const isActive = need.id === selectedId
+                return (
+                  <UnstyledButton
+                    key={need.id}
+                    onClick={() => setSelectedId(need.id)}
+                    style={{ width: '100%', display: 'block' }}
+                  >
+                    <Box
+                      px={rem(28)}
+                      py={rem(22)}
+                      style={{
+                        borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
+                        borderLeft: isActive ? `3px solid ${active.accent}` : `3px solid transparent`,
+                        backgroundColor: isActive ? active.surface : 'transparent',
+                        transition: 'background-color 0.15s ease, border-color 0.15s ease',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <Group justify="space-between" align="center" wrap="nowrap" gap="md">
+                        <Stack gap={rem(4)}>
+                          <Text
+                            fw={isActive ? 700 : 500}
+                            size="sm"
+                            lh={1.4}
+                            style={{ color: isActive ? active.primary : `${active.primary}cc` }}
+                          >
+                            {need.label}
+                          </Text>
+                          <Text size="xs" c="dimmed" lh={1.4}>{need.subLabel}</Text>
+                        </Stack>
+                        <IconChevronRight
+                          size={16}
+                          color={isActive ? active.accent : `${active.primary}40`}
+                          style={{ flexShrink: 0, transition: 'color 0.15s ease' }}
+                        />
+                      </Group>
+                    </Box>
+                  </UnstyledButton>
+                )
+              })}
+            </Box>
+
+            {/* Right: Recommended service cards */}
+            <Box>
+              <Stack gap={rem(12)}>
+                {selected.serviceIds.map((sid) => {
+                  const svc = homeServices[sid]
+                  if (!svc) return null
+                  const isRecommended = sid === selected.recommended
+                  return (
+                    <Box
+                      key={sid}
+                      p={rem(28)}
+                      bg={active.background}
+                      style={{ border: `1px solid ${isRecommended ? active.accent : `${active.primary}18`}` }}
+                    >
+                      <Stack gap="md">
+                        {isRecommended && (
+                          <Box
+                            px={rem(10)}
+                            py={rem(4)}
+                            style={{
+                              backgroundColor: active.accent,
+                              display: 'inline-flex',
+                              alignSelf: 'flex-start',
+                            }}
+                          >
+                            <Text size="xs" fw={700} c={active.background} style={{ letterSpacing: '0.1em' }}>
+                              RECOMMENDED
+                            </Text>
+                          </Box>
+                        )}
+                        <Group justify="space-between" align="flex-start">
+                          <Title
+                            order={3}
+                            style={{ fontSize: rem(19), fontFamily: 'var(--font-serif)', flex: 1 }}
+                          >
+                            {svc.title}
+                          </Title>
+                          <Text
+                            size="xs"
+                            fw={700}
+                            c={active.accent}
+                            style={{
+                              border: `1px solid ${active.accent}`,
+                              padding: `${rem(3)} ${rem(8)}`,
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                              marginLeft: rem(12),
+                            }}
+                          >
+                            {svc.badge}
+                          </Text>
+                        </Group>
+                        <Text size="sm" c="dimmed" lh={1.65}>{svc.desc}</Text>
+                        <Link href={svc.link} style={{ textDecoration: 'none' }}>
+                          <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.04em' }}>
+                            {svc.cta} →
+                          </Text>
+                        </Link>
+                      </Stack>
+                    </Box>
+                  )
+                })}
+
+                {/* Bottom CTA */}
+                <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
+                  <Group justify="space-between" align="center" wrap="nowrap">
+                    <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
+                      Not sure? Submit your manuscript for a free scope assessment — we respond in 24 hours.
+                    </Text>
+                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
+                      <Button
+                        variant="filled"
+                        radius={0}
+                        size="sm"
+                        style={{ backgroundColor: active.primary, color: active.background }}
+                        rightSection={<IconArrowRight size={14} />}
+                      >
+                        Get Free Assessment
+                      </Button>
+                    </Link>
+                  </Group>
+                </Box>
+              </Stack>
+            </Box>
+          </Box>
+        </Stack>
+      </Container>
+
+      {/* Mobile: stack columns */}
+      <style>{`
+        @media (max-width: 768px) {
+          .home-need-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </Box>
+  )
+}
+
 export default function ScholarCraftedLanding() {
   const theme = useMantineTheme()
   const active = theme.other
@@ -187,12 +464,6 @@ export default function ScholarCraftedLanding() {
                 width: 50px !important;
                 height: 50px !important;
               }
-            }
-
-            /* Hide Dr. Micah headshot on mobile */
-            .micah-headshot { display: none; }
-            @media (min-width: 768px) {
-              .micah-headshot { display: block; }
             }
 
             /* Services grid on mobile: stack label/title/desc and CTA vertically */
@@ -351,256 +622,117 @@ export default function ScholarCraftedLanding() {
       </Box>
 
 
-      {/* Why you're stuck — white bg, breaks dark-dark collision */}
-      <Box component="section" py={{ base: rem(60), md: SECTION_SPACING }} bg={active.background}>
-        <Container size={1100} px={{ base: "md", sm: "xl" }}>
-          <Stack gap="xl">
 
-            {/* GradCoach-style dual headline */}
-            <Stack gap={rem(4)}>
-              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.18em' }}>
-                THE POST-DRAFT PROBLEM
-              </Text>
-              <Title order={2} style={{ fontSize: "clamp(1.85rem, 4.2vw, 2.75rem)", color: active.primary, lineHeight: 1.15 }}>
-                Writing it was the hard part.
-              </Title>
-              <Title order={2} style={{ fontSize: "clamp(1.85rem, 4.2vw, 2.75rem)", color: `${active.primary}40`, lineHeight: 1.15, fontStyle: "italic" }}>
-                Getting it published is a different job.
-              </Title>
-            </Stack>
 
-            {/* 4 clean cards on light bg */}
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: rem(12), sm: rem(16) }}>
-              {[
-                {
-                  num: '01',
-                  title: 'Index due in two weeks',
-                  desc: "You have no idea how to build a 300-entry back-of-book index, and the publisher isn't waiting.",
-                },
-                {
-                  num: '02',
-                  title: 'References that won\'t format right',
-                  desc: 'Zotero exported 200 entries with the wrong punctuation. Fixing them by hand will take a week.',
-                },
-                {
-                  num: '03',
-                  title: 'Page proofs no one explained',
-                  desc: 'The publisher sent a typeset PDF with 40 margin queries and a 10-day deadline.',
-                },
-                {
-                  num: '04',
-                  title: 'Proposal rejected on structure',
-                  desc: "The manuscript is ready. The proposal that gets it in front of an editor is not.",
-                },
-              ].map((item, i) => (
-                <Box
-                  key={i}
-                  p={rem(32)}
-                  style={{
-                    backgroundColor: active.surface,
-                    borderTop: `3px solid ${i % 2 === 0 ? active.accent : `${active.primary}18`}`,
-                    transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s cubic-bezier(0.16,1,0.3,1), border-top-color 0.25s ease',
-                    cursor: 'default',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget;
-                    el.style.transform = 'translateY(-5px)';
-                    el.style.boxShadow = `0 12px 32px ${active.accent}18`;
-                    el.style.borderTopColor = active.accent;
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget;
-                    el.style.transform = 'translateY(0)';
-                    el.style.boxShadow = 'none';
-                    el.style.borderTopColor = i % 2 === 0 ? active.accent : `${active.primary}18`;
-                  }}
-                >
-                  <Stack gap="sm">
-                    <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, color: active.accent, letterSpacing: '0.12em' }}>{item.num}</p>
-                    <p style={{ margin: 0, fontSize: rem(17), fontWeight: 700, color: active.primary, lineHeight: 1.3 }}>{item.title}</p>
-                    <p style={{ margin: 0, fontSize: rem(14), color: '#666', lineHeight: 1.7 }}>{item.desc}</p>
-                  </Stack>
-                </Box>
-              ))}
-            </SimpleGrid>
-
-            <p style={{ margin: 0, fontSize: rem(15), fontWeight: 500, color: `${active.primary}60`, borderTop: `1px solid ${active.primary}12`, paddingTop: rem(28) }}>
-              That&apos;s exactly what we execute — so you can stay focused on the research.
-            </p>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* Meet Dr. Micah Dobson */}
-      <Box component="section" style={{ backgroundColor: active.primary }} py={{ base: rem(60), md: rem(100) }}>
-        <Container size={1100} px={{ base: "md", sm: "xl" }}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(36), md: rem(80) }} style={{ alignItems: 'center' }}>
-            {/* Headshot — hidden on mobile to avoid layout bloat */}
-            <Box className="micah-headshot" style={{ position: "relative", height: "clamp(320px, 45vw, 540px)", overflow: "hidden" }}>
-              <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=900"
-                alt="Dr. Micah Dobson — ScholarCrafted"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'top center',
-                  display: 'block',
-                  filter: 'grayscale(15%)',
-                }}
-              />
+      {/* ── Floating 3-Panel Card (Editage-style "How it works" strip) ── */}
+      <Box
+        id="getting-started"
+        component="section"
+        bg={active.background}
+        style={{ position: 'relative', zIndex: 10 }}
+      >
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          {/* Pulled up to overlap the hero bottom edge */}
+          <Box
+            style={{
+              marginTop: rem(-48),
+              backgroundColor: active.background,
+              border: `1px solid ${active.primary}16`,
+              boxShadow: `0 8px 40px rgba(0,0,0,0.18)`,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+            }}
+            className="floating-panel-grid"
+          >
+            {[
+              {
+                num: '01',
+                label: 'Submit Your Manuscript',
+                desc: 'Upload your document and describe the deadline, style guide, and scope. No call required to start.',
+                link: '/scholarcrafted/request-review',
+                cta: 'Submit Now →',
+              },
+              {
+                num: '02',
+                label: 'Receive Your Scope Assessment',
+                desc: 'Within 24 hours we send a clear service recommendation and a firm price. No vague estimates.',
+                link: '/scholarcrafted/services',
+                cta: 'See Services →',
+              },
+              {
+                num: '03',
+                label: 'We Execute',
+                desc: 'Editing, auditing, or formatting begins. Delivery in tracked changes. You review and approve every edit.',
+                link: '/scholarcrafted/how-it-works',
+                cta: 'How It Works →',
+              },
+            ].map((step, i) => (
               <Box
+                key={i}
+                px={rem(32)}
+                py={rem(36)}
                 style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: '4px',
-                  backgroundColor: active.accent,
+                  borderLeft: i > 0 ? `1px solid ${active.primary}12` : undefined,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: rem(12),
                 }}
-              />
-            </Box>
-
-            {/* Copy */}
-            <Stack gap={rem(36)}>
-              <Stack gap="xs">
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em' }}>
-                  WHO YOU&apos;RE WORKING WITH
-                </Text>
-                <Title
-                  order={2}
-                  style={{
-                    fontSize: "clamp(2rem, 4vw, 3rem)",
-                    fontFamily: "var(--font-serif)",
-                    color: "white",
-                    lineHeight: 1.1,
-                  }}
+              >
+                <Text
+                  size="xs"
+                  fw={700}
+                  c={active.accent}
+                  style={{ letterSpacing: '0.15em' }}
                 >
-                  Dr. Micah Dobson
-                </Title>
-              </Stack>
-
-              <Text size="md" lh={1.8} c="rgba(255,255,255,0.8)">
-                Associate Professor at NC State. College Board AP Research Reader — which means he evaluates the same methodology standards your committee does. He&apos;s been on both sides of the table, and that&apos;s what makes the difference.
-              </Text>
-
-              <Stack gap="sm" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: rem(28) }}>
-                {[
-                  'Certified AP Capstone Research Evaluator',
-                  'Active Publisher Liaison — Routledge, Palgrave',
-                  'NSF & Fulbright Grant Project Director',
-                ].map((cred, i) => (
-                  <Group key={i} gap="sm" wrap="nowrap" align="flex-start">
-                    <Box
-                      style={{
-                        width: rem(18),
-                        height: rem(18),
-                        backgroundColor: active.accent,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                        marginTop: rem(3),
-                      }}
-                    >
-                      <IconCheck size={11} color="white" stroke={3} />
-                    </Box>
-                    <Text size="sm" c="rgba(255,255,255,0.85)" lh={1.5}>{cred}</Text>
-                  </Group>
-                ))}
-              </Stack>
-
-              <Box>
-                <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
-                  <Button
-                    variant="outline"
-                    color="white"
-                    radius={0}
-                    size="md"
-                    style={{ borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}
-                    className="impeccable-button"
+                  {step.num}
+                </Text>
+                <Text
+                  fw={700}
+                  size="md"
+                  c={active.primary}
+                  lh={1.35}
+                  style={{ fontFamily: 'var(--font-serif)', fontSize: rem(18) }}
+                >
+                  {step.label}
+                </Text>
+                <Text size="sm" c="dimmed" lh={1.65} style={{ flex: 1 }}>
+                  {step.desc}
+                </Text>
+                <Link href={step.link} style={{ textDecoration: 'none' }}>
+                  <Text
+                    size="sm"
+                    fw={700}
+                    c={active.accent}
+                    style={{ letterSpacing: '0.04em' }}
                   >
-                    Book a session →
-                  </Button>
+                    {step.cta}
+                  </Text>
                 </Link>
               </Box>
-            </Stack>
-          </SimpleGrid>
+            ))}
+          </Box>
         </Container>
+
+        {/* Responsive override */}
+        <style>{`
+          @media (max-width: 768px) {
+            .floating-panel-grid {
+              grid-template-columns: 1fr !important;
+              margin-top: 0 !important;
+            }
+            .floating-panel-grid > div {
+              border-left: none !important;
+              border-top: 1px solid rgba(0,0,0,0.07);
+            }
+            .floating-panel-grid > div:first-child {
+              border-top: none;
+            }
+          }
+        `}</style>
       </Box>
 
-
-      {/* The 3-Step Process */}
-      <Box id="getting-started" component="section" py={{ base: rem(60), md: SECTION_SPACING }} bg={active.background}>
-        <Container size={1100} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap={rem(56)} align="center" style={{ textAlign: 'center' }}>
-            <Box style={{ maxWidth: 700 }}>
-              <Text
-                size="xs"
-                
-                c="dimmed"
-              >
-                HOW IT WORKS
-              </Text>
-              <Title
-                order={2}
-                mt="md"
-                style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', color: active.primary }}
-              >
-                Three steps. No friction.
-              </Title>
-            </Box>
-
-            <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={{ base: rem(16), md: rem(2) }} style={{ width: '100%' }}>
-              {[
-                { num: '01', label: 'Book', desc: "Pick a time on Dr. Dobson's calendar. 20 minutes, Zoom." },
-                { num: '02', label: 'Talk', desc: 'Bring the project wherever it is. He comes prepared.' },
-                { num: '03', label: 'We get to work', desc: "Proposal issued. Work begins as soon as you're ready." },
-              ].map((step, i) => (
-                <Box
-                  key={i}
-                  p={{ base: rem(28), md: rem(40) }}
-                  bg={active.surface}
-                  style={{
-                    borderTop: `3px solid ${i === 0 ? active.accent : `${active.primary}20`}`,
-                    transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s cubic-bezier(0.16,1,0.3,1), border-top-color 0.25s ease',
-                    cursor: 'default',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget;
-                    el.style.transform = 'translateY(-5px)';
-                    el.style.boxShadow = `0 12px 32px ${active.accent}18`;
-                    el.style.borderTopColor = active.accent;
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget;
-                    el.style.transform = 'translateY(0)';
-                    el.style.boxShadow = 'none';
-                    el.style.borderTopColor = i === 0 ? active.accent : `${active.primary}20`;
-                  }}
-                >
-                  <Stack gap="sm" style={{ textAlign: 'left' }}>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>{step.num}</Text>
-                    <Text fw={700} size="xl" c={active.primary}>{step.label}</Text>
-                    <Text size="sm" c="dimmed" lh={1.6}>{step.desc}</Text>
-                  </Stack>
-                </Box>
-              ))}
-            </SimpleGrid>
-
-            <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none', alignSelf: 'center' }}>
-              <Button
-                size="lg"
-                radius={0}
-                className="impeccable-button"
-                style={{ backgroundColor: active.accent, color: '#fff', border: 'none', fontWeight: 600 }}
-              >
-                Book a session
-              </Button>
-            </Link>
-          </Stack>
-        </Container>
-      </Box>
+      {/* ── SELECT YOUR NEED — Vertical Tabs ────────────────────────── */}
+      <HomepageNeedSelector active={active} />
 
 
       {/* Our Core Services */}

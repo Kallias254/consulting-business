@@ -12,214 +12,354 @@ import {
   Accordion,
   Button,
   Group,
-  Divider,
+  SimpleGrid,
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
-import { READING_WIDTH } from '@/layout'
+import { READING_WIDTH, INNER_WIDTH, SECTION_SPACING } from '@/layout'
 import Link from 'next/link'
+import { IconArrowRight, IconShieldCheck, IconFileCheck } from '@tabler/icons-react'
+
+// ─── FAQ Data ──────────────────────────────────────────────────────────────
+
+const editingFaqs = [
+  {
+    q: 'What is the difference between your three editing tiers?',
+    a: `Tier 1 (Polish & Format) addresses mechanical accuracy: grammar, punctuation, style manual compliance (APA, Chicago, MLA, Harvard, Turabian), heading hierarchy, TOC alignment, and ProQuest deposit formatting. It is designed for clean drafts that need final mechanical polish before deposit.\n\nTier 2 (Substantive Line Editing) goes further: line-by-line sentence rhythm, discipline-specific academic register, transition strength, passive construction reduction, and editorial margin queries on ambiguous passages. This is the most commonly requested tier.\n\nTier 3 (Structural & Developmental Polish) addresses the architecture of the work — chapter and section sequencing, argument pacing, thematic progression, and synthesis across chapters. It is appropriate for manuscripts returning from committee with major structural revision requirements.`,
+  },
+  {
+    q: 'My committee returned my draft with revision comments. Which tier do I need?',
+    a: `Almost always Tier 3 (Structural & Developmental Polish), followed by a Tier 2 pass. Committee revision comments that concern argument flow, chapter organization, literature review gaps, or thematic coherence require structural-level intervention first — then line-level refinement. If the committee comments are limited to grammar, citation style, or formatting errors, Tier 1 or 2 is sufficient. Submit your manuscript for a free scope assessment and we will tell you precisely what is needed.`,
+  },
+  {
+    q: 'How is your editing different from running my manuscript through Grammarly or ChatGPT?',
+    a: `AI grammar tools catch surface-level errors. They do not understand what your committee expects, how your discipline constructs an argument, or whether your methodology chapter is logically sequenced. They do not know the difference between APA 7th and Chicago 17th footnote style, and they cannot flag a passive construction that is actually appropriate for your field. Our editor reads your entire manuscript with knowledge of your discipline and institutional submission context. Every edit is in tracked changes — you see exactly what was changed and why, and you accept or reject each one.`,
+  },
+  {
+    q: 'Will my committee or graduate school know I used an editing service?',
+    a: `Professional manuscript editing is universally permitted and widely encouraged at the graduate level. Graduate schools distinguish sharply between editing (permitted) and ghostwriting (not permitted). Our services fall squarely in the editing category: we refine the language and structure of work you have written. We do not generate content, rewrite arguments, or fabricate original text. All delivery includes a tracked-changes file and a clean copy — you remain the sole intellectual author.`,
+  },
+  {
+    q: 'What file formats do you work with?',
+    a: `We work primarily in Microsoft Word (.docx) with tracked changes enabled. This is the universal format accepted by ProQuest, institutional repositories, and most journal submission systems. If your manuscript is in LaTeX, Google Docs, or PDF, contact us before submitting — we can accommodate in most cases with a brief conversion step.`,
+  },
+  {
+    q: 'How long does editing take?',
+    a: `Turnaround depends on manuscript length and the tier selected. Standard turnaround for a 70,000–90,000 word dissertation is 5–8 business days for Tier 1, 8–12 days for Tier 2, and 12–16 days for Tier 3. Rush options (48–72 hours for shorter manuscripts) are available — submit your project for an accurate quote. Deadlines for ProQuest submission, committee review, or defense are treated as firm constraints.`,
+  },
+]
+
+const citationFaqs = [
+  {
+    q: 'My Zotero export is a disaster — wrong punctuation, missing DOIs, inconsistent style. Can you fix it?',
+    a: `Yes, this is one of the most common things we fix. Zotero and EndNote exports frequently produce style-inconsistent reference lists — incorrect punctuation, missing issue numbers, malformed DOIs, and mixed styles within a single list. We rebuild the reference list from scratch against your required style manual, verify every DOI, repair dead links, and return a clean, submission-ready list.`,
+  },
+  {
+    q: 'How does the citation audit work — what exactly do you check?',
+    a: `We cross-check every inline citation in the body of your manuscript against its corresponding reference list entry. We flag: citations present in the text but absent from the reference list; references in the list with no corresponding in-text citation; DOI errors and broken URLs; style-manual punctuation violations; missing author names, volume numbers, or page ranges; and any inconsistencies in how the same source is cited across the document. You receive a detailed audit report alongside the corrected files.`,
+  },
+  {
+    q: 'My journal requires a different citation style than my dissertation used. Can you convert the whole list?',
+    a: `Yes. Full style conversion — for example, from APA 7th to Chicago 17th author-date, or from MLA to Vancouver — is a standard part of our citation audit service. Provide us with the target journal's style guide or a link to their author instructions, and we convert the entire reference list and inline citations to match.`,
+  },
+]
+
+const manuscriptFaqs = [
+  {
+    q: 'I want to turn my dissertation into a journal article. Is that a service you offer?',
+    a: `Yes — Track 1 of our Book & Journal Preparation service is specifically designed for thesis-to-article structural conversion. Dissertations and journal articles are structurally different documents. A dissertation chapter does not become a journal article by cutting words — the framing, literature positioning, methods summary, and results presentation must be rebuilt to journal conventions. We provide a section-by-section structural memo outlining the conversion strategy, then execute the restructuring with you.`,
+  },
+  {
+    q: 'I\'m writing a book proposal for Routledge. What does your proposal packaging service include?',
+    a: `Track 2 covers book proposal packaging to the specific template and house style of your target press (Routledge, Oxford, SAGE, Cambridge, Palgrave, and others). This includes: prospectus narrative (argument statement, market analysis, chapter summaries, competing works), sample chapter preparation, author bio formatting, and table of contents alignment to press specifications. We do not write your argument for you — we structure and format the proposal you have developed to match what acquisitions editors at these presses look for.`,
+  },
+  {
+    q: 'I\'m submitting to a specific journal. Can you format to their exact template?',
+    a: `Yes. Track 3 covers exact target journal submission formatting — word count compliance, section structure (Abstract, Introduction, Methods, Results, Discussion, References), figure and table formatting, author information pages, and submission checklist verification. Provide us with the journal name or a link to their author guidelines, and we match the manuscript precisely.`,
+  },
+]
+
+const integrityFaqs = [
+  {
+    q: 'Is using an editing service allowed by my university or press?',
+    a: `Yes. Professional editing is explicitly permitted and routinely recommended by graduate schools, publishers, and journals worldwide. The APA Ethics Code, MLA Handbook, and Chicago Manual all recognize the distinction between editing (permissible) and ghostwriting (not permissible). Universities encourage students to seek professional editorial review as part of the preparation process. Publishers expect submitted manuscripts to have been professionally edited. We provide editing — your intellectual content, arguments, findings, and voice remain entirely yours.`,
+  },
+  {
+    q: 'What is your confidentiality policy?',
+    a: `Your manuscript and research data are treated as strictly confidential. We sign a Non-Disclosure & Confidentiality Agreement before you submit any document. Your research, institutional affiliation, and personal information are never shared, sold, published, or disclosed to any third party under any circumstances. Files are stored securely and deleted from our systems upon project completion.`,
+  },
+  {
+    q: 'Do you write any content for me? What counts as ghostwriting?',
+    a: `We do not write original content, generate arguments, fabricate literature review text, or produce any section of your manuscript. Ghostwriting is the composition of original intellectual content attributed to another person — we do not do this under any circumstances. What we do: refine language, correct style-manual compliance, restructure existing sections for logical flow, flag unclear passages with editorial queries (which you resolve), and format the document to institutional or journal specifications. Your ideas, arguments, and findings are yours. We make them clearer and more publishable.`,
+  },
+]
+
+const logisticsFaqs = [
+  {
+    q: 'How do I get a price quote?',
+    a: `For Manuscript Editing, pricing is per-word and transparent: Tier 1 at $0.032/word, Tier 2 at $0.046/word, Tier 3 at $0.065/word. For a 70,000-word dissertation, that is approximately $2,240 for Tier 1, $3,220 for Tier 2, or $4,550 for Tier 3. For Citation Audits, Book & Journal Preparation, and Book Indexing, pricing depends on scope — submit your manuscript for a free scope assessment and receive a firm quote within 24 business hours.`,
+  },
+  {
+    q: 'My defense is in two weeks. Is there a rush option?',
+    a: `Yes. Rush timelines are available for manuscripts under 60,000 words. Contact us directly with your deadline and word count — we will tell you immediately whether the timeline is achievable and what the rush rate is. Do not submit to a general form if you have a hard deadline; email us directly so we can prioritize your project.`,
+  },
+  {
+    q: 'What happens after I submit my manuscript?',
+    a: `Within 24 business hours of submission, we send you a scope assessment: service recommendation, turnaround estimate, and firm pricing. Once you approve the scope and submit payment, editing begins. Delivery is a tracked-changes Word file, a clean final copy, and any editorial memos or audit reports included in your tier. You review, accept or reject changes, and are free to ask us clarifying questions on any edit.`,
+  },
+  {
+    q: 'Do you offer a re-edit if my committee sends it back again after editing?',
+    a: `Yes. If your committee returns the manuscript with new comments after our edit and the new comments relate to the same scope of work we completed, we provide a complimentary re-edit pass covering those specific sections. This applies within 60 days of original delivery. If the committee has introduced new structural requirements that expand the original scope, we will quote a brief supplemental engagement.`,
+  },
+]
+
+// ─── Reusable Accordion Block ────────────────────────────────────────────────
+
+function FaqBlock({
+  title,
+  faqs,
+  prefix,
+  active,
+}: {
+  title: string
+  faqs: { q: string; a: string }[]
+  prefix: string
+  active: Record<string, string>
+}) {
+  return (
+    <Box>
+      <Title
+        order={2}
+        mb="xl"
+        style={{
+          fontSize: rem(26),
+          color: active.primary,
+          fontFamily: 'var(--font-serif)',
+          borderBottom: `1px solid ${active.primary}12`,
+          paddingBottom: rem(16),
+        }}
+      >
+        {title}
+      </Title>
+      <Accordion variant="separated" radius={0}>
+        {faqs.map((faq, i) => (
+          <Accordion.Item
+            key={i}
+            value={`${prefix}-${i}`}
+            style={{
+              backgroundColor: active.background,
+              borderColor: `${active.primary}12`,
+              marginBottom: rem(10),
+            }}
+          >
+            <Accordion.Control
+              style={{
+                fontWeight: 600,
+                color: active.primary,
+                padding: `${rem(18)} ${rem(20)}`,
+                fontSize: rem(15),
+                lineHeight: 1.5,
+              }}
+            >
+              {faq.q}
+            </Accordion.Control>
+            <Accordion.Panel style={{ padding: `0 ${rem(20)} ${rem(20)}` }}>
+              <Text
+                size="sm"
+                lh={1.85}
+                c="dimmed"
+                style={{ whiteSpace: 'pre-line' }}
+              >
+                {faq.a}
+              </Text>
+            </Accordion.Panel>
+          </Accordion.Item>
+        ))}
+      </Accordion>
+    </Box>
+  )
+}
+
+// ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function FAQPage() {
   const theme = useMantineTheme()
   const active = theme.other
 
-  const serviceFaqs = [
-    {
-      q: 'How do I know if I need Editing or Consulting?',
-      a: "Choose Editing if your draft is fully written and you need mechanical polish, university style-guide compliance (APA, MLA, Chicago), citation auditing, or ProQuest submission prep. Choose Private Coaching (Consulting) if you are stuck outline-wise, struggling to formulate your research design, hitting intense writer's block, or need real-time strategy to respond to complex chair/committee revisions."
-    },
-    {
-      q: 'Can you format to my specific university template?',
-      a: 'Yes, absolutely. Our Dissertation & Thesis Formatting service is specifically customized to align perfectly with your department’s exact layout guidelines, margin specs, hierarchical headings, and ProQuest publication rules. We take over the painful work of pagination, Table of Contents alignment, and lists of figures.'
-    },
-    {
-      q: 'How much does Private Coaching cost?',
-      a: "Because every doctoral student’s hurdles, research stage, and committee requirements are fully unique, we do not offer rigid pricing for coaching. During your free 15-minute introductory call, we map out your exact needs to build a custom, scoped proposal. This ensures you only pay for the specific guidance structure that will get you to graduation."
-    }
-  ]
-
-  const integrityFaqs = [
-    {
-      q: 'Is this service allowed by universities?',
-      a: 'Yes. Seeking external expert review, professional editing, formatting, and high-level structural advisory is fully encouraged by graduate chairs. We function as a responsive, faculty-level sounding board—the kind of intensive mentoring that overloaded university committees rarely have the bandwidth to provide. We do not do your work; we guide and refine it.'
-    },
-    {
-      q: 'What is your policy on ghostwriting? / Can you write my dissertation for me?',
-      a: 'Under no circumstances do we ghostwrite, draft content, execute statistical analysis, or fabricate original text. We operate under a strict, high-integrity ethical framework. Our role is strictly instructional advisory and editorial refinement. You remain the sole author of your research, thoughts, and findings.'
-    },
-    {
-      q: 'Will my work be treated confidentially?',
-      a: 'Yes, without exception. We sign a formal Non-Disclosure & Confidentiality Agreement before you upload a single document or draft. Your research, raw data, personal credentials, and institutional association are strictly protected and never shared, sold, or publicized.'
-    }
-  ]
-
-  const logisticsFaqs = [
-    {
-      q: 'Is the consultation really free?',
-      a: 'Yes, completely free. The 15-minute introductory call is a confidential strategy session to understand your current research status, pinpoint your committee roadblocks, and determine if our editorial or consulting tracks are a good fit. There is absolutely zero obligation.'
-    },
-    {
-      q: 'I still have questions…',
-      a: 'We are fully committed to complete transparency. If you have any remaining logistical or policy questions, please book a free intro call, or reach out directly to us—we will gladly walk you through our entire academic advisory process.'
-    }
-  ]
-
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <Box component="section" pt={rem(100)} pb={rem(80)} bg={active.background}>
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
         <Container size={READING_WIDTH}>
-          <Stack gap="md" style={{ textAlign: 'center' }}>
+          <Box style={{ maxWidth: 760 }}>
             <Text
               size="xs"
               fw={700}
               style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
               c={active.accent}
             >
-              FAQ & Policies
+              Common Questions
             </Text>
             <Title
               order={1}
+              mt="md"
               style={{
-                fontSize: rem(56),
+                fontSize: rem(54),
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
-                color: active.primary
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
               }}
             >
-              Logistics & Policies
+              Questions scholars actually ask.
             </Title>
-            <Text size="lg" c="dimmed" lh={1.6} style={{ maxWidth: 600, margin: '0 auto' }}>
-              Complete clarity on how we protect your academic integrity, structure our services, and guide you to graduation.
+            <Text size="lg" mt="xl" c="dimmed" lh={1.7} style={{ fontSize: rem(19) }}>
+              Straight answers on editing tiers, citation audits, confidentiality, turnaround, and what we will and
+              will not do.
             </Text>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* ── Accordion Sections ───────────────────────────────────────── */}
+      <Box
+        component="section"
+        className="academic-watermark"
+        py={SECTION_SPACING}
+        bg={active.surface}
+        style={{ borderTop: `1px solid ${active.primary}12` }}
+      >
+        <Container size={READING_WIDTH}>
+          <Stack gap={rem(72)}>
+
+            <FaqBlock
+              title="Manuscript Editing"
+              faqs={editingFaqs}
+              prefix="editing"
+              active={active}
+            />
+
+            <FaqBlock
+              title="Citation & Reference Audits"
+              faqs={citationFaqs}
+              prefix="citations"
+              active={active}
+            />
+
+            <FaqBlock
+              title="Book & Journal Preparation"
+              faqs={manuscriptFaqs}
+              prefix="manuscript"
+              active={active}
+            />
+
+            <FaqBlock
+              title="Academic Integrity & Confidentiality"
+              faqs={integrityFaqs}
+              prefix="integrity"
+              active={active}
+            />
+
+            <FaqBlock
+              title="Pricing, Timelines & Process"
+              faqs={logisticsFaqs}
+              prefix="logistics"
+              active={active}
+            />
+
           </Stack>
         </Container>
       </Box>
 
-      {/* Accordion Sections */}
+      {/* ── Trust Bar ─────────────────────────────────────────────────── */}
       <Box
-        component="section"
-        className="academic-watermark"
+        py={rem(60)}
+        bg={active.background}
+        style={{ borderTop: `1px solid ${active.primary}12` }}
+      >
+        <Container size={INNER_WIDTH}>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+            <Group align="flex-start" gap="md">
+              <IconShieldCheck size={28} color={active.accent} stroke={1.5} />
+              <Stack gap={rem(4)}>
+                <Text fw={700} size="sm">
+                  Zero Ghostwriting. Zero Exceptions.
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  We refine, format, and structure manuscript you have written. We do not generate content, write
+                  arguments, or fabricate text under any circumstances.
+                </Text>
+              </Stack>
+            </Group>
+            <Group align="flex-start" gap="md">
+              <IconFileCheck size={28} color={active.accent} stroke={1.5} />
+              <Stack gap={rem(4)}>
+                <Text fw={700} size="sm">
+                  Tracked Changes — Every Single Edit
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Every edit is delivered in tracked-changes mode. You see exactly what changed and why. You approve
+                  or reject each change individually.
+                </Text>
+              </Stack>
+            </Group>
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* ── CTA ───────────────────────────────────────────────────────── */}
+      <Box
         py={rem(80)}
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}12` }}
       >
         <Container size={READING_WIDTH}>
-          <Stack gap={rem(64)}>
-            
-            {/* Category 1: Services & Choice */}
-            <Box>
-              <Title order={2} mb="xl" style={{ fontSize: rem(28), color: active.primary }}>
-                Service Clarity & Fit
-              </Title>
-              <Accordion variant="separated" radius={0}>
-                {serviceFaqs.map((faq, i) => (
-                  <Accordion.Item
-                    key={i}
-                    value={`service-faq-${i}`}
-                    style={{
-                      backgroundColor: active.background,
-                      borderColor: 'rgba(0,0,0,0.06)',
-                      marginBottom: rem(12)
-                    }}
-                  >
-                    <Accordion.Control style={{ fontWeight: 600, color: active.primary, padding: rem(16) }}>
-                      {faq.q}
-                    </Accordion.Control>
-                    <Accordion.Panel style={{ padding: rem(16) }}>
-                      <Text size="md" lh={1.8} c="dimmed">
-                        {faq.a}
-                      </Text>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                ))}
-              </Accordion>
-            </Box>
-
-            {/* Category 2: Academic Integrity & Confidentiality */}
-            <Box>
-              <Title order={2} mb="xl" style={{ fontSize: rem(28), color: active.primary }}>
-                Academic Integrity & Privacy
-              </Title>
-              <Accordion variant="separated" radius={0}>
-                {integrityFaqs.map((faq, i) => (
-                  <Accordion.Item
-                    key={i}
-                    value={`integrity-faq-${i}`}
-                    style={{
-                      backgroundColor: active.background,
-                      borderColor: 'rgba(0,0,0,0.06)',
-                      marginBottom: rem(12)
-                    }}
-                  >
-                    <Accordion.Control style={{ fontWeight: 600, color: active.primary, padding: rem(16) }}>
-                      {faq.q}
-                    </Accordion.Control>
-                    <Accordion.Panel style={{ padding: rem(16) }}>
-                      <Text size="md" lh={1.8} c="dimmed">
-                        {faq.a}
-                      </Text>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                ))}
-              </Accordion>
-            </Box>
-
-            {/* Category 3: Logistics & Next Steps */}
-            <Box>
-              <Title order={2} mb="xl" style={{ fontSize: rem(28), color: active.primary }}>
-                Logistics & Booking
-              </Title>
-              <Accordion variant="separated" radius={0}>
-                {logisticsFaqs.map((faq, i) => (
-                  <Accordion.Item
-                    key={i}
-                    value={`logistics-faq-${i}`}
-                    style={{
-                      backgroundColor: active.background,
-                      borderColor: 'rgba(0,0,0,0.06)',
-                      marginBottom: rem(12)
-                    }}
-                  >
-                    <Accordion.Control style={{ fontWeight: 600, color: active.primary, padding: rem(16) }}>
-                      {faq.q}
-                    </Accordion.Control>
-                    <Accordion.Panel style={{ padding: rem(16) }}>
-                      <Text size="md" lh={1.8} c="dimmed">
-                        {faq.a}
-                      </Text>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                ))}
-              </Accordion>
-            </Box>
-
-            <Divider color={`${active.primary}12`} />
-
-            {/* Symmetrical CTA Box */}
-            <Stack align="center" gap="lg" style={{ textAlign: 'center' }} py="md">
-              <Title order={3} style={{ fontSize: rem(24), color: active.primary }}>
-                Ready to un-stall your research?
-              </Title>
-              <Text size="md" c="dimmed" style={{ maxWidth: 500 }}>
-                Request a professional, secure assessment of your research and receive your custom project quote within 24 hours.
-              </Text>
-              <Group gap="md" style={{ width: '100%', maxWidth: rem(450) }} justify="center">
-                <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', width: '100%' }}>
-                  <Button size="lg" bg={active.primary} radius={0} className="impeccable-button" fullWidth>
-                    GET A QUOTE
-                  </Button>
-                </Link>
-              </Group>
-            </Stack>
-
+          <Stack align="center" gap="lg" style={{ textAlign: 'center' }}>
+            <Title
+              order={2}
+              style={{
+                fontSize: rem(36),
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+                lineHeight: 1.2,
+              }}
+            >
+              Still not sure which service you need?
+            </Title>
+            <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 520 }}>
+              Submit your manuscript for a free scope assessment. We review it and respond within 24 hours with a
+              clear recommendation and a firm price.
+            </Text>
+            <Group gap="md" justify="center">
+              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="lg"
+                  radius={0}
+                  style={{ backgroundColor: active.primary, color: active.background }}
+                  rightSection={<IconArrowRight size={16} />}
+                >
+                  Get a Free Scope Assessment
+                </Button>
+              </Link>
+              <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  radius={0}
+                  color={active.primary}
+                  style={{ borderColor: active.primary }}
+                >
+                  Browse All Services
+                </Button>
+              </Link>
+            </Group>
           </Stack>
         </Container>
       </Box>
 
-      <Footer />
+      <Footer bg={active.surface} />
     </Box>
   )
 }
