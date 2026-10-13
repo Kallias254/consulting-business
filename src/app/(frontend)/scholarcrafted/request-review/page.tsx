@@ -17,7 +17,6 @@ import {
   NumberInput,
   UnstyledButton,
   Select,
-  Radio,
 } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates'
 import { useSearchParams } from 'next/navigation'
@@ -31,8 +30,6 @@ import {
   IconChevronLeft,
   IconReceipt,
   IconMailForward,
-  IconExternalLink,
-  IconInfoCircle,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 
@@ -73,11 +70,6 @@ const REFERRAL_SOURCES = [
   'University Department Portal',
   'Other',
 ]
-
-const SERVICE_LABELS: Record<string, string> = {
-  editing: 'English Editing & Compliance',
-  publication: 'Publication Support',
-}
 
 const EDITING_TIER_META: Record<string, { label: string; rate: number; priceStr: string; turnaround: string; desc: string }> = {
   advanced: {
@@ -126,6 +118,14 @@ const JOURNAL_TIER_META: Record<string, { label: string; flatPrice: number; pric
     desc: 'Complete submission management, response letter drafting, proofing, and unlimited reformatting.',
   },
 }
+
+const BOOK_STAGES = [
+  { id: '01', label: 'Stage 01 — Publisher Selection', price: '$280 flat fee' },
+  { id: '02', label: 'Stage 02 — Book Proposal Creation', price: '$480 flat fee' },
+  { id: '03', label: 'Stage 03 — Manuscript Editing', price: 'From $0.0425 / word' },
+  { id: '04', label: 'Stage 04 — Galley Proof Review', price: 'Project-based rate' },
+  { id: '05', label: 'Stage 05 — Back-of-Book Indexing', price: '$3 / typeset page' },
+]
 
 const BOOK_STAGE_META: Record<string, { label: string; priceStr: string; turnaround: string; desc: string }> = {
   '01': {
@@ -184,6 +184,18 @@ function RequestReviewContent() {
   const paramPipeline = searchParams.get('pipeline') === 'full'
   const paramWords    = parseInt(searchParams.get('wordCount') ?? '0', 10)
 
+  // Book stages selection
+  const initialCheckedStages = paramPipeline
+    ? BOOK_STAGES.map((s) => s.id)
+    : paramStage ? [paramStage] : ['01']
+  const [checkedStages, setCheckedStages] = useState<string[]>(initialCheckedStages)
+
+  function toggleBookStage(id: string) {
+    setCheckedStages((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    )
+  }
+
   // Back link URL to order comparison page
   const backToOrderUrl = (() => {
     if (paramService === 'publication' && paramSection === 'book') {
@@ -204,9 +216,10 @@ function RequestReviewContent() {
       if (paramSection === 'journal' || paramTier) {
         return JOURNAL_TIER_META[paramTier]?.label ?? 'Journal Publication Support'
       }
-      if (paramPipeline) return 'Full Book Publication Pipeline'
+      if (paramPipeline || checkedStages.length > 1) return 'Full Book Publication Pipeline'
+      if (checkedStages.length === 1) return BOOK_STAGE_META[checkedStages[0]]?.label ?? `Book Publishing — Stage ${checkedStages[0]}`
       if (paramStage) return BOOK_STAGE_META[paramStage]?.label ?? `Book Publishing — Stage ${paramStage}`
-      return 'Publication Support'
+      return 'Book Manuscript Publishing'
     }
     return 'ScholarCrafted Faculty Intake'
   })()
@@ -217,6 +230,15 @@ function RequestReviewContent() {
   const [editingScope, setEditingScope]       = useState<'entire' | 'exclude' | 'only'>('entire')
   const [scopeDetails, setScopeDetails]       = useState('')
 
+  // Personal Information
+  const [salutation, setSalutation]           = useState('Dr.')
+  const [firstName, setFirstName]             = useState('')
+  const [lastName, setLastName]               = useState('')
+  const [email, setEmail]                     = useState('')
+  const [phone, setPhone]                     = useState('')
+  const [referralSource, setReferralSource]   = useState('Colleague / Peer Recommendation')
+
+  // Document Preferences
   const [docType, setDocType]                 = useState<string>('Journal Article')
   const [journalName, setJournalName]         = useState('')
   const [languageStyle, setLanguageStyle]     = useState<'american' | 'british'>('american')
@@ -225,19 +247,11 @@ function RequestReviewContent() {
   const [subjectName, setSubjectName]         = useState('')
   const [deadline, setDeadline]               = useState<Date | null>(null)
   const [instructions, setInstructions]       = useState('')
-
-  const [salutation, setSalutation]           = useState('Dr.')
-  const [firstName, setFirstName]             = useState('')
-  const [lastName, setLastName]               = useState('')
-  const [email, setEmail]                     = useState('')
-  const [phone, setPhone]                     = useState('')
-  const [referralSource, setReferralSource]   = useState('Colleague / Peer Recommendation')
   const [intent, setIntent]                   = useState<'quote' | 'start'>('quote')
 
-  // Collapsible Accordion Step Management: 1 = Words & Upload, 2 = Preferences, 3 = Personal Info
-  const [activeStep, setActiveStep] = useState<1 | 2 | 3>(1)
+  // Collapsible Accordion Step Management: 1 = Manuscript & Personal Info, 2 = Preferences & Scope
+  const [activeStep, setActiveStep] = useState<1 | 2>(1)
   const [step1Done, setStep1Done]   = useState(false)
-  const [step2Done, setStep2Done]   = useState(false)
   const [submitted, setSubmitted]   = useState(false)
 
   // File change handler
@@ -246,7 +260,7 @@ function RequestReviewContent() {
     if (file) {
       setFileName(file.name)
       if (wordCount === 0) {
-        setWordCount(4500) // gentle prefill hint if empty
+        setWordCount(4500)
       }
     }
   }
@@ -268,7 +282,7 @@ function RequestReviewContent() {
     firstName.trim() !== '' &&
     lastName.trim() !== '' &&
     email.trim() !== '' &&
-    (wordCount > 0 || fileName !== '' || paramSection === 'journal')
+    (wordCount > 0 || fileName !== '' || paramSection === 'journal' || (paramService === 'publication' && paramSection === 'book'))
 
   function handleSubmit() {
     if (!isFormValid) return
@@ -341,7 +355,7 @@ function RequestReviewContent() {
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
 
-      {/* ── Top Bar with Caret + Plan Name (Exact screenshot layout) ─────────── */}
+      {/* ── Top Bar with Caret + Plan Name ─────────────────────────────────── */}
       <Box
         py={rem(18)}
         style={{
@@ -355,7 +369,7 @@ function RequestReviewContent() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Group justify="space-between" align="center">
-            {/* Left: Just the caret "<" + Plan Name */}
+            {/* Left: Caret "<" + Plan Name */}
             <Group gap={rem(14)} align="center">
               <Link
                 href={backToOrderUrl}
@@ -422,28 +436,32 @@ function RequestReviewContent() {
                 alignItems: 'start',
               }}
             >
-              {/* ── Left Column: Collapsible Steps ─────────────────────────── */}
-              <Stack gap={rem(16)}>
+              {/* ── Left Column: Streamlined Steps ─────────────────────────── */}
+              <Stack gap={rem(20)}>
 
-                {/* ── STEP 1: Manuscript & Word Count ──────────────────────── */}
+                {/* ── STEP 1: Manuscript, Word Count & Author Information ──── */}
                 <StepSection
                   stepNum={1}
-                  title="Manuscript & Word Count"
-                  subtitle="A word count helps us provide accurate pricing and delivery turnaround"
+                  title="Manuscript & Personal Details"
+                  subtitle="Word count, file upload, and author contact information"
                   isOpen={activeStep === 1}
-                  isDone={step1Done || (wordCount > 0 && activeStep > 1)}
-                  doneSummary={`${wordCount > 0 ? `${wordCount.toLocaleString()} words` : ''}${fileName ? ` · ${fileName}` : ''}`}
+                  isDone={step1Done || (firstName !== '' && email !== '' && activeStep > 1)}
+                  doneSummary={`${wordCount > 0 ? `${wordCount.toLocaleString()} words` : ''}${fileName ? ` · ${fileName}` : ''}${firstName ? ` · ${salutation} ${firstName} ${lastName}` : ''}`}
                   onReopen={() => setActiveStep(1)}
                   active={active}
                 >
-                  <Stack gap={rem(20)} pt={rem(16)}>
-                    {/* Word count input */}
+                  <Stack gap={rem(24)} pt={rem(20)}>
+
+                    {/* Word count & Manuscript Section Header */}
                     <Box>
+                      <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.12em', color: active.accent, textTransform: 'uppercase' }}>
+                        1.1 Manuscript Scope & File
+                      </Text>
                       <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.08em', color: active.primary }}>
                         ENTER THE NUMBER OF WORDS IN YOUR MANUSCRIPT *
                       </Text>
                       <Text size="xs" c="dimmed" mb={rem(10)}>
-                        Exclude references or bibliographies if not requiring line editing.
+                        A word count helps us provide accurate pricing and delivery options (e.g. 8 500 words).
                       </Text>
                       <NumberInput
                         placeholder="e.g. 8 500"
@@ -466,6 +484,9 @@ function RequestReviewContent() {
                       <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.08em', color: active.primary }}>
                         UPLOAD DOCUMENT (OPTIONAL AT BRIEF STAGE)
                       </Text>
+                      <Text size="xs" c="dimmed" mb={rem(10)}>
+                        Reference files won't be worked upon or be included in pricing.
+                      </Text>
                       <input
                         ref={fileInputRef}
                         type="file"
@@ -476,8 +497,8 @@ function RequestReviewContent() {
                       <UnstyledButton
                         onClick={() => fileInputRef.current?.click()}
                         style={{
-                          border: `2px dashed ${fileName ? active.accent : `${active.primary}20`}`,
-                          backgroundColor: fileName ? `${active.accent}08` : active.background,
+                          border: `2px dashed ${fileName ? active.accent : `${active.primary}25`}`,
+                          backgroundColor: fileName ? `${active.accent}08` : '#ffffff',
                           padding: rem(28),
                           display: 'flex',
                           flexDirection: 'column',
@@ -505,10 +526,172 @@ function RequestReviewContent() {
                       </UnstyledButton>
                     </Box>
 
-                    {/* Scope of editing */}
+                    {/* Book Stage Checkboxes (When Book Publishing service is active) */}
+                    {(paramSection === 'book' || (paramService === 'publication' && !paramTier)) && (
+                      <Box p={rem(18)} style={{ backgroundColor: `${active.accent}08`, border: `1px solid ${active.accent}30` }}>
+                        <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.12em', color: active.accent, textTransform: 'uppercase' }}>
+                          WHICH STAGE(S) DO YOU NEED?
+                        </Text>
+                        <Text size="xs" c="dimmed" mb={rem(14)}>
+                          Select all stages that apply to your monograph. Tick all five for the complete publication pipeline bundle.
+                        </Text>
+                        <Stack gap={rem(8)}>
+                          {BOOK_STAGES.map((stg) => {
+                            const isChecked = checkedStages.includes(stg.id)
+                            return (
+                              <UnstyledButton
+                                key={stg.id}
+                                onClick={() => toggleBookStage(stg.id)}
+                                p={rem(12)}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: rem(12),
+                                  backgroundColor: isChecked ? '#ffffff' : 'transparent',
+                                  border: `1px solid ${isChecked ? active.accent : `${active.primary}15`}`,
+                                  cursor: 'pointer',
+                                  transition: 'all 0.15s ease',
+                                }}
+                              >
+                                <Box
+                                  style={{
+                                    width: rem(20),
+                                    height: rem(20),
+                                    border: `2px solid ${isChecked ? active.accent : `${active.primary}40`}`,
+                                    backgroundColor: isChecked ? active.accent : '#ffffff',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  {isChecked && <IconCheck size={13} color="#ffffff" stroke={3} />}
+                                </Box>
+                                <Box style={{ flex: 1 }}>
+                                  <Text size="sm" fw={600} c={active.primary}>{stg.label}</Text>
+                                  <Text size="xs" c="dimmed">{stg.price}</Text>
+                                </Box>
+                              </UnstyledButton>
+                            )
+                          })}
+                        </Stack>
+                      </Box>
+                    )}
+
+                    {/* Personal Information Subsection */}
+                    <Box pt={rem(8)} style={{ borderTop: `1px solid ${active.primary}12` }}>
+                      <Text size="xs" fw={700} mb={rem(12)} style={{ letterSpacing: '0.12em', color: active.accent, textTransform: 'uppercase' }}>
+                        1.2 Personal & Contact Details
+                      </Text>
+
+                      <Stack gap={rem(16)}>
+                        {/* Salutation + Name */}
+                        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(12)}>
+                          <Select
+                            label="Salutation"
+                            placeholder="—"
+                            radius={0}
+                            data={SALUTATIONS}
+                            value={salutation}
+                            onChange={(v) => setSalutation(v ?? 'Dr.')}
+                          />
+                          <TextInput
+                            label="First name *"
+                            placeholder="Jane"
+                            required
+                            radius={0}
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                          />
+                          <TextInput
+                            label="Last name *"
+                            placeholder="Doe"
+                            required
+                            radius={0}
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                          />
+                        </SimpleGrid>
+
+                        {/* Email & Phone */}
+                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
+                          <TextInput
+                            label="Primary email *"
+                            placeholder="jane.doe@university.edu"
+                            required
+                            type="email"
+                            radius={0}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            description="We recommend your academic email. Formal quote sent here."
+                          />
+                          <TextInput
+                            label="Mobile / Phone number *"
+                            placeholder="(+1) 555-0192"
+                            radius={0}
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            description="Used strictly for urgent manuscript inquiries"
+                          />
+                        </SimpleGrid>
+
+                        {/* Referral source */}
+                        <Select
+                          label="How did you hear about us? *"
+                          placeholder="Select option"
+                          radius={0}
+                          data={REFERRAL_SOURCES}
+                          value={referralSource}
+                          onChange={(v) => setReferralSource(v ?? REFERRAL_SOURCES[0])}
+                        />
+                      </Stack>
+                    </Box>
+
+                    {/* Single Next button bottom-right */}
+                    <Group justify="flex-end" pt="sm">
+                      <Button
+                        size="md"
+                        radius={0}
+                        onClick={() => {
+                          setStep1Done(true)
+                          setActiveStep(2)
+                        }}
+                        style={{
+                          backgroundColor: active.accent,
+                          color: '#ffffff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                          paddingLeft: rem(28),
+                          paddingRight: rem(28),
+                        }}
+                      >
+                        Proceed to Document Details →
+                      </Button>
+                    </Group>
+                  </Stack>
+                </StepSection>
+
+                {/* ── STEP 2: Document Details & Preferences ───────────────── */}
+                <StepSection
+                  stepNum={2}
+                  title="Document Preferences & Scope"
+                  subtitle="Editing sections, discipline area, target publisher, and turnaround"
+                  isOpen={activeStep === 2}
+                  isDone={false}
+                  doneSummary={`${subjectCategory}${subjectName ? ` · ${subjectName}` : ''} · ${languageStyle === 'american' ? 'American English' : 'British English'}`}
+                  onReopen={() => setActiveStep(2)}
+                  active={active}
+                >
+                  <Stack gap={rem(22)} pt={rem(20)}>
+
+                    {/* Scope of editing: Specify sections */}
                     <Box>
-                      <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                      <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.08em', color: active.primary }}>
                         DO YOU WANT TO SPECIFY SECTIONS THAT DO NOT REQUIRE EDITING?
+                      </Text>
+                      <Text size="xs" c="dimmed" mb={rem(10)}>
+                        Exclude references, appendices, or equations to optimize editing fee.
                       </Text>
                       <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(8)}>
                         {[
@@ -519,12 +702,12 @@ function RequestReviewContent() {
                           <UnstyledButton
                             key={opt.id}
                             onClick={() => setEditingScope(opt.id as any)}
-                            px={rem(14)} py={rem(10)}
+                            px={rem(14)} py={rem(12)}
                             style={{
-                              backgroundColor: editingScope === opt.id ? active.primary : active.background,
-                              color: editingScope === opt.id ? '#fff' : active.primary,
+                              backgroundColor: editingScope === opt.id ? active.primary : '#ffffff',
+                              color: editingScope === opt.id ? '#ffffff' : active.primary,
                               border: `1px solid ${editingScope === opt.id ? active.primary : `${active.primary}20`}`,
-                              fontSize: rem(12),
+                              fontSize: rem(13),
                               fontWeight: editingScope === opt.id ? 700 : 500,
                               textAlign: 'center',
                               transition: 'all 0.15s ease',
@@ -537,7 +720,7 @@ function RequestReviewContent() {
                       {editingScope !== 'entire' && (
                         <TextInput
                           mt="xs"
-                          placeholder="e.g. Exclude references & appendices; edit abstract, intro, and discussion only"
+                          placeholder="e.g. Exclude references & appendices; edit abstract, introduction, and results only"
                           radius={0}
                           value={scopeDetails}
                           onChange={(e) => setScopeDetails(e.target.value)}
@@ -545,41 +728,7 @@ function RequestReviewContent() {
                       )}
                     </Box>
 
-                    {/* Next button */}
-                    <Box pt="xs">
-                      <Button
-                        radius={0}
-                        onClick={() => {
-                          setStep1Done(true)
-                          setActiveStep(2)
-                        }}
-                        style={{
-                          backgroundColor: active.primary,
-                          color: '#fff',
-                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                          fontWeight: 700,
-                          letterSpacing: '0.06em',
-                        }}
-                      >
-                        Proceed to Document Preferences →
-                      </Button>
-                    </Box>
-                  </Stack>
-                </StepSection>
-
-                {/* ── STEP 2: Document Preferences & Discipline ────────────── */}
-                <StepSection
-                  stepNum={2}
-                  title="Document Preferences & Subject Area"
-                  subtitle="Our faculty editors cater to over 1,300 academic fields"
-                  isOpen={activeStep === 2}
-                  isDone={step2Done || (activeStep > 2)}
-                  doneSummary={`${subjectCategory}${subjectName ? ` · ${subjectName}` : ''} · ${languageStyle === 'american' ? 'American English' : 'British English'}`}
-                  onReopen={() => setActiveStep(2)}
-                  active={active}
-                >
-                  <Stack gap={rem(20)} pt={rem(16)}>
-                    {/* Document type */}
+                    {/* Document type & Target */}
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
                       <Select
                         label="Type of document *"
@@ -641,8 +790,8 @@ function RequestReviewContent() {
                               onClick={() => setLanguageStyle(opt.id as any)}
                               px={rem(16)} py={rem(10)}
                               style={{
-                                backgroundColor: languageStyle === opt.id ? active.primary : active.background,
-                                color: languageStyle === opt.id ? '#fff' : active.primary,
+                                backgroundColor: languageStyle === opt.id ? active.primary : '#ffffff',
+                                color: languageStyle === opt.id ? '#ffffff' : active.primary,
                                 border: `1px solid ${languageStyle === opt.id ? active.primary : `${active.primary}20`}`,
                                 fontSize: rem(12),
                                 fontWeight: languageStyle === opt.id ? 700 : 500,
@@ -656,7 +805,7 @@ function RequestReviewContent() {
 
                       <Box>
                         <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
-                          JOURNAL / PUBLISHER FORMATTING?
+                          DO YOU WANT FREE JOURNAL FORMATTING?
                         </Text>
                         <Group gap={rem(6)}>
                           {[
@@ -668,8 +817,8 @@ function RequestReviewContent() {
                               onClick={() => setFormattingNeeded(opt.id as any)}
                               px={rem(16)} py={rem(10)}
                               style={{
-                                backgroundColor: formattingNeeded === opt.id ? active.primary : active.background,
-                                color: formattingNeeded === opt.id ? '#fff' : active.primary,
+                                backgroundColor: formattingNeeded === opt.id ? active.primary : '#ffffff',
+                                color: formattingNeeded === opt.id ? '#ffffff' : active.primary,
                                 border: `1px solid ${formattingNeeded === opt.id ? active.primary : `${active.primary}20`}`,
                                 fontSize: rem(12),
                                 fontWeight: formattingNeeded === opt.id ? 700 : 500,
@@ -703,101 +852,8 @@ function RequestReviewContent() {
                       onChange={(e) => setInstructions(e.target.value)}
                     />
 
-                    {/* Next button */}
-                    <Box pt="xs">
-                      <Button
-                        radius={0}
-                        onClick={() => {
-                          setStep2Done(true)
-                          setActiveStep(3)
-                        }}
-                        style={{
-                          backgroundColor: active.primary,
-                          color: '#fff',
-                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                          fontWeight: 700,
-                          letterSpacing: '0.06em',
-                        }}
-                      >
-                        Proceed to Personal Details & Submission →
-                      </Button>
-                    </Box>
-                  </Stack>
-                </StepSection>
-
-                {/* ── STEP 3: Personal Information & Delivery Options ──────── */}
-                <StepSection
-                  stepNum={3}
-                  title="Personal Information & Submission"
-                  subtitle="Micah Dobson will review your brief personally and email your scoped quote"
-                  isOpen={activeStep === 3}
-                  isDone={false}
-                  onReopen={() => setActiveStep(3)}
-                  active={active}
-                >
-                  <Stack gap={rem(20)} pt={rem(16)}>
-                    {/* Salutation + Name */}
-                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(12)}>
-                      <Select
-                        label="Salutation"
-                        placeholder="—"
-                        radius={0}
-                        data={SALUTATIONS}
-                        value={salutation}
-                        onChange={(v) => setSalutation(v ?? 'Dr.')}
-                      />
-                      <TextInput
-                        label="First name *"
-                        placeholder="Jane"
-                        required
-                        radius={0}
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                      />
-                      <TextInput
-                        label="Last name *"
-                        placeholder="Doe"
-                        required
-                        radius={0}
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                      />
-                    </SimpleGrid>
-
-                    {/* Email & Phone */}
-                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
-                      <TextInput
-                        label="Primary email *"
-                        placeholder="jane.doe@university.edu"
-                        required
-                        type="email"
-                        radius={0}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        description="We recommend your academic email. Quote sent here."
-                      />
-                      <TextInput
-                        label="Mobile / Phone number"
-                        placeholder="(+1) 555-0192"
-                        radius={0}
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        description="Used strictly for urgent manuscript inquiries"
-                      />
-                    </SimpleGrid>
-
-                    {/* Referral source */}
-                    <Select
-                      label="How did you hear about us? *"
-                      placeholder="Select option"
-                      radius={0}
-                      data={REFERRAL_SOURCES}
-                      value={referralSource}
-                      onChange={(v) => setReferralSource(v ?? REFERRAL_SOURCES[0])}
-                    />
-
                     {/* Intent toggle: Share quote vs Start immediately */}
-                    <Box>
+                    <Box pt={rem(8)}>
                       <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.08em', color: active.primary }}>
                         CAN WE START WORK ON YOUR REQUEST IMMEDIATELY?
                       </Text>
@@ -806,20 +862,20 @@ function RequestReviewContent() {
                           onClick={() => setIntent('quote')}
                           p={rem(18)}
                           style={{
-                            border: `1px solid ${intent === 'quote' ? active.primary : `${active.primary}18`}`,
-                            backgroundColor: intent === 'quote' ? active.primary : active.background,
-                            color: intent === 'quote' ? '#fff' : active.primary,
+                            border: `1px solid ${intent === 'quote' ? active.accent : `${active.primary}18`}`,
+                            backgroundColor: intent === 'quote' ? `${active.accent}08` : '#ffffff',
+                            color: active.primary,
                             transition: 'all 0.15s ease',
                           }}
                         >
                           <Group gap="xs" align="center" mb={rem(4)}>
-                            <IconMailForward size={16} color={intent === 'quote' ? active.accent : active.accent} />
-                            <Text size="sm" fw={700} style={{ color: intent === 'quote' ? '#fff' : active.primary }}>
+                            <IconMailForward size={16} color={active.accent} />
+                            <Text size="sm" fw={700} style={{ color: active.primary }}>
                               Share a quotation first
                             </Text>
                           </Group>
-                          <Text size="xs" lh={1.5} style={{ color: intent === 'quote' ? 'rgba(255,255,255,0.75)' : '#666' }}>
-                            We will email a firm quotation within 24 hours. Pay nothing until approved.
+                          <Text size="xs" lh={1.5} style={{ color: '#666' }}>
+                            We will email a firm quotation within 1 working hour. Pay nothing until approved.
                           </Text>
                         </UnstyledButton>
 
@@ -827,20 +883,20 @@ function RequestReviewContent() {
                           onClick={() => setIntent('start')}
                           p={rem(18)}
                           style={{
-                            border: `1px solid ${intent === 'start' ? active.primary : `${active.primary}18`}`,
-                            backgroundColor: intent === 'start' ? active.primary : active.background,
-                            color: intent === 'start' ? '#fff' : active.primary,
+                            border: `1px solid ${intent === 'start' ? active.accent : `${active.primary}18`}`,
+                            backgroundColor: intent === 'start' ? `${active.accent}08` : '#ffffff',
+                            color: active.primary,
                             transition: 'all 0.15s ease',
                           }}
                         >
                           <Group gap="xs" align="center" mb={rem(4)}>
-                            <IconReceipt size={16} color={intent === 'start' ? active.accent : active.accent} />
-                            <Text size="sm" fw={700} style={{ color: intent === 'start' ? '#fff' : active.primary }}>
+                            <IconReceipt size={16} color={active.accent} />
+                            <Text size="sm" fw={700} style={{ color: active.primary }}>
                               Start work immediately
                             </Text>
                           </Group>
-                          <Text size="xs" lh={1.5} style={{ color: intent === 'start' ? 'rgba(255,255,255,0.75)' : '#666' }}>
-                            We will begin editing your paper. 50% deposit invoice sent upon scope confirmation.
+                          <Text size="xs" lh={1.5} style={{ color: '#666' }}>
+                            We will start editing your paper. 50% deposit invoice sent upon scope confirmation.
                           </Text>
                         </UnstyledButton>
                       </SimpleGrid>
@@ -857,7 +913,7 @@ function RequestReviewContent() {
                         rightSection={<IconArrowRight size={18} />}
                         style={{
                           backgroundColor: isFormValid ? active.accent : `${active.primary}20`,
-                          color: '#fff',
+                          color: '#ffffff',
                           fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                           fontWeight: 700,
                           letterSpacing: '0.06em',
@@ -868,7 +924,7 @@ function RequestReviewContent() {
                         {intent === 'start' ? 'SUBMIT ORDER — INVOICE 50% DEPOSIT' : 'SUBMIT BRIEF FOR FACULTY REVIEW'}
                       </Button>
                       <Text size="xs" c="dimmed" mt={rem(8)} ta="center">
-                        By submitting, your document is covered by our strict NDA. No automated bots or AI models.
+                        By clicking 'Submit Order', you agree to pay for the order in full on or before the delivery date. Strict NDA applies.
                       </Text>
                     </Box>
                   </Stack>
@@ -879,7 +935,7 @@ function RequestReviewContent() {
               {/* ── Right Column: Sticky Order Summary Card ──────────────── */}
               <Box
                 p={rem(28)}
-                bg={active.background}
+                bg="#ffffff"
                 style={{
                   border: `1px solid ${active.primary}12`,
                   position: 'sticky',
@@ -902,6 +958,11 @@ function RequestReviewContent() {
                 {paramService === 'publication' && paramSection === 'journal' && (
                   <Text size="xs" c="dimmed" mt={rem(4)}>
                     Package: {JOURNAL_TIER_META[paramTier]?.priceStr ?? '$560 flat fee'}
+                  </Text>
+                )}
+                {paramService === 'publication' && paramSection === 'book' && (
+                  <Text size="xs" c="dimmed" mt={rem(4)}>
+                    {checkedStages.length} Book Stage{checkedStages.length > 1 ? 's' : ''} Selected
                   </Text>
                 )}
 
@@ -1010,13 +1071,14 @@ function StepSection({
 }) {
   return (
     <Box
-      bg={active.background}
+      bg="#ffffff"
       style={{
-        border: `1px solid ${isOpen ? active.primary : `${active.primary}15`}`,
+        border: `1px solid ${isOpen ? `${active.accent}60` : `${active.primary}12`}`,
+        boxShadow: isOpen ? '0 4px 20px rgba(0,0,0,0.04)' : 'none',
         transition: 'all 0.2s ease',
       }}
     >
-      {/* Header bar */}
+      {/* Header bar: Sleek, light, and accessible */}
       <UnstyledButton
         onClick={onReopen}
         px={rem(24)}
@@ -1026,20 +1088,20 @@ function StepSection({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: isOpen ? active.primary : active.background,
-          color: isOpen ? '#fff' : active.primary,
-          borderBottom: isOpen ? `1px solid ${active.primary}15` : 'none',
+          backgroundColor: isOpen ? '#ffffff' : active.surface,
+          color: active.primary,
+          borderBottom: isOpen ? `1px solid ${active.primary}10` : 'none',
           cursor: 'pointer',
         }}
       >
-        <Group gap={rem(12)} align="center">
+        <Group gap={rem(14)} align="center">
           <Box
             style={{
-              width: rem(28),
-              height: rem(28),
-              borderRadius: rem(14),
-              backgroundColor: isDone && !isOpen ? active.accent : isOpen ? active.accent : `${active.primary}12`,
-              color: '#fff',
+              width: rem(30),
+              height: rem(30),
+              borderRadius: rem(15),
+              backgroundColor: isDone && !isOpen ? active.accent : isOpen ? active.accent : `${active.primary}10`,
+              color: isDone || isOpen ? '#ffffff' : active.primary,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -1047,10 +1109,10 @@ function StepSection({
               fontWeight: 800,
             }}
           >
-            {isDone && !isOpen ? <IconCheck size={16} stroke={3} color="#fff" /> : stepNum}
+            {isDone && !isOpen ? <IconCheck size={16} stroke={3} color="#ffffff" /> : stepNum}
           </Box>
           <Box>
-            <Text fw={700} size="sm" style={{ color: isOpen ? '#fff' : active.primary }}>
+            <Text fw={700} size="sm" style={{ color: active.primary }}>
               {title}
             </Text>
             {!isOpen && isDone && doneSummary && (
@@ -1068,7 +1130,7 @@ function StepSection({
 
         {isDone && !isOpen && (
           <Group gap={rem(4)} align="center" style={{ color: active.accent }}>
-            <IconPencil size={12} />
+            <IconPencil size={13} />
             <Text size="xs" fw={700} style={{ textDecoration: 'underline' }}>
               edit
             </Text>

@@ -21,6 +21,13 @@ export default function ScholarCraftedLayout({ children }: { children: React.Rea
            font-feature-settings: "ss01", "ss02", "cv01", "cv02";
            -webkit-font-smoothing: antialiased;
            -moz-osx-font-smoothing: grayscale;
+           color: #1a1a1a !important;
+        }
+        .scholarcrafted-root input,
+        .scholarcrafted-root textarea,
+        .scholarcrafted-root select {
+           color: #1a1a1a !important;
+           background-color: #ffffff !important;
         }
       ` }}
       />
