@@ -550,7 +550,7 @@ function PublicationSupportPageInner() {
                         </Stack>
                       </Box>
 
-                      <Link href={`/scholarcrafted/request-review?service=publication&section=journal&tier=${selectedTier.id}`} style={{ textDecoration: 'none' }}>
+                      <Link href={`/scholarcrafted/order?service=publication&section=journal&tier=${selectedTier.id}`} style={{ textDecoration: 'none' }}>
                         <Button
                           size="md"
                           radius={0}
