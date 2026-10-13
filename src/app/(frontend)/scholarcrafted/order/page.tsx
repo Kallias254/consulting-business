@@ -337,13 +337,27 @@ function EditingOrderSection({ active, hlTier }: { active: Record<string, string
 
       <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(56)} bg={active.background} style={{ borderBottom: `1px solid ${active.primary}10` }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(6), marginBottom: rem(28), color: '#888' }}>
-            <IconArrowLeft size={14} />
-            <Text size="xs" fw={600} style={{ letterSpacing: '0.08em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>Back to Editing & Compliance</Text>
-          </Link>
-          <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-            EDITING & COMPLIANCE
-          </Text>
+          <Group gap="sm" align="center" mb={rem(14)} wrap="wrap">
+            <Link
+              href="/scholarcrafted/services/editing-proofreading"
+              style={{
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: rem(6),
+                color: active.accent,
+              }}
+            >
+              <IconArrowLeft size={14} />
+              <Text size="xs" fw={700} style={{ letterSpacing: '0.06em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                Back to Editing & Compliance
+              </Text>
+            </Link>
+            <Box style={{ width: 1, height: rem(12), backgroundColor: `${active.primary}25` }} />
+            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+              EDITING & COMPLIANCE
+            </Text>
+          </Group>
           <Title order={1} mt="xs" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
             Choose your editing tier.
           </Title>
@@ -470,11 +484,27 @@ function JournalOrderSection({ active, hlTier }: { active: Record<string, string
       <Navbar />
       <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(56)} bg={active.background} style={{ borderBottom: `1px solid ${active.primary}10` }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Link href="/scholarcrafted/services/publication-support?tab=journal" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(6), marginBottom: rem(28), color: '#888' }}>
-            <IconArrowLeft size={14} />
-            <Text size="xs" fw={600} style={{ letterSpacing: '0.08em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>Back to Publication Support</Text>
-          </Link>
-          <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>PUBLICATION SUPPORT — JOURNAL ARTICLES</Text>
+          <Group gap="sm" align="center" mb={rem(14)} wrap="wrap">
+            <Link
+              href="/scholarcrafted/services/publication-support?tab=journal"
+              style={{
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: rem(6),
+                color: active.accent,
+              }}
+            >
+              <IconArrowLeft size={14} />
+              <Text size="xs" fw={700} style={{ letterSpacing: '0.06em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                Back to Publication Support
+              </Text>
+            </Link>
+            <Box style={{ width: 1, height: rem(12), backgroundColor: `${active.primary}25` }} />
+            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+              PUBLICATION SUPPORT — JOURNAL ARTICLES
+            </Text>
+          </Group>
           <Title order={1} mt="xs" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
             Choose your submission package.
           </Title>
@@ -559,11 +589,27 @@ function BookOrderSection({ active, hlStage }: { active: Record<string, string>;
 
       <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(56)} bg={active.background} style={{ borderBottom: `1px solid ${active.primary}10` }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Link href="/scholarcrafted/services/publication-support?tab=book" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(6), marginBottom: rem(28), color: '#888' }}>
-            <IconArrowLeft size={14} />
-            <Text size="xs" fw={600} style={{ letterSpacing: '0.08em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>Back to Book Manuscripts</Text>
-          </Link>
-          <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>PUBLICATION SUPPORT — BOOK MANUSCRIPTS</Text>
+          <Group gap="sm" align="center" mb={rem(14)} wrap="wrap">
+            <Link
+              href="/scholarcrafted/services/publication-support?tab=book"
+              style={{
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: rem(6),
+                color: active.accent,
+              }}
+            >
+              <IconArrowLeft size={14} />
+              <Text size="xs" fw={700} style={{ letterSpacing: '0.06em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                Back to Book Manuscripts
+              </Text>
+            </Link>
+            <Box style={{ width: 1, height: rem(12), backgroundColor: `${active.primary}25` }} />
+            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+              PUBLICATION SUPPORT — BOOK MANUSCRIPTS
+            </Text>
+          </Group>
           <Title order={1} mt="xs" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
             From proposal to press.
           </Title>

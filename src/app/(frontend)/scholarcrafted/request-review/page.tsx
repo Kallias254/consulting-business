@@ -16,16 +16,13 @@ import {
   SimpleGrid,
   NumberInput,
   UnstyledButton,
-  Checkbox,
   Select,
 } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates'
 import { Navbar } from '../_components/Navbar'
-import { Footer } from '../_components/Footer'
 import { useSearchParams } from 'next/navigation'
 import {
   IconCheck,
-  IconX,
   IconPencil,
   IconBook2,
   IconFileText,
@@ -34,6 +31,8 @@ import {
   IconArrowLeft,
   IconReceipt,
   IconMailForward,
+  IconExternalLink,
+  IconInfoCircle,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 
@@ -46,16 +45,48 @@ const SERVICE_LABELS: Record<string, string> = {
   publication: 'Publication Support',
 }
 
-const EDITING_TIER_LABELS: Record<string, { label: string; price: string }> = {
-  advanced: { label: 'Advanced Editing', price: 'from $0.0425/word' },
-  premium:  { label: 'Premium Editing',  price: 'from $0.065/word' },
-  scientific:{ label: 'Scientific Editing Pro', price: 'from $0.095/word' },
+const EDITING_TIER_LABELS: Record<string, { label: string; price: string; desc: string; popular?: boolean; detailsHref: string }> = {
+  advanced: {
+    label: 'Advanced Editing',
+    price: 'from $0.0425/word',
+    desc: 'Line-by-line grammar, academic tone, syntax, phrasing, and target journal/publisher style formatting.',
+    detailsHref: '/scholarcrafted/order?service=editing&tier=advanced',
+  },
+  premium: {
+    label: 'Premium Editing',
+    price: 'from $0.065/word',
+    desc: 'Advanced editing plus substantive structural flow, logic polishing, cover letter creation, and plagiarism check.',
+    popular: true,
+    detailsHref: '/scholarcrafted/order?service=editing&tier=premium',
+  },
+  scientific: {
+    label: 'Scientific Editing Pro',
+    price: 'from $0.095/word',
+    desc: 'Developmental critique by published PhD discipline specialists targeting top-tier journal submissions.',
+    detailsHref: '/scholarcrafted/order?service=editing&tier=scientific',
+  },
 }
 
-const JOURNAL_TIER_LABELS: Record<string, { label: string; price: string }> = {
-  essentials: { label: 'Essentials', price: '$320 flat' },
-  pro:        { label: 'Pro',        price: '$560 flat' },
-  full:       { label: 'Full',       price: '$900 flat' },
+const JOURNAL_TIER_LABELS: Record<string, { label: string; price: string; desc: string; popular?: boolean; detailsHref: string }> = {
+  essentials: {
+    label: 'Essentials',
+    price: '$320 flat',
+    desc: 'Target journal compliance, reference style formatting, artwork check, and manuscript checklist.',
+    detailsHref: '/scholarcrafted/order?service=publication&section=journal&tier=essentials',
+  },
+  pro: {
+    label: 'Pro',
+    price: '$560 flat',
+    desc: 'Essentials plus tailored editor cover letter, graphical abstract evaluation, and submission portal preparation.',
+    popular: true,
+    detailsHref: '/scholarcrafted/order?service=publication&section=journal&tier=pro',
+  },
+  full: {
+    label: 'Full',
+    price: '$900 flat',
+    desc: 'Complete submission management, response letter drafting, proofing, and resubmission assistance until accepted.',
+    detailsHref: '/scholarcrafted/order?service=publication&section=journal&tier=full',
+  },
 }
 
 const BOOK_STAGES: Array<{ id: string; label: string; price: string }> = [
@@ -420,74 +451,48 @@ function RequestReviewContent() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
-      {/* Minimal sticky header — contains back + logo + exit */}
-      <Box
-        py={rem(14)}
-        style={{
-          borderBottom: `1px solid ${active.primary}10`,
-          position: 'sticky',
-          top: 0,
-          zIndex: 1000,
-          backgroundColor: `${active.background}f2`,
-          backdropFilter: 'blur(12px)',
-          flexShrink: 0,
-        }}
-      >
-        <Container size={1100}>
-          <Group justify="space-between" align="center">
-            {/* Left: back link + logo */}
-            <Group gap={rem(24)} align="center">
-              {hasPreSelection && (
-                <Link href={backUrl} style={{ textDecoration: 'none' }}>
-                  <Group gap={rem(6)} align="center">
-                    <IconArrowLeft size={14} color={active.accent} />
-                    <Text size="xs" fw={600} style={{ color: active.accent, letterSpacing: '0.04em' }}>
-                      Back
-                    </Text>
-                  </Group>
-                </Link>
-              )}
-              <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
-                <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
-                  ScholarCrafted
-                </Text>
-              </Link>
-            </Group>
-            {/* Right: exit */}
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
-              <Group
-                gap="xs"
-                align="center"
-                style={{
-                  border: `1px solid ${active.primary}30`,
-                  padding: `${rem(6)} ${rem(14)}`,
-                  cursor: 'pointer',
-                }}
-              >
-                <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.1em' }}>EXIT</Text>
-                <IconX size={12} color={active.primary} />
-              </Group>
-            </Link>
-          </Group>
-        </Container>
-      </Box>
+      {/* Full site Navbar — provides logo + nav consistently */}
+      <Navbar />
 
       {/* Page header */}
-      <Box pt={{ base: rem(48), md: rem(64) }} pb={rem(36)} bg={active.background}>
-        <Container size={1100}>
+      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(36)} bg={active.background}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(12)} style={{ maxWidth: 720 }}>
-            <Text
-              size="xs"
-              fw={700}
-              style={{
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: active.accent,
-                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-              }}
-            >
-              Submit Your Manuscript
-            </Text>
+            {/* Header row with Back link on the left of the eyebrow */}
+            <Group gap="sm" align="center" wrap="wrap">
+              {hasPreSelection && (
+                <>
+                  <Link
+                    href={backUrl}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: rem(6),
+                      color: active.accent,
+                    }}
+                  >
+                    <IconArrowLeft size={14} />
+                    <Text size="xs" fw={700} style={{ letterSpacing: '0.06em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                      Back to comparison
+                    </Text>
+                  </Link>
+                  <Box style={{ width: 1, height: rem(12), backgroundColor: `${active.primary}25` }} />
+                </>
+              )}
+              <Text
+                size="xs"
+                fw={700}
+                style={{
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: active.accent,
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                Submit Your Manuscript
+              </Text>
+            </Group>
             <Title
               order={1}
               style={{
@@ -502,7 +507,7 @@ function RequestReviewContent() {
               One form. A scoped quote within 24 hours.
             </Title>
 
-            {/* Pre-selection confirmation pill — no Change link, EXIT handles navigation */}
+            {/* Pre-selection confirmation pill */}
             {hasPreSelection && (
               <Box
                 px={rem(14)}
@@ -528,7 +533,7 @@ function RequestReviewContent() {
 
       {/* Two-column layout: responsive via CSS grid */}
       <Box py={rem(48)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}10`, flex: 1 }}>
-        <Container size={1100}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Box
             style={{
               display: 'grid',
@@ -690,28 +695,90 @@ function FormBody({
 
             {service === 'editing' && (
               <Box>
-                <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                  WHICH TIER? (optional — we can recommend)
-                </Text>
-                <Group gap={rem(2)}>
-                  {Object.entries(EDITING_TIER_LABELS).map(([id, { label }]) => (
-                    <UnstyledButton
-                      key={id}
-                      onClick={() => setEditingTier(editingTier === id ? '' : id)}
-                      px={rem(20)} py={rem(12)}
-                      style={{
-                        backgroundColor: editingTier === id ? primary : background,
-                        color: editingTier === id ? '#fff' : primary,
-                        border: `1px solid ${editingTier === id ? primary : `${primary}20`}`,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                        fontSize: rem(13), fontWeight: editingTier === id ? 700 : 500,
-                        letterSpacing: '0.02em', transition: 'all 0.15s ease',
-                      }}
-                    >
-                      {label}
-                    </UnstyledButton>
-                  ))}
+                <Group justify="space-between" align="baseline" mb={rem(12)} wrap="wrap" gap="xs">
+                  <Text size="xs" fw={700} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    WHICH EDITING TIER? (optional — we can recommend upon reviewing your document)
+                  </Text>
+                  <Link
+                    href="/scholarcrafted/order?service=editing"
+                    target="_blank"
+                    style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(4) }}
+                  >
+                    <IconInfoCircle size={13} color={accent} />
+                    <Text size="xs" fw={600} style={{ color: accent, textDecoration: 'underline' }}>
+                      Compare tier matrix & turnaround ↗
+                    </Text>
+                  </Link>
                 </Group>
+                <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(12)}>
+                  {Object.entries(EDITING_TIER_LABELS).map(([id, tier]) => {
+                    const isSelected = editingTier === id
+                    return (
+                      <UnstyledButton
+                        key={id}
+                        onClick={() => setEditingTier(isSelected ? '' : id)}
+                        p={rem(16)}
+                        style={{
+                          backgroundColor: isSelected ? primary : background,
+                          color: isSelected ? '#fff' : primary,
+                          border: `1px solid ${isSelected ? primary : `${primary}18`}`,
+                          transition: 'all 0.15s ease',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          textAlign: 'left',
+                          minHeight: rem(170),
+                        }}
+                      >
+                        <Box>
+                          <Group justify="space-between" align="flex-start" mb={rem(6)}>
+                            <Text size="sm" fw={700} style={{ color: isSelected ? '#fff' : primary }}>
+                              {tier.label}
+                            </Text>
+                            {tier.popular && (
+                              <Box
+                                px={rem(6)}
+                                py={rem(2)}
+                                style={{
+                                  backgroundColor: isSelected ? accent : `${accent}15`,
+                                  color: isSelected ? '#fff' : accent,
+                                  fontSize: rem(10),
+                                  fontWeight: 700,
+                                  letterSpacing: '0.06em',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                Popular
+                              </Box>
+                            )}
+                          </Group>
+                          <Text size="xs" fw={700} style={{ color: isSelected ? accent : accent }} mb={rem(8)}>
+                            {tier.price}
+                          </Text>
+                          <Text size="xs" lh={1.5} style={{ color: isSelected ? 'rgba(255,255,255,0.75)' : '#666' }}>
+                            {tier.desc}
+                          </Text>
+                        </Box>
+                        <Group justify="space-between" align="center" mt={rem(12)} pt={rem(8)} style={{ borderTop: `1px solid ${isSelected ? 'rgba(255,255,255,0.15)' : `${primary}10`}` }}>
+                          <Text size="xs" fw={600} style={{ color: isSelected ? '#fff' : accent }}>
+                            {isSelected ? '✓ Selected' : 'Select tier'}
+                          </Text>
+                          <Link
+                            href={tier.detailsHref}
+                            target="_blank"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(2) }}
+                          >
+                            <Text size="xs" style={{ color: isSelected ? 'rgba(255,255,255,0.7)' : '#888', textDecoration: 'underline' }}>
+                              Details
+                            </Text>
+                            <IconExternalLink size={10} color={isSelected ? 'rgba(255,255,255,0.7)' : '#888'} />
+                          </Link>
+                        </Group>
+                      </UnstyledButton>
+                    )
+                  })}
+                </SimpleGrid>
               </Box>
             )}
 
@@ -748,28 +815,90 @@ function FormBody({
 
             {service === 'publication' && section === 'journal' && (
               <Box>
-                <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                  TIER? (optional — we can recommend)
-                </Text>
-                <Group gap={rem(2)}>
-                  {Object.entries(JOURNAL_TIER_LABELS).map(([id, { label }]) => (
-                    <UnstyledButton
-                      key={id}
-                      onClick={() => setJournalTier(journalTier === id ? '' : id)}
-                      px={rem(20)} py={rem(12)}
-                      style={{
-                        backgroundColor: journalTier === id ? primary : background,
-                        color: journalTier === id ? '#fff' : primary,
-                        border: `1px solid ${journalTier === id ? primary : `${primary}20`}`,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                        fontSize: rem(13), fontWeight: journalTier === id ? 700 : 500,
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      {label}
-                    </UnstyledButton>
-                  ))}
+                <Group justify="space-between" align="baseline" mb={rem(12)} wrap="wrap" gap="xs">
+                  <Text size="xs" fw={700} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    WHICH PACKAGE? (optional — we can recommend upon reviewing your target journal)
+                  </Text>
+                  <Link
+                    href="/scholarcrafted/order?service=publication&section=journal"
+                    target="_blank"
+                    style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(4) }}
+                  >
+                    <IconInfoCircle size={13} color={accent} />
+                    <Text size="xs" fw={600} style={{ color: accent, textDecoration: 'underline' }}>
+                      Compare journal packages ↗
+                    </Text>
+                  </Link>
                 </Group>
+                <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(12)}>
+                  {Object.entries(JOURNAL_TIER_LABELS).map(([id, tier]) => {
+                    const isSelected = journalTier === id
+                    return (
+                      <UnstyledButton
+                        key={id}
+                        onClick={() => setJournalTier(isSelected ? '' : id)}
+                        p={rem(16)}
+                        style={{
+                          backgroundColor: isSelected ? primary : background,
+                          color: isSelected ? '#fff' : primary,
+                          border: `1px solid ${isSelected ? primary : `${primary}18`}`,
+                          transition: 'all 0.15s ease',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          textAlign: 'left',
+                          minHeight: rem(170),
+                        }}
+                      >
+                        <Box>
+                          <Group justify="space-between" align="flex-start" mb={rem(6)}>
+                            <Text size="sm" fw={700} style={{ color: isSelected ? '#fff' : primary }}>
+                              {tier.label}
+                            </Text>
+                            {tier.popular && (
+                              <Box
+                                px={rem(6)}
+                                py={rem(2)}
+                                style={{
+                                  backgroundColor: isSelected ? accent : `${accent}15`,
+                                  color: isSelected ? '#fff' : accent,
+                                  fontSize: rem(10),
+                                  fontWeight: 700,
+                                  letterSpacing: '0.06em',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                Popular
+                              </Box>
+                            )}
+                          </Group>
+                          <Text size="xs" fw={700} style={{ color: isSelected ? accent : accent }} mb={rem(8)}>
+                            {tier.price}
+                          </Text>
+                          <Text size="xs" lh={1.5} style={{ color: isSelected ? 'rgba(255,255,255,0.75)' : '#666' }}>
+                            {tier.desc}
+                          </Text>
+                        </Box>
+                        <Group justify="space-between" align="center" mt={rem(12)} pt={rem(8)} style={{ borderTop: `1px solid ${isSelected ? 'rgba(255,255,255,0.15)' : `${primary}10`}` }}>
+                          <Text size="xs" fw={600} style={{ color: isSelected ? '#fff' : accent }}>
+                            {isSelected ? '✓ Selected' : 'Select package'}
+                          </Text>
+                          <Link
+                            href={tier.detailsHref}
+                            target="_blank"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(2) }}
+                          >
+                            <Text size="xs" style={{ color: isSelected ? 'rgba(255,255,255,0.7)' : '#888', textDecoration: 'underline' }}>
+                              Details
+                            </Text>
+                            <IconExternalLink size={10} color={isSelected ? 'rgba(255,255,255,0.7)' : '#888'} />
+                          </Link>
+                        </Group>
+                      </UnstyledButton>
+                    )
+                  })}
+                </SimpleGrid>
               </Box>
             )}
           </Stack>
@@ -780,9 +909,21 @@ function FormBody({
       {showBookCheckboxes && (
         <FormSection title="Which stage(s) do you need?" accent={accent} primary={primary}>
           <Stack gap={rem(10)}>
-            <Text size="sm" c="dimmed" lh={1.6} mb={rem(4)}>
-              Select all that apply. If you need the full pipeline, tick all five — we'll price the bundle.
-            </Text>
+            <Group justify="space-between" align="baseline" wrap="wrap" gap="xs" mb={rem(4)}>
+              <Text size="sm" c="dimmed" lh={1.6}>
+                Select all that apply. If you need the full pipeline, tick all five — we'll price the bundle.
+              </Text>
+              <Link
+                href="/scholarcrafted/order?service=publication&section=book"
+                target="_blank"
+                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(4) }}
+              >
+                <IconInfoCircle size={13} color={accent} />
+                <Text size="xs" fw={600} style={{ color: accent, textDecoration: 'underline' }}>
+                  View 5-stage book roadmap & deliverables ↗
+                </Text>
+              </Link>
+            </Group>
             {BOOK_STAGES.map((stg) => (
               <UnstyledButton
                 key={stg.id}
