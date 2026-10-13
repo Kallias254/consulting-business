@@ -17,9 +17,9 @@ import {
   NumberInput,
   UnstyledButton,
   Select,
+  Radio,
 } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates'
-import { Navbar } from '../_components/Navbar'
 import { useSearchParams } from 'next/navigation'
 import {
   IconCheck,
@@ -28,7 +28,7 @@ import {
   IconFileText,
   IconArrowRight,
   IconUpload,
-  IconArrowLeft,
+  IconChevronLeft,
   IconReceipt,
   IconMailForward,
   IconExternalLink,
@@ -36,68 +36,131 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 
-// ─── Label maps ───────────────────────────────────────────────────────────────
+// ─── Constants & Metadata ─────────────────────────────────────────────────────
 
 const SALUTATIONS = ['Dr.', 'Prof.', 'Mr.', 'Ms.', 'Mx.', '—']
 
+const SUBJECT_CATEGORIES = [
+  'Plant and Animal Science',
+  'Biological & Life Sciences',
+  'Medicine, Pharmacology & Clinical Sciences',
+  'Physical Sciences & Engineering',
+  'Humanities & Social Sciences',
+  'Business, Economics & Management',
+  'Law, Governance & Public Policy',
+  'Environmental & Earth Sciences',
+  'Computer Science, Mathematics & AI',
+  'Other / Multidisciplinary',
+]
+
+const DOCUMENT_TYPES = [
+  'Journal Article',
+  'Book Manuscript (Full)',
+  'Book Chapter',
+  'Thesis / Dissertation',
+  'Research / Grant Proposal',
+  'Conference Paper',
+  'Review Article / Meta-Analysis',
+  'Other Document',
+]
+
+const REFERRAL_SOURCES = [
+  'Colleague / Peer Recommendation',
+  'Google Search',
+  'Academic Conference / Seminar',
+  'Social Media (LinkedIn / Twitter)',
+  'Journal Editorial Guidelines',
+  'University Department Portal',
+  'Other',
+]
+
 const SERVICE_LABELS: Record<string, string> = {
-  editing: 'Editing & Compliance',
+  editing: 'English Editing & Compliance',
   publication: 'Publication Support',
 }
 
-const EDITING_TIER_LABELS: Record<string, { label: string; price: string; desc: string; popular?: boolean; detailsHref: string }> = {
+const EDITING_TIER_META: Record<string, { label: string; rate: number; priceStr: string; turnaround: string; desc: string }> = {
   advanced: {
     label: 'Advanced Editing',
-    price: 'from $0.0425/word',
-    desc: 'Line-by-line grammar, academic tone, syntax, phrasing, and target journal/publisher style formatting.',
-    detailsHref: '/scholarcrafted/order?service=editing&tier=advanced',
+    rate: 0.0425,
+    priceStr: '$0.0425 / word',
+    turnaround: '3–5 business days',
+    desc: 'Line-by-line grammar, academic tone, syntax, phrasing, and style manual compliance.',
   },
   premium: {
     label: 'Premium Editing',
-    price: 'from $0.065/word',
-    desc: 'Advanced editing plus substantive structural flow, logic polishing, cover letter creation, and plagiarism check.',
-    popular: true,
-    detailsHref: '/scholarcrafted/order?service=editing&tier=premium',
+    rate: 0.065,
+    priceStr: '$0.065 / word',
+    turnaround: '5–7 business days',
+    desc: 'Substantive structure, argument flow, cover letter creation, and 365-day re-editing.',
   },
   scientific: {
     label: 'Scientific Editing Pro',
-    price: 'from $0.095/word',
-    desc: 'Developmental critique by published PhD discipline specialists targeting top-tier journal submissions.',
-    detailsHref: '/scholarcrafted/order?service=editing&tier=scientific',
+    rate: 0.095,
+    priceStr: '$0.095 / word',
+    turnaround: '7–10 business days',
+    desc: 'Dual-pass developmental critique by PhD peer-review discipline specialists.',
   },
 }
 
-const JOURNAL_TIER_LABELS: Record<string, { label: string; price: string; desc: string; popular?: boolean; detailsHref: string }> = {
+const JOURNAL_TIER_META: Record<string, { label: string; flatPrice: number; priceStr: string; turnaround: string; desc: string }> = {
   essentials: {
-    label: 'Essentials',
-    price: '$320 flat',
+    label: 'Journal Support — Essentials',
+    flatPrice: 320,
+    priceStr: '$320 flat fee',
+    turnaround: '3–5 business days',
     desc: 'Target journal compliance, reference style formatting, artwork check, and manuscript checklist.',
-    detailsHref: '/scholarcrafted/order?service=publication&section=journal&tier=essentials',
   },
   pro: {
-    label: 'Pro',
-    price: '$560 flat',
-    desc: 'Essentials plus tailored editor cover letter, graphical abstract evaluation, and submission portal preparation.',
-    popular: true,
-    detailsHref: '/scholarcrafted/order?service=publication&section=journal&tier=pro',
+    label: 'Journal Support — Pro Pack',
+    flatPrice: 560,
+    priceStr: '$560 flat fee',
+    turnaround: '5–7 business days',
+    desc: 'Essentials + customized Editor cover letter, graphical abstract review, and portal submission guidance.',
   },
   full: {
-    label: 'Full',
-    price: '$900 flat',
-    desc: 'Complete submission management, response letter drafting, proofing, and resubmission assistance until accepted.',
-    detailsHref: '/scholarcrafted/order?service=publication&section=journal&tier=full',
+    label: 'Journal Support — Full Pack',
+    flatPrice: 900,
+    priceStr: 'From $900',
+    turnaround: 'Ongoing until acceptance',
+    desc: 'Complete submission management, response letter drafting, proofing, and unlimited reformatting.',
   },
 }
 
-const BOOK_STAGES: Array<{ id: string; label: string; price: string }> = [
-  { id: '01', label: 'Stage 01 — Publisher Selection',   price: '$280 flat' },
-  { id: '02', label: 'Stage 02 — Book Proposal',         price: '$480 flat' },
-  { id: '03', label: 'Stage 03 — Manuscript Editing',    price: 'per word' },
-  { id: '04', label: 'Stage 04 — Galley Proof Review',   price: 'project rate' },
-  { id: '05', label: 'Stage 05 — Back-of-Book Indexing', price: '$3/page' },
-]
+const BOOK_STAGE_META: Record<string, { label: string; priceStr: string; turnaround: string; desc: string }> = {
+  '01': {
+    label: 'Stage 01 — Publisher Selection',
+    priceStr: '$280 flat fee',
+    turnaround: '5–7 business days',
+    desc: '3–5 ranked academic publishers matched to your monograph topic, series, and target readership.',
+  },
+  '02': {
+    label: 'Stage 02 — Book Proposal Creation',
+    priceStr: '$480 flat fee',
+    turnaround: '7–10 business days',
+    desc: 'Acquisition-ready prospectus tailored to press guidelines with chapter outlines and sample polish.',
+  },
+  '03': {
+    label: 'Stage 03 — Manuscript Editing',
+    priceStr: 'Per-word rate (from $0.0425/w)',
+    turnaround: 'Scope-dependent',
+    desc: 'Comprehensive monograph editing with cross-chapter structural consistency and style manual conformity.',
+  },
+  '04': {
+    label: 'Stage 04 — Galley Proof Review',
+    priceStr: 'Project-based rate',
+    turnaround: '5–10 business days',
+    desc: 'Detection of typesetting errors, font dropouts, table breaks, and copyeditor query resolution.',
+  },
+  '05': {
+    label: 'Stage 05 — Back-of-Book Indexing',
+    priceStr: '$3 / typeset page',
+    turnaround: '10–14 business days',
+    desc: 'Subject and author index delivered in press-ready format according to publisher specifications.',
+  },
+}
 
-// ─── Page wrapper ─────────────────────────────────────────────────────────────
+// ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function RequestReviewPage() {
   return (
@@ -107,314 +170,135 @@ export default function RequestReviewPage() {
   )
 }
 
-// ─── Back URL builder ─────────────────────────────────────────────────────────
-
-function buildBackUrl(service: string, section: string, tier: string, stage: string) {
-  if (!service) return '/scholarcrafted/services'
-  if (service === 'editing') {
-    return tier
-      ? `/scholarcrafted/order?service=editing&tier=${tier}`
-      : '/scholarcrafted/order?service=editing'
-  }
-  if (service === 'publication') {
-    if (section === 'journal') {
-      return tier
-        ? `/scholarcrafted/order?service=publication&section=journal&tier=${tier}`
-        : '/scholarcrafted/order?service=publication&section=journal'
-    }
-    if (section === 'book') {
-      return stage
-        ? `/scholarcrafted/order?service=publication&section=book&stage=${stage}`
-        : '/scholarcrafted/order?service=publication&section=book'
-    }
-    return '/scholarcrafted/order?service=publication'
-  }
-  return '/scholarcrafted/order'
-}
-
-// ─── Sidebar order summary ────────────────────────────────────────────────────
-
-function OrderSidebar({
-  service, section, tier, stage, pipeline, checkedStages, accent, primary, surface, background,
-}: {
-  service: string; section: string; tier: string; stage: string; pipeline: boolean
-  checkedStages: string[]; accent: string; primary: string; surface: string; background: string
-}) {
-  let planName = ''
-  let planDetail = ''
-  let changePath = ''
-
-  if (service === 'editing') {
-    const t = EDITING_TIER_LABELS[tier]
-    planName = t ? t.label : 'Editing & Compliance'
-    planDetail = t ? t.price : 'Priced per word'
-    changePath = `/scholarcrafted/order?service=editing`
-  } else if (service === 'publication' && section === 'journal') {
-    const t = JOURNAL_TIER_LABELS[tier]
-    planName = t ? `Journal Articles — ${t.label}` : 'Journal Articles'
-    planDetail = t ? t.price : ''
-    changePath = `/scholarcrafted/order?service=publication&section=journal`
-  } else if (service === 'publication' && section === 'book') {
-    if (pipeline || checkedStages.length > 1) {
-      planName = 'Full Book Pipeline'
-      planDetail = 'All 5 stages — enquire for bundle pricing'
-    } else if (checkedStages.length === 1) {
-      const s = BOOK_STAGES.find(b => b.id === checkedStages[0])
-      planName = s ? s.label : `Stage ${checkedStages[0]}`
-      planDetail = s ? s.price : ''
-    } else {
-      planName = 'Book Manuscripts'
-      planDetail = 'Select stage(s) below'
-    }
-    changePath = `/scholarcrafted/order?service=publication&section=book`
-  }
-
-  if (!service) return null
-
-  return (
-    <Box
-      p={rem(28)}
-      style={{
-        backgroundColor: surface,
-        border: `1px solid ${primary}12`,
-        position: 'sticky',
-        top: rem(100),
-      }}
-    >
-      <Stack gap={rem(20)}>
-        {/* Header */}
-        <Box>
-          <Text
-            size="xs"
-            fw={700}
-            style={{
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: accent,
-              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-              marginBottom: rem(8),
-            }}
-          >
-            Your Selection
-          </Text>
-          <Text fw={700} size="md" c={primary} lh={1.4}>
-            {planName || '—'}
-          </Text>
-          {planDetail && (
-            <Text size="sm" c="dimmed" mt={rem(4)}>
-              {planDetail}
-            </Text>
-          )}
-          {changePath && (
-            <Link href={changePath} style={{ textDecoration: 'none' }}>
-              <Text size="xs" mt={rem(8)} style={{ color: accent, textDecoration: 'underline', cursor: 'pointer' }}>
-                Change plan
-              </Text>
-            </Link>
-          )}
-        </Box>
-
-        {/* Divider */}
-        <Box style={{ height: 1, backgroundColor: `${primary}10` }} />
-
-        {/* Payment terms */}
-        <Stack gap={rem(12)}>
-          <Text
-            size="xs"
-            fw={700}
-            style={{
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: primary,
-              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-            }}
-          >
-            Payment Terms
-          </Text>
-          <Stack gap={rem(8)}>
-            <Group gap={rem(8)} align="flex-start" wrap="nowrap">
-              <Box
-                style={{
-                  width: rem(20),
-                  height: rem(20),
-                  backgroundColor: `${accent}15`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  marginTop: rem(1),
-                }}
-              >
-                <Text size="xs" fw={800} c={accent}>1</Text>
-              </Box>
-              <Text size="xs" c="dimmed" lh={1.5}>
-                <strong style={{ color: primary }}>50% deposit invoice</strong> sent on quote approval. No payment until you're satisfied with the scope.
-              </Text>
-            </Group>
-            <Group gap={rem(8)} align="flex-start" wrap="nowrap">
-              <Box
-                style={{
-                  width: rem(20),
-                  height: rem(20),
-                  backgroundColor: `${accent}15`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  marginTop: rem(1),
-                }}
-              >
-                <Text size="xs" fw={800} c={accent}>2</Text>
-              </Box>
-              <Text size="xs" c="dimmed" lh={1.5}>
-                <strong style={{ color: primary }}>50% on delivery</strong> — due only after you receive the completed work.
-              </Text>
-            </Group>
-          </Stack>
-        </Stack>
-
-        {/* Divider */}
-        <Box style={{ height: 1, backgroundColor: `${primary}10` }} />
-
-        {/* Trust signals */}
-        <Stack gap={rem(10)}>
-          {[
-            'Strict NDA — your manuscript stays private',
-            'No AI tools applied to your work',
-            'Scoped quote within 24 hours',
-          ].map((line) => (
-            <Group key={line} gap={rem(8)} align="flex-start" wrap="nowrap">
-              <IconCheck size={13} color={accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
-              <Text size="xs" c="dimmed" lh={1.4}>{line}</Text>
-            </Group>
-          ))}
-        </Stack>
-      </Stack>
-    </Box>
-  )
-}
-
-// ─── Main content ─────────────────────────────────────────────────────────────
-
 function RequestReviewContent() {
   const theme = useMantineTheme()
   const active = theme.other
   const searchParams = useSearchParams()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // Read URL params for pre-selection
-  const paramService  = searchParams.get('service') ?? ''
+  // Query parameters
+  const paramService  = searchParams.get('service') ?? 'editing'
   const paramSection  = searchParams.get('section') ?? ''
-  const paramTier     = searchParams.get('tier') ?? ''
+  const paramTier     = searchParams.get('tier') ?? (paramService === 'editing' ? 'premium' : '')
   const paramStage    = searchParams.get('stage') ?? ''
   const paramPipeline = searchParams.get('pipeline') === 'full'
   const paramWords    = parseInt(searchParams.get('wordCount') ?? '0', 10)
 
-  const hasPreSelection = !!paramService
+  // Back link URL to order comparison page
+  const backToOrderUrl = (() => {
+    if (paramService === 'publication' && paramSection === 'book') {
+      return `/scholarcrafted/order?service=publication&section=book${paramStage ? `&stage=${paramStage}` : ''}`
+    }
+    if (paramService === 'publication' || paramSection === 'journal') {
+      return `/scholarcrafted/order?service=publication&section=journal${paramTier ? `&tier=${paramTier}` : ''}`
+    }
+    return `/scholarcrafted/order?service=editing${paramTier ? `&tier=${paramTier}` : ''}`
+  })()
 
-  // Build back URL
-  const backUrl = buildBackUrl(paramService, paramSection, paramTier, paramStage)
-
-  // Derive human-readable pre-selection label
-  function getPreSelectionLabel() {
-    if (!paramService) return ''
-    const svcLabel = SERVICE_LABELS[paramService] ?? paramService
-    if (paramService === 'editing' && paramTier) {
-      return `${svcLabel} — ${EDITING_TIER_LABELS[paramTier]?.label ?? paramTier}`
+  // Derive Plan Title for header
+  const planTitle = (() => {
+    if (paramService === 'editing') {
+      return EDITING_TIER_META[paramTier]?.label ?? 'English Editing'
     }
     if (paramService === 'publication') {
-      if (paramSection === 'journal' && paramTier) {
-        return `${svcLabel} — Journal Articles — ${JOURNAL_TIER_LABELS[paramTier]?.label ?? paramTier}`
+      if (paramSection === 'journal' || paramTier) {
+        return JOURNAL_TIER_META[paramTier]?.label ?? 'Journal Publication Support'
       }
-      if (paramSection === 'book' && paramPipeline) {
-        return `${svcLabel} — Full Book Pipeline`
-      }
-      if (paramSection === 'book' && paramStage) {
-        const s = BOOK_STAGES.find(b => b.id === paramStage)
-        return `${svcLabel} — Book Manuscripts — ${s?.label ?? `Stage ${paramStage}`}`
-      }
-      if (paramSection === 'journal') return `${svcLabel} — Journal Articles`
-      if (paramSection === 'book') return `${svcLabel} — Book Manuscripts`
-      return svcLabel
+      if (paramPipeline) return 'Full Book Publication Pipeline'
+      if (paramStage) return BOOK_STAGE_META[paramStage]?.label ?? `Book Publishing — Stage ${paramStage}`
+      return 'Publication Support'
     }
-    return svcLabel
-  }
+    return 'ScholarCrafted Faculty Intake'
+  })()
 
-  const preSelectionLabel = getPreSelectionLabel()
+  // Form State
+  const [wordCount, setWordCount]             = useState<number>(paramWords || 0)
+  const [fileName, setFileName]               = useState('')
+  const [editingScope, setEditingScope]       = useState<'entire' | 'exclude' | 'only'>('entire')
+  const [scopeDetails, setScopeDetails]       = useState('')
 
-  // Form state
-  const [salutation, setSalutation]   = useState('')
-  const [service, setService]         = useState(paramService)
-  const [section, setSection]         = useState(paramSection)
-  const [editingTier, setEditingTier] = useState(paramTier)
-  const [journalTier, setJournalTier] = useState(paramSection === 'journal' ? paramTier : '')
-  const [bookStage, setBookStage]     = useState(paramStage)
+  const [docType, setDocType]                 = useState<string>('Journal Article')
+  const [journalName, setJournalName]         = useState('')
+  const [languageStyle, setLanguageStyle]     = useState<'american' | 'british'>('american')
+  const [formattingNeeded, setFormattingNeeded] = useState<'yes' | 'no'>('yes')
+  const [subjectCategory, setSubjectCategory] = useState<string>('Plant and Animal Science')
+  const [subjectName, setSubjectName]         = useState('')
+  const [deadline, setDeadline]               = useState<Date | null>(null)
+  const [instructions, setInstructions]       = useState('')
 
-  // Book checkboxes — pre-check the incoming stage or all if pipeline
-  const initialChecked = paramPipeline
-    ? BOOK_STAGES.map(s => s.id)
-    : paramStage ? [paramStage] : []
-  const [checkedStages, setCheckedStages] = useState<string[]>(initialChecked)
+  const [salutation, setSalutation]           = useState('Dr.')
+  const [firstName, setFirstName]             = useState('')
+  const [lastName, setLastName]               = useState('')
+  const [email, setEmail]                     = useState('')
+  const [phone, setPhone]                     = useState('')
+  const [referralSource, setReferralSource]   = useState('Colleague / Peer Recommendation')
+  const [intent, setIntent]                   = useState<'quote' | 'start'>('quote')
 
-  const [wordCount, setWordCount]     = useState<number>(paramWords || 0)
-  const [deadline, setDeadline]       = useState<Date | null>(null)
-  const [fileName, setFileName]       = useState('')
-  const [salutInput, setSalutInput]   = useState('')
-  const [firstName, setFirstName]     = useState('')
-  const [lastName, setLastName]       = useState('')
-  const [email, setEmail]             = useState('')
-  const [note, setNote]               = useState('')
-  // Quote vs start toggle
-  const [intent, setIntent]           = useState<'quote' | 'start'>('quote')
-  const [submitted, setSubmitted]     = useState(false)
+  // Collapsible Accordion Step Management: 1 = Words & Upload, 2 = Preferences, 3 = Personal Info
+  const [activeStep, setActiveStep] = useState<1 | 2 | 3>(1)
+  const [step1Done, setStep1Done]   = useState(false)
+  const [step2Done, setStep2Done]   = useState(false)
+  const [submitted, setSubmitted]   = useState(false)
 
-  function toggleStage(id: string) {
-    setCheckedStages(prev =>
-      prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
-    )
-  }
-
-  const isValid =
-    (hasPreSelection || service) &&
-    firstName.trim() !== '' &&
-    email.trim() !== '' &&
-    deadline !== null
-
+  // File change handler
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
-    if (file) setFileName(file.name)
+    if (file) {
+      setFileName(file.name)
+      if (wordCount === 0) {
+        setWordCount(4500) // gentle prefill hint if empty
+      }
+    }
   }
 
+  // Cost calculation for sidebar
+  const calculatedEstimate = (() => {
+    if (paramService === 'editing') {
+      const meta = EDITING_TIER_META[paramTier] ?? EDITING_TIER_META.premium
+      if (wordCount > 0) return Math.round(wordCount * meta.rate)
+      return null
+    }
+    if (paramService === 'publication' && paramSection === 'journal') {
+      return JOURNAL_TIER_META[paramTier]?.flatPrice ?? 560
+    }
+    return null
+  })()
+
+  const isFormValid =
+    firstName.trim() !== '' &&
+    lastName.trim() !== '' &&
+    email.trim() !== '' &&
+    (wordCount > 0 || fileName !== '' || paramSection === 'journal')
+
   function handleSubmit() {
-    if (!isValid) return
+    if (!isFormValid) return
     setSubmitted(true)
   }
 
-  // Determine which section drives the sidebar
-  const sidebarSection  = hasPreSelection ? paramSection  : section
-  const sidebarTier     = hasPreSelection ? paramTier     : (service === 'editing' ? editingTier : journalTier)
-  const sidebarStage    = hasPreSelection ? paramStage    : bookStage
-  const sidebarPipeline = hasPreSelection ? paramPipeline : false
-
-  // ─── Success screen ───────────────────────────────────────────────────────
+  // ─── Success Confirmation Screen ──────────────────────────────────────────
 
   if (submitted) {
     return (
       <Box bg={active.background} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Navbar />
+        <Box py={rem(20)} style={{ borderBottom: `1px solid ${active.primary}10`, backgroundColor: active.background }}>
+          <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+              <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
+                ScholarCrafted
+              </Text>
+            </Link>
+          </Container>
+        </Box>
+
         <Box style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }} py={rem(80)}>
           <Container size="sm">
-            <Box
-              p={{ base: rem(40), md: rem(60) }}
-              bg={active.surface}
-              style={{ border: `1px solid ${active.primary}12`, textAlign: 'center' }}
-            >
+            <Box p={{ base: rem(36), md: rem(54) }} bg={active.surface} style={{ border: `1px solid ${active.primary}12`, textAlign: 'center' }}>
               <Stack align="center" gap="lg">
                 <Box
                   style={{
                     width: rem(64),
                     height: rem(64),
-                    backgroundColor: `${active.accent}12`,
+                    backgroundColor: `${active.accent}14`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -423,20 +307,25 @@ function RequestReviewContent() {
                   <IconCheck size={32} color={active.accent} />
                 </Box>
                 <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary }}>
-                  {intent === 'start' ? 'Ready to go — deposit invoice incoming.' : 'Brief received.'}
+                  {intent === 'start' ? 'Brief Received — Invoice Incoming' : 'Brief Received'}
                 </Title>
                 <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: '44ch' }}>
-                  {intent === 'start'
-                    ? <>Micah will review your project and send a <strong style={{ color: active.primary }}>50% deposit invoice</strong> to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours. Work begins on receipt.</>
-                    : <>Micah will review your project personally and send a scoped quote to{' '}<strong style={{ color: active.primary }}>{email}</strong> within 24 hours.{!fileName && ' Reply to that email to attach your manuscript when ready.'}</>
-                  }
+                  {intent === 'start' ? (
+                    <>
+                      Micah Dobson will review your manuscript and send a <strong style={{ color: active.primary }}>50% deposit invoice</strong> to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours. Work commences upon receipt.
+                    </>
+                  ) : (
+                    <>
+                      Micah Dobson will review your project personally and send a scoped quote to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours.
+                    </>
+                  )}
                 </Text>
-                <Text size="sm" c="dimmed" style={{ fontStyle: 'italic' }}>
-                  No automated response — a real person reads every submission.
+                <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>
+                  Strict NDA · No AI models applied to your manuscript · Real scholar review
                 </Text>
                 <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
                   <Button variant="outline" radius={0} mt="sm" style={{ borderColor: `${active.primary}30`, color: active.primary }}>
-                    Return to ScholarCrafted
+                    Return to ScholarCrafted Home
                   </Button>
                 </Link>
               </Stack>
@@ -447,815 +336,752 @@ function RequestReviewContent() {
     )
   }
 
-  // ─── Form ─────────────────────────────────────────────────────────────────
+  // ─── Intake Form Layout ───────────────────────────────────────────────────
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary, display: 'flex', flexDirection: 'column' }}>
-      {/* Full site Navbar — provides logo + nav consistently */}
-      <Navbar />
 
-      {/* Page header */}
-      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(36)} bg={active.background}>
+      {/* ── Top Bar with Caret + Plan Name (Exact screenshot layout) ─────────── */}
+      <Box
+        py={rem(18)}
+        style={{
+          borderBottom: `1px solid ${active.primary}12`,
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000,
+          backgroundColor: `${active.background}f5`,
+          backdropFilter: 'blur(12px)',
+        }}
+      >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap={rem(12)} style={{ maxWidth: 720 }}>
-            {/* Header row with Back link on the left of the eyebrow */}
-            <Group gap="sm" align="center" wrap="wrap">
-              {hasPreSelection && (
-                <>
-                  <Link
-                    href={backUrl}
-                    style={{
-                      textDecoration: 'none',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: rem(6),
-                      color: active.accent,
-                    }}
-                  >
-                    <IconArrowLeft size={14} />
-                    <Text size="xs" fw={700} style={{ letterSpacing: '0.06em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                      Back to comparison
-                    </Text>
-                  </Link>
-                  <Box style={{ width: 1, height: rem(12), backgroundColor: `${active.primary}25` }} />
-                </>
-              )}
-              <Text
-                size="xs"
-                fw={700}
+          <Group justify="space-between" align="center">
+            {/* Left: Just the caret "<" + Plan Name */}
+            <Group gap={rem(14)} align="center">
+              <Link
+                href={backToOrderUrl}
                 style={{
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: active.accent,
-                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                }}
-              >
-                Submit Your Manuscript
-              </Text>
-            </Group>
-            <Title
-              order={1}
-              style={{
-                fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
-                lineHeight: 1.15,
-                letterSpacing: '-0.02em',
-                color: active.primary,
-                fontFamily: 'var(--font-display), var(--font-serif)',
-                fontWeight: 600,
-              }}
-            >
-              One form. A scoped quote within 24 hours.
-            </Title>
-
-            {/* Pre-selection confirmation pill */}
-            {hasPreSelection && (
-              <Box
-                px={rem(14)}
-                py={rem(8)}
-                mt={rem(4)}
-                style={{
-                  backgroundColor: `${active.accent}10`,
-                  border: `1px solid ${active.accent}30`,
-                  display: 'inline-flex',
+                  textDecoration: 'none',
+                  display: 'flex',
                   alignItems: 'center',
-                  gap: rem(8),
+                  justifyContent: 'center',
+                  color: active.primary,
+                  padding: rem(4),
+                }}
+                title="Back to plan comparison"
+              >
+                <IconChevronLeft size={24} stroke={2.5} />
+              </Link>
+              <Title
+                order={1}
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.3rem, 2.5vw, 1.7rem)',
+                  fontWeight: 600,
+                  color: active.primary,
+                  lineHeight: 1.2,
                 }}
               >
-                <IconCheck size={13} color={active.accent} />
-                <Text size="sm" fw={600} c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                  {preSelectionLabel}
-                </Text>
-              </Box>
-            )}
-          </Stack>
+                {planTitle}
+              </Title>
+            </Group>
+
+            {/* Right: Brand link */}
+            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+              <Text fw={700} size="sm" c={active.primary} style={{ fontFamily: 'var(--font-serif)', letterSpacing: '0.04em' }}>
+                ScholarCrafted
+              </Text>
+            </Link>
+          </Group>
         </Container>
       </Box>
 
-      {/* Two-column layout: responsive via CSS grid */}
-      <Box py={rem(48)} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}10`, flex: 1 }}>
+      {/* ── Main Form + Sticky Order Summary Grid ───────────────────────────── */}
+      <Box py={{ base: rem(32), md: rem(48) }} bg={active.surface} style={{ flex: 1 }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Box
             style={{
               display: 'grid',
               gridTemplateColumns: 'minmax(0, 1fr)',
-              gap: rem(32),
+              gap: rem(36),
             }}
           >
-            {/* Single FormBody + sidebar, stacked on mobile, side-by-side on desktop via style tag */}
             <style>{`
-              @media (min-width: 768px) {
-                .sc-form-grid { grid-template-columns: minmax(0,1fr) 300px !important; }
+              @media (min-width: 900px) {
+                .sc-intake-grid {
+                  grid-template-columns: minmax(0, 1fr) 360px !important;
+                }
               }
             `}</style>
+
             <Box
-              className="sc-form-grid"
+              className="sc-intake-grid"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'minmax(0,1fr)',
+                gridTemplateColumns: 'minmax(0, 1fr)',
                 gap: rem(40),
                 alignItems: 'start',
               }}
             >
-              {/* Form */}
-              <FormBody
-                hasPreSelection={hasPreSelection}
-                service={service} setService={setService}
-                section={section} setSection={setSection}
-                editingTier={editingTier} setEditingTier={setEditingTier}
-                journalTier={journalTier} setJournalTier={setJournalTier}
-                bookStage={bookStage} setBookStage={setBookStage}
-                paramSection={paramSection}
-                checkedStages={checkedStages} toggleStage={toggleStage}
-                salutation={salutation} setSalutation={setSalutation}
-                firstName={firstName} setFirstName={setFirstName}
-                lastName={lastName} setLastName={setLastName}
-                email={email} setEmail={setEmail}
-                note={note} setNote={setNote}
-                wordCount={wordCount} setWordCount={setWordCount}
-                deadline={deadline} setDeadline={setDeadline}
-                fileName={fileName} fileInputRef={fileInputRef}
-                handleFileChange={handleFileChange}
-                intent={intent} setIntent={setIntent}
-                isValid={Boolean(isValid)} handleSubmit={handleSubmit}
-                active={active}
-              />
-              {/* Sidebar */}
-              <OrderSidebar
-                service={hasPreSelection ? paramService : service}
-                section={sidebarSection}
-                tier={sidebarTier}
-                stage={sidebarStage}
-                pipeline={sidebarPipeline}
-                checkedStages={checkedStages}
-                accent={active.accent}
-                primary={active.primary}
-                surface={active.background}
-                background={active.background}
-              />
+              {/* ── Left Column: Collapsible Steps ─────────────────────────── */}
+              <Stack gap={rem(16)}>
+
+                {/* ── STEP 1: Manuscript & Word Count ──────────────────────── */}
+                <StepSection
+                  stepNum={1}
+                  title="Manuscript & Word Count"
+                  subtitle="A word count helps us provide accurate pricing and delivery turnaround"
+                  isOpen={activeStep === 1}
+                  isDone={step1Done || (wordCount > 0 && activeStep > 1)}
+                  doneSummary={`${wordCount > 0 ? `${wordCount.toLocaleString()} words` : ''}${fileName ? ` · ${fileName}` : ''}`}
+                  onReopen={() => setActiveStep(1)}
+                  active={active}
+                >
+                  <Stack gap={rem(20)} pt={rem(16)}>
+                    {/* Word count input */}
+                    <Box>
+                      <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                        ENTER THE NUMBER OF WORDS IN YOUR MANUSCRIPT *
+                      </Text>
+                      <Text size="xs" c="dimmed" mb={rem(10)}>
+                        Exclude references or bibliographies if not requiring line editing.
+                      </Text>
+                      <NumberInput
+                        placeholder="e.g. 8 500"
+                        radius={0}
+                        size="md"
+                        min={0}
+                        value={wordCount || ''}
+                        onChange={(val) => setWordCount(typeof val === 'number' ? val : 0)}
+                        style={{ maxWidth: rem(280) }}
+                      />
+                      {calculatedEstimate !== null && wordCount > 0 && (
+                        <Text size="xs" fw={700} mt={rem(8)} style={{ color: active.accent }}>
+                          Estimated fee: ${calculatedEstimate.toLocaleString()} (calculated at {EDITING_TIER_META[paramTier]?.priceStr ?? '$0.065/w'})
+                        </Text>
+                      )}
+                    </Box>
+
+                    {/* Document upload box */}
+                    <Box>
+                      <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                        UPLOAD DOCUMENT (OPTIONAL AT BRIEF STAGE)
+                      </Text>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".doc,.docx,.pdf,.txt,.rtf"
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                      />
+                      <UnstyledButton
+                        onClick={() => fileInputRef.current?.click()}
+                        style={{
+                          border: `2px dashed ${fileName ? active.accent : `${active.primary}20`}`,
+                          backgroundColor: fileName ? `${active.accent}08` : active.background,
+                          padding: rem(28),
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: rem(8),
+                          width: '100%',
+                          textAlign: 'center',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        {fileName ? (
+                          <>
+                            <IconCheck size={26} color={active.accent} />
+                            <Text size="sm" fw={700} c={active.primary}>{fileName}</Text>
+                            <Text size="xs" c="dimmed">Click to replace file</Text>
+                          </>
+                        ) : (
+                          <>
+                            <IconUpload size={26} color="#888" />
+                            <Text size="sm" fw={700} c={active.primary}>Click to upload your manuscript</Text>
+                            <Text size="xs" c="dimmed">.docx, .pdf, .rtf — or reply to Micah's quote email to attach later</Text>
+                          </>
+                        )}
+                      </UnstyledButton>
+                    </Box>
+
+                    {/* Scope of editing */}
+                    <Box>
+                      <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                        DO YOU WANT TO SPECIFY SECTIONS THAT DO NOT REQUIRE EDITING?
+                      </Text>
+                      <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(8)}>
+                        {[
+                          { id: 'entire', label: 'Edit entire document' },
+                          { id: 'exclude', label: 'Exclude specific sections' },
+                          { id: 'only', label: 'Edit only specific sections' },
+                        ].map((opt) => (
+                          <UnstyledButton
+                            key={opt.id}
+                            onClick={() => setEditingScope(opt.id as any)}
+                            px={rem(14)} py={rem(10)}
+                            style={{
+                              backgroundColor: editingScope === opt.id ? active.primary : active.background,
+                              color: editingScope === opt.id ? '#fff' : active.primary,
+                              border: `1px solid ${editingScope === opt.id ? active.primary : `${active.primary}20`}`,
+                              fontSize: rem(12),
+                              fontWeight: editingScope === opt.id ? 700 : 500,
+                              textAlign: 'center',
+                              transition: 'all 0.15s ease',
+                            }}
+                          >
+                            {opt.label}
+                          </UnstyledButton>
+                        ))}
+                      </SimpleGrid>
+                      {editingScope !== 'entire' && (
+                        <TextInput
+                          mt="xs"
+                          placeholder="e.g. Exclude references & appendices; edit abstract, intro, and discussion only"
+                          radius={0}
+                          value={scopeDetails}
+                          onChange={(e) => setScopeDetails(e.target.value)}
+                        />
+                      )}
+                    </Box>
+
+                    {/* Next button */}
+                    <Box pt="xs">
+                      <Button
+                        radius={0}
+                        onClick={() => {
+                          setStep1Done(true)
+                          setActiveStep(2)
+                        }}
+                        style={{
+                          backgroundColor: active.primary,
+                          color: '#fff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                        }}
+                      >
+                        Proceed to Document Preferences →
+                      </Button>
+                    </Box>
+                  </Stack>
+                </StepSection>
+
+                {/* ── STEP 2: Document Preferences & Discipline ────────────── */}
+                <StepSection
+                  stepNum={2}
+                  title="Document Preferences & Subject Area"
+                  subtitle="Our faculty editors cater to over 1,300 academic fields"
+                  isOpen={activeStep === 2}
+                  isDone={step2Done || (activeStep > 2)}
+                  doneSummary={`${subjectCategory}${subjectName ? ` · ${subjectName}` : ''} · ${languageStyle === 'american' ? 'American English' : 'British English'}`}
+                  onReopen={() => setActiveStep(2)}
+                  active={active}
+                >
+                  <Stack gap={rem(20)} pt={rem(16)}>
+                    {/* Document type */}
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
+                      <Select
+                        label="Type of document *"
+                        placeholder="Select document type"
+                        radius={0}
+                        data={DOCUMENT_TYPES}
+                        value={docType}
+                        onChange={(v) => setDocType(v ?? 'Journal Article')}
+                      />
+                      <TextInput
+                        label="Target journal or publisher (if known)"
+                        placeholder="e.g. Nature Medicine, Routledge, Oxford UP"
+                        radius={0}
+                        value={journalName}
+                        onChange={(e) => setJournalName(e.target.value)}
+                      />
+                    </SimpleGrid>
+
+                    {/* Subject area category dropdown with 1300+ fields */}
+                    <Box>
+                      <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                        SUBJECT AREA CATEGORY *
+                      </Text>
+                      <Text size="xs" c="dimmed" mb={rem(8)}>
+                        Our specialists cater to over 1,300 subject disciplines. Select the closest branch:
+                      </Text>
+                      <Select
+                        placeholder="Select subject category"
+                        radius={0}
+                        data={SUBJECT_CATEGORIES}
+                        value={subjectCategory}
+                        onChange={(v) => setSubjectCategory(v ?? 'Plant and Animal Science')}
+                      />
+                    </Box>
+
+                    {/* Subject area name manual input */}
+                    <TextInput
+                      label="Subject area / specific sub-field name *"
+                      placeholder="e.g. Plant and Animal Science, Molecular Oncology, Epistemology..."
+                      description="You can enter your exact niche or specialization here"
+                      radius={0}
+                      value={subjectName}
+                      onChange={(e) => setSubjectName(e.target.value)}
+                    />
+
+                    {/* Language style & formatting */}
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
+                      <Box>
+                        <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                          LANGUAGE STYLE
+                        </Text>
+                        <Group gap={rem(6)}>
+                          {[
+                            { id: 'american', label: 'American English' },
+                            { id: 'british', label: 'British English' },
+                          ].map((opt) => (
+                            <UnstyledButton
+                              key={opt.id}
+                              onClick={() => setLanguageStyle(opt.id as any)}
+                              px={rem(16)} py={rem(10)}
+                              style={{
+                                backgroundColor: languageStyle === opt.id ? active.primary : active.background,
+                                color: languageStyle === opt.id ? '#fff' : active.primary,
+                                border: `1px solid ${languageStyle === opt.id ? active.primary : `${active.primary}20`}`,
+                                fontSize: rem(12),
+                                fontWeight: languageStyle === opt.id ? 700 : 500,
+                              }}
+                            >
+                              {opt.label}
+                            </UnstyledButton>
+                          ))}
+                        </Group>
+                      </Box>
+
+                      <Box>
+                        <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                          JOURNAL / PUBLISHER FORMATTING?
+                        </Text>
+                        <Group gap={rem(6)}>
+                          {[
+                            { id: 'yes', label: 'Yes, format to guidelines' },
+                            { id: 'no', label: 'No formatting needed' },
+                          ].map((opt) => (
+                            <UnstyledButton
+                              key={opt.id}
+                              onClick={() => setFormattingNeeded(opt.id as any)}
+                              px={rem(16)} py={rem(10)}
+                              style={{
+                                backgroundColor: formattingNeeded === opt.id ? active.primary : active.background,
+                                color: formattingNeeded === opt.id ? '#fff' : active.primary,
+                                border: `1px solid ${formattingNeeded === opt.id ? active.primary : `${active.primary}20`}`,
+                                fontSize: rem(12),
+                                fontWeight: formattingNeeded === opt.id ? 700 : 500,
+                              }}
+                            >
+                              {opt.label}
+                            </UnstyledButton>
+                          ))}
+                        </Group>
+                      </Box>
+                    </SimpleGrid>
+
+                    {/* Deadline picker */}
+                    <DatePickerInput
+                      label="Target delivery date"
+                      description="Include a 24–48h buffer before your actual university or journal deadline"
+                      placeholder="Select target date"
+                      radius={0}
+                      minDate={new Date()}
+                      value={deadline}
+                      onChange={(val) => setDeadline(val as Date | null)}
+                    />
+
+                    {/* Instructions / Abstract */}
+                    <Textarea
+                      label="Abstract or additional instructions for your editor (optional)"
+                      placeholder="Paste your abstract or share specific referee feedback, style manual requirements, or focus areas..."
+                      radius={0}
+                      minRows={3}
+                      value={instructions}
+                      onChange={(e) => setInstructions(e.target.value)}
+                    />
+
+                    {/* Next button */}
+                    <Box pt="xs">
+                      <Button
+                        radius={0}
+                        onClick={() => {
+                          setStep2Done(true)
+                          setActiveStep(3)
+                        }}
+                        style={{
+                          backgroundColor: active.primary,
+                          color: '#fff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                        }}
+                      >
+                        Proceed to Personal Details & Submission →
+                      </Button>
+                    </Box>
+                  </Stack>
+                </StepSection>
+
+                {/* ── STEP 3: Personal Information & Delivery Options ──────── */}
+                <StepSection
+                  stepNum={3}
+                  title="Personal Information & Submission"
+                  subtitle="Micah Dobson will review your brief personally and email your scoped quote"
+                  isOpen={activeStep === 3}
+                  isDone={false}
+                  onReopen={() => setActiveStep(3)}
+                  active={active}
+                >
+                  <Stack gap={rem(20)} pt={rem(16)}>
+                    {/* Salutation + Name */}
+                    <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(12)}>
+                      <Select
+                        label="Salutation"
+                        placeholder="—"
+                        radius={0}
+                        data={SALUTATIONS}
+                        value={salutation}
+                        onChange={(v) => setSalutation(v ?? 'Dr.')}
+                      />
+                      <TextInput
+                        label="First name *"
+                        placeholder="Jane"
+                        required
+                        radius={0}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                      />
+                      <TextInput
+                        label="Last name *"
+                        placeholder="Doe"
+                        required
+                        radius={0}
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                      />
+                    </SimpleGrid>
+
+                    {/* Email & Phone */}
+                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
+                      <TextInput
+                        label="Primary email *"
+                        placeholder="jane.doe@university.edu"
+                        required
+                        type="email"
+                        radius={0}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        description="We recommend your academic email. Quote sent here."
+                      />
+                      <TextInput
+                        label="Mobile / Phone number"
+                        placeholder="(+1) 555-0192"
+                        radius={0}
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        description="Used strictly for urgent manuscript inquiries"
+                      />
+                    </SimpleGrid>
+
+                    {/* Referral source */}
+                    <Select
+                      label="How did you hear about us? *"
+                      placeholder="Select option"
+                      radius={0}
+                      data={REFERRAL_SOURCES}
+                      value={referralSource}
+                      onChange={(v) => setReferralSource(v ?? REFERRAL_SOURCES[0])}
+                    />
+
+                    {/* Intent toggle: Share quote vs Start immediately */}
+                    <Box>
+                      <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                        CAN WE START WORK ON YOUR REQUEST IMMEDIATELY?
+                      </Text>
+                      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(10)}>
+                        <UnstyledButton
+                          onClick={() => setIntent('quote')}
+                          p={rem(18)}
+                          style={{
+                            border: `1px solid ${intent === 'quote' ? active.primary : `${active.primary}18`}`,
+                            backgroundColor: intent === 'quote' ? active.primary : active.background,
+                            color: intent === 'quote' ? '#fff' : active.primary,
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          <Group gap="xs" align="center" mb={rem(4)}>
+                            <IconMailForward size={16} color={intent === 'quote' ? active.accent : active.accent} />
+                            <Text size="sm" fw={700} style={{ color: intent === 'quote' ? '#fff' : active.primary }}>
+                              Share a quotation first
+                            </Text>
+                          </Group>
+                          <Text size="xs" lh={1.5} style={{ color: intent === 'quote' ? 'rgba(255,255,255,0.75)' : '#666' }}>
+                            We will email a firm quotation within 24 hours. Pay nothing until approved.
+                          </Text>
+                        </UnstyledButton>
+
+                        <UnstyledButton
+                          onClick={() => setIntent('start')}
+                          p={rem(18)}
+                          style={{
+                            border: `1px solid ${intent === 'start' ? active.primary : `${active.primary}18`}`,
+                            backgroundColor: intent === 'start' ? active.primary : active.background,
+                            color: intent === 'start' ? '#fff' : active.primary,
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          <Group gap="xs" align="center" mb={rem(4)}>
+                            <IconReceipt size={16} color={intent === 'start' ? active.accent : active.accent} />
+                            <Text size="sm" fw={700} style={{ color: intent === 'start' ? '#fff' : active.primary }}>
+                              Start work immediately
+                            </Text>
+                          </Group>
+                          <Text size="xs" lh={1.5} style={{ color: intent === 'start' ? 'rgba(255,255,255,0.75)' : '#666' }}>
+                            We will begin editing your paper. 50% deposit invoice sent upon scope confirmation.
+                          </Text>
+                        </UnstyledButton>
+                      </SimpleGrid>
+                    </Box>
+
+                    {/* Submit Button */}
+                    <Box pt="sm">
+                      <Button
+                        size="lg"
+                        radius={0}
+                        fullWidth
+                        disabled={!isFormValid}
+                        onClick={handleSubmit}
+                        rightSection={<IconArrowRight size={18} />}
+                        style={{
+                          backgroundColor: isFormValid ? active.accent : `${active.primary}20`,
+                          color: '#fff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                          height: rem(54),
+                          cursor: isFormValid ? 'pointer' : 'not-allowed',
+                        }}
+                      >
+                        {intent === 'start' ? 'SUBMIT ORDER — INVOICE 50% DEPOSIT' : 'SUBMIT BRIEF FOR FACULTY REVIEW'}
+                      </Button>
+                      <Text size="xs" c="dimmed" mt={rem(8)} ta="center">
+                        By submitting, your document is covered by our strict NDA. No automated bots or AI models.
+                      </Text>
+                    </Box>
+                  </Stack>
+                </StepSection>
+
+              </Stack>
+
+              {/* ── Right Column: Sticky Order Summary Card ──────────────── */}
+              <Box
+                p={rem(28)}
+                bg={active.background}
+                style={{
+                  border: `1px solid ${active.primary}12`,
+                  position: 'sticky',
+                  top: rem(90),
+                }}
+              >
+                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.16em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)', marginBottom: rem(12) }}>
+                  ORDER SUMMARY
+                </Text>
+
+                <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), fontWeight: 600, color: active.primary, lineHeight: 1.25 }}>
+                  {planTitle}
+                </Title>
+
+                {paramService === 'editing' && (
+                  <Text size="xs" c="dimmed" mt={rem(4)}>
+                    Rate: {EDITING_TIER_META[paramTier]?.priceStr ?? '$0.065 / word'}
+                  </Text>
+                )}
+                {paramService === 'publication' && paramSection === 'journal' && (
+                  <Text size="xs" c="dimmed" mt={rem(4)}>
+                    Package: {JOURNAL_TIER_META[paramTier]?.priceStr ?? '$560 flat fee'}
+                  </Text>
+                )}
+
+                {/* Live calculated fee if available */}
+                {calculatedEstimate !== null && (
+                  <Box mt={rem(16)} p={rem(14)} style={{ backgroundColor: active.surface, border: `1px solid ${active.primary}08` }}>
+                    <Group justify="space-between" align="baseline">
+                      <Text size="xs" c="dimmed">
+                        {wordCount > 0 ? `${wordCount.toLocaleString()} words` : 'Base Fee'}:
+                      </Text>
+                      <Text size="md" fw={700} c={active.primary}>
+                        ${calculatedEstimate.toLocaleString()}
+                      </Text>
+                    </Group>
+                    <Group justify="space-between" align="baseline" mt={rem(6)}>
+                      <Text size="xs" fw={600} c={active.accent}>
+                        50% Deposit Due:
+                      </Text>
+                      <Text size="sm" fw={700} c={active.accent}>
+                        ${Math.round(calculatedEstimate * 0.5).toLocaleString()}
+                      </Text>
+                    </Group>
+                  </Box>
+                )}
+
+                <Link href={backToOrderUrl} style={{ textDecoration: 'none' }}>
+                  <Text size="xs" mt={rem(12)} style={{ color: active.accent, textDecoration: 'underline', cursor: 'pointer' }}>
+                    Change plan or service ↗
+                  </Text>
+                </Link>
+
+                <Box my={rem(18)} style={{ height: 1, backgroundColor: `${active.primary}10` }} />
+
+                {/* Payment Schedule Policy */}
+                <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                  PAYMENT TERMS
+                </Text>
+                <Stack gap={rem(8)}>
+                  <Group gap={rem(8)} align="flex-start" wrap="nowrap">
+                    <Box px={rem(6)} py={rem(1)} style={{ backgroundColor: `${active.accent}15`, marginTop: rem(2) }}>
+                      <Text size="xs" fw={800} c={active.accent}>1</Text>
+                    </Box>
+                    <Text size="xs" c="dimmed" lh={1.5}>
+                      <strong style={{ color: active.primary }}>50% deposit</strong> invoiced upon formal quote approval.
+                    </Text>
+                  </Group>
+                  <Group gap={rem(8)} align="flex-start" wrap="nowrap">
+                    <Box px={rem(6)} py={rem(1)} style={{ backgroundColor: `${active.accent}15`, marginTop: rem(2) }}>
+                      <Text size="xs" fw={800} c={active.accent}>2</Text>
+                    </Box>
+                    <Text size="xs" c="dimmed" lh={1.5}>
+                      <strong style={{ color: active.primary }}>50% on delivery</strong> when completed deliverables are received.
+                    </Text>
+                  </Group>
+                </Stack>
+
+                <Box my={rem(18)} style={{ height: 1, backgroundColor: `${active.primary}10` }} />
+
+                {/* Trust markers */}
+                <Stack gap={rem(8)}>
+                  {[
+                    'Strict non-disclosure on all manuscripts',
+                    'Zero generative AI used on your text',
+                    '100% Track Changes delivery in Word',
+                    'Personal scoping & review by Micah Dobson',
+                  ].map((pt, i) => (
+                    <Group key={i} gap={rem(8)} align="flex-start" wrap="nowrap">
+                      <IconCheck size={13} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                      <Text size="xs" c="dimmed" lh={1.4}>{pt}</Text>
+                    </Group>
+                  ))}
+                </Stack>
+              </Box>
+
             </Box>
           </Box>
         </Container>
       </Box>
+
     </Box>
   )
 }
 
-// ─── Form body (extracted so it can be used in both mobile/desktop slots) ─────
+// ─── StepSection Collapsible Component ────────────────────────────────────────
 
-function FormBody({
-  hasPreSelection,
-  service, setService,
-  section, setSection,
-  editingTier, setEditingTier,
-  journalTier, setJournalTier,
-  bookStage, setBookStage,
-  paramSection,
-  checkedStages, toggleStage,
-  salutation, setSalutation,
-  firstName, setFirstName,
-  lastName, setLastName,
-  email, setEmail,
-  note, setNote,
-  wordCount, setWordCount,
-  deadline, setDeadline,
-  fileName, fileInputRef, handleFileChange,
-  intent, setIntent,
-  isValid, handleSubmit,
+function StepSection({
+  stepNum,
+  title,
+  subtitle,
+  isOpen,
+  isDone,
+  doneSummary,
+  onReopen,
+  children,
   active,
 }: {
-  hasPreSelection: boolean
-  service: string; setService: (v: string) => void
-  section: string; setSection: (v: string) => void
-  editingTier: string; setEditingTier: (v: string) => void
-  journalTier: string; setJournalTier: (v: string) => void
-  bookStage: string; setBookStage: (v: string) => void
-  paramSection: string
-  checkedStages: string[]; toggleStage: (id: string) => void
-  salutation: string; setSalutation: (v: string) => void
-  firstName: string; setFirstName: (v: string) => void
-  lastName: string; setLastName: (v: string) => void
-  email: string; setEmail: (v: string) => void
-  note: string; setNote: (v: string) => void
-  wordCount: number; setWordCount: (v: number) => void
-  deadline: Date | null; setDeadline: (v: Date | null) => void
-  fileName: string; fileInputRef: React.RefObject<HTMLInputElement | null>
-  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  intent: 'quote' | 'start'; setIntent: (v: 'quote' | 'start') => void
-  isValid: boolean; handleSubmit: () => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  active: any
-}) {
-  const { accent, primary, surface, background } = active
-
-  // Show book checkboxes when section=book (either from URL params or user selection)
-  const showBookCheckboxes = (hasPreSelection && paramSection === 'book') || (!hasPreSelection && section === 'book')
-
-  return (
-    <Stack gap={rem(40)}>
-
-      {/* ── SERVICE SELECTION (only if no pre-selection) ─────────────── */}
-      {!hasPreSelection && (
-        <FormSection title="What do you need?" accent={accent} primary={primary}>
-          <Stack gap={rem(24)}>
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(2)}>
-              {[
-                {
-                  id: 'editing',
-                  icon: <IconPencil size={22} />,
-                  label: 'Editing & Compliance',
-                  desc: 'Line editing, style conformity, citations, academic tone. Priced per word.',
-                },
-                {
-                  id: 'publication',
-                  icon: <IconBook2 size={22} />,
-                  label: 'Publication Support',
-                  desc: 'Journal submission pipeline or book manuscript pipeline.',
-                },
-              ].map((svc) => (
-                <SelectionTile
-                  key={svc.id}
-                  icon={svc.icon}
-                  label={svc.label}
-                  desc={svc.desc}
-                  selected={service === svc.id}
-                  onClick={() => {
-                    setService(svc.id)
-                    setSection('')
-                    setEditingTier('')
-                    setJournalTier('')
-                    setBookStage('')
-                  }}
-                  accent={accent}
-                  primary={primary}
-                  surface={surface}
-                  background={background}
-                />
-              ))}
-            </SimpleGrid>
-
-            {service === 'editing' && (
-              <Box>
-                <Group justify="space-between" align="baseline" mb={rem(12)} wrap="wrap" gap="xs">
-                  <Text size="xs" fw={700} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                    WHICH EDITING TIER? (optional — we can recommend upon reviewing your document)
-                  </Text>
-                  <Link
-                    href="/scholarcrafted/order?service=editing"
-                    target="_blank"
-                    style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(4) }}
-                  >
-                    <IconInfoCircle size={13} color={accent} />
-                    <Text size="xs" fw={600} style={{ color: accent, textDecoration: 'underline' }}>
-                      Compare tier matrix & turnaround ↗
-                    </Text>
-                  </Link>
-                </Group>
-                <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(12)}>
-                  {Object.entries(EDITING_TIER_LABELS).map(([id, tier]) => {
-                    const isSelected = editingTier === id
-                    return (
-                      <UnstyledButton
-                        key={id}
-                        onClick={() => setEditingTier(isSelected ? '' : id)}
-                        p={rem(16)}
-                        style={{
-                          backgroundColor: isSelected ? primary : background,
-                          color: isSelected ? '#fff' : primary,
-                          border: `1px solid ${isSelected ? primary : `${primary}18`}`,
-                          transition: 'all 0.15s ease',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                          textAlign: 'left',
-                          minHeight: rem(170),
-                        }}
-                      >
-                        <Box>
-                          <Group justify="space-between" align="flex-start" mb={rem(6)}>
-                            <Text size="sm" fw={700} style={{ color: isSelected ? '#fff' : primary }}>
-                              {tier.label}
-                            </Text>
-                            {tier.popular && (
-                              <Box
-                                px={rem(6)}
-                                py={rem(2)}
-                                style={{
-                                  backgroundColor: isSelected ? accent : `${accent}15`,
-                                  color: isSelected ? '#fff' : accent,
-                                  fontSize: rem(10),
-                                  fontWeight: 700,
-                                  letterSpacing: '0.06em',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
-                                Popular
-                              </Box>
-                            )}
-                          </Group>
-                          <Text size="xs" fw={700} style={{ color: isSelected ? accent : accent }} mb={rem(8)}>
-                            {tier.price}
-                          </Text>
-                          <Text size="xs" lh={1.5} style={{ color: isSelected ? 'rgba(255,255,255,0.75)' : '#666' }}>
-                            {tier.desc}
-                          </Text>
-                        </Box>
-                        <Group justify="space-between" align="center" mt={rem(12)} pt={rem(8)} style={{ borderTop: `1px solid ${isSelected ? 'rgba(255,255,255,0.15)' : `${primary}10`}` }}>
-                          <Text size="xs" fw={600} style={{ color: isSelected ? '#fff' : accent }}>
-                            {isSelected ? '✓ Selected' : 'Select tier'}
-                          </Text>
-                          <Link
-                            href={tier.detailsHref}
-                            target="_blank"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(2) }}
-                          >
-                            <Text size="xs" style={{ color: isSelected ? 'rgba(255,255,255,0.7)' : '#888', textDecoration: 'underline' }}>
-                              Details
-                            </Text>
-                            <IconExternalLink size={10} color={isSelected ? 'rgba(255,255,255,0.7)' : '#888'} />
-                          </Link>
-                        </Group>
-                      </UnstyledButton>
-                    )
-                  })}
-                </SimpleGrid>
-              </Box>
-            )}
-
-            {service === 'publication' && (
-              <Box>
-                <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                  JOURNAL ARTICLES OR BOOK MANUSCRIPTS?
-                </Text>
-                <Group gap={rem(2)}>
-                  {[
-                    { id: 'journal', label: 'Journal Articles', icon: <IconFileText size={15} /> },
-                    { id: 'book', label: 'Book Manuscripts', icon: <IconBook2 size={15} /> },
-                  ].map((opt) => (
-                    <UnstyledButton
-                      key={opt.id}
-                      onClick={() => { setSection(opt.id); setJournalTier(''); setBookStage('') }}
-                      px={rem(20)} py={rem(12)}
-                      style={{
-                        backgroundColor: section === opt.id ? primary : background,
-                        color: section === opt.id ? '#fff' : primary,
-                        border: `1px solid ${section === opt.id ? primary : `${primary}20`}`,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                        fontSize: rem(13), fontWeight: section === opt.id ? 700 : 500,
-                        display: 'flex', alignItems: 'center', gap: rem(6),
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      {opt.icon} {opt.label}
-                    </UnstyledButton>
-                  ))}
-                </Group>
-              </Box>
-            )}
-
-            {service === 'publication' && section === 'journal' && (
-              <Box>
-                <Group justify="space-between" align="baseline" mb={rem(12)} wrap="wrap" gap="xs">
-                  <Text size="xs" fw={700} style={{ letterSpacing: '0.12em', color: '#888', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                    WHICH PACKAGE? (optional — we can recommend upon reviewing your target journal)
-                  </Text>
-                  <Link
-                    href="/scholarcrafted/order?service=publication&section=journal"
-                    target="_blank"
-                    style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(4) }}
-                  >
-                    <IconInfoCircle size={13} color={accent} />
-                    <Text size="xs" fw={600} style={{ color: accent, textDecoration: 'underline' }}>
-                      Compare journal packages ↗
-                    </Text>
-                  </Link>
-                </Group>
-                <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(12)}>
-                  {Object.entries(JOURNAL_TIER_LABELS).map(([id, tier]) => {
-                    const isSelected = journalTier === id
-                    return (
-                      <UnstyledButton
-                        key={id}
-                        onClick={() => setJournalTier(isSelected ? '' : id)}
-                        p={rem(16)}
-                        style={{
-                          backgroundColor: isSelected ? primary : background,
-                          color: isSelected ? '#fff' : primary,
-                          border: `1px solid ${isSelected ? primary : `${primary}18`}`,
-                          transition: 'all 0.15s ease',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                          textAlign: 'left',
-                          minHeight: rem(170),
-                        }}
-                      >
-                        <Box>
-                          <Group justify="space-between" align="flex-start" mb={rem(6)}>
-                            <Text size="sm" fw={700} style={{ color: isSelected ? '#fff' : primary }}>
-                              {tier.label}
-                            </Text>
-                            {tier.popular && (
-                              <Box
-                                px={rem(6)}
-                                py={rem(2)}
-                                style={{
-                                  backgroundColor: isSelected ? accent : `${accent}15`,
-                                  color: isSelected ? '#fff' : accent,
-                                  fontSize: rem(10),
-                                  fontWeight: 700,
-                                  letterSpacing: '0.06em',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
-                                Popular
-                              </Box>
-                            )}
-                          </Group>
-                          <Text size="xs" fw={700} style={{ color: isSelected ? accent : accent }} mb={rem(8)}>
-                            {tier.price}
-                          </Text>
-                          <Text size="xs" lh={1.5} style={{ color: isSelected ? 'rgba(255,255,255,0.75)' : '#666' }}>
-                            {tier.desc}
-                          </Text>
-                        </Box>
-                        <Group justify="space-between" align="center" mt={rem(12)} pt={rem(8)} style={{ borderTop: `1px solid ${isSelected ? 'rgba(255,255,255,0.15)' : `${primary}10`}` }}>
-                          <Text size="xs" fw={600} style={{ color: isSelected ? '#fff' : accent }}>
-                            {isSelected ? '✓ Selected' : 'Select package'}
-                          </Text>
-                          <Link
-                            href={tier.detailsHref}
-                            target="_blank"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(2) }}
-                          >
-                            <Text size="xs" style={{ color: isSelected ? 'rgba(255,255,255,0.7)' : '#888', textDecoration: 'underline' }}>
-                              Details
-                            </Text>
-                            <IconExternalLink size={10} color={isSelected ? 'rgba(255,255,255,0.7)' : '#888'} />
-                          </Link>
-                        </Group>
-                      </UnstyledButton>
-                    )
-                  })}
-                </SimpleGrid>
-              </Box>
-            )}
-          </Stack>
-        </FormSection>
-      )}
-
-      {/* ── BOOK STAGE CHECKBOXES ──────────────────────────────────────── */}
-      {showBookCheckboxes && (
-        <FormSection title="Which stage(s) do you need?" accent={accent} primary={primary}>
-          <Stack gap={rem(10)}>
-            <Group justify="space-between" align="baseline" wrap="wrap" gap="xs" mb={rem(4)}>
-              <Text size="sm" c="dimmed" lh={1.6}>
-                Select all that apply. If you need the full pipeline, tick all five — we'll price the bundle.
-              </Text>
-              <Link
-                href="/scholarcrafted/order?service=publication&section=book"
-                target="_blank"
-                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: rem(4) }}
-              >
-                <IconInfoCircle size={13} color={accent} />
-                <Text size="xs" fw={600} style={{ color: accent, textDecoration: 'underline' }}>
-                  View 5-stage book roadmap & deliverables ↗
-                </Text>
-              </Link>
-            </Group>
-            {BOOK_STAGES.map((stg) => (
-              <UnstyledButton
-                key={stg.id}
-                onClick={() => toggleStage(stg.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: rem(12),
-                  padding: `${rem(14)} ${rem(16)}`,
-                  backgroundColor: checkedStages.includes(stg.id) ? `${accent}08` : background,
-                  border: `1px solid ${checkedStages.includes(stg.id) ? accent : `${primary}15`}`,
-                  transition: 'all 0.15s ease',
-                  width: '100%',
-                  textAlign: 'left',
-                }}
-              >
-                <Box
-                  style={{
-                    width: rem(20),
-                    height: rem(20),
-                    border: `2px solid ${checkedStages.includes(stg.id) ? accent : `${primary}30`}`,
-                    backgroundColor: checkedStages.includes(stg.id) ? accent : 'transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  {checkedStages.includes(stg.id) && <IconCheck size={12} color="#fff" />}
-                </Box>
-                <Box style={{ flex: 1 }}>
-                  <Text size="sm" fw={600} c={primary}>{stg.label}</Text>
-                  <Text size="xs" c="dimmed">{stg.price}</Text>
-                </Box>
-              </UnstyledButton>
-            ))}
-          </Stack>
-        </FormSection>
-      )}
-
-      {/* ── DOCUMENT UPLOAD ───────────────────────────────────────────── */}
-      <FormSection title="Upload your manuscript" accent={accent} primary={primary}>
-        <Stack gap={rem(16)}>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".doc,.docx,.pdf,.txt,.rtf"
-            style={{ display: 'none' }}
-            onChange={handleFileChange}
-          />
-          <UnstyledButton
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              border: `2px dashed ${fileName ? accent : `${primary}20`}`,
-              backgroundColor: fileName ? `${accent}06` : background,
-              padding: rem(32),
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: rem(10),
-              transition: 'all 0.2s ease',
-              width: '100%',
-            }}
-          >
-            {fileName ? (
-              <>
-                <IconCheck size={28} color={accent} />
-                <Text size="sm" fw={600} c={primary}>{fileName}</Text>
-                <Text size="xs" c="dimmed">Click to change</Text>
-              </>
-            ) : (
-              <>
-                <IconUpload size={28} color="#aaa" />
-                <Text size="sm" fw={600} c={primary}>Click to upload your document</Text>
-                <Text size="xs" c="dimmed">.docx, .pdf, .doc, .rtf — or attach by email after submitting</Text>
-              </>
-            )}
-          </UnstyledButton>
-
-          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
-            <NumberInput
-              label="Word count"
-              description="Approximate — used for pricing"
-              placeholder="e.g. 12 000"
-              radius={0}
-              min={0}
-              value={wordCount || ''}
-              onChange={(val) => setWordCount(typeof val === 'number' ? val : 0)}
-            />
-            <DatePickerInput
-              label="Deadline"
-              description="Include a 24–48h buffer before your actual deadline"
-              placeholder="Select a date"
-              required
-              radius={0}
-              minDate={new Date()}
-              value={deadline}
-              onChange={(val) => setDeadline(val as Date | null)}
-            />
-          </SimpleGrid>
-        </Stack>
-      </FormSection>
-
-      {/* ── CONTACT DETAILS ───────────────────────────────────────────── */}
-      <FormSection title="Your details" accent={accent} primary={primary}>
-        <Stack gap={rem(16)}>
-          {/* Salutation + first name + last name row */}
-          <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(12)}>
-            <Select
-              label="Salutation"
-              placeholder="—"
-              radius={0}
-              data={SALUTATIONS}
-              value={salutation}
-              onChange={(v) => setSalutation(v ?? '')}
-              comboboxProps={{ radius: 0 }}
-            />
-            <TextInput
-              label="First name"
-              placeholder="Jane"
-              required
-              radius={0}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <TextInput
-              label="Last name"
-              placeholder="Doe"
-              radius={0}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </SimpleGrid>
-          <TextInput
-            label="Email address"
-            placeholder="you@university.edu"
-            required
-            radius={0}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            description="We recommend your academic email. Micah's quote goes here."
-          />
-          <Textarea
-            label="Anything specific to mention? (optional)"
-            placeholder="Style guide required, target journal, stage in the process, specific concerns..."
-            radius={0}
-            minRows={3}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
-        </Stack>
-      </FormSection>
-
-      {/* ── INTENT TOGGLE ─────────────────────────────────────────────── */}
-      <FormSection title="How would you like to proceed?" accent={accent} primary={primary}>
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(2)}>
-          <UnstyledButton
-            onClick={() => setIntent('quote')}
-            style={{
-              padding: rem(20),
-              backgroundColor: intent === 'quote' ? primary : background,
-              border: `1px solid ${intent === 'quote' ? primary : `${primary}18`}`,
-              transition: 'all 0.15s ease',
-              textAlign: 'left',
-              display: 'flex',
-              gap: rem(14),
-              alignItems: 'flex-start',
-            }}
-          >
-            <Box
-              style={{
-                width: rem(36),
-                height: rem(36),
-                backgroundColor: intent === 'quote' ? 'rgba(255,255,255,0.15)' : `${accent}12`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, color: intent === 'quote' ? '#fff' : accent,
-              }}
-            >
-              <IconMailForward size={18} />
-            </Box>
-            <Box>
-              <Text fw={700} size="sm" style={{ color: intent === 'quote' ? '#fff' : primary, marginBottom: rem(4) }}>
-                Request a quote first
-              </Text>
-              <Text size="xs" lh={1.5} style={{ color: intent === 'quote' ? 'rgba(255,255,255,0.72)' : `${primary}90` }}>
-                We'll email a firm, scoped price within 24 hours. No obligation to proceed.
-              </Text>
-            </Box>
-          </UnstyledButton>
-
-          <UnstyledButton
-            onClick={() => setIntent('start')}
-            style={{
-              padding: rem(20),
-              backgroundColor: intent === 'start' ? primary : background,
-              border: `1px solid ${intent === 'start' ? primary : `${primary}18`}`,
-              transition: 'all 0.15s ease',
-              textAlign: 'left',
-              display: 'flex',
-              gap: rem(14),
-              alignItems: 'flex-start',
-            }}
-          >
-            <Box
-              style={{
-                width: rem(36),
-                height: rem(36),
-                backgroundColor: intent === 'start' ? 'rgba(255,255,255,0.15)' : `${accent}12`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, color: intent === 'start' ? '#fff' : accent,
-              }}
-            >
-              <IconReceipt size={18} />
-            </Box>
-            <Box>
-              <Text fw={700} size="sm" style={{ color: intent === 'start' ? '#fff' : primary, marginBottom: rem(4) }}>
-                Ready to start — invoice me
-              </Text>
-              <Text size="xs" lh={1.5} style={{ color: intent === 'start' ? 'rgba(255,255,255,0.72)' : `${primary}90` }}>
-                Send a 50% deposit invoice. Work begins on receipt.
-              </Text>
-            </Box>
-          </UnstyledButton>
-        </SimpleGrid>
-      </FormSection>
-
-      {/* ── SUBMIT ────────────────────────────────────────────────────── */}
-      <Box>
-        <Button
-          size="lg"
-          radius={0}
-          fullWidth
-          rightSection={<IconArrowRight size={18} />}
-          disabled={!isValid}
-          onClick={handleSubmit}
-          style={{
-            backgroundColor: isValid ? accent : `${primary}20`,
-            color: isValid ? '#fff' : `${primary}60`,
-            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-            letterSpacing: '0.06em',
-            fontWeight: 700,
-            height: rem(56),
-            border: 'none',
-            transition: 'background-color 0.2s ease',
-            cursor: isValid ? 'pointer' : 'not-allowed',
-          }}
-        >
-          {intent === 'start' ? 'SEND MY BRIEF — INVOICE ME' : 'SEND MY BRIEF — REQUEST QUOTE'}
-        </Button>
-        <Text size="xs" c="dimmed" mt={rem(10)} ta="center" style={{ letterSpacing: '0.04em' }}>
-          Strict NDA · No AI tools used on your manuscript · Scoped quote within 24 hours
-        </Text>
-      </Box>
-
-    </Stack>
-  )
-}
-
-// ─── Helper components ────────────────────────────────────────────────────────
-
-function FormSection({ title, children, accent, primary }: { title: string; children: React.ReactNode; accent: string; primary: string }) {
-  return (
-    <Box>
-      <Text
-        size="xs"
-        fw={700}
-        mb={rem(16)}
-        style={{
-          letterSpacing: '0.16em',
-          textTransform: 'uppercase',
-          color: accent,
-          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-          borderBottom: `1px solid ${primary}08`,
-          paddingBottom: rem(10),
-        }}
-      >
-        {title}
-      </Text>
-      {children}
-    </Box>
-  )
-}
-
-function SelectionTile({
-  icon, label, desc, selected, onClick, accent, primary, surface, background,
-}: {
-  icon: React.ReactNode
-  label: string
-  desc: string
-  selected: boolean
-  onClick: () => void
-  accent: string
-  primary: string
-  surface: string
-  background: string
+  stepNum: number
+  title: string
+  subtitle: string
+  isOpen: boolean
+  isDone: boolean
+  doneSummary?: string
+  onReopen: () => void
+  children: React.ReactNode
+  active: Record<string, string>
 }) {
   return (
-    <UnstyledButton
-      onClick={onClick}
+    <Box
+      bg={active.background}
       style={{
-        display: 'block',
-        padding: rem(24),
-        backgroundColor: selected ? primary : background,
-        border: `1px solid ${selected ? primary : `${primary}18`}`,
+        border: `1px solid ${isOpen ? active.primary : `${active.primary}15`}`,
         transition: 'all 0.2s ease',
-        textAlign: 'left',
-        position: 'relative',
       }}
     >
-      <Group gap={rem(14)} wrap="nowrap" align="flex-start">
-        <Box
-          style={{
-            width: rem(40), height: rem(40),
-            flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backgroundColor: selected ? 'rgba(255,255,255,0.15)' : `${accent}12`,
-            color: selected ? '#fff' : accent,
-          }}
-        >
-          {icon}
-        </Box>
-        <Box style={{ flex: 1 }}>
-          <Text fw={700} size="sm" style={{ color: selected ? '#fff' : primary, marginBottom: rem(4) }}>{label}</Text>
-          <Text size="xs" lh={1.5} style={{ color: selected ? 'rgba(255,255,255,0.72)' : `${primary}99` }}>{desc}</Text>
-        </Box>
-        {selected && (
-          <Box style={{ position: 'absolute', top: rem(16), right: rem(16) }}>
-            <IconCheck size={16} color="#fff" />
+      {/* Header bar */}
+      <UnstyledButton
+        onClick={onReopen}
+        px={rem(24)}
+        py={rem(18)}
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backgroundColor: isOpen ? active.primary : active.background,
+          color: isOpen ? '#fff' : active.primary,
+          borderBottom: isOpen ? `1px solid ${active.primary}15` : 'none',
+          cursor: 'pointer',
+        }}
+      >
+        <Group gap={rem(12)} align="center">
+          <Box
+            style={{
+              width: rem(28),
+              height: rem(28),
+              borderRadius: rem(14),
+              backgroundColor: isDone && !isOpen ? active.accent : isOpen ? active.accent : `${active.primary}12`,
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: rem(13),
+              fontWeight: 800,
+            }}
+          >
+            {isDone && !isOpen ? <IconCheck size={16} stroke={3} color="#fff" /> : stepNum}
           </Box>
+          <Box>
+            <Text fw={700} size="sm" style={{ color: isOpen ? '#fff' : active.primary }}>
+              {title}
+            </Text>
+            {!isOpen && isDone && doneSummary && (
+              <Text size="xs" style={{ color: active.accent, fontWeight: 600, marginTop: rem(2) }}>
+                {doneSummary}
+              </Text>
+            )}
+            {!isOpen && (!isDone || !doneSummary) && (
+              <Text size="xs" c="dimmed" style={{ marginTop: rem(2) }}>
+                {subtitle}
+              </Text>
+            )}
+          </Box>
+        </Group>
+
+        {isDone && !isOpen && (
+          <Group gap={rem(4)} align="center" style={{ color: active.accent }}>
+            <IconPencil size={12} />
+            <Text size="xs" fw={700} style={{ textDecoration: 'underline' }}>
+              edit
+            </Text>
+          </Group>
         )}
-      </Group>
-    </UnstyledButton>
+      </UnstyledButton>
+
+      {/* Expanded body */}
+      {isOpen && (
+        <Box px={rem(24)} pb={rem(24)}>
+          {children}
+        </Box>
+      )}
+    </Box>
   )
 }
