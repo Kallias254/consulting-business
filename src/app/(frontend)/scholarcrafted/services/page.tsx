@@ -66,11 +66,35 @@ const services = [
     href: '/scholarcrafted/services/publication-support',
     cta: 'View Journal & Book Options',
   },
+  {
+    id: 'ai-audit',
+    eyebrow: 'SERVICE 03 — DIAGNOSTIC & RISK SCREENING',
+    icon: <IconShieldCheck size={22} />,
+    title: 'AI Manuscript Audit',
+    tagline: 'Audit your AI-assisted research before journal submission — citation accuracy, literature gaps & peer-review risks.',
+    desc: 'An independent pre-submission diagnostic scan evaluated against 200M+ academic papers. Identifies hallucinated or missing citations, section discontinuities, overstated claims, and journal match. Includes an executive Faculty Risk Memo and optional 15-minute debrief call with Micah Dobson. 100% of your audit fee is credited toward full editing if scoped.',
+    features: [
+      'Citation & reference gap analysis benchmarked against 200M+ research papers',
+      'Structural consistency & argument alignment audit across all sections',
+      'Journal scope matching & submission risk screening',
+      '1-Page Executive Faculty Risk Memo + optional 15-min debrief call',
+      '100% fee credited toward full editing or publication support',
+    ],
+    pricing: '$29 Single Review · $69 Revision Pack (3 Reviews)',
+    href: '/scholarcrafted/order?service=ai-audit',
+    cta: 'Order AI Manuscript Audit',
+  },
 ]
 
 // ─── Situation matcher ────────────────────────────────────────────────────────
 
 const situations = [
+  {
+    id: 'ai-check',
+    label: 'I used AI tools to draft or synthesize my paper and need to verify its integrity',
+    subLabel: 'Citation verification, literature gap analysis & pre-submission risk audit',
+    serviceId: 'ai-audit',
+  },
   {
     id: 'defense',
     label: 'My defense is in weeks and the manuscript needs to be clean',

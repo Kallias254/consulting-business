@@ -160,6 +160,23 @@ const BOOK_STAGE_META: Record<string, { label: string; priceStr: string; turnaro
   },
 }
 
+const AI_AUDIT_TIER_META: Record<string, { label: string; flatPrice: number; priceStr: string; turnaround: string; desc: string }> = {
+  single: {
+    label: 'AI Manuscript Audit — Single Review',
+    flatPrice: 29,
+    priceStr: '$29 flat fee',
+    turnaround: '24–48 hours',
+    desc: 'Complete section-by-section diagnostic breakdown against 200M+ research papers, hallucinated citation detection, and 1-Page Faculty Risk Memo with optional debrief call. 100% credited toward full editing.',
+  },
+  bundle: {
+    label: 'AI Manuscript Audit — Revision Bundle (3 Reviews)',
+    flatPrice: 69,
+    priceStr: '$69 flat fee',
+    turnaround: '24–48 hours per review',
+    desc: '3 full manuscript audits across your project lifecycle (initial draft, advisor revision, and pre-submission check). Includes follow-up consultations with Micah Dobson. 100% credited toward editing.',
+  },
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function RequestReviewPage() {
@@ -179,7 +196,7 @@ function RequestReviewContent() {
   // Query parameters
   const paramService  = searchParams.get('service') ?? 'editing'
   const paramSection  = searchParams.get('section') ?? ''
-  const paramTier     = searchParams.get('tier') ?? (paramService === 'editing' ? 'premium' : '')
+  const paramTier     = searchParams.get('tier') ?? (paramService === 'editing' ? 'premium' : paramService === 'ai-audit' ? 'single' : '')
   const paramStage    = searchParams.get('stage') ?? ''
   const paramPipeline = searchParams.get('pipeline') === 'full'
   const paramWords    = parseInt(searchParams.get('wordCount') ?? '0', 10)
@@ -198,6 +215,9 @@ function RequestReviewContent() {
 
   // Back link URL to order comparison page
   const backToOrderUrl = (() => {
+    if (paramService === 'ai-audit') {
+      return `/scholarcrafted/order?service=ai-audit`
+    }
     if (paramService === 'publication' && paramSection === 'book') {
       return `/scholarcrafted/order?service=publication&section=book${paramStage ? `&stage=${paramStage}` : ''}`
     }
@@ -209,6 +229,9 @@ function RequestReviewContent() {
 
   // Derive Plan Title for header
   const planTitle = (() => {
+    if (paramService === 'ai-audit') {
+      return AI_AUDIT_TIER_META[paramTier]?.label ?? 'AI Manuscript Audit'
+    }
     if (paramService === 'editing') {
       return EDITING_TIER_META[paramTier]?.label ?? 'English Editing'
     }
@@ -267,6 +290,10 @@ function RequestReviewContent() {
 
   // Cost calculation for sidebar
   const calculatedEstimate = (() => {
+    if (paramService === 'ai-audit') {
+      const meta = AI_AUDIT_TIER_META[paramTier] ?? AI_AUDIT_TIER_META.single
+      return meta.flatPrice
+    }
     if (paramService === 'editing') {
       const meta = EDITING_TIER_META[paramTier] ?? EDITING_TIER_META.premium
       if (wordCount > 0) return Math.round(wordCount * meta.rate)
@@ -282,7 +309,7 @@ function RequestReviewContent() {
     firstName.trim() !== '' &&
     lastName.trim() !== '' &&
     email.trim() !== '' &&
-    (wordCount > 0 || fileName !== '' || paramSection === 'journal' || (paramService === 'publication' && paramSection === 'book'))
+    (wordCount > 0 || fileName !== '' || paramService === 'ai-audit' || paramSection === 'journal' || (paramService === 'publication' && paramSection === 'book'))
 
   function handleSubmit() {
     if (!isFormValid) return
@@ -921,7 +948,11 @@ function RequestReviewContent() {
                           cursor: isFormValid ? 'pointer' : 'not-allowed',
                         }}
                       >
-                        {intent === 'start' ? 'SUBMIT ORDER — INVOICE 50% DEPOSIT' : 'SUBMIT BRIEF FOR FACULTY REVIEW'}
+                        {paramService === 'ai-audit'
+                          ? `SUBMIT FOR AI MANUSCRIPT AUDIT — $${calculatedEstimate ?? 29}`
+                          : intent === 'start'
+                          ? 'SUBMIT ORDER — INVOICE 50% DEPOSIT'
+                          : 'SUBMIT BRIEF FOR FACULTY REVIEW'}
                       </Button>
                       <Text size="xs" c="dimmed" mt={rem(8)} ta="center">
                         By clicking 'Submit Order', you agree to pay for the order in full on or before the delivery date. Strict NDA applies.
@@ -950,6 +981,21 @@ function RequestReviewContent() {
                   {planTitle}
                 </Title>
 
+                {paramService === 'ai-audit' && (
+                  <Box mt={rem(6)}>
+                    <Text size="xs" c="dimmed">
+                      Plan: {AI_AUDIT_TIER_META[paramTier]?.priceStr ?? '$29 flat fee'}
+                    </Text>
+                    <Box mt={rem(10)} p={rem(12)} style={{ backgroundColor: `${active.accent}12`, border: `1px solid ${active.accent}30` }}>
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.04em' }}>
+                        ★ 100% FEE CREDIT GUARANTEE
+                      </Text>
+                      <Text size="xs" c="dimmed" mt={rem(4)} lh={1.5}>
+                        100% of your audit fee is credited toward any full editing package if you commission editing after reviewing your diagnostic report.
+                      </Text>
+                    </Box>
+                  </Box>
+                )}
                 {paramService === 'editing' && (
                   <Text size="xs" c="dimmed" mt={rem(4)}>
                     Rate: {EDITING_TIER_META[paramTier]?.priceStr ?? '$0.065 / word'}
@@ -971,20 +1017,22 @@ function RequestReviewContent() {
                   <Box mt={rem(16)} p={rem(14)} style={{ backgroundColor: active.surface, border: `1px solid ${active.primary}08` }}>
                     <Group justify="space-between" align="baseline">
                       <Text size="xs" c="dimmed">
-                        {wordCount > 0 ? `${wordCount.toLocaleString()} words` : 'Base Fee'}:
+                        {paramService === 'ai-audit' ? 'Audit Fee' : wordCount > 0 ? `${wordCount.toLocaleString()} words` : 'Base Fee'}:
                       </Text>
                       <Text size="md" fw={700} c={active.primary}>
                         ${calculatedEstimate.toLocaleString()}
                       </Text>
                     </Group>
-                    <Group justify="space-between" align="baseline" mt={rem(6)}>
-                      <Text size="xs" fw={600} c={active.accent}>
-                        50% Deposit Due:
-                      </Text>
-                      <Text size="sm" fw={700} c={active.accent}>
-                        ${Math.round(calculatedEstimate * 0.5).toLocaleString()}
-                      </Text>
-                    </Group>
+                    {paramService !== 'ai-audit' && (
+                      <Group justify="space-between" align="baseline" mt={rem(6)}>
+                        <Text size="xs" fw={600} c={active.accent}>
+                          50% Deposit Due:
+                        </Text>
+                        <Text size="sm" fw={700} c={active.accent}>
+                          ${Math.round(calculatedEstimate * 0.5).toLocaleString()}
+                        </Text>
+                      </Group>
+                    )}
                   </Box>
                 )}
 

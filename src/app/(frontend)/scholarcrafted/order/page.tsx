@@ -278,7 +278,8 @@ function OrderContent() {
   const hlTier         = searchParams.get('tier') ?? ''
   const hlStage        = searchParams.get('stage') ?? ''
 
-  const [activeTab, setActiveTab] = useState<'editing' | 'journal' | 'book'>(() => {
+  const [activeTab, setActiveTab] = useState<'editing' | 'journal' | 'book' | 'ai-audit'>(() => {
+    if (initialService === 'ai-audit') return 'ai-audit'
     if (initialService === 'publication' && initialSection === 'book') return 'book'
     if (initialService === 'publication' || initialSection === 'journal') return 'journal'
     return 'editing'
@@ -310,6 +311,14 @@ function OrderContent() {
       icon: <IconBook2 size={18} />,
       badge: '5 Stages',
       sub: 'Per-stage or pipeline',
+    },
+    {
+      id: 'ai-audit' as const,
+      label: 'AI Manuscript Audit',
+      shortLabel: 'AI Audit',
+      icon: <IconShieldCheck size={18} />,
+      badge: 'From $29',
+      sub: 'Pre-submission risk audit',
     },
   ]
 
@@ -411,6 +420,13 @@ function OrderContent() {
         <BookTabBody
           active={active}
           hlStage={hlStage}
+        />
+      )}
+
+      {activeTab === 'ai-audit' && (
+        <AiAuditTabBody
+          active={active}
+          hlTier={hlTier}
         />
       )}
 
@@ -792,6 +808,194 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                         </Box>
                       </Table.Td>
                     ))}
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </Box>
+        </Container>
+      </Box>
+    </Box>
+  )
+}
+
+// ─── AI MANUSCRIPT AUDIT TAB BODY ─────────────────────────────────────────────
+
+const aiAuditTiers = [
+  {
+    id: 'single',
+    name: 'Single Manuscript Audit',
+    badge: 'ACCESSIBLE ENTRY',
+    price: '$29',
+    priceNum: 29,
+    turnaround: '24–48 hours',
+    isPopular: true,
+    tagline: 'Audit your AI-assisted research before journal submission — citation accuracy, literature gaps & peer-review risks.',
+    features: [
+      'Complete section-by-section diagnostic breakdown (Abstract to Conclusion)',
+      'Citation verification & gap analysis benchmarked against 200M+ research papers',
+      'Detection of fabricated, misattributed or hallucinated references',
+      'Structural consistency & argument alignment audit across all sections',
+      'Target journal scope matching & rejection risk assessment',
+      '1-Page Executive Faculty Risk Memo identifying critical vulnerabilities',
+      'Optional 15-minute debrief consultation with Micah Dobson',
+      '100% Fee Credit: $29 credited toward full editing if scoped',
+    ],
+  },
+  {
+    id: 'bundle',
+    name: 'Revision Bundle (3 Reviews)',
+    badge: 'BEST VALUE FOR REVISIONS',
+    price: '$69',
+    priceNum: 69,
+    turnaround: '24–48 hours / review',
+    isPopular: false,
+    tagline: 'Three full manuscript audits across your project lifecycle: draft, revision, and pre-deposit.',
+    features: [
+      '3 complete manuscript audits across your project lifecycle:',
+      '• Review 1: Initial pre-submission AI & citation screening',
+      '• Review 2: Post-advisor or committee revision verification',
+      '• Review 3: Final pre-submission / camera-ready proof check',
+      'Everything in Single Audit included for all 3 drafts',
+      'Priority 24-hour diagnostic turnaround queue',
+      'Direct follow-up consultation with Micah Dobson after each review',
+      '100% Fee Credit: $69 credited toward full developmental editing',
+    ],
+  },
+]
+
+const aiAuditComparison = [
+  { feature: 'Citation & DOI Verification (200M+ papers)', single: true, bundle: true },
+  { feature: 'Hallucinated, Retracted & Misattributed Reference Detection', single: true, bundle: true },
+  { feature: 'Section-by-Section Argument & Logic Coherence', single: true, bundle: true },
+  { feature: 'Methods-to-Results Alignment Check', single: true, bundle: true },
+  { feature: 'Target Journal Fit & Rejection Risk Screening', single: true, bundle: true },
+  { feature: '1-Page Executive Faculty Risk Memo', single: true, bundle: true },
+  { feature: 'Optional 15-Minute Zoom Debrief with Micah Dobson', single: true, bundle: true },
+  { feature: '100% Fee Credit Toward Full Word Track-Changes Editing', single: '$29 Credit', bundle: '$69 Credit' },
+  { feature: 'Number of Full Manuscript Audits Included', single: '1 Draft', bundle: '3 Drafts' },
+  { feature: 'Post-Revision & Camera-Ready Re-audit', single: false, bundle: true },
+]
+
+function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hlTier: string }) {
+  return (
+    <Box>
+      {/* Cards section */}
+      <Box py={SECTION_SPACING} bg={active.surface}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Box mb={rem(40)} style={{ maxWidth: 740 }}>
+            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
+              PRE-SUBMISSION INTEGRITY & SCIENTIFIC AUDIT
+            </Text>
+            <Title order={2} mt={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.8rem, 3.2vw, 2.4rem)', color: active.primary, lineHeight: 1.2 }}>
+              Audit what your AI missed before journal editors see it
+            </Title>
+            <Text size="sm" c="dimmed" mt={rem(8)} lh={1.7}>
+              AI helped you write your draft. Now get it independently audited against 200M+ research papers to surface hallucinated citations, missing literature, and logical gaps. Delivered in 24–48 hours with 100% fee credit toward full editing.
+            </Text>
+          </Box>
+
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)} style={{ maxWidth: 960 }}>
+            {aiAuditTiers.map((tier) => {
+              const isHighlighted = hlTier === tier.id || (!hlTier && tier.isPopular)
+              return (
+                <Box
+                  key={tier.id}
+                  p={rem(36)}
+                  bg={active.background}
+                  style={{
+                    border: `1px solid ${isHighlighted ? active.accent : `${active.primary}12`}`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: isHighlighted ? `0 8px 32px ${active.accent}14` : 'none',
+                    position: 'relative',
+                  }}
+                >
+                  {isHighlighted && (
+                    <Box px={rem(10)} py={rem(4)} mb="md" style={{ backgroundColor: active.accent, alignSelf: 'flex-start' }}>
+                      <Text size="xs" fw={700} c="#fff" style={{ letterSpacing: '0.1em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                        {hlTier ? 'YOUR SELECTION' : 'RECOMMENDED'}
+                      </Text>
+                    </Box>
+                  )}
+                  <Stack gap="md" flex={1}>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>{tier.badge}</Text>
+                    <Box>
+                      <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(22), fontWeight: 600, color: active.primary, lineHeight: 1.2 }}>{tier.name}</Title>
+                      <Text size="xs" c="dimmed" mt={rem(4)} lh={1.5}>{tier.tagline}</Text>
+                    </Box>
+                    <Box my="xs">
+                      <Text style={{ fontSize: rem(34), fontFamily: 'var(--font-serif)', fontWeight: 600, color: active.primary, lineHeight: 1 }}>{tier.price}</Text>
+                      <Text size="xs" c="dimmed" mt={rem(4)}>Turnaround: {tier.turnaround}</Text>
+                    </Box>
+                    <Divider color={`${active.primary}10`} />
+                    <Stack gap={rem(8)} flex={1}>
+                      {tier.features.map((f, i) => (
+                        <Group key={i} gap={rem(8)} align="flex-start" wrap="nowrap">
+                          <IconCheck size={13} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                          <Text size="xs" c="dimmed" lh={1.5}>{f}</Text>
+                        </Group>
+                      ))}
+                    </Stack>
+                    <Link
+                      href={`/scholarcrafted/request-review?service=ai-audit&tier=${tier.id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={15} />}
+                        style={{
+                          backgroundColor: isHighlighted ? active.accent : active.primary,
+                          color: '#fff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                          height: rem(48),
+                        }}>
+                        Order {tier.name}
+                      </Button>
+                    </Link>
+                  </Stack>
+                </Box>
+              )
+            })}
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* Audit Matrix Table */}
+      <Box py={rem(48)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}10` }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+          <Box mb={rem(24)}>
+            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
+              FEATURE BREAKDOWN
+            </Text>
+            <Title order={3} mt={rem(4)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), fontWeight: 600, color: active.primary }}>
+              Compare AI Manuscript Audit Options
+            </Title>
+          </Box>
+
+          <Box style={{ overflowX: 'auto' }}>
+            <Table withRowBorders={false} style={{ minWidth: 680 }}>
+              <Table.Thead>
+                <Table.Tr style={{ borderBottom: `2px solid ${active.primary}20` }}>
+                  <Table.Th style={{ width: '50%', padding: `${rem(14)} ${rem(20)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.08em', color: '#888', borderColor: `${active.primary}10` }}>AUDIT CAPABILITY</Table.Th>
+                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Single Audit ($29)</Table.Th>
+                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.accent, borderColor: `${active.primary}10` }}>Revision Bundle ($69) ★</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {aiAuditComparison.map((row, i) => (
+                  <Table.Tr key={i} style={{ borderBottom: `1px solid ${active.primary}08`, backgroundColor: i % 2 === 0 ? 'transparent' : `${active.primary}02` }}>
+                    <Table.Td style={{ padding: `${rem(12)} ${rem(20)}`, fontSize: rem(13), color: active.primary, lineHeight: 1.4, borderColor: `${active.primary}08` }}>{row.feature}</Table.Td>
+                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                        <MatrixCell val={row.single} />
+                      </Box>
+                    </Table.Td>
+                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08`, backgroundColor: `${active.accent}04` }}>
+                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                        <MatrixCell val={row.bundle} />
+                      </Box>
+                    </Table.Td>
                   </Table.Tr>
                 ))}
               </Table.Tbody>
