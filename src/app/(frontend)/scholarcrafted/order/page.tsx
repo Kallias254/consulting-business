@@ -733,6 +733,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                   key={s.step}
                   onClick={() => setActiveIdx(i)}
                   px={rem(isFull ? 22 : 18)} py={rem(12)}
+                  data-dark-bg={isActive ? 'true' : undefined}
                   style={{
                     backgroundColor: isActive
                       ? (isFull ? active.accent : active.primary)
@@ -744,15 +745,20 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                     cursor: 'pointer',
                   }}
                 >
-                  <Text size="xs" fw={700} style={{
-                    letterSpacing: '0.08em',
-                    color: isActive ? (isFull ? '#fff' : active.accent) : '#888',
-                  }}>
+                  <Text
+                    size="xs"
+                    fw={700}
+                    data-accent={isActive && !isFull ? 'true' : undefined}
+                    style={{ letterSpacing: '0.08em' }}
+                  >
                     {isFull ? '★' : s.step}
                   </Text>
-                  <Text size="xs" fw={isActive ? 700 : 500} mt={rem(2)} style={{
-                    color: isActive ? '#ffffff' : active.primary,
-                  }}>
+                  <Text
+                    size="xs"
+                    fw={isActive ? 700 : 500}
+                    mt={rem(2)}
+                    style={{ color: isActive ? undefined : active.primary }}
+                  >
                     {s.title}
                   </Text>
                 </UnstyledButton>
