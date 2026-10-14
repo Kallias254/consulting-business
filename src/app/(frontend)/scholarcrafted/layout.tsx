@@ -54,7 +54,7 @@ export default function ScholarCraftedLayout({ children }: { children: React.Rea
         .scholarcrafted-root [data-dark-bg="true"] p,
         .scholarcrafted-root [data-dark-bg="true"] span,
         .scholarcrafted-root [data-dark-bg="true"] div {
-           color: #ffffff;
+           color: #ffffff !important;
         }
 
         .scholarcrafted-root [data-accent="true"] {
