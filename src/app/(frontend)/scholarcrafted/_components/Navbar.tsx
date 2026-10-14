@@ -204,7 +204,7 @@ export function Navbar() {
               </Link>
 
               {/* CTA */}
-              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none' }}>
                 <Button
                   variant="filled"
                   size="sm"
@@ -371,7 +371,7 @@ export function Navbar() {
               backgroundColor: active.background,
             }}
           >
-            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none' }} onClick={close}>
               <Button
                 variant="filled"
                 fullWidth

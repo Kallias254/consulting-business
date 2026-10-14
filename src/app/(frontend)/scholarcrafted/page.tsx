@@ -1072,7 +1072,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                     <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
                       Not sure which tier? Submit your manuscript for a free scope assessment — reply in 24 hours.
                     </Text>
-                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
+                    <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
                       <Button
                         variant="filled"
                         radius={0}
@@ -1269,7 +1269,7 @@ export default function ScholarCraftedLanding() {
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
                 <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
-                  <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1367,7 +1367,7 @@ export default function ScholarCraftedLanding() {
                 num: '01',
                 label: 'Submit Your Manuscript',
                 desc: 'Upload your document and describe the deadline, style guide, and scope. No call required to start.',
-                link: '/scholarcrafted/request-review',
+                link: '/scholarcrafted/order?service=editing&tier=premium',
                 cta: 'Submit Now →',
               },
               {
