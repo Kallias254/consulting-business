@@ -234,18 +234,35 @@ const bookStages = [
       'Built using professional indexing software (Cindex / SKY Index)',
     ],
   },
+  {
+    step: 'FULL', title: 'Full 5-Stage Pipeline',
+    subtitle: 'From publisher selection to printed book — coordinated by Micah Dobson.',
+    desc: 'Complete end-to-end monograph publishing: publisher ranking, acquisition proposal, manuscript editing, galley proof review, and back-of-book indexing. One point of contact from contract to press.',
+    price: 'Custom Scoped Bundle', turnaround: 'Contract to Press',
+    isPipeline: true,
+    includes: [
+      'Publisher ranking report (3–5 matched academic presses)',
+      'Acquisition-ready book proposal formatted to target press requirements',
+      'Full manuscript line editing to academic press standards',
+      'First- and second-pass galley proof review',
+      'Professional subject & author index (press-spec delivery)',
+      'Coordinated by Micah Dobson — single point of contact throughout',
+      'Milestone schedule aligned to press submission deadlines',
+      '50% deposit on contract, 50% on final delivery',
+    ],
+  },
 ]
 
 const bookMatrix = [
-  { row: 'Publisher ranking report (3–5 presses)', s01: true, s02: false, s03: false, s04: false, s05: false },
-  { row: 'Acquisition-ready book proposal', s01: false, s02: true, s03: false, s04: false, s05: false },
-  { row: 'Line editing (full manuscript, tracked changes)', s01: false, s02: false, s03: true, s04: false, s05: false },
-  { row: 'Style manual conformity (Chicago / APA / press-specific)', s01: false, s02: false, s03: true, s04: false, s05: false },
-  { row: 'Reference list audit & DOI verification', s01: false, s02: false, s03: true, s04: false, s05: false },
-  { row: 'Typesetting error detection & galley mark-up', s01: false, s02: false, s03: false, s04: true, s05: false },
-  { row: 'Copyeditor query resolution', s01: false, s02: false, s03: false, s04: true, s05: false },
-  { row: 'Subject & author index (press-spec)', s01: false, s02: false, s03: false, s04: false, s05: true },
-  { row: 'Press-ready delivery (Word / RTF / plain text)', s01: false, s02: false, s03: false, s04: false, s05: true },
+  { row: 'Publisher ranking report (3–5 presses)', s01: true, s02: false, s03: false, s04: false, s05: false, sFULL: true },
+  { row: 'Acquisition-ready book proposal', s01: false, s02: true, s03: false, s04: false, s05: false, sFULL: true },
+  { row: 'Line editing (full manuscript, tracked changes)', s01: false, s02: false, s03: true, s04: false, s05: false, sFULL: true },
+  { row: 'Style manual conformity (Chicago / APA / press-specific)', s01: false, s02: false, s03: true, s04: false, s05: false, sFULL: true },
+  { row: 'Reference list audit & DOI verification', s01: false, s02: false, s03: true, s04: false, s05: false, sFULL: true },
+  { row: 'Typesetting error detection & galley mark-up', s01: false, s02: false, s03: false, s04: true, s05: false, sFULL: true },
+  { row: 'Copyeditor query resolution', s01: false, s02: false, s03: false, s04: true, s05: false, sFULL: true },
+  { row: 'Subject & author index (press-spec)', s01: false, s02: false, s03: false, s04: false, s05: true, sFULL: true },
+  { row: 'Press-ready delivery (Word / RTF / plain text)', s01: false, s02: false, s03: false, s04: false, s05: true, sFULL: true },
 ]
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -700,58 +717,47 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
     return found >= 0 ? found : 0
   })
   const selected = bookStages[activeIdx]
+  const isPipeline = (selected as typeof bookStages[0] & { isPipeline?: boolean }).isPipeline === true
 
   return (
     <Box>
-      {/* Full Pipeline Banner */}
-      <Box py={rem(32)} bg={active.primary} style={{ color: '#fff' }} data-dark-bg="true" className="dark-scholar-section">
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Group justify="space-between" align="center" wrap="wrap" gap="md">
-            <Box style={{ maxWidth: 640 }}>
-              <Text size="xs" fw={700} c={active.accent} data-accent="true" style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
-                End-to-End Book Publication Pack
-              </Text>
-              <Title order={2} mt={rem(4)} c="#ffffff" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(22), fontWeight: 600, color: '#ffffff !important' }}>
-                Full 5-Stage Publishing Pipeline
-              </Title>
-              <Text size="xs" mt={rem(6)} lh={1.6} c="rgba(255,255,255,0.85)" data-dimmed-light="true" style={{ color: 'rgba(255,255,255,0.85) !important' }}>
-                Publisher selection → acquisition proposal → line editing → galley review → back-of-book indexing.
-                Coordinated by Micah Dobson from contract to press.
-              </Text>
-            </Box>
-            <Link href="/scholarcrafted/request-review?service=publication&section=book&pipeline=full" style={{ textDecoration: 'none' }}>
-              <Button size="md" radius={0} rightSection={<IconArrowRight size={15} />}
-                style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em' }}>
-                Enquire Full Pipeline
-              </Button>
-            </Link>
-          </Group>
-        </Container>
-      </Box>
-
-      {/* Horizontal 5-stage selector */}
+      {/* Horizontal stage selector — 5 individual stages + Full Pipeline tab */}
       <Box py={rem(24)} bg={active.surface} style={{ borderBottom: `1px solid ${active.primary}12` }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Group gap={rem(4)} wrap="nowrap" style={{ overflowX: 'auto', paddingBottom: rem(4) }}>
-            {bookStages.map((s, i) => (
-              <UnstyledButton
-                key={s.step}
-                onClick={() => setActiveIdx(i)}
-                px={rem(18)} py={rem(12)}
-                data-dark-bg={i === activeIdx ? 'true' : undefined}
-                style={{
-                  backgroundColor: i === activeIdx ? active.primary : active.background,
-                  color: i === activeIdx ? '#ffffff' : active.primary,
-                  border: `1px solid ${i === activeIdx ? active.primary : `${active.primary}14`}`,
-                  flexShrink: 0,
-                  transition: 'all 0.15s ease',
-                  cursor: 'pointer',
-                }}
-              >
-                <Text size="xs" fw={700} c={i === activeIdx ? active.accent : '#888'} data-accent={i === activeIdx ? 'true' : undefined} style={{ letterSpacing: '0.08em' }}>{s.step}</Text>
-                <Text size="xs" fw={i === activeIdx ? 700 : 500} mt={rem(2)} c={i === activeIdx ? '#ffffff' : active.primary} style={{ color: i === activeIdx ? '#ffffff !important' : active.primary }}>{s.title}</Text>
-              </UnstyledButton>
-            ))}
+            {bookStages.map((s, i) => {
+              const isFull = (s as typeof s & { isPipeline?: boolean }).isPipeline === true
+              const isActive = i === activeIdx
+              return (
+                <UnstyledButton
+                  key={s.step}
+                  onClick={() => setActiveIdx(i)}
+                  px={rem(isFull ? 22 : 18)} py={rem(12)}
+                  style={{
+                    backgroundColor: isActive
+                      ? (isFull ? active.accent : active.primary)
+                      : active.background,
+                    color: isActive ? '#ffffff' : active.primary,
+                    border: `1px solid ${isActive ? (isFull ? active.accent : active.primary) : `${active.primary}14`}`,
+                    flexShrink: 0,
+                    transition: 'all 0.15s ease',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Text size="xs" fw={700} style={{
+                    letterSpacing: '0.08em',
+                    color: isActive ? (isFull ? '#fff' : active.accent) : '#888',
+                  }}>
+                    {isFull ? '★' : s.step}
+                  </Text>
+                  <Text size="xs" fw={isActive ? 700 : 500} mt={rem(2)} style={{
+                    color: isActive ? '#ffffff' : active.primary,
+                  }}>
+                    {s.title}
+                  </Text>
+                </UnstyledButton>
+              )
+            })}
           </Group>
         </Container>
       </Box>
@@ -760,25 +766,62 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(32)}>
-            <Box p={{ base: rem(28), md: rem(40) }} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+            <Box
+              p={{ base: rem(28), md: rem(40) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${isPipeline ? active.accent + '40' : `${active.primary}12`}`,
+                position: 'relative',
+              }}
+            >
+              {isPipeline && (
+                <Box
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: rem(3),
+                    backgroundColor: active.accent,
+                  }}
+                />
+              )}
               <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)}>
                 <Stack gap="md">
-                  <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>STAGE {selected.step}</Text>
-                  <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary, lineHeight: 1.2 }}>{selected.title}</Title>
-                  <Text size="sm" c="dimmed" lh={1.7}>{selected.desc}</Text>
+                  <Text size="xs" fw={700} style={{ letterSpacing: '0.14em', color: active.accent, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    {isPipeline ? 'END-TO-END PIPELINE' : `STAGE ${selected.step}`}
+                  </Text>
+                  <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary, lineHeight: 1.2 }}>
+                    {selected.title}
+                  </Title>
+                  <Text size="sm" c="dimmed" lh={1.7}>{selected.subtitle}</Text>
+                  <Text size="sm" lh={1.7} style={{ color: active.primary }}>{selected.desc}</Text>
                   <Box my="xs">
-                    <Text style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', fontWeight: 600, color: active.primary }}>{selected.price}</Text>
+                    <Text style={{ fontSize: rem(24), fontFamily: 'var(--font-serif)', fontWeight: 600, color: active.primary }}>
+                      {selected.price}
+                    </Text>
                     <Text size="xs" c="dimmed" mt={rem(4)}>Turnaround: {selected.turnaround}</Text>
                   </Box>
-                  <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selected.step}`} style={{ textDecoration: 'none' }}>
-                    <Button radius={0} size="md" rightSection={<IconArrowRight size={15} />}
-                      style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
-                      Select Stage {selected.step} ({selected.title})
-                    </Button>
-                  </Link>
+                  {isPipeline ? (
+                    <Link href="/scholarcrafted/request-review?service=publication&section=book&pipeline=full" style={{ textDecoration: 'none' }}>
+                      <Button radius={0} size="md" rightSection={<IconArrowRight size={15} />}
+                        style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
+                        Enquire Full 5-Stage Pipeline →
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selected.step}`} style={{ textDecoration: 'none' }}>
+                      <Button radius={0} size="md" rightSection={<IconArrowRight size={15} />}
+                        style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
+                        Select Stage {selected.step} ({selected.title})
+                      </Button>
+                    </Link>
+                  )}
                 </Stack>
                 <Stack gap="md">
-                  <Text size="xs" fw={700} style={{ letterSpacing: '0.12em', color: active.primary, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>WHAT IS INCLUDED</Text>
+                  <Text size="xs" fw={700} style={{ letterSpacing: '0.12em', color: active.primary, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    {isPipeline ? 'EVERYTHING IN THE BUNDLE' : 'WHAT IS INCLUDED'}
+                  </Text>
                   {selected.includes.map((inc, i) => (
                     <Group key={i} gap={rem(10)} align="flex-start" wrap="nowrap">
                       <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -797,23 +840,26 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>WHAT YOU GET AT EACH STAGE</Text>
           <Box style={{ overflowX: 'auto' }}>
-            <Table withColumnBorders style={{ minWidth: 700, borderCollapse: 'collapse' }}>
+            <Table withColumnBorders style={{ minWidth: 780, borderCollapse: 'collapse' }}>
               <Table.Thead>
                 <Table.Tr style={{ backgroundColor: active.background }}>
-                  <Table.Th style={{ width: '38%', padding: `${rem(14)} ${rem(20)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.08em', color: '#888', borderColor: `${active.primary}10` }}>DELIVERABLE</Table.Th>
-                  {bookStages.map(s => (
-                    <Table.Th key={s.step} style={{ textAlign: 'center', padding: `${rem(12)} ${rem(10)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(11), letterSpacing: '0.04em', color: active.primary, borderColor: `${active.primary}10`, lineHeight: 1.3 }}>
-                      {s.step}<br /><span style={{ fontWeight: 400, color: '#888' }}>{s.title}</span>
-                    </Table.Th>
-                  ))}
+                  <Table.Th style={{ width: '34%', padding: `${rem(14)} ${rem(20)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.08em', color: '#888', borderColor: `${active.primary}10` }}>DELIVERABLE</Table.Th>
+                  {bookStages.map(s => {
+                    const isFull = (s as typeof s & { isPipeline?: boolean }).isPipeline === true
+                    return (
+                      <Table.Th key={s.step} style={{ textAlign: 'center', padding: `${rem(12)} ${rem(10)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(11), letterSpacing: '0.04em', color: isFull ? active.accent : active.primary, borderColor: `${active.primary}10`, lineHeight: 1.3, backgroundColor: isFull ? `${active.accent}08` : undefined }}>
+                        {isFull ? '★' : s.step}<br /><span style={{ fontWeight: isFull ? 700 : 400, color: isFull ? active.accent : '#888' }}>{s.title}</span>
+                      </Table.Th>
+                    )
+                  })}
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
                 {bookMatrix.map((row, i) => (
                   <Table.Tr key={i} style={{ backgroundColor: i % 2 === 0 ? active.background : active.surface }}>
                     <Table.Td style={{ padding: `${rem(12)} ${rem(20)}`, fontSize: rem(13), color: active.primary, lineHeight: 1.4, borderColor: `${active.primary}08` }}>{row.row}</Table.Td>
-                    {(['s01', 's02', 's03', 's04', 's05'] as const).map(col => (
-                      <Table.Td key={col} style={{ textAlign: 'center', padding: `${rem(12)} ${rem(10)}`, borderColor: `${active.primary}08` }}>
+                    {(['s01', 's02', 's03', 's04', 's05', 'sFULL'] as const).map(col => (
+                      <Table.Td key={col} style={{ textAlign: 'center', padding: `${rem(12)} ${rem(10)}`, borderColor: `${active.primary}08`, backgroundColor: col === 'sFULL' ? `${active.accent}06` : undefined }}>
                         <Box style={{ display: 'flex', justifyContent: 'center' }}>
                           <MatrixCell val={row[col]} />
                         </Box>
@@ -828,6 +874,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
       </Box>
     </Box>
   )
+
 }
 
 // ─── AI MANUSCRIPT AUDIT TAB BODY ─────────────────────────────────────────────
