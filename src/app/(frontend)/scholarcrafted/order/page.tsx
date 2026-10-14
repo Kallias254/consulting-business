@@ -273,21 +273,29 @@ function OrderContent() {
   const active = theme.other
   const searchParams = useSearchParams()
 
-  const initialService = searchParams.get('service') ?? 'editing'
+  const initialService = searchParams.get('service') ?? ''
   const initialSection = searchParams.get('section') ?? ''
   const hlTier         = searchParams.get('tier') ?? ''
   const hlStage        = searchParams.get('stage') ?? ''
 
   const [activeTab, setActiveTab] = useState<'editing' | 'journal' | 'book' | 'ai-audit'>(() => {
-    if (initialService === 'ai-audit') return 'ai-audit'
+    if (initialService === 'editing') return 'editing'
     if (initialService === 'publication' && initialSection === 'book') return 'book'
     if (initialService === 'publication' || initialSection === 'journal') return 'journal'
-    return 'editing'
+    return 'ai-audit'
   })
 
   const [calcWords, setCalcWords] = useState<number>(5000)
 
   const TABS = [
+    {
+      id: 'ai-audit' as const,
+      label: 'AI Manuscript Audit',
+      shortLabel: 'AI Audit',
+      icon: <IconShieldCheck size={18} />,
+      badge: 'From $29',
+      sub: 'Pre-submission risk audit',
+    },
     {
       id: 'editing' as const,
       label: 'English Editing & Compliance',
@@ -312,14 +320,6 @@ function OrderContent() {
       badge: '5 Stages',
       sub: 'Per-stage or pipeline',
     },
-    {
-      id: 'ai-audit' as const,
-      label: 'AI Manuscript Audit',
-      shortLabel: 'AI Audit',
-      icon: <IconShieldCheck size={18} />,
-      badge: 'From $29',
-      sub: 'Pre-submission risk audit',
-    },
   ]
 
   return (
@@ -339,63 +339,74 @@ function OrderContent() {
             Choose a service track below to compare plans, turnarounds, and deliverables. Select any plan to proceed directly to instant document upload.
           </Text>
 
-          {/* ── Horizontal Service Tabs ──────────────────────────────────────── */}
-          <Group gap={rem(10)} wrap="wrap">
-            {TABS.map((tab) => {
-              const isCurrent = activeTab === tab.id
-              return (
-                <UnstyledButton
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  px={rem(22)}
-                  py={rem(14)}
-                  data-dark-bg={isCurrent ? 'true' : undefined}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: rem(12),
-                    backgroundColor: isCurrent ? active.primary : active.surface,
-                    color: isCurrent ? '#ffffff' : active.primary,
-                    border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
-                    borderRadius: 0,
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    fontWeight: isCurrent ? 700 : 600,
-                    fontSize: rem(14),
-                    transition: 'all 0.18s ease',
-                    boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Box style={{ color: isCurrent ? active.accent : active.accent, display: 'flex' }}>
-                    {tab.icon}
-                  </Box>
-                  <Box>
-                    <Text size="sm" fw={isCurrent ? 700 : 600} c={isCurrent ? '#ffffff' : active.primary} style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}>
-                      {tab.label}
-                    </Text>
-                    <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
-                      {tab.sub}
-                    </Text>
-                  </Box>
-                  <Box
-                    px={rem(8)}
-                    py={rem(3)}
+          {/* ── Single-Line Horizontal Service Tabs ───────────────────────────── */}
+          <Box
+            style={{
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch',
+              paddingBottom: rem(6),
+            }}
+          >
+            <Group gap={rem(10)} wrap="nowrap" style={{ minWidth: 'max-content' }}>
+              {TABS.map((tab) => {
+                const isCurrent = activeTab === tab.id
+                return (
+                  <UnstyledButton
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    px={rem(20)}
+                    py={rem(13)}
+                    data-dark-bg={isCurrent ? 'true' : undefined}
                     style={{
-                      backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
-                      fontSize: rem(11),
-                      fontWeight: 700,
-                      color: isCurrent ? '#ffffff' : '#666',
-                      marginLeft: rem(4),
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: rem(12),
+                      backgroundColor: isCurrent ? active.primary : active.surface,
+                      color: isCurrent ? '#ffffff' : active.primary,
+                      border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
+                      borderRadius: 0,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      fontWeight: isCurrent ? 700 : 600,
+                      fontSize: rem(14),
+                      transition: 'all 0.18s ease',
+                      boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
+                      cursor: 'pointer',
+                      flexShrink: 0,
                     }}
                   >
-                    <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
-                      {tab.badge}
-                    </Text>
-                  </Box>
-                </UnstyledButton>
-              )
-            })}
-          </Group>
+                    <Box style={{ color: isCurrent ? active.accent : active.accent, display: 'flex' }}>
+                      {tab.icon}
+                    </Box>
+                    <Box>
+                      <Text size="sm" fw={isCurrent ? 700 : 600} c={isCurrent ? '#ffffff' : active.primary} style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}>
+                        {tab.label}
+                      </Text>
+                      <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
+                        {tab.sub}
+                      </Text>
+                    </Box>
+                    <Box
+                      px={rem(8)}
+                      py={rem(3)}
+                      style={{
+                        backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
+                        fontSize: rem(11),
+                        fontWeight: 700,
+                        color: isCurrent ? '#ffffff' : '#666',
+                        marginLeft: rem(4),
+                      }}
+                    >
+                      <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
+                        {tab.badge}
+                      </Text>
+                    </Box>
+                  </UnstyledButton>
+                )
+              })}
+            </Group>
+          </Box>
         </Container>
       </Box>
 

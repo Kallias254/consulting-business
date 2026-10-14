@@ -55,6 +55,12 @@ export function Navbar() {
 
   const services = [
     {
+      href: '/scholarcrafted/services/ai-manuscript-audit',
+      icon: <IconShieldCheck size={20} />,
+      label: 'AI Manuscript Audit',
+      desc: 'Audit your AI-assisted research before journal submission. Citation gaps, risk analysis & debrief.',
+    },
+    {
       href: '/scholarcrafted/services/editing-proofreading',
       icon: <IconPencil size={20} />,
       label: 'Editing & Compliance',
@@ -65,12 +71,6 @@ export function Navbar() {
       icon: <IconBook2 size={20} />,
       label: 'Publication Support',
       desc: 'Journal selection, cover letters, book proposals, galley proofs & indexing.',
-    },
-    {
-      href: '/scholarcrafted/services/ai-manuscript-audit',
-      icon: <IconShieldCheck size={20} />,
-      label: 'AI Manuscript Audit',
-      desc: 'Audit your AI-assisted research before journal submission. Citation gaps, risk analysis & debrief.',
     },
   ]
 
