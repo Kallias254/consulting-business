@@ -167,44 +167,44 @@ const homeNeeds = [
   {
     id: 'citations-mess',
     label: 'My citations are a mess — Zotero broke, references don\'t match',
-    subLabel: 'Reference audit and reconstruction',
-    serviceIds: ['editing'],
-    recommended: 'editing',
+    subLabel: 'Reference audit, DOI verification & AI integrity check',
+    serviceIds: ['ai_audit', 'editing'],
+    recommended: 'ai_audit',
   },
   {
     id: 'thesis-to-article',
     label: 'I want to turn my dissertation into a journal article',
     subLabel: 'Structural conversion and journal formatting',
-    serviceIds: ['publication'],
-    recommended: 'publication',
+    serviceIds: ['journal'],
+    recommended: 'journal',
   },
   {
     id: 'revise-resubmit',
     label: 'I received a Revise & Resubmit — I need help responding to reviewers',
     subLabel: 'Response matrix and revision packaging',
-    serviceIds: ['publication'],
-    recommended: 'publication',
+    serviceIds: ['journal'],
+    recommended: 'journal',
   },
   {
     id: 'rejected-resubmit',
     label: 'My paper was rejected and I need to target a different journal',
     subLabel: 'Resubmission formatting and new journal selection',
-    serviceIds: ['publication'],
-    recommended: 'publication',
+    serviceIds: ['journal'],
+    recommended: 'journal',
   },
   {
     id: 'book-proposal',
     label: 'I\'m writing a book proposal for Oxford, Routledge, or a press',
     subLabel: 'Proposal packaging to publisher template',
-    serviceIds: ['publication'],
-    recommended: 'publication',
+    serviceIds: ['book_proposal'],
+    recommended: 'book_proposal',
   },
   {
     id: 'galley-proofs',
     label: 'My press sent galley proofs and I need an index built',
     subLabel: 'Back-of-book indexing and proof review',
-    serviceIds: ['publication'],
-    recommended: 'publication',
+    serviceIds: ['book_indexing'],
+    recommended: 'book_indexing',
   },
 ]
 
@@ -212,18 +212,39 @@ const homeServices: Record<string, {
   badge: string; title: string; desc: string; link: string; cta: string
 }> = {
   editing: {
-    badge: 'From $0.046 / word',
-    title: 'Editing & Compliance',
-    desc: 'Line-by-line editing for language, structure, and academic tone. Reference cleanup, DOI verification, citation style conformity, and institutional compliance — all delivered in tracked changes.',
-    link: '/scholarcrafted/services/editing-proofreading',
-    cta: 'View Editing Tiers',
+    badge: 'From $0.0425 / word',
+    title: 'English Editing & Compliance',
+    desc: 'Line-by-line editing for language, structure, and academic tone. Reference cleanup, DOI verification, citation style conformity, and institutional compliance — all delivered in Word tracked changes.',
+    link: '/scholarcrafted/order?service=editing',
+    cta: 'Calculate Editing Fee',
   },
-  publication: {
-    badge: 'Flat Package or Per Stage',
-    title: 'Publication Support',
-    desc: 'Journal selection, submission formatting, cover letters, and response letters for articles. Publisher selection, book proposals, galley proof review, and indexing for books.',
-    link: '/scholarcrafted/services/publication-support',
-    cta: 'Explore Publication Support',
+  ai_audit: {
+    badge: 'From $29 (100% Credited Toward Editing)',
+    title: 'AI Manuscript Audit & Integrity Diagnostic',
+    desc: 'Pre-submission integrity screening against 200M+ research papers. Detects fabricated citations, retracted DOIs, AI-writing indicators, and methods-to-results drift before committee or journal review.',
+    link: '/scholarcrafted/order?service=ai-audit',
+    cta: 'Order Manuscript Audit ($29)',
+  },
+  journal: {
+    badge: 'Flat-Fee Packages',
+    title: 'Journal Publication Support',
+    desc: 'Target journal matching, submission formatting, point-by-point Revise & Resubmit response matrices, and tailored cover letters to overcome peer-review hurdles.',
+    link: '/scholarcrafted/order?service=journal',
+    cta: 'View Journal Packages',
+  },
+  book_proposal: {
+    badge: 'Stage 02 • $480 Flat',
+    title: 'Book Acquisition Proposal Packaging',
+    desc: 'Acquisition-ready monograph proposal written to target academic press requirements (Oxford, Cambridge, Routledge, SAGE). Includes market analysis, chapter outline, and sample polish.',
+    link: '/scholarcrafted/order?service=book&stage=02',
+    cta: 'Select Proposal Packaging',
+  },
+  book_indexing: {
+    badge: 'Stage 05 • $3 / Typeset Page',
+    title: 'Back-of-Book Subject & Author Indexing',
+    desc: 'Comprehensive, press-grade back-of-book index constructed to university press and Cindex specifications. Formatted for immediate delivery to your production editor.',
+    link: '/scholarcrafted/order?service=book&stage=05',
+    cta: 'Select Book Indexing',
   },
 }
 
@@ -253,48 +274,47 @@ const stageData: ResearchStageItem[] = [
   {
     step: 'STEP 01',
     label: 'Write your document',
-    subtitle: 'Pre-draft scoping, chapter structuring & proposal preparation',
+    subtitle: 'Proposal packaging, thesis conversion & initial draft structuring',
     stageOverview:
-      'For researchers drafting their initial chapters, framing their thesis statement, or converting raw findings into structured scholarship.',
+      'For researchers preparing their initial proposal dossier, framing their thesis statement, or converting raw dissertation research into publishable scholarship.',
     services: [
       {
-        badge: 'Structural Polish',
-        title: 'Pre-Draft Scoping & Argument Architecture',
-        tagline: 'Establish bulletproof argumentative progression, chapter sequence, and literature review framing before locking in text.',
-        rate: '$0.065 / word or Custom Project Scope',
-        isRecommended: true,
-        features: [
-          'Literature positioning & theoretical framework audit',
-          'Chapter roadmap & narrative progression memo',
-          'Elimination of conceptual redundancies and discursive drift',
-          'Direct advisory memo from senior discipline editor',
-        ],
-        whenToChoose: [
-          'If you have rough chapter drafts or an unintegrated dissertation prospectus.',
-          'If your supervisor noted your overarching narrative or research question feels unfocused.',
-          'If you want to prevent weeks of rewriting later by locking in structure now.',
-        ],
-        link: '/scholarcrafted/services/publication-support',
-        cta: 'Enquire About Scoping',
-      },
-      {
-        badge: 'Turnaround: 3–5 Days',
-        title: 'Proposal & Outline Packaging',
-        tagline: 'Format and refine your book or dissertation proposal according to publisher or graduate school requirements.',
-        rate: 'Flat Project Rate',
+        badge: 'Dissertation Conversion',
+        title: 'Thesis-to-Journal Article Scoping',
+        tagline: 'Extract and structure the publishable empirical core of your dissertation into a tight 7,000–9,000 word standalone article format.',
+        rate: 'Custom Scope / Project Package',
         isRecommended: false,
         features: [
-          'Adherence to university graduate school prospectus rules',
-          'Chapter synopsis development & target audience framing',
-          'Sample chapter copyediting & style calibration',
-          'Executive summary / abstract polish',
+          'Extraction of primary empirical contribution from sprawling thesis chapters',
+          'Restructuring into IMRaD or target disciplinary article framework',
+          'Elimination of thesis scaffolding, excessive literature review & appendices',
+          'Target journal scope alignment & word count strict compliance',
         ],
         whenToChoose: [
-          'If you are preparing a book proposal for Routledge, Oxford, or Cambridge.',
-          'If you need committee sign-off on your dissertation proposal or candidacy dossier.',
+          'If you graduated with a thesis and must publish articles for job market or tenure applications.',
+          'If you are overwhelmed trying to cut 20,000 words down to journal length without losing rigor.',
         ],
-        link: '/scholarcrafted/services/publication-support',
-        cta: 'Explore Proposal Options',
+        link: '/scholarcrafted/order?service=journal',
+        cta: 'Explore Article Scoping',
+      },
+      {
+        badge: 'Stage 02 • $480 Flat',
+        title: 'Book Acquisition Proposal Packaging',
+        tagline: 'Complete acquisition-ready monograph proposal written to target academic press requirements (Oxford, Cambridge, Routledge, SAGE).',
+        rate: '$480 flat rate',
+        isRecommended: false,
+        features: [
+          'Chapter-by-chapter outline with detailed synopsis for each chapter',
+          'Target academic audience and market differentiation analysis',
+          'Sample chapter copyediting & tone calibration to press standards',
+          'Author credentials and platform positioning summary',
+        ],
+        whenToChoose: [
+          'If you are preparing a book proposal for Routledge, Oxford, Cambridge, or a university press.',
+          'If you need committee sign-off on your dissertation prospectus or monograph proposal.',
+        ],
+        link: '/scholarcrafted/order?service=book&stage=02',
+        cta: 'Select Proposal Packaging',
       },
     ],
   },
@@ -306,10 +326,10 @@ const stageData: ResearchStageItem[] = [
       'For manuscripts that are written but need rigorous language, syntax, flow, and committee-grade stylistic polish.',
     services: [
       {
-        badge: 'Starts from $0.046 / word',
+        badge: 'Starts from $0.0425 / word',
         title: 'Advanced Line Editing',
         tagline: 'Comprehensive sentence-level editing for precision, academic tone, syntax, and discipline vocabulary.',
-        rate: '$0.046 / word',
+        rate: '$0.0425 / word',
         isRecommended: false,
         features: [
           'Full tracked changes in Microsoft Word',
@@ -323,15 +343,15 @@ const stageData: ResearchStageItem[] = [
           'If your deadline is approaching and you need an exhaustive language pass.',
           'If English is your second academic language or your prose needs native-speaker polish.',
         ],
-        link: '/scholarcrafted/services/editing-proofreading',
-        cta: 'View Advanced Editing',
+        link: '/scholarcrafted/order?service=editing&tier=advanced',
+        cta: 'Select Advanced Editing',
       },
       {
-        badge: 'BEST VALUE PACK • $0.065 / word',
+        badge: 'Structural Polish • $0.0650 / word',
         title: 'Premium Structural Editing',
         tagline: 'Deep structural and rhetorical refinement to ensure arguments withstand committee defense and peer review.',
-        rate: '$0.065 / word',
-        isRecommended: true,
+        rate: '$0.0650 / word',
+        isRecommended: false,
         features: [
           'All Advanced Line Editing features included',
           'Section-by-section pacing, transitions, and argument flow critique',
@@ -344,14 +364,14 @@ const stageData: ResearchStageItem[] = [
           'If your committee sent back notes regarding cohesion, clarity, or logical gaps.',
           'If you want complete peace of mind that your work is flawless before official review.',
         ],
-        link: '/scholarcrafted/services/editing-proofreading',
-        cta: 'View Premium Editing',
+        link: '/scholarcrafted/order?service=editing&tier=premium',
+        cta: 'Select Premium Editing',
       },
       {
-        badge: 'High Impact Track',
+        badge: 'Peer-Review Level • $0.0950 / word',
         title: 'Scientific & Technical Refinement Pro',
         tagline: 'Rigorous critique evaluating narrative coherence against top-tier academic publishing standards.',
-        rate: '$0.095 / word',
+        rate: '$0.0950 / word',
         isRecommended: false,
         features: [
           'All Premium Editing features included',
@@ -364,8 +384,8 @@ const stageData: ResearchStageItem[] = [
           'If targeting high-rejection journals (Q1, Nature, Lancet, top university presses).',
           'If submitting highly complex empirical or quantitative multi-study papers.',
         ],
-        link: '/scholarcrafted/services/editing-proofreading',
-        cta: 'View Scientific Pro',
+        link: '/scholarcrafted/order?service=editing&tier=scientific',
+        cta: 'Select Scientific Pro',
       },
     ],
   },
@@ -374,35 +394,16 @@ const stageData: ResearchStageItem[] = [
     label: 'Find top journals',
     subtitle: 'Journal matching, scope analysis & author guidelines compliance',
     stageOverview:
-      'For researchers preparing to select target outlets, align manuscript scope, or convert dissertations to article format.',
+      'For researchers preparing to select target outlets, align manuscript scope, or verify open-access compliance.',
     services: [
-      {
-        badge: 'Conversion Track',
-        title: 'Thesis-to-Journal Article Conversion',
-        tagline: 'Condense an 80,000-word dissertation chapter into a tight 7,000-to-9,000-word standalone journal submission.',
-        rate: 'Flat Project Rate',
-        isRecommended: true,
-        features: [
-          'Extraction of core empirical contribution from sprawling thesis chapters',
-          'Restructuring into IMRaD or standard disciplinary article format',
-          'Pruning of dissertation-specific scaffolding, excessive literature, and appendices',
-          'Target journal scope alignment & word count strict enforcement',
-        ],
-        whenToChoose: [
-          'If you graduated with a thesis and must publish articles for job market or tenure applications.',
-          'If you are overwhelmed trying to cut 20,000 words down to journal length without losing rigor.',
-        ],
-        link: '/scholarcrafted/services/publication-support',
-        cta: 'Explore Conversion Options',
-      },
       {
         badge: 'Editorial Advisory',
         title: 'Target Journal Scope & Guidelines Audit',
         tagline: 'Identify and evaluate top-tier target journals for scope fit, indexing prestige, and submission requirements.',
-        rate: 'Included with Prep / Hourly Audit',
+        rate: 'Flat Package / Scoped Rate',
         isRecommended: false,
         features: [
-          'Analysis of recent publication trends in your target field',
+          'Analysis of recent publication trends and scope fit in your target field',
           'Exhaustive audit against target journal "Aims & Scope" criteria',
           'Guidance on open-access requirements and publisher agreements',
           'Preparation of submission checklist and tailored cover letter',
@@ -411,37 +412,57 @@ const stageData: ResearchStageItem[] = [
           'If you want to minimize desk-rejection risk due to mismatched journal scope.',
           'If you are choosing between multiple Q1/Q2 journals and need publisher intelligence.',
         ],
-        link: '/scholarcrafted/services/publication-support',
+        link: '/scholarcrafted/order?service=journal',
         cta: 'Get Journal Guidance',
+      },
+      {
+        badge: 'Package Integration',
+        title: 'Submission-Ready Journal Package',
+        tagline: 'Full end-to-end preparation: target journal selection, manuscript conformity, cover letter drafting, and submission packaging.',
+        rate: 'Flat Package',
+        isRecommended: false,
+        features: [
+          '3–5 Ranked journal recommendation report with impact factors',
+          'Complete manuscript formatting to target Author Guidelines',
+          'Executive editor cover letter drafting',
+          'Submission portal checklist and conflict-of-interest disclosures',
+        ],
+        whenToChoose: [
+          'If you want a single turnkey package handling journal selection through final upload.',
+          'If you are on a tight grant deadline and need zero submission friction.',
+        ],
+        link: '/scholarcrafted/order?service=journal',
+        cta: 'View Journal Packages',
       },
     ],
   },
   {
     step: 'STEP 04',
     label: 'Journal desk review',
-    subtitle: 'Citation audits, reference repair & strict style conformity',
+    subtitle: 'Pre-submission AI risk audits, citation diagnostics & style conformity',
     stageOverview:
       'For manuscripts undergoing initial screening where formatting errors, missing DOIs, and citation mismatches trigger immediate desk rejection.',
     services: [
       {
-        badge: '$90 / hour',
-        title: 'Citation & Reference Integrity Audit',
-        tagline: 'Every inline citation verified against reference entries. DOI checks, dead link repair, and software export cleanup.',
-        rate: '$90 / hour (Est. provided before start)',
-        isRecommended: true,
+        badge: 'From $29 • 100% Fee Credit',
+        title: 'AI Manuscript Audit & Integrity Diagnostic',
+        tagline: 'Pre-submission diagnostic benchmarked against 200M+ research papers. Catches fabricated citations, retracted DOIs, and AI hallucination flags before journal screening.',
+        rate: '$29 Single Draft • $69 Revision Bundle (3 Reviews)',
+        isRecommended: false,
         features: [
-          '100% inline citation to bibliography cross-matching',
-          'Verification of DOIs and persistent URLs for all referenced works',
-          'Repair of damaged Zotero, Mendeley, and EndNote metadata fields',
-          'Conversion between citation systems (APA, Chicago, MLA, IEEE, Harvard)',
+          'Citation & DOI verification benchmarked against 200M+ papers',
+          'Detection of fabricated, retracted, and hallucinated references',
+          'Section-by-section logic & methods-to-results coherence check',
+          '1-Page Executive Faculty Risk Memo + optional 15-min consultation',
+          '100% Fee Credit: $29 or $69 credited toward subsequent editing',
         ],
         whenToChoose: [
-          'If your references accumulated errors across multiple drafts or broken reference manager syncs.',
-          'If your target journal or graduate school enforces strict automated reference verification.',
-          'If reviewers or editors cited reference inconsistencies as a requirement for review.',
+          'If you or your co-authors used AI tools during literature search or drafting.',
+          'If you want an affordable ($29) independent faculty pre-check before submitting.',
+          'If you need to verify zero dead DOIs or hallucinated references.',
         ],
-        link: '/scholarcrafted/services/editing-proofreading',
-        cta: 'View Editing & Compliance',
+        link: '/scholarcrafted/order?service=ai-audit',
+        cta: 'Order Manuscript Audit ($29)',
       },
       {
         badge: 'Checklist Verification',
@@ -459,8 +480,8 @@ const stageData: ResearchStageItem[] = [
           'If your paper was previously returned by an editorial assistant for formatting errors.',
           'If you need certainty that your paper clears administrative screening on day one.',
         ],
-        link: '/scholarcrafted/services/editing-proofreading',
-        cta: 'View Compliance Services',
+        link: '/scholarcrafted/order?service=editing',
+        cta: 'View Compliance Pass',
       },
     ],
   },
@@ -475,8 +496,8 @@ const stageData: ResearchStageItem[] = [
         badge: 'Priority Support',
         title: 'Reviewer Response Matrix & Reply Packaging',
         tagline: 'Line-by-line point-by-point response table aligning reviewer feedback with tracked changes in the revised text.',
-        rate: 'Project-Based / Hourly',
-        isRecommended: true,
+        rate: 'Flat Package / Hourly',
+        isRecommended: false,
         features: [
           'Point-by-point reply letter and response matrix formatting',
           'Editorial diplomacy check: tone refinement for challenging reviewer comments',
@@ -488,8 +509,8 @@ const stageData: ResearchStageItem[] = [
           'If you need a second pair of eyes to ensure the reply matrix is deferential yet scientifically firm.',
           'If your committee returned 15+ pages of defense revisions.',
         ],
-        link: '/scholarcrafted/services/publication-support',
-        cta: 'Enquire About Revisions',
+        link: '/scholarcrafted/order?service=journal',
+        cta: 'View R&R Package',
       },
       {
         badge: 'Complimentary Guarantee',
@@ -507,8 +528,8 @@ const stageData: ResearchStageItem[] = [
           'If you used ScholarCrafted for your initial submission and received reviewer revision requests.',
           'If you want continuous editorial partnership until your paper is officially accepted.',
         ],
-        link: '/scholarcrafted/services/editing-proofreading',
-        cta: 'Learn About Our Guarantee',
+        link: '/scholarcrafted/order?service=editing',
+        cta: 'View Editing Tiers',
       },
     ],
   },
@@ -520,11 +541,11 @@ const stageData: ResearchStageItem[] = [
       'For books and articles accepted for publication that require back-of-book indexing, galley proof review, and final production.',
     services: [
       {
-        badge: 'From $3 / typeset page',
+        badge: 'Stage 05 • From $3 / typeset page',
         title: 'Back-of-Book Subject & Author Indexing',
         tagline: 'Comprehensive, publication-grade indexing constructed to university press and Cindex specifications.',
         rate: 'From $3 / typeset page',
-        isRecommended: true,
+        isRecommended: false,
         features: [
           'Subject index, author index, and combined index generation',
           'Headings, subheadings, cross-references ("See" and "See also")',
@@ -535,14 +556,14 @@ const stageData: ResearchStageItem[] = [
           'If your university press has delivered final page proofs and given you 2–3 weeks to produce an index.',
           'If you do not have the specialized indexing software (Cindex/SKY) or domain taxonomy experience.',
         ],
-        link: '/scholarcrafted/services/publication-support',
-        cta: 'Enquire About Indexing',
+        link: '/scholarcrafted/order?service=book&stage=05',
+        cta: 'Select Book Indexing',
       },
       {
-        badge: 'Galley Proof Review',
+        badge: 'Stage 04 • Galley Proof Review',
         title: 'Typeset Page Proof & Errata Review',
         tagline: 'First- and second-pass examination of typeset page proofs to catch layout bugs, broken tables, and copyeditor errors.',
-        rate: 'Project-Based / Hourly',
+        rate: 'Project-Based Rate',
         isRecommended: false,
         features: [
           'Detection of typesetting errors, bad line breaks, and font dropouts',
@@ -554,8 +575,8 @@ const stageData: ResearchStageItem[] = [
           'If you received final galley proofs from your publisher and cannot afford embarrassing print errors.',
           'If you want a professional proofreader to review printer proofs before final press run.',
         ],
-        link: '/scholarcrafted/services/publication-support',
-        cta: 'Enquire About Proofs',
+        link: '/scholarcrafted/order?service=book&stage=04',
+        cta: 'Select Galley Review',
       },
     ],
   },
@@ -848,7 +869,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
 
           {/* Compare Link */}
           <Box style={{ textAlign: 'center' }}>
-            <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
+            <Link href="/scholarcrafted/order" style={{ textDecoration: 'none' }}>
               <Button
                 variant="subtle"
                 radius={0}
@@ -859,11 +880,70 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                   letterSpacing: '0.04em',
                 }}
               >
-                Explore all Academic Execution Services & Rates
+                Compare All Services & Calculate Instant Fees →
               </Button>
             </Link>
           </Box>
         </Stack>
+      </Container>
+    </Box>
+  )
+}
+
+// ─── SECTION 1.5: Prestigious Academic Trust Bar ────────────────────────────
+
+function AcademicTrustBar({ active }: { active: Record<string, string> }) {
+  return (
+    <Box
+      py={rem(36)}
+      bg={active.primary}
+      style={{ color: '#ffffff', borderTop: `1px solid ${active.primary}20` }}
+      data-dark-bg="true"
+    >
+      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+        <SimpleGrid cols={{ base: 2, sm: 4 }} spacing={{ base: 'lg', md: 'xl' }}>
+          {[
+            { val: '500+', label: 'Doctoral Candidates & Faculty Guided', sub: 'Across 40+ academic disciplines' },
+            { val: '100%', label: 'Tracked-Changes Human Review', sub: 'Zero automated rewriting or shortcuts' },
+            { val: '24–48h', label: 'Diagnostic Turnaround', sub: 'Rapid pre-submission triage queue' },
+            { val: 'Top Presses', label: 'Oxford, Cambridge, Routledge & Q1', sub: 'Press-ready formatting compliance' },
+          ].map((stat, i) => (
+            <Box
+              key={i}
+              style={{
+                borderLeft: i > 0 ? `1px solid rgba(255,255,255,0.14)` : undefined,
+                paddingLeft: i > 0 ? rem(24) : 0,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
+                  fontWeight: 600,
+                  color: '#ffffff !important',
+                  lineHeight: 1.1,
+                }}
+              >
+                {stat.val}
+              </Text>
+              <Text
+                size="xs"
+                fw={700}
+                mt={rem(6)}
+                style={{
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  letterSpacing: '0.04em',
+                  color: '#ffffff !important',
+                }}
+              >
+                {stat.label}
+              </Text>
+              <Text size="xs" mt={rem(2)} style={{ color: 'rgba(255,255,255,0.7) !important' }}>
+                {stat.sub}
+              </Text>
+            </Box>
+          ))}
+        </SimpleGrid>
       </Container>
     </Box>
   )
@@ -886,7 +966,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
         borderBottom: `1px solid ${active.primary}12`,
       }}
     >
-      <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(48)}>
           {/* Section Header */}
           <Box style={{ maxWidth: 840 }}>
@@ -1246,30 +1326,30 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl" align="flex-start">
 
                 <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
-                  Complete Editorial & Publication Solutions
+                  Editorial & Publication Advisory
                 </p>
 
                 <Title
                   order={1}
                   style={{
-                    fontSize: 'clamp(2.4rem, 5.6vw, 4.2rem)',
-                    lineHeight: 1.08,
+                    fontSize: 'clamp(2.2rem, 5.2vw, 3.8rem)',
+                    lineHeight: 1.1,
                     letterSpacing: '-0.025em',
                     color: '#ffffff',
                     fontFamily: 'var(--font-display), var(--font-serif)',
                     fontWeight: 600,
                   }}
                 >
-                  Everything a Researcher Needs, All in One Place.
+                  Hands-on Help With Your Dissertation, Thesis, or Paper From Doctoral-Qualified Experts.
                 </Title>
 
-                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '52ch' }}>
-                  From substantive line editing and structural polish to citation reconstruction and press-ready indexing. Human academic expertise to get your dissertation, journal article, or book proposal submission-ready.
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '54ch' }}>
+                  When your committee doesn&apos;t have 40 hours to fix structural gaps, citation errors, or journal compliance, we do. Human academic expertise with tracked changes &mdash; ready for defense or press.
                 </p>
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
                 <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
-                  <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/scholarcrafted/order" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1287,10 +1367,10 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Get It Off Your Plate
+                      View Services & Pricing →
                     </Button>
                   </Link>
-                  <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/scholarcrafted/order?service=ai-audit" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1300,7 +1380,7 @@ export default function ScholarCraftedLanding() {
                         borderWidth: 1,
                         borderStyle: 'solid',
                         color: '#ffffff',
-                        background: 'rgba(255,255,255,0.06)',
+                        background: 'rgba(255,255,255,0.08)',
                         height: rem(52),
                         paddingLeft: rem(24),
                         paddingRight: rem(24),
@@ -1309,26 +1389,10 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Book a Project Review
+                      Run AI Manuscript Audit ($29) →
                     </Button>
                   </Link>
                 </Group>
-
-                {/* Responsive stats strip */}
-                <Box style={{ borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: rem(24), width: '100%' }}>
-                  <SimpleGrid cols={3} spacing={{ base: 'xs', sm: 'md' }}>
-                    {[
-                      { val: 'Est. 2012', label: 'Academic Advisory' },
-                      { val: '4.9 / 5', label: 'Average Rating' },
-                      { val: '500+', label: 'Scholars Guided' },
-                    ].map((s, i) => (
-                      <Box key={i}>
-                        <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', fontWeight: 700, color: '#ffffff', lineHeight: 1 }}>{s.val}</p>
-                        <p style={{ margin: 0, fontSize: rem(11), color: 'rgba(255,255,255,0.5)', marginTop: rem(4) }}>{s.label}</p>
-                      </Box>
-                    ))}
-                  </SimpleGrid>
-                </Box>
 
               </Stack>
             </Box>
@@ -1344,7 +1408,6 @@ export default function ScholarCraftedLanding() {
         style={{
           position: 'relative',
           zIndex: 10,
-          borderBottom: `1px solid ${active.primary}10`,
           paddingTop: rem(48),
           paddingBottom: rem(24),
         }}
@@ -1365,24 +1428,18 @@ export default function ScholarCraftedLanding() {
             {[
               {
                 num: '01',
-                label: 'Submit Your Manuscript',
-                desc: 'Upload your document and describe the deadline, style guide, and scope. No call required to start.',
-                link: '/scholarcrafted/order?service=editing&tier=premium',
-                cta: 'Submit Now →',
+                label: 'Hand Off Your Manuscript',
+                desc: 'Upload your document with your style guide and target deadline. Zero sales calls, zero phone tag to start.',
               },
               {
                 num: '02',
-                label: 'Receive Your Scope Assessment',
-                desc: 'Within 24 hours we send a clear service recommendation and a firm price. No vague estimates.',
-                link: '/scholarcrafted/services',
-                cta: 'See Services →',
+                label: 'Guaranteed 24h Fixed Quote',
+                desc: 'Within 24 hours we evaluate your draft and send a clear service scope and guaranteed firm price. No vague estimates.',
               },
               {
                 num: '03',
-                label: 'We Execute',
-                desc: 'Editing, auditing, or formatting begins. Delivery in tracked changes. You review and approve every edit.',
-                link: '/scholarcrafted/how-it-works',
-                cta: 'How It Works →',
+                label: 'Human Execution in Tracked Changes',
+                desc: 'Line-by-line editorial triage delivered directly in Word tracked changes. You review and approve every single edit.',
               },
             ].map((step, i) => (
               <Box
@@ -1425,19 +1482,6 @@ export default function ScholarCraftedLanding() {
                 <Text size="sm" c="dimmed" lh={1.65} style={{ flex: 1 }}>
                   {step.desc}
                 </Text>
-                <Link href={step.link} style={{ textDecoration: 'none' }}>
-                  <Text
-                    size="sm"
-                    fw={700}
-                    c={active.accent}
-                    style={{
-                      letterSpacing: '0.04em',
-                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    }}
-                  >
-                    {step.cta}
-                  </Text>
-                </Link>
               </Box>
             ))}
           </Box>
@@ -1464,7 +1508,10 @@ export default function ScholarCraftedLanding() {
       {/* ── PATH 1: Research Journey Stages (Wide 1240 Content) ── */}
       <ResearchStageSection active={active} />
 
-      {/* ── PATH 2: Find Your Starting Point / By Situation (Wide 1240 Content) ── */}
+      {/* ── Prestigious Academic Trust Bar ── */}
+      <AcademicTrustBar active={active} />
+
+      {/* ── PATH 2: Find Your Starting Point / By Situation (Wide 1340 Content) ── */}
       <ManuscriptSituationSection active={active} />
 
       {/* Testimonials Carousel */}
@@ -1597,11 +1644,11 @@ export default function ScholarCraftedLanding() {
 
               <Stack gap="md">
                 <Text size="md" c="dimmed" lh={1.75}>
-                  Editing, citations, formatting, and journal compliance eat weeks you don&apos;t have &mdash; and none of it is the part that earns your degree or advances your tenure. Our specialist team handles it meticulously by hand, never automated or outsourced, so your research stays entirely your own.
+                  Your time belongs to the research, not the formatting. Our doctoral editors polish your prose and citations by hand &mdash; never automated or outsourced.
                 </Text>
 
                 <Group gap="sm" wrap="wrap">
-                  <Link href="/scholarcrafted/request-review?service=editing" style={{ textDecoration: 'none' }}>
+                  <Link href="/scholarcrafted/order?service=editing" style={{ textDecoration: 'none' }}>
                     <Button
                       size="md"
                       radius={0}
@@ -1614,21 +1661,7 @@ export default function ScholarCraftedLanding() {
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                       }}
                     >
-                      Get an editing quote
-                    </Button>
-                  </Link>
-                  <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
-                    <Button
-                      size="md"
-                      variant="outline"
-                      color={active.primary}
-                      radius={0}
-                      style={{
-                        borderColor: `${active.primary}30`,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      Explore the options
+                      See Transparent Per-Word Rates →
                     </Button>
                   </Link>
                 </Group>
