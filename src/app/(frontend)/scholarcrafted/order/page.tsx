@@ -295,12 +295,24 @@ function OrderContent() {
   const hlTier         = searchParams.get('tier') ?? ''
   const hlStage        = searchParams.get('stage') ?? ''
 
-  const [activeTab, setActiveTab] = useState<'editing' | 'journal' | 'book' | 'ai-audit'>(() => {
+  const resolveTab = React.useCallback((): 'editing' | 'journal' | 'book' | 'ai-audit' => {
     if (initialService === 'editing') return 'editing'
-    if (initialService === 'publication' && initialSection === 'book') return 'book'
-    if (initialService === 'publication' || initialSection === 'journal') return 'journal'
+    if (initialService === 'journal') return 'journal'
+    if (initialService === 'book') return 'book'
+    if (initialService === 'ai-audit') return 'ai-audit'
+    if (initialService === 'publication') {
+      return initialSection === 'book' ? 'book' : 'journal'
+    }
+    if (initialSection === 'book') return 'book'
+    if (initialSection === 'journal') return 'journal'
     return 'ai-audit'
-  })
+  }, [initialService, initialSection])
+
+  const [activeTab, setActiveTab] = useState<'editing' | 'journal' | 'book' | 'ai-audit'>(resolveTab)
+
+  React.useEffect(() => {
+    setActiveTab(resolveTab())
+  }, [resolveTab])
 
   const [calcWords, setCalcWords] = useState<number>(5000)
 
@@ -716,6 +728,14 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
     const found = bookStages.findIndex(s => s.step === hlStage)
     return found >= 0 ? found : 0
   })
+
+  React.useEffect(() => {
+    if (hlStage) {
+      const found = bookStages.findIndex(s => s.step === hlStage)
+      if (found >= 0) setActiveIdx(found)
+    }
+  }, [hlStage])
+
   const selected = bookStages[activeIdx]
   const isPipeline = (selected as typeof bookStages[0] & { isPipeline?: boolean }).isPipeline === true
 
@@ -794,6 +814,13 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
               )}
               <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(40)}>
                 <Stack gap="md">
+                  {hlStage === selected.step && (
+                    <Box px={rem(10)} py={rem(4)} style={{ backgroundColor: active.accent, alignSelf: 'flex-start' }}>
+                      <Text size="xs" fw={700} c="#fff" style={{ letterSpacing: '0.1em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                        YOUR SELECTION
+                      </Text>
+                    </Box>
+                  )}
                   <Text size="xs" fw={700} style={{ letterSpacing: '0.14em', color: active.accent, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
                     {isPipeline ? 'END-TO-END PIPELINE' : `STAGE ${selected.step}`}
                   </Text>
