@@ -4,14 +4,15 @@ import React, { useState, Suspense } from 'react'
 import {
   Container, Title, Text, Box, SimpleGrid, Stack,
   Button, rem, Group, useMantineTheme, UnstyledButton,
-  Divider, Table, NumberInput,
+  Divider, Table, NumberInput, Accordion, Badge,
 } from '@mantine/core'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import {
   IconCheck, IconX, IconArrowLeft, IconArrowRight,
   IconShieldCheck, IconClock, IconFileCheck, IconMinus,
-  IconPencil, IconFileText, IconBook2,
+  IconPencil, IconFileText, IconBook2, IconQuestionMark,
+  IconStar, IconLock, IconCurrencyDollar,
 } from '@tabler/icons-react'
 import { Navbar } from '../_components/Navbar'
 import { SECTION_SPACING } from '@/layout'
@@ -104,9 +105,17 @@ const editingMatrix = [
   { feature: 'Custom journal cover letter creation', advanced: false, premium: true, scientific: true },
   { feature: 'Unlimited complimentary re-editing', advanced: false, premium: '365 days', scientific: '365 days' },
   { feature: 'Editor Advisory Memorandum', advanced: false, premium: true, scientific: true },
-  { feature: 'Scientific completeness & logic review', advanced: false, false: false, scientific: true },
-  { feature: 'Peer reviewer critical commentary report', advanced: false, false: false, scientific: true },
-  { feature: 'Reviewer response matrix / rebuttal crosscheck', advanced: false, false: false, scientific: true },
+  { feature: 'Scientific completeness & logic review', advanced: false, premium: false, scientific: true },
+  { feature: 'Peer reviewer critical commentary report', advanced: false, premium: false, scientific: true },
+  { feature: 'Reviewer response matrix / rebuttal crosscheck', advanced: false, premium: false, scientific: true },
+]
+
+const editingFAQ = [
+  { q: 'What does "Track Changes" mean?', a: 'Every edit we make is visible as a tracked change in Microsoft Word. You can accept or reject each edit individually, so you retain complete control over the final text.' },
+  { q: 'How do I choose between Advanced and Premium?', a: 'Advanced is ideal for manuscripts with strong structure that need language polish. Premium adds substantive restructuring, reference auditing, and 365-day re-editing — best for dissertations, R&R responses, or manuscripts that need deeper work.' },
+  { q: 'Can I upgrade from Advanced to Premium later?', a: 'Yes. You only pay the per-word difference between tiers. We apply your Advanced fee as credit toward Premium.' },
+  { q: 'Do you edit LaTeX manuscripts?', a: 'We edit in Word with Track Changes. If your manuscript is in LaTeX, we can edit the exported PDF or Word conversion and return the tracked changes for you to apply.' },
+  { q: 'What is the 365-day re-editing guarantee?', a: 'With Premium and Scientific Pro, you can resubmit your manuscript for additional editing passes at no charge for a full year. Ideal for committee revisions, R&R rounds, or journal changes.' },
 ]
 
 // ─── Journal data ─────────────────────────────────────────────────────────────
@@ -164,6 +173,29 @@ const journalTiers = [
     ],
     deliverables: ['All Pro deliverables', 'Ongoing reformatted manuscripts (unlimited)', 'Ongoing response letters (unlimited)', 'Submission confirmation with portal reference'],
   },
+]
+
+const journalMatrix = [
+  { feature: 'Target journal guidelines compliance audit', essentials: true, pro: true, full: true },
+  { feature: 'Layout, margin, font & line-number formatting', essentials: true, pro: true, full: true },
+  { feature: 'Reference style conversion (APA / Chicago / Vancouver)', essentials: true, pro: true, full: true },
+  { feature: 'Figure & table caption formatting', essentials: true, pro: true, full: true },
+  { feature: 'Submission checklist verification', essentials: true, pro: true, full: true },
+  { feature: 'Custom cover letter to Editor-in-Chief', essentials: false, pro: true, full: true },
+  { feature: 'Graphical abstract formatting & check', essentials: false, pro: true, full: true },
+  { feature: 'Submission portal preparation (metadata, keywords)', essentials: false, pro: true, full: true },
+  { feature: 'Re-formatting if target journal changes', essentials: false, pro: '1 round', full: 'Unlimited' },
+  { feature: 'Response letter drafting & rebuttal crosscheck', essentials: false, pro: false, full: 'Unlimited' },
+  { feature: 'Revision editing included', essentials: false, pro: false, full: true },
+  { feature: 'Portal upload handled on your behalf', essentials: false, pro: false, full: true },
+  { feature: 'Dedicated editorial contact for full cycle', essentials: false, pro: false, full: true },
+]
+
+const journalFAQ = [
+  { q: 'Does this include editing?', a: 'Journal Publication Support focuses on formatting, compliance, and submission packaging. Language editing is a separate service. Many clients pair Essentials with Advanced Editing for a complete package.' },
+  { q: 'What if my target journal changes after formatting?', a: 'With Pro, you receive 1 free re-formatting pass. With Full, you get unlimited reformatting for any journal change throughout your submission journey.' },
+  { q: 'Can you submit the manuscript for me?', a: 'Yes — with the Full package, we handle the complete portal submission on your behalf, including uploading files, filling in metadata, and verifying submission confirmation.' },
+  { q: 'Do you write the cover letter from scratch?', a: 'Yes. Pro and Full packages include a custom cover letter written specifically for your target journal\'s Editor-in-Chief, tailored to the journal\'s scope and your manuscript\'s contribution.' },
 ]
 
 // ─── Book data ────────────────────────────────────────────────────────────────
@@ -265,6 +297,107 @@ const bookMatrix = [
   { row: 'Press-ready delivery (Word / RTF / plain text)', s01: false, s02: false, s03: false, s04: false, s05: true, sFULL: true },
 ]
 
+const bookFAQ = [
+  { q: 'Can I start at any stage?', a: 'Yes. Each stage is independently priced and can be ordered on its own. Many authors come to us at Stage 03 (editing) or Stage 05 (indexing) because their publisher requires it before press.' },
+  { q: 'What publishers do you work with?', a: 'We specialise in academic monograph presses: Oxford, Cambridge, Routledge, SAGE, Michigan, Cornell, and field-specific presses. Not trade publishers — academic ones.' },
+  { q: 'How does the Full Pipeline pricing work?', a: 'The Full Pipeline is a custom-scoped bundle. We assess your manuscript stage, target press, and timeline, then provide a single all-inclusive quote. Payment is 50% on contract, 50% on final delivery.' },
+]
+
+// ─── AI Audit data ────────────────────────────────────────────────────────────
+
+const aiAuditTiers = [
+  {
+    id: 'single',
+    name: 'Single Manuscript Audit',
+    badge: 'ACCESSIBLE ENTRY',
+    price: '$29',
+    priceNum: 29,
+    turnaround: '24–48 hours',
+    isPopular: true,
+    tagline: 'Audit your AI-assisted research before journal submission — citation accuracy, literature gaps & peer-review risks.',
+    features: [
+      'Complete section-by-section diagnostic breakdown (Abstract to Conclusion)',
+      'Citation verification & gap analysis benchmarked against 200M+ research papers',
+      'Detection of fabricated, misattributed or hallucinated references',
+      'Structural consistency & argument alignment audit across all sections',
+      'Target journal scope matching & rejection risk assessment',
+      '1-Page Executive Faculty Risk Memo identifying critical vulnerabilities',
+      'Optional 15-minute debrief consultation with Micah Dobson',
+      '100% Fee Credit: $29 credited toward full editing if scoped',
+    ],
+  },
+  {
+    id: 'bundle',
+    name: 'Revision Bundle (3 Reviews)',
+    badge: 'BEST VALUE FOR REVISIONS',
+    price: '$69',
+    priceNum: 69,
+    turnaround: '24–48 hours / review',
+    isPopular: false,
+    tagline: 'Three full manuscript audits across your project lifecycle: draft, revision, and pre-deposit.',
+    features: [
+      '3 complete manuscript audits across your project lifecycle:',
+      '• Review 1: Initial pre-submission AI & citation screening',
+      '• Review 2: Post-advisor or committee revision verification',
+      '• Review 3: Final pre-submission / camera-ready proof check',
+      'Everything in Single Audit included for all 3 drafts',
+      'Priority 24-hour diagnostic turnaround queue',
+      'Direct follow-up consultation with Micah Dobson after each review',
+      '100% Fee Credit: $69 credited toward full developmental editing',
+    ],
+  },
+]
+
+const aiAuditComparison = [
+  { feature: 'Citation & DOI Verification (200M+ papers)', single: true, bundle: true },
+  { feature: 'Hallucinated, Retracted & Misattributed Reference Detection', single: true, bundle: true },
+  { feature: 'Section-by-Section Argument & Logic Coherence', single: true, bundle: true },
+  { feature: 'Methods-to-Results Alignment Check', single: true, bundle: true },
+  { feature: 'Target Journal Fit & Rejection Risk Screening', single: true, bundle: true },
+  { feature: '1-Page Executive Faculty Risk Memo', single: true, bundle: true },
+  { feature: 'Optional 15-Minute Zoom Debrief with Micah Dobson', single: true, bundle: true },
+  { feature: '100% Fee Credit Toward Full Word Track-Changes Editing', single: '$29 Credit', bundle: '$69 Credit' },
+  { feature: 'Number of Full Manuscript Audits Included', single: '1 Draft', bundle: '3 Drafts' },
+  { feature: 'Post-Revision & Camera-Ready Re-audit', single: false, bundle: true },
+]
+
+const aiAuditFAQ = [
+  { q: 'What AI tools does the audit detect?', a: 'Our audit checks for outputs from ChatGPT, Claude, Gemini, Copilot, and other LLMs. We identify hallucinated citations, fabricated references, and structural patterns consistent with AI-generated text.' },
+  { q: 'Is my manuscript safe? Who sees it?', a: 'Only Micah Dobson reviews your manuscript. We sign a non-disclosure agreement before document review, and files are deleted from our systems upon project completion.' },
+  { q: 'What happens after the audit?', a: 'You receive a diagnostic report with actionable recommendations. Your audit fee ($29 or $69) is credited 100% toward full editing if you proceed — making the audit effectively free.' },
+  { q: 'Can I use the audit for a thesis, not a journal article?', a: 'Absolutely. The audit works for dissertations, theses, journal manuscripts, book proposals, and any academic document that may have used AI assistance during drafting.' },
+]
+
+// ─── Testimonials data ────────────────────────────────────────────────────────
+
+const testimonials: Record<string, Array<{ quote: string; name: string; affiliation: string }>> = {
+  editing: [
+    { quote: 'The tracked changes were meticulous. My supervisor said the revised chapter read like a different thesis entirely.', name: 'Dr. A. Mensah', affiliation: 'University of Cape Town' },
+    { quote: 'I received Premium Editing and the cover letter alone was worth the fee. Accepted on first submission.', name: 'K. Rajendran', affiliation: 'NUS, Singapore' },
+  ],
+  journal: [
+    { quote: 'They reformatted my manuscript to three different journal specs when my first two submissions were rejected. The Full package saved my timeline.', name: 'Dr. F. Okonkwo', affiliation: 'University of Lagos' },
+    { quote: 'The cover letter was tailored perfectly. The editor responded within a week.', name: 'M. Petrov', affiliation: 'ETH Zürich' },
+  ],
+  book: [
+    { quote: 'My book proposal was accepted by Routledge within three weeks. The publisher selection report identified a series I hadn\'t even considered.', name: 'Prof. L. Andersson', affiliation: 'Lund University' },
+    { quote: 'The indexing was delivered press-ready. Cambridge had zero corrections. That never happens.', name: 'Dr. H. Yamamoto', affiliation: 'Kyoto University' },
+  ],
+  'ai-audit': [
+    { quote: 'The audit caught 4 hallucinated citations I would never have found. $29 well spent — then I upgraded to editing.', name: 'R. Aziz', affiliation: 'King Abdulaziz University' },
+    { quote: 'I used the Revision Bundle across my thesis, my committee revision, and the final deposit version. Micah\'s debrief call after each round was invaluable.', name: 'S. Torres', affiliation: 'Columbia University' },
+  ],
+}
+
+// ─── Trust badges data ────────────────────────────────────────────────────────
+
+const trustBadges = [
+  { icon: IconShieldCheck, label: 'NDA Signed', desc: 'Every project under strict non-disclosure' },
+  { icon: IconClock, label: 'On-Time Guarantee', desc: 'Firm deadlines or your deposit back' },
+  { icon: IconFileCheck, label: 'Track Changes', desc: '100% transparent edits in Word' },
+  { icon: IconLock, label: 'Files Deleted', desc: 'Your documents removed on completion' },
+]
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function MatrixCell({ val }: { val?: boolean | string }) {
@@ -273,6 +406,121 @@ function MatrixCell({ val }: { val?: boolean | string }) {
   if (val === true) return <IconCheck size={16} color={active.accent} />
   if (val === false || val === undefined) return <IconMinus size={14} color="#ccc" />
   return <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>{val as string}</Text>
+}
+
+/** Inline trust badges row — used inside each tab body */
+function InlineTrustBadges({ active }: { active: Record<string, string> }) {
+  return (
+    <Box py={rem(32)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
+      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+        <SimpleGrid cols={{ base: 2, md: 4 }} spacing={rem(16)}>
+          {trustBadges.map((tb) => (
+            <Group key={tb.label} gap={rem(10)} align="flex-start" wrap="nowrap">
+              <Box style={{ flexShrink: 0, marginTop: rem(2) }}>
+                <tb.icon size={18} color={active.accent} />
+              </Box>
+              <Box>
+                <Text size="xs" fw={700} c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>{tb.label}</Text>
+                <Text size="xs" c="dimmed" lh={1.4}>{tb.desc}</Text>
+              </Box>
+            </Group>
+          ))}
+        </SimpleGrid>
+      </Container>
+    </Box>
+  )
+}
+
+/** Inline testimonials — used inside each tab body */
+function InlineTestimonials({ active, tabId }: { active: Record<string, string>; tabId: string }) {
+  const items = testimonials[tabId] ?? []
+  if (!items.length) return null
+  return (
+    <Box py={rem(40)} bg={active.surface}>
+      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+        <Text size="xs" fw={700} c={active.accent} mb={rem(20)} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+          WHAT RESEARCHERS SAY
+        </Text>
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(20)}>
+          {items.map((t, i) => (
+            <Box key={i} p={rem(28)} bg={active.background} style={{ border: `1px solid ${active.primary}08` }}>
+              <Group gap={rem(6)} mb={rem(12)}>
+                {[...Array(5)].map((_, si) => (
+                  <IconStar key={si} size={13} color={active.accent} fill={active.accent} />
+                ))}
+              </Group>
+              <Text size="sm" c={active.primary} lh={1.7} mb={rem(16)} style={{ fontStyle: 'italic' }}>
+                &ldquo;{t.quote}&rdquo;
+              </Text>
+              <Text size="xs" fw={700} c={active.primary}>{t.name}</Text>
+              <Text size="xs" c="dimmed">{t.affiliation}</Text>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Container>
+    </Box>
+  )
+}
+
+/** FAQ Accordion — used inside each tab body */
+function InlineFAQ({ active, items }: { active: Record<string, string>; items: Array<{ q: string; a: string }> }) {
+  if (!items.length) return null
+  return (
+    <Box py={rem(48)} bg={active.background}>
+      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+        <Text size="xs" fw={700} c={active.accent} mb={rem(6)} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+          FREQUENTLY ASKED QUESTIONS
+        </Text>
+        <Title order={3} mb={rem(24)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), fontWeight: 600, color: active.primary }}>
+          Common questions about this service
+        </Title>
+        <Accordion
+          variant="separated"
+          radius={0}
+          styles={{
+            item: { backgroundColor: active.surface, border: `1px solid ${active.primary}08`, '&[data-active]': { backgroundColor: active.surface } },
+            control: { padding: `${rem(16)} ${rem(20)}` },
+            label: { fontSize: rem(14), fontWeight: 600, color: active.primary, fontFamily: 'var(--font-heading-sans), var(--font-sans)' },
+            panel: { padding: `0 ${rem(20)} ${rem(16)}` },
+          }}
+        >
+          {items.map((item, i) => (
+            <Accordion.Item key={i} value={`faq-${i}`}>
+              <Accordion.Control>{item.q}</Accordion.Control>
+              <Accordion.Panel>
+                <Text size="sm" c="dimmed" lh={1.7}>{item.a}</Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </Container>
+    </Box>
+  )
+}
+
+// ─── Hero title map per tab ───────────────────────────────────────────────────
+
+const TAB_HEROES: Record<string, { kicker: string; title: string; desc: string }> = {
+  'ai-audit': {
+    kicker: 'PRE-SUBMISSION INTEGRITY AUDIT',
+    title: 'Compare AI Manuscript Audit Options',
+    desc: 'Audit what your AI missed before journal editors see it. 100% of your audit fee is credited toward full editing.',
+  },
+  editing: {
+    kicker: 'COMPARE & SELECT AN EDITING SERVICE',
+    title: 'Compare English Editing & Compliance Tiers',
+    desc: 'All editing is performed by human discipline specialists in Microsoft Word Track Changes. Choose a tier to see pricing and deliverables.',
+  },
+  journal: {
+    kicker: 'COMPARE & SELECT A PUBLICATION PACKAGE',
+    title: 'Compare Journal Publication Support Packages',
+    desc: 'Formatting, cover letters, submission portal preparation, and unlimited re-formatting. Choose the package that matches your submission stage.',
+  },
+  book: {
+    kicker: 'ACADEMIC MONOGRAPH PUBLISHING',
+    title: 'Book Manuscript Publishing — 5 Stages',
+    desc: 'From publisher selection to back-of-book indexing. Choose individual stages or the full pipeline with a single point of contact.',
+  },
 }
 
 // ─── Page wrapper ─────────────────────────────────────────────────────────────
@@ -328,7 +576,7 @@ function OrderContent() {
     {
       id: 'editing' as const,
       label: 'English Editing & Compliance',
-      shortLabel: 'English Editing',
+      shortLabel: 'Editing',
       icon: <IconPencil size={18} />,
       badge: '3 Tiers',
       sub: 'Per-word pricing',
@@ -336,7 +584,7 @@ function OrderContent() {
     {
       id: 'journal' as const,
       label: 'Journal Publication Support',
-      shortLabel: 'Journal Support',
+      shortLabel: 'Journal',
       icon: <IconFileText size={18} />,
       badge: '3 Packages',
       sub: 'Flat-fee packages',
@@ -344,31 +592,33 @@ function OrderContent() {
     {
       id: 'book' as const,
       label: 'Book Manuscript Publishing',
-      shortLabel: 'Book Publishing',
+      shortLabel: 'Book',
       icon: <IconBook2 size={18} />,
       badge: '5 Stages',
       sub: 'Per-stage or pipeline',
     },
   ]
 
+  const hero = TAB_HEROES[activeTab]
+
   return (
     <Box bg={active.background} style={{ minHeight: '100vh' }}>
       <Navbar />
 
-      {/* Hero Header with Service Tabs (inspired by Editage compare screen) */}
-      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(40)} bg={active.background} style={{ borderBottom: `1px solid ${active.primary}10` }}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+      {/* Hero Header with Dynamic Title & Service Tabs */}
+      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(40)} bg={active.background}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', marginBottom: rem(8) }}>
-            COMPARE & SELECT A SERVICE
+            {hero.kicker}
           </Text>
-          <Title order={1} style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
-            Compare and select your editorial service
+          <Title order={1} style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.8rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
+            {hero.title}
           </Title>
           <Text size="md" c="dimmed" mt="xs" mb={rem(32)} lh={1.7} style={{ maxWidth: '64ch' }}>
-            Choose a service track below to compare plans, turnarounds, and deliverables. Select any plan to proceed directly to instant document upload.
+            {hero.desc}
           </Text>
 
-          {/* ── Single-Line Horizontal Service Tabs ───────────────────────────── */}
+          {/* ── Responsive Service Tabs ─────────────────────────────────────── */}
           <Box
             style={{
               overflowX: 'auto',
@@ -378,20 +628,20 @@ function OrderContent() {
               paddingBottom: rem(6),
             }}
           >
-            <Group gap={rem(10)} wrap="nowrap" style={{ minWidth: 'max-content' }}>
+            <Group gap={rem(8)} wrap="nowrap" style={{ minWidth: 'max-content' }}>
               {TABS.map((tab) => {
                 const isCurrent = activeTab === tab.id
                 return (
                   <UnstyledButton
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    px={rem(20)}
-                    py={rem(13)}
+                    px={rem(16)}
+                    py={rem(12)}
                     data-dark-bg={isCurrent ? 'true' : undefined}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: rem(12),
+                      gap: rem(10),
                       backgroundColor: isCurrent ? active.primary : active.surface,
                       color: isCurrent ? '#ffffff' : active.primary,
                       border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
@@ -405,26 +655,42 @@ function OrderContent() {
                       flexShrink: 0,
                     }}
                   >
-                    <Box style={{ color: isCurrent ? active.accent : active.accent, display: 'flex' }}>
+                    <Box style={{ color: active.accent, display: 'flex' }}>
                       {tab.icon}
                     </Box>
                     <Box>
-                      <Text size="sm" fw={isCurrent ? 700 : 600} c={isCurrent ? '#ffffff' : active.primary} style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}>
+                      {/* Full label on desktop, short on mobile */}
+                      <Text
+                        size="sm"
+                        fw={isCurrent ? 700 : 600}
+                        c={isCurrent ? '#ffffff' : active.primary}
+                        style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
+                        visibleFrom="sm"
+                      >
                         {tab.label}
+                      </Text>
+                      <Text
+                        size="sm"
+                        fw={isCurrent ? 700 : 600}
+                        c={isCurrent ? '#ffffff' : active.primary}
+                        style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
+                        hiddenFrom="sm"
+                      >
+                        {tab.shortLabel}
                       </Text>
                       <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
                         {tab.sub}
                       </Text>
                     </Box>
                     <Box
-                      px={rem(8)}
+                      px={rem(7)}
                       py={rem(3)}
                       style={{
                         backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
                         fontSize: rem(11),
                         fontWeight: 700,
                         color: isCurrent ? '#ffffff' : '#666',
-                        marginLeft: rem(4),
+                        marginLeft: rem(2),
                       }}
                     >
                       <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
@@ -472,7 +738,7 @@ function OrderContent() {
 
       {/* ── Shared Payment Terms & Trust ─────────────────────────────────────── */}
       <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}10` }}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(2)}>
             <PaymentTerms active={active} />
             <TrustRow active={active} />
@@ -497,7 +763,7 @@ function EditingTabBody({
     <Box>
       {/* Intro banner with live word-count estimator */}
       <Box py={rem(28)} bg={active.background} style={{ borderBottom: `1px solid ${active.primary}08` }}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Group justify="space-between" align="center" wrap="wrap" gap="md">
             <Box style={{ maxWidth: 640 }}>
               <Text size="sm" c="dimmed" lh={1.6}>
@@ -526,7 +792,7 @@ function EditingTabBody({
 
       {/* Tier cards */}
       <Box py={SECTION_SPACING} bg={active.surface}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(2)}>
             {editingTiers.map((tier) => {
               const isHighlighted = hlTier === tier.id || (!hlTier && tier.isPopular)
@@ -603,7 +869,7 @@ function EditingTabBody({
 
       {/* Feature matrix */}
       <Box py={SECTION_SPACING} bg={active.background}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>FEATURE COMPARISON</Text>
           <Box style={{ overflowX: 'auto' }}>
             <Table withColumnBorders style={{ minWidth: 640, borderCollapse: 'collapse' }}>
@@ -641,6 +907,15 @@ function EditingTabBody({
           </Box>
         </Container>
       </Box>
+
+      {/* Trust badges */}
+      <InlineTrustBadges active={active} />
+
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="editing" />
+
+      {/* FAQ */}
+      <InlineFAQ active={active} items={editingFAQ} />
     </Box>
   )
 }
@@ -651,7 +926,7 @@ function JournalTabBody({ active, hlTier }: { active: Record<string, string>; hl
   return (
     <Box>
       <Box py={SECTION_SPACING} bg={active.surface}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(2)}>
             {journalTiers.map((tier) => {
               const isHighlighted = hlTier === tier.id || (!hlTier && tier.isPopular)
@@ -717,6 +992,56 @@ function JournalTabBody({ active, hlTier }: { active: Record<string, string>; hl
           </SimpleGrid>
         </Container>
       </Box>
+
+      {/* Journal Feature Matrix */}
+      <Box py={SECTION_SPACING} bg={active.background}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+          <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>FEATURE COMPARISON</Text>
+          <Box style={{ overflowX: 'auto' }}>
+            <Table withColumnBorders style={{ minWidth: 640, borderCollapse: 'collapse' }}>
+              <Table.Thead>
+                <Table.Tr style={{ backgroundColor: active.surface }}>
+                  <Table.Th style={{ width: '40%', padding: `${rem(14)} ${rem(20)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.08em', color: '#888', borderColor: `${active.primary}10` }}>FEATURE</Table.Th>
+                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Essentials</Table.Th>
+                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.accent, borderColor: `${active.primary}10` }}>Pro ★</Table.Th>
+                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Full</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {journalMatrix.map((row, i) => (
+                  <Table.Tr key={i} style={{ backgroundColor: i % 2 === 0 ? active.background : active.surface }}>
+                    <Table.Td style={{ padding: `${rem(12)} ${rem(20)}`, fontSize: rem(13), color: active.primary, lineHeight: 1.4, borderColor: `${active.primary}08` }}>{row.feature}</Table.Td>
+                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                        <MatrixCell val={row.essentials} />
+                      </Box>
+                    </Table.Td>
+                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08`, backgroundColor: `${active.accent}04` }}>
+                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                        <MatrixCell val={row.pro} />
+                      </Box>
+                    </Table.Td>
+                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                        <MatrixCell val={row.full} />
+                      </Box>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Trust badges */}
+      <InlineTrustBadges active={active} />
+
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="journal" />
+
+      {/* FAQ */}
+      <InlineFAQ active={active} items={journalFAQ} />
     </Box>
   )
 }
@@ -743,7 +1068,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
     <Box>
       {/* Horizontal stage selector — 5 individual stages + Full Pipeline tab */}
       <Box py={rem(24)} bg={active.surface} style={{ borderBottom: `1px solid ${active.primary}12` }}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Group gap={rem(4)} wrap="nowrap" style={{ overflowX: 'auto', paddingBottom: rem(4) }}>
             {bookStages.map((s, i) => {
               const isFull = (s as typeof s & { isPipeline?: boolean }).isPipeline === true
@@ -790,7 +1115,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
 
       {/* Stage detail panel */}
       <Box py={SECTION_SPACING} bg={active.background}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(32)}>
             <Box
               p={{ base: rem(28), md: rem(40) }}
@@ -870,7 +1195,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
 
       {/* Book feature matrix */}
       <Box py={SECTION_SPACING} bg={active.surface}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>WHAT YOU GET AT EACH STAGE</Text>
           <Box style={{ overflowX: 'auto' }}>
             <Table withColumnBorders style={{ minWidth: 780, borderCollapse: 'collapse' }}>
@@ -905,6 +1230,15 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
           </Box>
         </Container>
       </Box>
+
+      {/* Trust badges */}
+      <InlineTrustBadges active={active} />
+
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="book" />
+
+      {/* FAQ */}
+      <InlineFAQ active={active} items={bookFAQ} />
     </Box>
   )
 
@@ -912,80 +1246,12 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
 
 // ─── AI MANUSCRIPT AUDIT TAB BODY ─────────────────────────────────────────────
 
-const aiAuditTiers = [
-  {
-    id: 'single',
-    name: 'Single Manuscript Audit',
-    badge: 'ACCESSIBLE ENTRY',
-    price: '$29',
-    priceNum: 29,
-    turnaround: '24–48 hours',
-    isPopular: true,
-    tagline: 'Audit your AI-assisted research before journal submission — citation accuracy, literature gaps & peer-review risks.',
-    features: [
-      'Complete section-by-section diagnostic breakdown (Abstract to Conclusion)',
-      'Citation verification & gap analysis benchmarked against 200M+ research papers',
-      'Detection of fabricated, misattributed or hallucinated references',
-      'Structural consistency & argument alignment audit across all sections',
-      'Target journal scope matching & rejection risk assessment',
-      '1-Page Executive Faculty Risk Memo identifying critical vulnerabilities',
-      'Optional 15-minute debrief consultation with Micah Dobson',
-      '100% Fee Credit: $29 credited toward full editing if scoped',
-    ],
-  },
-  {
-    id: 'bundle',
-    name: 'Revision Bundle (3 Reviews)',
-    badge: 'BEST VALUE FOR REVISIONS',
-    price: '$69',
-    priceNum: 69,
-    turnaround: '24–48 hours / review',
-    isPopular: false,
-    tagline: 'Three full manuscript audits across your project lifecycle: draft, revision, and pre-deposit.',
-    features: [
-      '3 complete manuscript audits across your project lifecycle:',
-      '• Review 1: Initial pre-submission AI & citation screening',
-      '• Review 2: Post-advisor or committee revision verification',
-      '• Review 3: Final pre-submission / camera-ready proof check',
-      'Everything in Single Audit included for all 3 drafts',
-      'Priority 24-hour diagnostic turnaround queue',
-      'Direct follow-up consultation with Micah Dobson after each review',
-      '100% Fee Credit: $69 credited toward full developmental editing',
-    ],
-  },
-]
-
-const aiAuditComparison = [
-  { feature: 'Citation & DOI Verification (200M+ papers)', single: true, bundle: true },
-  { feature: 'Hallucinated, Retracted & Misattributed Reference Detection', single: true, bundle: true },
-  { feature: 'Section-by-Section Argument & Logic Coherence', single: true, bundle: true },
-  { feature: 'Methods-to-Results Alignment Check', single: true, bundle: true },
-  { feature: 'Target Journal Fit & Rejection Risk Screening', single: true, bundle: true },
-  { feature: '1-Page Executive Faculty Risk Memo', single: true, bundle: true },
-  { feature: 'Optional 15-Minute Zoom Debrief with Micah Dobson', single: true, bundle: true },
-  { feature: '100% Fee Credit Toward Full Word Track-Changes Editing', single: '$29 Credit', bundle: '$69 Credit' },
-  { feature: 'Number of Full Manuscript Audits Included', single: '1 Draft', bundle: '3 Drafts' },
-  { feature: 'Post-Revision & Camera-Ready Re-audit', single: false, bundle: true },
-]
-
 function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hlTier: string }) {
   return (
     <Box>
       {/* Cards section */}
       <Box py={SECTION_SPACING} bg={active.surface}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Box mb={rem(40)} style={{ maxWidth: 740 }}>
-            <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
-              PRE-SUBMISSION INTEGRITY & SCIENTIFIC AUDIT
-            </Text>
-            <Title order={2} mt={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.8rem, 3.2vw, 2.4rem)', color: active.primary, lineHeight: 1.2 }}>
-              Audit what your AI missed before journal editors see it
-            </Title>
-            <Text size="sm" c="dimmed" mt={rem(8)} lh={1.7}>
-              AI helped you write your draft. Now get it independently audited against 200M+ research papers to surface hallucinated citations, missing literature, and logical gaps. Delivered in 24–48 hours with 100% fee credit toward full editing.
-            </Text>
-          </Box>
-
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)} style={{ maxWidth: 960 }}>
             {aiAuditTiers.map((tier) => {
               const isHighlighted = hlTier === tier.id || (!hlTier && tier.isPopular)
@@ -1054,7 +1320,7 @@ function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hl
 
       {/* Audit Matrix Table */}
       <Box py={rem(48)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}10` }}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Box mb={rem(24)}>
             <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
               FEATURE BREAKDOWN
@@ -1094,6 +1360,15 @@ function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hl
           </Box>
         </Container>
       </Box>
+
+      {/* Trust badges */}
+      <InlineTrustBadges active={active} />
+
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="ai-audit" />
+
+      {/* FAQ */}
+      <InlineFAQ active={active} items={aiAuditFAQ} />
     </Box>
   )
 }
