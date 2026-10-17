@@ -790,7 +790,8 @@ function PublicationSupportPageInner() {
                             marginLeft: 'auto',
                           }}
                         >
-                          Stage {bookStages[activeBookStage + 1]?.step} →
+                          Stage {bookStages[activeBookStage + 1]?.step}
+                          <IconArrowRight size={14} />
                         </UnstyledButton>
                       )}
                     </Group>

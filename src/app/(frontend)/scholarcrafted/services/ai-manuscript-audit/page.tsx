@@ -405,7 +405,7 @@ export default function AiManuscriptAuditPage() {
                       fullWidth
                       size="md"
                       radius={0}
-                      rightSection={<IconArrowRight size={15} />}
+                      rightSection={<IconArrowRight size={16} />}
                       style={{
                         backgroundColor: tier.isPopular ? active.accent : active.primary,
                         color: '#ffffff',

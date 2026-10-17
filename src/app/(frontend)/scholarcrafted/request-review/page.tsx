@@ -642,8 +642,9 @@ function RequestReviewContent() {
                           paddingLeft: rem(28),
                           paddingRight: rem(28),
                         }}
+                        rightSection={<IconArrowRight size={16} />}
                       >
-                        Proceed to Document Details →
+                        Proceed to Document Details
                       </Button>
                     </Group>
                   </Stack>

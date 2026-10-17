@@ -788,7 +788,7 @@ function EditingTabBody({
                       href={`/scholarcrafted/request-review?service=editing&tier=${tier.id}&wordCount=${calcWords}`}
                       style={{ textDecoration: 'none' }}
                     >
-                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={15} />}
+                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={16} />}
                         style={{
                           backgroundColor: isHighlighted ? active.accent : active.primary,
                           color: '#fff',
@@ -911,7 +911,7 @@ function JournalTabBody({ active, hlTier }: { active: Record<string, string>; hl
                       href={`/scholarcrafted/request-review?service=publication&section=journal&tier=${tier.id}`}
                       style={{ textDecoration: 'none' }}
                     >
-                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={15} />}
+                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={16} />}
                         style={{
                           backgroundColor: isHighlighted ? active.accent : active.primary,
                           color: '#fff',
@@ -1097,14 +1097,14 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                   </Box>
                   {isPipeline ? (
                     <Link href="/scholarcrafted/request-review?service=publication&section=book&pipeline=full" style={{ textDecoration: 'none' }}>
-                      <Button radius={0} size="md" rightSection={<IconArrowRight size={15} />}
+                      <Button radius={0} size="md" rightSection={<IconArrowRight size={16} />}
                         style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
-                        Enquire Full 5-Stage Pipeline →
+                        Enquire Full 5-Stage Pipeline
                       </Button>
                     </Link>
                   ) : (
                     <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selected.step}`} style={{ textDecoration: 'none' }}>
-                      <Button radius={0} size="md" rightSection={<IconArrowRight size={15} />}
+                      <Button radius={0} size="md" rightSection={<IconArrowRight size={16} />}
                         style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
                         Select Stage {selected.step} ({selected.title})
                       </Button>
@@ -1230,7 +1230,7 @@ function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hl
                       href={`/scholarcrafted/request-review?service=ai-audit&tier=${tier.id}`}
                       style={{ textDecoration: 'none' }}
                     >
-                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={15} />}
+                      <Button fullWidth radius={0} rightSection={<IconArrowRight size={16} />}
                         style={{
                           backgroundColor: isHighlighted ? active.accent : active.primary,
                           color: '#fff',

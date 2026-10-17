@@ -24,6 +24,7 @@ import {
   IconBook2,
   IconShieldCheck,
   IconChevronDown,
+  IconArrowRight,
 } from '@tabler/icons-react'
 
 import { Logo } from './Logo'
@@ -322,7 +323,7 @@ export function Navbar() {
                         </Box>
                         <Text fw={600} size="sm" c={active.primary}>{svc.label}</Text>
                       </Group>
-                      <Text fw={700} c={active.accent} size="sm">→</Text>
+                      <IconArrowRight size={16} color={active.accent} />
                     </Box>
                   </Link>
                 ))}
@@ -341,7 +342,7 @@ export function Navbar() {
                 }}
               >
                 <Text fw={600} size="md" c={active.primary}>About Us</Text>
-                <Text fw={700} c={active.accent} size="sm">→</Text>
+                <IconArrowRight size={16} color={active.accent} />
               </Box>
             </Link>
 
@@ -357,7 +358,7 @@ export function Navbar() {
                 }}
               >
                 <Text fw={600} size="md" c={active.primary}>FAQ &amp; Policies</Text>
-                <Text fw={700} c={active.accent} size="sm">→</Text>
+                <IconArrowRight size={16} color={active.accent} />
               </Box>
             </Link>
           </Box>

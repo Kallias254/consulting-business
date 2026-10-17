@@ -488,7 +488,7 @@ export default function ServicesPage() {
                     <Button
                       fullWidth
                       radius={0}
-                      rightSection={<IconArrowRight size={15} />}
+                      rightSection={<IconArrowRight size={16} />}
                       style={{
                         backgroundColor: active.accent,
                         color: '#fff',
@@ -524,7 +524,7 @@ export default function ServicesPage() {
                           color: active.primary,
                           fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                         }}
-                        rightSection={<IconArrowRight size={14} />}
+                        rightSection={<IconArrowRight size={16} />}
                       >
                         Free Assessment
                       </Button>

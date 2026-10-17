@@ -283,7 +283,7 @@ const stageData: ResearchStageItem[] = [
           'Elimination of thesis scaffolding & excessive literature review',
         ],
         link: '/scholarcrafted/order?service=journal&tier=pro',
-        cta: 'Explore Article Scoping →',
+        cta: 'Explore Article Scoping',
       },
       {
         badge: 'Stage 02 • $480 Flat',
@@ -296,7 +296,7 @@ const stageData: ResearchStageItem[] = [
           'Sample chapter copyediting & tone calibration to press standards',
         ],
         link: '/scholarcrafted/order?service=book&stage=02',
-        cta: 'Select Proposal Packaging →',
+        cta: 'Select Proposal Packaging',
       },
     ],
   },
@@ -315,7 +315,7 @@ const stageData: ResearchStageItem[] = [
           'Style manual conformity (APA, Chicago, Harvard, Vancouver)',
         ],
         link: '/scholarcrafted/order?service=editing&tier=advanced',
-        cta: 'Select Advanced Editing →',
+        cta: 'Select Advanced Editing',
       },
       {
         badge: 'Structural Polish • $0.0650 / word',
@@ -329,7 +329,7 @@ const stageData: ResearchStageItem[] = [
           '60-day complimentary re-editing pass on revised sections',
         ],
         link: '/scholarcrafted/order?service=editing&tier=premium',
-        cta: 'Select Premium Editing →',
+        cta: 'Select Premium Editing',
       },
       {
         badge: 'Peer-Review Level • $0.0950 / word',
@@ -342,7 +342,7 @@ const stageData: ResearchStageItem[] = [
           'Evaluation by former journal peer reviewer or editor',
         ],
         link: '/scholarcrafted/order?service=editing&tier=scientific',
-        cta: 'Select Scientific Pro →',
+        cta: 'Select Scientific Pro',
       },
     ],
   },
@@ -361,7 +361,7 @@ const stageData: ResearchStageItem[] = [
           'Verification of open-access mandates and publisher policies',
         ],
         link: '/scholarcrafted/order?service=journal&tier=essentials',
-        cta: 'Get Journal Guidance →',
+        cta: 'Get Journal Guidance',
       },
       {
         badge: 'Turnkey Submission',
@@ -374,7 +374,7 @@ const stageData: ResearchStageItem[] = [
           'Executive editor cover letter drafting & submission checklist',
         ],
         link: '/scholarcrafted/order?service=journal&tier=pro',
-        cta: 'View Journal Packages →',
+        cta: 'View Journal Packages',
       },
     ],
   },
@@ -394,7 +394,7 @@ const stageData: ResearchStageItem[] = [
           '1-Page Faculty Risk Memo + 100% fee credited toward full editing',
         ],
         link: '/scholarcrafted/order?service=ai-audit&tier=single',
-        cta: 'Order Manuscript Audit ($29) →',
+        cta: 'Order Manuscript Audit ($29)',
       },
       {
         badge: 'Author Guidelines Pass',
@@ -407,7 +407,7 @@ const stageData: ResearchStageItem[] = [
           'Blinded manuscript compliance verification for peer review',
         ],
         link: '/scholarcrafted/order?service=editing&tier=advanced',
-        cta: 'View Compliance Pass →',
+        cta: 'View Compliance Pass',
       },
     ],
   },
@@ -426,7 +426,7 @@ const stageData: ResearchStageItem[] = [
           'Exact cross-referencing between response table and revised lines',
         ],
         link: '/scholarcrafted/order?service=journal&tier=full',
-        cta: 'View R&R Package →',
+        cta: 'View R&R Package',
       },
       {
         badge: 'Included with Premium & Pro',
@@ -439,7 +439,7 @@ const stageData: ResearchStageItem[] = [
           'Rapid 48-to-72 hour revision turnaround',
         ],
         link: '/scholarcrafted/order?service=editing&tier=premium',
-        cta: 'View Editing Tiers →',
+        cta: 'View Editing Tiers',
       },
     ],
   },
@@ -458,7 +458,7 @@ const stageData: ResearchStageItem[] = [
           'Strict adherence to Oxford, Cambridge, Routledge press standards',
         ],
         link: '/scholarcrafted/order?service=book&stage=05',
-        cta: 'Select Book Indexing →',
+        cta: 'Select Book Indexing',
       },
       {
         badge: 'Stage 04 • Galley Proof Review',
@@ -471,7 +471,7 @@ const stageData: ResearchStageItem[] = [
           'Formal errata preparation for press production editors',
         ],
         link: '/scholarcrafted/order?service=book&stage=04',
-        cta: 'Select Galley Review →',
+        cta: 'Select Galley Review',
       },
     ],
   },
@@ -692,6 +692,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                       fullWidth
                       radius={0}
                       variant={svc.isRecommended ? 'filled' : 'outline'}
+                      rightSection={<IconArrowRight size={16} />}
                       style={{
                         backgroundColor: svc.isRecommended ? active.accent : 'transparent',
                         color: svc.isRecommended ? '#fff' : active.primary,
@@ -724,7 +725,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                   letterSpacing: '0.04em',
                 }}
               >
-                Compare All Services & Calculate Instant Fees →
+                Compare All Services & Calculate Instant Fees
               </Button>
             </Link>
           </Box>
@@ -1005,7 +1006,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                                 paddingLeft: rem(20),
                                 paddingRight: rem(20),
                               }}
-                              rightSection={<IconArrowRight size={15} />}
+                              rightSection={<IconArrowRight size={16} />}
                             >
                               {svc.cta}
                             </Button>
@@ -1200,6 +1201,7 @@ export default function ScholarCraftedLanding() {
                       size="lg"
                       radius={0}
                       fullWidth
+                      rightSection={<IconArrowRight size={18} />}
                       style={{
                         backgroundColor: active.accent,
                         color: '#fff',
@@ -1213,7 +1215,7 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      View Services & Pricing →
+                      View Services & Pricing
                     </Button>
                   </Link>
                   <Link href="/scholarcrafted/order?service=ai-audit" style={{ textDecoration: 'none' }} className="hero-btn-link">
@@ -1221,6 +1223,7 @@ export default function ScholarCraftedLanding() {
                       size="lg"
                       radius={0}
                       fullWidth
+                      rightSection={<IconArrowRight size={18} />}
                       style={{
                         borderColor: 'rgba(255,255,255,0.4)',
                         borderWidth: 1,
@@ -1235,7 +1238,7 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Run AI Manuscript Audit ($29) →
+                      Run AI Manuscript Audit ($29)
                     </Button>
                   </Link>
                 </Group>
@@ -1499,6 +1502,7 @@ export default function ScholarCraftedLanding() {
                       size="md"
                       radius={0}
                       className="impeccable-button"
+                      rightSection={<IconArrowRight size={16} />}
                       style={{
                         backgroundColor: active.accent,
                         color: '#fff',
@@ -1507,7 +1511,7 @@ export default function ScholarCraftedLanding() {
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                       }}
                     >
-                      See Transparent Per-Word Rates →
+                      See Transparent Per-Word Rates
                     </Button>
                   </Link>
                 </Group>
