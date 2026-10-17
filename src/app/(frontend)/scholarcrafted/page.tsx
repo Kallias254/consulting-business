@@ -482,16 +482,15 @@ const stageData: ResearchStageItem[] = [
 function ResearchStageSection({ active }: { active: Record<string, string> }) {
   const [selectedStageIndex, setSelectedStageIndex] = useState(1) // Default to "Get expert editing"
   const [isAutoCyclingStages, setIsAutoCyclingStages] = useState(true)
-  const [isStageHovered, setIsStageHovered] = useState(false)
   const currentStage = stageData[selectedStageIndex] ?? stageData[1]
 
   useEffect(() => {
-    if (!isAutoCyclingStages || isStageHovered) return
+    if (!isAutoCyclingStages) return
     const timer = setInterval(() => {
       setSelectedStageIndex((prev) => (prev + 1) % stageData.length)
-    }, 7000)
+    }, 4500)
     return () => clearInterval(timer)
-  }, [isAutoCyclingStages, isStageHovered])
+  }, [isAutoCyclingStages])
 
   return (
     <Box
@@ -499,8 +498,6 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
       component="section"
       py={SECTION_SPACING}
       bg={active.background}
-      onMouseEnter={() => setIsStageHovered(true)}
-      onMouseLeave={() => setIsStageHovered(false)}
     >
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(32)}>
@@ -801,20 +798,19 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
 function ManuscriptSituationSection({ active }: { active: Record<string, string> }) {
   const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
   const [isAutoCyclingNeeds, setIsAutoCyclingNeeds] = useState(true)
-  const [isNeedHovered, setIsNeedHovered] = useState(false)
   const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
 
   useEffect(() => {
-    if (!isAutoCyclingNeeds || isNeedHovered) return
+    if (!isAutoCyclingNeeds) return
     const timer = setInterval(() => {
       setSelectedId((prevId) => {
         const currentIndex = homeNeeds.findIndex((n) => n.id === prevId)
         const nextIndex = (currentIndex + 1) % homeNeeds.length
         return homeNeeds[nextIndex].id
       })
-    }, 7000)
+    }, 4500)
     return () => clearInterval(timer)
-  }, [isAutoCyclingNeeds, isNeedHovered])
+  }, [isAutoCyclingNeeds])
 
   return (
     <Box
@@ -826,8 +822,6 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
         borderTop: `1px solid ${active.primary}12`,
         borderBottom: `1px solid ${active.primary}12`,
       }}
-      onMouseEnter={() => setIsNeedHovered(true)}
-      onMouseLeave={() => setIsNeedHovered(false)}
     >
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(48)}>
