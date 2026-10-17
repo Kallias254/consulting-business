@@ -1187,11 +1187,11 @@ export default function ScholarCraftedLanding() {
                     fontWeight: 600,
                   }}
                 >
-                  Hands-on Academic Editing From Doctoral Experts.
+                  Everything a Researcher Needs, All in One Place.
                 </Title>
 
                 <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '54ch' }}>
-                  When your committee doesn&apos;t have 40 hours to fix structural gaps, citation errors, or journal compliance, we do. Human academic expertise with tracked changes &mdash; ready for defense or press.
+                  Substantive line editing, citation audits, and publisher formatting &mdash; delivered with 100% Track Changes in Word by doctoral specialists.
                 </p>
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
