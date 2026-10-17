@@ -10,9 +10,9 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import {
   IconCheck, IconX, IconArrowLeft, IconArrowRight,
-  IconShieldCheck, IconClock, IconFileCheck, IconMinus,
+  IconShieldCheck, IconMinus,
   IconPencil, IconFileText, IconBook2, IconQuestionMark,
-  IconStar, IconLock, IconCurrencyDollar,
+  IconStar, IconCurrencyDollar,
 } from '@tabler/icons-react'
 import { Navbar } from '../_components/Navbar'
 import { SECTION_SPACING } from '@/layout'
@@ -389,15 +389,6 @@ const testimonials: Record<string, Array<{ quote: string; name: string; affiliat
   ],
 }
 
-// ─── Trust badges data ────────────────────────────────────────────────────────
-
-const trustBadges = [
-  { icon: IconShieldCheck, label: 'NDA Signed', desc: 'Every project under strict non-disclosure' },
-  { icon: IconClock, label: 'On-Time Guarantee', desc: 'Firm deadlines or your deposit back' },
-  { icon: IconFileCheck, label: 'Track Changes', desc: '100% transparent edits in Word' },
-  { icon: IconLock, label: 'Files Deleted', desc: 'Your documents removed on completion' },
-]
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function MatrixCell({ val }: { val?: boolean | string }) {
@@ -406,29 +397,6 @@ function MatrixCell({ val }: { val?: boolean | string }) {
   if (val === true) return <IconCheck size={16} color={active.accent} />
   if (val === false || val === undefined) return <IconMinus size={14} color="#ccc" />
   return <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>{val as string}</Text>
-}
-
-/** Inline trust badges row — used inside each tab body */
-function InlineTrustBadges({ active }: { active: Record<string, string> }) {
-  return (
-    <Box py={rem(32)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}08` }}>
-      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-        <SimpleGrid cols={{ base: 2, md: 4 }} spacing={rem(16)}>
-          {trustBadges.map((tb) => (
-            <Group key={tb.label} gap={rem(10)} align="flex-start" wrap="nowrap">
-              <Box style={{ flexShrink: 0, marginTop: rem(2) }}>
-                <tb.icon size={18} color={active.accent} />
-              </Box>
-              <Box>
-                <Text size="xs" fw={700} c={active.primary} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>{tb.label}</Text>
-                <Text size="xs" c="dimmed" lh={1.4}>{tb.desc}</Text>
-              </Box>
-            </Group>
-          ))}
-        </SimpleGrid>
-      </Container>
-    </Box>
-  )
 }
 
 /** Inline testimonials — used inside each tab body */
@@ -618,90 +586,73 @@ function OrderContent() {
             {hero.desc}
           </Text>
 
-          {/* ── Responsive Service Tabs ─────────────────────────────────────── */}
-          <Box
-            style={{
-              overflowX: 'auto',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
-              paddingBottom: rem(6),
-            }}
-          >
-            <Group gap={rem(8)} wrap="nowrap" style={{ minWidth: 'max-content' }}>
-              {TABS.map((tab) => {
-                const isCurrent = activeTab === tab.id
-                return (
-                  <UnstyledButton
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    px={rem(16)}
-                    py={rem(12)}
-                    data-dark-bg={isCurrent ? 'true' : undefined}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: rem(10),
-                      backgroundColor: isCurrent ? active.primary : active.surface,
-                      color: isCurrent ? '#ffffff' : active.primary,
-                      border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
-                      borderRadius: 0,
-                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      fontWeight: isCurrent ? 700 : 600,
-                      fontSize: rem(14),
-                      transition: 'all 0.18s ease',
-                      boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
-                      cursor: 'pointer',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Box style={{ color: active.accent, display: 'flex' }}>
+          {/* ── Responsive Service Tabs Grid (Zero cut-off) ────────────────── */}
+          <SimpleGrid cols={{ base: 2, md: 4 }} spacing={rem(8)}>
+            {TABS.map((tab) => {
+              const isCurrent = activeTab === tab.id
+              return (
+                <UnstyledButton
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  px={rem(14)}
+                  py={rem(12)}
+                  data-dark-bg={isCurrent ? 'true' : undefined}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: rem(8),
+                    backgroundColor: isCurrent ? active.primary : active.surface,
+                    color: isCurrent ? '#ffffff' : active.primary,
+                    border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
+                    borderRadius: 0,
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    fontWeight: isCurrent ? 700 : 600,
+                    fontSize: rem(13),
+                    transition: 'all 0.18s ease',
+                    boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
+                    cursor: 'pointer',
+                    width: '100%',
+                  }}
+                >
+                  <Group gap={rem(8)} wrap="nowrap" align="center" style={{ minWidth: 0, flex: 1 }}>
+                    <Box style={{ color: active.accent, display: 'flex', flexShrink: 0 }}>
                       {tab.icon}
                     </Box>
-                    <Box>
-                      {/* Full label on desktop, short on mobile */}
+                    <Box style={{ minWidth: 0, flex: 1 }}>
                       <Text
                         size="sm"
                         fw={isCurrent ? 700 : 600}
                         c={isCurrent ? '#ffffff' : active.primary}
                         style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
-                        visibleFrom="sm"
+                        truncate
                       >
                         {tab.label}
                       </Text>
-                      <Text
-                        size="sm"
-                        fw={isCurrent ? 700 : 600}
-                        c={isCurrent ? '#ffffff' : active.primary}
-                        style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
-                        hiddenFrom="sm"
-                      >
-                        {tab.shortLabel}
-                      </Text>
-                      <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
+                      <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} truncate style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
                         {tab.sub}
                       </Text>
                     </Box>
-                    <Box
-                      px={rem(7)}
-                      py={rem(3)}
-                      style={{
-                        backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
-                        fontSize: rem(11),
-                        fontWeight: 700,
-                        color: isCurrent ? '#ffffff' : '#666',
-                        marginLeft: rem(2),
-                      }}
-                    >
-                      <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
-                        {tab.badge}
-                      </Text>
-                    </Box>
-                  </UnstyledButton>
-                )
-              })}
-            </Group>
-          </Box>
+                  </Group>
+                  <Box
+                    px={rem(6)}
+                    py={rem(2)}
+                    style={{
+                      backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
+                      fontSize: rem(10),
+                      fontWeight: 700,
+                      color: isCurrent ? '#ffffff' : '#666',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
+                      {tab.badge}
+                    </Text>
+                  </Box>
+                </UnstyledButton>
+              )
+            })}
+          </SimpleGrid>
         </Container>
       </Box>
 
@@ -735,16 +686,6 @@ function OrderContent() {
           hlTier={hlTier}
         />
       )}
-
-      {/* ── Shared Payment Terms & Trust ─────────────────────────────────────── */}
-      <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}10` }}>
-        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(2)}>
-            <PaymentTerms active={active} />
-            <TrustRow active={active} />
-          </SimpleGrid>
-        </Container>
-      </Box>
     </Box>
   )
 }
@@ -908,9 +849,6 @@ function EditingTabBody({
         </Container>
       </Box>
 
-      {/* Trust badges */}
-      <InlineTrustBadges active={active} />
-
       {/* Testimonials */}
       <InlineTestimonials active={active} tabId="editing" />
 
@@ -1033,9 +971,6 @@ function JournalTabBody({ active, hlTier }: { active: Record<string, string>; hl
           </Box>
         </Container>
       </Box>
-
-      {/* Trust badges */}
-      <InlineTrustBadges active={active} />
 
       {/* Testimonials */}
       <InlineTestimonials active={active} tabId="journal" />
@@ -1231,9 +1166,6 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
         </Container>
       </Box>
 
-      {/* Trust badges */}
-      <InlineTrustBadges active={active} />
-
       {/* Testimonials */}
       <InlineTestimonials active={active} tabId="book" />
 
@@ -1361,65 +1293,11 @@ function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hl
         </Container>
       </Box>
 
-      {/* Trust badges */}
-      <InlineTrustBadges active={active} />
-
       {/* Testimonials */}
       <InlineTestimonials active={active} tabId="ai-audit" />
 
       {/* FAQ */}
       <InlineFAQ active={active} items={aiAuditFAQ} />
-    </Box>
-  )
-}
-
-// ─── Payment Terms & Trust ────────────────────────────────────────────────────
-
-function PaymentTerms({ active }: { active: Record<string, string> }) {
-  return (
-    <Box p={rem(36)} bg={active.background} style={{ border: `1px solid ${active.primary}10` }}>
-      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>HOW PAYMENT WORKS</Text>
-      <Title order={3} mt="xs" mb="md" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), fontWeight: 600, color: active.primary }}>Invoice-Based: 50% Deposit, 50% On Delivery</Title>
-      <Stack gap="sm">
-        <Group gap="sm" align="flex-start" wrap="nowrap">
-          <Box px={rem(8)} py={rem(2)} style={{ backgroundColor: `${active.accent}15`, flexShrink: 0, marginTop: rem(2) }}>
-            <Text size="xs" fw={800} c={active.accent}>1</Text>
-          </Box>
-          <Text size="xs" c="dimmed" lh={1.6}>
-            <strong style={{ color: active.primary }}>50% deposit invoice</strong> issued on quote approval. Work begins upon deposit receipt.
-          </Text>
-        </Group>
-        <Group gap="sm" align="flex-start" wrap="nowrap">
-          <Box px={rem(8)} py={rem(2)} style={{ backgroundColor: `${active.accent}15`, flexShrink: 0, marginTop: rem(2) }}>
-            <Text size="xs" fw={800} c={active.accent}>2</Text>
-          </Box>
-          <Text size="xs" c="dimmed" lh={1.6}>
-            <strong style={{ color: active.primary }}>50% final balance</strong> invoiced upon delivery of all deliverables. Paid by bank transfer or card.
-          </Text>
-        </Group>
-      </Stack>
-    </Box>
-  )
-}
-
-function TrustRow({ active }: { active: Record<string, string> }) {
-  const points = [
-    { icon: <IconShieldCheck size={18} color={active.accent} />, label: 'Strict NDA on every project — your scholarship is safe' },
-    { icon: <IconFileCheck size={18} color={active.accent} />, label: '100% Track Changes delivery in Word' },
-    { icon: <IconClock size={18} color={active.accent} />, label: 'Firm scoped quote within 24 hours of brief submission' },
-  ]
-  return (
-    <Box p={rem(36)} bg={active.background} style={{ border: `1px solid ${active.primary}10` }}>
-      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>THE SCHOLARCRAFTED PROMISE</Text>
-      <Title order={3} mt="xs" mb="md" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), fontWeight: 600, color: active.primary }}>No AI. Real Specialists. Full Privacy.</Title>
-      <Stack gap="sm">
-        {points.map((pt, i) => (
-          <Group key={i} gap="sm" align="flex-start" wrap="nowrap">
-            <Box style={{ flexShrink: 0, marginTop: rem(2) }}>{pt.icon}</Box>
-            <Text size="xs" c="dimmed" lh={1.6}>{pt.label}</Text>
-          </Group>
-        ))}
-      </Stack>
     </Box>
   )
 }

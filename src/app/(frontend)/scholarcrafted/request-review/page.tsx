@@ -28,6 +28,7 @@ import {
   IconArrowRight,
   IconUpload,
   IconChevronLeft,
+  IconChevronDown,
   IconReceipt,
   IconMailForward,
 } from '@tabler/icons-react'
@@ -36,19 +37,6 @@ import Link from 'next/link'
 // ─── Constants & Metadata ─────────────────────────────────────────────────────
 
 const SALUTATIONS = ['Dr.', 'Prof.', 'Mr.', 'Ms.', 'Mx.', '—']
-
-const SUBJECT_CATEGORIES = [
-  'Plant and Animal Science',
-  'Biological & Life Sciences',
-  'Medicine, Pharmacology & Clinical Sciences',
-  'Physical Sciences & Engineering',
-  'Humanities & Social Sciences',
-  'Business, Economics & Management',
-  'Law, Governance & Public Policy',
-  'Environmental & Earth Sciences',
-  'Computer Science, Mathematics & AI',
-  'Other / Multidisciplinary',
-]
 
 const DOCUMENT_TYPES = [
   'Journal Article',
@@ -265,15 +253,13 @@ function RequestReviewContent() {
   const [docType, setDocType]                 = useState<string>('Journal Article')
   const [journalName, setJournalName]         = useState('')
   const [languageStyle, setLanguageStyle]     = useState<'american' | 'british'>('american')
-  const [formattingNeeded, setFormattingNeeded] = useState<'yes' | 'no'>('yes')
-  const [subjectCategory, setSubjectCategory] = useState<string>('Plant and Animal Science')
   const [subjectName, setSubjectName]         = useState('')
   const [deadline, setDeadline]               = useState<Date | null>(null)
   const [instructions, setInstructions]       = useState('')
   const [intent, setIntent]                   = useState<'quote' | 'start'>('quote')
 
   // Collapsible Accordion Step Management: 1 = Manuscript & Personal Info, 2 = Preferences & Scope
-  const [activeStep, setActiveStep] = useState<1 | 2>(1)
+  const [activeStep, setActiveStep] = useState<1 | 2 | null>(1)
   const [step1Done, setStep1Done]   = useState(false)
   const [submitted, setSubmitted]   = useState(false)
 
@@ -472,18 +458,15 @@ function RequestReviewContent() {
                   title="Manuscript & Personal Details"
                   subtitle="Word count, file upload, and author contact information"
                   isOpen={activeStep === 1}
-                  isDone={step1Done || (firstName !== '' && email !== '' && activeStep > 1)}
+                  isDone={step1Done || (firstName !== '' && email !== '' && activeStep !== 1)}
                   doneSummary={`${wordCount > 0 ? `${wordCount.toLocaleString()} words` : ''}${fileName ? ` · ${fileName}` : ''}${firstName ? ` · ${salutation} ${firstName} ${lastName}` : ''}`}
-                  onReopen={() => setActiveStep(1)}
+                  onToggle={() => setActiveStep((prev) => (prev === 1 ? null : 1))}
                   active={active}
                 >
                   <Stack gap={rem(24)} pt={rem(20)}>
 
-                    {/* Word count & Manuscript Section Header */}
+                    {/* Word count & Manuscript Section */}
                     <Box>
-                      <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.12em', color: active.accent, textTransform: 'uppercase' }}>
-                        1.1 Manuscript Scope & File
-                      </Text>
                       <Text size="xs" fw={700} mb={rem(6)} style={{ letterSpacing: '0.08em', color: active.primary }}>
                         ENTER THE NUMBER OF WORDS IN YOUR MANUSCRIPT *
                       </Text>
@@ -607,10 +590,6 @@ function RequestReviewContent() {
 
                     {/* Personal Information Subsection */}
                     <Box pt={rem(8)} style={{ borderTop: `1px solid ${active.primary}12` }}>
-                      <Text size="xs" fw={700} mb={rem(12)} style={{ letterSpacing: '0.12em', color: active.accent, textTransform: 'uppercase' }}>
-                        1.2 Personal & Contact Details
-                      </Text>
-
                       <Stack gap={rem(16)}>
                         {/* Salutation + Name */}
                         <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(12)}>
@@ -706,54 +685,56 @@ function RequestReviewContent() {
                   subtitle="Editing sections, discipline area, target publisher, and turnaround"
                   isOpen={activeStep === 2}
                   isDone={false}
-                  doneSummary={`${subjectCategory}${subjectName ? ` · ${subjectName}` : ''} · ${languageStyle === 'american' ? 'American English' : 'British English'}`}
-                  onReopen={() => setActiveStep(2)}
+                  doneSummary={`${subjectName ? subjectName : 'Discipline pending'}${journalName ? ` · ${journalName}` : ''}${paramService === 'editing' ? ` · ${languageStyle === 'american' ? 'American English' : 'British English'}` : ''}`}
+                  onToggle={() => setActiveStep((prev) => (prev === 2 ? null : 2))}
                   active={active}
                 >
                   <Stack gap={rem(22)} pt={rem(20)}>
 
-                    {/* Scope of editing: Specify sections */}
-                    <Box>
-                      <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.08em', color: active.primary }}>
-                        DO YOU WANT TO SPECIFY SECTIONS THAT DO NOT REQUIRE EDITING?
-                      </Text>
-                      <Text size="xs" c="dimmed" mb={rem(10)}>
-                        Exclude references, appendices, or equations to optimize editing fee.
-                      </Text>
-                      <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(8)}>
-                        {[
-                          { id: 'entire', label: 'Edit entire document' },
-                          { id: 'exclude', label: 'Exclude specific sections' },
-                          { id: 'only', label: 'Edit only specific sections' },
-                        ].map((opt) => (
-                          <UnstyledButton
-                            key={opt.id}
-                            onClick={() => setEditingScope(opt.id as any)}
-                            px={rem(14)} py={rem(12)}
-                            style={{
-                              backgroundColor: editingScope === opt.id ? active.primary : '#ffffff',
-                              color: editingScope === opt.id ? '#ffffff' : active.primary,
-                              border: `1px solid ${editingScope === opt.id ? active.primary : `${active.primary}20`}`,
-                              fontSize: rem(13),
-                              fontWeight: editingScope === opt.id ? 700 : 500,
-                              textAlign: 'center',
-                              transition: 'all 0.15s ease',
-                            }}
-                          >
-                            {opt.label}
-                          </UnstyledButton>
-                        ))}
-                      </SimpleGrid>
-                      {editingScope !== 'entire' && (
-                        <TextInput
-                          mt="xs"
-                          placeholder="e.g. Exclude references & appendices; edit abstract, introduction, and results only"
-                          radius={0}
-                          value={scopeDetails}
-                          onChange={(e) => setScopeDetails(e.target.value)}
-                        />
-                      )}
-                    </Box>
+                    {/* Scope of editing: Specify sections (Editing only) */}
+                    {paramService === 'editing' && (
+                      <Box>
+                        <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                          DO YOU WANT TO SPECIFY SECTIONS THAT DO NOT REQUIRE EDITING?
+                        </Text>
+                        <Text size="xs" c="dimmed" mb={rem(10)}>
+                          Exclude references, appendices, or equations to optimize editing fee.
+                        </Text>
+                        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(8)}>
+                          {[
+                            { id: 'entire', label: 'Edit entire document' },
+                            { id: 'exclude', label: 'Exclude specific sections' },
+                            { id: 'only', label: 'Edit only specific sections' },
+                          ].map((opt) => (
+                            <UnstyledButton
+                              key={opt.id}
+                              onClick={() => setEditingScope(opt.id as any)}
+                              px={rem(14)} py={rem(12)}
+                              style={{
+                                backgroundColor: editingScope === opt.id ? active.primary : '#ffffff',
+                                color: editingScope === opt.id ? '#ffffff' : active.primary,
+                                border: `1px solid ${editingScope === opt.id ? active.primary : `${active.primary}20`}`,
+                                fontSize: rem(13),
+                                fontWeight: editingScope === opt.id ? 700 : 500,
+                                textAlign: 'center',
+                                transition: 'all 0.15s ease',
+                              }}
+                            >
+                              {opt.label}
+                            </UnstyledButton>
+                          ))}
+                        </SimpleGrid>
+                        {editingScope !== 'entire' && (
+                          <TextInput
+                            mt="xs"
+                            placeholder="e.g. Exclude references & appendices; edit abstract, introduction, and results only"
+                            radius={0}
+                            value={scopeDetails}
+                            onChange={(e) => setScopeDetails(e.target.value)}
+                          />
+                        )}
+                      </Box>
+                    )}
 
                     {/* Document type & Target */}
                     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
@@ -774,35 +755,18 @@ function RequestReviewContent() {
                       />
                     </SimpleGrid>
 
-                    {/* Subject area category dropdown with 1300+ fields */}
-                    <Box>
-                      <Text size="xs" fw={700} mb={rem(4)} style={{ letterSpacing: '0.08em', color: active.primary }}>
-                        SUBJECT AREA CATEGORY *
-                      </Text>
-                      <Text size="xs" c="dimmed" mb={rem(8)}>
-                        Our specialists cater to over 1,300 subject disciplines. Select the closest branch:
-                      </Text>
-                      <Select
-                        placeholder="Select subject category"
-                        radius={0}
-                        data={SUBJECT_CATEGORIES}
-                        value={subjectCategory}
-                        onChange={(v) => setSubjectCategory(v ?? 'Plant and Animal Science')}
-                      />
-                    </Box>
-
-                    {/* Subject area name manual input */}
+                    {/* Academic discipline & specific sub-field */}
                     <TextInput
-                      label="Subject area / specific sub-field name *"
-                      placeholder="e.g. Plant and Animal Science, Molecular Oncology, Epistemology..."
-                      description="You can enter your exact niche or specialization here"
+                      label="Academic Discipline & Specific Field *"
+                      placeholder="e.g. Plant and Animal Science, Molecular Oncology, Epistemology, Econometrics..."
+                      description="Our doctoral specialists span 1,300+ sub-disciplines. Enter your specific field so we match the right subject editor."
                       radius={0}
                       value={subjectName}
                       onChange={(e) => setSubjectName(e.target.value)}
                     />
 
-                    {/* Language style & formatting */}
-                    <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
+                    {/* Language style (Editing only) */}
+                    {paramService === 'editing' && (
                       <Box>
                         <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
                           LANGUAGE STYLE
@@ -829,34 +793,7 @@ function RequestReviewContent() {
                           ))}
                         </Group>
                       </Box>
-
-                      <Box>
-                        <Text size="xs" fw={700} mb={rem(8)} style={{ letterSpacing: '0.08em', color: active.primary }}>
-                          DO YOU WANT FREE JOURNAL FORMATTING?
-                        </Text>
-                        <Group gap={rem(6)}>
-                          {[
-                            { id: 'yes', label: 'Yes, format to guidelines' },
-                            { id: 'no', label: 'No formatting needed' },
-                          ].map((opt) => (
-                            <UnstyledButton
-                              key={opt.id}
-                              onClick={() => setFormattingNeeded(opt.id as any)}
-                              px={rem(16)} py={rem(10)}
-                              style={{
-                                backgroundColor: formattingNeeded === opt.id ? active.primary : '#ffffff',
-                                color: formattingNeeded === opt.id ? '#ffffff' : active.primary,
-                                border: `1px solid ${formattingNeeded === opt.id ? active.primary : `${active.primary}20`}`,
-                                fontSize: rem(12),
-                                fontWeight: formattingNeeded === opt.id ? 700 : 500,
-                              }}
-                            >
-                              {opt.label}
-                            </UnstyledButton>
-                          ))}
-                        </Group>
-                      </Box>
-                    </SimpleGrid>
+                    )}
 
                     {/* Deadline picker */}
                     <DatePickerInput
@@ -879,55 +816,57 @@ function RequestReviewContent() {
                       onChange={(e) => setInstructions(e.target.value)}
                     />
 
-                    {/* Intent toggle: Share quote vs Start immediately */}
-                    <Box pt={rem(8)}>
-                      <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.08em', color: active.primary }}>
-                        CAN WE START WORK ON YOUR REQUEST IMMEDIATELY?
-                      </Text>
-                      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(10)}>
-                        <UnstyledButton
-                          onClick={() => setIntent('quote')}
-                          p={rem(18)}
-                          style={{
-                            border: `1px solid ${intent === 'quote' ? active.accent : `${active.primary}18`}`,
-                            backgroundColor: intent === 'quote' ? `${active.accent}08` : '#ffffff',
-                            color: active.primary,
-                            transition: 'all 0.15s ease',
-                          }}
-                        >
-                          <Group gap="xs" align="center" mb={rem(4)}>
-                            <IconMailForward size={16} color={active.accent} />
-                            <Text size="sm" fw={700} style={{ color: active.primary }}>
-                              Share a quotation first
+                    {/* Intent toggle: Share quote vs Start immediately (Services requiring quote/deposit) */}
+                    {paramService !== 'ai-audit' && (
+                      <Box pt={rem(8)}>
+                        <Text size="xs" fw={700} mb={rem(10)} style={{ letterSpacing: '0.08em', color: active.primary }}>
+                          CAN WE START WORK ON YOUR REQUEST IMMEDIATELY?
+                        </Text>
+                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(10)}>
+                          <UnstyledButton
+                            onClick={() => setIntent('quote')}
+                            p={rem(18)}
+                            style={{
+                              border: `1px solid ${intent === 'quote' ? active.accent : `${active.primary}18`}`,
+                              backgroundColor: intent === 'quote' ? `${active.accent}08` : '#ffffff',
+                              color: active.primary,
+                              transition: 'all 0.15s ease',
+                            }}
+                          >
+                            <Group gap="xs" align="center" mb={rem(4)}>
+                              <IconMailForward size={16} color={active.accent} />
+                              <Text size="sm" fw={700} style={{ color: active.primary }}>
+                                Share a quotation first
+                              </Text>
+                            </Group>
+                            <Text size="xs" lh={1.5} style={{ color: '#666' }}>
+                              We will email a firm quotation within 1 working hour. Pay nothing until approved.
                             </Text>
-                          </Group>
-                          <Text size="xs" lh={1.5} style={{ color: '#666' }}>
-                            We will email a firm quotation within 1 working hour. Pay nothing until approved.
-                          </Text>
-                        </UnstyledButton>
+                          </UnstyledButton>
 
-                        <UnstyledButton
-                          onClick={() => setIntent('start')}
-                          p={rem(18)}
-                          style={{
-                            border: `1px solid ${intent === 'start' ? active.accent : `${active.primary}18`}`,
-                            backgroundColor: intent === 'start' ? `${active.accent}08` : '#ffffff',
-                            color: active.primary,
-                            transition: 'all 0.15s ease',
-                          }}
-                        >
-                          <Group gap="xs" align="center" mb={rem(4)}>
-                            <IconReceipt size={16} color={active.accent} />
-                            <Text size="sm" fw={700} style={{ color: active.primary }}>
-                              Start work immediately
+                          <UnstyledButton
+                            onClick={() => setIntent('start')}
+                            p={rem(18)}
+                            style={{
+                              border: `1px solid ${intent === 'start' ? active.accent : `${active.primary}18`}`,
+                              backgroundColor: intent === 'start' ? `${active.accent}08` : '#ffffff',
+                              color: active.primary,
+                              transition: 'all 0.15s ease',
+                            }}
+                          >
+                            <Group gap="xs" align="center" mb={rem(4)}>
+                              <IconReceipt size={16} color={active.accent} />
+                              <Text size="sm" fw={700} style={{ color: active.primary }}>
+                                Start work immediately
+                              </Text>
+                            </Group>
+                            <Text size="xs" lh={1.5} style={{ color: '#666' }}>
+                              We will begin work on your manuscript. 50% deposit invoice sent upon scope confirmation.
                             </Text>
-                          </Group>
-                          <Text size="xs" lh={1.5} style={{ color: '#666' }}>
-                            We will start editing your paper. 50% deposit invoice sent upon scope confirmation.
-                          </Text>
-                        </UnstyledButton>
-                      </SimpleGrid>
-                    </Box>
+                          </UnstyledButton>
+                        </SimpleGrid>
+                      </Box>
+                    )}
 
                     {/* Submit Button */}
                     <Box pt="sm">
@@ -1103,7 +1042,7 @@ function StepSection({
   isOpen,
   isDone,
   doneSummary,
-  onReopen,
+  onToggle,
   children,
   active,
 }: {
@@ -1113,7 +1052,7 @@ function StepSection({
   isOpen: boolean
   isDone: boolean
   doneSummary?: string
-  onReopen: () => void
+  onToggle: () => void
   children: React.ReactNode
   active: Record<string, string>
 }) {
@@ -1121,14 +1060,14 @@ function StepSection({
     <Box
       bg="#ffffff"
       style={{
-        border: `1px solid ${isOpen ? `${active.accent}60` : `${active.primary}12`}`,
-        boxShadow: isOpen ? '0 4px 20px rgba(0,0,0,0.04)' : 'none',
+        border: `1px solid ${isOpen ? active.accent : `${active.primary}18`}`,
+        boxShadow: isOpen ? '0 4px 20px rgba(0,0,0,0.06)' : '0 2px 8px rgba(0,0,0,0.02)',
         transition: 'all 0.2s ease',
       }}
     >
-      {/* Header bar: Sleek, light, and accessible */}
+      {/* Header bar: Always crisp white matching the sidebar */}
       <UnstyledButton
-        onClick={onReopen}
+        onClick={onToggle}
         px={rem(24)}
         py={rem(18)}
         style={{
@@ -1136,54 +1075,69 @@ function StepSection({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: isOpen ? '#ffffff' : active.surface,
+          backgroundColor: '#ffffff',
           color: active.primary,
           borderBottom: isOpen ? `1px solid ${active.primary}10` : 'none',
           cursor: 'pointer',
+          transition: 'background-color 0.15s ease',
         }}
       >
-        <Group gap={rem(14)} align="center">
+        <Group gap={rem(14)} align="center" style={{ flex: 1, minWidth: 0 }}>
           <Box
             style={{
-              width: rem(30),
-              height: rem(30),
-              borderRadius: rem(15),
-              backgroundColor: isDone && !isOpen ? active.accent : isOpen ? active.accent : `${active.primary}10`,
+              width: rem(32),
+              height: rem(32),
+              borderRadius: rem(16),
+              backgroundColor: isDone && !isOpen ? active.accent : isOpen ? active.accent : `${active.primary}12`,
               color: isDone || isOpen ? '#ffffff' : active.primary,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: rem(13),
               fontWeight: 800,
+              flexShrink: 0,
             }}
           >
             {isDone && !isOpen ? <IconCheck size={16} stroke={3} color="#ffffff" /> : stepNum}
           </Box>
-          <Box>
+          <Box style={{ flex: 1, minWidth: 0 }}>
             <Text fw={700} size="sm" style={{ color: active.primary }}>
               {title}
             </Text>
             {!isOpen && isDone && doneSummary && (
-              <Text size="xs" style={{ color: active.accent, fontWeight: 600, marginTop: rem(2) }}>
+              <Text size="xs" truncate style={{ color: active.accent, fontWeight: 600, marginTop: rem(2) }}>
                 {doneSummary}
               </Text>
             )}
             {!isOpen && (!isDone || !doneSummary) && (
-              <Text size="xs" c="dimmed" style={{ marginTop: rem(2) }}>
+              <Text size="xs" c="dimmed" truncate style={{ marginTop: rem(2) }}>
                 {subtitle}
               </Text>
             )}
           </Box>
         </Group>
 
-        {isDone && !isOpen && (
-          <Group gap={rem(4)} align="center" style={{ color: active.accent }}>
-            <IconPencil size={13} />
-            <Text size="xs" fw={700} style={{ textDecoration: 'underline' }}>
-              edit
-            </Text>
-          </Group>
-        )}
+        <Group gap={rem(10)} align="center" style={{ flexShrink: 0, marginLeft: rem(12) }}>
+          {isDone && !isOpen && (
+            <Group gap={rem(4)} align="center" style={{ color: active.accent }}>
+              <IconPencil size={13} />
+              <Text size="xs" fw={700}>
+                Edit
+              </Text>
+            </Group>
+          )}
+          <Box
+            style={{
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.2s ease',
+              display: 'flex',
+              alignItems: 'center',
+              color: isOpen ? active.accent : `${active.primary}60`,
+            }}
+          >
+            <IconChevronDown size={18} />
+          </Box>
+        </Group>
       </UnstyledButton>
 
       {/* Expanded body */}
