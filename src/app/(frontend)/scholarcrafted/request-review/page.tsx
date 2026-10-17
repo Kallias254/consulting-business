@@ -49,16 +49,6 @@ const DOCUMENT_TYPES = [
   'Other Document',
 ]
 
-const REFERRAL_SOURCES = [
-  'Colleague / Peer Recommendation',
-  'Google Search',
-  'Academic Conference / Seminar',
-  'Social Media (LinkedIn / Twitter)',
-  'Journal Editorial Guidelines',
-  'University Department Portal',
-  'Other',
-]
-
 const EDITING_TIER_META: Record<string, { label: string; rate: number; priceStr: string; turnaround: string; desc: string }> = {
   advanced: {
     label: 'Advanced Editing',
@@ -246,8 +236,6 @@ function RequestReviewContent() {
   const [firstName, setFirstName]             = useState('')
   const [lastName, setLastName]               = useState('')
   const [email, setEmail]                     = useState('')
-  const [phone, setPhone]                     = useState('')
-  const [referralSource, setReferralSource]   = useState('Colleague / Peer Recommendation')
 
   // Document Preferences
   const [docType, setDocType]                 = useState<string>('Journal Article')
@@ -591,24 +579,27 @@ function RequestReviewContent() {
                     {/* Personal Information Subsection */}
                     <Box pt={rem(8)} style={{ borderTop: `1px solid ${active.primary}12` }}>
                       <Stack gap={rem(16)}>
-                        {/* Salutation + Name */}
-                        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={rem(12)}>
-                          <Select
-                            label="Salutation"
-                            placeholder="—"
-                            radius={0}
-                            data={SALUTATIONS}
-                            value={salutation}
-                            onChange={(v) => setSalutation(v ?? 'Dr.')}
-                          />
-                          <TextInput
-                            label="First name *"
-                            placeholder="Jane"
-                            required
-                            radius={0}
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                          />
+                        {/* Name (Title + First Name on left, Last Name on right) */}
+                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
+                          <Group gap={rem(10)} align="flex-end" wrap="nowrap">
+                            <Select
+                              label="Title"
+                              radius={0}
+                              data={SALUTATIONS}
+                              value={salutation}
+                              onChange={(v) => setSalutation(v ?? 'Dr.')}
+                              style={{ width: rem(88), flexShrink: 0 }}
+                            />
+                            <TextInput
+                              label="First name *"
+                              placeholder="Jane"
+                              required
+                              radius={0}
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              style={{ flex: 1 }}
+                            />
+                          </Group>
                           <TextInput
                             label="Last name *"
                             placeholder="Doe"
@@ -619,36 +610,16 @@ function RequestReviewContent() {
                           />
                         </SimpleGrid>
 
-                        {/* Email & Phone */}
-                        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={rem(16)}>
-                          <TextInput
-                            label="Primary email *"
-                            placeholder="jane.doe@university.edu"
-                            required
-                            type="email"
-                            radius={0}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            description="We recommend your academic email. Formal quote sent here."
-                          />
-                          <TextInput
-                            label="Mobile / Phone number *"
-                            placeholder="(+1) 555-0192"
-                            radius={0}
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            description="Used strictly for urgent manuscript inquiries"
-                          />
-                        </SimpleGrid>
-
-                        {/* Referral source */}
-                        <Select
-                          label="How did you hear about us? *"
-                          placeholder="Select option"
+                        {/* Primary Email */}
+                        <TextInput
+                          label="Primary email *"
+                          placeholder="e.g. jane.doe@gmail.com"
+                          required
+                          type="email"
                           radius={0}
-                          data={REFERRAL_SOURCES}
-                          value={referralSource}
-                          onChange={(v) => setReferralSource(v ?? REFERRAL_SOURCES[0])}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          description="Your scoped project brief and firm quotation will be emailed here."
                         />
                       </Stack>
                     </Box>
