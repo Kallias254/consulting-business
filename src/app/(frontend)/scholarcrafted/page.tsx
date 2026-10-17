@@ -481,7 +481,17 @@ const stageData: ResearchStageItem[] = [
 
 function ResearchStageSection({ active }: { active: Record<string, string> }) {
   const [selectedStageIndex, setSelectedStageIndex] = useState(1) // Default to "Get expert editing"
+  const [isAutoCyclingStages, setIsAutoCyclingStages] = useState(true)
+  const [isStageHovered, setIsStageHovered] = useState(false)
   const currentStage = stageData[selectedStageIndex] ?? stageData[1]
+
+  useEffect(() => {
+    if (!isAutoCyclingStages || isStageHovered) return
+    const timer = setInterval(() => {
+      setSelectedStageIndex((prev) => (prev + 1) % stageData.length)
+    }, 7000)
+    return () => clearInterval(timer)
+  }, [isAutoCyclingStages, isStageHovered])
 
   return (
     <Box
@@ -489,6 +499,8 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
       component="section"
       py={SECTION_SPACING}
       bg={active.background}
+      onMouseEnter={() => setIsStageHovered(true)}
+      onMouseLeave={() => setIsStageHovered(false)}
     >
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(32)}>
@@ -532,7 +544,10 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
               return (
                 <UnstyledButton
                   key={idx}
-                  onClick={() => setSelectedStageIndex(idx)}
+                  onClick={() => {
+                    setSelectedStageIndex(idx)
+                    setIsAutoCyclingStages(false)
+                  }}
                   style={{ height: '100%' }}
                 >
                   <Box
@@ -785,7 +800,21 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
 
 function ManuscriptSituationSection({ active }: { active: Record<string, string> }) {
   const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
+  const [isAutoCyclingNeeds, setIsAutoCyclingNeeds] = useState(true)
+  const [isNeedHovered, setIsNeedHovered] = useState(false)
   const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
+
+  useEffect(() => {
+    if (!isAutoCyclingNeeds || isNeedHovered) return
+    const timer = setInterval(() => {
+      setSelectedId((prevId) => {
+        const currentIndex = homeNeeds.findIndex((n) => n.id === prevId)
+        const nextIndex = (currentIndex + 1) % homeNeeds.length
+        return homeNeeds[nextIndex].id
+      })
+    }, 7000)
+    return () => clearInterval(timer)
+  }, [isAutoCyclingNeeds, isNeedHovered])
 
   return (
     <Box
@@ -797,6 +826,8 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
         borderTop: `1px solid ${active.primary}12`,
         borderBottom: `1px solid ${active.primary}12`,
       }}
+      onMouseEnter={() => setIsNeedHovered(true)}
+      onMouseLeave={() => setIsNeedHovered(false)}
     >
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(48)}>
@@ -850,7 +881,10 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                 return (
                   <UnstyledButton
                     key={need.id}
-                    onClick={() => setSelectedId(need.id)}
+                    onClick={() => {
+                      setSelectedId(need.id)
+                      setIsAutoCyclingNeeds(false)
+                    }}
                     style={{ width: '100%', display: 'block' }}
                   >
                     <Box
@@ -961,46 +995,32 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                           </Text>
                         </Group>
                         <Text size="sm" c="dimmed" lh={1.7}>{svc.desc}</Text>
-                        <Link href={svc.link} style={{ textDecoration: 'none' }}>
-                          <Text
-                            size="sm"
-                            fw={700}
-                            c={active.accent}
-                            style={{
-                              letterSpacing: '0.04em',
-                              fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                            }}
-                          >
-                            {svc.cta} →
-                          </Text>
-                        </Link>
+                        <Box mt={rem(8)}>
+                          <Link href={svc.link} style={{ textDecoration: 'none', display: 'inline-block' }}>
+                            <Button
+                              variant="filled"
+                              radius={0}
+                              size="sm"
+                              style={{
+                                backgroundColor: isRecommended ? active.accent : active.primary,
+                                color: '#ffffff',
+                                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                                fontWeight: 700,
+                                letterSpacing: '0.04em',
+                                height: rem(42),
+                                paddingLeft: rem(20),
+                                paddingRight: rem(20),
+                              }}
+                              rightSection={<IconArrowRight size={15} />}
+                            >
+                              {svc.cta}
+                            </Button>
+                          </Link>
+                        </Box>
                       </Stack>
                     </Box>
                   )
                 })}
-
-                <Box p={rem(24)} bg={active.background} style={{ border: `1px solid ${active.primary}14` }}>
-                  <Group justify="space-between" align="center" wrap="nowrap">
-                    <Text size="sm" c="dimmed" lh={1.5} style={{ flex: 1 }}>
-                      Not sure which tier? Submit your manuscript for a free scope assessment — reply in 24 hours.
-                    </Text>
-                    <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none', flexShrink: 0, marginLeft: rem(16) }}>
-                      <Button
-                        variant="filled"
-                        radius={0}
-                        size="sm"
-                        style={{
-                          backgroundColor: active.primary,
-                          color: active.background,
-                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                        }}
-                        rightSection={<IconArrowRight size={14} />}
-                      >
-                        Free Assessment
-                      </Button>
-                    </Link>
-                  </Group>
-                </Box>
               </Stack>
             </Box>
           </Box>
