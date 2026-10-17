@@ -351,17 +351,17 @@ const stageData: ResearchStageItem[] = [
     label: 'Find top journals',
     services: [
       {
-        badge: 'Editorial Advisory',
-        title: 'Target Journal Scope & Guidelines Audit',
-        tagline: 'Identify and evaluate top-tier target journals for scope fit, indexing prestige, and submission requirements.',
-        rate: 'Flat Package / Scoped Rate',
+        badge: 'Journal Selection • $320 Flat',
+        title: 'Target Journal Selection & Technical Fit',
+        tagline: '3–5 Ranked peer-reviewed journals matched to your empirical topic, citation impact goals, and submission timeline.',
+        rate: '$320 Flat Fee',
         features: [
-          'Analysis of recent publication trends and scope fit in your target field',
-          'Exhaustive audit against target journal Aims & Scope criteria',
-          'Verification of open-access mandates and publisher policies',
+          '3–5 Ranked journal options with acceptance rates & impact factors',
+          'Aims & Scope alignment report benchmarked to recent publishing trends',
+          'Open-access mandate and publisher policy verification',
         ],
         link: '/scholarcrafted/order?service=journal&tier=essentials',
-        cta: 'Get Journal Guidance',
+        cta: 'Select Journal Essentials',
       },
       {
         badge: 'Turnkey Submission',

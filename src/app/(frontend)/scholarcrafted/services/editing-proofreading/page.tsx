@@ -108,6 +108,7 @@ const editingTiers: EditingTier[] = [
       'Substantive paragraph reorganization and logical pacing polish',
       'Elimination of discursive drift and rhetorical redundancy',
       'Reference cross-check: inline citations verified against bibliography',
+      'Target journal scope & author guidelines audit',
       'Submission cover letter & abstract packaging',
       'Unconditional complimentary re-editing support for 365 days',
       'Detailed Editor Advisory Memorandum on thesis defensibility',
@@ -122,6 +123,7 @@ const editingTiers: EditingTier[] = [
     deliverables: [
       'Tracked Changes document with extensive margin commentary',
       'Clean publication-ready document formatted to target press',
+      'Target Journal Scope & Guidelines Audit report',
       'Target Journal Cover Letter',
       'Citation & Bibliography cross-audit memo',
       'Editorial Rigor Certificate + 365-day re-editing guarantee',
@@ -171,6 +173,7 @@ const comparisonMatrix = [
   { feature: 'Academic tone & terminology accuracy', advanced: true, premium: true, scientific: true },
   { feature: '100% Track Changes delivery in Word', advanced: true, premium: true, scientific: true },
   { feature: 'Target journal style & handbook formatting', advanced: true, premium: true, scientific: true },
+  { feature: 'Target journal scope & guidelines audit', advanced: false, premium: true, scientific: true },
   { feature: 'Editorial Certificate of English Editing', advanced: true, premium: true, scientific: true },
   { feature: 'Sentence rhythm, flow & transitions polish', advanced: 'Basic', premium: 'Substantive', scientific: 'In-Depth' },
   { feature: 'Paragraph restructuring & logical pacing', advanced: false, premium: true, scientific: true },

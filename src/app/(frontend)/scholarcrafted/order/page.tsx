@@ -56,6 +56,7 @@ const editingTiers = [
       'All Advanced Editing features included',
       'Substantive paragraph reorganisation & logical pacing',
       'Reference cross-check: citations vs bibliography',
+      'Target journal scope & author guidelines audit',
       'Submission cover letter & abstract packaging',
       'Unlimited complimentary re-editing for 365 days',
       'Editor Advisory Memorandum on thesis defensibility',
@@ -63,6 +64,7 @@ const editingTiers = [
     deliverables: [
       'Tracked Changes document with margin commentary',
       'Publication-ready document formatted to target press',
+      'Target Journal Scope & Guidelines Audit memo',
       'Target Journal Cover Letter',
       'Citation & Bibliography cross-audit memo',
       'Editorial Rigor Certificate + 365-day re-editing',
@@ -99,6 +101,7 @@ const editingMatrix = [
   { feature: 'Discipline-specific terminology accuracy', advanced: true, premium: true, scientific: true },
   { feature: '100% Track Changes delivery in Word', advanced: true, premium: true, scientific: true },
   { feature: 'Target journal style & handbook formatting', advanced: true, premium: true, scientific: true },
+  { feature: 'Target journal scope & guidelines audit', advanced: false, premium: true, scientific: true },
   { feature: 'Editorial Certificate of English Editing', advanced: true, premium: true, scientific: true },
   { feature: 'Substantive paragraph reorganisation & flow', advanced: false, premium: true, scientific: true },
   { feature: 'Reference cross-audit (citations vs bibliography)', advanced: false, premium: true, scientific: true },
