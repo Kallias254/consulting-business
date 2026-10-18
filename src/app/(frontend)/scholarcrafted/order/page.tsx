@@ -662,28 +662,6 @@ function OrderContent() {
       {/* Hero Header with Dynamic Title & Service Tabs */}
       <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(32)} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          {/* Subtle back link when single/focus mode is active */}
-          {isTabsHidden && (
-            <Box mb={rem(20)}>
-              <Link
-                href="/scholarcrafted/order"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: rem(6),
-                  textDecoration: 'none',
-                  fontSize: rem(13),
-                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                  fontWeight: 600,
-                  color: active.accent,
-                }}
-              >
-                <IconArrowLeft size={14} />
-                View all services & packages
-              </Link>
-            </Box>
-          )}
-
           <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', marginBottom: rem(8) }}>
             {hero.kicker}
           </Text>
