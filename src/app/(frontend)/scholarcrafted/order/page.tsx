@@ -494,6 +494,74 @@ const TAB_HEROES: Record<string, { kicker: string; title: string; desc: string }
   },
 }
 
+// ─── Focus presets for campaigns & flyers ─────────────────────────────────────
+
+interface FocusPreset {
+  service: 'editing' | 'journal' | 'book' | 'ai-audit'
+  kicker: string
+  title: string
+  desc: string
+  allowedTiers?: string[]
+  defaultTier?: string
+  hideTabs?: boolean
+}
+
+const FOCUS_PRESETS: Record<string, FocusPreset> = {
+  abstract: {
+    service: 'editing',
+    kicker: 'SHORT-FORM EDITORIAL POLISH',
+    title: 'Abstract & Executive Summary Polish',
+    desc: 'Line-by-line editorial polish, academic phrasing, and character-limit compliance for conference and journal abstracts.',
+    allowedTiers: ['advanced', 'premium'],
+    defaultTier: 'advanced',
+    hideTabs: true,
+  },
+  dissertation: {
+    service: 'editing',
+    kicker: 'COMMITTEE DEFENSE & GRADUATION',
+    title: 'Dissertation & Thesis Committee Polish',
+    desc: 'Line-by-line editorial polish, style manual compliance (APA 7, Chicago, Harvard), reference cross-checking, and 365-day re-editing for committee revisions.',
+    allowedTiers: ['advanced', 'premium'],
+    defaultTier: 'premium',
+    hideTabs: true,
+  },
+  thesis: {
+    service: 'editing',
+    kicker: 'COMMITTEE DEFENSE & GRADUATION',
+    title: 'Master’s & Doctoral Thesis Polish',
+    desc: 'Substantive structure, citation reconciliation, and formatting for graduation and defense clearance.',
+    allowedTiers: ['advanced', 'premium'],
+    defaultTier: 'premium',
+    hideTabs: true,
+  },
+  resubmission: {
+    service: 'editing',
+    kicker: 'JOURNAL REVISE & RESUBMIT (R&R)',
+    title: 'Journal Resubmission & Peer-Reviewer Response',
+    desc: 'Substantive developmental revisions, reviewer commentary alignment, and rebuttal letter cross-checks for high-impact journal re-review.',
+    allowedTiers: ['premium', 'scientific'],
+    defaultTier: 'scientific',
+    hideTabs: true,
+  },
+  'ai-audit': {
+    service: 'ai-audit',
+    kicker: 'PRE-SUBMISSION INTEGRITY AUDIT',
+    title: 'AI Manuscript & Citation Risk Audit',
+    desc: 'Audit hallucinated references and AI-generated phrasing before journal editors or Turnitin screen your manuscript. 100% credited toward full editing.',
+    defaultTier: 'single',
+    hideTabs: true,
+  },
+  'journal-formatting': {
+    service: 'journal',
+    kicker: 'TARGET JOURNAL SUBMISSION',
+    title: 'Journal Guidelines & Publisher Formatting',
+    desc: 'Layout, typography, reference formatting, and author guidelines compliance delivered ready for submission.',
+    allowedTiers: ['essentials', 'pro'],
+    defaultTier: 'essentials',
+    hideTabs: true,
+  },
+}
+
 // ─── Page wrapper ─────────────────────────────────────────────────────────────
 
 export default function OrderPage() {
@@ -509,10 +577,22 @@ function OrderContent() {
   const active = theme.other
   const searchParams = useSearchParams()
 
-  const initialService = searchParams.get('service') ?? ''
+  const rawService     = searchParams.get('service') ?? ''
   const initialSection = searchParams.get('section') ?? ''
-  const hlTier         = searchParams.get('tier') ?? ''
+  const focusParam     = searchParams.get('focus') ?? ''
+  const singleParam    = searchParams.get('single') ?? searchParams.get('hideTabs') ?? ''
+  const rawPlans       = searchParams.get('plans') ?? searchParams.get('tiers') ?? ''
+  const urlTier        = searchParams.get('tier') ?? ''
   const hlStage        = searchParams.get('stage') ?? ''
+
+  const preset = focusParam && FOCUS_PRESETS[focusParam] ? FOCUS_PRESETS[focusParam] : null
+  const initialService = rawService || preset?.service || ''
+  const hlTier         = urlTier || preset?.defaultTier || ''
+  const isTabsHidden   = Boolean(singleParam === 'true' || singleParam === '1' || preset?.hideTabs)
+
+  const allowedTiers: string[] | undefined = rawPlans
+    ? rawPlans.split(',').map((p) => p.trim())
+    : preset?.allowedTiers
 
   const resolveTab = React.useCallback((): 'editing' | 'journal' | 'book' | 'ai-audit' => {
     if (initialService === 'editing') return 'editing'
@@ -570,92 +650,119 @@ function OrderContent() {
     },
   ]
 
-  const hero = TAB_HEROES[activeTab]
+  const defaultHero = TAB_HEROES[activeTab]
+  const hero = preset && activeTab === preset.service
+    ? { kicker: preset.kicker, title: preset.title, desc: preset.desc }
+    : defaultHero
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh' }}>
       <Navbar />
 
       {/* Hero Header with Dynamic Title & Service Tabs */}
-      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(40)} bg={active.background}>
+      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(32)} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+          {/* Subtle back link when single/focus mode is active */}
+          {isTabsHidden && (
+            <Box mb={rem(20)}>
+              <Link
+                href="/scholarcrafted/order"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: rem(6),
+                  textDecoration: 'none',
+                  fontSize: rem(13),
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  fontWeight: 600,
+                  color: active.accent,
+                }}
+              >
+                <IconArrowLeft size={14} />
+                View all services & packages
+              </Link>
+            </Box>
+          )}
+
           <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', marginBottom: rem(8) }}>
             {hero.kicker}
           </Text>
           <Title order={1} style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.8rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
             {hero.title}
           </Title>
-          <Text size="md" c="dimmed" mt="xs" mb={rem(32)} lh={1.7} style={{ maxWidth: '64ch' }}>
+          <Text size="md" c="dimmed" mt="xs" mb={isTabsHidden ? rem(16) : rem(32)} lh={1.7} style={{ maxWidth: '64ch' }}>
             {hero.desc}
           </Text>
 
-          {/* ── Responsive Service Tabs Grid (Zero cut-off) ────────────────── */}
-          <SimpleGrid cols={{ base: 2, md: 4 }} spacing={rem(8)}>
-            {TABS.map((tab) => {
-              const isCurrent = activeTab === tab.id
-              return (
-                <UnstyledButton
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  px={rem(14)}
-                  py={rem(12)}
-                  data-dark-bg={isCurrent ? 'true' : undefined}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: rem(8),
-                    backgroundColor: isCurrent ? active.primary : active.surface,
-                    color: isCurrent ? '#ffffff' : active.primary,
-                    border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
-                    borderRadius: 0,
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    fontWeight: isCurrent ? 700 : 600,
-                    fontSize: rem(13),
-                    transition: 'all 0.18s ease',
-                    boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
-                    cursor: 'pointer',
-                    width: '100%',
-                  }}
-                >
-                  <Group gap={rem(8)} wrap="nowrap" align="center" style={{ minWidth: 0, flex: 1 }}>
-                    <Box style={{ color: active.accent, display: 'flex', flexShrink: 0 }}>
-                      {tab.icon}
-                    </Box>
-                    <Box style={{ minWidth: 0, flex: 1 }}>
-                      <Text
-                        size="sm"
-                        fw={isCurrent ? 700 : 600}
-                        c={isCurrent ? '#ffffff' : active.primary}
-                        style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
-                        truncate
-                      >
-                        {tab.label}
-                      </Text>
-                      <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} truncate style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
-                        {tab.sub}
-                      </Text>
-                    </Box>
-                  </Group>
-                  <Box
-                    px={rem(6)}
-                    py={rem(2)}
+          {/* ── Responsive Service Tabs Grid (Only shown when not hidden) ───── */}
+          {!isTabsHidden && (
+            <SimpleGrid cols={{ base: 2, md: 4 }} spacing={rem(8)}>
+              {TABS.map((tab) => {
+                const isCurrent = activeTab === tab.id
+                return (
+                  <UnstyledButton
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    px={rem(14)}
+                    py={rem(12)}
+                    data-dark-bg={isCurrent ? 'true' : undefined}
                     style={{
-                      backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
-                      fontSize: rem(10),
-                      fontWeight: 700,
-                      color: isCurrent ? '#ffffff' : '#666',
-                      flexShrink: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: rem(8),
+                      backgroundColor: isCurrent ? active.primary : active.surface,
+                      color: isCurrent ? '#ffffff' : active.primary,
+                      border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
+                      borderRadius: 0,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      fontWeight: isCurrent ? 700 : 600,
+                      fontSize: rem(13),
+                      transition: 'all 0.18s ease',
+                      boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
+                      cursor: 'pointer',
+                      width: '100%',
                     }}
                   >
-                    <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
-                      {tab.badge}
-                    </Text>
-                  </Box>
-                </UnstyledButton>
-              )
-            })}
-          </SimpleGrid>
+                    <Group gap={rem(8)} wrap="nowrap" align="center" style={{ minWidth: 0, flex: 1 }}>
+                      <Box style={{ color: active.accent, display: 'flex', flexShrink: 0 }}>
+                        {tab.icon}
+                      </Box>
+                      <Box style={{ minWidth: 0, flex: 1 }}>
+                        <Text
+                          size="sm"
+                          fw={isCurrent ? 700 : 600}
+                          c={isCurrent ? '#ffffff' : active.primary}
+                          style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
+                          truncate
+                        >
+                          {tab.label}
+                        </Text>
+                        <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} truncate style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
+                          {tab.sub}
+                        </Text>
+                      </Box>
+                    </Group>
+                    <Box
+                      px={rem(6)}
+                      py={rem(2)}
+                      style={{
+                        backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
+                        fontSize: rem(10),
+                        fontWeight: 700,
+                        color: isCurrent ? '#ffffff' : '#666',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
+                        {tab.badge}
+                      </Text>
+                    </Box>
+                  </UnstyledButton>
+                )
+              })}
+            </SimpleGrid>
+          )}
         </Container>
       </Box>
 
@@ -666,6 +773,7 @@ function OrderContent() {
           hlTier={hlTier}
           calcWords={calcWords}
           setCalcWords={setCalcWords}
+          allowedTiers={allowedTiers}
         />
       )}
 
@@ -673,6 +781,7 @@ function OrderContent() {
         <JournalTabBody
           active={active}
           hlTier={hlTier}
+          allowedTiers={allowedTiers}
         />
       )}
 
@@ -696,13 +805,22 @@ function OrderContent() {
 // ─── EDITING TAB BODY ─────────────────────────────────────────────────────────
 
 function EditingTabBody({
-  active, hlTier, calcWords, setCalcWords,
+  active, hlTier, calcWords, setCalcWords, allowedTiers,
 }: {
   active: Record<string, string>
   hlTier: string
   calcWords: number
   setCalcWords: (n: number) => void
+  allowedTiers?: string[]
 }) {
+  const visibleTiers = allowedTiers && allowedTiers.length > 0
+    ? editingTiers.filter((tier) => allowedTiers.includes(tier.id))
+    : editingTiers
+
+  const showAdvanced = visibleTiers.some((t) => t.id === 'advanced')
+  const showPremium = visibleTiers.some((t) => t.id === 'premium')
+  const showScientific = visibleTiers.some((t) => t.id === 'scientific')
+
   return (
     <Box>
       {/* Intro banner with live word-count estimator */}
@@ -712,7 +830,7 @@ function EditingTabBody({
             <Box style={{ maxWidth: 640 }}>
               <Text size="sm" c="dimmed" lh={1.6}>
                 All editing is performed by human discipline specialists in Microsoft Word Track Changes.
-                Enter your approximate word count to preview fees live across all three tiers:
+                Enter your approximate word count to preview fees live across all tiers:
               </Text>
             </Box>
             <Group gap="xs" align="center">
@@ -737,8 +855,18 @@ function EditingTabBody({
       {/* Tier cards */}
       <Box py={SECTION_SPACING} bg={active.surface}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(2)}>
-            {editingTiers.map((tier) => {
+          <SimpleGrid
+            cols={{ base: 1, md: visibleTiers.length >= 3 ? 3 : visibleTiers.length }}
+            spacing={rem(2)}
+            style={
+              visibleTiers.length === 2
+                ? { maxWidth: 960, margin: '0 auto' }
+                : visibleTiers.length === 1
+                ? { maxWidth: 520, margin: '0 auto' }
+                : undefined
+            }
+          >
+            {visibleTiers.map((tier) => {
               const isHighlighted = hlTier === tier.id || (!hlTier && tier.isPopular)
               const estTotal = Math.round(calcWords * tier.rateNum)
               return (
@@ -820,30 +948,42 @@ function EditingTabBody({
               <Table.Thead>
                 <Table.Tr style={{ backgroundColor: active.surface }}>
                   <Table.Th style={{ width: '40%', padding: `${rem(14)} ${rem(20)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.08em', color: '#888', borderColor: `${active.primary}10` }}>FEATURE</Table.Th>
-                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Advanced</Table.Th>
-                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.accent, borderColor: `${active.primary}10` }}>Premium ★</Table.Th>
-                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Scientific Pro</Table.Th>
+                  {showAdvanced && (
+                    <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Advanced</Table.Th>
+                  )}
+                  {showPremium && (
+                    <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.accent, borderColor: `${active.primary}10` }}>Premium ★</Table.Th>
+                  )}
+                  {showScientific && (
+                    <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Scientific Pro</Table.Th>
+                  )}
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
                 {editingMatrix.map((row, i) => (
                   <Table.Tr key={i} style={{ backgroundColor: i % 2 === 0 ? active.background : active.surface }}>
                     <Table.Td style={{ padding: `${rem(12)} ${rem(20)}`, fontSize: rem(13), color: active.primary, lineHeight: 1.4, borderColor: `${active.primary}08` }}>{row.feature}</Table.Td>
-                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
-                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MatrixCell val={row.advanced} />
-                      </Box>
-                    </Table.Td>
-                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08`, backgroundColor: `${active.accent}04` }}>
-                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MatrixCell val={row.premium} />
-                      </Box>
-                    </Table.Td>
-                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
-                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MatrixCell val={row.scientific} />
-                      </Box>
-                    </Table.Td>
+                    {showAdvanced && (
+                      <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                          <MatrixCell val={row.advanced} />
+                        </Box>
+                      </Table.Td>
+                    )}
+                    {showPremium && (
+                      <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08`, backgroundColor: `${active.accent}04` }}>
+                        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                          <MatrixCell val={row.premium} />
+                        </Box>
+                      </Table.Td>
+                    )}
+                    {showScientific && (
+                      <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                          <MatrixCell val={row.scientific} />
+                        </Box>
+                      </Table.Td>
+                    )}
                   </Table.Tr>
                 ))}
               </Table.Tbody>
@@ -863,13 +1003,37 @@ function EditingTabBody({
 
 // ─── JOURNAL TAB BODY ─────────────────────────────────────────────────────────
 
-function JournalTabBody({ active, hlTier }: { active: Record<string, string>; hlTier: string }) {
+function JournalTabBody({
+  active, hlTier, allowedTiers,
+}: {
+  active: Record<string, string>
+  hlTier: string
+  allowedTiers?: string[]
+}) {
+  const visibleTiers = allowedTiers && allowedTiers.length > 0
+    ? journalTiers.filter((tier) => allowedTiers.includes(tier.id))
+    : journalTiers
+
+  const showEssentials = visibleTiers.some((t) => t.id === 'essentials')
+  const showPro = visibleTiers.some((t) => t.id === 'pro')
+  const showFull = visibleTiers.some((t) => t.id === 'full')
+
   return (
     <Box>
       <Box py={SECTION_SPACING} bg={active.surface}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(2)}>
-            {journalTiers.map((tier) => {
+          <SimpleGrid
+            cols={{ base: 1, md: visibleTiers.length >= 3 ? 3 : visibleTiers.length }}
+            spacing={rem(2)}
+            style={
+              visibleTiers.length === 2
+                ? { maxWidth: 960, margin: '0 auto' }
+                : visibleTiers.length === 1
+                ? { maxWidth: 520, margin: '0 auto' }
+                : undefined
+            }
+          >
+            {visibleTiers.map((tier) => {
               const isHighlighted = hlTier === tier.id || (!hlTier && tier.isPopular)
               return (
                 <Box
@@ -943,30 +1107,42 @@ function JournalTabBody({ active, hlTier }: { active: Record<string, string>; hl
               <Table.Thead>
                 <Table.Tr style={{ backgroundColor: active.surface }}>
                   <Table.Th style={{ width: '40%', padding: `${rem(14)} ${rem(20)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.08em', color: '#888', borderColor: `${active.primary}10` }}>FEATURE</Table.Th>
-                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Essentials</Table.Th>
-                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.accent, borderColor: `${active.primary}10` }}>Pro ★</Table.Th>
-                  <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Full</Table.Th>
+                  {showEssentials && (
+                    <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Essentials</Table.Th>
+                  )}
+                  {showPro && (
+                    <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.accent, borderColor: `${active.primary}10` }}>Pro ★</Table.Th>
+                  )}
+                  {showFull && (
+                    <Table.Th style={{ textAlign: 'center', padding: `${rem(14)} ${rem(16)}`, fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontSize: rem(12), letterSpacing: '0.06em', color: active.primary, borderColor: `${active.primary}10` }}>Full</Table.Th>
+                  )}
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
                 {journalMatrix.map((row, i) => (
                   <Table.Tr key={i} style={{ backgroundColor: i % 2 === 0 ? active.background : active.surface }}>
                     <Table.Td style={{ padding: `${rem(12)} ${rem(20)}`, fontSize: rem(13), color: active.primary, lineHeight: 1.4, borderColor: `${active.primary}08` }}>{row.feature}</Table.Td>
-                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
-                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MatrixCell val={row.essentials} />
-                      </Box>
-                    </Table.Td>
-                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08`, backgroundColor: `${active.accent}04` }}>
-                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MatrixCell val={row.pro} />
-                      </Box>
-                    </Table.Td>
-                    <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
-                      <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MatrixCell val={row.full} />
-                      </Box>
-                    </Table.Td>
+                    {showEssentials && (
+                      <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                          <MatrixCell val={row.essentials} />
+                        </Box>
+                      </Table.Td>
+                    )}
+                    {showPro && (
+                      <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08`, backgroundColor: `${active.accent}04` }}>
+                        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                          <MatrixCell val={row.pro} />
+                        </Box>
+                      </Table.Td>
+                    )}
+                    {showFull && (
+                      <Table.Td style={{ textAlign: 'center', padding: `${rem(12)} ${rem(16)}`, borderColor: `${active.primary}08` }}>
+                        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                          <MatrixCell val={row.full} />
+                        </Box>
+                      </Table.Td>
+                    )}
                   </Table.Tr>
                 ))}
               </Table.Tbody>
