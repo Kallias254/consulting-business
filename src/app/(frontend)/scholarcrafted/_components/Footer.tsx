@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   Container,
   SimpleGrid,
@@ -16,30 +16,13 @@ import Link from 'next/link'
 import {
   IconBrandLinkedin,
   IconBrandInstagram,
+  IconMail,
 } from '@tabler/icons-react'
 import { Logo } from './Logo'
-
-const QUOTES = [
-  { text: 'Big results require big ambitions.', author: 'Heraclitus' },
-  { text: 'A good decision is based on knowledge and not on numbers.', author: 'Plato' },
-  { text: 'Friendship is always a sweet responsibility, never an opportunity.', author: 'Kahlil Gibran' },
-  { text: 'Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.', author: 'Thomas Edison' },
-  { text: 'The roots of education are bitter, but the fruit is sweet.', author: 'Aristotle' },
-  { text: 'An investment in knowledge pays the best interest.', author: 'Benjamin Franklin' },
-  { text: 'The mind is not a vessel to be filled, but a fire to be kindled.', author: 'Plutarch' },
-  { text: 'Excellence is never an accident. It is always the result of high intention, sincere effort, and intelligent execution.', author: 'Aristotle' },
-  { text: 'It always seems impossible until it is done.', author: 'Nelson Mandela' },
-  { text: 'The secret of getting ahead is getting started.', author: 'Mark Twain' },
-]
 
 export function Footer({ bg }: { bg?: string }) {
   const theme = useMantineTheme()
   const active = theme.other
-  const [quote, setQuote] = useState(QUOTES[0])
-
-  useEffect(() => {
-    setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)])
-  }, [])
 
   return (
     <Box
@@ -69,58 +52,37 @@ export function Footer({ bg }: { bg?: string }) {
               A faculty-led post-draft execution firm. We handle the technical production work — line editing, formatting, citation audits, and publisher preparation — that turns a finished manuscript into a published work.
             </Text>
 
-            {/* Inquiries */}
-            <Stack gap={rem(4)}>
-              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.1em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                OFFICIAL INQUIRIES
-              </Text>
-              <Text size="sm" fw={600} c="white">
-                admissions@scholarcrafted.com
-              </Text>
-              <Text size="sm" c="rgba(255,255,255,0.65)">
-                +1 (617) 555-0123
-              </Text>
-            </Stack>
-
-            {/* Social Channels */}
-            <Stack gap="xs">
-              <Text size="xs" fw={700} c="rgba(255,255,255,0.65)" style={{ letterSpacing: '0.08em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                CONNECT WITH OUR FACULTY
-              </Text>
-              <Group gap="md">
-                <a
-                  href="https://www.linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="social-icon-link"
-                >
-                  <IconBrandLinkedin size={22} />
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="social-icon-link"
-                >
-                  <IconBrandInstagram size={22} />
-                </a>
-              </Group>
-            </Stack>
-
-            {/* Quote */}
-            <Stack gap={rem(4)}>
-              <Text
-                size="xs"
-                lh={1.6}
-                fs="italic"
-                c="rgba(255,255,255,0.55)"
+            {/* Contact & Social */}
+            <Group gap="md" align="center">
+              <a
+                href="mailto:contact@scholarcrafted.com"
+                className="social-icon-link"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: rem(6), textDecoration: 'none' }}
               >
-                &ldquo;{quote.text}&rdquo;
-              </Text>
-              <Text size="xs" c={active.accent} fw={600} style={{ letterSpacing: '0.06em' }}>
-                — {quote.author}
-              </Text>
-            </Stack>
+                <IconMail size={18} />
+                <Text size="sm" c="rgba(255,255,255,0.65)" style={{ transition: 'color 0.2s ease' }}>
+                  contact@scholarcrafted.com
+                </Text>
+              </a>
+            </Group>
+            <Group gap="md">
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="social-icon-link"
+              >
+                <IconBrandLinkedin size={22} />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="social-icon-link"
+              >
+                <IconBrandInstagram size={22} />
+              </a>
+            </Group>
           </Stack>
 
           {/* Column 2: Academic Editing (By paper & document type) */}
@@ -292,14 +254,16 @@ export function Footer({ bg }: { bg?: string }) {
             </Text>
           </Group>
           <Group gap="xl">
-            <Text
-              size="xs"
-              c="rgba(255,255,255,0.6)"
-              style={{ cursor: 'pointer' }}
-              className="footer-link"
-            >
-              Privacy & Ethics
-            </Text>
+            <Link href="/scholarcrafted/privacy" style={{ textDecoration: 'none' }}>
+              <Text
+                size="xs"
+                c="rgba(255,255,255,0.6)"
+                style={{ cursor: 'pointer' }}
+                className="footer-link"
+              >
+                Privacy & Ethics
+              </Text>
+            </Link>
             <Link href="/scholarcrafted/terms" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
@@ -310,12 +274,26 @@ export function Footer({ bg }: { bg?: string }) {
                 Terms & Conditions
               </Text>
             </Link>
-            <Text
-              size="xs"
-              c="rgba(255,255,255,0.5)"
-            >
-              Strictly Confidential
-            </Text>
+            <Link href="/scholarcrafted/publication-ethics" style={{ textDecoration: 'none' }}>
+              <Text
+                size="xs"
+                c="rgba(255,255,255,0.6)"
+                style={{ cursor: 'pointer' }}
+                className="footer-link"
+              >
+                Publication Ethics
+              </Text>
+            </Link>
+            <Link href="/scholarcrafted/confidentiality" style={{ textDecoration: 'none' }}>
+              <Text
+                size="xs"
+                c="rgba(255,255,255,0.6)"
+                style={{ cursor: 'pointer' }}
+                className="footer-link"
+              >
+                Strictly Confidential
+              </Text>
+            </Link>
           </Group>
         </Group>
       </Container>

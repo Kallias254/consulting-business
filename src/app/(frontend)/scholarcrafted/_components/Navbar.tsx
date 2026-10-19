@@ -96,7 +96,7 @@ export function Navbar() {
           borderBottom: '1px solid rgba(0,0,0,0.06)',
         }}
       >
-        <Container size={1200}>
+        <Container size={1340}>
           <Group justify="space-between" align="center" wrap="nowrap">
             <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
               <Logo height={32} boxColor={active.accent} textColor={active.primary} />
