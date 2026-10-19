@@ -194,15 +194,15 @@ function RequestReviewContent() {
   // Back link URL to order comparison page
   const backToOrderUrl = (() => {
     if (paramService === 'ai-audit') {
-      return `/scholarcrafted/order?service=ai-audit`
+      return `/order?service=ai-audit`
     }
     if (paramService === 'publication' && paramSection === 'book') {
-      return `/scholarcrafted/order?service=publication&section=book${paramStage ? `&stage=${paramStage}` : ''}`
+      return `/order?service=publication&section=book${paramStage ? `&stage=${paramStage}` : ''}`
     }
     if (paramService === 'publication' || paramSection === 'journal') {
-      return `/scholarcrafted/order?service=publication&section=journal${paramTier ? `&tier=${paramTier}` : ''}`
+      return `/order?service=publication&section=journal${paramTier ? `&tier=${paramTier}` : ''}`
     }
-    return `/scholarcrafted/order?service=editing${paramTier ? `&tier=${paramTier}` : ''}`
+    return `/order?service=editing${paramTier ? `&tier=${paramTier}` : ''}`
   })()
 
   // Derive Plan Title for header

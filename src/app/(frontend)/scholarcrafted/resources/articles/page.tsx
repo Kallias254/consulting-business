@@ -127,7 +127,7 @@ export default function ArticlesArchivePage() {
             {articles.map((item, i) => (
               <Link
                 key={i}
-                href={`/scholarcrafted/resources/articles/${item.slug}`}
+                href={`/resources/articles/${item.slug}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Box

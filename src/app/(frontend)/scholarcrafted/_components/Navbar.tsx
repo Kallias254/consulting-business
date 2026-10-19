@@ -56,19 +56,19 @@ export function Navbar() {
 
   const services = [
     {
-      href: '/scholarcrafted/services/ai-manuscript-audit',
+      href: '/services/ai-manuscript-audit',
       icon: <IconShieldCheck size={20} />,
       label: 'AI Manuscript Audit',
       desc: 'Audit your AI-assisted research before journal submission. Citation gaps, risk analysis & debrief.',
     },
     {
-      href: '/scholarcrafted/services/editing-proofreading',
+      href: '/services/editing-proofreading',
       icon: <IconPencil size={20} />,
       label: 'Editing & Compliance',
       desc: 'Line editing, academic tone, style conformity & editorial certificate. Priced per word.',
     },
     {
-      href: '/scholarcrafted/services/publication-support',
+      href: '/services/publication-support',
       icon: <IconBook2 size={20} />,
       label: 'Publication Support',
       desc: 'Journal selection, cover letters, book proposals, galley proofs & indexing.',
@@ -121,7 +121,7 @@ export function Navbar() {
                   {/* Wrap in Link so clicking the word navigates to /services */}
                   <Link href="/services" style={{ textDecoration: 'none' }}>
                     <Box
-                      className={`nav-link-wrapper ${isActive('/scholarcrafted/services') ? 'active' : ''}`}
+                      className={`nav-link-wrapper ${isActive('/services') ? 'active' : ''}`}
                       style={{ cursor: 'pointer' }}
                     >
                       <Center inline>
@@ -189,7 +189,7 @@ export function Navbar() {
 
               {/* About */}
               <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                <Box className={`nav-link-wrapper ${isActive('/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
                     <Text
                       fw={600}

@@ -550,7 +550,7 @@ function PublicationSupportPageInner() {
                         </Stack>
                       </Box>
 
-                      <Link href={`/scholarcrafted/order?service=publication&section=journal&tier=${selectedTier.id}`} style={{ textDecoration: 'none' }}>
+                      <Link href={`/order?service=publication&section=journal&tier=${selectedTier.id}`} style={{ textDecoration: 'none' }}>
                         <Button
                           size="md"
                           radius={0}
@@ -730,7 +730,7 @@ function PublicationSupportPageInner() {
                       ))}
                     </SimpleGrid>
 
-                    <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/request-review?service=publication&section=book&stage=${selectedStage.step}`} style={{ textDecoration: 'none' }}>
                       <Button
                         size="md"
                         radius={0}

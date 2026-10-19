@@ -127,7 +127,7 @@ export default function BlogArchivePage() {
             {articles.map((item, i) => (
               <Link
                 key={i}
-                href={`/scholarcrafted/blog/${item.slug}`}
+                href={`/blog/${item.slug}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Box

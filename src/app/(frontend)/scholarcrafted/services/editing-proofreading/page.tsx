@@ -714,7 +714,7 @@ export default function EditingProofreadingPage() {
                 </SimpleGrid>
 
                 <Link
-                  href={`/scholarcrafted/order?service=editing&tier=${selectedTier.id}&wordCount=${wordCount}`}
+                  href={`/order?service=editing&tier=${selectedTier.id}&wordCount=${wordCount}`}
                   style={{ textDecoration: 'none' }}
                 >
                   <Button

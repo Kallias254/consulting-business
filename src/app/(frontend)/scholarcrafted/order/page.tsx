@@ -921,7 +921,7 @@ function EditingTabBody({
                       ))}
                     </Stack>
                     <Link
-                      href={`/scholarcrafted/request-review?service=editing&tier=${tier.id}&wordCount=${calcWords}`}
+                      href={`/request-review?service=editing&tier=${tier.id}&wordCount=${calcWords}`}
                       style={{ textDecoration: 'none' }}
                     >
                       <Button fullWidth radius={0} rightSection={<IconArrowRight size={16} />}
@@ -1080,7 +1080,7 @@ function JournalTabBody({
                       ))}
                     </Stack>
                     <Link
-                      href={`/scholarcrafted/request-review?service=publication&section=journal&tier=${tier.id}`}
+                      href={`/request-review?service=publication&section=journal&tier=${tier.id}`}
                       style={{ textDecoration: 'none' }}
                     >
                       <Button fullWidth radius={0} rightSection={<IconArrowRight size={16} />}
@@ -1287,7 +1287,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                       </Button>
                     </Link>
                   ) : (
-                    <Link href={`/scholarcrafted/request-review?service=publication&section=book&stage=${selected.step}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/request-review?service=publication&section=book&stage=${selected.step}`} style={{ textDecoration: 'none' }}>
                       <Button radius={0} size="md" rightSection={<IconArrowRight size={16} />}
                         style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
                         Select Stage {selected.step} ({selected.title})
@@ -1411,7 +1411,7 @@ function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hl
                       ))}
                     </Stack>
                     <Link
-                      href={`/scholarcrafted/request-review?service=ai-audit&tier=${tier.id}`}
+                      href={`/request-review?service=ai-audit&tier=${tier.id}`}
                       style={{ textDecoration: 'none' }}
                     >
                       <Button fullWidth radius={0} rightSection={<IconArrowRight size={16} />}

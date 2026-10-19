@@ -86,7 +86,7 @@ const pricingTiers = [
       'Optional 15-minute debrief consultation with Micah Dobson',
       '★ 100% Fee Credit: $29 credited toward full editing if scoped',
     ],
-    href: '/scholarcrafted/request-review?service=ai-audit&tier=single',
+    href: '/request-review?service=ai-audit&tier=single',
   },
   {
     id: 'bundle',
@@ -107,7 +107,7 @@ const pricingTiers = [
       'Direct follow-up consultation with Micah Dobson after each review',
       '★ 100% Fee Credit: $69 credited toward full developmental editing',
     ],
-    href: '/scholarcrafted/request-review?service=ai-audit&tier=bundle',
+    href: '/request-review?service=ai-audit&tier=bundle',
   },
 ]
 

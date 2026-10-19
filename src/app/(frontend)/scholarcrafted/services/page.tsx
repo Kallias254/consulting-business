@@ -46,7 +46,7 @@ const services = [
       'Citation & reference cross-check (Premium and above)',
     ],
     pricing: 'From $0.032 / word',
-    href: '/scholarcrafted/services/editing-proofreading',
+    href: '/services/editing-proofreading',
     cta: 'View Tiers & Calculator',
   },
   {
@@ -63,7 +63,7 @@ const services = [
       'Book proposals, galley proof review & back-of-book indexing',
     ],
     pricing: 'Journal from $320 · Book from $280 / stage',
-    href: '/scholarcrafted/services/publication-support',
+    href: '/services/publication-support',
     cta: 'View Journal & Book Options',
   },
   {
@@ -81,7 +81,7 @@ const services = [
       '100% fee credited toward full editing or publication support',
     ],
     pricing: '$29 Single Review · $69 Revision Pack (3 Reviews)',
-    href: '/scholarcrafted/order?service=ai-audit',
+    href: '/order?service=ai-audit',
     cta: 'Order AI Manuscript Audit',
   },
 ]
