@@ -560,6 +560,33 @@ const FOCUS_PRESETS: Record<string, FocusPreset> = {
     defaultTier: 'essentials',
     hideTabs: true,
   },
+  'journal-article': {
+    service: 'editing',
+    kicker: 'PEER-REVIEWED JOURNAL PUBLISHING',
+    title: 'Journal Article & Empirical Paper Polish',
+    desc: 'Line-by-line editorial polish, argument coherence, and target journal compliance delivered in Microsoft Word Track Changes.',
+    allowedTiers: ['advanced', 'premium', 'scientific'],
+    defaultTier: 'premium',
+    hideTabs: true,
+  },
+  'case-report': {
+    service: 'editing',
+    kicker: 'CLINICAL & BIOMEDICAL PUBLISHING',
+    title: 'Case Report & Clinical Manuscript Polish',
+    desc: 'CARE guideline compliance, clinical terminology verification, and publication-ready language polish.',
+    allowedTiers: ['advanced', 'premium'],
+    defaultTier: 'advanced',
+    hideTabs: true,
+  },
+  'systematic-review': {
+    service: 'editing',
+    kicker: 'EVIDENCE SYNTHESIS & PRISMA',
+    title: 'Systematic Review & Meta-Analysis Polish',
+    desc: 'PRISMA compliance, methodological terminology accuracy, and rigorous line-by-line editorial polish.',
+    allowedTiers: ['premium', 'scientific'],
+    defaultTier: 'premium',
+    hideTabs: true,
+  },
 }
 
 // ─── Page wrapper ─────────────────────────────────────────────────────────────
