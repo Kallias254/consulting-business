@@ -514,7 +514,7 @@ export default function ServicesPage() {
                         Submit your manuscript. We assess scope and respond within 24 hours.
                       </Text>
                     </Stack>
-                    <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', flexShrink: 0 }}>
+                    <Link href="/request-review" style={{ textDecoration: 'none', flexShrink: 0 }}>
                       <Button
                         variant="outline"
                         radius={0}

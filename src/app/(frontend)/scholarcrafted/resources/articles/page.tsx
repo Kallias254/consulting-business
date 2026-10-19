@@ -94,7 +94,7 @@ export default function ArticlesArchivePage() {
             </Stack>
 
             <Link
-              href="/scholarcrafted/resources"
+              href="/resources"
               style={{
                 textDecoration: 'none',
                 display: 'inline-flex',
@@ -195,7 +195,7 @@ export default function ArticlesArchivePage() {
             <Text size="lg" c="dimmed" lh={1.7}>
               Articles give you the framework. A professional project assessment gives you the precise answers for your specific research.
             </Text>
-            <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+            <Link href="/request-review" style={{ textDecoration: 'none' }}>
               <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                 GET A QUOTE
               </Button>

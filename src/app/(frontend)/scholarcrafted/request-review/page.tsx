@@ -297,7 +297,7 @@ function RequestReviewContent() {
       <Box bg={active.background} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Box py={rem(20)} style={{ borderBottom: `1px solid ${active.primary}10`, backgroundColor: active.background }}>
           <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+            <Link href="/" style={{ textDecoration: 'none' }}>
               <Text fw={700} size="lg" c={active.primary} style={{ fontFamily: 'var(--font-serif)' }}>
                 ScholarCrafted
               </Text>
@@ -338,7 +338,7 @@ function RequestReviewContent() {
                 <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>
                   Strict NDA · No AI models applied to your manuscript · Real scholar review
                 </Text>
-                <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+                <Link href="/" style={{ textDecoration: 'none' }}>
                   <Button variant="outline" radius={0} mt="sm" style={{ borderColor: `${active.primary}30`, color: active.primary }}>
                     Return to ScholarCrafted Home
                   </Button>
@@ -401,7 +401,7 @@ function RequestReviewContent() {
             </Group>
 
             {/* Right: Brand link */}
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none' }}>
+            <Link href="/" style={{ textDecoration: 'none' }}>
               <Text fw={700} size="sm" c={active.primary} style={{ fontFamily: 'var(--font-serif)', letterSpacing: '0.04em' }}>
                 ScholarCrafted
               </Text>

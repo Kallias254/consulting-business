@@ -714,7 +714,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
 
           {/* Compare Link */}
           <Box style={{ textAlign: 'center', paddingTop: rem(8) }}>
-            <Link href="/scholarcrafted/order" style={{ textDecoration: 'none' }}>
+            <Link href="/order" style={{ textDecoration: 'none' }}>
               <Button
                 variant="subtle"
                 radius={0}
@@ -1196,7 +1196,7 @@ export default function ScholarCraftedLanding() {
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
                 <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
-                  <Link href="/scholarcrafted/order" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/order" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1218,7 +1218,7 @@ export default function ScholarCraftedLanding() {
                       View Services & Pricing
                     </Button>
                   </Link>
-                  <Link href="/scholarcrafted/order?service=ai-audit" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/order?service=ai-audit" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1497,7 +1497,7 @@ export default function ScholarCraftedLanding() {
                 </Text>
 
                 <Group gap="sm" wrap="wrap">
-                  <Link href="/scholarcrafted/order?service=editing" style={{ textDecoration: 'none' }}>
+                  <Link href="/order?service=editing" style={{ textDecoration: 'none' }}>
                     <Button
                       size="md"
                       radius={0}

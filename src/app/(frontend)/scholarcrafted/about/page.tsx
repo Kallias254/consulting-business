@@ -249,7 +249,7 @@ export default function AboutPage() {
                 </Text>
               </Stack>
             </SimpleGrid>
-            <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none' }}>
+            <Link href="/how-it-works" style={{ textDecoration: 'none' }}>
               <Button
                 size="lg"
                 variant="outline"

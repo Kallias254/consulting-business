@@ -104,7 +104,7 @@ export default function PrivateCoachingPage() {
               </Text>
               
               <Group gap="md">
-                <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
+                <Link href="/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                   <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                     BOOK ADVISORY SESSION
                   </Button>
@@ -427,7 +427,7 @@ export default function PrivateCoachingPage() {
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
+                  <Link href="/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
                       Request Advisory Sprint
                     </Button>
@@ -474,7 +474,7 @@ export default function PrivateCoachingPage() {
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
+                  <Link href="/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="filled" bg={active.primary} radius={0} fullWidth>
                       Request Milestone Retainer
                     </Button>
@@ -514,7 +514,7 @@ export default function PrivateCoachingPage() {
                   </Stack>
                 </Stack>
                 <Box mt={rem(40)}>
-                  <Link href="/scholarcrafted/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
+                  <Link href="/consultation?interest=coaching" style={{ textDecoration: 'none' }}>
                     <Button variant="outline" color={active.primary} radius={0} fullWidth style={{ borderColor: active.primary }}>
                       Request Pipeline Retainer
                     </Button>

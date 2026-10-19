@@ -308,7 +308,7 @@ export default function EditingProofreadingPage() {
                   Calculate Your Fee
                 </Button>
               </Link>
-              <Link href="/scholarcrafted/order?service=editing" style={{ textDecoration: 'none' }}>
+              <Link href="/order?service=editing" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   variant="outline"
@@ -1117,7 +1117,7 @@ export default function EditingProofreadingPage() {
               <Text size="sm" c="dimmed" mt="xs" style={{ maxWidth: '60ch', margin: '8px auto 24px' }}>
                 Upload your document to receive a formal assessment and firm fee quote within 24 hours.
               </Text>
-              <Link href="/scholarcrafted/order?service=editing" style={{ textDecoration: 'none' }}>
+              <Link href="/order?service=editing" style={{ textDecoration: 'none' }}>
                 <Button
                   size="md"
                   radius={0}

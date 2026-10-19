@@ -328,12 +328,12 @@ export default function HowItWorksPage() {
               After you submit your project files and requirements for review, our faculty will perform a professional assessment and issue a customized service proposal and quote designed to get you to submission within 24 hours.
             </Text>
             <Group gap="md">
-              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/request-review" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
                   GET A QUOTE
                 </Button>
               </Link>
-              <Link href="/scholarcrafted/about" style={{ textDecoration: 'none' }}>
+              <Link href="/about" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   variant="outline"

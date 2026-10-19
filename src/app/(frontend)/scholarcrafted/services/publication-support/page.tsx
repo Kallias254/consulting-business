@@ -997,7 +997,7 @@ function PublicationSupportPageInner() {
               </Text>
             </Stack>
             <Group gap={rem(12)} wrap="wrap">
-              <Link href="/scholarcrafted/order?service=publication" style={{ textDecoration: 'none' }}>
+              <Link href="/order?service=publication" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
@@ -1010,7 +1010,7 @@ function PublicationSupportPageInner() {
                   Submit Your Manuscript
                 </Button>
               </Link>
-              <Link href="/scholarcrafted/services/editing-proofreading" style={{ textDecoration: 'none' }}>
+              <Link href="/services/editing-proofreading" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}

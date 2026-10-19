@@ -179,7 +179,7 @@ export default function AiManuscriptAuditPage() {
             </Box>
 
             <Group gap="md" wrap="wrap">
-              <Link href="/scholarcrafted/order?service=ai-audit" style={{ textDecoration: 'none' }}>
+              <Link href="/order?service=ai-audit" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}

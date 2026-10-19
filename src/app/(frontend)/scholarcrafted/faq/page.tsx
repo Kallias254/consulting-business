@@ -333,7 +333,7 @@ export default function FAQPage() {
               clear recommendation and a firm price.
             </Text>
             <Group gap="md" justify="center">
-              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/request-review" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
@@ -343,7 +343,7 @@ export default function FAQPage() {
                   Get a Free Scope Assessment
                 </Button>
               </Link>
-              <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
+              <Link href="/services" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   variant="outline"

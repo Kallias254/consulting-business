@@ -154,7 +154,7 @@ export default function ManuscriptPreparationPage() {
               </Text>
               <Group gap="md" wrap="wrap">
                 <Link
-                  href="/scholarcrafted/request-review?service=Manuscript%20Preparation"
+                  href="/request-review?service=Manuscript%20Preparation"
                   style={{ textDecoration: 'none' }}
                 >
                   <Button
@@ -167,7 +167,7 @@ export default function ManuscriptPreparationPage() {
                     SUBMIT YOUR MANUSCRIPT
                   </Button>
                 </Link>
-                <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                <Link href="/consultation" style={{ textDecoration: 'none' }}>
                   <Button
                     size="lg"
                     variant="outline"
@@ -573,14 +573,14 @@ export default function ManuscriptPreparationPage() {
             </Text>
             <Group gap="md" wrap="wrap" justify="center">
               <Link
-                href="/scholarcrafted/request-review?service=Manuscript%20Preparation"
+                href="/request-review?service=Manuscript%20Preparation"
                 style={{ textDecoration: 'none' }}
               >
                 <Button size="lg" variant="white" color={active.primary} radius={0}>
                   SUBMIT YOUR MANUSCRIPT
                 </Button>
               </Link>
-              <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+              <Link href="/consultation" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   variant="outline"

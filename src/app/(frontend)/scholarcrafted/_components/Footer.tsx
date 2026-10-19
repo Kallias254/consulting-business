@@ -41,7 +41,7 @@ export function Footer({ bg }: { bg?: string }) {
         <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={{ base: rem(40), md: rem(48) }} mb={rem(70)}>
           {/* Column 1: Brand, Inquiries & Faculty Bio */}
           <Stack gap="lg">
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit', display: 'inline-block' }}>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'inline-block' }}>
               <Logo height={32} boxColor={active.accent} textColor="#ffffff" />
             </Link>
             <Text
@@ -95,42 +95,42 @@ export function Footer({ bg }: { bg?: string }) {
               Academic Editing
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/scholarcrafted/order?focus=thesis" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=thesis" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Thesis editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=dissertation" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=dissertation" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Dissertation editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=editing" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=editing" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Research paper editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=journal-article" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=journal-article" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Journal article editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=abstract" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=abstract" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Abstract editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=case-report" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=case-report" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Case report editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=systematic-review" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=systematic-review" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Systematic review editing
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=resubmission" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=resubmission" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Resubmission support
                 </Text>
@@ -148,42 +148,42 @@ export function Footer({ bg }: { bg?: string }) {
               Publication Support
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/scholarcrafted/order?service=ai-audit&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=ai-audit&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   AI manuscript audit
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=journal-formatting" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=journal-formatting" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Manuscript formatting
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=journal&tier=essentials" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=journal&tier=essentials" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Journal selection
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=journal&tier=pro" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=journal&tier=pro" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Journal submission
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=journal&tier=full" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=journal&tier=full" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   End-to-end publication pack
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=book&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=book&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Book publication
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=editing&tier=premium" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Citation & reference audit
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
                   Compare all plans →
                 </Text>
@@ -201,42 +201,42 @@ export function Footer({ bg }: { bg?: string }) {
               The Institution
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/scholarcrafted/request-review?service=editing&tier=scientific" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/request-review?service=editing&tier=scientific" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Pre-submission peer review
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=resubmission" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=resubmission" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Reviewer rebuttal crosscheck
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?service=book&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?service=book&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   University press monograph
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/order?focus=dissertation" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?focus=dissertation" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Style manual compliance
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/request-review" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Request a 24h project review
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/how-it-works" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/how-it-works" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Our Scholarly Tradition
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/resources" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/resources" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Downloadable Blueprints
                 </Text>
               </Link>
-              <Link href="/scholarcrafted/blog" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/blog" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Strategic Library (Blog)
                 </Text>
@@ -254,7 +254,7 @@ export function Footer({ bg }: { bg?: string }) {
             </Text>
           </Group>
           <Group gap="xl">
-            <Link href="/scholarcrafted/privacy" style={{ textDecoration: 'none' }}>
+            <Link href="/privacy" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
                 c="rgba(255,255,255,0.6)"
@@ -264,7 +264,7 @@ export function Footer({ bg }: { bg?: string }) {
                 Privacy & Ethics
               </Text>
             </Link>
-            <Link href="/scholarcrafted/terms" style={{ textDecoration: 'none' }}>
+            <Link href="/terms" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
                 c="rgba(255,255,255,0.6)"
@@ -274,7 +274,7 @@ export function Footer({ bg }: { bg?: string }) {
                 Terms & Conditions
               </Text>
             </Link>
-            <Link href="/scholarcrafted/publication-ethics" style={{ textDecoration: 'none' }}>
+            <Link href="/publication-ethics" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
                 c="rgba(255,255,255,0.6)"
@@ -284,7 +284,7 @@ export function Footer({ bg }: { bg?: string }) {
                 Publication Ethics
               </Text>
             </Link>
-            <Link href="/scholarcrafted/confidentiality" style={{ textDecoration: 'none' }}>
+            <Link href="/confidentiality" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"
                 c="rgba(255,255,255,0.6)"

@@ -44,6 +44,25 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  async rewrites() {
+    return {
+      // beforeFiles rewrites run before Next.js checks the filesystem,
+      // so clean URLs like /about get internally mapped to /scholarcrafted/about
+      beforeFiles: [
+        // Homepage: / → /scholarcrafted
+        {
+          source: '/',
+          destination: '/scholarcrafted',
+        },
+        // Catch-all: any path NOT matching other top-level apps
+        // gets prefixed with /scholarcrafted
+        {
+          source: '/:path((?!scholarcrafted|admin|audit|dashboard|go|login|methodology|researcher|api|_next|ie-incompatible|favicon|robots|sitemap|media).*)',
+          destination: '/scholarcrafted/:path*',
+        },
+      ],
+    }
+  },
 }
 
 export default nextConfig

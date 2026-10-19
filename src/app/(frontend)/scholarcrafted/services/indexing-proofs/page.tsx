@@ -107,7 +107,7 @@ export default function IndexingProofsPage() {
               </Text>
               <Group gap="md" wrap="wrap">
                 <Link
-                  href="/scholarcrafted/request-review?service=Indexing%20%26%20Page%20Proofs"
+                  href="/request-review?service=Indexing%20%26%20Page%20Proofs"
                   style={{ textDecoration: 'none' }}
                 >
                   <Button
@@ -120,7 +120,7 @@ export default function IndexingProofsPage() {
                     ENQUIRE ABOUT THIS SERVICE
                   </Button>
                 </Link>
-                <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+                <Link href="/consultation" style={{ textDecoration: 'none' }}>
                   <Button
                     size="lg"
                     variant="outline"
@@ -560,14 +560,14 @@ export default function IndexingProofsPage() {
             </Text>
             <Group gap="md" wrap="wrap" justify="center">
               <Link
-                href="/scholarcrafted/request-review?service=Indexing%20%26%20Page%20Proofs"
+                href="/request-review?service=Indexing%20%26%20Page%20Proofs"
                 style={{ textDecoration: 'none' }}
               >
                 <Button size="lg" variant="white" color={active.primary} radius={0}>
                   SUBMIT YOUR FILES
                 </Button>
               </Link>
-              <Link href="/scholarcrafted/consultation" style={{ textDecoration: 'none' }}>
+              <Link href="/consultation" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   variant="outline"

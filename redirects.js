@@ -15,23 +15,31 @@ const redirects = async () => {
   const redirects = [
     internetExplorerRedirect,
 
+    // Legacy /scholarcrafted/* URLs → clean URLs
+    // This catches anyone who bookmarked or linked to the old paths
+    {
+      source: '/scholarcrafted/:path*',
+      destination: '/:path*',
+      permanent: true,
+    },
+
     // Absorbed services → redirect to their new parent page
     // citation-audits → now part of Editing & Compliance
     {
-      source: '/scholarcrafted/services/citation-audits',
-      destination: '/scholarcrafted/services/editing-proofreading',
+      source: '/services/citation-audits',
+      destination: '/services/editing-proofreading',
       permanent: true,
     },
     // indexing-proofs → now part of Publication Support
     {
-      source: '/scholarcrafted/services/indexing-proofs',
-      destination: '/scholarcrafted/services/publication-support',
+      source: '/services/indexing-proofs',
+      destination: '/services/publication-support',
       permanent: true,
     },
     // manuscript-preparation → now part of Publication Support
     {
-      source: '/scholarcrafted/services/manuscript-preparation',
-      destination: '/scholarcrafted/services/publication-support',
+      source: '/services/manuscript-preparation',
+      destination: '/services/publication-support',
       permanent: true,
     },
   ]

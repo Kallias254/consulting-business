@@ -243,7 +243,7 @@ export default function ResourcesPage() {
                 Deep dives into methodology, academic writing, and navigating committee politics. 
                 Our full archive of strategic insights is now hosted in the Library.
               </Text>
-              <Link href="/scholarcrafted/blog" style={{ textDecoration: 'none' }}>
+              <Link href="/blog" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="outline" color={active.primary} radius={0} px={rem(40)} style={{ borderColor: active.primary }}>
                   VISIT THE LIBRARY
                 </Button>
@@ -265,7 +265,7 @@ export default function ResourcesPage() {
               direction for your specific research, request a professional project quote from our faculty.
             </Text>
             <Group gap="md">
-              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/request-review" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                   GET A QUOTE
                 </Button>

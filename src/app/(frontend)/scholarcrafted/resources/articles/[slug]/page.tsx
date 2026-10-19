@@ -118,7 +118,7 @@ export default function ArticlePage() {
             <Title order={1} style={{ color: active.primary }}>
               Article not found.
             </Title>
-            <Link href="/scholarcrafted/resources" style={{ textDecoration: 'none' }}>
+            <Link href="/resources" style={{ textDecoration: 'none' }}>
               <Button variant="outline" radius={0} color={active.primary} style={{ borderColor: active.primary }}>
                 Back to Resources
               </Button>
@@ -181,7 +181,7 @@ export default function ArticlePage() {
             </Stack>
 
             <Link
-              href="/scholarcrafted/resources/articles"
+              href="/resources/articles"
               style={{
                 textDecoration: 'none',
                 display: 'inline-flex',
@@ -247,7 +247,7 @@ export default function ArticlePage() {
               <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 500 }}>
                 Reading about the problem is the first step. Getting a custom project quote and methodological review from our faculty moves the needle.
               </Text>
-              <Link href="/scholarcrafted/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/request-review" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
                   GET A QUOTE
                 </Button>

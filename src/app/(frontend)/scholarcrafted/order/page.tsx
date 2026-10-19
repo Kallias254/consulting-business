@@ -1280,7 +1280,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
                     <Text size="xs" c="dimmed" mt={rem(4)}>Turnaround: {selected.turnaround}</Text>
                   </Box>
                   {isPipeline ? (
-                    <Link href="/scholarcrafted/request-review?service=publication&section=book&pipeline=full" style={{ textDecoration: 'none' }}>
+                    <Link href="/request-review?service=publication&section=book&pipeline=full" style={{ textDecoration: 'none' }}>
                       <Button radius={0} size="md" rightSection={<IconArrowRight size={16} />}
                         style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
                         Enquire Full 5-Stage Pipeline

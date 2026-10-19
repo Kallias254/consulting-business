@@ -98,7 +98,7 @@ export function Navbar() {
       >
         <Container size={1340}>
           <Group justify="space-between" align="center" wrap="nowrap">
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
               <Logo height={32} boxColor={active.accent} textColor={active.primary} />
             </Link>
 
@@ -119,7 +119,7 @@ export function Navbar() {
               >
                 <HoverCard.Target>
                   {/* Wrap in Link so clicking the word navigates to /services */}
-                  <Link href="/scholarcrafted/services" style={{ textDecoration: 'none' }}>
+                  <Link href="/services" style={{ textDecoration: 'none' }}>
                     <Box
                       className={`nav-link-wrapper ${isActive('/scholarcrafted/services') ? 'active' : ''}`}
                       style={{ cursor: 'pointer' }}
@@ -188,7 +188,7 @@ export function Navbar() {
               </HoverCard>
 
               {/* About */}
-              <Link href="/scholarcrafted/about" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box className={`nav-link-wrapper ${isActive('/scholarcrafted/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
                     <Text
@@ -205,7 +205,7 @@ export function Navbar() {
               </Link>
 
               {/* CTA */}
-              <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none' }}>
+              <Link href="/order?service=editing&tier=premium" style={{ textDecoration: 'none' }}>
                 <Button
                   variant="filled"
                   size="sm"
@@ -259,7 +259,7 @@ export function Navbar() {
               flexShrink: 0,
             }}
           >
-            <Link href="/scholarcrafted" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }} onClick={close}>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }} onClick={close}>
               <Logo height={28} boxColor={active.accent} textColor={active.primary} />
             </Link>
             <Box
@@ -331,7 +331,7 @@ export function Navbar() {
             </Box>
 
             {/* About */}
-            <Link href="/scholarcrafted/about" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
               <Box
                 py={rem(16)}
                 style={{
@@ -347,7 +347,7 @@ export function Navbar() {
             </Link>
 
             {/* FAQ */}
-            <Link href="/scholarcrafted/faq" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/faq" style={{ textDecoration: 'none' }} onClick={close}>
               <Box
                 py={rem(16)}
                 style={{
@@ -372,7 +372,7 @@ export function Navbar() {
               backgroundColor: active.background,
             }}
           >
-            <Link href="/scholarcrafted/order?service=editing&tier=premium" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/order?service=editing&tier=premium" style={{ textDecoration: 'none' }} onClick={close}>
               <Button
                 variant="filled"
                 fullWidth
