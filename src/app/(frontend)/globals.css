@@ -393,3 +393,15 @@ html[data-theme='light'] {
 .scholarcrafted-root .dark-scholar-section .university-logo-img:hover {
   opacity: 1 !important;
 }
+
+/* Prevent horizontal scroll globally across mobile and tablet viewports */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+.scholarcrafted-root {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}

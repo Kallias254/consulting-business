@@ -731,7 +731,7 @@ export default function EditingProofreadingPage() {
                     }}
                     rightSection={<IconArrowRight size={16} />}
                   >
-                    Proceed with {selectedTier.name}
+                    Select {selectedTier.name.includes('Scientific') ? 'Scientific Pro' : selectedTier.name}
                   </Button>
                 </Link>
 
@@ -895,8 +895,8 @@ export default function EditingProofreadingPage() {
               </Text>
             </Box>
 
-            <Box style={{ overflowX: 'auto', border: `1px solid ${active.primary}18` }}>
-              <Table verticalSpacing="md" horizontalSpacing="lg" highlightOnHover>
+            <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch', border: `1px solid ${active.primary}18` }}>
+              <Table verticalSpacing="md" horizontalSpacing="lg" highlightOnHover style={{ minWidth: 640 }}>
                 <Table.Thead bg={active.surface}>
                   <Table.Tr>
                     <Table.Th style={{ width: '40%', fontSize: rem(13), fontFamily: 'var(--font-heading-sans)' }}>

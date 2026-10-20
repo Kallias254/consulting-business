@@ -327,9 +327,9 @@ export default function HowItWorksPage() {
             <Text size="lg" c="dimmed" lh={1.6}>
               After you submit your project files and requirements for review, our faculty will perform a professional assessment and issue a customized service proposal and quote designed to get you to submission within 24 hours.
             </Text>
-            <Group gap="md">
+            <Group gap="md" wrap="wrap" justify="center">
               <Link href="/request-review" style={{ textDecoration: 'none' }}>
-                <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
+                <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" w={{ base: '100%', sm: 'auto' }}>
                   GET A QUOTE
                 </Button>
               </Link>
@@ -339,9 +339,10 @@ export default function HowItWorksPage() {
                   variant="outline"
                   color={active.primary}
                   radius={0}
+                  w={{ base: '100%', sm: 'auto' }}
                   style={{ borderColor: active.primary, color: active.primary }}
                 >
-                  LEARN ABOUT THE TEAM
+                  About Our Team
                 </Button>
               </Link>
             </Group>

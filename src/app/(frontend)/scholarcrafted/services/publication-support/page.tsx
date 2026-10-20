@@ -559,9 +559,10 @@ function PublicationSupportPageInner() {
                             backgroundColor: active.accent,
                             fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                             letterSpacing: '0.04em',
+                            maxWidth: '100%',
                           }}
                         >
-                          Enquire About {selectedTier.name}
+                          Select {selectedTier.name}
                         </Button>
                       </Link>
                     </Stack>
@@ -739,9 +740,10 @@ function PublicationSupportPageInner() {
                           backgroundColor: active.accent,
                           fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                           letterSpacing: '0.04em',
+                          maxWidth: '100%',
                         }}
                       >
-                        Enquire About Stage {selectedStage.step}
+                        Select Stage {selectedStage.step}
                       </Button>
                     </Link>
                   </Stack>
@@ -1001,6 +1003,7 @@ function PublicationSupportPageInner() {
                 <Button
                   size="lg"
                   radius={0}
+                  w={{ base: '100%', sm: 'auto' }}
                   style={{
                     backgroundColor: active.accent,
                     fontFamily: 'var(--font-heading-sans), var(--font-sans)',
@@ -1015,6 +1018,7 @@ function PublicationSupportPageInner() {
                   size="lg"
                   radius={0}
                   variant="outline"
+                  w={{ base: '100%', sm: 'auto' }}
                   style={{
                     borderColor: 'rgba(255,255,255,0.25)',
                     color: '#ffffff',

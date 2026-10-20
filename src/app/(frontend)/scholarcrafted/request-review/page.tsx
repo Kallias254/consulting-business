@@ -367,7 +367,7 @@ function RequestReviewContent() {
                 </Text>
                 <Link href="/" style={{ textDecoration: 'none' }}>
                   <Button variant="outline" radius={0} mt="sm" style={{ borderColor: `${active.primary}30`, color: active.primary }}>
-                    Return to ScholarCrafted Home
+                    Return to Home
                   </Button>
                 </Link>
               </Stack>
@@ -890,10 +890,10 @@ function RequestReviewContent() {
                         {submitting
                           ? 'Sending brief...'
                           : paramService === 'ai-audit'
-                          ? `SUBMIT FOR AI MANUSCRIPT AUDIT — $${calculatedEstimate ?? 29}`
+                          ? `ORDER AI AUDIT — $${calculatedEstimate ?? 29}`
                           : intent === 'start'
-                          ? 'SUBMIT ORDER — INVOICE 50% DEPOSIT'
-                          : 'SUBMIT BRIEF FOR FACULTY REVIEW'}
+                          ? 'SUBMIT ORDER (50% DEPOSIT)'
+                          : 'SUBMIT FOR FACULTY REVIEW'}
                       </Button>
                       <Text size="xs" c="dimmed" mt={rem(8)} ta="center">
                         By clicking 'Submit Order', you agree to pay for the order in full on or before the delivery date. Strict NDA applies.

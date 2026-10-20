@@ -191,14 +191,15 @@ function ConsultationPageContent() {
                     style={{ textDecoration: 'none' }}
                   >
                     <Button
-                      size="xl"
+                      size="lg"
                       radius={0}
                       bg={active.primary}
                       className="impeccable-button"
-                      rightSection={<IconArrowRight size={20} />}
-                      style={{ minWidth: rem(280) }}
+                      rightSection={<IconArrowRight size={18} />}
+                      w={{ base: '100%', sm: 'auto' }}
+                      style={{ maxWidth: rem(360) }}
                     >
-                      SCHEDULE YOUR SESSION
+                      Schedule Your Call
                     </Button>
                   </a>
 

@@ -247,13 +247,13 @@ export function Footer({ bg }: { bg?: string }) {
 
         <Divider mb="xl" color="rgba(255,255,255,0.1)" />
 
-        <Group justify="space-between" align="center">
-          <Group gap="xl">
+        <Group justify="space-between" align="center" wrap="wrap" gap="md">
+          <Group gap="md">
             <Text size="xs" c="rgba(255,255,255,0.5)">
               &copy; 2026 ScholarCrafted Academic Consultancy. All rights reserved.
             </Text>
           </Group>
-          <Group gap="xl">
+          <Group gap="md" wrap="wrap">
             <Link href="/privacy" style={{ textDecoration: 'none' }}>
               <Text
                 size="xs"

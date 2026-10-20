@@ -332,15 +332,16 @@ export default function FAQPage() {
               Submit your manuscript for a free scope assessment. We review it and respond within 24 hours with a
               clear recommendation and a firm price.
             </Text>
-            <Group gap="md" justify="center">
+            <Group gap="md" justify="center" wrap="wrap">
               <Link href="/request-review" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
+                  w={{ base: '100%', sm: 'auto' }}
                   style={{ backgroundColor: active.primary, color: active.background }}
                   rightSection={<IconArrowRight size={16} />}
                 >
-                  Get a Free Scope Assessment
+                  Get Free Assessment
                 </Button>
               </Link>
               <Link href="/services" style={{ textDecoration: 'none' }}>
@@ -348,6 +349,7 @@ export default function FAQPage() {
                   size="lg"
                   variant="outline"
                   radius={0}
+                  w={{ base: '100%', sm: 'auto' }}
                   color={active.primary}
                   style={{ borderColor: active.primary }}
                 >

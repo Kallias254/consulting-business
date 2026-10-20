@@ -1033,7 +1033,7 @@ function OrderContent() {
 
           {/* ── Responsive Service Tabs Grid (Only shown when not hidden) ───── */}
           {!isTabsHidden && (
-            <SimpleGrid cols={{ base: 2, md: 4 }} spacing={rem(8)}>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(8)}>
               {TABS.map((tab) => {
                 const isCurrent = activeTab === tab.id
                 return (
@@ -1214,7 +1214,7 @@ function EditingTabBody({
               return (
                 <Box
                   key={tier.id}
-                  p={rem(36)}
+                  p={{ base: rem(20), sm: rem(28), md: rem(36) }}
                   bg={active.background}
                   style={{
                     border: `1px solid ${isHighlighted ? active.accent : `${active.primary}12`}`,
@@ -1288,7 +1288,7 @@ function EditingTabBody({
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>FEATURE COMPARISON</Text>
-          <Box style={{ overflowX: 'auto' }}>
+          <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
             <Table withColumnBorders style={{ minWidth: 640, borderCollapse: 'collapse' }}>
               <Table.Thead>
                 <Table.Tr style={{ backgroundColor: active.surface }}>
@@ -1384,7 +1384,7 @@ function JournalTabBody({
               return (
                 <Box
                   key={tier.id}
-                  p={rem(36)}
+                  p={{ base: rem(20), sm: rem(28), md: rem(36) }}
                   bg={active.background}
                   style={{
                     border: `1px solid ${isHighlighted ? active.accent : `${active.primary}12`}`,
@@ -1451,7 +1451,7 @@ function JournalTabBody({
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>FEATURE COMPARISON</Text>
-          <Box style={{ overflowX: 'auto' }}>
+          <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
             <Table withColumnBorders style={{ minWidth: 640, borderCollapse: 'collapse' }}>
               <Table.Thead>
                 <Table.Tr style={{ backgroundColor: active.surface }}>
@@ -1532,7 +1532,7 @@ function BookTabBody({ active, hlStage, focus }: { active: Record<string, string
       {/* Horizontal stage selector — 5 individual stages + Full Pipeline tab */}
       <Box py={rem(24)} bg={active.surface} style={{ borderBottom: `1px solid ${active.primary}12` }}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <Group gap={rem(4)} wrap="nowrap" style={{ overflowX: 'auto', paddingBottom: rem(4) }}>
+          <Group gap={rem(4)} wrap="nowrap" style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch', paddingBottom: rem(4) }}>
             {bookStages.map((s, i) => {
               const isFull = (s as typeof s & { isPipeline?: boolean }).isPipeline === true
               const isActive = i === activeIdx
@@ -1581,7 +1581,7 @@ function BookTabBody({ active, hlStage, focus }: { active: Record<string, string
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(32)}>
             <Box
-              p={{ base: rem(28), md: rem(40) }}
+              p={{ base: rem(20), sm: rem(28), md: rem(40) }}
               bg={active.surface}
               style={{
                 border: `1px solid ${isPipeline ? active.accent + '40' : `${active.primary}12`}`,
@@ -1625,16 +1625,38 @@ function BookTabBody({ active, hlStage, focus }: { active: Record<string, string
                   </Box>
                   {isPipeline ? (
                     <Link href="/request-review?service=publication&section=book&pipeline=full" style={{ textDecoration: 'none' }}>
-                      <Button radius={0} size="md" rightSection={<IconArrowRight size={16} />}
-                        style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
-                        Enquire Full 5-Stage Pipeline
+                      <Button
+                        radius={0}
+                        size="md"
+                        rightSection={<IconArrowRight size={16} />}
+                        style={{
+                          backgroundColor: active.accent,
+                          color: '#fff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                          maxWidth: '100%',
+                        }}
+                      >
+                        Enquire Full Pipeline
                       </Button>
                     </Link>
                   ) : (
                     <Link href={`/request-review?service=publication&section=book&stage=${selected.step}`} style={{ textDecoration: 'none' }}>
-                      <Button radius={0} size="md" rightSection={<IconArrowRight size={16} />}
-                        style={{ backgroundColor: active.accent, color: '#fff', fontFamily: 'var(--font-heading-sans), var(--font-sans)', fontWeight: 700, letterSpacing: '0.06em', width: 'fit-content' }}>
-                        Select Stage {selected.step} ({selected.title})
+                      <Button
+                        radius={0}
+                        size="md"
+                        rightSection={<IconArrowRight size={16} />}
+                        style={{
+                          backgroundColor: active.accent,
+                          color: '#fff',
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                          maxWidth: '100%',
+                        }}
+                      >
+                        Select Stage {selected.step}
                       </Button>
                     </Link>
                   )}
@@ -1660,7 +1682,7 @@ function BookTabBody({ active, hlStage, focus }: { active: Record<string, string
       <Box py={SECTION_SPACING} bg={active.surface}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>WHAT YOU GET AT EACH STAGE</Text>
-          <Box style={{ overflowX: 'auto' }}>
+          <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
             <Table withColumnBorders style={{ minWidth: 780, borderCollapse: 'collapse' }}>
               <Table.Thead>
                 <Table.Tr style={{ backgroundColor: active.background }}>
@@ -1718,7 +1740,7 @@ function AiAuditTabBody({ active, hlTier, focus }: { active: Record<string, stri
               return (
                 <Box
                   key={tier.id}
-                  p={rem(36)}
+                  p={{ base: rem(20), sm: rem(28), md: rem(36) }}
                   bg={active.background}
                   style={{
                     border: `1px solid ${isHighlighted ? active.accent : `${active.primary}12`}`,
@@ -1790,7 +1812,7 @@ function AiAuditTabBody({ active, hlTier, focus }: { active: Record<string, stri
             </Title>
           </Box>
 
-          <Box style={{ overflowX: 'auto' }}>
+          <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
             <Table withRowBorders={false} style={{ minWidth: 680 }}>
               <Table.Thead>
                 <Table.Tr style={{ borderBottom: `2px solid ${active.primary}20` }}>

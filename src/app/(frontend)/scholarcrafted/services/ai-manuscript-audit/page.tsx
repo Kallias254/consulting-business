@@ -184,17 +184,16 @@ export default function AiManuscriptAuditPage() {
                   size="lg"
                   radius={0}
                   rightSection={<IconArrowRight size={18} />}
+                  w={{ base: '100%', sm: 'auto' }}
                   style={{
                     backgroundColor: active.accent,
                     color: '#ffffff',
                     fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                     fontWeight: 700,
                     letterSpacing: '0.06em',
-                    paddingLeft: rem(32),
-                    paddingRight: rem(32),
                   }}
                 >
-                  Order Single Audit — $29
+                  Order Audit — $29
                 </Button>
               </Link>
               <Link href="#pricing" style={{ textDecoration: 'none' }}>
@@ -203,6 +202,7 @@ export default function AiManuscriptAuditPage() {
                   variant="outline"
                   radius={0}
                   color={active.primary}
+                  w={{ base: '100%', sm: 'auto' }}
                   style={{
                     borderColor: `${active.primary}30`,
                     color: active.primary,
@@ -210,7 +210,7 @@ export default function AiManuscriptAuditPage() {
                     fontWeight: 600,
                   }}
                 >
-                  Compare Audit Options
+                  Compare Options
                 </Button>
               </Link>
             </Group>

@@ -196,8 +196,8 @@ export default function RoutledgeHandbookMock() {
             </SimpleGrid>
             
             <Group justify="center" mt="xl">
-              <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button">
-                VIEW FULL SUBMISSION GUIDELINES
+              <Button size="md" variant="filled" bg={active.primary} radius={0} className="impeccable-button" w={{ base: '100%', sm: 'auto' }}>
+                Submission Guidelines
               </Button>
             </Group>
           </Stack>

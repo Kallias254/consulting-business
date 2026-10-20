@@ -723,7 +723,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                   letterSpacing: '0.04em',
                 }}
               >
-                Compare All Services & Calculate Instant Fees
+                Compare Plans & Calculate Fees
               </Button>
             </Link>
           </Box>
@@ -753,6 +753,7 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
           ].map((stat, i) => (
             <Box
               key={i}
+              className={`trust-bar-item trust-bar-item-${i}`}
               style={{
                 borderLeft: i > 0 ? `1px solid rgba(255,255,255,0.14)` : undefined,
                 paddingLeft: i > 0 ? rem(24) : 0,
@@ -787,6 +788,14 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
             </Box>
           ))}
         </SimpleGrid>
+        <style>{`
+          @media (max-width: 768px) {
+            .trust-bar-item-2 {
+              border-left: none !important;
+              padding-left: 0 !important;
+            }
+          }
+        `}</style>
       </Container>
     </Box>
   )
@@ -1281,18 +1290,18 @@ export default function ScholarCraftedLanding() {
             {[
               {
                 num: '01',
-                label: 'Share Your Draft & Requirements',
-                desc: 'Upload your document or request a scoped quote. No sales pressure, and you can book a direct Zoom call with Dr. Micah Dobson if you prefer a conversation first.',
+                label: 'Share Your Manuscript',
+                desc: 'Upload your draft or request a quote based on word count. You can also schedule an introductory call to discuss your project first.',
               },
               {
                 num: '02',
-                label: 'Clear Scope & 24h Fixed Quote',
-                desc: 'Within 24 hours, Dr. Dobson evaluates your draft and returns a firm price, clear turnaround timeline, and exact style plan. No hidden fees.',
+                label: 'Guaranteed 24h Fixed Quote',
+                desc: 'Receive an exact price, guaranteed delivery timeline, and customized style plan within 24 hours. No hidden fees or surprise revisions.',
               },
               {
                 num: '03',
-                label: 'Tracked Delivery & Faculty Debrief',
-                desc: 'Every revision is delivered in Microsoft Word Track Changes so you retain full control. Includes an optional debrief call with Dr. Micah Dobson upon delivery.',
+                label: 'Tracked Delivery with Faculty Debrief',
+                desc: 'Every edit is delivered directly in Microsoft Word with full tracked changes, followed by an optional debrief call with Dr. Micah Dobson.',
               },
             ].map((step, i) => (
               <Box

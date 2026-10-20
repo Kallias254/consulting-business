@@ -199,13 +199,13 @@ export default function PublicationEthicsPage() {
                 <Text size="lg" lh={1.8} c="dimmed">
                   The table below outlines how each of our core services aligns with established publication ethics standards.
                 </Text>
-                <Box style={{ overflowX: 'auto' }}>
+                <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
                   <Table
                     withTableBorder
                     withColumnBorders
                     verticalSpacing="sm"
                     horizontalSpacing="md"
-                    style={{ borderColor: `${active.primary}12` }}
+                    style={{ borderColor: `${active.primary}12`, minWidth: 540 }}
                   >
                     <Table.Thead>
                       <Table.Tr style={{ borderColor: `${active.primary}12` }}>

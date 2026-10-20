@@ -251,13 +251,13 @@ export default function AboutPage() {
             </SimpleGrid>
             <Link href="/how-it-works" style={{ textDecoration: 'none' }}>
               <Button
-                size="lg"
+                size="md"
                 variant="outline"
                 color={active.primary}
                 radius={0}
                 style={{ borderColor: active.primary }}
               >
-                LEARN MORE ABOUT OUR PROCESS
+                See Our Process
               </Button>
             </Link>
           </Stack>
@@ -357,15 +357,22 @@ export default function AboutPage() {
               </SimpleGrid>
             </Box>
             <Center mt="md">
-              <Button
-                size="lg"
-                variant="outline"
-                color={active.primary}
-                radius={0}
-                style={{ borderColor: active.primary }}
+              <a
+                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
               >
-                CHAT WITH A FACULTY COACH
-              </Button>
+                <Button
+                  size="md"
+                  variant="outline"
+                  color={active.primary}
+                  radius={0}
+                  style={{ borderColor: active.primary }}
+                >
+                  Schedule Faculty Call
+                </Button>
+              </a>
             </Center>
           </Stack>
         </Container>
