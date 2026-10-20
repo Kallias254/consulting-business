@@ -273,30 +273,30 @@ const stageData: ResearchStageItem[] = [
     label: 'Write your document',
     services: [
       {
-        badge: 'Dissertation Conversion',
-        title: 'Thesis-to-Journal Article Scoping',
-        tagline: 'Extract and structure the publishable empirical core of your dissertation into a tight 7,000–9,000 word standalone article format.',
-        rate: 'Custom Scope / Project Package',
+        badge: 'Thesis Conversion',
+        title: 'Thesis-to-Journal Article Conversion',
+        tagline: 'Extract and structure the publishable empirical core of your dissertation into a tight 7,000–9,000 word standalone article.',
+        rate: 'Custom Scope / Package',
         features: [
           'Extraction of primary empirical contribution from sprawling thesis chapters',
           'Restructuring into IMRaD or target disciplinary article framework',
           'Elimination of thesis scaffolding & excessive literature review',
         ],
         link: '/order?service=journal&tier=pro',
-        cta: 'Explore Article Scoping',
+        cta: 'Explore Article Conversion',
       },
       {
-        badge: 'Stage 02 • $480 Flat',
-        title: 'Book Acquisition Proposal Packaging',
+        badge: 'Academic Monograph',
+        title: 'Academic Book Proposal & Press Pitch',
         tagline: 'Complete acquisition-ready monograph proposal written to target academic press requirements (Oxford, Cambridge, Routledge, SAGE).',
-        rate: '$480 flat rate',
+        rate: '$480 flat fee',
         features: [
           'Chapter-by-chapter outline with detailed synopses',
           'Academic market differentiation & audience positioning',
           'Sample chapter copyediting & tone calibration to press standards',
         ],
         link: '/order?service=book&stage=02',
-        cta: 'Select Proposal Packaging',
+        cta: 'Explore Book Proposals',
       },
     ],
   },
@@ -305,10 +305,10 @@ const stageData: ResearchStageItem[] = [
     label: 'Get expert editing',
     services: [
       {
-        badge: 'Starts from $0.0425 / word',
+        badge: 'Language & Precision',
         title: 'Advanced Line Editing',
         tagline: 'Comprehensive sentence-level editing for precision, academic tone, syntax, and discipline vocabulary.',
-        rate: '$0.0425 / word',
+        rate: 'Starts from $0.0425 / word',
         features: [
           'Full tracked changes in Microsoft Word',
           'Academic idiom, syntax refinement & passive voice reduction',
@@ -318,11 +318,10 @@ const stageData: ResearchStageItem[] = [
         cta: 'Select Advanced Editing',
       },
       {
-        badge: 'Structural Polish • $0.0650 / word',
+        badge: 'Structure & Argument',
         title: 'Premium Structural Editing',
         tagline: 'Deep structural and rhetorical refinement to ensure arguments withstand committee defense and peer review.',
-        rate: '$0.0650 / word',
-        isRecommended: true,
+        rate: 'Starts from $0.0650 / word',
         features: [
           'All Line Editing + section pacing and logical flow critique',
           'Citation cross-checks & reference integrity audit',
@@ -332,17 +331,17 @@ const stageData: ResearchStageItem[] = [
         cta: 'Select Premium Editing',
       },
       {
-        badge: 'Peer-Review Level • $0.0950 / word',
-        title: 'Scientific & Technical Refinement Pro',
+        badge: 'Peer-Review Standard',
+        title: 'Scientific & Disciplinary Review',
         tagline: 'Rigorous critique evaluating narrative coherence and methods-to-claims alignment against top-tier academic standards.',
-        rate: '$0.0950 / word',
+        rate: 'Starts from $0.0950 / word',
         features: [
           'All Premium Editing features included',
           'In-depth Manuscript Completeness Assessment',
           'Evaluation by former journal peer reviewer or editor',
         ],
         link: '/order?service=editing&tier=scientific',
-        cta: 'Select Scientific Pro',
+        cta: 'Select Disciplinary Review',
       },
     ],
   },
@@ -351,10 +350,10 @@ const stageData: ResearchStageItem[] = [
     label: 'Find top journals',
     services: [
       {
-        badge: 'Journal Selection • $320 Flat',
-        title: 'Target Journal Selection & Technical Fit',
+        badge: 'Journal Matching',
+        title: 'Target Journal Selection & Fit Report',
         tagline: '3–5 Ranked peer-reviewed journals matched to your empirical topic, citation impact goals, and submission timeline.',
-        rate: '$320 Flat Fee',
+        rate: '$320 flat fee',
         features: [
           '3–5 Ranked journal options with acceptance rates & impact factors',
           'Aims & Scope alignment report benchmarked to recent publishing trends',
@@ -364,10 +363,10 @@ const stageData: ResearchStageItem[] = [
         cta: 'Select Journal Essentials',
       },
       {
-        badge: 'Turnkey Submission',
-        title: 'Submission-Ready Journal Package',
+        badge: 'Submission Packaging',
+        title: 'Complete Journal Submission Package',
         tagline: 'Full end-to-end preparation: target journal selection, manuscript conformity, cover letter drafting, and submission packaging.',
-        rate: 'Flat Package',
+        rate: 'Custom Package',
         features: [
           '3–5 Ranked journal recommendation report with impact factors',
           'Complete manuscript formatting to target Author Guidelines',
@@ -383,31 +382,30 @@ const stageData: ResearchStageItem[] = [
     label: 'Journal desk review',
     services: [
       {
-        badge: 'Pre-Submission Screening',
-        title: 'AI Manuscript Audit & Integrity Diagnostic',
-        tagline: 'Pre-submission diagnostic benchmarked against 200M+ research papers. Catches fabricated citations, retracted DOIs, and AI hallucination flags before journal screening.',
-        rate: '$29 Single Draft • $69 Bundle (3 Reviews)',
-        isRecommended: true,
+        badge: 'Integrity & Citation Check',
+        title: 'Citation Verification & AI Flag Screening',
+        tagline: 'Screen references against 200M+ publications to catch broken DOIs, retracted citations, and false AI-generation flags before journal screening.',
+        rate: 'Starts from $29',
         features: [
           'Citation & DOI verification benchmarked against 200M+ papers',
           'Detection of fabricated, retracted, and hallucinated references',
           '1-Page Faculty Risk Memo + 100% fee credited toward full editing',
         ],
         link: '/order?service=ai-audit&tier=single',
-        cta: 'Order Manuscript Audit ($29)',
+        cta: 'Check Manuscript Citations',
       },
       {
         badge: 'Author Guidelines Pass',
-        title: 'Journal Desk-Check Compliance Pass',
-        tagline: 'Comprehensive audit against the target journal’s Author Guidelines and technical submission checklist.',
-        rate: 'From $0.02 / word',
+        title: 'Desk-Rejection Formatting & Guidelines Pass',
+        tagline: 'Comprehensive pre-submission audit against your target journal’s Author Guidelines to prevent immediate rejection over formatting details.',
+        rate: 'Starts from $0.02 / word',
         features: [
           'Word count, running headers, keywords & abstract limits verification',
           'Front and back matter formatting (disclosures, funding statements)',
           'Blinded manuscript compliance verification for peer review',
         ],
         link: '/order?service=editing&tier=advanced',
-        cta: 'View Compliance Pass',
+        cta: 'Review Journal Guidelines',
       },
     ],
   },
@@ -416,10 +414,10 @@ const stageData: ResearchStageItem[] = [
     label: 'Revise and resubmit',
     services: [
       {
-        badge: 'Peer Review Support',
-        title: 'Reviewer Response Matrix & Reply Packaging',
+        badge: 'Reviewer Rebuttal',
+        title: 'Reviewer Response Matrix & Reply Letter',
         tagline: 'Line-by-line point-by-point response table aligning reviewer feedback with tracked changes in the revised text.',
-        rate: 'Flat Package / Hourly',
+        rate: 'Project Package or Hourly',
         features: [
           'Point-by-point reply letter and response matrix formatting',
           'Editorial diplomacy check: tone refinement for challenging queries',
@@ -429,10 +427,10 @@ const stageData: ResearchStageItem[] = [
         cta: 'View R&R Package',
       },
       {
-        badge: 'Included with Premium & Pro',
+        badge: 'Revision Guarantee',
         title: '60-Day Re-Editing Protection Pass',
         tagline: 'Dedicated re-editing for any sections revised in response to reviewer comments on ScholarCrafted-edited text.',
-        rate: 'Complimentary with Premium / Pro',
+        rate: 'Complimentary with Premium & Pro',
         features: [
           'Complimentary re-editing pass within 60 days of manuscript delivery',
           'Verification of newly drafted sentences and revised paragraphs',
@@ -448,10 +446,10 @@ const stageData: ResearchStageItem[] = [
     label: 'Create visuals & proofs',
     services: [
       {
-        badge: 'Stage 05 • Monograph Indexing',
-        title: 'Back-of-Book Subject & Author Indexing',
+        badge: 'Book Indexing',
+        title: 'Monograph Subject & Author Indexing',
         tagline: 'Comprehensive, publication-grade indexing constructed to university press and Cindex specifications.',
-        rate: 'From $3 / typeset page',
+        rate: 'Starts from $3 / typeset page',
         features: [
           'Subject index, author index, and combined index generation',
           'Headings, subheadings, and cross-references ("See" and "See also")',
@@ -461,8 +459,8 @@ const stageData: ResearchStageItem[] = [
         cta: 'Select Book Indexing',
       },
       {
-        badge: 'Stage 04 • Galley Proof Review',
-        title: 'Typeset Page Proof & Errata Review',
+        badge: 'Page Proofs',
+        title: 'Typeset Galley Proof & Errata Review',
         tagline: 'First- and second-pass examination of typeset page proofs to catch layout bugs, broken tables, and copyeditor errors.',
         rate: 'Project-Based Rate',
         features: [
