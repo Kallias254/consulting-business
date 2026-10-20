@@ -652,6 +652,81 @@ function HumanMentorshipNarrative({
             </SimpleGrid>
           </Box>
 
+          {/* Editage-Style Core Value Props: Benefits Grid */}
+          <Box pt="md">
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(20)}>
+              {[
+                {
+                  title: 'Editorial Compliance Certificate',
+                  desc: 'Issued upon project completion for graduate school clearance or journal submission, certifying full language and academic style verification.',
+                },
+                {
+                  title: 'Up to 10% Word Reduction',
+                  desc: 'Precision trimming of excess word count without sacrificing nuance, ensuring your thesis or paper fits strict departmental or journal length limits.',
+                },
+                {
+                  title: 'Unlimited Editor Inquiries',
+                  desc: 'Direct collaborative dialogue. Ask Dr. Dobson and your editor clarifying questions regarding margin notes until you are 100% defense-ready.',
+                },
+                {
+                  title: '365-Day Committee Re-editing',
+                  desc: 'When your advisor, thesis committee, or journal reviewer issues revisions, submit your updated sections for secondary passes at zero extra charge.',
+                },
+              ].map((benefit, bIdx) => (
+                <Box
+                  key={bIdx}
+                  p="lg"
+                  bg={active.background}
+                  style={{
+                    border: `1px solid ${active.primary}12`,
+                    borderTop: `3px solid ${active.accent}`,
+                  }}
+                >
+                  <Text fw={700} size="sm" c={active.primary} mb={rem(6)} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    {benefit.title}
+                  </Text>
+                  <Text size="xs" c="dimmed" lh={1.6}>
+                    {benefit.desc}
+                  </Text>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </Box>
+
+          {/* Academic Disciplines Supported */}
+          <Box
+            p={{ base: rem(24), md: rem(32) }}
+            bg={active.background}
+            style={{ border: `1px solid ${active.primary}12` }}
+          >
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
+              <div>
+                <Text size="xs" fw={700} c={active.accent} mb={rem(4)} style={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                  Biomedical & Clinical Sciences
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Medicine, nursing, public health, pharmacology. Strict compliance with ICMJE, CARE guidelines, and biomedical nomenclature.
+                </Text>
+              </div>
+              <div>
+                <Text size="xs" fw={700} c={active.accent} mb={rem(4)} style={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                  Engineering, Math & STEM
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Computer science, physics, chemical and civil engineering. Exact mathematical terminology, equation review, and IEEE/ACM style adherence.
+                </Text>
+              </div>
+              <div>
+                <Text size="xs" fw={700} c={active.accent} mb={rem(4)} style={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                  Humanities, Social Sciences & Law
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Education, sociology, literature, economics, and law. Rigorous APA 7th, Chicago Notes & Bibliography, and Harvard citation audits.
+                </Text>
+              </div>
+            </SimpleGrid>
+          </Box>
+
           {/* Quick Action Footer */}
           <Group justify="center" gap="md" wrap="wrap">
             <Link href="/request-review" style={{ textDecoration: 'none' }}>
