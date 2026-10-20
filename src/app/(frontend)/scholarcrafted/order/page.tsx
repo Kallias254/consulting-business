@@ -494,6 +494,210 @@ const TAB_HEROES: Record<string, { kicker: string; title: string; desc: string }
   },
 }
 
+// ─── Human Editorial Narrative Block ─────────────────────────────────────────
+
+function HumanMentorshipNarrative({
+  active,
+  focus,
+}: {
+  active: Record<string, string>
+  focus?: string | null
+}) {
+  const isThesis = focus === 'thesis' || focus === 'dissertation'
+  const isJournal = focus === 'journal-article' || focus === 'resubmission'
+
+  return (
+    <Box py={SECTION_SPACING} bg={active.surface} style={{ borderTop: `1px solid ${active.primary}10`, borderBottom: `1px solid ${active.primary}10` }}>
+      <Container size={1200} px={{ base: 'md', sm: 'xl' }}>
+        <Stack gap={rem(48)}>
+          {/* Header */}
+          <Box style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
+            <Text
+              size="xs"
+              fw={700}
+              c={active.accent}
+              style={{ letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: rem(8) }}
+            >
+              Academic Peer Review, Not An Automated Queue
+            </Text>
+            <Title
+              order={2}
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.9rem, 3.8vw, 2.7rem)',
+                color: active.primary,
+                lineHeight: 1.2,
+                fontWeight: 500,
+              }}
+            >
+              Real scholars who understand what committee members and peer reviewers attack.
+            </Title>
+            <Text size="md" c="dimmed" mt="md" lh={1.8}>
+              You are never handed off to anonymous freelance marketplaces or generative AI wrappers. Every project at ScholarCrafted is assigned to a doctoral specialist in your discipline and overseen personally by Dr. Micah Dobson.
+            </Text>
+          </Box>
+
+          {/* 3 Practical Anxieties Answered in Plain English */}
+          <SimpleGrid cols={{ base: 1, md: 3 }} spacing={{ base: rem(24), md: rem(32) }}>
+            <Box
+              p={{ base: rem(24), md: rem(32) }}
+              bg={active.background}
+              style={{
+                border: `1px solid ${active.primary}12`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: rem(12),
+              }}
+            >
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>
+                01 · ETHICAL RIGOR
+              </Text>
+              <Text fw={700} size="md" c={active.primary} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20) }}>
+                {isThesis ? 'Will my committee allow an editor?' : 'Does journal policy permit editing?'}
+              </Text>
+              <Text size="sm" c="dimmed" lh={1.7}>
+                Yes. Graduate schools and major publishers (Elsevier, Springer, Wiley) explicitly encourage professional language and formatting review. We deliver 100% Microsoft Word Track Changes: you see every correction, accept or decline suggestions, and remain the sole intellectual author of your work.
+              </Text>
+            </Box>
+
+            <Box
+              p={{ base: rem(24), md: rem(32) }}
+              bg={active.background}
+              style={{
+                border: `1px solid ${active.primary}12`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: rem(12),
+              }}
+            >
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>
+                02 · RE-EDITING PROTECTION
+              </Text>
+              <Text fw={700} size="md" c={active.primary} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20) }}>
+                {isThesis ? 'What if my advisor requests changes?' : 'What if reviewers issue an R&R?'}
+              </Text>
+              <Text size="sm" c="dimmed" lh={1.7}>
+                You do not pay twice. Under our 365-Day Re-Editing Guarantee, when committee revisions or peer-reviewer critique arrives, upload your modified chapters to your private client vault. We perform secondary editorial passes on altered text at zero additional charge.
+              </Text>
+            </Box>
+
+            <Box
+              p={{ base: rem(24), md: rem(32) }}
+              bg={active.background}
+              style={{
+                border: `1px solid ${active.primary}12`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: rem(12),
+              }}
+            >
+              <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.12em' }}>
+                03 · DIRECT FACULTY DEBRIEF
+              </Text>
+              <Text fw={700} size="md" c={active.primary} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20) }}>
+                Can I talk through the edits with a human?
+              </Text>
+              <Text size="sm" c="dimmed" lh={1.7}>
+                Yes. We do not disappear behind an automated file download. Every deliverable includes an optional 1-on-1 Zoom debrief consultation with Dr. Micah Dobson to review structural notes, discuss citation flags, and ensure you feel confident defending your document.
+              </Text>
+            </Box>
+          </SimpleGrid>
+
+          {/* What We Do vs What We Will Never Do (Ethical Clarity Grid) */}
+          <Box
+            p={{ base: rem(28), md: rem(40) }}
+            bg={active.background}
+            style={{ border: `1px solid ${active.primary}14` }}
+          >
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(28), md: rem(48) }}>
+              <Stack gap="md">
+                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+                  What Our Doctoral Specialists Do
+                </Text>
+                <Stack gap="sm">
+                  {[
+                    'Untangle convoluted syntax and passive phrasing to make arguments clear and defensible.',
+                    'Audit inline citations against reference entries, hunting down broken DOIs and formatting discrepancies.',
+                    'Flag methodological and logical gaps that peer reviewers or committee members routinely attack.',
+                    'Ensure exact conformity with target style manuals: APA 7, Chicago Notes & Bibliography, Harvard, or journal guidelines.',
+                    'Deliver clean submission files alongside your tracked version and an official Editorial Compliance Certificate.',
+                  ].map((item, idx) => (
+                    <Group key={idx} align="flex-start" gap="xs" wrap="nowrap">
+                      <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(4) }} />
+                      <Text size="sm" c={active.primary} lh={1.6}>{item}</Text>
+                    </Group>
+                  ))}
+                </Stack>
+              </Stack>
+
+              <Stack gap="md" style={{ borderLeft: `1px solid ${active.primary}10`, paddingLeft: rem(24) }}>
+                <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+                  What We Will Never Do (Our Ethical Pledge)
+                </Text>
+                <Stack gap="sm">
+                  {[
+                    'We will never ghostwrite or author original scholarly research. Your intellectual discoveries remain 100% your own.',
+                    'We will never apply automated generative AI rewriting models to your confidential manuscript.',
+                    'We will never fabricate or alter primary data, statistical findings, or research conclusions.',
+                    'We will never share, publish, or disclose your draft: all work takes place under strict Non-Disclosure.',
+                    'We will never route your project through anonymous support tickets: you communicate with Dr. Micah Dobson directly.',
+                  ].map((item, idx) => (
+                    <Group key={idx} align="flex-start" gap="xs" wrap="nowrap">
+                      <IconMinus size={16} color="#888" style={{ flexShrink: 0, marginTop: rem(4) }} />
+                      <Text size="sm" c="dimmed" lh={1.6}>{item}</Text>
+                    </Group>
+                  ))}
+                </Stack>
+              </Stack>
+            </SimpleGrid>
+          </Box>
+
+          {/* Quick Action Footer */}
+          <Group justify="center" gap="md" wrap="wrap">
+            <Link href="/request-review" style={{ textDecoration: 'none' }}>
+              <Button
+                size="md"
+                radius={0}
+                style={{
+                  backgroundColor: active.accent,
+                  color: '#ffffff',
+                  fontWeight: 600,
+                  height: rem(48),
+                  paddingLeft: rem(24),
+                  paddingRight: rem(24),
+                }}
+                rightSection={<IconArrowRight size={16} />}
+              >
+                Request a 24h Project Review
+              </Button>
+            </Link>
+            <a
+              href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <Button
+                variant="outline"
+                size="md"
+                radius={0}
+                style={{
+                  borderColor: `${active.primary}30`,
+                  color: active.primary,
+                  height: rem(48),
+                  fontWeight: 600,
+                }}
+              >
+                Schedule a 20-Min Conversation with Dr. Dobson
+              </Button>
+            </a>
+          </Group>
+        </Stack>
+      </Container>
+    </Box>
+  )
+}
+
 // ─── Focus presets for campaigns & flyers ─────────────────────────────────────
 
 interface FocusPreset {
@@ -779,6 +983,7 @@ function OrderContent() {
           calcWords={calcWords}
           setCalcWords={setCalcWords}
           allowedTiers={allowedTiers}
+          focus={focusParam}
         />
       )}
 
@@ -787,6 +992,7 @@ function OrderContent() {
           active={active}
           hlTier={hlTier}
           allowedTiers={allowedTiers}
+          focus={focusParam}
         />
       )}
 
@@ -794,6 +1000,7 @@ function OrderContent() {
         <BookTabBody
           active={active}
           hlStage={hlStage}
+          focus={focusParam}
         />
       )}
 
@@ -801,6 +1008,7 @@ function OrderContent() {
         <AiAuditTabBody
           active={active}
           hlTier={hlTier}
+          focus={focusParam}
         />
       )}
     </Box>
@@ -810,13 +1018,14 @@ function OrderContent() {
 // ─── EDITING TAB BODY ─────────────────────────────────────────────────────────
 
 function EditingTabBody({
-  active, hlTier, calcWords, setCalcWords, allowedTiers,
+  active, hlTier, calcWords, setCalcWords, allowedTiers, focus,
 }: {
   active: Record<string, string>
   hlTier: string
   calcWords: number
   setCalcWords: (n: number) => void
   allowedTiers?: string[]
+  focus?: string | null
 }) {
   const visibleTiers = allowedTiers && allowedTiers.length > 0
     ? editingTiers.filter((tier) => allowedTiers.includes(tier.id))
@@ -944,6 +1153,9 @@ function EditingTabBody({
         </Container>
       </Box>
 
+      {/* Human Editorial Narrative & Mentorship Framework */}
+      <HumanMentorshipNarrative active={active} focus={focus} />
+
       {/* Feature matrix */}
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
@@ -1009,11 +1221,12 @@ function EditingTabBody({
 // ─── JOURNAL TAB BODY ─────────────────────────────────────────────────────────
 
 function JournalTabBody({
-  active, hlTier, allowedTiers,
+  active, hlTier, allowedTiers, focus,
 }: {
   active: Record<string, string>
   hlTier: string
   allowedTiers?: string[]
+  focus?: string | null
 }) {
   const visibleTiers = allowedTiers && allowedTiers.length > 0
     ? journalTiers.filter((tier) => allowedTiers.includes(tier.id))
@@ -1103,6 +1316,9 @@ function JournalTabBody({
         </Container>
       </Box>
 
+      {/* Human Editorial Narrative & Mentorship Framework */}
+      <HumanMentorshipNarrative active={active} focus={focus} />
+
       {/* Journal Feature Matrix */}
       <Box py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
@@ -1167,7 +1383,7 @@ function JournalTabBody({
 
 // ─── BOOK TAB BODY ────────────────────────────────────────────────────────────
 
-function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlStage: string }) {
+function BookTabBody({ active, hlStage, focus }: { active: Record<string, string>; hlStage: string; focus?: string | null }) {
   const [activeIdx, setActiveIdx] = useState(() => {
     const found = bookStages.findIndex(s => s.step === hlStage)
     return found >= 0 ? found : 0
@@ -1362,7 +1578,7 @@ function BookTabBody({ active, hlStage }: { active: Record<string, string>; hlSt
 
 // ─── AI MANUSCRIPT AUDIT TAB BODY ─────────────────────────────────────────────
 
-function AiAuditTabBody({ active, hlTier }: { active: Record<string, string>; hlTier: string }) {
+function AiAuditTabBody({ active, hlTier, focus }: { active: Record<string, string>; hlTier: string; focus?: string | null }) {
   return (
     <Box>
       {/* Cards section */}
