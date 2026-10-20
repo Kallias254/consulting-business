@@ -511,14 +511,14 @@ function HumanMentorshipNarrative({
       <Container size={1200} px={{ base: 'md', sm: 'xl' }}>
         <Stack gap={rem(48)}>
           {/* Header */}
-          <Box style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
+          <Box style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
             <Text
               size="xs"
               fw={700}
               c={active.accent}
               style={{ letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: rem(8) }}
             >
-              Academic Peer Review, Not An Automated Queue
+              Academic Collaboration & Faculty Oversight
             </Text>
             <Title
               order={2}
@@ -530,10 +530,10 @@ function HumanMentorshipNarrative({
                 fontWeight: 500,
               }}
             >
-              Real scholars who understand what committee members and peer reviewers attack.
+              Thoughtful, rigorous editorial support tailored to your research milestones.
             </Title>
             <Text size="md" c="dimmed" mt="md" lh={1.8}>
-              You are never handed off to anonymous freelance marketplaces or generative AI wrappers. Every project at ScholarCrafted is assigned to a doctoral specialist in your discipline and overseen personally by Dr. Micah Dobson.
+              Every manuscript at ScholarCrafted is paired directly with a doctoral specialist in your discipline and overseen personally by Dr. Micah Dobson. We read your scholarship with care, precision, and an appreciation for the intellectual dedication behind your work.
             </Text>
           </Box>
 
@@ -690,6 +690,59 @@ function HumanMentorshipNarrative({
                   </Text>
                 </Box>
               ))}
+            </SimpleGrid>
+          </Box>
+
+          {/* Common Challenges We Solve (Empathetic Narrative) */}
+          <Box
+            p={{ base: rem(24), md: rem(36) }}
+            bg={active.background}
+            style={{
+              border: `1px solid ${active.primary}12`,
+            }}
+          >
+            <Text
+              size="xs"
+              fw={700}
+              c={active.accent}
+              mb="md"
+              style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
+            >
+              Common Research Milestones We Support
+            </Text>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="lg">
+              <div>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
+                  Revising After Committee Feedback
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Restructuring literature reviews and discussions to resolve conflicting advisor suggestions with clarity and scholarly poise.
+                </Text>
+              </div>
+              <div>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
+                  Responding to Peer Reviewers (R&R)
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Crafting structured rebuttal responses and aligning manuscript revisions to satisfy reviewer critiques constructively.
+                </Text>
+              </div>
+              <div>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
+                  Reconciling Citations & Data Tables
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Repairing broken bibliographies, missing DOIs, and formatting inconsistencies across hundreds of cross-chapter references.
+                </Text>
+              </div>
+              <div>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
+                  Final Defense & Submission Polish
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.6}>
+                  Ensuring flawless academic tone, university template compliance, and formatting accuracy for institutional clearance.
+                </Text>
+              </div>
             </SimpleGrid>
           </Box>
 
