@@ -62,7 +62,7 @@ const auditLayers = [
   {
     num: '06',
     title: '1-Page Executive Faculty Risk Memo',
-    desc: 'A prioritized summary detailing the 3 critical vulnerabilities peer reviewers will attack, accompanied by an optional complimentary 15-minute debrief call with Micah Dobson.',
+    desc: 'A prioritized summary detailing the 3 critical vulnerabilities peer reviewers will attack, accompanied by an optional complimentary 15-minute debrief call with Dr. Micah Dobson.',
   },
 ]
 
@@ -83,7 +83,7 @@ const pricingTiers = [
       'Structural consistency & argument alignment audit',
       'Target journal scope matching & rejection risk screening',
       '1-Page Executive Faculty Risk Memo identifying critical vulnerabilities',
-      'Optional 15-minute debrief consultation with Micah Dobson',
+      'Optional 15-minute debrief consultation with Dr. Micah Dobson',
       '★ 100% Fee Credit: $29 credited toward full editing if scoped',
     ],
     href: '/request-review?service=ai-audit&tier=single',
@@ -104,7 +104,7 @@ const pricingTiers = [
       '• Review 3: Final pre-submission / camera-ready proof check',
       'Everything in Single Audit included for all 3 drafts',
       'Priority 24-hour diagnostic turnaround queue',
-      'Direct follow-up consultation with Micah Dobson after each review',
+      'Direct follow-up consultation with Dr. Micah Dobson after each review',
       '★ 100% Fee Credit: $69 credited toward full developmental editing',
     ],
     href: '/request-review?service=ai-audit&tier=bundle',
@@ -122,7 +122,7 @@ const faqs = [
   },
   {
     q: 'How does the 15-minute debrief call work?',
-    a: 'Once your diagnostic report is delivered to your email, you will receive an invitation link to book a complimentary 15-minute consultation with Micah Dobson. On the call, we walk through the top 3 structural or citation vulnerabilities surfaced in your report and answer your specific submission questions.',
+    a: 'Once your diagnostic report is delivered to your email, you will receive an invitation link to book a complimentary 15-minute consultation with Dr. Micah Dobson. On the call, we walk through the top 3 structural or citation vulnerabilities surfaced in your report and answer your specific submission questions.',
   },
   {
     q: 'Will my manuscript be kept confidential?',
@@ -302,7 +302,7 @@ export default function AiManuscriptAuditPage() {
                 {[
                   { step: '1', title: 'Submit Draft ($29)', desc: 'Upload your AI-assisted manuscript. We scan against 200M+ research papers in 24–48 hours.' },
                   { step: '2', title: 'Review Diagnostic & Memo', desc: 'Receive your 15-page diagnostic report and 1-page Faculty Risk Memo highlighting peer-review vulnerabilities.' },
-                  { step: '3', title: 'Optional 15-Min Debrief', desc: 'Discuss the findings directly with Micah Dobson to understand what needs repair before submission.' },
+                  { step: '3', title: 'Optional 15-Min Debrief', desc: 'Discuss the findings directly with Dr. Micah Dobson to understand what needs repair before submission.' },
                   { step: '4', title: '100% Fee Credit Applied', desc: 'Choose to execute revisions yourself or apply your full $29 fee toward full Word Track-Changes editing.' },
                 ].map((s) => (
                   <Group key={s.step} gap="md" align="flex-start" wrap="nowrap">

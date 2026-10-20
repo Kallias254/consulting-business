@@ -151,7 +151,7 @@ const AI_AUDIT_TIER_META: Record<string, { label: string; flatPrice: number; pri
     flatPrice: 69,
     priceStr: '$69 flat fee',
     turnaround: '24–48 hours per review',
-    desc: '3 full manuscript audits across your project lifecycle (initial draft, advisor revision, and pre-submission check). Includes follow-up consultations with Micah Dobson. 100% credited toward editing.',
+    desc: '3 full manuscript audits across your project lifecycle (initial draft, advisor revision, and pre-submission check). Includes follow-up consultations with Dr. Micah Dobson. 100% credited toward editing.',
   },
 }
 
@@ -250,6 +250,7 @@ function RequestReviewContent() {
   const [activeStep, setActiveStep] = useState<1 | 2 | null>(1)
   const [step1Done, setStep1Done]   = useState(false)
   const [submitted, setSubmitted]   = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   // File change handler
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -285,9 +286,35 @@ function RequestReviewContent() {
     email.trim() !== '' &&
     (wordCount > 0 || fileName !== '' || paramService === 'ai-audit' || paramSection === 'journal' || (paramService === 'publication' && paramSection === 'book'))
 
-  function handleSubmit() {
-    if (!isFormValid) return
-    setSubmitted(true)
+  async function handleSubmit() {
+    if (!isFormValid || submitting) return
+    setSubmitting(true)
+    try {
+      await fetch('/api/submit-project', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          salutation,
+          firstName,
+          lastName,
+          email,
+          institution: subjectName,
+          documentType: docType,
+          service: paramService,
+          tier: paramTier,
+          wordCount,
+          deadline: deadline ? deadline.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : null,
+          instructions,
+          intent,
+          fileName,
+        }),
+      })
+    } catch {
+      // Silently continue to success screen even if email fails — we don't want to block the client
+    } finally {
+      setSubmitting(false)
+      setSubmitted(true)
+    }
   }
 
   // ─── Success Confirmation Screen ──────────────────────────────────────────
@@ -327,16 +354,16 @@ function RequestReviewContent() {
                 <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: '44ch' }}>
                   {intent === 'start' ? (
                     <>
-                      Micah Dobson will review your manuscript and send a <strong style={{ color: active.primary }}>50% deposit invoice</strong> to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours. Work commences upon receipt.
+                      Dr. Micah Dobson will review your manuscript and send a <strong style={{ color: active.primary }}>50% deposit invoice</strong> to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours. Work commences upon receipt.
                     </>
                   ) : (
                     <>
-                      Micah Dobson will review your project personally and send a scoped quote to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours.
+                      Dr. Micah Dobson will review your project personally and send a scoped quote to <strong style={{ color: active.primary }}>{email}</strong> within 24 hours.
                     </>
                   )}
                 </Text>
-                <Text size="xs" c="dimmed" style={{ fontStyle: 'italic' }}>
-                  Strict NDA · No AI models applied to your manuscript · Real scholar review
+                <Text size="xs" c="dimmed" style={{ fontStyle: 'italic', maxWidth: '52ch' }}>
+                  100% Institutional Academic Integrity: We will never ghostwrite or fabricate research data. We polish your scholarship into defense-ready form while maintaining full ethical compliance under strict NDA.
                 </Text>
                 <Link href="/" style={{ textDecoration: 'none' }}>
                   <Button variant="outline" radius={0} mt="sm" style={{ borderColor: `${active.primary}30`, color: active.primary }}>
@@ -518,7 +545,7 @@ function RequestReviewContent() {
                           <>
                             <IconUpload size={26} color="#888" />
                             <Text size="sm" fw={700} c={active.primary}>Click to upload your manuscript</Text>
-                            <Text size="xs" c="dimmed">.docx, .pdf, .rtf — or reply to Micah's quote email to attach later</Text>
+                            <Text size="xs" c="dimmed">.docx, .pdf, .rtf: or reply to Dr. Dobson's quote email to attach later</Text>
                           </>
                         )}
                       </UnstyledButton>
@@ -846,9 +873,10 @@ function RequestReviewContent() {
                         size="lg"
                         radius={0}
                         fullWidth
-                        disabled={!isFormValid}
+                        disabled={!isFormValid || submitting}
+                        loading={submitting}
                         onClick={handleSubmit}
-                        rightSection={<IconArrowRight size={18} />}
+                        rightSection={!submitting ? <IconArrowRight size={18} /> : null}
                         style={{
                           backgroundColor: isFormValid ? active.accent : `${active.primary}20`,
                           color: '#ffffff',
@@ -856,10 +884,12 @@ function RequestReviewContent() {
                           fontWeight: 700,
                           letterSpacing: '0.06em',
                           height: rem(54),
-                          cursor: isFormValid ? 'pointer' : 'not-allowed',
+                          cursor: isFormValid && !submitting ? 'pointer' : 'not-allowed',
                         }}
                       >
-                        {paramService === 'ai-audit'
+                        {submitting
+                          ? 'Sending brief...'
+                          : paramService === 'ai-audit'
                           ? `SUBMIT FOR AI MANUSCRIPT AUDIT — $${calculatedEstimate ?? 29}`
                           : intent === 'start'
                           ? 'SUBMIT ORDER — INVOICE 50% DEPOSIT'
@@ -986,7 +1016,7 @@ function RequestReviewContent() {
                     'Strict non-disclosure on all manuscripts',
                     'Zero generative AI used on your text',
                     '100% Track Changes delivery in Word',
-                    'Personal scoping & review by Micah Dobson',
+                    'Personal scoping & review by Dr. Micah Dobson',
                   ].map((pt, i) => (
                     <Group key={i} gap={rem(8)} align="flex-start" wrap="nowrap">
                       <IconCheck size={13} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />

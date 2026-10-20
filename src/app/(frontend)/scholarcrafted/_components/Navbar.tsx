@@ -99,7 +99,7 @@ export function Navbar() {
         <Container size={1340}>
           <Group justify="space-between" align="center" wrap="nowrap">
             <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
-              <Logo height={32} boxColor={active.accent} textColor={active.primary} />
+              <Logo height={38} boxColor={active.accent} textColor={active.primary} />
             </Link>
 
             {/* Desktop nav */}

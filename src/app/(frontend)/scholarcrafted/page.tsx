@@ -166,7 +166,7 @@ const homeNeeds = [
   },
   {
     id: 'citations-mess',
-    label: 'My citations are a mess — Zotero broke, references don\'t match',
+    label: "My citations are disorganized: Zotero broke or references do not match",
     subLabel: 'Reference audit, DOI verification & AI integrity check',
     serviceIds: ['ai_audit', 'editing'],
     recommended: 'ai_audit',
@@ -180,7 +180,7 @@ const homeNeeds = [
   },
   {
     id: 'revise-resubmit',
-    label: 'I received a Revise & Resubmit — I need help responding to reviewers',
+    label: "I received a Revise & Resubmit: I need help responding to reviewers",
     subLabel: 'Response matrix and revision packaging',
     serviceIds: ['journal'],
     recommended: 'journal',
@@ -214,7 +214,7 @@ const homeServices: Record<string, {
   editing: {
     badge: 'From $0.0425 / word',
     title: 'English Editing & Compliance',
-    desc: 'Line-by-line editing for language, structure, and academic tone. Reference cleanup, DOI verification, citation style conformity, and institutional compliance — all delivered in Word tracked changes.',
+    desc: 'Line-by-line editing for language, structure, and academic tone. Reference cleanup, DOI verification, citation style conformity, and institutional compliance, all delivered in Word tracked changes.',
     link: '/order?service=editing&tier=premium',
     cta: 'Calculate Editing Fee',
   },
@@ -530,7 +530,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
               Solutions for every stage of your research journey.
             </Title>
             <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '68ch' }}>
-              From initial draft scoping and thesis-to-article conversion to high-impact line editing, peer review reply matrices, and press galley proofs &mdash; select your stage to view dedicated execution tracks.
+              From initial draft scoping and thesis-to-article conversion to high-impact line editing, peer review reply matrices, and press galley proofs, select your stage to view dedicated execution tracks.
             </Text>
           </Box>
 
@@ -1173,25 +1173,25 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl" align="flex-start">
 
                 <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
-                  Editorial & Publication Advisory
+                  Faculty-Led Editorial & Publication Advisory
                 </p>
 
                 <Title
                   order={1}
                   style={{
-                    fontSize: 'clamp(2.2rem, 5.2vw, 3.8rem)',
-                    lineHeight: 1.1,
-                    letterSpacing: '-0.025em',
+                    fontSize: 'clamp(2.3rem, 5.5vw, 4rem)',
+                    lineHeight: 1.08,
+                    letterSpacing: '-0.02em',
                     color: '#ffffff',
-                    fontFamily: 'var(--font-display), var(--font-serif)',
-                    fontWeight: 600,
+                    fontFamily: 'var(--font-serif)',
+                    fontWeight: 500,
                   }}
                 >
-                  Everything a Researcher Needs, All in One Place.
+                  From Finished Draft to Accepted Manuscript.
                 </Title>
 
                 <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '54ch' }}>
-                  Substantive line editing, citation audits, and publisher formatting &mdash; delivered with 100% Track Changes in Word by doctoral specialists.
+                  Substantive line editing, citation audits, and publisher formatting: delivered with 100% Track Changes in Word by doctoral specialists.
                 </p>
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
@@ -1218,7 +1218,13 @@ export default function ScholarCraftedLanding() {
                       View Services & Pricing
                     </Button>
                   </Link>
-                  <Link href="/order?service=ai-audit" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <a
+                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
+                    className="hero-btn-link"
+                  >
                     <Button
                       size="lg"
                       radius={0}
@@ -1238,9 +1244,9 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Run AI Manuscript Audit ($29)
+                      Speak to Faculty
                     </Button>
-                  </Link>
+                  </a>
                 </Group>
 
               </Stack>
@@ -1277,18 +1283,18 @@ export default function ScholarCraftedLanding() {
             {[
               {
                 num: '01',
-                label: 'Hand Off Your Manuscript',
-                desc: 'Upload your document with your style guide and target deadline. Zero sales calls, zero phone tag to start.',
+                label: 'Share Your Draft & Requirements',
+                desc: 'Upload your document or request a scoped quote. No sales pressure, and you can book a direct Zoom call with Dr. Micah Dobson if you prefer a conversation first.',
               },
               {
                 num: '02',
-                label: 'Guaranteed 24h Fixed Quote',
-                desc: 'Within 24 hours we evaluate your draft and send a clear service scope and guaranteed firm price. No vague estimates.',
+                label: 'Clear Scope & 24h Fixed Quote',
+                desc: 'Within 24 hours, Dr. Dobson evaluates your draft and returns a firm price, clear turnaround timeline, and exact style plan. No hidden fees.',
               },
               {
                 num: '03',
-                label: 'Human Execution in Tracked Changes',
-                desc: 'Line-by-line editorial triage delivered directly in Word tracked changes. You review and approve every single edit.',
+                label: 'Tracked Delivery & Faculty Debrief',
+                desc: 'Every revision is delivered in Microsoft Word Track Changes so you retain full control. Includes an optional debrief call with Dr. Micah Dobson upon delivery.',
               },
             ].map((step, i) => (
               <Box
@@ -1493,7 +1499,7 @@ export default function ScholarCraftedLanding() {
 
               <Stack gap="md">
                 <Text size="md" c="dimmed" lh={1.75}>
-                  Your time belongs to the research, not the formatting. Our doctoral editors polish your prose and citations by hand &mdash; never automated or outsourced.
+                  Your time belongs to the research, not the formatting. Our doctoral editors polish your prose and citations by hand: never automated and never outsourced.
                 </Text>
 
                 <Group gap="sm" wrap="wrap">

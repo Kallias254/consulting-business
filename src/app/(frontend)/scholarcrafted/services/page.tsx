@@ -72,7 +72,7 @@ const services = [
     icon: <IconShieldCheck size={22} />,
     title: 'AI Manuscript Audit',
     tagline: 'Audit your AI-assisted research before journal submission — citation accuracy, literature gaps & peer-review risks.',
-    desc: 'An independent pre-submission diagnostic scan evaluated against 200M+ academic papers. Identifies hallucinated or missing citations, section discontinuities, overstated claims, and journal match. Includes an executive Faculty Risk Memo and optional 15-minute debrief call with Micah Dobson. 100% of your audit fee is credited toward full editing if scoped.',
+    desc: 'An independent pre-submission diagnostic scan evaluated against 200M+ academic papers. Identifies hallucinated or missing citations, section discontinuities, overstated claims, and journal match. Includes an executive Faculty Risk Memo and optional 15-minute debrief call with Dr. Micah Dobson. 100% of your audit fee is credited toward full editing if scoped.',
     features: [
       'Citation & reference gap analysis benchmarked against 200M+ research papers',
       'Structural consistency & argument alignment audit across all sections',

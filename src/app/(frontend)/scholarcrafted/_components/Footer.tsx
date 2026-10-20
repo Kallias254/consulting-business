@@ -42,14 +42,14 @@ export function Footer({ bg }: { bg?: string }) {
           {/* Column 1: Brand, Inquiries & Faculty Bio */}
           <Stack gap="lg">
             <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'inline-block' }}>
-              <Logo height={32} boxColor={active.accent} textColor="#ffffff" />
+              <Logo height={38} boxColor={active.accent} textColor="#ffffff" />
             </Link>
             <Text
               size="sm"
               lh={1.7}
               c="rgba(255,255,255,0.75)"
             >
-              A faculty-led post-draft execution firm. We handle the technical production work — line editing, formatting, citation audits, and publisher preparation — that turns a finished manuscript into a published work.
+              A faculty-led post-draft execution firm. We handle the technical production work: line editing, formatting, citation audits, and publisher preparation that turns a finished manuscript into a published work.
             </Text>
 
             {/* Contact & Social */}

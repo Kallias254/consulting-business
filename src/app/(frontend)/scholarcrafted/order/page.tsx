@@ -271,7 +271,7 @@ const bookStages = [
   },
   {
     step: 'FULL', title: 'Full 5-Stage Pipeline',
-    subtitle: 'From publisher selection to printed book — coordinated by Micah Dobson.',
+    subtitle: 'From publisher selection to printed book — coordinated by Dr. Micah Dobson.',
     desc: 'Complete end-to-end monograph publishing: publisher ranking, acquisition proposal, manuscript editing, galley proof review, and back-of-book indexing. One point of contact from contract to press.',
     price: 'Custom Scoped Bundle', turnaround: 'Contract to Press',
     isPipeline: true,
@@ -281,7 +281,7 @@ const bookStages = [
       'Full manuscript line editing to academic press standards',
       'First- and second-pass galley proof review',
       'Professional subject & author index (press-spec delivery)',
-      'Coordinated by Micah Dobson — single point of contact throughout',
+      'Coordinated by Dr. Micah Dobson — single point of contact throughout',
       'Milestone schedule aligned to press submission deadlines',
       '50% deposit on contract, 50% on final delivery',
     ],
@@ -325,7 +325,7 @@ const aiAuditTiers = [
       'Structural consistency & argument alignment audit across all sections',
       'Target journal scope matching & rejection risk assessment',
       '1-Page Executive Faculty Risk Memo identifying critical vulnerabilities',
-      'Optional 15-minute debrief consultation with Micah Dobson',
+      'Optional 15-minute debrief consultation with Dr. Micah Dobson',
       '100% Fee Credit: $29 credited toward full editing if scoped',
     ],
   },
@@ -345,7 +345,7 @@ const aiAuditTiers = [
       '• Review 3: Final pre-submission / camera-ready proof check',
       'Everything in Single Audit included for all 3 drafts',
       'Priority 24-hour diagnostic turnaround queue',
-      'Direct follow-up consultation with Micah Dobson after each review',
+      'Direct follow-up consultation with Dr. Micah Dobson after each review',
       '100% Fee Credit: $69 credited toward full developmental editing',
     ],
   },
@@ -358,7 +358,7 @@ const aiAuditComparison = [
   { feature: 'Methods-to-Results Alignment Check', single: true, bundle: true },
   { feature: 'Target Journal Fit & Rejection Risk Screening', single: true, bundle: true },
   { feature: '1-Page Executive Faculty Risk Memo', single: true, bundle: true },
-  { feature: 'Optional 15-Minute Zoom Debrief with Micah Dobson', single: true, bundle: true },
+  { feature: 'Optional 15-Minute Zoom Debrief with Dr. Micah Dobson', single: true, bundle: true },
   { feature: '100% Fee Credit Toward Full Word Track-Changes Editing', single: '$29 Credit', bundle: '$69 Credit' },
   { feature: 'Number of Full Manuscript Audits Included', single: '1 Draft', bundle: '3 Drafts' },
   { feature: 'Post-Revision & Camera-Ready Re-audit', single: false, bundle: true },
@@ -366,7 +366,7 @@ const aiAuditComparison = [
 
 const aiAuditFAQ = [
   { q: 'What AI tools does the audit detect?', a: 'Our audit checks for outputs from ChatGPT, Claude, Gemini, Copilot, and other LLMs. We identify hallucinated citations, fabricated references, and structural patterns consistent with AI-generated text.' },
-  { q: 'Is my manuscript safe? Who sees it?', a: 'Only Micah Dobson reviews your manuscript. We sign a non-disclosure agreement before document review, and files are deleted from our systems upon project completion.' },
+  { q: 'Is my manuscript safe? Who sees it?', a: 'Only Dr. Micah Dobson reviews your manuscript. We sign a non-disclosure agreement before document review, and files are deleted from our systems upon project completion.' },
   { q: 'What happens after the audit?', a: 'You receive a diagnostic report with actionable recommendations. Your audit fee ($29 or $69) is credited 100% toward full editing if you proceed — making the audit effectively free.' },
   { q: 'Can I use the audit for a thesis, not a journal article?', a: 'Absolutely. The audit works for dissertations, theses, journal manuscripts, book proposals, and any academic document that may have used AI assistance during drafting.' },
 ]
@@ -388,7 +388,7 @@ const testimonials: Record<string, Array<{ quote: string; name: string; affiliat
   ],
   'ai-audit': [
     { quote: 'The audit caught 4 hallucinated citations I would never have found. $29 well spent — then I upgraded to editing.', name: 'R. Aziz', affiliation: 'King Abdulaziz University' },
-    { quote: 'I used the Revision Bundle across my thesis, my committee revision, and the final deposit version. Micah\'s debrief call after each round was invaluable.', name: 'S. Torres', affiliation: 'Columbia University' },
+    { quote: "I used the Revision Bundle across my thesis, my committee revision, and the final deposit version. Dr. Dobson's debrief call after each round was invaluable.", name: 'S. Torres', affiliation: 'Columbia University' },
   ],
 }
 
