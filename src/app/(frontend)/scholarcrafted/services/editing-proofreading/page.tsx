@@ -1015,7 +1015,7 @@ function EditingServicesContent() {
             </Container>
           </Box>
 
-          {/* What ScholarCrafted Delivers that AI Cannot */}
+          {/* Academic Rigor: Why Human Mentorship Matters */}
           <Box component="section" py={SECTION_SPACING} bg={active.surface}>
             <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
               <Stack gap={rem(48)}>
@@ -1030,7 +1030,7 @@ function EditingServicesContent() {
                       fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                     }}
                   >
-                    Human Academic Intelligence
+                    Faculty Collaboration & Editorial Rigor
                   </Text>
                   <Title
                     order={2}
@@ -1042,46 +1042,46 @@ function EditingServicesContent() {
                       fontWeight: 600,
                     }}
                   >
-                    What ScholarCrafted delivers that AI tools cannot.
+                    Why Human Mentorship Matters for High-Stakes Research.
                   </Title>
                   <Text size="md" c="dimmed" mt="sm" lh={1.75}>
-                    Large language models catch surface typos, but fail on methodological nuance, discipline epistemology, and citation veracity. Here is why human academic review remains essential before peer review.
+                    Automated software handles basic spelling, but peer-reviewed publishing requires rigorous argument flow, discipline-specific accuracy, and accountability. Here is how our doctoral editors support your scholarship.
                   </Text>
                 </Box>
 
                 <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-                  {/* Risks of AI */}
+                  {/* The Limits of Automated Checking */}
                   <Box
                     p={{ base: rem(28), md: rem(36) }}
                     bg={active.background}
                     style={{ border: `1px solid ${active.primary}18` }}
                   >
                     <Group gap="xs" align="center" mb="md">
-                      <IconAlertTriangle size={20} color="#e03131" />
-                      <Text size="sm" fw={700} c="#e03131" style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                        Risks of Relying Exclusively on AI
+                      <IconAlertTriangle size={20} color={active.accent} />
+                      <Text size="sm" fw={700} c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                        The Limits of Automated Tools
                       </Text>
                     </Group>
                     <Stack gap="md">
                       {[
                         {
-                          title: 'Hallucinated & Broken Citations',
-                          desc: 'AI synthesizes plausible-sounding journal titles and DOI links that do not exist, triggering immediate desk rejection.',
+                          title: 'Surface Grammar vs. Intellectual Logic',
+                          desc: 'Automated tools identify typos, but cannot assess whether your research questions, empirical findings, and discussions align logically.',
                         },
                         {
-                          title: 'Formulaic, Repetitive Phrasing',
-                          desc: 'LLMs rely on stereotypical syntactic habits that journal reviewers and automated screening systems easily identify.',
+                          title: 'Generic Phrasing & Loss of Authorial Voice',
+                          desc: 'Generic algorithmic recommendations often substitute formulaic sentence templates that flatten your personal scholarly style.',
                         },
                         {
-                          title: 'Disregard for Theoretical Context',
-                          desc: 'Generic models do not understand the subtle epistemological debates between competing theoretical schools in your discipline.',
+                          title: 'Unchecked Bibliographic Accuracy',
+                          desc: 'Automated checkers cannot verify whether your cited references match target journal indexing standards or actual published sources.',
                         },
                         {
-                          title: 'Zero Accountability to Your Committee',
-                          desc: 'An AI cannot explain why a change was made or defend section pacing during an oral dissertation defense.',
+                          title: 'Absence of Defense Preparation',
+                          desc: 'Software cannot explain why a phrasing decision was made, nor can it prepare you to answer critical questions during a committee review.',
                         },
                       ].map((item, idx) => (
-                        <Box key={idx} pl="md" style={{ borderLeft: `2px solid #e0313133` }}>
+                        <Box key={idx} pl="md" style={{ borderLeft: `2px solid ${active.primary}20` }}>
                           <Text size="sm" fw={700} c={active.primary}>{item.title}</Text>
                           <Text size="xs" c="dimmed" mt={2} lh={1.5}>{item.desc}</Text>
                         </Box>
@@ -1089,7 +1089,7 @@ function EditingServicesContent() {
                     </Stack>
                   </Box>
 
-                  {/* Senior Human Review */}
+                  {/* What Doctoral Specialists Provide */}
                   <Box
                     p={{ base: rem(28), md: rem(36) }}
                     bg={active.background}
@@ -1098,26 +1098,26 @@ function EditingServicesContent() {
                     <Group gap="xs" align="center" mb="md">
                       <IconSparkles size={20} color={active.accent} />
                       <Text size="sm" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                        What Senior Human Specialists Provide
+                        What Doctoral Specialists Provide
                       </Text>
                     </Group>
                     <Stack gap="md">
                       {[
                         {
-                          title: '100% Verified Citation Integrity',
-                          desc: 'Our editors manually cross-check inline citations against reference entries and CrossRef DOIs.',
+                          title: 'Discipline-Specific Scholarly Voice',
+                          desc: 'We polish clarity and remove academic clutter while protecting your distinct scholarly perspective and subject terminology.',
                         },
                         {
-                          title: 'Authentic Scholarly Voice & Cadence',
-                          desc: 'We preserve your unique intellectual voice while eliminating clumsy phrasing and academic jargon bloat.',
+                          title: 'Rigorous Argument Defensibility',
+                          desc: 'A doctoral peer reviews claims, transitions, and framing to ensure your work stands up under the scrutiny of top reviewers.',
                         },
                         {
-                          title: 'Domain Epistemology & Methodological Rigor',
-                          desc: 'Edited by scholars with doctorates in your field who know what top peer reviewers expect to see.',
+                          title: 'Manual Citation & Style Integrity',
+                          desc: 'Every in-text citation is cross-checked against your bibliography and verified against style guides (APA, Chicago, IEEE).',
                         },
                         {
-                          title: '365-Day Defense & Re-editing Guarantee',
-                          desc: 'If your committee or target journal requests modifications to edited text, we support you through publication.',
+                          title: 'Author Sovereignty & Ongoing Support',
+                          desc: 'Delivered in Microsoft Word Track Changes with margin commentary, backed by our 365-day re-editing guarantee for revision rounds.',
                         },
                       ].map((item, idx) => (
                         <Box key={idx} pl="md" style={{ borderLeft: `2px solid ${active.accent}` }}>
