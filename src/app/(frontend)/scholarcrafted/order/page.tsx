@@ -4,7 +4,7 @@ import React, { useState, Suspense } from 'react'
 import {
   Container, Title, Text, Box, SimpleGrid, Stack,
   Button, rem, Group, useMantineTheme, UnstyledButton,
-  Divider, Table, NumberInput, Accordion, Badge,
+  Divider, Table, NumberInput, Accordion, Badge, Anchor,
 } from '@mantine/core'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -1278,14 +1278,37 @@ function EditingTabBody({
               )
             })}
           </SimpleGrid>
+
+          {/* Quick jump to detailed comparison matrix */}
+          <Box mt={rem(32)} style={{ textAlign: 'center' }}>
+            <Anchor
+              href="#editing-matrix"
+              c={active.accent}
+              size="sm"
+              fw={700}
+              style={{
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                letterSpacing: '0.08em',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: rem(6),
+              }}
+            >
+              Compare All Plan Features in Detail ↓
+            </Anchor>
+          </Box>
         </Container>
       </Box>
 
       {/* Human Editorial Narrative & Mentorship Framework */}
       <HumanMentorshipNarrative active={active} focus={focus} />
 
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="editing" />
+
       {/* Feature matrix */}
-      <Box py={SECTION_SPACING} bg={active.background}>
+      <Box id="editing-matrix" py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>FEATURE COMPARISON</Text>
           <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
@@ -1336,9 +1359,6 @@ function EditingTabBody({
           </Box>
         </Container>
       </Box>
-
-      {/* Testimonials */}
-      <InlineTestimonials active={active} tabId="editing" />
 
       {/* FAQ */}
       <InlineFAQ active={active} items={editingFAQ} />
@@ -1441,14 +1461,37 @@ function JournalTabBody({
               )
             })}
           </SimpleGrid>
+
+          {/* Quick jump to detailed comparison matrix */}
+          <Box mt={rem(32)} style={{ textAlign: 'center' }}>
+            <Anchor
+              href="#journal-matrix"
+              c={active.accent}
+              size="sm"
+              fw={700}
+              style={{
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                letterSpacing: '0.08em',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: rem(6),
+              }}
+            >
+              Compare All Journal Packages in Detail ↓
+            </Anchor>
+          </Box>
         </Container>
       </Box>
 
       {/* Human Editorial Narrative & Mentorship Framework */}
       <HumanMentorshipNarrative active={active} focus={focus} />
 
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="journal" />
+
       {/* Journal Feature Matrix */}
-      <Box py={SECTION_SPACING} bg={active.background}>
+      <Box id="journal-matrix" py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>FEATURE COMPARISON</Text>
           <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
@@ -1499,9 +1542,6 @@ function JournalTabBody({
           </Box>
         </Container>
       </Box>
-
-      {/* Testimonials */}
-      <InlineTestimonials active={active} tabId="journal" />
 
       {/* FAQ */}
       <InlineFAQ active={active} items={journalFAQ} />
@@ -1674,12 +1714,35 @@ function BookTabBody({ active, hlStage, focus }: { active: Record<string, string
                 </Stack>
               </SimpleGrid>
             </Box>
+
+            {/* Quick jump to detailed deliverables matrix */}
+            <Box style={{ textAlign: 'center' }}>
+              <Anchor
+                href="#book-matrix"
+                c={active.accent}
+                size="sm"
+                fw={700}
+                style={{
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  letterSpacing: '0.08em',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: rem(6),
+                }}
+              >
+                Compare All Book Stages in Detail ↓
+              </Anchor>
+            </Box>
           </Stack>
         </Container>
       </Box>
 
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="book" />
+
       {/* Book feature matrix */}
-      <Box py={SECTION_SPACING} bg={active.surface}>
+      <Box id="book-matrix" py={SECTION_SPACING} bg={active.surface}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Text size="xs" fw={700} mb={rem(28)} c={active.accent} style={{ letterSpacing: '0.18em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>WHAT YOU GET AT EACH STAGE</Text>
           <Box style={{ overflowX: 'auto', maxWidth: '100%', WebkitOverflowScrolling: 'touch' }}>
@@ -1715,9 +1778,6 @@ function BookTabBody({ active, hlStage, focus }: { active: Record<string, string
           </Box>
         </Container>
       </Box>
-
-      {/* Testimonials */}
-      <InlineTestimonials active={active} tabId="book" />
 
       {/* FAQ */}
       <InlineFAQ active={active} items={bookFAQ} />
@@ -1797,11 +1857,34 @@ function AiAuditTabBody({ active, hlTier, focus }: { active: Record<string, stri
               )
             })}
           </SimpleGrid>
+
+          {/* Quick jump to detailed breakdown */}
+          <Box mt={rem(32)} style={{ textAlign: 'center' }}>
+            <Anchor
+              href="#ai-audit-matrix"
+              c={active.accent}
+              size="sm"
+              fw={700}
+              style={{
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                letterSpacing: '0.08em',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: rem(6),
+              }}
+            >
+              Compare AI Audit Options in Detail ↓
+            </Anchor>
+          </Box>
         </Container>
       </Box>
 
+      {/* Testimonials */}
+      <InlineTestimonials active={active} tabId="ai-audit" />
+
       {/* Audit Matrix Table */}
-      <Box py={rem(48)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}10` }}>
+      <Box id="ai-audit-matrix" py={rem(48)} bg={active.background} style={{ borderTop: `1px solid ${active.primary}10` }}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
           <Box mb={rem(24)}>
             <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}>
@@ -1842,9 +1925,6 @@ function AiAuditTabBody({ active, hlTier, focus }: { active: Record<string, stri
           </Box>
         </Container>
       </Box>
-
-      {/* Testimonials */}
-      <InlineTestimonials active={active} tabId="ai-audit" />
 
       {/* FAQ */}
       <InlineFAQ active={active} items={aiAuditFAQ} />
