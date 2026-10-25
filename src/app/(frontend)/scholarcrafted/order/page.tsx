@@ -13,6 +13,8 @@ import {
   IconShieldCheck, IconMinus,
   IconPencil, IconFileText, IconBook2, IconQuestionMark,
   IconStar, IconCurrencyDollar,
+  IconCertificate, IconScissors, IconMessages, IconRefresh,
+  IconStethoscope, IconCpu, IconScale, IconLock,
 } from '@tabler/icons-react'
 import { Navbar } from '../_components/Navbar'
 import { SECTION_SPACING } from '@/layout'
@@ -433,33 +435,55 @@ function InlineTestimonials({ active, tabId }: { active: Record<string, string>;
   )
 }
 
-/** FAQ Accordion — used inside each tab body */
+/** FAQ Accordion — centered, homepage-style */
 function InlineFAQ({ active, items }: { active: Record<string, string>; items: Array<{ q: string; a: string }> }) {
   if (!items.length) return null
   return (
-    <Box py={rem(48)} bg={active.background}>
-      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-        <Text size="xs" fw={700} c={active.accent} mb={rem(6)} style={{ letterSpacing: '0.14em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-          FREQUENTLY ASKED QUESTIONS
-        </Text>
-        <Title order={3} mb={rem(24)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), fontWeight: 600, color: active.primary }}>
-          Common questions about this service
-        </Title>
+    <Box py={rem(72)} bg={active.background}>
+      <Container size={860} px={{ base: 'md', sm: 'xl' }}>
+        <Box mb={rem(40)} style={{ textAlign: 'center' }}>
+          <Text
+            size="xs"
+            fw={700}
+            c={active.accent}
+            mb={rem(10)}
+            style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', textTransform: 'uppercase' }}
+          >
+            Frequently Asked Questions
+          </Text>
+          <Title
+            order={2}
+            style={{
+              fontFamily: 'var(--font-display), var(--font-serif)',
+              fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+              fontWeight: 500,
+              color: active.primary,
+              lineHeight: 1.2,
+            }}
+          >
+            Common questions about this service
+          </Title>
+        </Box>
         <Accordion
           variant="separated"
           radius={0}
           styles={{
-            item: { backgroundColor: active.surface, border: `1px solid ${active.primary}08`, '&[data-active]': { backgroundColor: active.surface } },
-            control: { padding: `${rem(16)} ${rem(20)}` },
-            label: { fontSize: rem(14), fontWeight: 600, color: active.primary, fontFamily: 'var(--font-heading-sans), var(--font-sans)' },
-            panel: { padding: `0 ${rem(20)} ${rem(16)}` },
+            item: {
+              backgroundColor: active.surface,
+              border: `1px solid ${active.primary}0a`,
+              marginBottom: rem(8),
+              '&[data-active]': { backgroundColor: active.surface, borderColor: `${active.accent}30` },
+            },
+            control: { padding: `${rem(18)} ${rem(24)}` },
+            label: { fontSize: rem(14), fontWeight: 600, color: active.primary, fontFamily: 'var(--font-heading-sans), var(--font-sans)', lineHeight: 1.4 },
+            panel: { padding: `0 ${rem(24)} ${rem(20)}` },
           }}
         >
           {items.map((item, i) => (
             <Accordion.Item key={i} value={`faq-${i}`}>
               <Accordion.Control>{item.q}</Accordion.Control>
               <Accordion.Panel>
-                <Text size="sm" c="dimmed" lh={1.7}>{item.a}</Text>
+                <Text size="sm" c="dimmed" lh={1.75}>{item.a}</Text>
               </Accordion.Panel>
             </Accordion.Item>
           ))}
@@ -604,90 +628,284 @@ function HumanMentorshipNarrative({
           </SimpleGrid>
 
           {/* What We Do vs What We Will Never Do (Ethical Clarity Grid) */}
-          <Box
-            p={{ base: rem(28), md: rem(40) }}
-            bg={active.background}
-            style={{ border: `1px solid ${active.primary}14` }}
-          >
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(28), md: rem(48) }}>
-              <Stack gap="md">
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                  What Our Doctoral Specialists Do
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(28) }}>
+            {/* Left Card: What Specialists Do */}
+            <Box
+              p={{ base: rem(24), sm: rem(32) }}
+              bg={active.background}
+              style={{
+                border: `1px solid ${active.primary}15`,
+                borderTop: `4px solid ${active.accent}`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: rem(20),
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+              }}
+            >
+              <Box>
+                <Badge
+                  size="sm"
+                  radius={0}
+                  variant="filled"
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#ffffff',
+                    letterSpacing: '0.12em',
+                    fontWeight: 700,
+                    marginBottom: rem(8),
+                    fontSize: rem(10),
+                  }}
+                >
+                  WHAT OUR DOCTORAL SPECIALISTS DO
+                </Badge>
+                <Title
+                  order={3}
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: rem(22),
+                    color: active.primary,
+                    fontWeight: 600,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Line-by-Line Academic Defense &amp; Publication Rigor
+                </Title>
+                <Text size="xs" c="dimmed" mt={rem(4)}>
+                  Every edit executed in Microsoft Word Track Changes with full margin rationales.
                 </Text>
-                <Stack gap="sm">
-                  {[
-                    'Untangle convoluted syntax and passive phrasing to make arguments clear and defensible.',
-                    'Audit inline citations against reference entries, hunting down broken DOIs and formatting discrepancies.',
-                    'Flag methodological and logical gaps that peer reviewers or committee members routinely attack.',
-                    'Ensure exact conformity with target style manuals: APA 7, Chicago Notes & Bibliography, Harvard, or journal guidelines.',
-                    'Deliver clean submission files alongside your tracked version and an official Editorial Compliance Certificate.',
-                  ].map((item, idx) => (
-                    <Group key={idx} align="flex-start" gap="xs" wrap="nowrap">
-                      <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(4) }} />
-                      <Text size="sm" c={active.primary} lh={1.6}>{item}</Text>
-                    </Group>
-                  ))}
-                </Stack>
-              </Stack>
+              </Box>
 
-              <Stack gap="md" style={{ borderLeft: `1px solid ${active.primary}10`, paddingLeft: rem(24) }}>
-                <Text size="xs" fw={700} c="dimmed" style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                  What We Will Never Do (Our Ethical Pledge)
-                </Text>
-                <Stack gap="sm">
-                  {[
-                    'We will never ghostwrite or author original scholarly research. Your intellectual discoveries remain 100% your own.',
-                    'We will never apply automated generative AI rewriting models to your confidential manuscript.',
-                    'We will never fabricate or alter primary data, statistical findings, or research conclusions.',
-                    'We will never share, publish, or disclose your draft: all work takes place under strict Non-Disclosure.',
-                    'We will never route your project through anonymous support tickets: you communicate with Dr. Micah Dobson directly.',
-                  ].map((item, idx) => (
-                    <Group key={idx} align="flex-start" gap="xs" wrap="nowrap">
-                      <IconMinus size={16} color="#888" style={{ flexShrink: 0, marginTop: rem(4) }} />
-                      <Text size="sm" c="dimmed" lh={1.6}>{item}</Text>
-                    </Group>
-                  ))}
-                </Stack>
+              <Stack gap={rem(16)}>
+                {[
+                  {
+                    title: 'Syntax & Argument Flow',
+                    desc: 'Untangle convoluted syntax and passive phrasing to make arguments clear and defensible.',
+                  },
+                  {
+                    title: 'Citation & DOI Audit',
+                    desc: 'Audit inline citations against reference entries, hunting down broken DOIs and formatting discrepancies.',
+                  },
+                  {
+                    title: 'Methodological Vulnerability Flags',
+                    desc: 'Flag methodological and logical gaps that peer reviewers or committee members routinely attack.',
+                  },
+                  {
+                    title: 'Exact Style Manual Conformity',
+                    desc: 'Ensure exact conformity with target style manuals: APA 7, Chicago Notes & Bibliography, Harvard, or journal guidelines.',
+                  },
+                  {
+                    title: 'Dual-File Tracked Delivery',
+                    desc: 'Deliver clean submission files alongside your tracked version and an official Editorial Compliance Certificate.',
+                  },
+                ].map((item, idx) => (
+                  <Group key={idx} align="flex-start" gap="sm" wrap="nowrap">
+                    <Box
+                      style={{
+                        backgroundColor: `${active.accent}15`,
+                        color: active.accent,
+                        borderRadius: 0,
+                        padding: rem(4),
+                        display: 'flex',
+                        flexShrink: 0,
+                        marginTop: rem(2),
+                      }}
+                    >
+                      <IconCheck size={15} stroke={2.5} />
+                    </Box>
+                    <Box>
+                      <Text size="sm" fw={700} c={active.primary} lh={1.35}>
+                        {item.title}
+                      </Text>
+                      <Text size="xs" c="dimmed" lh={1.6} mt={rem(2)}>
+                        {item.desc}
+                      </Text>
+                    </Box>
+                  </Group>
+                ))}
               </Stack>
-            </SimpleGrid>
-          </Box>
+            </Box>
+
+            {/* Right Card: What We Will Never Do (Ethical Pledge) */}
+            <Box
+              p={{ base: rem(24), sm: rem(32) }}
+              bg={active.background}
+              style={{
+                border: `1px solid ${active.primary}15`,
+                borderTop: `4px solid ${active.primary}`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: rem(20),
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+              }}
+            >
+              <Box>
+                <Badge
+                  size="sm"
+                  radius={0}
+                  variant="outline"
+                  style={{
+                    borderColor: `${active.primary}30`,
+                    color: active.primary,
+                    letterSpacing: '0.12em',
+                    fontWeight: 700,
+                    marginBottom: rem(8),
+                    fontSize: rem(10),
+                  }}
+                >
+                  WHAT WE WILL NEVER DO (OUR ETHICAL PLEDGE)
+                </Badge>
+                <Title
+                  order={3}
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: rem(22),
+                    color: active.primary,
+                    fontWeight: 600,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Uncompromising Protection for Your Academic Career
+                </Title>
+                <Text size="xs" c="dimmed" mt={rem(4)}>
+                  Zero ghostwriting. Zero generative AI rewriting. 100% intellectual authorship retained.
+                </Text>
+              </Box>
+
+              <Stack gap={rem(16)}>
+                {[
+                  {
+                    title: 'Zero Ghostwriting',
+                    desc: 'We will never ghostwrite or author original scholarly research. Your intellectual discoveries remain 100% your own.',
+                  },
+                  {
+                    title: 'Zero Generative AI Rewriting',
+                    desc: 'We will never apply automated generative AI rewriting models to your confidential manuscript.',
+                  },
+                  {
+                    title: 'Strict Empirical & Data Integrity',
+                    desc: 'We will never fabricate or alter primary data, statistical findings, or research conclusions.',
+                  },
+                  {
+                    title: 'Strict Non-Disclosure (NDA)',
+                    desc: 'We will never share, publish, or disclose your draft: all work takes place under strict Non-Disclosure.',
+                  },
+                  {
+                    title: 'Direct Senior Faculty Access',
+                    desc: 'We will never route your project through anonymous support tickets: you communicate with Dr. Micah Dobson directly.',
+                  },
+                ].map((item, idx) => (
+                  <Group key={idx} align="flex-start" gap="sm" wrap="nowrap">
+                    <Box
+                      style={{
+                        backgroundColor: `${active.primary}08`,
+                        color: active.primary,
+                        borderRadius: 0,
+                        padding: rem(4),
+                        display: 'flex',
+                        flexShrink: 0,
+                        marginTop: rem(2),
+                      }}
+                    >
+                      <IconLock size={15} stroke={2} />
+                    </Box>
+                    <Box>
+                      <Text size="sm" fw={700} c={active.primary} lh={1.35}>
+                        {item.title}
+                      </Text>
+                      <Text size="xs" c="dimmed" lh={1.6} mt={rem(2)}>
+                        {item.desc}
+                      </Text>
+                    </Box>
+                  </Group>
+                ))}
+              </Stack>
+            </Box>
+          </SimpleGrid>
 
           {/* Editage-Style Core Value Props: Benefits Grid */}
-          <Box pt="md">
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(20)}>
+          <Box pt="xs">
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={rem(20)}>
               {[
                 {
+                  icon: <IconCertificate size={22} color={active.accent} />,
+                  kicker: 'OFFICIAL CLEARANCE',
                   title: 'Editorial Compliance Certificate',
                   desc: 'Issued upon project completion for graduate school clearance or journal submission, certifying full language and academic style verification.',
                 },
                 {
+                  icon: <IconScissors size={22} color={active.accent} />,
+                  kicker: 'LENGTH COMPLIANCE',
                   title: 'Up to 10% Word Reduction',
                   desc: 'Precision trimming of excess word count without sacrificing nuance, ensuring your thesis or paper fits strict departmental or journal length limits.',
                 },
                 {
+                  icon: <IconMessages size={22} color={active.accent} />,
+                  kicker: 'FACULTY DIALOGUE',
                   title: 'Unlimited Editor Inquiries',
                   desc: 'Direct collaborative dialogue. Ask Dr. Dobson and your editor clarifying questions regarding margin notes until you are 100% defense-ready.',
                 },
                 {
+                  icon: <IconRefresh size={22} color={active.accent} />,
+                  kicker: 'ANNUAL REVISION COVERAGE',
                   title: '365-Day Committee Re-editing',
                   desc: 'When your advisor, thesis committee, or journal reviewer issues revisions, submit your updated sections for secondary passes at zero extra charge.',
                 },
               ].map((benefit, bIdx) => (
                 <Box
                   key={bIdx}
-                  p="lg"
+                  p={{ base: rem(20), sm: rem(24) }}
                   bg={active.background}
                   style={{
                     border: `1px solid ${active.primary}12`,
                     borderTop: `3px solid ${active.accent}`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.02)',
                   }}
                 >
-                  <Text fw={700} size="sm" c={active.primary} mb={rem(6)} style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                    {benefit.title}
-                  </Text>
-                  <Text size="xs" c="dimmed" lh={1.6}>
-                    {benefit.desc}
-                  </Text>
+                  <Box>
+                    <Group justify="space-between" align="center" mb={rem(14)}>
+                      <Box
+                        p={rem(8)}
+                        style={{
+                          backgroundColor: `${active.accent}12`,
+                          display: 'inline-flex',
+                          borderRadius: 0,
+                        }}
+                      >
+                        {benefit.icon}
+                      </Box>
+                      <Text
+                        size="xs"
+                        fw={700}
+                        c={active.accent}
+                        style={{
+                          letterSpacing: '0.1em',
+                          fontSize: rem(9),
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        }}
+                      >
+                        {benefit.kicker}
+                      </Text>
+                    </Group>
+                    <Text
+                      fw={700}
+                      size="sm"
+                      c={active.primary}
+                      mb={rem(8)}
+                      style={{
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        fontSize: rem(15),
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {benefit.title}
+                    </Text>
+                    <Text size="xs" c="dimmed" lh={1.65}>
+                      {benefit.desc}
+                    </Text>
+                  </Box>
                 </Box>
               ))}
             </SimpleGrid>
@@ -695,88 +913,218 @@ function HumanMentorshipNarrative({
 
           {/* Common Challenges We Solve (Empathetic Narrative) */}
           <Box
-            p={{ base: rem(24), md: rem(36) }}
+            p={{ base: rem(24), sm: rem(32), md: rem(40) }}
             bg={active.background}
             style={{
-              border: `1px solid ${active.primary}12`,
+              border: `1px solid ${active.primary}14`,
             }}
           >
-            <Text
-              size="xs"
-              fw={700}
-              c={active.accent}
-              mb="md"
-              style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
-            >
-              Common Research Milestones We Support
-            </Text>
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="lg">
-              <div>
-                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
-                  Revising After Committee Feedback
-                </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  Restructuring literature reviews and discussions to resolve conflicting advisor suggestions with clarity and scholarly poise.
-                </Text>
-              </div>
-              <div>
-                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
-                  Responding to Peer Reviewers (R&R)
-                </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  Crafting structured rebuttal responses and aligning manuscript revisions to satisfy reviewer critiques constructively.
-                </Text>
-              </div>
-              <div>
-                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
-                  Reconciling Citations & Data Tables
-                </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  Repairing broken bibliographies, missing DOIs, and formatting inconsistencies across hundreds of cross-chapter references.
-                </Text>
-              </div>
-              <div>
-                <Text fw={700} size="sm" c={active.primary} mb={rem(4)}>
-                  Final Defense & Submission Polish
-                </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  Ensuring flawless academic tone, university template compliance, and formatting accuracy for institutional clearance.
-                </Text>
-              </div>
+            <Box mb={rem(24)}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                mb={rem(6)}
+                style={{ letterSpacing: '0.16em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+              >
+                COMMON RESEARCH MILESTONES WE SUPPORT
+              </Text>
+              <Title
+                order={3}
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: rem(22),
+                  fontWeight: 600,
+                  color: active.primary,
+                }}
+              >
+                Strategic editorial interventions calibrated to high-stakes academic junctures
+              </Title>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={rem(20)}>
+              {[
+                {
+                  step: '01',
+                  stage: 'POST-COMMITTEE',
+                  title: 'Revising After Committee Feedback',
+                  desc: 'Restructuring literature reviews and discussions to resolve conflicting advisor suggestions with clarity and scholarly poise.',
+                },
+                {
+                  step: '02',
+                  stage: 'REVISE & RESUBMIT',
+                  title: 'Responding to Peer Reviewers (R&R)',
+                  desc: 'Crafting structured rebuttal responses and aligning manuscript revisions to satisfy reviewer critiques constructively.',
+                },
+                {
+                  step: '03',
+                  stage: 'CITATION AUDIT',
+                  title: 'Reconciling Citations & Data Tables',
+                  desc: 'Repairing broken bibliographies, missing DOIs, and formatting inconsistencies across hundreds of cross-chapter references.',
+                },
+                {
+                  step: '04',
+                  stage: 'FINAL CLEARANCE',
+                  title: 'Final Defense & Submission Polish',
+                  desc: 'Ensuring flawless academic tone, university template compliance, and formatting accuracy for institutional clearance.',
+                },
+              ].map((m) => (
+                <Box
+                  key={m.step}
+                  p={rem(20)}
+                  bg={active.surface}
+                  style={{
+                    border: `1px solid ${active.primary}10`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Box>
+                    <Group justify="space-between" align="baseline" mb={rem(8)}>
+                      <Text
+                        size="xs"
+                        fw={800}
+                        c={active.accent}
+                        style={{
+                          fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                          fontSize: rem(18),
+                        }}
+                      >
+                        {m.step}
+                      </Text>
+                      <Badge
+                        size="xs"
+                        radius={0}
+                        variant="outline"
+                        style={{
+                          borderColor: `${active.primary}20`,
+                          color: '#777',
+                          fontSize: rem(9),
+                        }}
+                      >
+                        {m.stage}
+                      </Badge>
+                    </Group>
+                    <Text
+                      fw={700}
+                      size="sm"
+                      c={active.primary}
+                      mb={rem(6)}
+                      style={{ lineHeight: 1.35 }}
+                    >
+                      {m.title}
+                    </Text>
+                    <Text size="xs" c="dimmed" lh={1.6}>
+                      {m.desc}
+                    </Text>
+                  </Box>
+                </Box>
+              ))}
             </SimpleGrid>
           </Box>
 
           {/* Academic Disciplines Supported */}
           <Box
-            p={{ base: rem(24), md: rem(32) }}
+            p={{ base: rem(24), sm: rem(32), md: rem(40) }}
             bg={active.background}
-            style={{ border: `1px solid ${active.primary}12` }}
+            style={{ border: `1px solid ${active.primary}14` }}
           >
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
-              <div>
-                <Text size="xs" fw={700} c={active.accent} mb={rem(4)} style={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-                  Biomedical & Clinical Sciences
+            <Box mb={rem(24)}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                mb={rem(6)}
+                style={{ letterSpacing: '0.16em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+              >
+                SPECIALIZED FIELD EXPERTISE
+              </Text>
+              <Title
+                order={3}
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: rem(22),
+                  fontWeight: 600,
+                  color: active.primary,
+                }}
+              >
+                Subject-matter doctoral editors for every major research branch
+              </Title>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(24)}>
+              <Box
+                p={rem(24)}
+                bg={active.surface}
+                style={{
+                  border: `1px solid ${active.primary}10`,
+                  borderLeft: `4px solid ${active.accent}`,
+                }}
+              >
+                <Group gap="sm" mb={rem(8)} align="center">
+                  <Box style={{ color: active.accent, display: 'flex' }}>
+                    <IconStethoscope size={20} />
+                  </Box>
+                  <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    ICMJE · CARE · AMA
+                  </Text>
+                </Group>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(17) }}>
+                  Biomedical &amp; Clinical Sciences
                 </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
+                <Text size="xs" c="dimmed" lh={1.65}>
                   Medicine, nursing, public health, pharmacology. Strict compliance with ICMJE, CARE guidelines, and biomedical nomenclature.
                 </Text>
-              </div>
-              <div>
-                <Text size="xs" fw={700} c={active.accent} mb={rem(4)} style={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-                  Engineering, Math & STEM
+              </Box>
+
+              <Box
+                p={rem(24)}
+                bg={active.surface}
+                style={{
+                  border: `1px solid ${active.primary}10`,
+                  borderLeft: `4px solid ${active.accent}`,
+                }}
+              >
+                <Group gap="sm" mb={rem(8)} align="center">
+                  <Box style={{ color: active.accent, display: 'flex' }}>
+                    <IconCpu size={20} />
+                  </Box>
+                  <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    IEEE · ACM · LATEX
+                  </Text>
+                </Group>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(17) }}>
+                  Engineering, Math &amp; STEM
                 </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
+                <Text size="xs" c="dimmed" lh={1.65}>
                   Computer science, physics, chemical and civil engineering. Exact mathematical terminology, equation review, and IEEE/ACM style adherence.
                 </Text>
-              </div>
-              <div>
-                <Text size="xs" fw={700} c={active.accent} mb={rem(4)} style={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-                  Humanities, Social Sciences & Law
+              </Box>
+
+              <Box
+                p={rem(24)}
+                bg={active.surface}
+                style={{
+                  border: `1px solid ${active.primary}10`,
+                  borderLeft: `4px solid ${active.accent}`,
+                }}
+              >
+                <Group gap="sm" mb={rem(8)} align="center">
+                  <Box style={{ color: active.accent, display: 'flex' }}>
+                    <IconScale size={20} />
+                  </Box>
+                  <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    APA 7TH · CHICAGO · HARVARD
+                  </Text>
+                </Group>
+                <Text fw={700} size="sm" c={active.primary} mb={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(17) }}>
+                  Humanities, Social Sciences &amp; Law
                 </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  Education, sociology, literature, economics, and law. Rigorous APA 7th, Chicago Notes & Bibliography, and Harvard citation audits.
+                <Text size="xs" c="dimmed" lh={1.65}>
+                  Education, sociology, literature, economics, and law. Rigorous APA 7th, Chicago Notes &amp; Bibliography, and Harvard citation audits.
                 </Text>
-              </div>
+              </Box>
             </SimpleGrid>
           </Box>
 
@@ -1031,20 +1379,87 @@ function OrderContent() {
     <Box bg={active.background} style={{ minHeight: '100vh' }}>
       <Navbar />
 
-      {/* Hero Header with Dynamic Title & Service Tabs */}
-      <Box pt={{ base: rem(100), md: rem(130) }} pb={rem(32)} bg={active.background}>
-        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.2em', fontFamily: 'var(--font-heading-sans), var(--font-sans)', marginBottom: rem(8) }}>
-            {hero.kicker}
-          </Text>
-          <Title order={1} style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.8rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
+      {/* Purpose-Built Order Portal Header & End-to-End Service Studio */}
+      <Box
+        pt={{ base: rem(96), md: rem(118) }}
+        pb={rem(28)}
+        bg={active.surface}
+        style={{
+          borderBottom: `1px solid ${active.primary}12`,
+          position: 'relative',
+        }}
+      >
+        <Container size={1440} px={{ base: 'md', sm: 'xl', md: rem(36) }}>
+          {/* Top workspace strip */}
+          <Group justify="space-between" align="center" mb={rem(14)} wrap="wrap" gap="xs">
+            <Badge
+              size="sm"
+              radius={0}
+              variant="filled"
+              style={{
+                backgroundColor: active.primary,
+                color: '#ffffff',
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                letterSpacing: '0.12em',
+                fontWeight: 700,
+                fontSize: rem(10),
+                padding: `${rem(5)} ${rem(10)}`,
+              }}
+            >
+              ORDER &amp; CONFIGURATION PORTAL
+            </Badge>
+
+            <Group gap="md" align="center" wrap="wrap">
+              <Group gap={rem(6)} align="center">
+                <IconShieldCheck size={14} color={active.accent} />
+                <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.04em' }}>
+                  NDA-Protected
+                </Text>
+              </Group>
+              <Text size="xs" c="dimmed">•</Text>
+              <Group gap={rem(6)} align="center">
+                <IconCheck size={14} color={active.accent} />
+                <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.04em' }}>
+                  Word Track Changes
+                </Text>
+              </Group>
+              <Text size="xs" c="dimmed">•</Text>
+              <Group gap={rem(6)} align="center">
+                <IconLock size={14} color={active.accent} />
+                <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.04em' }}>
+                  Zero Ghostwriting
+                </Text>
+              </Group>
+            </Group>
+          </Group>
+
+          {/* Dynamic Service Title & Description */}
+          <Title
+            order={1}
+            style={{
+              fontSize: 'clamp(1.9rem, 3.8vw, 3rem)',
+              fontFamily: 'var(--font-display), var(--font-serif)',
+              fontWeight: 600,
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
+              color: active.primary,
+              maxWidth: '38ch',
+            }}
+          >
             {hero.title}
           </Title>
-          <Text size="md" c="dimmed" mt="xs" mb={isTabsHidden ? rem(16) : rem(24)} lh={1.7} style={{ maxWidth: '64ch' }}>
+          <Text
+            size="md"
+            c="dimmed"
+            mt="xs"
+            mb={isTabsHidden ? rem(16) : rem(24)}
+            lh={1.7}
+            style={{ maxWidth: '72ch' }}
+          >
             {hero.desc}
           </Text>
 
-          {/* ── Responsive Service Tabs Grid (Only shown when not hidden) ───── */}
+          {/* ── End-to-End Responsive Service Tabs Grid (Only shown when not hidden) ───── */}
           {!isTabsHidden && (
             <Box>
               <Text
@@ -1060,57 +1475,73 @@ function OrderContent() {
               >
                 SELECT SERVICE CATEGORY:
               </Text>
-              <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(10)}>
+              <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={rem(12)}>
                 {TABS.map((tab) => {
                   const isCurrent = activeTab === tab.id
                   return (
                     <UnstyledButton
                       key={tab.id}
                       onClick={() => handleTabClick(tab.id)}
-                      px={rem(16)}
-                      py={rem(16)}
+                      px={{ base: rem(16), sm: rem(20) }}
+                      py={{ base: rem(18), sm: rem(22) }}
                       data-dark-bg={isCurrent ? 'true' : undefined}
                       style={{
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        gap: rem(10),
-                        backgroundColor: isCurrent ? active.primary : active.surface,
+                        gap: rem(12),
+                        backgroundColor: isCurrent ? active.primary : active.background,
                         color: isCurrent ? '#ffffff' : active.primary,
-                        border: `2px solid ${isCurrent ? active.accent : `${active.primary}16`}`,
+                        border: `2px solid ${isCurrent ? active.accent : `${active.primary}15`}`,
+                        borderTop: isCurrent ? `4px solid ${active.accent}` : `2px solid ${active.primary}15`,
                         borderRadius: 0,
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                         fontWeight: isCurrent ? 700 : 600,
-                        fontSize: rem(13),
-                        transition: 'all 0.18s ease',
-                        boxShadow: isCurrent ? `0 8px 24px rgba(0,0,0,0.12)` : 'none',
+                        transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+                        boxShadow: isCurrent ? `0 12px 32px rgba(0,0,0,0.14)` : '0 1px 3px rgba(0,0,0,0.03)',
                         cursor: 'pointer',
                         width: '100%',
+                        position: 'relative',
                       }}
                     >
                       <Group justify="space-between" align="flex-start" wrap="nowrap" style={{ width: '100%' }}>
-                        <Group gap={rem(8)} wrap="nowrap" align="center">
-                          <Box style={{ color: active.accent, display: 'flex', flexShrink: 0 }}>
+                        <Group gap={rem(10)} wrap="nowrap" align="center">
+                          <Box
+                            style={{
+                              color: isCurrent ? active.accent : active.primary,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: rem(34),
+                              height: rem(34),
+                              backgroundColor: isCurrent ? 'rgba(255,255,255,0.08)' : `${active.primary}06`,
+                              flexShrink: 0,
+                            }}
+                          >
                             {tab.icon}
                           </Box>
                           <Text
                             size="sm"
                             fw={700}
-                            c={isCurrent ? '#ffffff' : active.primary}
-                            style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.25 }}
+                            style={{
+                              color: isCurrent ? '#ffffff' : active.primary,
+                              lineHeight: 1.25,
+                              fontSize: rem(14),
+                            }}
                           >
                             {tab.label}
                           </Text>
                         </Group>
                         {isCurrent ? (
                           <Badge
-                            size="xs"
+                            size="sm"
                             radius={0}
                             style={{
                               backgroundColor: active.accent,
                               color: '#ffffff',
-                              fontSize: rem(9),
+                              fontSize: rem(10),
                               letterSpacing: '0.08em',
+                              fontWeight: 700,
                               flexShrink: 0,
                             }}
                           >
@@ -1118,13 +1549,14 @@ function OrderContent() {
                           </Badge>
                         ) : (
                           <Badge
-                            size="xs"
+                            size="sm"
                             radius={0}
                             variant="outline"
                             style={{
                               borderColor: `${active.primary}25`,
-                              color: '#888',
-                              fontSize: rem(9),
+                              color: '#777',
+                              fontSize: rem(10),
+                              fontWeight: 600,
                               flexShrink: 0,
                             }}
                           >
@@ -1135,8 +1567,11 @@ function OrderContent() {
 
                       <Text
                         size="xs"
-                        c={isCurrent ? 'rgba(255,255,255,0.75)' : 'dimmed'}
-                        style={{ color: isCurrent ? 'rgba(255,255,255,0.75) !important' : undefined, lineHeight: 1.4 }}
+                        style={{
+                          color: isCurrent ? 'rgba(255,255,255,0.8)' : '#666',
+                          lineHeight: 1.45,
+                          fontSize: rem(12),
+                        }}
                       >
                         {tab.sub}
                       </Text>
@@ -1147,27 +1582,35 @@ function OrderContent() {
 
               {/* Service Context Indicator Bar */}
               <Box
-                p={{ base: rem(12), sm: rem(16) }}
-                mt={rem(16)}
-                bg={active.surface}
+                p={{ base: rem(14), sm: rem(18) }}
+                mt={rem(14)}
+                bg={active.background}
                 style={{
-                  border: `1px solid ${active.primary}12`,
-                  borderLeft: `4px solid ${active.accent}`,
+                  border: `1px solid ${active.primary}14`,
+                  borderLeft: `5px solid ${active.accent}`,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
                 }}
               >
-                <Group justify="space-between" align="center" wrap="wrap" gap="xs">
+                <Group justify="space-between" align="center" wrap="wrap" gap="sm">
                   <Group gap="xs" align="center">
-                    <IconCheck size={16} color={active.accent} />
-                    <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.04em' }}>
+                    <Box style={{ color: active.accent, display: 'flex' }}>
+                      <IconCheck size={18} />
+                    </Box>
+                    <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.04em', fontSize: rem(13) }}>
                       {activeTab === 'editing' && 'NOW CONFIGURING: English Editing & Compliance — Select your editorial depth below (Advanced, Premium, or Scientific Pro):'}
                       {activeTab === 'journal' && 'NOW CONFIGURING: Journal Publication Support — Select your submission package below (Essentials, Pro, or Full):'}
                       {activeTab === 'book' && 'NOW CONFIGURING: Book Manuscript Publishing — Select your monograph stage or full pipeline below:'}
                       {activeTab === 'ai-audit' && 'NOW CONFIGURING: Pre-Submission Integrity Audit — Select Single Audit ($29) or Revision Bundle ($69):'}
                     </Text>
                   </Group>
-                  <Text size="xs" c="dimmed">
-                    100% Track Changes &bull; Firm 24h Confirmation
-                  </Text>
+                  <Group gap="xs">
+                    <Badge size="sm" radius={0} variant="outline" color="dark" style={{ borderColor: `${active.primary}30`, fontSize: rem(11) }}>
+                      100% Track Changes
+                    </Badge>
+                    <Badge size="sm" radius={0} variant="outline" color="dark" style={{ borderColor: `${active.primary}30`, fontSize: rem(11) }}>
+                      Firm 24h Confirmation
+                    </Badge>
+                  </Group>
                 </Group>
               </Box>
             </Box>
