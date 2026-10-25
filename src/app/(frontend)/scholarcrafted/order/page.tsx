@@ -1579,40 +1579,6 @@ function OrderContent() {
                   )
                 })}
               </SimpleGrid>
-
-              {/* Service Context Indicator Bar */}
-              <Box
-                p={{ base: rem(14), sm: rem(18) }}
-                mt={rem(14)}
-                bg={active.background}
-                style={{
-                  border: `1px solid ${active.primary}14`,
-                  borderLeft: `5px solid ${active.accent}`,
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-                }}
-              >
-                <Group justify="space-between" align="center" wrap="wrap" gap="sm">
-                  <Group gap="xs" align="center">
-                    <Box style={{ color: active.accent, display: 'flex' }}>
-                      <IconCheck size={18} />
-                    </Box>
-                    <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.04em', fontSize: rem(13) }}>
-                      {activeTab === 'editing' && 'NOW CONFIGURING: English Editing & Compliance — Select your editorial depth below (Advanced, Premium, or Scientific Pro):'}
-                      {activeTab === 'journal' && 'NOW CONFIGURING: Journal Publication Support — Select your submission package below (Essentials, Pro, or Full):'}
-                      {activeTab === 'book' && 'NOW CONFIGURING: Book Manuscript Publishing — Select your monograph stage or full pipeline below:'}
-                      {activeTab === 'ai-audit' && 'NOW CONFIGURING: Pre-Submission Integrity Audit — Select Single Audit ($29) or Revision Bundle ($69):'}
-                    </Text>
-                  </Group>
-                  <Group gap="xs">
-                    <Badge size="sm" radius={0} variant="outline" color="dark" style={{ borderColor: `${active.primary}30`, fontSize: rem(11) }}>
-                      100% Track Changes
-                    </Badge>
-                    <Badge size="sm" radius={0} variant="outline" color="dark" style={{ borderColor: `${active.primary}30`, fontSize: rem(11) }}>
-                      Firm 24h Confirmation
-                    </Badge>
-                  </Group>
-                </Group>
-              </Box>
             </Box>
           )}
         </Container>
