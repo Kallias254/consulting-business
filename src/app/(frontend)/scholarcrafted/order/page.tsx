@@ -1341,32 +1341,24 @@ function OrderContent() {
       label: 'English Editing & Compliance',
       shortLabel: 'English Editing',
       icon: <IconPencil size={18} />,
-      badge: '3 Tiers',
-      sub: 'Per-word pricing • Advanced, Premium, Scientific Pro',
     },
     {
       id: 'journal' as const,
       label: 'Journal Publication Support',
       shortLabel: 'Journal Packages',
       icon: <IconFileText size={18} />,
-      badge: '3 Packages',
-      sub: 'Flat-fee packages • Essentials, Pro, Full',
     },
     {
       id: 'book' as const,
       label: 'Book Manuscript Publishing',
       shortLabel: 'Book Publishing',
       icon: <IconBook2 size={18} />,
-      badge: '5 Stages',
-      sub: 'Per-stage or full pipeline • Proposals to Indexing',
     },
     {
       id: 'ai-audit' as const,
       label: 'Pre-Submission Integrity Audit',
       shortLabel: 'Integrity Audit',
       icon: <IconShieldCheck size={18} />,
-      badge: 'From $29',
-      sub: 'Reference & logic screening • 100% fee credited',
     },
   ]
 
@@ -1475,106 +1467,58 @@ function OrderContent() {
               >
                 SELECT SERVICE CATEGORY:
               </Text>
-              <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={rem(12)}>
+              <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing={rem(10)}>
                 {TABS.map((tab) => {
                   const isCurrent = activeTab === tab.id
                   return (
                     <UnstyledButton
                       key={tab.id}
                       onClick={() => handleTabClick(tab.id)}
-                      px={{ base: rem(16), sm: rem(20) }}
-                      py={{ base: rem(18), sm: rem(22) }}
+                      px={{ base: rem(14), sm: rem(18) }}
+                      py={{ base: rem(14), sm: rem(16) }}
                       data-dark-bg={isCurrent ? 'true' : undefined}
                       style={{
                         display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        gap: rem(12),
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         backgroundColor: isCurrent ? active.primary : active.background,
                         color: isCurrent ? '#ffffff' : active.primary,
                         border: `2px solid ${isCurrent ? active.accent : `${active.primary}15`}`,
-                        borderTop: isCurrent ? `4px solid ${active.accent}` : `2px solid ${active.primary}15`,
+                        borderTop: isCurrent ? `3px solid ${active.accent}` : `2px solid ${active.primary}15`,
                         borderRadius: 0,
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                         fontWeight: isCurrent ? 700 : 600,
                         transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
-                        boxShadow: isCurrent ? `0 12px 32px rgba(0,0,0,0.14)` : '0 1px 3px rgba(0,0,0,0.03)',
+                        boxShadow: isCurrent ? '0 8px 24px rgba(0,0,0,0.12)' : '0 1px 3px rgba(0,0,0,0.03)',
                         cursor: 'pointer',
                         width: '100%',
-                        position: 'relative',
                       }}
                     >
-                      <Group justify="space-between" align="flex-start" wrap="nowrap" style={{ width: '100%' }}>
-                        <Group gap={rem(10)} wrap="nowrap" align="center">
-                          <Box
-                            style={{
-                              color: isCurrent ? active.accent : active.primary,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              width: rem(34),
-                              height: rem(34),
-                              backgroundColor: isCurrent ? 'rgba(255,255,255,0.08)' : `${active.primary}06`,
-                              flexShrink: 0,
-                            }}
-                          >
-                            {tab.icon}
-                          </Box>
-                          <Text
-                            size="sm"
-                            fw={700}
-                            style={{
-                              color: isCurrent ? '#ffffff' : active.primary,
-                              lineHeight: 1.25,
-                              fontSize: rem(14),
-                            }}
-                          >
-                            {tab.label}
-                          </Text>
-                        </Group>
-                        {isCurrent ? (
-                          <Badge
-                            size="sm"
-                            radius={0}
-                            style={{
-                              backgroundColor: active.accent,
-                              color: '#ffffff',
-                              fontSize: rem(10),
-                              letterSpacing: '0.08em',
-                              fontWeight: 700,
-                              flexShrink: 0,
-                            }}
-                          >
-                            ACTIVE
-                          </Badge>
-                        ) : (
-                          <Badge
-                            size="sm"
-                            radius={0}
-                            variant="outline"
-                            style={{
-                              borderColor: `${active.primary}25`,
-                              color: '#777',
-                              fontSize: rem(10),
-                              fontWeight: 600,
-                              flexShrink: 0,
-                            }}
-                          >
-                            {tab.badge}
-                          </Badge>
-                        )}
+                      <Group gap={rem(10)} wrap="nowrap" align="center" justify="center">
+                        <Box
+                          style={{
+                            color: isCurrent ? active.accent : active.primary,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {tab.icon}
+                        </Box>
+                        <Text
+                          size="sm"
+                          fw={isCurrent ? 700 : 600}
+                          style={{
+                            color: isCurrent ? '#ffffff' : active.primary,
+                            lineHeight: 1.25,
+                            fontSize: rem(13.5),
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {tab.label}
+                        </Text>
                       </Group>
-
-                      <Text
-                        size="xs"
-                        style={{
-                          color: isCurrent ? 'rgba(255,255,255,0.8)' : '#666',
-                          lineHeight: 1.45,
-                          fontSize: rem(12),
-                        }}
-                      >
-                        {tab.sub}
-                      </Text>
                     </UnstyledButton>
                   )
                 })}
