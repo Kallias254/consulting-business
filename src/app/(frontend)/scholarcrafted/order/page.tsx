@@ -473,9 +473,9 @@ function InlineFAQ({ active, items }: { active: Record<string, string>; items: A
 
 const TAB_HEROES: Record<string, { kicker: string; title: string; desc: string }> = {
   'ai-audit': {
-    kicker: 'PRE-SUBMISSION INTEGRITY AUDIT',
-    title: 'Compare AI Manuscript Audit Options',
-    desc: 'Audit what your AI missed before journal editors see it. 100% of your audit fee is credited toward full editing.',
+    kicker: 'PRE-SUBMISSION INTEGRITY & CITATION DIAGNOSTIC',
+    title: 'Pre-Submission Citation & Logic Screening',
+    desc: 'Reference verification, active DOI resolution, and empirical argument audit before journal review. 100% credited toward full editing.',
   },
   editing: {
     kicker: 'COMPARE & SELECT AN EDITING SERVICE',
@@ -963,7 +963,7 @@ function OrderContent() {
     }
     if (initialSection === 'book') return 'book'
     if (initialSection === 'journal') return 'journal'
-    return 'ai-audit'
+    return 'editing'
   }, [initialService, initialSection])
 
   const [activeTab, setActiveTab] = useState<'editing' | 'journal' | 'book' | 'ai-audit'>(resolveTab)
@@ -972,40 +972,53 @@ function OrderContent() {
     setActiveTab(resolveTab())
   }, [resolveTab])
 
+  const handleTabClick = (tabId: 'editing' | 'journal' | 'book' | 'ai-audit') => {
+    setActiveTab(tabId)
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href)
+      url.searchParams.set('service', tabId)
+      url.searchParams.delete('section')
+      url.searchParams.delete('focus')
+      url.searchParams.delete('tier')
+      url.searchParams.delete('stage')
+      window.history.replaceState({}, '', url.toString())
+    }
+  }
+
   const [calcWords, setCalcWords] = useState<number>(5000)
 
   const TABS = [
     {
-      id: 'ai-audit' as const,
-      label: 'AI Manuscript Audit',
-      shortLabel: 'AI Audit',
-      icon: <IconShieldCheck size={18} />,
-      badge: 'From $29',
-      sub: 'Pre-submission risk audit',
-    },
-    {
       id: 'editing' as const,
       label: 'English Editing & Compliance',
-      shortLabel: 'Editing',
+      shortLabel: 'English Editing',
       icon: <IconPencil size={18} />,
       badge: '3 Tiers',
-      sub: 'Per-word pricing',
+      sub: 'Per-word pricing • Advanced, Premium, Scientific Pro',
     },
     {
       id: 'journal' as const,
       label: 'Journal Publication Support',
-      shortLabel: 'Journal',
+      shortLabel: 'Journal Packages',
       icon: <IconFileText size={18} />,
       badge: '3 Packages',
-      sub: 'Flat-fee packages',
+      sub: 'Flat-fee packages • Essentials, Pro, Full',
     },
     {
       id: 'book' as const,
       label: 'Book Manuscript Publishing',
-      shortLabel: 'Book',
+      shortLabel: 'Book Publishing',
       icon: <IconBook2 size={18} />,
       badge: '5 Stages',
-      sub: 'Per-stage or pipeline',
+      sub: 'Per-stage or full pipeline • Proposals to Indexing',
+    },
+    {
+      id: 'ai-audit' as const,
+      label: 'Pre-Submission Integrity Audit',
+      shortLabel: 'Integrity Audit',
+      icon: <IconShieldCheck size={18} />,
+      badge: 'From $29',
+      sub: 'Reference & logic screening • 100% fee credited',
     },
   ]
 
@@ -1027,78 +1040,137 @@ function OrderContent() {
           <Title order={1} style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.8rem)', fontFamily: 'var(--font-display), var(--font-serif)', fontWeight: 600, lineHeight: 1.15, letterSpacing: '-0.02em', color: active.primary }}>
             {hero.title}
           </Title>
-          <Text size="md" c="dimmed" mt="xs" mb={isTabsHidden ? rem(16) : rem(32)} lh={1.7} style={{ maxWidth: '64ch' }}>
+          <Text size="md" c="dimmed" mt="xs" mb={isTabsHidden ? rem(16) : rem(24)} lh={1.7} style={{ maxWidth: '64ch' }}>
             {hero.desc}
           </Text>
 
           {/* ── Responsive Service Tabs Grid (Only shown when not hidden) ───── */}
           {!isTabsHidden && (
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(8)}>
-              {TABS.map((tab) => {
-                const isCurrent = activeTab === tab.id
-                return (
-                  <UnstyledButton
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    px={rem(14)}
-                    py={rem(12)}
-                    data-dark-bg={isCurrent ? 'true' : undefined}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: rem(8),
-                      backgroundColor: isCurrent ? active.primary : active.surface,
-                      color: isCurrent ? '#ffffff' : active.primary,
-                      border: `1px solid ${isCurrent ? active.primary : `${active.primary}18`}`,
-                      borderRadius: 0,
-                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      fontWeight: isCurrent ? 700 : 600,
-                      fontSize: rem(13),
-                      transition: 'all 0.18s ease',
-                      boxShadow: isCurrent ? `0 6px 20px ${active.primary}18` : 'none',
-                      cursor: 'pointer',
-                      width: '100%',
-                    }}
-                  >
-                    <Group gap={rem(8)} wrap="nowrap" align="center" style={{ minWidth: 0, flex: 1 }}>
-                      <Box style={{ color: active.accent, display: 'flex', flexShrink: 0 }}>
-                        {tab.icon}
-                      </Box>
-                      <Box style={{ minWidth: 0, flex: 1 }}>
-                        <Text
-                          size="sm"
-                          fw={isCurrent ? 700 : 600}
-                          c={isCurrent ? '#ffffff' : active.primary}
-                          style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.2 }}
-                          truncate
-                        >
-                          {tab.label}
-                        </Text>
-                        <Text size="xs" c={isCurrent ? 'rgba(255,255,255,0.85)' : '#888'} truncate style={{ color: isCurrent ? 'rgba(255,255,255,0.85) !important' : '#888', marginTop: rem(2) }}>
-                          {tab.sub}
-                        </Text>
-                      </Box>
-                    </Group>
-                    <Box
-                      px={rem(6)}
-                      py={rem(2)}
+            <Box>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                mb={rem(10)}
+                style={{
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
+                SELECT SERVICE CATEGORY:
+              </Text>
+              <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(10)}>
+                {TABS.map((tab) => {
+                  const isCurrent = activeTab === tab.id
+                  return (
+                    <UnstyledButton
+                      key={tab.id}
+                      onClick={() => handleTabClick(tab.id)}
+                      px={rem(16)}
+                      py={rem(16)}
+                      data-dark-bg={isCurrent ? 'true' : undefined}
                       style={{
-                        backgroundColor: isCurrent ? 'rgba(255,255,255,0.22)' : `${active.primary}08`,
-                        fontSize: rem(10),
-                        fontWeight: 700,
-                        color: isCurrent ? '#ffffff' : '#666',
-                        flexShrink: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: rem(10),
+                        backgroundColor: isCurrent ? active.primary : active.surface,
+                        color: isCurrent ? '#ffffff' : active.primary,
+                        border: `2px solid ${isCurrent ? active.accent : `${active.primary}16`}`,
+                        borderRadius: 0,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        fontWeight: isCurrent ? 700 : 600,
+                        fontSize: rem(13),
+                        transition: 'all 0.18s ease',
+                        boxShadow: isCurrent ? `0 8px 24px rgba(0,0,0,0.12)` : 'none',
+                        cursor: 'pointer',
+                        width: '100%',
                       }}
                     >
-                      <Text size="xs" fw={700} c={isCurrent ? '#ffffff' : '#666'} style={{ color: isCurrent ? '#ffffff !important' : '#666' }}>
-                        {tab.badge}
+                      <Group justify="space-between" align="flex-start" wrap="nowrap" style={{ width: '100%' }}>
+                        <Group gap={rem(8)} wrap="nowrap" align="center">
+                          <Box style={{ color: active.accent, display: 'flex', flexShrink: 0 }}>
+                            {tab.icon}
+                          </Box>
+                          <Text
+                            size="sm"
+                            fw={700}
+                            c={isCurrent ? '#ffffff' : active.primary}
+                            style={{ color: isCurrent ? '#ffffff !important' : active.primary, lineHeight: 1.25 }}
+                          >
+                            {tab.label}
+                          </Text>
+                        </Group>
+                        {isCurrent ? (
+                          <Badge
+                            size="xs"
+                            radius={0}
+                            style={{
+                              backgroundColor: active.accent,
+                              color: '#ffffff',
+                              fontSize: rem(9),
+                              letterSpacing: '0.08em',
+                              flexShrink: 0,
+                            }}
+                          >
+                            ACTIVE
+                          </Badge>
+                        ) : (
+                          <Badge
+                            size="xs"
+                            radius={0}
+                            variant="outline"
+                            style={{
+                              borderColor: `${active.primary}25`,
+                              color: '#888',
+                              fontSize: rem(9),
+                              flexShrink: 0,
+                            }}
+                          >
+                            {tab.badge}
+                          </Badge>
+                        )}
+                      </Group>
+
+                      <Text
+                        size="xs"
+                        c={isCurrent ? 'rgba(255,255,255,0.75)' : 'dimmed'}
+                        style={{ color: isCurrent ? 'rgba(255,255,255,0.75) !important' : undefined, lineHeight: 1.4 }}
+                      >
+                        {tab.sub}
                       </Text>
-                    </Box>
-                  </UnstyledButton>
-                )
-              })}
-            </SimpleGrid>
+                    </UnstyledButton>
+                  )
+                })}
+              </SimpleGrid>
+
+              {/* Service Context Indicator Bar */}
+              <Box
+                p={{ base: rem(12), sm: rem(16) }}
+                mt={rem(16)}
+                bg={active.surface}
+                style={{
+                  border: `1px solid ${active.primary}12`,
+                  borderLeft: `4px solid ${active.accent}`,
+                }}
+              >
+                <Group justify="space-between" align="center" wrap="wrap" gap="xs">
+                  <Group gap="xs" align="center">
+                    <IconCheck size={16} color={active.accent} />
+                    <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.04em' }}>
+                      {activeTab === 'editing' && 'NOW CONFIGURING: English Editing & Compliance — Select your editorial depth below (Advanced, Premium, or Scientific Pro):'}
+                      {activeTab === 'journal' && 'NOW CONFIGURING: Journal Publication Support — Select your submission package below (Essentials, Pro, or Full):'}
+                      {activeTab === 'book' && 'NOW CONFIGURING: Book Manuscript Publishing — Select your monograph stage or full pipeline below:'}
+                      {activeTab === 'ai-audit' && 'NOW CONFIGURING: Pre-Submission Integrity Audit — Select Single Audit ($29) or Revision Bundle ($69):'}
+                    </Text>
+                  </Group>
+                  <Text size="xs" c="dimmed">
+                    100% Track Changes &bull; Firm 24h Confirmation
+                  </Text>
+                </Group>
+              </Box>
+            </Box>
           )}
         </Container>
       </Box>
