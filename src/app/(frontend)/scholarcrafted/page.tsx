@@ -80,31 +80,31 @@ const testimonials = [
 const homeFaqs = [
   {
     q: 'Should I have my paper edited even if I already used an AI tool like ChatGPT or Paperpal?',
-    a: 'Yes, we strongly recommend it. AI tools catch surface spelling and generic syntax, but cannot verify domain-specific nomenclature, deep methodological nuance, or whether your narrative fulfills the exact review criteria of high-impact journals. More critically, committees and journal editors actively screen for synthetic phrasing; our senior academic editors ensure your manuscript is 100% human-verified, authoritative, and committee-defensible.',
+    a: 'Yes, we strongly recommend it. AI tools catch surface spelling and generic syntax, but cannot verify domain-specific nomenclature, deep methodological nuance, or whether your narrative fulfills the exact review criteria of high-impact journals. More critically, committees and journal editors actively screen for synthetic phrasing; our senior doctoral editors ensure your manuscript is 100% human-verified, authoritative, and committee-defensible.',
   },
   {
     q: 'Is using ScholarCrafted allowed by my university, graduate committee, and target publisher?',
-    a: 'Yes, completely. Professional copyediting, structural proofreading, and citation auditing are standard, celebrated academic practices endorsed by graduate schools and publishers worldwide (including Routledge, Oxford, Elsevier, and Springer). We operate under a strict non-ghostwriting policy: we refine your clarity, rhetoric, style manual adherence, and structure, while you remain the sole intellectual author.',
+    a: 'Yes, completely. Professional developmental editing, structural proofreading, and citation auditing are standard, celebrated academic practices endorsed by graduate schools and publishers worldwide (including Routledge, Oxford, Elsevier, and Springer). We operate under a strict non-ghostwriting policy: we refine your clarity, rhetoric, style manual adherence, and structure, while you remain the sole intellectual author.',
   },
   {
-    q: 'What is the difference between Advanced Editing and Premium / Scientific Editing?',
-    a: 'Advanced Editing focuses on line-by-line grammar, academic tone, readability, citation cross-checking, and style manual compliance (APA, Chicago, MLA). Premium & Scientific Editing goes much deeper into structural coherence, argument pacing, literature review positioning, section sequencing, and comprehensive editorial margin queries to ensure your paper withstands harsh peer review.',
+    q: 'How does your pricing and milestone proposal work?',
+    a: 'Unlike transactional proofreading platforms that charge by micro-word increments, ScholarCrafted provides single integrated milestone proposals with transparent flat fees ($600–$1,800 for journal articles; $1,500–$3,500+ for book monographs). Terms are divided into a 50% deposit upfront and 50% upon final delivery. If you begin with our $29 Express Diagnostic, 100% of your fee is credited toward your full project scope.',
   },
   {
-    q: 'How does your per-word pricing work, and are there unexpected charges?',
-    a: 'Our rates are 100% transparent and calculated strictly by word count before work begins. Tier 1 starts from $0.032/word, Tier 2 substantive line editing at $0.046/word, and Tier 3 structural polish at $0.065/word. You receive a firm quote with zero hidden fees, and all work is delivered in Microsoft Word with full tracked changes.',
+    q: 'What is the Express Structural & Rigor Diagnostic ($29), and how does it work?',
+    a: 'The $29 diagnostic is our low-friction entry point for scholars seeking rapid structural validation. You upload your Abstract and Introduction (or up to 10 pages). Within 24–48 hours, a Senior Manuscript Architect delivers a 2-page written assessment evaluating your theoretical hook, argument pacing, and citation/integrity flags, plus an optional 15-minute strategy debrief call.',
   },
   {
     q: 'What is your turnaround time, and can you accommodate urgent defense or submission deadlines?',
-    a: 'Standard turnarounds range from 3 to 7 business days depending on document scope and word count. For time-sensitive dissertation defenses or journal revision deadlines, 48-hour to 72-hour priority delivery is available upon request with dedicated editor allocation.',
+    a: 'Express Diagnostics are delivered within 24 to 48 hours. Standard article conversions typically range between 5 and 10 business days depending on document scope and word count. For urgent committee deadlines or journal R&R windows, expedited scheduling is available upon request.',
   },
   {
     q: 'Do you offer re-editing support if my committee or reviewers request revisions?',
-    a: 'Yes. We support you through the review cycle. If your supervisor or journal editor returns comments on the sections we edited, we provide complimentary re-editing passes on those portions within 60 days of delivery.',
+    a: 'Yes. All full project engagements include 365-day revision coverage. When your advisor, committee, or journal reviewer issues comments, you can submit your updated sections for secondary passes at zero extra charge.',
   },
   {
     q: 'Can institutional funds, departmental budgets, or research grants cover the fee?',
-    a: 'Yes. Most universities allow startup funds, departmental overhead, NSF/NIH/Fulbright grant allocations, or graduate student development allowances to pay for external editorial services. We provide formal institutional itemized invoices and W-9 documentation.',
+    a: 'Yes. Most universities allow startup funds, departmental overhead, NSF/grant allocations, or graduate student development allowances to pay for external editorial services. We provide formal institutional itemized invoices and W-9 documentation.',
   },
   {
     q: 'How do you safeguard manuscript confidentiality and intellectual property?',
@@ -147,358 +147,113 @@ const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
 
 // ─── Homepage Need Selector ─────────────────────────────────────────────────
 
-// ─── Homepage Need & Stage Selectors (Dual Mode + Random Shuffle) ──────────
+// ─── Homepage Need & Situation Selectors ─────────────────────────────────────
 
 const homeNeeds = [
   {
-    id: 'defense-coming',
-    label: 'My defense is in weeks and my manuscript needs to be clean',
-    subLabel: 'Time-sensitive polish before deposit',
-    serviceIds: ['editing'],
-    recommended: 'editing',
+    id: 'thesis-to-article',
+    label: 'I want to turn my dissertation into a journal article',
+    subLabel: 'Track A · Structural conversion & empirical extraction',
+    serviceIds: ['track_a'],
+    recommended: 'track_a',
+    targetTrack: 'Track A: Short-Form',
   },
   {
     id: 'committee-feedback',
-    label: 'My committee sent the draft back with major revision comments',
-    subLabel: 'Structural overhaul after committee review',
-    serviceIds: ['editing'],
-    recommended: 'editing',
-  },
-  {
-    id: 'citations-mess',
-    label: "My citations are disorganized: Zotero broke or references do not match",
-    subLabel: 'Reference audit, DOI verification & AI integrity check',
-    serviceIds: ['ai_audit', 'editing'],
-    recommended: 'ai_audit',
-  },
-  {
-    id: 'thesis-to-article',
-    label: 'I want to turn my dissertation into a journal article',
-    subLabel: 'Structural conversion and journal formatting',
-    serviceIds: ['journal'],
-    recommended: 'journal',
+    label: 'My committee sent my draft back with major revision comments',
+    subLabel: 'Track A / Track B · Structural overhaul & defense preparation',
+    serviceIds: ['track_a', 'track_b'],
+    recommended: 'track_a',
+    targetTrack: 'Track A / Track B',
   },
   {
     id: 'revise-resubmit',
-    label: "I received a Revise & Resubmit: I need help responding to reviewers",
-    subLabel: 'Response matrix and revision packaging',
-    serviceIds: ['journal'],
-    recommended: 'journal',
+    label: 'I received a Revise & Resubmit (R&R) and need help with the reply matrix',
+    subLabel: 'Track A · Response matrix, reviewer alignment & tracked revisions',
+    serviceIds: ['track_a'],
+    recommended: 'track_a',
+    targetTrack: 'Track A: Short-Form',
   },
   {
     id: 'rejected-resubmit',
     label: 'My paper was rejected and I need to target a different journal',
-    subLabel: 'Resubmission formatting and new journal selection',
-    serviceIds: ['journal'],
-    recommended: 'journal',
+    subLabel: 'Track A · New journal selection, scope reframing & compliance',
+    serviceIds: ['track_a'],
+    recommended: 'track_a',
+    targetTrack: 'Track A: Short-Form',
   },
   {
     id: 'book-proposal',
-    label: 'I\'m writing a book proposal for Oxford, Routledge, or a press',
-    subLabel: 'Proposal packaging to publisher template',
-    serviceIds: ['book_proposal'],
-    recommended: 'book_proposal',
+    label: "I'm writing a book proposal for Oxford, Routledge, or a major press",
+    subLabel: 'Track B · Monograph chapter outline & acquisition pitch',
+    serviceIds: ['track_b'],
+    recommended: 'track_b',
+    targetTrack: 'Track B: Long-Form',
   },
   {
     id: 'galley-proofs',
-    label: 'My press sent galley proofs and I need an index built',
-    subLabel: 'Back-of-book indexing and proof review',
-    serviceIds: ['book_indexing'],
-    recommended: 'book_indexing',
+    label: 'My press sent galley proofs and I need an index or LaTeX fix',
+    subLabel: 'Track B · Back-of-book indexing & 5-stage production prep',
+    serviceIds: ['track_b'],
+    recommended: 'track_b',
+    targetTrack: 'Track B: Long-Form',
+  },
+  {
+    id: 'citations-mess',
+    label: 'I need to check citations, DOIs, and AI flags before defense',
+    subLabel: 'Express Diagnostic · 2-page rigor audit & 24–48h screening',
+    serviceIds: ['diagnostic'],
+    recommended: 'diagnostic',
+    targetTrack: 'Express Diagnostic ($29)',
+  },
+  {
+    id: 'defense-coming',
+    label: 'My defense is in weeks and my draft needs a structural check',
+    subLabel: 'Express Diagnostic · Rapid pre-submission triage & risk memo',
+    serviceIds: ['diagnostic'],
+    recommended: 'diagnostic',
+    targetTrack: 'Express Diagnostic ($29)',
   },
 ]
 
 const homeServices: Record<string, {
   badge: string; title: string; desc: string; link: string; cta: string
 }> = {
-  editing: {
-    badge: 'From $0.0425 / word',
-    title: 'English Editing & Compliance',
-    desc: 'Line-by-line editing for language, structure, and academic tone. Reference cleanup, DOI verification, citation style conformity, and institutional compliance, all delivered in Word tracked changes.',
-    link: '/order?service=editing&tier=premium',
-    cta: 'Calculate Editing Fee',
+  track_a: {
+    badge: 'Track A · Short-Form',
+    title: 'Thesis-to-Journal & Paper Preparation',
+    desc: 'Isolate your empirical core, extract standalone 7,000-word articles from sprawling dissertation chapters, resolve committee critique, and format for target peer-reviewed journals (Word/LaTeX).',
+    link: '/order?pathway=scope&track=a',
+    cta: 'Explore Track A / Request Scope',
   },
-  ai_audit: {
-    badge: 'From $29 (100% Credited Toward Editing)',
-    title: 'AI Manuscript Audit & Integrity Diagnostic',
-    desc: 'Pre-submission integrity screening against 200M+ research papers. Detects fabricated citations, retracted DOIs, AI-writing indicators, and methods-to-results drift before committee or journal review.',
-    link: '/order?service=ai-audit&tier=single',
-    cta: 'Order Manuscript Audit ($29)',
+  track_b: {
+    badge: 'Track B · Long-Form',
+    title: 'Monograph & Book Architecture',
+    desc: 'From stalled chapters to contracted academic books. Full dissertation-to-monograph structural conversion, cumulative chapter logic, press proposals (Oxford, Cambridge, Routledge), and 5-stage production prep.',
+    link: '/order?pathway=scope&track=b',
+    cta: 'Explore Track B / Book Scoping Call',
   },
-  journal: {
-    badge: 'Flat-Fee Packages',
-    title: 'Journal Publication Support',
-    desc: 'Target journal matching, submission formatting, point-by-point Revise & Resubmit response matrices, and tailored cover letters to overcome peer-review hurdles.',
-    link: '/order?service=journal&tier=pro',
-    cta: 'View Journal Packages',
-  },
-  book_proposal: {
-    badge: 'Stage 02 • $480 Flat',
-    title: 'Book Acquisition Proposal Packaging',
-    desc: 'Acquisition-ready monograph proposal written to target academic press requirements (Oxford, Cambridge, Routledge, SAGE). Includes market analysis, chapter outline, and sample polish.',
-    link: '/order?service=book&stage=02',
-    cta: 'Select Proposal Packaging',
-  },
-  book_indexing: {
-    badge: 'Stage 05 • $3 / Typeset Page',
-    title: 'Back-of-Book Subject & Author Indexing',
-    desc: 'Comprehensive, press-grade back-of-book index constructed to university press and Cindex specifications. Formatted for immediate delivery to your production editor.',
-    link: '/order?service=book&stage=05',
-    cta: 'Select Book Indexing',
+  diagnostic: {
+    badge: '$29 Flat Fee (100% Credited Toward Full Scope)',
+    title: 'Express Structural & Rigor Diagnostic',
+    desc: 'Upload your Abstract + Intro (or 10-page sample). Receive a 2-page written assessment of your theoretical hook, argument logic, and citation integrity within 24–48 hours, plus an optional 15-minute strategy debrief call.',
+    link: '/order?pathway=diagnostic',
+    cta: 'Claim $29 Diagnostic',
   },
 }
 
-// ─── Research Stages & Mapped Services ──────────────────────────────────────
+// ─── SECTION 1: Two Core Outcome Tracks ──────────────────────────────────────
 
-interface StageService {
-  badge: string
-  title: string
-  tagline: string
-  rate: string
-  isRecommended?: boolean
-  features: string[]
-  link: string
-  cta: string
-}
-
-interface ResearchStageItem {
-  step: string
-  label: string
-  services: StageService[]
-}
-
-const stageData: ResearchStageItem[] = [
-  {
-    step: 'STEP 01',
-    label: 'Write your document',
-    services: [
-      {
-        badge: 'Thesis Conversion',
-        title: 'Thesis-to-Journal Article Conversion',
-        tagline: 'Extract and structure the publishable empirical core of your dissertation into a tight 7,000–9,000 word standalone article.',
-        rate: 'Custom Scope / Package',
-        features: [
-          'Extraction of primary empirical contribution from sprawling thesis chapters',
-          'Restructuring into IMRaD or target disciplinary article framework',
-          'Elimination of thesis scaffolding & excessive literature review',
-        ],
-        link: '/order?service=journal&tier=pro',
-        cta: 'Explore Article Conversion',
-      },
-      {
-        badge: 'Academic Monograph',
-        title: 'Academic Book Proposal & Press Pitch',
-        tagline: 'Complete acquisition-ready monograph proposal written to target academic press requirements (Oxford, Cambridge, Routledge, SAGE).',
-        rate: '$480 flat fee',
-        features: [
-          'Chapter-by-chapter outline with detailed synopses',
-          'Academic market differentiation & audience positioning',
-          'Sample chapter copyediting & tone calibration to press standards',
-        ],
-        link: '/order?service=book&stage=02',
-        cta: 'Explore Book Proposals',
-      },
-    ],
-  },
-  {
-    step: 'STEP 02',
-    label: 'Get expert editing',
-    services: [
-      {
-        badge: 'Language & Precision',
-        title: 'Advanced Line Editing',
-        tagline: 'Comprehensive sentence-level editing for precision, academic tone, syntax, and discipline vocabulary.',
-        rate: 'Starts from $0.0425 / word',
-        features: [
-          'Full tracked changes in Microsoft Word',
-          'Academic idiom, syntax refinement & passive voice reduction',
-          'Style manual conformity (APA, Chicago, Harvard, Vancouver)',
-        ],
-        link: '/order?service=editing&tier=advanced',
-        cta: 'Select Advanced Editing',
-      },
-      {
-        badge: 'Structure & Argument',
-        title: 'Premium Structural Editing',
-        tagline: 'Deep structural and rhetorical refinement to ensure arguments withstand committee defense and peer review.',
-        rate: 'Starts from $0.0650 / word',
-        features: [
-          'All Line Editing + section pacing and logical flow critique',
-          'Citation cross-checks & reference integrity audit',
-          '60-day complimentary re-editing pass on revised sections',
-        ],
-        link: '/order?service=editing&tier=premium',
-        cta: 'Select Premium Editing',
-      },
-      {
-        badge: 'Peer-Review Standard',
-        title: 'Scientific & Disciplinary Review',
-        tagline: 'Rigorous critique evaluating narrative coherence and methods-to-claims alignment against top-tier academic standards.',
-        rate: 'Starts from $0.0950 / word',
-        features: [
-          'All Premium Editing features included',
-          'In-depth Manuscript Completeness Assessment',
-          'Evaluation by former journal peer reviewer or editor',
-        ],
-        link: '/order?service=editing&tier=scientific',
-        cta: 'Select Disciplinary Review',
-      },
-    ],
-  },
-  {
-    step: 'STEP 03',
-    label: 'Find top journals',
-    services: [
-      {
-        badge: 'Journal Matching',
-        title: 'Target Journal Selection & Fit Report',
-        tagline: '3–5 Ranked peer-reviewed journals matched to your empirical topic, citation impact goals, and submission timeline.',
-        rate: '$320 flat fee',
-        features: [
-          '3–5 Ranked journal options with acceptance rates & impact factors',
-          'Aims & Scope alignment report benchmarked to recent publishing trends',
-          'Open-access mandate and publisher policy verification',
-        ],
-        link: '/order?service=journal&tier=essentials',
-        cta: 'Select Journal Essentials',
-      },
-      {
-        badge: 'Submission Packaging',
-        title: 'Complete Journal Submission Package',
-        tagline: 'Full end-to-end preparation: target journal selection, manuscript conformity, cover letter drafting, and submission packaging.',
-        rate: 'Custom Package',
-        features: [
-          '3–5 Ranked journal recommendation report with impact factors',
-          'Complete manuscript formatting to target Author Guidelines',
-          'Executive editor cover letter drafting & submission checklist',
-        ],
-        link: '/order?service=journal&tier=pro',
-        cta: 'View Journal Packages',
-      },
-    ],
-  },
-  {
-    step: 'STEP 04',
-    label: 'Journal desk review',
-    services: [
-      {
-        badge: 'Integrity & Citation Check',
-        title: 'Citation Verification & AI Flag Screening',
-        tagline: 'Screen references against 200M+ publications to catch broken DOIs, retracted citations, and false AI-generation flags before journal screening.',
-        rate: 'Starts from $29',
-        features: [
-          'Citation & DOI verification benchmarked against 200M+ papers',
-          'Detection of fabricated, retracted, and hallucinated references',
-          '1-Page Faculty Risk Memo + 100% fee credited toward full editing',
-        ],
-        link: '/order?service=ai-audit&tier=single',
-        cta: 'Check Manuscript Citations',
-      },
-      {
-        badge: 'Author Guidelines Pass',
-        title: 'Desk-Rejection Formatting & Guidelines Pass',
-        tagline: 'Comprehensive pre-submission audit against your target journal’s Author Guidelines to prevent immediate rejection over formatting details.',
-        rate: 'Starts from $0.02 / word',
-        features: [
-          'Word count, running headers, keywords & abstract limits verification',
-          'Front and back matter formatting (disclosures, funding statements)',
-          'Blinded manuscript compliance verification for peer review',
-        ],
-        link: '/order?service=editing&tier=advanced',
-        cta: 'Review Journal Guidelines',
-      },
-    ],
-  },
-  {
-    step: 'STEP 05',
-    label: 'Revise and resubmit',
-    services: [
-      {
-        badge: 'Reviewer Rebuttal',
-        title: 'Reviewer Response Matrix & Reply Letter',
-        tagline: 'Line-by-line point-by-point response table aligning reviewer feedback with tracked changes in the revised text.',
-        rate: 'Project Package or Hourly',
-        features: [
-          'Point-by-point reply letter and response matrix formatting',
-          'Editorial diplomacy check: tone refinement for challenging queries',
-          'Exact cross-referencing between response table and revised lines',
-        ],
-        link: '/order?service=journal&tier=full',
-        cta: 'View R&R Package',
-      },
-      {
-        badge: 'Revision Guarantee',
-        title: '60-Day Re-Editing Protection Pass',
-        tagline: 'Dedicated re-editing for any sections revised in response to reviewer comments on ScholarCrafted-edited text.',
-        rate: 'Complimentary with Premium & Pro',
-        features: [
-          'Complimentary re-editing pass within 60 days of manuscript delivery',
-          'Verification of newly drafted sentences and revised paragraphs',
-          'Rapid 48-to-72 hour revision turnaround',
-        ],
-        link: '/order?service=editing&tier=premium',
-        cta: 'View Editing Tiers',
-      },
-    ],
-  },
-  {
-    step: 'STEP 06',
-    label: 'Create visuals & proofs',
-    services: [
-      {
-        badge: 'Book Indexing',
-        title: 'Monograph Subject & Author Indexing',
-        tagline: 'Comprehensive, publication-grade indexing constructed to university press and Cindex specifications.',
-        rate: 'Starts from $3 / typeset page',
-        features: [
-          'Subject index, author index, and combined index generation',
-          'Headings, subheadings, and cross-references ("See" and "See also")',
-          'Strict adherence to Oxford, Cambridge, Routledge press standards',
-        ],
-        link: '/order?service=book&stage=05',
-        cta: 'Select Book Indexing',
-      },
-      {
-        badge: 'Page Proofs',
-        title: 'Typeset Galley Proof & Errata Review',
-        tagline: 'First- and second-pass examination of typeset page proofs to catch layout bugs, broken tables, and copyeditor errors.',
-        rate: 'Project-Based Rate',
-        features: [
-          'Detection of typesetting errors, bad line breaks, and overflow',
-          'Figure placement and caption cross-check against text citations',
-          'Formal errata preparation for press production editors',
-        ],
-        link: '/order?service=book&stage=04',
-        cta: 'Select Galley Review',
-      },
-    ],
-  },
-]
-
-// ─── SECTION 1: Solutions for Every Stage (Research Journey) ───────────────
-
-function ResearchStageSection({ active }: { active: Record<string, string> }) {
-  const [selectedStageIndex, setSelectedStageIndex] = useState(1) // Default to "Get expert editing"
-  const [isAutoCyclingStages, setIsAutoCyclingStages] = useState(true)
-  const currentStage = stageData[selectedStageIndex] ?? stageData[1]
-
-  useEffect(() => {
-    if (!isAutoCyclingStages) return
-    const timer = setInterval(() => {
-      setSelectedStageIndex((prev) => (prev + 1) % stageData.length)
-    }, 4500)
-    return () => clearInterval(timer)
-  }, [isAutoCyclingStages])
-
+function TwoOutcomeTracksSection({ active }: { active: Record<string, string> }) {
   return (
     <Box
-      id="research-stages"
+      id="outcome-tracks"
       component="section"
       py={SECTION_SPACING}
       bg={active.background}
     >
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-        <Stack gap={rem(32)}>
+        <Stack gap={rem(40)}>
           {/* Section Header */}
           <Box style={{ maxWidth: 840 }}>
             <Text
@@ -511,7 +266,7 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                 fontFamily: 'var(--font-heading-sans), var(--font-sans)',
               }}
             >
-              Solutions for Every Stage
+              CORE OUTCOME TRACKS
             </Text>
             <Title
               order={2}
@@ -525,208 +280,498 @@ function ResearchStageSection({ active }: { active: Record<string, string> }) {
                 letterSpacing: '-0.015em',
               }}
             >
-              Solutions for every stage of your research journey.
+              Two strategic pathways for publishing scholars.
             </Title>
             <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '68ch' }}>
-              From initial draft scoping and thesis-to-article conversion to high-impact line editing, peer review reply matrices, and press galley proofs, select your stage to view dedicated execution tracks.
+              Rather than selling transactional word-count proofreading or confusing micro-services, ScholarCrafted structures technical and developmental rigor into two outcome-driven tracks tailored to your career stage.
             </Text>
           </Box>
 
-          {/* 6 Step Navigator Tabs */}
-          <SimpleGrid cols={{ base: 2, sm: 3, md: 6 }} spacing={rem(8)}>
-            {stageData.map((stg, idx) => {
-              const isActive = idx === selectedStageIndex
-              return (
-                <UnstyledButton
-                  key={idx}
-                  onClick={() => {
-                    setSelectedStageIndex(idx)
-                    setIsAutoCyclingStages(false)
+          {/* 2 Core Track Cards */}
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(28)}>
+            {/* Track A */}
+            <Box
+              p={{ base: rem(28), sm: rem(36), md: rem(44) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${active.primary}18`,
+                borderTop: `4px solid ${active.accent}`,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.03)',
+              }}
+            >
+              <Box>
+                <Badge
+                  size="sm"
+                  radius={0}
+                  variant="filled"
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#ffffff',
+                    letterSpacing: '0.12em',
+                    fontWeight: 700,
+                    marginBottom: rem(12),
+                    fontSize: rem(10),
                   }}
-                  style={{ height: '100%' }}
                 >
-                  <Box
-                    p={rem(18)}
-                    bg={isActive ? active.primary : active.surface}
-                    style={{
-                      border: `1px solid ${isActive ? active.primary : `${active.primary}18`}`,
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: rem(6),
-                      transition: 'all 0.2s ease',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Text
-                      size="xs"
-                      fw={700}
-                      c={active.accent}
-                      style={{
-                        letterSpacing: '0.14em',
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      {stg.step}
-                    </Text>
-                    <Text
-                      size="sm"
-                      fw={700}
-                      c={isActive ? active.background : active.primary}
-                      lh={1.3}
-                      style={{
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      {stg.label}
-                    </Text>
-                  </Box>
-                </UnstyledButton>
-              )
-            })}
-          </SimpleGrid>
+                  TRACK A · SHORT-FORM MANUSCRIPTS
+                </Badge>
+                <Title
+                  order={3}
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: rem(26),
+                    color: active.primary,
+                    fontWeight: 600,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Thesis-to-Journal &amp; Paper Preparation
+                </Title>
+                <Text size="sm" c="dimmed" mt={rem(8)} lh={1.65}>
+                  Designed for PhD candidates, postdocs, and early-career faculty. We extract the empirical core from sprawling dissertation chapters and re-architect your narrative to meet the standards of top peer-reviewed journals.
+                </Text>
 
-          {/* Relevant Services for Selected Stage */}
-          <SimpleGrid
-            cols={{ base: 1, md: currentStage.services.length === 3 ? 3 : 2 }}
-            spacing="lg"
-          >
-            {currentStage.services.map((svc, sIdx) => (
-              <Box
-                key={sIdx}
-                p={{ base: rem(24), md: rem(32) }}
-                bg={active.surface}
-                style={{
-                  border: `1px solid ${svc.isRecommended ? active.accent : `${active.primary}18`}`,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                  boxShadow: svc.isRecommended ? `0 8px 32px ${active.accent}14` : 'none',
-                }}
-              >
-                {svc.isRecommended && (
-                  <Box
-                    px={rem(12)}
-                    py={rem(4)}
-                    mb="xs"
-                    style={{
-                      backgroundColor: active.accent,
-                      alignSelf: 'flex-start',
-                    }}
-                  >
-                    <Text
-                      size="xs"
-                      fw={700}
-                      c="#ffffff"
-                      style={{
-                        letterSpacing: '0.12em',
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      RECOMMENDED FOR THIS STAGE
-                    </Text>
-                  </Box>
-                )}
+                <Divider color={`${active.primary}10`} my={rem(20)} />
 
                 <Text
                   size="xs"
                   fw={700}
-                  c={active.accent}
-                  style={{
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                  }}
-                >
-                  {svc.badge}
-                </Text>
-
-                <Title
-                  order={3}
-                  mt={rem(6)}
-                  style={{
-                    fontSize: 'clamp(1.2rem, 1.8vw, 1.45rem)',
-                    fontFamily: 'var(--font-serif)',
-                    fontWeight: 600,
-                    lineHeight: 1.25,
-                    color: active.primary,
-                  }}
-                >
-                  {svc.title}
-                </Title>
-
-                <Text size="xs" c="dimmed" lh={1.6} mt={rem(6)} style={{ minHeight: rem(38) }}>
-                  {svc.tagline}
-                </Text>
-
-                <Text
-                  fw={700}
-                  size="sm"
                   c={active.primary}
-                  mt="sm"
-                  style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                  mb={rem(12)}
+                  style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
                 >
-                  {svc.rate}
+                  WHAT IS INCLUDED IN TRACK A:
                 </Text>
 
-                <Divider color={`${active.primary}12`} my="sm" />
-
-                {/* 3 Core Deliverable Highlights */}
-                <Stack gap={rem(8)} mb="xl">
-                  {svc.features.map((feat, fIdx) => (
-                    <Group key={fIdx} gap="xs" align="flex-start" wrap="nowrap">
-                      <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                      <Text size="xs" c={active.primary} lh={1.5}>
+                <Stack gap={rem(10)} mb={rem(24)}>
+                  {[
+                    'Thesis-to-journal extraction & argument restructuring (condensing 15k+ words into 7k–9k)',
+                    'Standalone 2nd & 3rd article structural refinement and theoretical framing',
+                    'Target journal selection report & author guidelines compliance audit',
+                    'LaTeX & Typst document engineering, BibTeX cross-checks & template alignment',
+                    'Revise & Resubmit (R&R) response matrix drafting & editor cover letters',
+                  ].map((feat, idx) => (
+                    <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
+                      <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                      <Text size="xs" c={active.primary} lh={1.55}>
                         {feat}
                       </Text>
                     </Group>
                   ))}
                 </Stack>
+              </Box>
 
-                {/* Action button anchored at bottom */}
-                <Box mt="auto">
-                  <Link href={svc.link} style={{ textDecoration: 'none' }}>
-                    <Button
-                      fullWidth
-                      radius={0}
-                      variant={svc.isRecommended ? 'filled' : 'outline'}
-                      rightSection={<IconArrowRight size={16} />}
-                      style={{
-                        backgroundColor: svc.isRecommended ? active.accent : 'transparent',
-                        color: svc.isRecommended ? '#fff' : active.primary,
-                        borderColor: svc.isRecommended ? active.accent : active.primary,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                        letterSpacing: '0.06em',
-                        fontWeight: 600,
-                        fontSize: rem(13),
-                        height: rem(42),
-                      }}
-                    >
-                      {svc.cta}
-                    </Button>
-                  </Link>
+              <Box mt="auto">
+                <Box
+                  p={rem(12)}
+                  mb={rem(16)}
+                  bg={active.background}
+                  style={{ border: `1px solid ${active.primary}10` }}
+                >
+                  <Text size="xs" c="dimmed" lh={1.5}>
+                    <strong style={{ color: active.primary }}>Deliverable Assurance:</strong> 100% Track Changes in Word, style manual adherence (APA 7, Chicago, IEEE), and an official Editorial Compliance Certificate.
+                  </Text>
                 </Box>
+                <Link href="/order?pathway=scope&track=a" style={{ textDecoration: 'none' }}>
+                  <Button
+                    fullWidth
+                    size="md"
+                    radius={0}
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{
+                      backgroundColor: active.accent,
+                      color: '#ffffff',
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      letterSpacing: '0.04em',
+                      height: rem(48),
+                    }}
+                  >
+                    Explore Track A / Request Scope
+                  </Button>
+                </Link>
+              </Box>
+            </Box>
+
+            {/* Track B */}
+            <Box
+              p={{ base: rem(28), sm: rem(36), md: rem(44) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${active.primary}18`,
+                borderTop: `4px solid ${active.primary}`,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.03)',
+              }}
+            >
+              <Box>
+                <Badge
+                  size="sm"
+                  radius={0}
+                  variant="outline"
+                  style={{
+                    borderColor: `${active.primary}35`,
+                    color: active.primary,
+                    letterSpacing: '0.12em',
+                    fontWeight: 700,
+                    marginBottom: rem(12),
+                    fontSize: rem(10),
+                  }}
+                >
+                  TRACK B · LONG-FORM SCHOLARSHIP
+                </Badge>
+                <Title
+                  order={3}
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: rem(26),
+                    color: active.primary,
+                    fontWeight: 600,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Monograph &amp; Book Architecture
+                </Title>
+                <Text size="sm" c="dimmed" mt={rem(8)} lh={1.65}>
+                  Tailored for junior and senior faculty preparing their first or second academic monograph. We provide multi-chapter developmental continuity, publisher proposals, and 5-stage production support.
+                </Text>
+
+                <Divider color={`${active.primary}10`} my={rem(20)} />
+
+                <Text
+                  size="xs"
+                  fw={700}
+                  c={active.primary}
+                  mb={rem(12)}
+                  style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                >
+                  WHAT IS INCLUDED IN TRACK B:
+                </Text>
+
+                <Stack gap={rem(10)} mb={rem(24)}>
+                  {[
+                    'Dissertation-to-monograph structural conversion & cumulative argument mapping',
+                    'Acquisition book proposals formatted to publisher specifications (Oxford, Routledge, Cambridge)',
+                    'Multi-chapter developmental editing & tone consistency across full volumes',
+                    'The 5 Stages of Book Production (Developmental -> Copyedit -> Indexing -> Layout -> Proofing)',
+                    'Press-grade back-of-book indexing (Cindex/SKY Index) & typeset galley proof review',
+                  ].map((feat, idx) => (
+                    <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
+                      <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                      <Text size="xs" c={active.primary} lh={1.55}>
+                        {feat}
+                      </Text>
+                    </Group>
+                  ))}
+                </Stack>
+              </Box>
+
+              <Box mt="auto">
+                <Box
+                  p={rem(12)}
+                  mb={rem(16)}
+                  bg={active.background}
+                  style={{ border: `1px solid ${active.primary}10` }}
+                >
+                  <Text size="xs" c="dimmed" lh={1.5}>
+                    <strong style={{ color: active.primary }}>Press Coordination:</strong> End-to-end guidance from press proposal to printed book. Single dedicated editorial contact with 50/50 payment milestone terms.
+                  </Text>
+                </Box>
+                <Link href="/order?pathway=scope&track=b" style={{ textDecoration: 'none' }}>
+                  <Button
+                    fullWidth
+                    size="md"
+                    radius={0}
+                    variant="outline"
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{
+                      borderColor: active.primary,
+                      color: active.primary,
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      letterSpacing: '0.04em',
+                      height: rem(48),
+                    }}
+                  >
+                    Explore Track B / Book Scoping Call
+                  </Button>
+                </Link>
+              </Box>
+            </Box>
+          </SimpleGrid>
+        </Stack>
+      </Container>
+    </Box>
+  )
+}
+
+// ─── SECTION 1.2: Low-Friction Entry Hook ($29 Express Diagnostic) ───────────
+
+function ExpressDiagnosticBanner({ active }: { active: Record<string, string> }) {
+  return (
+    <Box
+      id="express-diagnostic"
+      component="section"
+      py={{ base: rem(48), md: rem(64) }}
+      bg={active.surface}
+      style={{
+        borderTop: `1px solid ${active.primary}12`,
+        borderBottom: `1px solid ${active.primary}12`,
+      }}
+    >
+      <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
+        <Box
+          p={{ base: rem(28), sm: rem(36), md: rem(44) }}
+          bg={active.background}
+          style={{
+            border: `1px solid ${active.primary}15`,
+            borderLeft: `5px solid ${active.accent}`,
+            boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
+          }}
+        >
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(40) }} style={{ alignItems: 'center' }}>
+            <Stack gap="md">
+              <Group gap="xs">
+                <Badge
+                  size="sm"
+                  radius={0}
+                  variant="filled"
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#ffffff',
+                    letterSpacing: '0.12em',
+                    fontWeight: 700,
+                  }}
+                >
+                  LOW-FRICTION DIAGNOSTIC ENTRY
+                </Badge>
+                <Badge
+                  size="sm"
+                  radius={0}
+                  variant="outline"
+                  style={{
+                    borderColor: `${active.primary}30`,
+                    color: active.primary,
+                    fontWeight: 700,
+                  }}
+                >
+                  100% FEE CREDIT
+                </Badge>
+              </Group>
+
+              <Title
+                order={2}
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.8rem, 3.2vw, 2.4rem)',
+                  color: active.primary,
+                  fontWeight: 600,
+                  lineHeight: 1.2,
+                }}
+              >
+                Express Structural &amp; Rigor Diagnostic ($29)
+              </Title>
+
+              <Text size="sm" c="dimmed" lh={1.7}>
+                Stop worrying about desk-rejection, logic gaps, or citation discrepancies. Upload your Abstract + Introduction (or up to 10 sample pages) to receive a fast, doctoral-grade audit before submission.
+              </Text>
+
+              <Stack gap={rem(8)}>
+                {[
+                  '2-Page Written Structural & Logic Audit of your central thesis and argument pacing',
+                  'Theoretical Hook & Scholarly Contribution Assessment',
+                  'Citation Integrity & DOI Cross-Check benchmarked against 200M+ publications',
+                  'Optional 15-Minute Strategy Debrief Call with a Senior Manuscript Architect',
+                  '100% Fee Credit: Your $29 is fully credited toward full developmental editing if scoped',
+                ].map((item, idx) => (
+                  <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
+                    <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                    <Text size="xs" c={active.primary} lh={1.5}>
+                      {item}
+                    </Text>
+                  </Group>
+                ))}
+              </Stack>
+            </Stack>
+
+            <Box
+              p={{ base: rem(24), sm: rem(32) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${active.primary}12`,
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: rem(16),
+              }}
+            >
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
+              >
+                RAPID 24–48 HOUR QUEUE
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: rem(48),
+                  fontWeight: 600,
+                  color: active.primary,
+                  lineHeight: 1,
+                }}
+              >
+                $29
+              </Text>
+              <Text size="xs" c="dimmed" lh={1.6} style={{ maxWidth: 320 }}>
+                A low-risk pre-submission check. If you decide to execute revisions yourself, you keep the full report. If you partner with us for full editing, the diagnostic is free.
+              </Text>
+              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none', width: '100%' }}>
+                <Button
+                  fullWidth
+                  size="md"
+                  radius={0}
+                  rightSection={<IconArrowRight size={16} />}
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    height: rem(48),
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  Claim $29 Diagnostic
+                </Button>
+              </Link>
+            </Box>
+          </SimpleGrid>
+        </Box>
+      </Container>
+    </Box>
+  )
+}
+
+// ─── SECTION 1.3: 6-Step Publication Execution Flow ─────────────────────────
+
+function PublicationExecutionFlowSection({ active }: { active: Record<string, string> }) {
+  const steps = [
+    {
+      num: 'STEP 01',
+      title: 'Scoping & Diagnostic',
+      desc: 'Identify core empirical contributions, evaluate theoretical hook, and isolate narrative bloat.',
+    },
+    {
+      num: 'STEP 02',
+      title: 'Argument Extraction',
+      desc: 'Condense sprawling 15k+ dissertation chapters into sharp, defensible 7k–9k journal logic.',
+    },
+    {
+      num: 'STEP 03',
+      title: 'Substantive Edit',
+      desc: 'Line-by-line academic prose polish, tone calibration, and 100% Word Track Changes.',
+    },
+    {
+      num: 'STEP 04',
+      title: 'Journal & Press Fit',
+      desc: 'Target journal Aims & Scope audit, author guidelines formatting, and custom cover letters.',
+    },
+    {
+      num: 'STEP 05',
+      title: 'R&R Strategy',
+      desc: 'Construct structured reviewer response matrices and align revisions to overcome objections.',
+    },
+    {
+      num: 'STEP 06',
+      title: 'Layout & Indexing',
+      desc: 'LaTeX/Typst typesetting, equation checking, and university press-grade back-of-book indexing.',
+    },
+  ]
+
+  return (
+    <Box
+      id="execution-flow"
+      component="section"
+      py={SECTION_SPACING}
+      bg={active.background}
+    >
+      <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+        <Stack gap={rem(36)}>
+          <Box style={{ maxWidth: 780 }}>
+            <Text
+              size="xs"
+              fw={700}
+              c={active.accent}
+              style={{
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+              }}
+            >
+              EXECUTION BLUEPRINT
+            </Text>
+            <Title
+              order={2}
+              mt="xs"
+              style={{
+                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+                fontWeight: 600,
+                lineHeight: 1.2,
+              }}
+            >
+              The 6-step journey from draft to published manuscript.
+            </Title>
+            <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
+              We do not treat scholarship as transactional proofreading. Every paper moves through a systematic architectural workflow overseen by doctoral specialists.
+            </Text>
+          </Box>
+
+          <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 6 }} spacing={rem(12)}>
+            {steps.map((stg, i) => (
+              <Box
+                key={i}
+                p={rem(20)}
+                bg={active.surface}
+                style={{
+                  border: `1px solid ${active.primary}12`,
+                  borderTop: `3px solid ${i === 0 ? active.accent : `${active.primary}20`}`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: rem(8),
+                }}
+              >
+                <Text
+                  size="xs"
+                  fw={700}
+                  c={active.accent}
+                  style={{ letterSpacing: '0.12em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                >
+                  {stg.num}
+                </Text>
+                <Text
+                  fw={700}
+                  size="sm"
+                  c={active.primary}
+                  style={{ lineHeight: 1.3, minHeight: rem(36) }}
+                >
+                  {stg.title}
+                </Text>
+                <Text size="xs" c="dimmed" lh={1.55} style={{ flex: 1 }}>
+                  {stg.desc}
+                </Text>
               </Box>
             ))}
           </SimpleGrid>
-
-          {/* Compare Link */}
-          <Box style={{ textAlign: 'center', paddingTop: rem(8) }}>
-            <Link href="/order" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="subtle"
-                radius={0}
-                color={active.primary}
-                rightSection={<IconArrowRight size={16} />}
-                style={{
-                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                Compare Plans & Calculate Fees
-              </Button>
-            </Link>
-          </Box>
         </Stack>
       </Container>
     </Box>
@@ -746,10 +791,10 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <SimpleGrid cols={{ base: 2, sm: 4 }} spacing={{ base: 'lg', md: 'xl' }}>
           {[
-            { val: '500+', label: 'Doctoral Candidates & Faculty Guided', sub: 'Across 40+ academic disciplines' },
+            { val: '500+', label: 'Scholars & PhDs Guided', sub: 'Across 40+ academic disciplines' },
             { val: '100%', label: 'Tracked-Changes Human Review', sub: 'Zero automated rewriting or shortcuts' },
-            { val: '24–48h', label: 'Diagnostic Turnaround', sub: 'Rapid pre-submission triage queue' },
-            { val: 'Top Presses', label: 'Oxford, Cambridge, Routledge & Q1', sub: 'Press-ready formatting compliance' },
+            { val: '24–48h', label: 'Diagnostic Queue Turnaround', sub: 'Rapid pre-submission triage queue' },
+            { val: 'Top Presses', label: 'Oxford, Cambridge, Routledge & Q1s', sub: 'Press-ready formatting compliance' },
           ].map((stat, i) => (
             <Box
               key={i}
@@ -1180,7 +1225,7 @@ export default function ScholarCraftedLanding() {
               <Stack gap="xl" align="flex-start">
 
                 <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
-                  Faculty-Led Editorial & Publication Advisory
+                  FACULTY-LED EDITORIAL & PUBLICATION ADVISORY
                 </p>
 
                 <Title
@@ -1194,16 +1239,16 @@ export default function ScholarCraftedLanding() {
                     fontWeight: 500,
                   }}
                 >
-                  From Finished Draft to Accepted Manuscript.
+                  Turn Your Dissertation Chapters &amp; Research Drafts into Published Scholarship.
                 </Title>
 
-                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '54ch' }}>
-                  Substantive line editing, citation audits, and publisher formatting: delivered with 100% Track Changes in Word by doctoral specialists.
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '58ch' }}>
+                  Substantive manuscript architecture, thesis-to-journal conversion, and publisher compliance—delivered with 100% Track Changes by doctoral specialists in your discipline.
                 </p>
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
                 <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
-                  <Link href="/order" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1222,16 +1267,10 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      View Services & Pricing
+                      Get Express Diagnostic ($29)
                     </Button>
                   </Link>
-                  <a
-                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: 'none' }}
-                    className="hero-btn-link"
-                  >
+                  <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1251,10 +1290,17 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Speak to Faculty
+                      Request Full Project Scope
                     </Button>
-                  </a>
+                  </Link>
                 </Group>
+
+                {/* Trust Badges */}
+                <Box pt="xs" style={{ borderTop: '1px solid rgba(255,255,255,0.15)', width: '100%' }}>
+                  <Text size="xs" style={{ color: 'rgba(255,255,255,0.7)', letterSpacing: '0.02em', lineHeight: 1.6 }}>
+                    100% Human Doctoral Review &bull; Non-STEM &amp; Humanities Specialists &bull; Zero Ghostwriting Guarantee &bull; Official Compliance Certification
+                  </Text>
+                </Box>
 
               </Stack>
             </Box>
@@ -1262,119 +1308,20 @@ export default function ScholarCraftedLanding() {
         </Box>
       </Box>
 
-      {/* ── Floating 3-Panel Card (How it works strip seamlessly aligned) ── */}
-      <Box
-        id="getting-started"
-        component="section"
-        bg={active.background}
-        style={{
-          position: 'relative',
-          zIndex: 10,
-          paddingTop: rem(48),
-          paddingBottom: rem(24),
-        }}
-      >
-        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          {/* Pulled up to overlap hero bottom edge cleanly with intentional card surface */}
-          <Box
-            style={{
-              marginTop: 0,
-              backgroundColor: active.surface,
-              border: `1px solid ${active.primary}18`,
-              boxShadow: `0 16px 48px rgba(0,0,0,0.16)`,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-            }}
-            className="floating-panel-grid"
-          >
-            {[
-              {
-                num: '01',
-                label: 'Share Your Manuscript',
-                desc: 'Upload your draft or request a quote based on word count. You can also schedule an introductory call to discuss your project first.',
-              },
-              {
-                num: '02',
-                label: 'Guaranteed 24h Fixed Quote',
-                desc: 'Receive an exact price, guaranteed delivery timeline, and customized style plan within 24 hours. No hidden fees or surprise revisions.',
-              },
-              {
-                num: '03',
-                label: 'Tracked Delivery with Faculty Debrief',
-                desc: 'Every edit is delivered directly in Microsoft Word with full tracked changes, followed by an optional debrief call with Dr. Micah Dobson.',
-              },
-            ].map((step, i) => (
-              <Box
-                key={i}
-                px={{ base: rem(24), md: rem(36) }}
-                py={{ base: rem(28), md: rem(36) }}
-                style={{
-                  borderLeft: i > 0 ? `1px solid ${active.primary}14` : undefined,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: rem(12),
-                  backgroundColor: active.surface,
-                  transition: 'background-color 0.2s ease',
-                }}
-              >
-                <Text
-                  size="xs"
-                  fw={700}
-                  c={active.accent}
-                  style={{
-                    letterSpacing: '0.16em',
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                  }}
-                >
-                  {step.num}
-                </Text>
-                <Text
-                  fw={700}
-                  size="md"
-                  c={active.primary}
-                  lh={1.3}
-                  style={{
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    fontSize: rem(19),
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {step.label}
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.65} style={{ flex: 1 }}>
-                  {step.desc}
-                </Text>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-
-        {/* Responsive override */}
-        <style>{`
-          @media (max-width: 768px) {
-            .floating-panel-grid {
-              grid-template-columns: 1fr !important;
-              margin-top: 0 !important;
-            }
-            .floating-panel-grid > div {
-              border-left: none !important;
-              border-top: 1px solid rgba(0,0,0,0.08);
-            }
-            .floating-panel-grid > div:first-child {
-              border-top: none;
-            }
-          }
-        `}</style>
-      </Box>
-
-      {/* ── PATH 1: Research Journey Stages (Wide 1240 Content) ── */}
-      <ResearchStageSection active={active} />
-
-      {/* ── Prestigious Academic Trust Bar ── */}
+      {/* ── Proof Metrics Bar ── */}
       <AcademicTrustBar active={active} />
 
-      {/* ── PATH 2: Find Your Starting Point / By Situation (Wide 1340 Content) ── */}
+      {/* ── Interactive Section: Find Your Starting Point ── */}
       <ManuscriptSituationSection active={active} />
+
+      {/* ── Two Core Outcome Tracks ── */}
+      <TwoOutcomeTracksSection active={active} />
+
+      {/* ── Low-Friction Entry Hook: $29 Express Diagnostic ── */}
+      <ExpressDiagnosticBanner active={active} />
+
+      {/* ── The 6-Step Publication Execution Flow ── */}
+      <PublicationExecutionFlowSection active={active} />
 
       {/* Testimonials Carousel */}
       <Box component="section" py={{ base: rem(60), md: rem(100) }} bg={active.background}>
@@ -1510,7 +1457,7 @@ export default function ScholarCraftedLanding() {
                 </Text>
 
                 <Group gap="sm" wrap="wrap">
-                  <Link href="/order?service=editing" style={{ textDecoration: 'none' }}>
+                  <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }}>
                     <Button
                       size="md"
                       radius={0}
@@ -1524,7 +1471,22 @@ export default function ScholarCraftedLanding() {
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                       }}
                     >
-                      See Transparent Per-Word Rates
+                      Request Custom Project Scope
+                    </Button>
+                  </Link>
+                  <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }}>
+                    <Button
+                      size="md"
+                      radius={0}
+                      variant="outline"
+                      style={{
+                        borderColor: `${active.primary}30`,
+                        color: active.primary,
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      }}
+                    >
+                      Express Diagnostic ($29)
                     </Button>
                   </Link>
                 </Group>

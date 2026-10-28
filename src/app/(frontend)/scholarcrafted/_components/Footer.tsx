@@ -85,107 +85,87 @@ export function Footer({ bg }: { bg?: string }) {
             </Group>
           </Stack>
 
-          {/* Column 2: Academic Editing */}
+          {/* Column 2: Core Services */}
           <Stack gap="lg">
             <Text
               size="xs"
               c="white"
               style={{ letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
             >
-              Academic Editing
+              Services
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/order?focus=thesis" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/services/thesis-to-journal" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Thesis editing & proofreading
+                  Track A: Thesis-to-Journal &amp; Paper Prep
                 </Text>
               </Link>
-              <Link href="/order?focus=dissertation" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/services/monograph-architecture" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Dissertation editing & defense polish
+                  Track B: Monograph &amp; Book Architecture
                 </Text>
               </Link>
-              <Link href="/order?focus=journal-article" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/services/monograph-architecture" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Journal article & empirical paper editing
+                  5-Stage Academic Book Production
                 </Text>
               </Link>
-              <Link href="/order?focus=resubmission" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?pathway=scope&track=a" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Revise & Resubmit (R&R) response support
+                  Revise &amp; Resubmit (R&amp;R) Response Matrices
                 </Text>
               </Link>
-              <Link href="/order?focus=abstract" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?pathway=scope" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Abstract & executive summary polish
+                  LaTeX &amp; Typst Document Engineering
                 </Text>
               </Link>
-              <Link href="/order?focus=case-report" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Medical & case report editing (CARE)
-                </Text>
-              </Link>
-              <Link href="/order?focus=systematic-review" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Systematic review & PRISMA polish
-                </Text>
-              </Link>
-              <Link href="/order?service=editing" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?pathway=scope" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
-                  Compare all editing plans →
+                  Explore All Outcome Tracks &rarr;
                 </Text>
               </Link>
             </Stack>
           </Stack>
 
-          {/* Column 3: Publication Support */}
+          {/* Column 3: Pathways & Access */}
           <Stack gap="lg">
             <Text
               size="xs"
               c="white"
               style={{ letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
             >
-              Publication Support
+              Pathways &amp; Access
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/order?service=journal&tier=pro" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Journal submission service ($149)
-                </Text>
-              </Link>
-              <Link href="/order?focus=journal-formatting" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Manuscript formatting to target journal
-                </Text>
-              </Link>
-              <Link href="/order?service=journal&tier=essentials" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Journal selection & scope analysis
-                </Text>
-              </Link>
-              <Link href="/order?service=journal&tier=full" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  End-to-end publication pack
-                </Text>
-              </Link>
-              <Link href="/order?service=ai-audit&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  AI manuscript & citation risk audit ($29)
-                </Text>
-              </Link>
-              <Link href="/order?service=book&single=true" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Academic book manuscript & proposal
-                </Text>
-              </Link>
-              <Link href="/request-review?service=editing&tier=scientific" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Pre-submission peer review report
-                </Text>
-              </Link>
-              <Link href="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
-                  Compare all publication packs →
+                  Express Structural Diagnostic ($29)
+                </Text>
+              </Link>
+              <Link href="/order?pathway=scope" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link">
+                  Request Custom Milestone Scope
+                </Text>
+              </Link>
+              <a
+                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <Text size="sm" className="footer-link">
+                  Schedule Call with Dr. Micah Dobson
+                </Text>
+              </a>
+              <Link href="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link">
+                  Strategic Client Intake Hub
+                </Text>
+              </Link>
+              <Link href="/faq" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link">
+                  365-Day Re-Editing Policy
                 </Text>
               </Link>
             </Stack>
@@ -198,47 +178,32 @@ export function Footer({ bg }: { bg?: string }) {
               c="white"
               style={{ letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
             >
-              The Institution
+              Institution &amp; Ethics
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/request-review" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
-                  Request 24h project review & quote
+              <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link">
+                  Our Scholarly Methodology
                 </Text>
               </Link>
-              <Link href="/consultation" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Schedule call with Dr. Micah Dobson
-                </Text>
-              </Link>
-              <Link href="/how-it-works" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Our scholarly methodology
-                </Text>
-              </Link>
-              <Link href="/publication-ethics" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Publication ethics & COPE standards
+                  Publication Ethics &amp; COPE Standards
                 </Text>
               </Link>
               <Link href="/confidentiality" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Strict NDA & manuscript security
+                  Strict NDA &amp; Manuscript Security
                 </Text>
               </Link>
-              <Link href="/resources" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/faq" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Downloadable thesis & article blueprints
-                </Text>
-              </Link>
-              <Link href="/blog" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Strategic academic library
+                  Frequently Asked Questions
                 </Text>
               </Link>
               <Link href="/terms" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Terms & 365-day re-editing guarantee
+                  Terms &amp; Milestone Policies
                 </Text>
               </Link>
             </Stack>

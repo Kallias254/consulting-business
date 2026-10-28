@@ -138,6 +138,10 @@ export async function POST(req: NextRequest) {
 
 function getServiceLabel(service: string, tier: string): string {
   const serviceMap: Record<string, string> = {
+    diagnostic: 'Express Structural & Rigor Diagnostic ($29)',
+    'track-a': 'Track A: Thesis-to-Journal & Paper Preparation',
+    'track-b': 'Track B: Monograph & Book Architecture',
+    scope: 'Custom Integrated Project Scope',
     editing: 'Editing & Compliance',
     'ai-audit': 'AI Manuscript Audit',
     publication: 'Publication Support',
@@ -145,6 +149,9 @@ function getServiceLabel(service: string, tier: string): string {
     book: 'Book Manuscript Publishing',
   }
   const tierMap: Record<string, string> = {
+    diagnostic: 'Express Diagnostic ($29)',
+    'track-a': 'Track A: Short-Form',
+    'track-b': 'Track B: Long-Form',
     advanced: 'Advanced Editing',
     premium: 'Premium Editing',
     scientific: 'Scientific Editing Pro',

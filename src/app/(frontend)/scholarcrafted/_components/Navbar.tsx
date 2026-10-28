@@ -22,6 +22,7 @@ import { usePathname } from 'next/navigation'
 import {
   IconPencil,
   IconBook2,
+  IconFileText,
   IconShieldCheck,
   IconChevronDown,
   IconArrowRight,
@@ -56,22 +57,16 @@ export function Navbar() {
 
   const services = [
     {
-      href: '/services/ai-manuscript-audit',
-      icon: <IconShieldCheck size={20} />,
-      label: 'AI Manuscript Audit',
-      desc: 'Audit your AI-assisted research before journal submission. Citation gaps, risk analysis & debrief.',
+      href: '/services/thesis-to-journal',
+      icon: <IconFileText size={20} />,
+      label: 'Track A: Thesis-to-Journal & Paper Prep',
+      desc: 'Extract standalone articles from dissertation chapters, theoretical framing, R&R matrices & journal compliance.',
     },
     {
-      href: '/services/editing-proofreading',
-      icon: <IconPencil size={20} />,
-      label: 'Editing & Compliance',
-      desc: 'Line editing, academic tone, style conformity & editorial certificate. Priced per word.',
-    },
-    {
-      href: '/services/publication-support',
+      href: '/services/monograph-architecture',
       icon: <IconBook2 size={20} />,
-      label: 'Publication Support',
-      desc: 'Journal selection, cover letters, book proposals, galley proofs & indexing.',
+      label: 'Track B: Monograph & Book Architecture',
+      desc: 'Dissertation-to-monograph conversion, cumulative chapter logic, press proposals (Oxford, Routledge) & 5-stage production.',
     },
   ]
 
@@ -187,7 +182,24 @@ export function Navbar() {
                 </HoverCard.Dropdown>
               </HoverCard>
 
-              {/* About */}
+              {/* Express Diagnostic */}
+              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Box className={`nav-link-wrapper ${isActive('/order') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                  <Center inline>
+                    <Text
+                      fw={600}
+                      size="xs"
+                      className="nav-link"
+                      c={active.accent}
+                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+                    >
+                      EXPRESS DIAGNOSTIC ($29)
+                    </Text>
+                  </Center>
+                </Box>
+              </Link>
+
+              {/* About / Ethics */}
               <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box className={`nav-link-wrapper ${isActive('/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
@@ -198,14 +210,14 @@ export function Navbar() {
                       c={active.primary}
                       style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
                     >
-                      ABOUT
+                      ABOUT / ETHICS
                     </Text>
                   </Center>
                 </Box>
               </Link>
 
               {/* CTA */}
-              <Link href="/order?service=editing&tier=premium" style={{ textDecoration: 'none' }}>
+              <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }}>
                 <Button
                   variant="filled"
                   size="sm"
@@ -213,7 +225,7 @@ export function Navbar() {
                   className="impeccable-button"
                   style={{ backgroundColor: active.accent, color: '#ffffff', whiteSpace: 'nowrap', fontWeight: 600, border: 'none' }}
                 >
-                  SUBMIT A PROJECT
+                  REQUEST CUSTOM QUOTE
                 </Button>
               </Link>
             </Group>
@@ -330,7 +342,23 @@ export function Navbar() {
               </Stack>
             </Box>
 
-            {/* About */}
+            {/* Express Diagnostic */}
+            <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }} onClick={close}>
+              <Box
+                py={rem(16)}
+                style={{
+                  borderBottom: `1px solid ${active.primary}10`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text fw={600} size="md" c={active.accent}>Express Diagnostic ($29)</Text>
+                <IconArrowRight size={16} color={active.accent} />
+              </Box>
+            </Link>
+
+            {/* About / Ethics */}
             <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
               <Box
                 py={rem(16)}
@@ -341,7 +369,7 @@ export function Navbar() {
                   justifyContent: 'space-between',
                 }}
               >
-                <Text fw={600} size="md" c={active.primary}>About Us</Text>
+                <Text fw={600} size="md" c={active.primary}>About &amp; Ethics</Text>
                 <IconArrowRight size={16} color={active.accent} />
               </Box>
             </Link>
@@ -372,7 +400,7 @@ export function Navbar() {
               backgroundColor: active.background,
             }}
           >
-            <Link href="/order?service=editing&tier=premium" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }} onClick={close}>
               <Button
                 variant="filled"
                 fullWidth
@@ -380,7 +408,7 @@ export function Navbar() {
                 radius={0}
                 style={{ backgroundColor: active.accent, color: '#fff', fontWeight: 700, border: 'none' }}
               >
-                SUBMIT A PROJECT
+                REQUEST CUSTOM QUOTE
               </Button>
             </Link>
             <Text size="xs" c="dimmed" mt={rem(10)} style={{ textAlign: 'center', letterSpacing: '0.04em' }}>

@@ -23,23 +23,35 @@ const redirects = async () => {
       permanent: true,
     },
 
-    // Absorbed services → redirect to their new parent page
-    // citation-audits → now part of Editing & Compliance
+    // Absorbed services → redirect to new Track pages and Express Diagnostic
+    {
+      source: '/services/editing-proofreading',
+      destination: '/services/thesis-to-journal',
+      permanent: true,
+    },
+    {
+      source: '/services/publication-support',
+      destination: '/services/monograph-architecture',
+      permanent: true,
+    },
+    {
+      source: '/services/ai-manuscript-audit',
+      destination: '/order?pathway=diagnostic',
+      permanent: true,
+    },
     {
       source: '/services/citation-audits',
-      destination: '/services/editing-proofreading',
+      destination: '/services/thesis-to-journal',
       permanent: true,
     },
-    // indexing-proofs → now part of Publication Support
     {
       source: '/services/indexing-proofs',
-      destination: '/services/publication-support',
+      destination: '/services/monograph-architecture',
       permanent: true,
     },
-    // manuscript-preparation → now part of Publication Support
     {
       source: '/services/manuscript-preparation',
-      destination: '/services/publication-support',
+      destination: '/services/monograph-architecture',
       permanent: true,
     },
   ]
