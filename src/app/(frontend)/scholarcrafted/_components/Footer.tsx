@@ -138,14 +138,19 @@ export function Footer({ bg }: { bg?: string }) {
               Pathways &amp; Access
             </Text>
             <Stack gap={rem(10)}>
-              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
-                  Express Structural Diagnostic ($29)
+                  Request Custom Project Scope &rarr;
                 </Text>
               </Link>
-              <Link href="/order?pathway=scope" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?track=a" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Request Custom Milestone Scope
+                  Track A: Journal Article Scoping
+                </Text>
+              </Link>
+              <Link href="/order?track=b" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link">
+                  Track B: Monograph Book Scoping
                 </Text>
               </Link>
               <a
@@ -158,11 +163,6 @@ export function Footer({ bg }: { bg?: string }) {
                   Schedule Call with Dr. Micah Dobson
                 </Text>
               </a>
-              <Link href="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text size="sm" className="footer-link">
-                  Strategic Client Intake Hub
-                </Text>
-              </Link>
               <Link href="/faq" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   365-Day Re-Editing Policy

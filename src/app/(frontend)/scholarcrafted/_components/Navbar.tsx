@@ -182,24 +182,7 @@ export function Navbar() {
                 </HoverCard.Dropdown>
               </HoverCard>
 
-              {/* Express Diagnostic */}
-              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Box className={`nav-link-wrapper ${isActive('/order') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
-                  <Center inline>
-                    <Text
-                      fw={600}
-                      size="xs"
-                      className="nav-link"
-                      c={active.accent}
-                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
-                    >
-                      EXPRESS DIAGNOSTIC ($29)
-                    </Text>
-                  </Center>
-                </Box>
-              </Link>
-
-              {/* About / Ethics */}
+              {/* About & Ethics */}
               <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box className={`nav-link-wrapper ${isActive('/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
@@ -210,14 +193,31 @@ export function Navbar() {
                       c={active.primary}
                       style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
                     >
-                      ABOUT / ETHICS
+                      ABOUT &amp; ETHICS
+                    </Text>
+                  </Center>
+                </Box>
+              </Link>
+
+              {/* FAQ & Policies */}
+              <Link href="/faq" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Box className={`nav-link-wrapper ${isActive('/faq') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                  <Center inline>
+                    <Text
+                      fw={600}
+                      size="xs"
+                      className="nav-link"
+                      c={active.primary}
+                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+                    >
+                      FAQ &amp; POLICIES
                     </Text>
                   </Center>
                 </Box>
               </Link>
 
               {/* CTA */}
-              <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }}>
+              <Link href="/order" style={{ textDecoration: 'none' }}>
                 <Button
                   variant="filled"
                   size="sm"
@@ -342,23 +342,7 @@ export function Navbar() {
               </Stack>
             </Box>
 
-            {/* Express Diagnostic */}
-            <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }} onClick={close}>
-              <Box
-                py={rem(16)}
-                style={{
-                  borderBottom: `1px solid ${active.primary}10`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text fw={600} size="md" c={active.accent}>Express Diagnostic ($29)</Text>
-                <IconArrowRight size={16} color={active.accent} />
-              </Box>
-            </Link>
-
-            {/* About / Ethics */}
+            {/* About & Ethics */}
             <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
               <Box
                 py={rem(16)}
@@ -400,7 +384,7 @@ export function Navbar() {
               backgroundColor: active.background,
             }}
           >
-            <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }} onClick={close}>
+            <Link href="/order" style={{ textDecoration: 'none' }} onClick={close}>
               <Button
                 variant="filled"
                 fullWidth

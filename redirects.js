@@ -36,7 +36,7 @@ const redirects = async () => {
     },
     {
       source: '/services/ai-manuscript-audit',
-      destination: '/order?pathway=diagnostic',
+      destination: '/services/thesis-to-journal',
       permanent: true,
     },
     {

@@ -88,15 +88,15 @@ const homeFaqs = [
   },
   {
     q: 'How does your pricing and milestone proposal work?',
-    a: 'Unlike transactional proofreading platforms that charge by micro-word increments, ScholarCrafted provides single integrated milestone proposals with transparent flat fees ($600–$1,800 for journal articles; $1,500–$3,500+ for book monographs). Terms are divided into a 50% deposit upfront and 50% upon final delivery. If you begin with our $29 Express Diagnostic, 100% of your fee is credited toward your full project scope.',
+    a: 'Unlike transactional proofreading platforms that charge by micro-word increments, ScholarCrafted provides single integrated milestone proposals with transparent flat fees ($600–$1,800 for journal articles; $1,500–$3,500+ for book monographs). Terms are structured into a 50% deposit upfront and 50% upon final delivery of your publication-ready files.',
   },
   {
-    q: 'What is the Express Structural & Rigor Diagnostic ($29), and how does it work?',
-    a: 'The $29 diagnostic is our low-friction entry point for scholars seeking rapid structural validation. You upload your Abstract and Introduction (or up to 10 pages). Within 24–48 hours, a Senior Manuscript Architect delivers a 2-page written assessment evaluating your theoretical hook, argument pacing, and citation/integrity flags, plus an optional 15-minute strategy debrief call.',
+    q: 'How does the project scoping process work?',
+    a: 'You submit your manuscript details (word count, target journal or press, and current draft). Within 24 hours, Dr. Micah Dobson delivers a comprehensive, itemized milestone proposal outlining exact deliverables, schedule, and pricing. You can also schedule an optional 15-minute scoping call to discuss your timeline before initiating work.',
   },
   {
     q: 'What is your turnaround time, and can you accommodate urgent defense or submission deadlines?',
-    a: 'Express Diagnostics are delivered within 24 to 48 hours. Standard article conversions typically range between 5 and 10 business days depending on document scope and word count. For urgent committee deadlines or journal R&R windows, expedited scheduling is available upon request.',
+    a: 'Standard article conversions typically range between 5 and 10 business days depending on document scope and word count. For urgent committee deadlines or journal R&R windows, expedited scheduling is available upon request.',
   },
   {
     q: 'Do you offer re-editing support if my committee or reviewers request revisions?',
@@ -144,8 +144,6 @@ const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
     <path d="M18 6C16 0 22 -2 24 4C21 6 18 6 18 6Z" fill={color} />
   </svg>
 )
-
-// ─── Homepage Need Selector ─────────────────────────────────────────────────
 
 // ─── Homepage Need & Situation Selectors ─────────────────────────────────────
 
@@ -200,19 +198,19 @@ const homeNeeds = [
   },
   {
     id: 'citations-mess',
-    label: 'I need to check citations, DOIs, and AI flags before defense',
-    subLabel: 'Express Diagnostic · 2-page rigor audit & 24–48h screening',
-    serviceIds: ['diagnostic'],
-    recommended: 'diagnostic',
-    targetTrack: 'Express Diagnostic ($29)',
+    label: 'I need to check citations, DOIs, and style compliance before submission',
+    subLabel: 'Track A · Rigor audit, DOI cross-checks & template alignment',
+    serviceIds: ['track_a'],
+    recommended: 'track_a',
+    targetTrack: 'Track A: Short-Form',
   },
   {
     id: 'defense-coming',
-    label: 'My defense is in weeks and my draft needs a structural check',
-    subLabel: 'Express Diagnostic · Rapid pre-submission triage & risk memo',
-    serviceIds: ['diagnostic'],
-    recommended: 'diagnostic',
-    targetTrack: 'Express Diagnostic ($29)',
+    label: 'My defense is in weeks and my draft needs rapid structural triage',
+    subLabel: 'Track A / Track B · Priority developmental review & defense polish',
+    serviceIds: ['track_a', 'track_b'],
+    recommended: 'track_a',
+    targetTrack: 'Track A: Short-Form',
   },
 ]
 
@@ -223,22 +221,15 @@ const homeServices: Record<string, {
     badge: 'Track A · Short-Form',
     title: 'Thesis-to-Journal & Paper Preparation',
     desc: 'Isolate your empirical core, extract standalone 7,000-word articles from sprawling dissertation chapters, resolve committee critique, and format for target peer-reviewed journals (Word/LaTeX).',
-    link: '/order?pathway=scope&track=a',
+    link: '/order?track=a',
     cta: 'Explore Track A / Request Scope',
   },
   track_b: {
     badge: 'Track B · Long-Form',
     title: 'Monograph & Book Architecture',
     desc: 'From stalled chapters to contracted academic books. Full dissertation-to-monograph structural conversion, cumulative chapter logic, press proposals (Oxford, Cambridge, Routledge), and 5-stage production prep.',
-    link: '/order?pathway=scope&track=b',
+    link: '/order?track=b',
     cta: 'Explore Track B / Book Scoping Call',
-  },
-  diagnostic: {
-    badge: '$29 Flat Fee (100% Credited Toward Full Scope)',
-    title: 'Express Structural & Rigor Diagnostic',
-    desc: 'Upload your Abstract + Intro (or 10-page sample). Receive a 2-page written assessment of your theoretical hook, argument logic, and citation integrity within 24–48 hours, plus an optional 15-minute strategy debrief call.',
-    link: '/order?pathway=diagnostic',
-    cta: 'Claim $29 Diagnostic',
   },
 }
 
@@ -375,7 +366,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     <strong style={{ color: active.primary }}>Deliverable Assurance:</strong> 100% Track Changes in Word, style manual adherence (APA 7, Chicago, IEEE), and an official Editorial Compliance Certificate.
                   </Text>
                 </Box>
-                <Link href="/order?pathway=scope&track=a" style={{ textDecoration: 'none' }}>
+                <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
                   <Button
                     fullWidth
                     size="md"
@@ -390,7 +381,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                       height: rem(48),
                     }}
                   >
-                    Explore Track A / Request Scope
+                    Request Track A Scope
                   </Button>
                 </Link>
               </Box>
@@ -482,7 +473,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     <strong style={{ color: active.primary }}>Press Coordination:</strong> End-to-end guidance from press proposal to printed book. Single dedicated editorial contact with 50/50 payment milestone terms.
                   </Text>
                 </Box>
-                <Link href="/order?pathway=scope&track=b" style={{ textDecoration: 'none' }}>
+                <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
                   <Button
                     fullWidth
                     size="md"
@@ -498,7 +489,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                       height: rem(48),
                     }}
                   >
-                    Explore Track B / Book Scoping Call
+                    Request Track B Scope
                   </Button>
                 </Link>
               </Box>
@@ -510,12 +501,12 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
   )
 }
 
-// ─── SECTION 1.2: Low-Friction Entry Hook ($29 Express Diagnostic) ───────────
+// ─── SECTION 1.2: Consultative Scoping Callout ───────────────────────────────
 
-function ExpressDiagnosticBanner({ active }: { active: Record<string, string> }) {
+function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
   return (
     <Box
-      id="express-diagnostic"
+      id="project-scoping"
       component="section"
       py={{ base: rem(48), md: rem(64) }}
       bg={active.surface}
@@ -548,7 +539,7 @@ function ExpressDiagnosticBanner({ active }: { active: Record<string, string> })
                     fontWeight: 700,
                   }}
                 >
-                  LOW-FRICTION DIAGNOSTIC ENTRY
+                  CONFIDENTIAL FACULTY ADVISORY
                 </Badge>
                 <Badge
                   size="sm"
@@ -560,7 +551,7 @@ function ExpressDiagnosticBanner({ active }: { active: Record<string, string> })
                     fontWeight: 700,
                   }}
                 >
-                  100% FEE CREDIT
+                  50/50 MILESTONE TERMS
                 </Badge>
               </Group>
 
@@ -574,20 +565,20 @@ function ExpressDiagnosticBanner({ active }: { active: Record<string, string> })
                   lineHeight: 1.2,
                 }}
               >
-                Express Structural &amp; Rigor Diagnostic ($29)
+                Guaranteed 24-Hour Scoped Milestone Proposal
               </Title>
 
               <Text size="sm" c="dimmed" lh={1.7}>
-                Stop worrying about desk-rejection, logic gaps, or citation discrepancies. Upload your Abstract + Introduction (or up to 10 sample pages) to receive a fast, doctoral-grade audit before submission.
+                Share your draft word count and target journal or university press. Dr. Micah Dobson and your assigned doctoral editor will review your project and deliver an itemized milestone proposal within 24 hours.
               </Text>
 
               <Stack gap={rem(8)}>
                 {[
-                  '2-Page Written Structural & Logic Audit of your central thesis and argument pacing',
-                  'Theoretical Hook & Scholarly Contribution Assessment',
-                  'Citation Integrity & DOI Cross-Check benchmarked against 200M+ publications',
-                  'Optional 15-Minute Strategy Debrief Call with a Senior Manuscript Architect',
-                  '100% Fee Credit: Your $29 is fully credited toward full developmental editing if scoped',
+                  'Itemized milestone proposal with transparent flat fees and guaranteed delivery dates',
+                  '50% deposit upfront / 50% upon final delivery of publication-ready files',
+                  '100% Microsoft Word Track Changes with full developmental margin commentary',
+                  '365-day revision coverage for advisor comments, committee feedback, and journal R&R',
+                  'Optional 15-minute scoping call directly with Dr. Micah Dobson before work begins',
                 ].map((item, idx) => (
                   <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                     <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -618,40 +609,63 @@ function ExpressDiagnosticBanner({ active }: { active: Record<string, string> })
                 c={active.accent}
                 style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
               >
-                RAPID 24–48 HOUR QUEUE
+                24-HOUR TURNAROUND
               </Text>
               <Text
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: rem(48),
+                  fontSize: rem(32),
                   fontWeight: 600,
                   color: active.primary,
-                  lineHeight: 1,
+                  lineHeight: 1.2,
                 }}
               >
-                $29
+                Fixed Milestone Pricing
               </Text>
               <Text size="xs" c="dimmed" lh={1.6} style={{ maxWidth: 320 }}>
-                A low-risk pre-submission check. If you decide to execute revisions yourself, you keep the full report. If you partner with us for full editing, the diagnostic is free.
+                Transparent flat fees ($600–$1,800 for articles; $1,500–$3,500+ for books). Never unpredictable word-count sliders.
               </Text>
-              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none', width: '100%' }}>
-                <Button
-                  fullWidth
-                  size="md"
-                  radius={0}
-                  rightSection={<IconArrowRight size={16} />}
-                  style={{
-                    backgroundColor: active.accent,
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    height: rem(48),
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    letterSpacing: '0.04em',
-                  }}
+              <Stack gap="xs" style={{ width: '100%' }}>
+                <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>
+                  <Button
+                    fullWidth
+                    size="md"
+                    radius={0}
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{
+                      backgroundColor: active.accent,
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      height: rem(48),
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    Request Project Scope
+                  </Button>
+                </Link>
+                <a
+                  href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none', width: '100%' }}
                 >
-                  Claim $29 Diagnostic
-                </Button>
-              </Link>
+                  <Button
+                    fullWidth
+                    size="md"
+                    radius={0}
+                    variant="outline"
+                    style={{
+                      borderColor: `${active.primary}30`,
+                      color: active.primary,
+                      fontWeight: 600,
+                      height: rem(44),
+                    }}
+                  >
+                    Book 15-Min Scoping Call
+                  </Button>
+                </a>
+              </Stack>
             </Box>
           </SimpleGrid>
         </Box>
@@ -793,7 +807,7 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
           {[
             { val: '500+', label: 'Scholars & PhDs Guided', sub: 'Across 40+ academic disciplines' },
             { val: '100%', label: 'Tracked-Changes Human Review', sub: 'Zero automated rewriting or shortcuts' },
-            { val: '24–48h', label: 'Diagnostic Queue Turnaround', sub: 'Rapid pre-submission triage queue' },
+            { val: '24h', label: 'Fixed Milestone Scoping', sub: 'Guaranteed proposal turnaround' },
             { val: 'Top Presses', label: 'Oxford, Cambridge, Routledge & Q1s', sub: 'Press-ready formatting compliance' },
           ].map((stat, i) => (
             <Box
@@ -1248,7 +1262,7 @@ export default function ScholarCraftedLanding() {
 
                 {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
                 <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
-                  <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <Link href="/order" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
@@ -1267,10 +1281,16 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Get Express Diagnostic ($29)
+                      Request Custom Project Scope
                     </Button>
                   </Link>
-                  <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }} className="hero-btn-link">
+                  <a
+                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
+                    className="hero-btn-link"
+                  >
                     <Button
                       size="lg"
                       radius={0}
@@ -1290,16 +1310,57 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Request Full Project Scope
+                      Speak to Faculty / Book Call
                     </Button>
-                  </Link>
+                  </a>
                 </Group>
 
                 {/* Trust Badges */}
-                <Box pt="xs" style={{ borderTop: '1px solid rgba(255,255,255,0.15)', width: '100%' }}>
-                  <Text size="xs" style={{ color: 'rgba(255,255,255,0.7)', letterSpacing: '0.02em', lineHeight: 1.6 }}>
-                    100% Human Doctoral Review &bull; Non-STEM &amp; Humanities Specialists &bull; Zero Ghostwriting Guarantee &bull; Official Compliance Certification
-                  </Text>
+                <Box pt="sm" style={{ borderTop: '1px solid rgba(255,255,255,0.2)', width: '100%' }}>
+                  <Group gap={rem(8)} wrap="wrap">
+                    {[
+                      '100% Human Doctoral Review',
+                      'Non-STEM & Humanities Specialists',
+                      'Zero Ghostwriting Guarantee',
+                      'Official Compliance Certification',
+                    ].map((badge, idx) => (
+                      <Group
+                        key={idx}
+                        gap={rem(6)}
+                        align="center"
+                        wrap="nowrap"
+                        style={{
+                          backgroundColor: 'rgba(0, 0, 0, 0.55)',
+                          border: '1px solid rgba(255, 255, 255, 0.28)',
+                          padding: `${rem(5)} ${rem(10)}`,
+                          borderRadius: rem(2),
+                        }}
+                      >
+                        <Box
+                          style={{
+                            width: rem(6),
+                            height: rem(6),
+                            borderRadius: '50%',
+                            backgroundColor: active.accent,
+                            flexShrink: 0,
+                          }}
+                        />
+                        <Text
+                          size="xs"
+                          fw={600}
+                          style={{
+                            color: '#ffffff',
+                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                            letterSpacing: '0.02em',
+                            fontSize: rem(12),
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {badge}
+                        </Text>
+                      </Group>
+                    ))}
+                  </Group>
                 </Box>
 
               </Stack>
@@ -1317,8 +1378,8 @@ export default function ScholarCraftedLanding() {
       {/* ── Two Core Outcome Tracks ── */}
       <TwoOutcomeTracksSection active={active} />
 
-      {/* ── Low-Friction Entry Hook: $29 Express Diagnostic ── */}
-      <ExpressDiagnosticBanner active={active} />
+      {/* ── Consultative Scoping Banner ── */}
+      <FacultyScopingBanner active={active} />
 
       {/* ── The 6-Step Publication Execution Flow ── */}
       <PublicationExecutionFlowSection active={active} />
@@ -1457,7 +1518,7 @@ export default function ScholarCraftedLanding() {
                 </Text>
 
                 <Group gap="sm" wrap="wrap">
-                  <Link href="/order?pathway=scope" style={{ textDecoration: 'none' }}>
+                  <Link href="/order" style={{ textDecoration: 'none' }}>
                     <Button
                       size="md"
                       radius={0}
@@ -1474,7 +1535,12 @@ export default function ScholarCraftedLanding() {
                       Request Custom Project Scope
                     </Button>
                   </Link>
-                  <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }}>
+                  <a
+                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
+                  >
                     <Button
                       size="md"
                       radius={0}
@@ -1486,9 +1552,9 @@ export default function ScholarCraftedLanding() {
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                       }}
                     >
-                      Express Diagnostic ($29)
+                      Book 15-Min Scoping Call
                     </Button>
-                  </Link>
+                  </a>
                 </Group>
               </Stack>
             </SimpleGrid>

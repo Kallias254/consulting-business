@@ -113,7 +113,7 @@ export default function MonographArchitecturePage() {
             </Text>
 
             <Group gap="md" wrap="wrap" pt="sm">
-              <Link href="/order?pathway=scope&track=b" style={{ textDecoration: 'none' }}>
+              <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
@@ -359,7 +359,7 @@ export default function MonographArchitecturePage() {
                 </Text>
 
                 <Stack gap="sm">
-                  <Link href="/order?pathway=scope&track=b" style={{ textDecoration: 'none' }}>
+                  <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
                     <Button
                       fullWidth
                       size="md"

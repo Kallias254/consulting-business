@@ -56,7 +56,7 @@ const trackAFaqs = [
   },
   {
     q: 'How does your milestone pricing work?',
-    a: 'Rather than charging unpredictable micro-fees by word count, we deliver a single integrated milestone proposal (typically $600–$1,800). Terms are structured with 50% upfront deposit and 50% upon final delivery. If you begin with our $29 Express Diagnostic, 100% of your fee is credited toward your milestone scope.',
+    a: 'Rather than charging unpredictable micro-fees by word count, we deliver a single integrated milestone proposal (typically $600–$1,800). Terms are structured with 50% upfront deposit and 50% upon final delivery. Within 24 hours of receiving your project brief, Dr. Micah Dobson delivers an itemized milestone proposal outlining exact deliverables, schedule, and pricing.',
   },
 ]
 
@@ -115,7 +115,7 @@ export default function ThesisToJournalPage() {
             </Text>
 
             <Group gap="md" wrap="wrap" pt="sm">
-              <Link href="/order?pathway=scope&track=a" style={{ textDecoration: 'none' }}>
+              <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
@@ -134,7 +134,12 @@ export default function ThesisToJournalPage() {
                   Request Track A Project Scope
                 </Button>
               </Link>
-              <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }}>
+              <a
+                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
                 <Button
                   size="lg"
                   radius={0}
@@ -149,9 +154,9 @@ export default function ThesisToJournalPage() {
                     paddingRight: rem(24),
                   }}
                 >
-                  Get Express Diagnostic ($29)
+                  Book 15-Min Scoping Call
                 </Button>
-              </Link>
+              </a>
             </Group>
 
             {/* Quality Badges */}
@@ -345,7 +350,7 @@ export default function ThesisToJournalPage() {
                     'Full developmental line editing and structural argument restructuring included',
                     'Target journal guidelines compliance audit & cover letter included',
                     '365 days of complimentary committee/reviewer revision coverage included',
-                    '100% fee credit applied if you completed the $29 Express Diagnostic',
+                    'Official Editorial Compliance Certificate issued upon final completion',
                   ].map((item, idx) => (
                     <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                       <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
@@ -376,7 +381,7 @@ export default function ThesisToJournalPage() {
                 </Text>
 
                 <Stack gap="sm">
-                  <Link href="/order?pathway=scope&track=a" style={{ textDecoration: 'none' }}>
+                  <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
                     <Button
                       fullWidth
                       size="md"
@@ -392,7 +397,12 @@ export default function ThesisToJournalPage() {
                       Request Project Scope
                     </Button>
                   </Link>
-                  <Link href="/order?pathway=diagnostic" style={{ textDecoration: 'none' }}>
+                  <a
+                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
+                  >
                     <Button
                       fullWidth
                       size="md"
@@ -405,9 +415,9 @@ export default function ThesisToJournalPage() {
                         height: rem(48),
                       }}
                     >
-                      Start with $29 Diagnostic
+                      Book 15-Min Scoping Call
                     </Button>
-                  </Link>
+                  </a>
                 </Stack>
               </Box>
             </SimpleGrid>
