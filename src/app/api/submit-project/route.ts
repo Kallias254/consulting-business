@@ -138,11 +138,11 @@ export async function POST(req: NextRequest) {
 
 function getServiceLabel(service: string, tier: string): string {
   const serviceMap: Record<string, string> = {
-    'journal-article': 'Journal Article or Standalone Chapter',
-    'book-monograph': 'Book Monograph & University Press Proposal',
-    'full-dissertation': 'Full Dissertation / Thesis Pre-Defense Polish',
-    'rnr-rebuttal': 'Revise & Resubmit (R&R) & Reviewer Rebuttal',
-    'bespoke-latex': 'Bespoke Project / Multi-Author / LaTeX Engineering',
+    'journal-article': 'Journal Article or Dissertation Chapter',
+    'book-monograph': 'Book Monograph or University Press Proposal',
+    'full-dissertation': "Full Dissertation or Master's Thesis (Pre-Defense)",
+    'rnr-rebuttal': 'Revise & Resubmit (R&R) Response & Overhaul',
+    'bespoke-latex': 'Bespoke Project, Multi-Author Volume, or LaTeX / Typst',
     diagnostic: 'Express Structural & Rigor Diagnostic ($29)',
     'track-a': 'Track A: Thesis-to-Journal & Paper Preparation',
     'track-b': 'Track B: Monograph & Book Architecture',
@@ -155,11 +155,11 @@ function getServiceLabel(service: string, tier: string): string {
     book: 'Book Manuscript Publishing',
   }
   const tierMap: Record<string, string> = {
-    'journal-article': 'Short-Form Article / Chapter',
-    'book-monograph': 'Long-Form Book / Press Proposal',
-    'full-dissertation': 'Dissertation Pre-Defense',
-    'rnr-rebuttal': 'R&R Response Matrix',
-    'bespoke-latex': 'Bespoke / LaTeX / Multi-Author',
+    'journal-article': 'Journal Article / Chapter',
+    'book-monograph': 'Book Monograph / Proposal',
+    'full-dissertation': 'Dissertation / Thesis',
+    'rnr-rebuttal': 'R&R Response',
+    'bespoke-latex': 'Bespoke / Multi-Author',
     diagnostic: 'Express Diagnostic ($29)',
     'track-a': 'Track A: Short-Form',
     'track-b': 'Track B: Long-Form',

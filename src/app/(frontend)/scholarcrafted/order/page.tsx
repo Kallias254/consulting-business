@@ -70,23 +70,23 @@ const DISCIPLINES = [
 const PROJECT_TYPE_OPTIONS = [
   {
     value: 'journal-article',
-    label: '1. Journal Article or Standalone Chapter (Chapter-to-paper conversion, single chapter, or journal article · 4,000–12,000 words)',
+    label: 'Journal Article or Dissertation Chapter',
   },
   {
     value: 'book-monograph',
-    label: '2. Book Monograph & Press Proposal (University press proposal, sample chapters, or full book manuscript · Oxford, Routledge, etc.)',
+    label: 'Book Monograph or University Press Proposal',
   },
   {
     value: 'full-dissertation',
-    label: "3. Full Dissertation or Thesis (Pre-Defense Polish) (Multi-chapter doctoral dissertation or master's thesis before deposit · 30,000–90,000+ words)",
+    label: "Full Dissertation or Master's Thesis (Pre-Defense)",
   },
   {
     value: 'rnr-rebuttal',
-    label: '4. Revise & Resubmit (R&R) & Reviewer Rebuttal (Point-by-point response matrix, reviewer diplomacy review & manuscript restructuring)',
+    label: 'Revise & Resubmit (R&R) Response & Overhaul',
   },
   {
     value: 'bespoke-latex',
-    label: '5. Bespoke Project / Multi-Author / LaTeX Engineering (Multi-author edited volume, research grant proposal, or specialized LaTeX/Typst formatting)',
+    label: 'Bespoke Project, Multi-Author Volume, or LaTeX / Typst',
   },
 ]
 
@@ -185,7 +185,7 @@ function OrderPageContent() {
     setIsSubmitting(true)
 
     const chosenOption = PROJECT_TYPE_OPTIONS.find((p) => p.value === selectedProjectType)
-    const typeLabel = chosenOption ? chosenOption.label.split(' (')[0] : selectedProjectType
+    const typeLabel = chosenOption ? chosenOption.label : selectedProjectType
 
     try {
       await fetch('/api/submit-project', {
