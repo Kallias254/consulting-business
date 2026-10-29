@@ -67,18 +67,26 @@ const DISCIPLINES = [
   { value: 'Other Non-STEM / Humanities', label: 'Other Non-STEM / Humanities' },
 ]
 
-const TRACK_OPTIONS = [
+const PROJECT_TYPE_OPTIONS = [
   {
-    value: 'track-a',
-    label: 'Track A: Thesis-to-Journal & Paper Preparation (Short-Form: Articles, Chapters, R&R)',
+    value: 'journal-article',
+    label: '1. Journal Article or Standalone Chapter (Chapter-to-paper conversion, single chapter, or journal article · 4,000–12,000 words)',
   },
   {
-    value: 'track-b',
-    label: 'Track B: Monograph & Book Architecture (Long-Form: Books, Multi-Chapter Volumes, Press Proposals)',
+    value: 'book-monograph',
+    label: '2. Book Monograph & Press Proposal (University press proposal, sample chapters, or full book manuscript · Oxford, Routledge, etc.)',
   },
   {
-    value: 'custom',
-    label: 'Custom Milestone Project (Multi-author volume, grant proposal, institutional brief)',
+    value: 'full-dissertation',
+    label: "3. Full Dissertation or Thesis (Pre-Defense Polish) (Multi-chapter doctoral dissertation or master's thesis before deposit · 30,000–90,000+ words)",
+  },
+  {
+    value: 'rnr-rebuttal',
+    label: '4. Revise & Resubmit (R&R) & Reviewer Rebuttal (Point-by-point response matrix, reviewer diplomacy review & manuscript restructuring)',
+  },
+  {
+    value: 'bespoke-latex',
+    label: '5. Bespoke Project / Multi-Author / LaTeX Engineering (Multi-author edited volume, research grant proposal, or specialized LaTeX/Typst formatting)',
   },
 ]
 
@@ -114,11 +122,30 @@ function OrderPageContent() {
   const active = theme.other
   const searchParams = useSearchParams()
 
-  const trackParam = searchParams.get('track')
+  const trackParam = (searchParams.get('type') || searchParams.get('track'))?.toLowerCase()
 
-  // Track selection state: defaults to Track B if track=b, else Track A
-  const initialTrack = trackParam === 'b' ? 'track-b' : 'track-a'
-  const [selectedTrack, setSelectedTrack] = useState<string>(initialTrack)
+  const resolveInitialType = () => {
+    if (!trackParam) return null
+    if (['journal', 'chapter', 'article', 'a', 'track-a', 'track_a'].includes(trackParam)) {
+      return 'journal-article'
+    }
+    if (['book', 'monograph', 'press', 'proposal', 'b', 'track-b', 'track_b'].includes(trackParam)) {
+      return 'book-monograph'
+    }
+    if (['dissertation', 'thesis', 'defense'].includes(trackParam)) {
+      return 'full-dissertation'
+    }
+    if (['rnr', 'review', 'rebuttal', 'revision'].includes(trackParam)) {
+      return 'rnr-rebuttal'
+    }
+    if (['custom', 'bespoke', 'latex', 'multi-author', 'grant'].includes(trackParam)) {
+      return 'bespoke-latex'
+    }
+    return null
+  }
+
+  const [selectedProjectType, setSelectedProjectType] = useState<string | null>(resolveInitialType())
+  const [typeError, setTypeError] = useState(false)
 
   // Form State
   const [salutation, setSalutation] = useState('Dr.')
@@ -149,7 +176,16 @@ function OrderPageContent() {
   // Handle Custom Scope submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!selectedProjectType) {
+      setTypeError(true)
+      return
+    }
+    setTypeError(false)
     setIsSubmitting(true)
+
+    const chosenOption = PROJECT_TYPE_OPTIONS.find((p) => p.value === selectedProjectType)
+    const typeLabel = chosenOption ? chosenOption.label.split(' (')[0] : selectedProjectType
 
     try {
       await fetch('/api/submit-project', {
@@ -161,9 +197,9 @@ function OrderPageContent() {
           lastName,
           email,
           institution,
-          documentType: `${selectedTrack} (${discipline}) · Target: ${targetPub || 'Not specified'}`,
-          service: selectedTrack === 'track-b' ? 'track-b' : 'track-a',
-          tier: selectedTrack === 'track-b' ? 'track-b' : 'track-a',
+          documentType: `${typeLabel} (${discipline}) · Target: ${targetPub || 'Not specified'}`,
+          service: selectedProjectType,
+          tier: selectedProjectType,
           wordCount,
           deadline,
           instructions: `${instructions}${wantCall ? ' [REQUESTED 15-MIN SCOPING CALL WITH DR. DOBSON]' : ''}`,
@@ -536,13 +572,19 @@ function OrderPageContent() {
                         />
                       </SimpleGrid>
 
-                      {/* Target Track */}
+                      {/* Primary Document or Project Type */}
                       <Select
-                        label="Target Outcome Track *"
-                        data={TRACK_OPTIONS}
-                        value={selectedTrack}
-                        onChange={(v) => setSelectedTrack(v ?? 'track-a')}
+                        label="Primary Document or Project Type *"
+                        placeholder="Select your project type (e.g., Chapter, Article, Monograph)..."
+                        data={PROJECT_TYPE_OPTIONS}
+                        value={selectedProjectType}
+                        onChange={(v) => {
+                          setSelectedProjectType(v)
+                          if (v) setTypeError(false)
+                        }}
+                        error={typeError ? 'Please select your document or project type' : undefined}
                         required
+                        clearable
                         radius={0}
                         size="sm"
                       />

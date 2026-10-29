@@ -225,7 +225,7 @@ export function Navbar() {
                   className="impeccable-button"
                   style={{ backgroundColor: active.accent, color: '#ffffff', whiteSpace: 'nowrap', fontWeight: 600, border: 'none' }}
                 >
-                  REQUEST CUSTOM QUOTE
+                  REQUEST PROJECT SCOPE
                 </Button>
               </Link>
             </Group>
@@ -392,7 +392,7 @@ export function Navbar() {
                 radius={0}
                 style={{ backgroundColor: active.accent, color: '#fff', fontWeight: 700, border: 'none' }}
               >
-                REQUEST CUSTOM QUOTE
+                REQUEST PROJECT SCOPE
               </Button>
             </Link>
             <Text size="xs" c="dimmed" mt={rem(10)} style={{ textAlign: 'center', letterSpacing: '0.04em' }}>
