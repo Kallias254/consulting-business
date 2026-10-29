@@ -248,9 +248,9 @@ export default function BlogArticlePage() {
               <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 500 }}>
                 Reading about the problem is the first step. Getting a custom project quote and methodological review from our faculty moves the needle.
               </Text>
-              <Link href="/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/order" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  GET A QUOTE
+                  REQUEST CUSTOM SCOPE
                 </Button>
               </Link>
             </Stack>

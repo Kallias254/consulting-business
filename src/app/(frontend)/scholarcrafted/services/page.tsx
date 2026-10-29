@@ -26,6 +26,7 @@ import {
   IconFileCheck,
   IconChevronRight,
   IconCheck,
+  IconFileText,
 } from '@tabler/icons-react'
 import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
 
@@ -33,56 +34,55 @@ import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
 
 const services = [
   {
-    id: 'editing',
-    eyebrow: 'SERVICE 01 — PER WORD',
-    icon: <IconPencil size={22} />,
-    title: 'Editing & Compliance',
-    tagline: 'Precision editing, language compliance, and style conformity — from grammar to argument structure.',
-    desc: 'Line-by-line editing across three tiers. Every edit delivered in tracked changes. APA, Chicago, MLA, Harvard, Turabian, and institutional deposit compliance. Includes an Editorial Certificate accepted by ProQuest and most university repositories.',
+    id: 'track-a',
+    eyebrow: 'TRACK A — JOURNAL PIPELINE',
+    icon: <IconFileText size={22} />,
+    title: 'Thesis-to-Journal Conversion',
+    tagline: 'Transform dissertation chapters into publication-ready, peer-reviewed journal articles.',
+    desc: 'Dissertation chapters are fundamentally different from journal articles in pacing, literature framing, and contribution claim. We extract, restructure, and developmentally edit your chapter into a standalone manuscript formatted precisely to your target Q1/Q2 journal specifications.',
     features: [
-      'Advanced Editing — grammar, syntax & style conformity',
-      'Premium Editing — substantive line editing, argument flow & 365-day re-editing',
-      'Scientific Editing Pro — dual-pass peer reviewer assessment for Q1/Q2 journals',
-      'Citation & reference cross-check (Premium and above)',
+      'Core argument recentering & chapter extraction',
+      'Target journal scope matching & author guidelines formatting',
+      'Line-by-line developmental editing in Microsoft Word Track Changes',
+      'Official Compliance Certification & reference verification audit',
     ],
-    pricing: 'From $0.032 / word',
-    href: '/services/editing-proofreading',
-    cta: 'View Tiers & Calculator',
+    pricing: 'Milestone Advisory: $600 – $1,800 / article · 50/50 Terms',
+    href: '/services/thesis-to-journal',
+    cta: 'Explore Track A',
   },
   {
-    id: 'publication',
-    eyebrow: 'SERVICE 02 — PACKAGES & STAGES',
+    id: 'track-b',
+    eyebrow: 'TRACK B — BOOK PIPELINE',
     icon: <IconBook2 size={22} />,
-    title: 'Publication Support',
-    tagline: 'From submission to acceptance for journal articles. From proposal to press for book manuscripts.',
-    desc: 'Two distinct pipelines under one service. Journal Articles: journal selection, cover letter, submission formatting, and response letters across three tiers (Essentials, Pro, Full). Book Manuscripts: publisher selection, book proposal, manuscript editing, galley proof review, and back-of-book indexing.',
+    title: 'Monograph Architecture & Press Prep',
+    tagline: 'From dissertation manuscript to acquisition-ready university press proposal & chapters.',
+    desc: 'Transitioning a dissertation into an academic book requires de-dissertationizing the narrative voice, constructing a compelling prospectus, and aligning with acquisition guidelines of top university presses (Oxford, Cambridge, Routledge, Harvard, etc.).',
     features: [
-      'Journal selection — ranked target journals with scope & rejection rate analysis',
-      'Cover letter written to the specific journal and paper contribution',
-      'Response letters — point-by-point reply to every reviewer comment',
-      'Book proposals, galley proof review & back-of-book indexing',
+      'Comprehensive book prospectus narrative & market positioning',
+      'Competing works matrix & target press acquisitions alignment',
+      'Sample chapter developmental overhaul & structural sequencing',
+      'Author bio, table of contents alignment & acquisitions checklist',
     ],
-    pricing: 'Journal from $320 · Book from $280 / stage',
-    href: '/services/publication-support',
-    cta: 'View Journal & Book Options',
+    pricing: 'Milestone Advisory: $1,500 – $3,500+ / project · 50/50 Terms',
+    href: '/services/monograph-architecture',
+    cta: 'Explore Track B',
   },
   {
-    id: 'ai-audit',
-    eyebrow: 'SERVICE 03 — DIAGNOSTIC & RISK SCREENING',
+    id: 'track-custom',
+    eyebrow: 'BESPOKE SCOPE — TAILORED ADVISORY',
     icon: <IconShieldCheck size={22} />,
-    title: 'AI Manuscript Audit',
-    tagline: 'Audit your AI-assisted research before journal submission — citation accuracy, literature gaps & peer-review risks.',
-    desc: 'An independent pre-submission diagnostic scan evaluated against 200M+ academic papers. Identifies hallucinated or missing citations, section discontinuities, overstated claims, and journal match. Includes an executive Faculty Risk Memo and optional 15-minute debrief call with Dr. Micah Dobson. 100% of your audit fee is credited toward full editing if scoped.',
+    title: 'Custom Scoping & High-Stakes Advisory',
+    tagline: 'Targeted faculty engagement for R&R response matrices, citation forensics, and urgent defense deadlines.',
+    desc: 'When your manuscript faces a Revise & Resubmit ultimatum, complex multi-author formatting, or strict institutional defense cutoffs, we build a tailored milestone plan with guaranteed turnaround and direct faculty review.',
     features: [
-      'Citation & reference gap analysis benchmarked against 200M+ research papers',
-      'Structural consistency & argument alignment audit across all sections',
-      'Journal scope matching & submission risk screening',
-      '1-Page Executive Faculty Risk Memo + optional 15-min debrief call',
-      '100% fee credited toward full editing or publication support',
+      'Point-by-point Revise & Resubmit (R&R) response matrix preparation',
+      'Comprehensive citation forensics, broken DOI repair & style manual conformity',
+      'Multi-author volume synchronization & institutional defense formatting',
+      'Itemized milestone scope issued within 24 hours · Optional 15-min discovery call',
     ],
-    pricing: '$29 Single Review · $69 Revision Pack (3 Reviews)',
-    href: '/order?service=ai-audit',
-    cta: 'Order AI Manuscript Audit',
+    pricing: 'Custom Milestone Scope · Guaranteed in 24 Hours',
+    href: '/order?track=custom',
+    cta: 'Request Custom Scope',
   },
 ]
 
@@ -90,58 +90,40 @@ const services = [
 
 const situations = [
   {
-    id: 'ai-check',
-    label: 'I used AI tools to draft or synthesize my paper and need to verify its integrity',
-    subLabel: 'Citation verification, literature gap analysis & pre-submission risk audit',
-    serviceId: 'ai-audit',
+    id: 'thesis-to-article',
+    label: 'I want to convert my dissertation or thesis chapter into a journal article',
+    subLabel: 'Chapter extraction, journal scope matching & manuscript restructuring',
+    serviceId: 'track-a',
   },
   {
-    id: 'defense',
-    label: 'My defense is in weeks and the manuscript needs to be clean',
-    subLabel: 'Time-sensitive polish before submission or deposit',
-    serviceId: 'editing',
-  },
-  {
-    id: 'committee',
-    label: 'My committee sent the draft back with major revision comments',
-    subLabel: 'Structural and developmental overhaul after committee review',
-    serviceId: 'editing',
-  },
-  {
-    id: 'journal-submit',
-    label: 'I have an edited manuscript and want to submit it to a journal',
-    subLabel: 'Journal selection, cover letter & submission formatting',
-    serviceId: 'publication',
-  },
-  {
-    id: 'rnr',
-    label: 'I got a Revise & Resubmit — I need to respond to the reviewers',
-    subLabel: 'Point-by-point response letter with diplomacy check',
-    serviceId: 'publication',
-  },
-  {
-    id: 'rejected',
-    label: 'My paper was rejected and I need to reformat for another journal',
-    subLabel: 'Resubmission formatting to new target journal',
-    serviceId: 'publication',
+    id: 'committee-revision',
+    label: 'My committee returned my draft with extensive structural revision demands',
+    subLabel: 'Developmental reorganization and argument refinement under tracked changes',
+    serviceId: 'track-a',
   },
   {
     id: 'book-proposal',
     label: "I'm writing a book proposal for Oxford, Routledge, or a university press",
-    subLabel: 'Publisher selection & acquisition-ready proposal',
-    serviceId: 'publication',
+    subLabel: 'Publisher selection, prospectus narrative & acquisition-ready proposal',
+    serviceId: 'track-b',
   },
   {
-    id: 'galley',
-    label: 'My press sent galley proofs and needs an index built',
-    subLabel: 'Galley proof review & back-of-book indexing',
-    serviceId: 'publication',
+    id: 'monograph-prep',
+    label: 'I need to de-dissertationize my full manuscript for a book press',
+    subLabel: 'Monograph pacing, chapter architecture & sample chapter preparation',
+    serviceId: 'track-b',
   },
   {
-    id: 'q1',
-    label: "I'm targeting a high-impact Q1 journal and need a full review",
-    subLabel: 'Scientific Editing Pro — peer reviewer developmental critique',
-    serviceId: 'editing',
+    id: 'rnr',
+    label: 'I received a Revise & Resubmit (R&R) and need a reviewer response matrix',
+    subLabel: 'Point-by-point rebuttal strategy, diplomacy review & revised manuscript',
+    serviceId: 'track-custom',
+  },
+  {
+    id: 'defense',
+    label: 'My defense or submission cutoff is within weeks and needs immediate polish',
+    subLabel: 'High-stakes compliance, citation audit & formatting guarantee',
+    serviceId: 'track-custom',
   },
 ]
 
@@ -193,21 +175,19 @@ export default function ServicesPage() {
                 fontWeight: 600,
               }}
             >
-              Two services. Every stage of the publication pipeline.
+              Two outcome pathways. One faculty-led practice.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.75} style={{ maxWidth: '60ch' }}>
-              Editing & Compliance gets your manuscript to publication standard.
-              Publication Support gets it accepted — at a journal or with a press.
-              One team, defined deliverables, transparent pricing.
+              Whether adapting doctoral research into peer-reviewed journal articles or preparing an acquisition-ready monograph for an academic press, our faculty provide defined milestones, transparent terms, and consultative execution.
             </Text>
           </Box>
         </Container>
       </Box>
 
-      {/* ── Two Service Cards ─────────────────────────────────────────── */}
+      {/* ── Three Pathway Cards ─────────────────────────────────────────── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(2)}>
+          <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
             {services.map((svc) => (
               <Box
                 key={svc.id}
@@ -501,7 +481,7 @@ export default function ServicesPage() {
                   </Link>
                 </Box>
 
-                {/* Free assessment nudge */}
+                {/* Bespoke assessment nudge */}
                 <Box
                   p={rem(24)}
                   bg={active.background}
@@ -509,12 +489,12 @@ export default function ServicesPage() {
                 >
                   <Group justify="space-between" align="center" wrap="nowrap" gap="lg">
                     <Stack gap={rem(3)}>
-                      <Text fw={600} size="sm">Not sure which tier fits?</Text>
+                      <Text fw={600} size="sm">Have a unique manuscript or multi-part project?</Text>
                       <Text size="xs" c="dimmed">
-                        Submit your manuscript. We assess scope and respond within 24 hours.
+                        Submit your research files. Our faculty review the scope and return a formal proposal within 24 hours.
                       </Text>
                     </Stack>
-                    <Link href="/request-review" style={{ textDecoration: 'none', flexShrink: 0 }}>
+                    <Link href="/order" style={{ textDecoration: 'none', flexShrink: 0 }}>
                       <Button
                         variant="outline"
                         radius={0}
@@ -526,7 +506,7 @@ export default function ServicesPage() {
                         }}
                         rightSection={<IconArrowRight size={16} />}
                       >
-                        Free Assessment
+                        Request Scope
                       </Button>
                     </Link>
                   </Group>

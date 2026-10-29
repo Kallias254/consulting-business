@@ -154,7 +154,7 @@ export default function ManuscriptPreparationPage() {
               </Text>
               <Group gap="md" wrap="wrap">
                 <Link
-                  href="/request-review?service=Manuscript%20Preparation"
+                  href="/order?track=track_b"
                   style={{ textDecoration: 'none' }}
                 >
                   <Button
@@ -573,7 +573,7 @@ export default function ManuscriptPreparationPage() {
             </Text>
             <Group gap="md" wrap="wrap" justify="center">
               <Link
-                href="/request-review?service=Manuscript%20Preparation"
+                href="/order?track=track_b"
                 style={{ textDecoration: 'none' }}
               >
                 <Button size="lg" variant="white" color={active.primary} radius={0}>

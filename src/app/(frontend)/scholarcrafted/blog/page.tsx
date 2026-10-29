@@ -194,9 +194,9 @@ export default function BlogArchivePage() {
             <Text size="lg" c="dimmed" lh={1.7}>
               Articles give you the framework. A professional project assessment gives you the precise answers for your specific research.
             </Text>
-            <Link href="/request-review" style={{ textDecoration: 'none' }}>
+            <Link href="/order" style={{ textDecoration: 'none' }}>
               <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                GET A QUOTE
+                REQUEST CUSTOM SCOPE
               </Button>
             </Link>
           </Stack>

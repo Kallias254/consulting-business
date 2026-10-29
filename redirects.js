@@ -25,6 +25,11 @@ const redirects = async () => {
 
     // Absorbed services → redirect to new Track pages and Express Diagnostic
     {
+      source: '/request-review',
+      destination: '/order',
+      permanent: true,
+    },
+    {
       source: '/services/editing-proofreading',
       destination: '/services/thesis-to-journal',
       permanent: true,

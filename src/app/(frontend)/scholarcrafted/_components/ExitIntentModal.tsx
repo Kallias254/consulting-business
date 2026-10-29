@@ -69,7 +69,7 @@ export function ExitIntentModal() {
           </Text>
           <Stack gap="sm" mt="md" style={{ width: '100%', maxWidth: 360 }}>
             <Link
-              href="/request-review"
+              href="/order"
               style={{ textDecoration: 'none' }}
               onClick={close}
             >

@@ -24,12 +24,16 @@ import { IconArrowRight, IconShieldCheck, IconFileCheck } from '@tabler/icons-re
 
 const editingFaqs = [
   {
-    q: 'What is the difference between your three editing tiers?',
-    a: `Tier 1 (Polish & Format) addresses mechanical accuracy: grammar, punctuation, style manual compliance (APA, Chicago, MLA, Harvard, Turabian), heading hierarchy, TOC alignment, and ProQuest deposit formatting. It is designed for clean drafts that need final mechanical polish before deposit.\n\nTier 2 (Substantive Line Editing) goes further: line-by-line sentence rhythm, discipline-specific academic register, transition strength, passive construction reduction, and editorial margin queries on ambiguous passages. This is the most commonly requested tier.\n\nTier 3 (Structural & Developmental Polish) addresses the architecture of the work — chapter and section sequencing, argument pacing, thematic progression, and synthesis across chapters. It is appropriate for manuscripts returning from committee with major structural revision requirements.`,
+    q: 'How does your faculty-led scoping and editorial process work?',
+    a: `We reject opaque, commodity per-word checkout carts. Academic scholarship requires tailored intellectual engagement. When you submit your manuscript through our Project Scoping portal, Dr. Micah Dobson and our faculty review your draft, target journal or university press guidelines, and committee feedback. Within 24 hours, you receive a transparent milestone proposal outlining the exact editorial roadmap, timeline, and fixed fee. Engagements operate on clear 50/50 milestone terms (50% retainer deposit, 50% upon completed milestone delivery).`,
   },
   {
-    q: 'My committee returned my draft with revision comments. Which tier do I need?',
-    a: `Almost always Tier 3 (Structural & Developmental Polish), followed by a Tier 2 pass. Committee revision comments that concern argument flow, chapter organization, literature review gaps, or thematic coherence require structural-level intervention first — then line-level refinement. If the committee comments are limited to grammar, citation style, or formatting errors, Tier 1 or 2 is sufficient. Submit your manuscript for a free scope assessment and we will tell you precisely what is needed.`,
+    q: 'What are your two primary outcome tracks?',
+    a: `Track A (Thesis-to-Journal Conversion) converts dissertation chapters into high-impact, standalone peer-reviewed articles formatted for specific Q1/Q2 journal guidelines. Track B (Monograph Architecture & Press Preparation) assists scholars turning doctoral dissertations or book projects into acquisition-ready manuscripts and proposals for top university presses (Oxford, Cambridge, Routledge, Harvard, etc.). For custom needs—such as R&R response matrices or citation audits—we provide bespoke scoping.`,
+  },
+  {
+    q: 'My committee returned my draft with revision comments. How do you help?',
+    a: `Committee revision comments and Revise & Resubmit (R&R) letters require structural and developmental intervention, not superficial proofreading. We analyze committee feedback or reviewer matrices section by section, restructure your argument flow, resolve methodological framing, and deliver tracked-changes revisions alongside a point-by-point response memo.`,
   },
   {
     q: 'How is your editing different from running my manuscript through Grammarly or ChatGPT?',
@@ -45,7 +49,7 @@ const editingFaqs = [
   },
   {
     q: 'How long does editing take?',
-    a: `Turnaround depends on manuscript length and the tier selected. Standard turnaround for a 70,000–90,000 word dissertation is 5–8 business days for Tier 1, 8–12 days for Tier 2, and 12–16 days for Tier 3. Rush options (48–72 hours for shorter manuscripts) are available — submit your project for an accurate quote. Deadlines for ProQuest submission, committee review, or defense are treated as firm constraints.`,
+    a: `Turnaround depends on manuscript length and the agreed project milestones. Standard articles and journal conversions typically require 5–8 business days, while comprehensive monograph and book proposals range from 10–18 business days. We treat conference deadlines, defense dates, and press submission cutoffs as firm commitments. Rush turnarounds are evaluated on a case-by-case basis during scoping.`,
   },
 ]
 
@@ -97,19 +101,19 @@ const integrityFaqs = [
 const logisticsFaqs = [
   {
     q: 'How do I get a price quote?',
-    a: `For Manuscript Editing, pricing is per-word and transparent: Tier 1 at $0.032/word, Tier 2 at $0.046/word, Tier 3 at $0.065/word. For a 70,000-word dissertation, that is approximately $2,240 for Tier 1, $3,220 for Tier 2, or $4,550 for Tier 3. For Citation Audits, Book & Journal Preparation, and Book Indexing, pricing depends on scope — submit your manuscript for a free scope assessment and receive a firm quote within 24 business hours.`,
+    a: `Every engagement is scoped with fixed milestone pricing rather than commodity word counting. Typical peer-reviewed journal conversion milestones (Track A) range between $600 and $1,800. Complete university press monograph proposals and structural editing (Track B) range between $1,500 and $3,500+. We guarantee a transparent, itemized proposal within 24 hours of receiving your manuscript, structured under 50/50 terms (50% retainer deposit, 50% upon milestone completion).`,
   },
   {
     q: 'My defense is in two weeks. Is there a rush option?',
-    a: `Yes. Rush timelines are available for manuscripts under 60,000 words. Contact us directly with your deadline and word count — we will tell you immediately whether the timeline is achievable and what the rush rate is. Do not submit to a general form if you have a hard deadline; email us directly so we can prioritize your project.`,
+    a: `Yes. Accelerated timelines are evaluated during initial scoping. If you have an urgent submission cutoff or defense date, note it on your intake form. We will confirm within 24 hours whether our faculty schedule can support your deadline without sacrificing editorial rigor.`,
   },
   {
     q: 'What happens after I submit my manuscript?',
-    a: `Within 24 business hours of submission, we send you a scope assessment: service recommendation, turnaround estimate, and firm pricing. Once you approve the scope and submit payment, editing begins. Delivery is a tracked-changes Word file, a clean final copy, and any editorial memos or audit reports included in your tier. You review, accept or reject changes, and are free to ask us clarifying questions on any edit.`,
+    a: `Within 24 hours of submission, Dr. Micah Dobson or an assigned doctoral specialist reviews your draft, notes, and target publication guidelines. We issue a formal Project Scope with itemized deliverables, timeline, and fixed fee. You also have the option to schedule a complimentary 15-minute scoping call to review the plan before committing. Once approved and deposit is received, editorial execution begins immediately.`,
   },
   {
-    q: 'Do you offer a re-edit if my committee sends it back again after editing?',
-    a: `Yes. If your committee returns the manuscript with new comments after our edit and the new comments relate to the same scope of work we completed, we provide a complimentary re-edit pass covering those specific sections. This applies within 60 days of original delivery. If the committee has introduced new structural requirements that expand the original scope, we will quote a brief supplemental engagement.`,
+    q: 'Do you offer follow-up support if reviewers or committees request further adjustments?',
+    a: `Yes. Academic publishing is an iterative dialogue. All milestone packages include follow-up review for edits directly addressing reviewer or committee feedback within the agreed project scope. For formal Revise & Resubmit (R&R) cycles, we provide dedicated response matrix structuring and diplomacy audits.`,
   },
 ]
 
@@ -216,8 +220,7 @@ export default function FAQPage() {
               Questions scholars actually ask.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.7} style={{ fontSize: rem(19) }}>
-              Straight answers on editing tiers, citation audits, confidentiality, turnaround, and what we will and
-              will not do.
+              Straight answers on editorial tracks, milestone scoping, confidentiality, turnaround, and our faculty-led process.
             </Text>
           </Box>
         </Container>
@@ -329,11 +332,10 @@ export default function FAQPage() {
               Still not sure which service you need?
             </Title>
             <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 520 }}>
-              Submit your manuscript for a free scope assessment. We review it and respond within 24 hours with a
-              clear recommendation and a firm price.
+              Submit your manuscript or proposal draft for a custom project scope. We review it and respond within 24 hours with an itemized editorial roadmap and guaranteed milestone terms.
             </Text>
             <Group gap="md" justify="center" wrap="wrap">
-              <Link href="/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/order" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
                   radius={0}
@@ -341,7 +343,7 @@ export default function FAQPage() {
                   style={{ backgroundColor: active.primary, color: active.background }}
                   rightSection={<IconArrowRight size={16} />}
                 >
-                  Get Free Assessment
+                  Request Custom Project Scope
                 </Button>
               </Link>
               <Link href="/services" style={{ textDecoration: 'none' }}>

@@ -265,9 +265,9 @@ export default function ResourcesPage() {
               direction for your specific research, request a professional project quote from our faculty.
             </Text>
             <Group gap="md">
-              <Link href="/request-review" style={{ textDecoration: 'none' }}>
+              <Link href="/order" style={{ textDecoration: 'none' }}>
                 <Button size="lg" variant="filled" bg={active.primary} radius={0}>
-                  GET A QUOTE
+                  REQUEST CUSTOM SCOPE
                 </Button>
               </Link>
             </Group>

@@ -134,7 +134,7 @@ export default function CitationAuditsPage() {
                 Every inline citation cross-checked. Every DOI verified. Every reference list rebuilt to the exact style your institution or publisher requires.
               </Text>
               <Group gap="md">
-                <Link href="/request-review?service=Citation%20Audit" style={{ textDecoration: 'none' }}>
+                <Link href="/order?track=custom" style={{ textDecoration: 'none' }}>
                   <Button size="lg" variant="filled" bg={active.primary} radius={0} className="impeccable-button" rightSection={<IconArrowRight size={18} />}>
                     REQUEST A REFERENCE AUDIT
                   </Button>
@@ -244,7 +244,7 @@ export default function CitationAuditsPage() {
                       <Text fw={700} size="xl" c={i === 0 ? active.accent : active.primary} mb="md" style={{ fontFamily: 'var(--font-serif)' }}>
                         {card.price}
                       </Text>
-                      <Link href="/request-review?service=Citation%20Audit" style={{ textDecoration: 'none' }}>
+                      <Link href="/order?track=custom" style={{ textDecoration: 'none' }}>
                         <Button
                           fullWidth
                           radius={0}
@@ -303,7 +303,7 @@ export default function CitationAuditsPage() {
               ))}
             </SimpleGrid>
 
-            <Link href="/request-review?service=Citation%20Audit" style={{ textDecoration: 'none' }}>
+            <Link href="/order?track=custom" style={{ textDecoration: 'none' }}>
               <Button size="lg" radius={0} variant="filled" bg={active.primary} className="impeccable-button">
                 REQUEST A REFERENCE AUDIT
               </Button>
