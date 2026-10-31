@@ -59,13 +59,13 @@ export function Navbar() {
     {
       href: '/services/thesis-to-journal',
       icon: <IconFileText size={20} />,
-      label: 'Track A: Thesis-to-Journal & Paper Prep',
-      desc: 'Extract standalone articles from dissertation chapters, theoretical framing, R&R matrices & journal compliance.',
+      label: 'Journal Articles & Chapter Alignment',
+      desc: 'Reframing dissertation chapters, theoretical contribution, R&R response matrices & journal compliance.',
     },
     {
       href: '/services/monograph-architecture',
       icon: <IconBook2 size={20} />,
-      label: 'Track B: Monograph & Book Architecture',
+      label: 'Book Monographs & University Press',
       desc: 'Dissertation-to-monograph conversion, cumulative chapter logic, press proposals (Oxford, Routledge) & 5-stage production.',
     },
   ]

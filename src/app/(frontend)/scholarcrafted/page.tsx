@@ -151,66 +151,66 @@ const homeNeeds = [
   {
     id: 'thesis-to-article',
     label: 'I want to turn my dissertation into a journal article',
-    subLabel: 'Track A · Structural conversion & empirical extraction',
+    subLabel: 'Article Conversion · Structural extraction & theoretical reframing',
     serviceIds: ['track_a'],
     recommended: 'track_a',
-    targetTrack: 'Track A: Short-Form',
+    targetTrack: 'Journal Article Pipeline',
   },
   {
     id: 'committee-feedback',
     label: 'My committee sent my draft back with major revision comments',
-    subLabel: 'Track A / Track B · Structural overhaul & defense preparation',
+    subLabel: 'Committee Revision · Substantive restructuring & argument repair',
     serviceIds: ['track_a', 'track_b'],
     recommended: 'track_a',
-    targetTrack: 'Track A / Track B',
+    targetTrack: 'Developmental Revision',
   },
   {
     id: 'revise-resubmit',
     label: 'I received a Revise & Resubmit (R&R) and need help with the reply matrix',
-    subLabel: 'Track A · Response matrix, reviewer alignment & tracked revisions',
+    subLabel: 'R&R Strategy · Rebuttal matrix & diplomatic developmental overhaul',
     serviceIds: ['track_a'],
     recommended: 'track_a',
-    targetTrack: 'Track A: Short-Form',
+    targetTrack: 'R&R Response Protocol',
   },
   {
     id: 'rejected-resubmit',
     label: 'My paper was rejected and I need to target a different journal',
-    subLabel: 'Track A · New journal selection, scope reframing & compliance',
+    subLabel: 'Journal Resubmission · Target scope matching & author compliance',
     serviceIds: ['track_a'],
     recommended: 'track_a',
-    targetTrack: 'Track A: Short-Form',
+    targetTrack: 'Journal Article Pipeline',
   },
   {
     id: 'book-proposal',
     label: "I'm writing a book proposal for Oxford, Routledge, or a major press",
-    subLabel: 'Track B · Monograph chapter outline & acquisition pitch',
+    subLabel: 'University Press · Prospectus narrative & acquisition pitch',
     serviceIds: ['track_b'],
     recommended: 'track_b',
-    targetTrack: 'Track B: Long-Form',
+    targetTrack: 'Academic Book Pipeline',
   },
   {
     id: 'galley-proofs',
     label: 'My press sent galley proofs and I need an index or LaTeX fix',
-    subLabel: 'Track B · Back-of-book indexing & 5-stage production prep',
+    subLabel: 'Production & Press · Back-of-book indexing & galley proof review',
     serviceIds: ['track_b'],
     recommended: 'track_b',
-    targetTrack: 'Track B: Long-Form',
+    targetTrack: 'Academic Book Pipeline',
   },
   {
     id: 'citations-mess',
     label: 'I need to check citations, DOIs, and style compliance before submission',
-    subLabel: 'Track A · Rigor audit, DOI cross-checks & template alignment',
+    subLabel: 'Pre-Submission Audit · Reference cross-checks & style conformity',
     serviceIds: ['track_a'],
     recommended: 'track_a',
-    targetTrack: 'Track A: Short-Form',
+    targetTrack: 'Compliance & Verification',
   },
   {
     id: 'defense-coming',
     label: 'My defense is in weeks and my draft needs rapid structural triage',
-    subLabel: 'Track A / Track B · Priority developmental review & defense polish',
+    subLabel: 'Defense Polish · Priority developmental triage & deposit compliance',
     serviceIds: ['track_a', 'track_b'],
     recommended: 'track_a',
-    targetTrack: 'Track A: Short-Form',
+    targetTrack: 'Pre-Defense Polish',
   },
 ]
 
@@ -218,18 +218,18 @@ const homeServices: Record<string, {
   badge: string; title: string; desc: string; link: string; cta: string
 }> = {
   track_a: {
-    badge: 'Track A · Short-Form',
-    title: 'Thesis-to-Journal & Paper Preparation',
-    desc: 'Isolate your empirical core, extract standalone 7,000-word articles from sprawling dissertation chapters, resolve committee critique, and format for target peer-reviewed journals (Word/LaTeX).',
+    badge: 'JOURNAL ARTICLE PIPELINE',
+    title: 'Peer-Review Readiness & Journal Alignment',
+    desc: 'Transform dissertation chapters and research drafts into authoritative submissions. Reframe theoretical hooks, survive editor desk-rejection, format to strict guidelines (Word/LaTeX), and navigate Revise & Resubmit reviews.',
     link: '/order?track=a',
-    cta: 'Explore Track A / Request Scope',
+    cta: 'Scope Your Journal Submission',
   },
   track_b: {
-    badge: 'Track B · Long-Form',
-    title: 'Monograph & Book Architecture',
+    badge: 'ACADEMIC BOOK & PRESS PIPELINE',
+    title: 'Monograph & University Press Architecture',
     desc: 'From stalled chapters to contracted academic books. Full dissertation-to-monograph structural conversion, cumulative chapter logic, press proposals (Oxford, Cambridge, Routledge), and 5-stage production prep.',
     link: '/order?track=b',
-    cta: 'Explore Track B / Book Scoping Call',
+    cta: 'Scope Your Monograph Project',
   },
 }
 
@@ -307,7 +307,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     fontSize: rem(10),
                   }}
                 >
-                  TRACK A · SHORT-FORM MANUSCRIPTS
+                  JOURNAL ARTICLES &amp; CHAPTER PIPELINE
                 </Badge>
                 <Title
                   order={3}
@@ -319,10 +319,10 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     lineHeight: 1.25,
                   }}
                 >
-                  Thesis-to-Journal &amp; Paper Preparation
+                  Peer-Review Readiness &amp; Journal Alignment
                 </Title>
                 <Text size="sm" c="dimmed" mt={rem(8)} lh={1.65}>
-                  Designed for PhD candidates, postdocs, and early-career faculty. We extract the empirical core from sprawling dissertation chapters and re-architect your narrative to meet the standards of top peer-reviewed journals.
+                  Designed for PhD graduates, postdocs, and early-career faculty. We re-anchor defensive dissertation chapters into authoritative journal interventions built to survive editor triage and peer review.
                 </Text>
 
                 <Divider color={`${active.primary}10`} my={rem(20)} />
@@ -334,16 +334,16 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                   mb={rem(12)}
                   style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
                 >
-                  WHAT IS INCLUDED IN TRACK A:
+                  WHAT EVERY ARTICLE ENGAGEMENT INCLUDES:
                 </Text>
 
                 <Stack gap={rem(10)} mb={rem(24)}>
                   {[
-                    'Thesis-to-journal extraction & argument restructuring (condensing 15k+ words into 7k–9k)',
-                    'Standalone 2nd & 3rd article structural refinement and theoretical framing',
-                    'Target journal selection report & author guidelines compliance audit',
-                    'LaTeX & Typst document engineering, BibTeX cross-checks & template alignment',
-                    'Revise & Resubmit (R&R) response matrix drafting & editor cover letters',
+                    'Epistemological reframing: shifting from defensive dissertation reporting to an authoritative scholarly contribution',
+                    'Target journal scope matching & aligning arguments to current editorial board debates',
+                    'Desk-rejection defense: strict author guidelines compliance, anonymization & citation forensics',
+                    'Faculty-crafted Cover Letter to the Editor-in-Chief pitching your theoretical contribution',
+                    'Revise & Resubmit (R&R) strategy: point-by-point reviewer rebuttal matrices & diplomacy review',
                   ].map((feat, idx) => (
                     <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                       <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -381,7 +381,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                       height: rem(48),
                     }}
                   >
-                    Request Track A Scope
+                    Request Journal / Article Scope
                   </Button>
                 </Link>
               </Box>
@@ -414,7 +414,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     fontSize: rem(10),
                   }}
                 >
-                  TRACK B · LONG-FORM SCHOLARSHIP
+                  UNIVERSITY PRESS &amp; MONOGRAPH PIPELINE
                 </Badge>
                 <Title
                   order={3}
@@ -441,7 +441,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                   mb={rem(12)}
                   style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
                 >
-                  WHAT IS INCLUDED IN TRACK B:
+                  WHAT EVERY MONOGRAPH ENGAGEMENT INCLUDES:
                 </Text>
 
                 <Stack gap={rem(10)} mb={rem(24)}>
@@ -489,7 +489,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                       height: rem(48),
                     }}
                   >
-                    Request Track B Scope
+                    Request Monograph / Book Scope
                   </Button>
                 </Link>
               </Box>

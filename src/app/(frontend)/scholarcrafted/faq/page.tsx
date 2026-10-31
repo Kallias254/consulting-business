@@ -28,8 +28,8 @@ const editingFaqs = [
     a: `We reject opaque, commodity per-word checkout carts. Academic scholarship requires tailored intellectual engagement. When you submit your manuscript through our Project Scoping portal, Dr. Micah Dobson and our faculty review your draft, target journal or university press guidelines, and committee feedback. Within 24 hours, you receive a transparent milestone proposal outlining the exact editorial roadmap, timeline, and fixed fee. Engagements operate on clear 50/50 milestone terms (50% retainer deposit, 50% upon completed milestone delivery).`,
   },
   {
-    q: 'What are your two primary outcome tracks?',
-    a: `Track A (Thesis-to-Journal Conversion) converts dissertation chapters into high-impact, standalone peer-reviewed articles formatted for specific Q1/Q2 journal guidelines. Track B (Monograph Architecture & Press Preparation) assists scholars turning doctoral dissertations or book projects into acquisition-ready manuscripts and proposals for top university presses (Oxford, Cambridge, Routledge, Harvard, etc.). For custom needs—such as R&R response matrices or citation audits—we provide bespoke scoping.`,
+    q: 'What are your primary publication pathways?',
+    a: `Our Journal Pipeline converts dissertation research and draft manuscripts into high-impact, standalone peer-reviewed articles formatted for specific Q1/Q2 journal guidelines. Our Monograph & University Press Pipeline assists scholars turning doctoral dissertations or book projects into acquisition-ready manuscripts and proposals for top university presses (Oxford, Cambridge, Routledge, Harvard, etc.). For custom needs—such as R&R response matrices, citation audits, or pre-defense polish—we provide bespoke scoping.`,
   },
   {
     q: 'My committee returned my draft with revision comments. How do you help?',
@@ -101,7 +101,7 @@ const integrityFaqs = [
 const logisticsFaqs = [
   {
     q: 'How do I get a price quote?',
-    a: `Every engagement is scoped with fixed milestone pricing rather than commodity word counting. Typical peer-reviewed journal conversion milestones (Track A) range between $600 and $1,800. Complete university press monograph proposals and structural editing (Track B) range between $1,500 and $3,500+. We guarantee a transparent, itemized proposal within 24 hours of receiving your manuscript, structured under 50/50 terms (50% retainer deposit, 50% upon milestone completion).`,
+    a: `Every engagement is scoped with fixed milestone pricing rather than commodity word counting. Typical peer-reviewed journal conversion milestones range between $600 and $1,800. Complete university press monograph proposals and structural editing range between $1,500 and $3,500+. We guarantee a transparent, itemized proposal within 24 hours of receiving your manuscript, structured under 50/50 terms (50% retainer deposit, 50% upon milestone completion).`,
   },
   {
     q: 'My defense is in two weeks. Is there a rush option?',

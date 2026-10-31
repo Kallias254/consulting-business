@@ -91,7 +91,7 @@ export default function MonographArchitecturePage() {
                 fontSize: rem(10),
               }}
             >
-              TRACK B · LONG-FORM SCHOLARSHIP
+              ACADEMIC BOOK &amp; UNIVERSITY PRESS
             </Badge>
 
             <Title
@@ -129,7 +129,7 @@ export default function MonographArchitecturePage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Request Track B Project Scope
+                  Request Monograph Project Scope
                 </Button>
               </Link>
               <Anchor
@@ -248,7 +248,7 @@ export default function MonographArchitecturePage() {
                 FACULTY PARTNERSHIP ASSURANCES
               </Text>
               <Title order={2} mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(30), color: active.primary, fontWeight: 600 }}>
-                Every Track B monograph engagement includes:
+                Every monograph &amp; press engagement includes:
               </Title>
             </Box>
 
@@ -352,7 +352,7 @@ export default function MonographArchitecturePage() {
                   READY TO ELEVATE YOUR BOOK?
                 </Text>
                 <Text mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary }}>
-                  Request Track B Scope
+                  Request Monograph Scope
                 </Text>
                 <Text size="xs" c="dimmed" mt={rem(8)} mb="lg" lh={1.6}>
                   Receive an itemized milestone proposal and confirmed publication schedule within 24 hours.
@@ -412,7 +412,7 @@ export default function MonographArchitecturePage() {
                 FREQUENTLY ASKED QUESTIONS
               </Text>
               <Title order={2} mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary, fontWeight: 600 }}>
-                Track B: Book Monograph Questions
+                Monograph &amp; Book Proposal FAQs
               </Title>
             </Box>
 

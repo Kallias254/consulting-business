@@ -93,7 +93,7 @@ export default function ThesisToJournalPage() {
                 fontSize: rem(10),
               }}
             >
-              TRACK A · SHORT-FORM SCHOLARSHIP
+              PEER-REVIEWED JOURNAL PIPELINE
             </Badge>
 
             <Title
@@ -131,7 +131,7 @@ export default function ThesisToJournalPage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Request Track A Project Scope
+                  Request Article Project Scope
                 </Button>
               </Link>
               <a
@@ -270,7 +270,7 @@ export default function ThesisToJournalPage() {
                 STANDARD QUALITY COMMITMENTS
               </Text>
               <Title order={2} mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(30), color: active.primary, fontWeight: 600 }}>
-                Every Track A engagement automatically includes:
+                Every journal conversion engagement automatically includes:
               </Title>
             </Box>
 
@@ -374,7 +374,7 @@ export default function ThesisToJournalPage() {
                   READY TO BEGIN?
                 </Text>
                 <Text mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary }}>
-                  Request Track A Scope
+                  Request Journal Article Scope
                 </Text>
                 <Text size="xs" c="dimmed" mt={rem(8)} mb="lg" lh={1.6}>
                   Receive your itemized milestone proposal and confirmed delivery timeline within 24 hours.
@@ -434,7 +434,7 @@ export default function ThesisToJournalPage() {
                 FREQUENTLY ASKED QUESTIONS
               </Text>
               <Title order={2} mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary, fontWeight: 600 }}>
-                Track A: Thesis-to-Journal Questions
+                Journal Submission &amp; Article Conversion FAQs
               </Title>
             </Box>
 

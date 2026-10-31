@@ -97,12 +97,12 @@ export function Footer({ bg }: { bg?: string }) {
             <Stack gap={rem(10)}>
               <Link href="/services/thesis-to-journal" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Track A: Thesis-to-Journal &amp; Paper Prep
+                  Journal Articles &amp; Chapter Alignment
                 </Text>
               </Link>
               <Link href="/services/monograph-architecture" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Track B: Monograph &amp; Book Architecture
+                  Book Monographs &amp; University Press
                 </Text>
               </Link>
               <Link href="/services/monograph-architecture" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -110,19 +110,19 @@ export function Footer({ bg }: { bg?: string }) {
                   5-Stage Academic Book Production
                 </Text>
               </Link>
-              <Link href="/order?pathway=scope&track=a" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?type=rnr" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   Revise &amp; Resubmit (R&amp;R) Response Matrices
                 </Text>
               </Link>
-              <Link href="/order?pathway=scope" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/order?type=latex" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
                   LaTeX &amp; Typst Document Engineering
                 </Text>
               </Link>
-              <Link href="/order?pathway=scope" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/services" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
-                  Explore All Outcome Tracks &rarr;
+                  Explore All Editorial Pathways &rarr;
                 </Text>
               </Link>
             </Stack>
@@ -145,12 +145,12 @@ export function Footer({ bg }: { bg?: string }) {
               </Link>
               <Link href="/order?track=a" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Track A: Journal Article Scoping
+                  Journal Article &amp; Chapter Scoping
                 </Text>
               </Link>
               <Link href="/order?track=b" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link">
-                  Track B: Monograph Book Scoping
+                  Monograph &amp; Book Proposal Scoping
                 </Text>
               </Link>
               <a

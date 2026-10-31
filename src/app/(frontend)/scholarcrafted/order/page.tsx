@@ -270,13 +270,19 @@ function OrderPageContent() {
 
       {/* ── Scoping Hub Form & Overview ── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <SimpleGrid cols={{ base: 1, lg: 12 }} spacing={{ base: rem(28), lg: rem(44) }} style={{ alignItems: 'flex-start' }}>
-            {/* Left Column: Scope Overview & Commitments (5 cols) */}
-            <Box style={{ gridColumn: 'span 5' }}>
-              <Stack gap="xl">
+        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
+          <SimpleGrid cols={{ base: 1, lg: 12 }} spacing={{ base: rem(28), lg: rem(40) }} style={{ alignItems: 'flex-start' }}>
+            {/* Left Column: Scope Overview & Commitments (4 cols, sticky) */}
+            <Box
+              style={{
+                gridColumn: 'span 4',
+                position: 'sticky',
+                top: rem(90),
+              }}
+            >
+              <Stack gap="lg">
                 <Box
-                  p={{ base: rem(24), md: rem(32) }}
+                  p={{ base: rem(20), md: rem(28) }}
                   bg={active.surface}
                   style={{
                     border: `1px solid ${active.primary}15`,
@@ -292,7 +298,7 @@ function OrderPageContent() {
                       color: '#ffffff',
                       fontWeight: 700,
                       letterSpacing: '0.1em',
-                      marginBottom: rem(12),
+                      marginBottom: rem(10),
                     }}
                   >
                     24-HOUR PROPOSAL GUARANTEE
@@ -302,7 +308,7 @@ function OrderPageContent() {
                     order={3}
                     style={{
                       fontFamily: 'var(--font-serif)',
-                      fontSize: rem(24),
+                      fontSize: rem(22),
                       color: active.primary,
                       fontWeight: 600,
                       lineHeight: 1.25,
@@ -311,9 +317,9 @@ function OrderPageContent() {
                     What Every Full Project Scope Includes:
                   </Title>
 
-                  <Divider color={`${active.primary}10`} my={rem(20)} />
+                  <Divider color={`${active.primary}10`} my={rem(16)} />
 
-                  <Stack gap={rem(14)}>
+                  <Stack gap={rem(12)}>
                     {[
                       {
                         title: 'Custom Integrated Milestone Proposal',
@@ -346,7 +352,7 @@ function OrderPageContent() {
                           <Text size="xs" fw={700} c={active.primary} lh={1.3}>
                             {item.title}
                           </Text>
-                          <Text size="xs" c="dimmed" lh={1.5} mt={rem(2)}>
+                          <Text size="xs" c="dimmed" lh={1.4} mt={rem(2)}>
                             {item.desc}
                           </Text>
                         </Box>
@@ -357,19 +363,19 @@ function OrderPageContent() {
 
                 {/* Faculty Scoping Call Card */}
                 <Box
-                  p={{ base: rem(20), md: rem(24) }}
+                  p={{ base: rem(18), md: rem(22) }}
                   bg={active.surface}
                   style={{ border: `1px solid ${active.primary}12` }}
                 >
-                  <Stack gap="sm">
+                  <Stack gap="xs">
                     <Group gap="xs">
                       <IconMessages size={18} color={active.accent} />
                       <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                         Prefer to Discuss First?
                       </Text>
                     </Group>
-                    <Text size="xs" c="dimmed" lh={1.6}>
-                      You can schedule an introductory 15-minute scoping consultation with Dr. Micah Dobson to discuss your manuscript timeline, target press, and committee feedback before requesting a proposal.
+                    <Text size="xs" c="dimmed" lh={1.5}>
+                      Schedule an introductory 15-minute scoping consultation with Dr. Micah Dobson to discuss your manuscript timeline, target press, and committee feedback before requesting a proposal.
                     </Text>
                     <Anchor
                       href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
@@ -383,6 +389,7 @@ function OrderPageContent() {
                         alignItems: 'center',
                         gap: rem(4),
                         textDecoration: 'none',
+                        marginTop: rem(4),
                       }}
                     >
                       Book 15-Min Scoping Call with Faculty &rarr;
@@ -392,8 +399,8 @@ function OrderPageContent() {
               </Stack>
             </Box>
 
-            {/* Right Column: Custom Scope Request Form (7 cols) */}
-            <Box style={{ gridColumn: 'span 7' }}>
+            {/* Right Column: Custom Scope Request Form (8 cols, generous width) */}
+            <Box style={{ gridColumn: 'span 8' }}>
               <Box
                 p={{ base: rem(28), sm: rem(36), md: rem(44) }}
                 bg={active.surface}
