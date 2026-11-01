@@ -320,7 +320,7 @@ export default function MonographArchitecturePage() {
                   Single Fixed Milestone Proposals
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.7}>
-                  We structure academic book engagements through clear milestone proposals ($1,500–$3,500+) with transparent 50% deposit and 50% upon final delivery terms.
+                  We structure academic book engagements through transparent milestone proposals tailored to your chapter count and press requirements, with aligned 50% deposit and 50% upon final delivery terms.
                 </Text>
                 <Stack gap={rem(8)}>
                   {[

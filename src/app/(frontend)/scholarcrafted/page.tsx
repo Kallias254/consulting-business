@@ -88,7 +88,7 @@ const homeFaqs = [
   },
   {
     q: 'How does your pricing and milestone proposal work?',
-    a: 'Unlike transactional proofreading platforms that charge by micro-word increments, ScholarCrafted provides single integrated milestone proposals with transparent flat fees ($600–$1,800 for journal articles; $1,500–$3,500+ for book monographs). Terms are structured into a 50% deposit upfront and 50% upon final delivery of your publication-ready files.',
+    a: 'Unlike transactional proofreading platforms that charge by micro-word increments, ScholarCrafted provides single integrated milestone proposals with transparent fixed pricing tailored to your manuscript. Terms are structured into a 50% deposit upfront and 50% upon final delivery of your publication-ready files.',
   },
   {
     q: 'How does the project scoping process work?',
@@ -623,7 +623,7 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
                 Fixed Milestone Pricing
               </Text>
               <Text size="xs" c="dimmed" lh={1.6} style={{ maxWidth: 320 }}>
-                Transparent flat fees ($600–$1,800 for articles; $1,500–$3,500+ for books). Never unpredictable word-count sliders.
+                Transparent fixed milestone fees tailored to your project. Never unpredictable per-word sliders.
               </Text>
               <Stack gap="xs" style={{ width: '100%' }}>
                 <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>

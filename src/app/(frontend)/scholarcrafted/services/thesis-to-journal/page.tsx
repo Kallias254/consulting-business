@@ -56,7 +56,7 @@ const trackAFaqs = [
   },
   {
     q: 'How does your milestone pricing work?',
-    a: 'Rather than charging unpredictable micro-fees by word count, we deliver a single integrated milestone proposal (typically $600–$1,800). Terms are structured with 50% upfront deposit and 50% upon final delivery. Within 24 hours of receiving your project brief, Dr. Micah Dobson delivers an itemized milestone proposal outlining exact deliverables, schedule, and pricing.',
+    a: 'Rather than charging unpredictable micro-fees by word count, we deliver a single integrated milestone proposal tailored to your manuscript. Engagements are structured with a 50% deposit upon project initiation and 50% upon final delivery of submission-ready files. Within 24 hours of receiving your project brief, Dr. Micah Dobson personally assesses your draft and delivers an itemized milestone roadmap with guaranteed delivery dates.',
   },
 ]
 
@@ -342,7 +342,7 @@ export default function ThesisToJournalPage() {
                   Single Fixed Milestone Proposals
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.7}>
-                  Instead of calculating micro-fees on confusing per-word sliders, we deliver a comprehensive project proposal ($600–$1,800 depending on word count and developmental depth).
+                  Instead of calculating micro-fees on confusing per-word sliders, we deliver an itemized project proposal tailored to your chapter length, empirical depth, and target journal guidelines.
                 </Text>
                 <Stack gap={rem(8)}>
                   {[

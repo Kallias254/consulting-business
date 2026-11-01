@@ -7,6 +7,7 @@ import {
   Text,
   Box,
   SimpleGrid,
+  Grid,
   Stack,
   Button,
   rem,
@@ -101,7 +102,7 @@ const orderFAQs = [
   },
   {
     q: 'How does the 50/50 payment milestone plan work?',
-    a: 'Rather than charging low per-word micro-fees through automated shopping carts, ScholarCrafted structures projects with a single transparent flat fee ($600–$1,800 for articles; $1,500–$3,500+ for book monographs). Terms are split into a 50% deposit upfront and 50% upon final delivery of publication-ready files, maintaining aligned incentives and rigorous accountability.',
+    a: 'ScholarCrafted structures engagements with transparent fixed milestone pricing tailored to your manuscript length, technical complexity, and publisher requirements. Terms are split into a 50% deposit upon project initiation and 50% upon final delivery of publication-ready files, ensuring aligned incentives, mutual accountability, and uninterrupted editorial continuity.',
   },
   {
     q: 'Do you edit LaTeX or Typst manuscripts?',
@@ -188,25 +189,31 @@ function OrderPageContent() {
     const typeLabel = chosenOption ? chosenOption.label : selectedProjectType
 
     try {
-      await fetch('/api/submit-project', {
+      const formData = new FormData()
+      formData.append('salutation', salutation)
+      formData.append('firstName', firstName)
+      formData.append('lastName', lastName)
+      formData.append('email', email)
+      formData.append('institution', institution)
+      formData.append('documentType', `${typeLabel} (${discipline}) · Target: ${targetPub || 'Not specified'}`)
+      formData.append('service', selectedProjectType)
+      formData.append('tier', selectedProjectType)
+      if (wordCount) formData.append('wordCount', String(wordCount))
+      if (deadline) formData.append('deadline', deadline)
+      formData.append('instructions', `${instructions}${wantCall ? ' [REQUESTED 15-MIN SCOPING CALL WITH DR. DOBSON]' : ''}`)
+      formData.append('intent', 'quote')
+      if (file) {
+        formData.append('file', file)
+      }
+
+      const res = await fetch('/api/submit-project', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          salutation,
-          firstName,
-          lastName,
-          email,
-          institution,
-          documentType: `${typeLabel} (${discipline}) · Target: ${targetPub || 'Not specified'}`,
-          service: selectedProjectType,
-          tier: selectedProjectType,
-          wordCount,
-          deadline,
-          instructions: `${instructions}${wantCall ? ' [REQUESTED 15-MIN SCOPING CALL WITH DR. DOBSON]' : ''}`,
-          intent: 'quote',
-          fileName: file ? file.name : undefined,
-        }),
+        body: formData,
       })
+
+      if (!res.ok) {
+        console.error('[submit-project] Non-OK response:', res.status)
+      }
       setSubmitted(true)
     } catch (err) {
       console.error(err)
@@ -262,7 +269,7 @@ function OrderPageContent() {
             </Title>
 
             <Text size="md" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              Receive an itemized milestone proposal and confirmed delivery schedule within 24 hours. We structure engagements with single transparent flat fees ($600–$1,800 for articles; $1,500–$3,500+ for book monographs) and aligned 50/50 payment terms.
+              Receive an itemized faculty milestone proposal and confirmed publication schedule within 24 hours. Confidential, NDA-protected, and structured under transparent 50/50 milestone terms.
             </Text>
           </Stack>
         </Container>
@@ -271,136 +278,9 @@ function OrderPageContent() {
       {/* ── Scoping Hub Form & Overview ── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <SimpleGrid cols={{ base: 1, lg: 12 }} spacing={{ base: rem(28), lg: rem(40) }} style={{ alignItems: 'flex-start' }}>
-            {/* Left Column: Scope Overview & Commitments (4 cols, sticky) */}
-            <Box
-              style={{
-                gridColumn: 'span 4',
-                position: 'sticky',
-                top: rem(90),
-              }}
-            >
-              <Stack gap="lg">
-                <Box
-                  p={{ base: rem(20), md: rem(28) }}
-                  bg={active.surface}
-                  style={{
-                    border: `1px solid ${active.primary}15`,
-                    borderLeft: `4px solid ${active.accent}`,
-                  }}
-                >
-                  <Badge
-                    size="xs"
-                    radius={0}
-                    variant="filled"
-                    style={{
-                      backgroundColor: active.accent,
-                      color: '#ffffff',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      marginBottom: rem(10),
-                    }}
-                  >
-                    24-HOUR PROPOSAL GUARANTEE
-                  </Badge>
-
-                  <Title
-                    order={3}
-                    style={{
-                      fontFamily: 'var(--font-serif)',
-                      fontSize: rem(22),
-                      color: active.primary,
-                      fontWeight: 600,
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    What Every Full Project Scope Includes:
-                  </Title>
-
-                  <Divider color={`${active.primary}10`} my={rem(16)} />
-
-                  <Stack gap={rem(12)}>
-                    {[
-                      {
-                        title: 'Custom Integrated Milestone Proposal',
-                        desc: 'Delivered within 24 hours. A clear, itemized proposal with a single flat fee ($600–$1,800 for articles; $1,500–$3,500+ for books).',
-                      },
-                      {
-                        title: 'Transparent 50/50 Milestone Terms',
-                        desc: '50% deposit upon project initiation; 50% upon final delivery of your publication-ready files.',
-                      },
-                      {
-                        title: '100% Track Changes in Word (or LaTeX)',
-                        desc: 'Full developmental editing, sentence rhythm, syntax untangling, and tone calibration with every edit visible.',
-                      },
-                      {
-                        title: 'Discipline-Specific Doctoral Matching',
-                        desc: 'Your manuscript is paired with a specialist editor in your field (Humanities, Social Sciences, Education, Policy).',
-                      },
-                      {
-                        title: '365-Day Committee & Reviewer Re-Editing',
-                        desc: 'Secondary passes at zero charge when your advisor, committee, or journal reviewers request revisions.',
-                      },
-                      {
-                        title: 'Official Editorial Compliance Certificate',
-                        desc: 'Issued upon completion for graduate school clearance or journal submission verification.',
-                      },
-                    ].map((item, i) => (
-                      <Group key={i} gap="sm" align="flex-start" wrap="nowrap">
-                        <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
-                        <Box>
-                          <Text size="xs" fw={700} c={active.primary} lh={1.3}>
-                            {item.title}
-                          </Text>
-                          <Text size="xs" c="dimmed" lh={1.4} mt={rem(2)}>
-                            {item.desc}
-                          </Text>
-                        </Box>
-                      </Group>
-                    ))}
-                  </Stack>
-                </Box>
-
-                {/* Faculty Scoping Call Card */}
-                <Box
-                  p={{ base: rem(18), md: rem(22) }}
-                  bg={active.surface}
-                  style={{ border: `1px solid ${active.primary}12` }}
-                >
-                  <Stack gap="xs">
-                    <Group gap="xs">
-                      <IconMessages size={18} color={active.accent} />
-                      <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                        Prefer to Discuss First?
-                      </Text>
-                    </Group>
-                    <Text size="xs" c="dimmed" lh={1.5}>
-                      Schedule an introductory 15-minute scoping consultation with Dr. Micah Dobson to discuss your manuscript timeline, target press, and committee feedback before requesting a proposal.
-                    </Text>
-                    <Anchor
-                      href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      c={active.accent}
-                      size="xs"
-                      fw={700}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: rem(4),
-                        textDecoration: 'none',
-                        marginTop: rem(4),
-                      }}
-                    >
-                      Book 15-Min Scoping Call with Faculty &rarr;
-                    </Anchor>
-                  </Stack>
-                </Box>
-              </Stack>
-            </Box>
-
-            {/* Right Column: Custom Scope Request Form (8 cols, generous width) */}
-            <Box style={{ gridColumn: 'span 8' }}>
+          <Grid gutter={{ base: rem(28), lg: rem(40) }} align="flex-start">
+            {/* Primary Column: Custom Scope Request Form (8 cols on lg, front and center) */}
+            <Grid.Col span={{ base: 12, lg: 8 }}>
               <Box
                 p={{ base: rem(28), sm: rem(36), md: rem(44) }}
                 bg={active.surface}
@@ -697,8 +577,136 @@ function OrderPageContent() {
                   </form>
                 )}
               </Box>
-            </Box>
-          </SimpleGrid>
+            </Grid.Col>
+
+            {/* Secondary Column: Scope Overview & Commitments (4 cols on lg, RHS like a cart summary, sticky) */}
+            <Grid.Col span={{ base: 12, lg: 4 }}>
+              <Box
+                style={{
+                  position: 'sticky',
+                  top: rem(90),
+                }}
+              >
+                <Stack gap="lg">
+                  <Box
+                    p={{ base: rem(20), md: rem(28) }}
+                    bg={active.surface}
+                    style={{
+                      border: `1px solid ${active.primary}15`,
+                      borderLeft: `4px solid ${active.accent}`,
+                    }}
+                  >
+                    <Badge
+                      size="xs"
+                      radius={0}
+                      variant="filled"
+                      style={{
+                        backgroundColor: active.accent,
+                        color: '#ffffff',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        marginBottom: rem(10),
+                      }}
+                    >
+                      24-HOUR PROPOSAL GUARANTEE
+                    </Badge>
+
+                    <Title
+                      order={3}
+                      style={{
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: rem(22),
+                        color: active.primary,
+                        fontWeight: 600,
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      What Every Full Project Scope Includes:
+                    </Title>
+
+                    <Divider color={`${active.primary}10`} my={rem(16)} />
+
+                    <Stack gap={rem(12)}>
+                      {[
+                        {
+                          title: 'Custom Integrated Milestone Proposal',
+                          desc: 'Delivered within 24 hours. An itemized editorial roadmap with guaranteed turnaround dates and transparent fixed deliverables.',
+                        },
+                        {
+                          title: 'Transparent 50/50 Milestone Terms',
+                          desc: '50% deposit upon project initiation; 50% upon final delivery of your publication-ready files.',
+                        },
+                        {
+                          title: '100% Track Changes in Word (or LaTeX)',
+                          desc: 'Full developmental editing, sentence rhythm, syntax untangling, and tone calibration with every edit visible.',
+                        },
+                        {
+                          title: 'Discipline-Specific Doctoral Matching',
+                          desc: 'Your manuscript is paired with a specialist editor in your field (Humanities, Social Sciences, Education, Policy).',
+                        },
+                        {
+                          title: '365-Day Committee & Reviewer Re-Editing',
+                          desc: 'Secondary passes at zero charge when your advisor, committee, or journal reviewers request revisions.',
+                        },
+                        {
+                          title: 'Official Editorial Compliance Certificate',
+                          desc: 'Issued upon completion for graduate school clearance or journal submission verification.',
+                        },
+                      ].map((item, i) => (
+                        <Group key={i} gap="sm" align="flex-start" wrap="nowrap">
+                          <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                          <Box>
+                            <Text size="xs" fw={700} c={active.primary} lh={1.3}>
+                              {item.title}
+                            </Text>
+                            <Text size="xs" c="dimmed" lh={1.4} mt={rem(2)}>
+                              {item.desc}
+                            </Text>
+                          </Box>
+                        </Group>
+                      ))}
+                    </Stack>
+                  </Box>
+
+                  {/* Faculty Scoping Call Card */}
+                  <Box
+                    p={{ base: rem(18), md: rem(22) }}
+                    bg={active.surface}
+                    style={{ border: `1px solid ${active.primary}12` }}
+                  >
+                    <Stack gap="xs">
+                      <Group gap="xs">
+                        <IconMessages size={18} color={active.accent} />
+                        <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                          Prefer to Discuss First?
+                        </Text>
+                      </Group>
+                      <Text size="xs" c="dimmed" lh={1.5}>
+                        Schedule an introductory 15-minute scoping consultation with Dr. Micah Dobson to discuss your manuscript timeline, target press, and committee feedback before requesting a proposal.
+                      </Text>
+                      <Anchor
+                        href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        c={active.accent}
+                        size="xs"
+                        fw={700}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: rem(4),
+                          textDecoration: 'none',
+                          marginTop: rem(4),
+                        }}
+                      >
+                        Book 15-Min Scoping Call with Faculty &rarr;
+                      </Anchor>
+                    </Stack>
+                  </Box>
+                </Stack>
+              </Box>
+            </Grid.Col>
+          </Grid>
         </Container>
       </Box>
 

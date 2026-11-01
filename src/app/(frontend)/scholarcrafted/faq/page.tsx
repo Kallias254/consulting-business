@@ -101,7 +101,7 @@ const integrityFaqs = [
 const logisticsFaqs = [
   {
     q: 'How do I get a price quote?',
-    a: `Every engagement is scoped with fixed milestone pricing rather than commodity word counting. Typical peer-reviewed journal conversion milestones range between $600 and $1,800. Complete university press monograph proposals and structural editing range between $1,500 and $3,500+. We guarantee a transparent, itemized proposal within 24 hours of receiving your manuscript, structured under 50/50 terms (50% retainer deposit, 50% upon milestone completion).`,
+    a: `Every engagement is scoped with fixed milestone pricing rather than commodity word counting. We evaluate your manuscript length, disciplinary conventions, and publisher standards to deliver a transparent, itemized proposal within 24 hours. Engagements are structured under aligned 50/50 terms (50% deposit upon project initiation, 50% upon final delivery of publication-ready files).`,
   },
   {
     q: 'My defense is in two weeks. Is there a rush option?',
