@@ -1119,10 +1119,9 @@ export default function ScholarCraftedLanding() {
                     color: '#ffffff',
                     fontFamily: 'var(--font-serif)',
                     fontWeight: 700,
-                    maxWidth: '24ch',
                   }}
                 >
-                  Your research deserves to be published. We make it happen.
+                  Your research deserves<br />to be published.<br />We make it happen.
                 </Title>
 
                 <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '56ch' }}>
