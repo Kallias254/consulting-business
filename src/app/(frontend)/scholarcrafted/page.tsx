@@ -1113,7 +1113,7 @@ export default function ScholarCraftedLanding() {
                 <Title
                   order={1}
                   style={{
-                    fontSize: 'clamp(2.2rem, 5.2vw, 3.6rem)',
+                    fontSize: 'clamp(2.2rem, 4.8vw, 3rem)',
                     lineHeight: 1.08,
                     letterSpacing: '-0.025em',
                     color: '#ffffff',
