@@ -1119,6 +1119,7 @@ export default function ScholarCraftedLanding() {
                     color: '#ffffff',
                     fontFamily: 'var(--font-serif)',
                     fontWeight: 700,
+                    maxWidth: '15ch',
                   }}
                 >
                   Your research deserves to be published. We make it happen.
