@@ -112,12 +112,12 @@ export const theme = createTheme({
   fontFamily: 'var(--font-sans)',
   headings: {
     fontFamily: 'var(--font-serif)',
-    fontWeight: '400',
+    fontWeight: '600',
     sizes: {
-      h1: { fontSize: '3.5rem', lineHeight: '1.1' },
-      h2: { fontSize: '2.75rem', lineHeight: '1.2' },
-      h3: { fontSize: '2rem', lineHeight: '1.3' },
-      h4: { fontSize: '1.5rem', lineHeight: '1.4' },
+      h1: { fontSize: '3.5rem', lineHeight: '1.08' },
+      h2: { fontSize: '2.75rem', lineHeight: '1.15' },
+      h3: { fontSize: '2rem', lineHeight: '1.25' },
+      h4: { fontSize: '1.5rem', lineHeight: '1.35' },
       h5: { fontSize: '1.25rem', lineHeight: '1.4' },
       h6: { fontSize: '1rem', lineHeight: '1.5' },
     },

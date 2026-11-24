@@ -83,18 +83,18 @@ export function Navbar() {
       {/* Main Navbar */}
       <Box
         component="nav"
-        py={rem(16)}
+        py={rem(14)}
         style={{
-          backgroundColor: 'rgba(255,255,255,0.94)',
+          backgroundColor: active.accent,
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(0,0,0,0.06)',
+          borderBottom: 'none',
         }}
       >
         <Container size={1340}>
           <Group justify="space-between" align="center" wrap="nowrap">
             <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
-              <Logo height={38} boxColor={active.accent} textColor={active.primary} />
+              <Logo height={34} boxColor="#ffffff" textColor="#ffffff" />
             </Link>
 
             {/* Desktop nav */}
@@ -124,14 +124,14 @@ export function Navbar() {
                           fw={600}
                           size="xs"
                           className="nav-link"
-                          style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+                          style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
                         >
                           SERVICES
                           <IconChevronDown
                             size={14}
                             style={{
                               marginLeft: rem(6),
-                              opacity: 0.55,
+                              opacity: 0.7,
                               transform: servicesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
                               transition: 'transform 0.3s ease',
                               display: 'inline-block',
@@ -190,8 +190,7 @@ export function Navbar() {
                       fw={600}
                       size="xs"
                       className="nav-link"
-                      c={active.primary}
-                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
                     >
                       ABOUT &amp; ETHICS
                     </Text>
@@ -207,8 +206,7 @@ export function Navbar() {
                       fw={600}
                       size="xs"
                       className="nav-link"
-                      c={active.primary}
-                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap' }}
+                      style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
                     >
                       FAQ &amp; POLICIES
                     </Text>
@@ -223,14 +221,14 @@ export function Navbar() {
                   size="sm"
                   radius={0}
                   className="impeccable-button"
-                  style={{ backgroundColor: active.accent, color: '#ffffff', whiteSpace: 'nowrap', fontWeight: 600, border: 'none' }}
+                  style={{ backgroundColor: '#ffffff', color: active.accent, whiteSpace: 'nowrap', fontWeight: 700, border: 'none' }}
                 >
-                  REQUEST PROJECT SCOPE
+                  GET A SCOPE
                 </Button>
               </Link>
             </Group>
 
-            <Burger opened={opened} onClick={toggle} hiddenFrom="md" size="sm" color={active.primary} />
+            <Burger opened={opened} onClick={toggle} hiddenFrom="md" size="sm" color="#ffffff" />
           </Group>
         </Container>
 
@@ -411,13 +409,13 @@ export function Navbar() {
             transition: background-color 0.2s ease;
           }
           .nav-link-wrapper:hover {
-            background-color: var(--nav-hover-bg);
+            background-color: rgba(255, 255, 255, 0.15);
           }
           .nav-link-wrapper.active {
-            background-color: var(--nav-hover-bg);
+            background-color: rgba(255, 255, 255, 0.15);
           }
           .nav-link {
-            color: ${active.primary} !important;
+            color: #ffffff !important;
             transition: color 0.2s ease, opacity 0.2s ease;
             text-decoration: none;
             display: inline-flex;
@@ -427,7 +425,8 @@ export function Navbar() {
           }
           .nav-link-wrapper:hover .nav-link,
           .nav-link-wrapper.active .nav-link {
-            color: ${active.accent} !important;
+            color: #ffffff !important;
+            opacity: 0.9;
           }
           .mega-menu-dropdown {
             background-color: #ffffff !important;

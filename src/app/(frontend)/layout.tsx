@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
-import { Inter, EB_Garamond, Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google'
+import { Inter, DM_Sans, Plus_Jakarta_Sans } from 'next/font/google'
 import React from 'react'
 
 import { Providers } from '@/providers'
@@ -12,13 +12,14 @@ import '@mantine/carousel/styles.css'
 import '@mantine/dates/styles.css'
 import './globals.css'
 
-const ebGaramond = EB_Garamond({
+const dmSans = DM_Sans({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-serif',
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
+const dmSansDisplay = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-display',
@@ -41,7 +42,7 @@ const inter = Inter({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={cn(ebGaramond.variable, cormorant.variable, jakarta.variable, inter.variable)}
+      className={cn(dmSans.variable, dmSansDisplay.variable, jakarta.variable, inter.variable)}
       lang="en"
       suppressHydrationWarning
     >

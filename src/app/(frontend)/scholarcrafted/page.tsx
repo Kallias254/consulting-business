@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Container,
   Title,
@@ -19,6 +19,7 @@ import {
   Accordion,
   UnstyledButton,
   Badge,
+  Transition,
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
@@ -49,6 +50,10 @@ import {
   IconAdjustmentsAlt,
   IconBuildingStore,
   IconRefresh,
+  IconShieldCheck,
+  IconClock24,
+  IconTarget,
+  IconSparkles,
 } from '@tabler/icons-react'
 import { Carousel } from '@mantine/carousel'
 import Autoplay from 'embla-carousel-autoplay'
@@ -124,26 +129,6 @@ const universities = [
   { name: 'ANU', logo: '/logos/Australian_National_University-Logo.wine.svg' },
   { name: 'K-State', logo: '/logos/Kansas_State_University-Logo.wine.svg' },
 ]
-
-const LaurelBranch = ({ size = 56, color = 'currentColor', left = false }) => (
-  <svg
-    width={size / 2}
-    height={size}
-    viewBox="0 0 24 48"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ transform: left ? 'scaleY(-1)' : 'scale(-1, -1)', display: 'block', opacity: 0.8 }}
-  >
-    <path d="M12 44C12 30 6 16 20 4" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-    <path d="M11 38C5 36 2 40 5 44C8 40 11 41 11 38Z" fill={color} />
-    <path d="M9 28C3 26 0 30 3 34C6 30 9 31 9 28Z" fill={color} />
-    <path d="M9 18C3 16 0 20 3 24C6 20 9 21 9 18Z" fill={color} />
-    <path d="M13 32C19 30 22 34 19 38C16 34 13 35 13 32Z" fill={color} />
-    <path d="M11 22C17 20 20 24 17 28C14 24 11 25 11 22Z" fill={color} />
-    <path d="M11 12C17 10 20 14 17 18C14 14 11 15 11 12Z" fill={color} />
-    <path d="M18 6C16 0 22 -2 24 4C21 6 18 6 18 6Z" fill={color} />
-  </svg>
-)
 
 // ─── Homepage Need & Situation Selectors ─────────────────────────────────────
 
@@ -222,18 +207,18 @@ const homeServices: Record<string, {
     title: 'Peer-Review Readiness & Journal Alignment',
     desc: 'Transform dissertation chapters and research drafts into authoritative submissions. Reframe theoretical hooks, survive editor desk-rejection, format to strict guidelines (Word/LaTeX), and navigate Revise & Resubmit reviews.',
     link: '/order?track=a',
-    cta: 'Scope Your Journal Submission',
+    cta: 'Scope Your Submission',
   },
   track_b: {
     badge: 'ACADEMIC BOOK & PRESS PIPELINE',
     title: 'Monograph & University Press Architecture',
     desc: 'From stalled chapters to contracted academic books. Full dissertation-to-monograph structural conversion, cumulative chapter logic, press proposals (Oxford, Cambridge, Routledge), and 5-stage production prep.',
     link: '/order?track=b',
-    cta: 'Scope Your Monograph Project',
+    cta: 'Scope Your Monograph',
   },
 }
 
-// ─── SECTION 1: Two Core Outcome Tracks ──────────────────────────────────────
+// ─── SECTION: Two Core Outcome Tracks ──────────────────────────────────────
 
 function TwoOutcomeTracksSection({ active }: { active: Record<string, string> }) {
   return (
@@ -244,9 +229,9 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
       bg={active.background}
     >
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-        <Stack gap={rem(40)}>
-          {/* Section Header */}
-          <Box style={{ maxWidth: 840 }}>
+        <Stack gap={rem(48)}>
+          {/* Section Header — urgency-driven copy */}
+          <Box style={{ maxWidth: 740 }}>
             <Text
               size="xs"
               fw={700}
@@ -257,41 +242,43 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                 fontFamily: 'var(--font-heading-sans), var(--font-sans)',
               }}
             >
-              CORE OUTCOME TRACKS
+              CHOOSE YOUR PUBLICATION PATH
             </Text>
             <Title
               order={2}
               mt="xs"
               style={{
-                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                fontSize: 'clamp(1.85rem, 3.5vw, 2.6rem)',
                 color: active.primary,
                 fontFamily: 'var(--font-serif)',
-                fontWeight: 600,
-                lineHeight: 1.2,
-                letterSpacing: '-0.015em',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
               }}
             >
-              Two strategic pathways for publishing scholars.
+              Every stalled manuscript has an exit route. Pick yours.
             </Title>
-            <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '68ch' }}>
-              Rather than selling transactional word-count proofreading or confusing micro-services, ScholarCrafted structures technical and developmental rigor into two outcome-driven tracks tailored to your career stage.
+            <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
+              We don't sell generic proofreading. We build you an end-to-end publication engine — journal or book — with a doctoral specialist assigned to your discipline.
             </Text>
           </Box>
 
           {/* 2 Core Track Cards */}
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(28)}>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)}>
             {/* Track A */}
             <Box
-              p={{ base: rem(28), sm: rem(36), md: rem(44) }}
+              p={{ base: rem(28), sm: rem(36), md: rem(40) }}
               bg={active.surface}
               style={{
-                border: `1px solid ${active.primary}18`,
+                border: `1px solid ${active.primary}14`,
                 borderTop: `4px solid ${active.accent}`,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.03)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 16px 48px ${active.accent}18`; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               <Box>
                 <Badge
@@ -303,47 +290,37 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     color: '#ffffff',
                     letterSpacing: '0.12em',
                     fontWeight: 700,
-                    marginBottom: rem(12),
+                    marginBottom: rem(16),
                     fontSize: rem(10),
                   }}
                 >
-                  JOURNAL ARTICLES &amp; CHAPTER PIPELINE
+                  JOURNAL ARTICLES & CHAPTER PIPELINE
                 </Badge>
                 <Title
                   order={3}
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: rem(26),
+                    fontSize: rem(24),
                     color: active.primary,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     lineHeight: 1.25,
                   }}
                 >
-                  Peer-Review Readiness &amp; Journal Alignment
+                  Peer-Review Readiness & Journal Alignment
                 </Title>
-                <Text size="sm" c="dimmed" mt={rem(8)} lh={1.65}>
-                  Designed for PhD graduates, postdocs, and early-career faculty. We re-anchor defensive dissertation chapters into authoritative journal interventions built to survive editor triage and peer review.
+                <Text size="sm" c="dimmed" mt={rem(10)} lh={1.65}>
+                  For PhD graduates, postdocs, and early-career faculty. We re-anchor defensive dissertation chapters into authoritative journal interventions built to survive editor triage and peer review.
                 </Text>
 
                 <Divider color={`${active.primary}10`} my={rem(20)} />
 
-                <Text
-                  size="xs"
-                  fw={700}
-                  c={active.primary}
-                  mb={rem(12)}
-                  style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
-                >
-                  WHAT EVERY ARTICLE ENGAGEMENT INCLUDES:
-                </Text>
-
                 <Stack gap={rem(10)} mb={rem(24)}>
                   {[
-                    'Epistemological reframing: shifting from defensive dissertation reporting to an authoritative scholarly contribution',
-                    'Target journal scope matching & aligning arguments to current editorial board debates',
-                    'Desk-rejection defense: strict author guidelines compliance, anonymization & citation forensics',
-                    'Faculty-crafted Cover Letter to the Editor-in-Chief pitching your theoretical contribution',
-                    'Revise & Resubmit (R&R) strategy: point-by-point reviewer rebuttal matrices & diplomacy review',
+                    'Epistemological reframing from defensive dissertation to authoritative scholarly contribution',
+                    'Target journal scope matching & editorial board alignment',
+                    'Desk-rejection defense: guidelines compliance, anonymization & citation forensics',
+                    'Faculty-crafted Cover Letter to the Editor-in-Chief',
+                    'R&R strategy: point-by-point reviewer rebuttal matrices',
                   ].map((feat, idx) => (
                     <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                       <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -356,16 +333,6 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
               </Box>
 
               <Box mt="auto">
-                <Box
-                  p={rem(12)}
-                  mb={rem(16)}
-                  bg={active.background}
-                  style={{ border: `1px solid ${active.primary}10` }}
-                >
-                  <Text size="xs" c="dimmed" lh={1.5}>
-                    <strong style={{ color: active.primary }}>Deliverable Assurance:</strong> 100% Track Changes in Word, style manual adherence (APA 7, Chicago, IEEE), and an official Editorial Compliance Certificate.
-                  </Text>
-                </Box>
                 <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
                   <Button
                     fullWidth
@@ -381,7 +348,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                       height: rem(48),
                     }}
                   >
-                    Request Journal / Article Scope
+                    Scope Journal Submission
                   </Button>
                 </Link>
               </Box>
@@ -389,16 +356,18 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
 
             {/* Track B */}
             <Box
-              p={{ base: rem(28), sm: rem(36), md: rem(44) }}
+              p={{ base: rem(28), sm: rem(36), md: rem(40) }}
               bg={active.surface}
               style={{
-                border: `1px solid ${active.primary}18`,
+                border: `1px solid ${active.primary}14`,
                 borderTop: `4px solid ${active.primary}`,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.03)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.08)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               <Box>
                 <Badge
@@ -410,47 +379,37 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                     color: active.primary,
                     letterSpacing: '0.12em',
                     fontWeight: 700,
-                    marginBottom: rem(12),
+                    marginBottom: rem(16),
                     fontSize: rem(10),
                   }}
                 >
-                  UNIVERSITY PRESS &amp; MONOGRAPH PIPELINE
+                  UNIVERSITY PRESS & MONOGRAPH PIPELINE
                 </Badge>
                 <Title
                   order={3}
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: rem(26),
+                    fontSize: rem(24),
                     color: active.primary,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     lineHeight: 1.25,
                   }}
                 >
-                  Monograph &amp; Book Architecture
+                  Monograph & Book Architecture
                 </Title>
-                <Text size="sm" c="dimmed" mt={rem(8)} lh={1.65}>
-                  Tailored for junior and senior faculty preparing their first or second academic monograph. We provide multi-chapter developmental continuity, publisher proposals, and 5-stage production support.
+                <Text size="sm" c="dimmed" mt={rem(10)} lh={1.65}>
+                  For junior and senior faculty preparing their first or second academic monograph. Multi-chapter developmental continuity, publisher proposals, and 5-stage production support.
                 </Text>
 
                 <Divider color={`${active.primary}10`} my={rem(20)} />
 
-                <Text
-                  size="xs"
-                  fw={700}
-                  c={active.primary}
-                  mb={rem(12)}
-                  style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
-                >
-                  WHAT EVERY MONOGRAPH ENGAGEMENT INCLUDES:
-                </Text>
-
                 <Stack gap={rem(10)} mb={rem(24)}>
                   {[
                     'Dissertation-to-monograph structural conversion & cumulative argument mapping',
-                    'Acquisition book proposals formatted to publisher specifications (Oxford, Routledge, Cambridge)',
+                    'Acquisition proposals formatted to publisher specs (Oxford, Routledge, Cambridge)',
                     'Multi-chapter developmental editing & tone consistency across full volumes',
-                    'The 5 Stages of Book Production (Developmental -> Copyedit -> Indexing -> Layout -> Proofing)',
-                    'Press-grade back-of-book indexing (Cindex/SKY Index) & typeset galley proof review',
+                    'The 5 Stages of Book Production (Dev → Copyedit → Indexing → Layout → Proofing)',
+                    'Press-grade back-of-book indexing (Cindex/SKY Index) & galley proof review',
                   ].map((feat, idx) => (
                     <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                       <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -463,16 +422,6 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
               </Box>
 
               <Box mt="auto">
-                <Box
-                  p={rem(12)}
-                  mb={rem(16)}
-                  bg={active.background}
-                  style={{ border: `1px solid ${active.primary}10` }}
-                >
-                  <Text size="xs" c="dimmed" lh={1.5}>
-                    <strong style={{ color: active.primary }}>Press Coordination:</strong> End-to-end guidance from press proposal to printed book. Single dedicated editorial contact with 50/50 payment milestone terms.
-                  </Text>
-                </Box>
                 <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
                   <Button
                     fullWidth
@@ -489,7 +438,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                       height: rem(48),
                     }}
                   >
-                    Request Monograph / Book Scope
+                    Scope Monograph Project
                   </Button>
                 </Link>
               </Box>
@@ -501,210 +450,215 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
   )
 }
 
-// ─── SECTION 1.2: Consultative Scoping Callout ───────────────────────────────
+// ─── SECTION: Consultative Scoping Callout ───────────────────────────────
 
 function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
   return (
     <Box
       id="project-scoping"
       component="section"
-      py={{ base: rem(48), md: rem(64) }}
-      bg={active.surface}
-      style={{
-        borderTop: `1px solid ${active.primary}12`,
-        borderBottom: `1px solid ${active.primary}12`,
-      }}
+      py={{ base: rem(60), md: rem(80) }}
+      bg={active.primary}
+      style={{ position: 'relative', overflow: 'hidden' }}
+      data-dark-bg="true"
     >
-      <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-        <Box
-          p={{ base: rem(28), sm: rem(36), md: rem(44) }}
-          bg={active.background}
-          style={{
-            border: `1px solid ${active.primary}15`,
-            borderLeft: `5px solid ${active.accent}`,
-            boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-          }}
-        >
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(40) }} style={{ alignItems: 'center' }}>
-            <Stack gap="md">
-              <Group gap="xs">
-                <Badge
-                  size="sm"
+      {/* Subtle radial glow */}
+      <Box
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(ellipse 60% 50% at 80% 50%, ${active.accent}18, transparent 70%)`,
+          pointerEvents: 'none',
+        }}
+      />
+      <Container size={1240} px={{ base: 'md', sm: 'xl' }} style={{ position: 'relative', zIndex: 1 }}>
+        <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(32), md: rem(60) }} style={{ alignItems: 'center' }}>
+          <Stack gap="lg">
+            <Group gap="xs">
+              <Badge
+                size="sm"
+                radius={0}
+                variant="filled"
+                style={{
+                  backgroundColor: active.accent,
+                  color: '#ffffff',
+                  letterSpacing: '0.12em',
+                  fontWeight: 700,
+                }}
+              >
+                24-HOUR TURNAROUND
+              </Badge>
+              <Badge
+                size="sm"
+                radius={0}
+                variant="outline"
+                style={{
+                  borderColor: 'rgba(255,255,255,0.3)',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                }}
+              >
+                50/50 MILESTONE TERMS
+              </Badge>
+            </Group>
+
+            <Title
+              order={2}
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.75rem, 3vw, 2.3rem)',
+                color: '#ffffff',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Stop guessing. Get a fixed-price milestone proposal in 24 hours.
+            </Title>
+
+            <Text size="sm" style={{ color: 'rgba(255,255,255,0.75)' }} lh={1.7}>
+              Share your draft word count and target journal or press. Dr. Micah Dobson and your assigned doctoral editor will deliver an itemized proposal with exact deliverables, timeline, and transparent flat pricing.
+            </Text>
+
+            <Stack gap={rem(8)}>
+              {[
+                'Itemized milestone proposal with guaranteed delivery dates',
+                '50% deposit / 50% upon delivery of publication-ready files',
+                '100% Track Changes with full developmental margin commentary',
+                '365-day revision coverage for committee, advisor, and R&R feedback',
+                'Optional 15-minute scoping call with Dr. Micah Dobson',
+              ].map((item, idx) => (
+                <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
+                  <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                  <Text size="xs" lh={1.5} style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    {item}
+                  </Text>
+                </Group>
+              ))}
+            </Stack>
+          </Stack>
+
+          {/* CTA Card — floating panel feel */}
+          <Box
+            p={{ base: rem(28), sm: rem(36) }}
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              backdropFilter: 'blur(8px)',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: rem(20),
+            }}
+          >
+            <Box
+              style={{
+                width: rem(64),
+                height: rem(64),
+                borderRadius: '50%',
+                backgroundColor: `${active.accent}20`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <IconClock24 size={28} color={active.accent} />
+            </Box>
+            <Text
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: rem(28),
+                fontWeight: 700,
+                color: '#ffffff',
+                lineHeight: 1.2,
+              }}
+            >
+              Fixed Milestone Pricing
+            </Text>
+            <Text size="xs" lh={1.6} style={{ maxWidth: 300, color: 'rgba(255,255,255,0.65)' }}>
+              Transparent fixed fees tailored to your project scope. No unpredictable per-word sliders.
+            </Text>
+            <Stack gap="xs" style={{ width: '100%' }}>
+              <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>
+                <Button
+                  fullWidth
+                  size="md"
                   radius={0}
-                  variant="filled"
+                  rightSection={<IconArrowRight size={16} />}
                   style={{
                     backgroundColor: active.accent,
                     color: '#ffffff',
-                    letterSpacing: '0.12em',
                     fontWeight: 700,
+                    height: rem(48),
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                    letterSpacing: '0.04em',
                   }}
                 >
-                  CONFIDENTIAL FACULTY ADVISORY
-                </Badge>
-                <Badge
-                  size="sm"
+                  Request Project Scope
+                </Button>
+              </Link>
+              <a
+                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', width: '100%' }}
+              >
+                <Button
+                  fullWidth
+                  size="md"
                   radius={0}
                   variant="outline"
                   style={{
-                    borderColor: `${active.primary}30`,
-                    color: active.primary,
-                    fontWeight: 700,
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    color: '#ffffff',
+                    fontWeight: 600,
+                    height: rem(44),
                   }}
                 >
-                  50/50 MILESTONE TERMS
-                </Badge>
-              </Group>
-
-              <Title
-                order={2}
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.8rem, 3.2vw, 2.4rem)',
-                  color: active.primary,
-                  fontWeight: 600,
-                  lineHeight: 1.2,
-                }}
-              >
-                Guaranteed 24-Hour Scoped Milestone Proposal
-              </Title>
-
-              <Text size="sm" c="dimmed" lh={1.7}>
-                Share your draft word count and target journal or university press. Dr. Micah Dobson and your assigned doctoral editor will review your project and deliver an itemized milestone proposal within 24 hours.
-              </Text>
-
-              <Stack gap={rem(8)}>
-                {[
-                  'Itemized milestone proposal with transparent flat fees and guaranteed delivery dates',
-                  '50% deposit upfront / 50% upon final delivery of publication-ready files',
-                  '100% Microsoft Word Track Changes with full developmental margin commentary',
-                  '365-day revision coverage for advisor comments, committee feedback, and journal R&R',
-                  'Optional 15-minute scoping call directly with Dr. Micah Dobson before work begins',
-                ].map((item, idx) => (
-                  <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
-                    <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                    <Text size="xs" c={active.primary} lh={1.5}>
-                      {item}
-                    </Text>
-                  </Group>
-                ))}
-              </Stack>
+                  Book 15-Min Call
+                </Button>
+              </a>
             </Stack>
-
-            <Box
-              p={{ base: rem(24), sm: rem(32) }}
-              bg={active.surface}
-              style={{
-                border: `1px solid ${active.primary}12`,
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: rem(16),
-              }}
-            >
-              <Text
-                size="xs"
-                fw={700}
-                c={active.accent}
-                style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
-              >
-                24-HOUR TURNAROUND
-              </Text>
-              <Text
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: rem(32),
-                  fontWeight: 600,
-                  color: active.primary,
-                  lineHeight: 1.2,
-                }}
-              >
-                Fixed Milestone Pricing
-              </Text>
-              <Text size="xs" c="dimmed" lh={1.6} style={{ maxWidth: 320 }}>
-                Transparent fixed milestone fees tailored to your project. Never unpredictable per-word sliders.
-              </Text>
-              <Stack gap="xs" style={{ width: '100%' }}>
-                <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>
-                  <Button
-                    fullWidth
-                    size="md"
-                    radius={0}
-                    rightSection={<IconArrowRight size={16} />}
-                    style={{
-                      backgroundColor: active.accent,
-                      color: '#ffffff',
-                      fontWeight: 700,
-                      height: rem(48),
-                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      letterSpacing: '0.04em',
-                    }}
-                  >
-                    Request Project Scope
-                  </Button>
-                </Link>
-                <a
-                  href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: 'none', width: '100%' }}
-                >
-                  <Button
-                    fullWidth
-                    size="md"
-                    radius={0}
-                    variant="outline"
-                    style={{
-                      borderColor: `${active.primary}30`,
-                      color: active.primary,
-                      fontWeight: 600,
-                      height: rem(44),
-                    }}
-                  >
-                    Book 15-Min Scoping Call
-                  </Button>
-                </a>
-              </Stack>
-            </Box>
-          </SimpleGrid>
-        </Box>
+          </Box>
+        </SimpleGrid>
       </Container>
     </Box>
   )
 }
 
-// ─── SECTION 1.3: 6-Step Publication Execution Flow ─────────────────────────
+// ─── SECTION: 6-Step Publication Execution Flow ─────────────────────────
 
 function PublicationExecutionFlowSection({ active }: { active: Record<string, string> }) {
   const steps = [
     {
-      num: 'STEP 01',
+      num: '01',
       title: 'Scoping & Diagnostic',
       desc: 'Identify core empirical contributions, evaluate theoretical hook, and isolate narrative bloat.',
     },
     {
-      num: 'STEP 02',
+      num: '02',
       title: 'Argument Extraction',
       desc: 'Condense sprawling 15k+ dissertation chapters into sharp, defensible 7k–9k journal logic.',
     },
     {
-      num: 'STEP 03',
+      num: '03',
       title: 'Substantive Edit',
       desc: 'Line-by-line academic prose polish, tone calibration, and 100% Word Track Changes.',
     },
     {
-      num: 'STEP 04',
+      num: '04',
       title: 'Journal & Press Fit',
       desc: 'Target journal Aims & Scope audit, author guidelines formatting, and custom cover letters.',
     },
     {
-      num: 'STEP 05',
+      num: '05',
       title: 'R&R Strategy',
       desc: 'Construct structured reviewer response matrices and align revisions to overcome objections.',
     },
     {
-      num: 'STEP 06',
+      num: '06',
       title: 'Layout & Indexing',
       desc: 'LaTeX/Typst typesetting, equation checking, and university press-grade back-of-book indexing.',
     },
@@ -736,11 +690,12 @@ function PublicationExecutionFlowSection({ active }: { active: Record<string, st
               order={2}
               mt="xs"
               style={{
-                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                fontSize: 'clamp(1.85rem, 3.5vw, 2.6rem)',
                 color: active.primary,
                 fontFamily: 'var(--font-serif)',
-                fontWeight: 600,
-                lineHeight: 1.2,
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
               }}
             >
               The 6-step journey from draft to published manuscript.
@@ -762,7 +717,10 @@ function PublicationExecutionFlowSection({ active }: { active: Record<string, st
                   display: 'flex',
                   flexDirection: 'column',
                   gap: rem(8),
+                  transition: 'transform 0.25s ease, border-color 0.25s ease',
                 }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.borderTopColor = active.accent; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderTopColor = i === 0 ? active.accent : `${active.primary}20`; }}
               >
                 <Text
                   size="xs"
@@ -792,7 +750,7 @@ function PublicationExecutionFlowSection({ active }: { active: Record<string, st
   )
 }
 
-// ─── SECTION 1.5: Prestigious Academic Trust Bar ────────────────────────────
+// ─── SECTION: Academic Trust Bar ────────────────────────────
 
 function AcademicTrustBar({ active }: { active: Record<string, string> }) {
   return (
@@ -822,7 +780,7 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
                 style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   color: '#ffffff !important',
                   lineHeight: 1.1,
                 }}
@@ -860,12 +818,19 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
   )
 }
 
-// ─── SECTION 2: Find Your Starting Point (By Situation) ──────────────────────
+// ─── SECTION: Find Your Starting Point (By Situation) ──────────────────────
 
 function ManuscriptSituationSection({ active }: { active: Record<string, string> }) {
   const [selectedId, setSelectedId] = useState(homeNeeds[0].id)
   const [isAutoCyclingNeeds, setIsAutoCyclingNeeds] = useState(true)
+  const [animateKey, setAnimateKey] = useState(0)
   const selectedNeed = homeNeeds.find((n) => n.id === selectedId) ?? homeNeeds[0]
+
+  const handleSelect = useCallback((id: string) => {
+    setSelectedId(id)
+    setAnimateKey(prev => prev + 1)
+    setIsAutoCyclingNeeds(false)
+  }, [])
 
   useEffect(() => {
     if (!isAutoCyclingNeeds) return
@@ -875,6 +840,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
         const nextIndex = (currentIndex + 1) % homeNeeds.length
         return homeNeeds[nextIndex].id
       })
+      setAnimateKey(prev => prev + 1)
     }, 4500)
     return () => clearInterval(timer)
   }, [isAutoCyclingNeeds])
@@ -910,12 +876,12 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
               order={2}
               mt="xs"
               style={{
-                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
+                fontSize: 'clamp(1.85rem, 3.5vw, 2.6rem)',
                 color: active.primary,
                 fontFamily: 'var(--font-serif)',
-                fontWeight: 600,
-                lineHeight: 1.2,
-                letterSpacing: '-0.015em',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
               }}
             >
               Where is your manuscript right now?
@@ -925,7 +891,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
             </Text>
           </Box>
 
-          {/* Interactive Situations Grid */}
+          {/* Interactive Situations — MOBILE: cards immediately below, DESKTOP: side by side */}
           <Box
             style={{
               display: 'grid',
@@ -942,24 +908,22 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                 return (
                   <UnstyledButton
                     key={need.id}
-                    onClick={() => {
-                      setSelectedId(need.id)
-                      setIsAutoCyclingNeeds(false)
-                    }}
+                    onClick={() => handleSelect(need.id)}
                     style={{ width: '100%', display: 'block' }}
                   >
                     <Box
-                      px={{ base: rem(20), md: rem(28) }}
-                      py={{ base: rem(18), md: rem(22) }}
+                      px={{ base: rem(16), md: rem(24) }}
+                      py={{ base: rem(14), md: rem(18) }}
                       style={{
                         borderBottom: i < homeNeeds.length - 1 ? `1px solid ${active.primary}10` : undefined,
                         backgroundColor: isActive ? active.surface : 'transparent',
-                        transition: 'background-color 0.15s ease',
+                        borderLeft: isActive ? `3px solid ${active.accent}` : '3px solid transparent',
+                        transition: 'all 0.2s ease',
                         cursor: 'pointer',
                       }}
                     >
-                      <Group justify="space-between" align="center" wrap="nowrap" gap="md">
-                        <Stack gap={rem(4)}>
+                      <Group justify="space-between" align="center" wrap="nowrap" gap="sm">
+                        <Stack gap={rem(2)}>
                           <Text
                             fw={isActive ? 700 : 500}
                             size="sm"
@@ -976,7 +940,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                         <IconChevronRight
                           size={16}
                           color={isActive ? active.accent : `${active.primary}40`}
-                          style={{ flexShrink: 0, transition: 'color 0.15s ease' }}
+                          style={{ flexShrink: 0, transition: 'color 0.15s ease, transform 0.15s ease', transform: isActive ? 'translateX(2px)' : 'none' }}
                         />
                       </Group>
                     </Box>
@@ -985,8 +949,13 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
               })}
             </Box>
 
-            {/* Right Column: Matched Service Cards */}
-            <Box>
+            {/* Right Column: Matched Service Cards — with animation */}
+            <Box
+              key={animateKey}
+              style={{
+                animation: 'fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
               <Stack gap={rem(18)}>
                 {selectedNeed.serviceIds.map((sid) => {
                   const svc = homeServices[sid]
@@ -1032,7 +1001,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                             style={{
                               fontSize: 'clamp(1.25rem, 2vw, 1.45rem)',
                               fontFamily: 'var(--font-serif)',
-                              fontWeight: 600,
+                              fontWeight: 700,
                               color: active.primary,
                               flex: 1,
                             }}
@@ -1088,11 +1057,22 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
         </Stack>
       </Container>
 
-      {/* Mobile: stack columns */}
+      {/* Mobile: stack columns + card animation */}
       <style>{`
+        @keyframes fadeSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
         @media (max-width: 820px) {
           .home-need-grid {
             grid-template-columns: 1fr !important;
+            gap: ${rem(16)} !important;
           }
         }
       `}</style>
@@ -1125,8 +1105,6 @@ export default function ScholarCraftedLanding() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-            /* Carousel indicators handled by bottom <style> block */
-
             .home-accordion-item[data-active] {
               border-color: ${active.primary} !important;
             }
@@ -1139,10 +1117,10 @@ export default function ScholarCraftedLanding() {
             .hero-overlay-mobile { display: block; }
             .hero-overlay-desktop { display: none; }
 
-            /* Hero buttons: full-width on small mobile */
-            .hero-btn-group { width: 100%; }
-            .hero-btn-link { display: block; width: 100%; }
-            .hero-btn-link > button { width: 100% !important; }
+            /* Hero buttons: side-by-side */
+            .hero-btn-group { display: flex; flex-wrap: wrap; gap: ${rem(12)}; }
+            .hero-btn-link { display: inline-block; }
+            .hero-btn-link > button { width: auto !important; }
 
             /* Back-to-top: smaller on mobile */
             .back-to-top-btn {
@@ -1152,14 +1130,15 @@ export default function ScholarCraftedLanding() {
               height: 42px !important;
             }
 
+            @media (max-width: 480px) {
+              .hero-btn-link { display: block; width: 100%; }
+              .hero-btn-link > button { width: 100% !important; }
+            }
+
             @media (min-width: 640px) {
               /* Desktop: directional gradient */
               .hero-overlay-mobile { display: none; }
               .hero-overlay-desktop { display: block; }
-
-              /* Buttons sit side by side */
-              .hero-btn-link { display: inline-block; width: auto; }
-              .hero-btn-link > button { width: auto !important; }
 
               .back-to-top-btn {
                 bottom: 40px !important;
@@ -1168,30 +1147,24 @@ export default function ScholarCraftedLanding() {
                 height: 50px !important;
               }
             }
-
-            /* Services grid on mobile: stack label/title/desc and CTA vertically */
-            @media (max-width: 600px) {
-              .service-row-grid {
-                grid-template-columns: 1fr !important;
-              }
-              .service-row-num { display: none; }
-            }
           `,
         }}
       />
 
-      {/* Hero Section — responsive left-anchored editorial layout */}
+      {/* ═════════════════════════════════════════════════════════════════
+          HERO — Cinematic left-anchored editorial layout
+       ═════════════════════════════════════════════════════════════════ */}
       <Box
         component="section"
         style={{
           position: 'relative',
-          minHeight: 'clamp(480px, 88vh, 840px)',
+          minHeight: 'clamp(480px, 85vh, 800px)',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
         }}
       >
-        {/* Background image — full bleed, right side breathes */}
+        {/* Background image */}
         <Box
           style={{
             position: 'absolute',
@@ -1202,86 +1175,60 @@ export default function ScholarCraftedLanding() {
             zIndex: 0,
           }}
         />
-        {/* Directional gradient: solid dark behind text on desktop; full dark on mobile */}
-        <Box
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'rgba(10,10,10,0.88)',
-            zIndex: 1,
-          }}
-          className="hero-overlay-mobile"
-        />
-        <Box
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to right, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.92) 45%, rgba(10,10,10,0.70) 75%, rgba(10,10,10,0.30) 100%)',
-            zIndex: 2,
-          }}
-          className="hero-overlay-desktop"
-        />
-        {/* Bottom subtle blend */}
-        <Box
-          style={{
-            position: 'absolute',
-            bottom: 0, left: 0, right: 0,
-            height: rem(100),
-            background: 'linear-gradient(to top, rgba(10,10,10,0.6), transparent)',
-            zIndex: 1,
-          }}
-        />
+        {/* Overlays */}
+        <Box style={{ position: 'absolute', inset: 0, background: 'rgba(10,10,10,0.88)', zIndex: 1 }} className="hero-overlay-mobile" />
+        <Box style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.92) 45%, rgba(10,10,10,0.70) 75%, rgba(10,10,10,0.30) 100%)', zIndex: 2 }} className="hero-overlay-desktop" />
+        <Box style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: rem(100), background: 'linear-gradient(to top, rgba(10,10,10,0.6), transparent)', zIndex: 1 }} />
 
-        {/* Content — responsive container */}
+        {/* Content */}
         <Box style={{ position: 'relative', zIndex: 3, width: '100%', paddingTop: 'clamp(88px, 14vw, 140px)', paddingBottom: 'clamp(48px, 8vw, 100px)' }}>
           <Container size={1200} px={{ base: 'md', sm: 'xl' }}>
-            <Box style={{ maxWidth: rem(640) }}>
-              <Stack gap="xl" align="flex-start">
+            <Box style={{ maxWidth: rem(620) }}>
+              <Stack gap="lg" align="flex-start">
 
-                <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase' }}>
+                <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
                   FACULTY-LED EDITORIAL & PUBLICATION ADVISORY
                 </p>
 
                 <Title
                   order={1}
                   style={{
-                    fontSize: 'clamp(2.3rem, 5.5vw, 4rem)',
+                    fontSize: 'clamp(2.2rem, 5.2vw, 3.6rem)',
                     lineHeight: 1.08,
-                    letterSpacing: '-0.02em',
+                    letterSpacing: '-0.025em',
                     color: '#ffffff',
                     fontFamily: 'var(--font-serif)',
-                    fontWeight: 500,
+                    fontWeight: 700,
                   }}
                 >
-                  Turn Your Dissertation Chapters &amp; Research Drafts into Published Scholarship.
+                  Your research deserves to be published. We make it happen.
                 </Title>
 
-                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.125rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', maxWidth: '58ch' }}>
-                  Substantive manuscript architecture, thesis-to-journal conversion, and publisher compliance—delivered with 100% Track Changes by doctoral specialists in your discipline.
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '56ch' }}>
+                  Substantive manuscript architecture, thesis-to-journal conversion, and publisher compliance — delivered with 100% Track Changes by doctoral specialists in your discipline.
                 </p>
 
-                {/* Buttons — side-by-side, wrap cleanly on smallest mobile */}
-                <Group gap={rem(12)} wrap="wrap" className="hero-btn-group">
+                {/* Buttons — side-by-side with shorter labels */}
+                <Group gap={rem(12)} className="hero-btn-group">
                   <Link href="/order" style={{ textDecoration: 'none' }} className="hero-btn-link">
                     <Button
                       size="lg"
                       radius={0}
-                      fullWidth
                       rightSection={<IconArrowRight size={18} />}
                       style={{
                         backgroundColor: active.accent,
                         color: '#fff',
-                        height: rem(52),
+                        height: rem(50),
                         paddingLeft: rem(24),
                         paddingRight: rem(24),
                         border: 'none',
-                        fontWeight: 600,
-                        fontSize: rem(15),
+                        fontWeight: 700,
+                        fontSize: rem(14),
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Request Custom Project Scope
+                      Get a Scope
                     </Button>
                   </Link>
                   <a
@@ -1294,74 +1241,25 @@ export default function ScholarCraftedLanding() {
                     <Button
                       size="lg"
                       radius={0}
-                      fullWidth
-                      rightSection={<IconArrowRight size={18} />}
                       style={{
                         borderColor: 'rgba(255,255,255,0.4)',
                         borderWidth: 1,
                         borderStyle: 'solid',
                         color: '#ffffff',
                         background: 'rgba(255,255,255,0.08)',
-                        height: rem(52),
+                        height: rem(50),
                         paddingLeft: rem(24),
                         paddingRight: rem(24),
-                        fontSize: rem(15),
+                        fontSize: rem(14),
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                         letterSpacing: '0.04em',
+                        fontWeight: 600,
                       }}
                     >
-                      Speak to Faculty / Book Call
+                      Book a Call
                     </Button>
                   </a>
                 </Group>
-
-                {/* Trust Badges */}
-                <Box pt="sm" style={{ borderTop: '1px solid rgba(255,255,255,0.2)', width: '100%' }}>
-                  <Group gap={rem(8)} wrap="wrap">
-                    {[
-                      '100% Human Doctoral Review',
-                      'Non-STEM & Humanities Specialists',
-                      'Zero Ghostwriting Guarantee',
-                      'Official Compliance Certification',
-                    ].map((badge, idx) => (
-                      <Group
-                        key={idx}
-                        gap={rem(6)}
-                        align="center"
-                        wrap="nowrap"
-                        style={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.55)',
-                          border: '1px solid rgba(255, 255, 255, 0.28)',
-                          padding: `${rem(5)} ${rem(10)}`,
-                          borderRadius: rem(2),
-                        }}
-                      >
-                        <Box
-                          style={{
-                            width: rem(6),
-                            height: rem(6),
-                            borderRadius: '50%',
-                            backgroundColor: active.accent,
-                            flexShrink: 0,
-                          }}
-                        />
-                        <Text
-                          size="xs"
-                          fw={600}
-                          style={{
-                            color: '#ffffff',
-                            fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                            letterSpacing: '0.02em',
-                            fontSize: rem(12),
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          {badge}
-                        </Text>
-                      </Group>
-                    ))}
-                  </Group>
-                </Box>
 
               </Stack>
             </Box>
@@ -1501,11 +1399,12 @@ export default function ScholarCraftedLanding() {
                 <Title
                   order={2}
                   style={{
-                    fontSize: 'clamp(2rem, 4vw, 2.85rem)',
+                    fontSize: 'clamp(1.85rem, 3.8vw, 2.6rem)',
                     color: active.primary,
                     fontFamily: 'var(--font-serif)',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
                   }}
                 >
                   A specialist team, on the painful parts.
@@ -1532,7 +1431,7 @@ export default function ScholarCraftedLanding() {
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                       }}
                     >
-                      Request Custom Project Scope
+                      Get a Scope
                     </Button>
                   </Link>
                   <a
@@ -1552,14 +1451,14 @@ export default function ScholarCraftedLanding() {
                         fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                       }}
                     >
-                      Book 15-Min Scoping Call
+                      Book a Call
                     </Button>
                   </a>
                 </Group>
               </Stack>
             </SimpleGrid>
 
-            {/* Specialist Specialists Cards */}
+            {/* Specialist Cards */}
             <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={rem(16)}>
               {[
                 {
@@ -1676,7 +1575,7 @@ export default function ScholarCraftedLanding() {
               >
                 Frequently Asked Questions
               </Text>
-              <Title order={2} mt="xs" style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", color: active.primary, fontFamily: 'var(--font-serif)' }}>
+              <Title order={2} mt="xs" style={{ fontSize: "clamp(1.85rem, 3.5vw, 2.6rem)", color: active.primary, fontFamily: 'var(--font-serif)', fontWeight: 700, letterSpacing: '-0.02em' }}>
                 Questions Scholars Actually Ask
               </Title>
               <Text size="md" c="dimmed" mt="md" lh={1.7} style={{ maxWidth: 640, margin: '0 auto' }}>
