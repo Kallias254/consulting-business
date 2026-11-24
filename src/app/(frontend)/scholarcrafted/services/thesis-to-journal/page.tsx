@@ -80,22 +80,6 @@ export default function ThesisToJournalPage() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="xl" style={{ maxWidth: 880 }}>
-            <Badge
-              size="sm"
-              radius={0}
-              variant="filled"
-              style={{
-                backgroundColor: active.accent,
-                color: '#ffffff',
-                letterSpacing: '0.14em',
-                fontWeight: 700,
-                alignSelf: 'flex-start',
-                fontSize: rem(10),
-              }}
-            >
-              PEER-REVIEWED JOURNAL PIPELINE
-            </Badge>
-
             <Title
               order={1}
               style={{
@@ -330,14 +314,6 @@ export default function ThesisToJournalPage() {
           >
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(48) }} style={{ alignItems: 'center' }}>
               <Stack gap="md">
-                <Badge
-                  size="sm"
-                  radius={0}
-                  variant="filled"
-                  style={{ backgroundColor: active.accent, color: '#ffffff', fontWeight: 700 }}
-                >
-                  TRANSPARENT 50/50 MILESTONES
-                </Badge>
                 <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary, fontWeight: 600 }}>
                   Single Fixed Milestone Proposals
                 </Title>
@@ -380,8 +356,8 @@ export default function ThesisToJournalPage() {
                   Receive your itemized milestone proposal and confirmed delivery timeline within 24 hours.
                 </Text>
 
-                <Stack gap="sm">
-                  <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
+                <Group gap="sm" wrap="wrap">
+                  <Link href="/order?track=a" style={{ textDecoration: 'none', flex: 1 }}>
                     <Button
                       fullWidth
                       size="md"
@@ -394,14 +370,14 @@ export default function ThesisToJournalPage() {
                         height: rem(48),
                       }}
                     >
-                      Request Project Scope
+                      Get a Scope
                     </Button>
                   </Link>
                   <a
                     href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none', flex: 1 }}
                   >
                     <Button
                       fullWidth
@@ -415,10 +391,10 @@ export default function ThesisToJournalPage() {
                         height: rem(48),
                       }}
                     >
-                      Book 15-Min Scoping Call
+                      Book a Call
                     </Button>
                   </a>
-                </Stack>
+                </Group>
               </Box>
             </SimpleGrid>
           </Box>

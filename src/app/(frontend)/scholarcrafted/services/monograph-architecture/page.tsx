@@ -78,22 +78,6 @@ export default function MonographArchitecturePage() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="xl" style={{ maxWidth: 880 }}>
-            <Badge
-              size="sm"
-              radius={0}
-              variant="filled"
-              style={{
-                backgroundColor: active.accent,
-                color: '#ffffff',
-                letterSpacing: '0.14em',
-                fontWeight: 700,
-                alignSelf: 'flex-start',
-                fontSize: rem(10),
-              }}
-            >
-              ACADEMIC BOOK &amp; UNIVERSITY PRESS
-            </Badge>
-
             <Title
               order={1}
               style={{
@@ -183,7 +167,7 @@ export default function MonographArchitecturePage() {
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 5 }} spacing={rem(16)}>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(16)}>
               {[
                 {
                   stage: 'STAGE 01',
@@ -308,14 +292,6 @@ export default function MonographArchitecturePage() {
           >
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(48) }} style={{ alignItems: 'center' }}>
               <Stack gap="md">
-                <Badge
-                  size="sm"
-                  radius={0}
-                  variant="filled"
-                  style={{ backgroundColor: active.primary, color: '#ffffff', fontWeight: 700 }}
-                >
-                  CONSULTATIVE MILESTONE SCOPE
-                </Badge>
                 <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary, fontWeight: 600 }}>
                   Single Fixed Milestone Proposals
                 </Title>
@@ -348,9 +324,6 @@ export default function MonographArchitecturePage() {
                   textAlign: 'center',
                 }}
               >
-                <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                  READY TO ELEVATE YOUR BOOK?
-                </Text>
                 <Text mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary }}>
                   Request Monograph Scope
                 </Text>
@@ -358,8 +331,8 @@ export default function MonographArchitecturePage() {
                   Receive an itemized milestone proposal and confirmed publication schedule within 24 hours.
                 </Text>
 
-                <Stack gap="sm">
-                  <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
+                <Group gap="sm" wrap="wrap">
+                  <Link href="/order?track=b" style={{ textDecoration: 'none', flex: 1 }}>
                     <Button
                       fullWidth
                       size="md"
@@ -372,14 +345,14 @@ export default function MonographArchitecturePage() {
                         height: rem(48),
                       }}
                     >
-                      Request Project Scope
+                      Get a Scope
                     </Button>
                   </Link>
                   <Anchor
                     href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none', flex: 1 }}
                   >
                     <Button
                       fullWidth
@@ -393,10 +366,10 @@ export default function MonographArchitecturePage() {
                         height: rem(48),
                       }}
                     >
-                      Book 15-Min Scoping Call
+                      Book a Call
                     </Button>
                   </Anchor>
-                </Stack>
+                </Group>
               </Box>
             </SimpleGrid>
           </Box>

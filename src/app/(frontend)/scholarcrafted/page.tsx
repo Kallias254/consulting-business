@@ -281,21 +281,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               <Box>
-                <Badge
-                  size="sm"
-                  radius={0}
-                  variant="filled"
-                  style={{
-                    backgroundColor: active.accent,
-                    color: '#ffffff',
-                    letterSpacing: '0.12em',
-                    fontWeight: 700,
-                    marginBottom: rem(16),
-                    fontSize: rem(10),
-                  }}
-                >
-                  JOURNAL ARTICLES & CHAPTER PIPELINE
-                </Badge>
+
                 <Title
                   order={3}
                   style={{
@@ -370,21 +356,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               <Box>
-                <Badge
-                  size="sm"
-                  radius={0}
-                  variant="outline"
-                  style={{
-                    borderColor: `${active.primary}35`,
-                    color: active.primary,
-                    letterSpacing: '0.12em',
-                    fontWeight: 700,
-                    marginBottom: rem(16),
-                    fontSize: rem(10),
-                  }}
-                >
-                  UNIVERSITY PRESS & MONOGRAPH PIPELINE
-                </Badge>
+
                 <Title
                   order={3}
                   style={{
@@ -474,33 +446,7 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
       <Container size={1240} px={{ base: 'md', sm: 'xl' }} style={{ position: 'relative', zIndex: 1 }}>
         <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(32), md: rem(60) }} style={{ alignItems: 'center' }}>
           <Stack gap="lg">
-            <Group gap="xs">
-              <Badge
-                size="sm"
-                radius={0}
-                variant="filled"
-                style={{
-                  backgroundColor: active.accent,
-                  color: '#ffffff',
-                  letterSpacing: '0.12em',
-                  fontWeight: 700,
-                }}
-              >
-                24-HOUR TURNAROUND
-              </Badge>
-              <Badge
-                size="sm"
-                radius={0}
-                variant="outline"
-                style={{
-                  borderColor: 'rgba(255,255,255,0.3)',
-                  color: '#ffffff',
-                  fontWeight: 700,
-                }}
-              >
-                50/50 MILESTONE TERMS
-              </Badge>
-            </Group>
+
 
             <Title
               order={2}
@@ -705,7 +651,7 @@ function PublicationExecutionFlowSection({ active }: { active: Record<string, st
             </Text>
           </Box>
 
-          <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 6 }} spacing={rem(12)}>
+          <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(16)}>
             {steps.map((stg, i) => (
               <Box
                 key={i}
@@ -763,10 +709,10 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
       <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
         <SimpleGrid cols={{ base: 2, sm: 4 }} spacing={{ base: 'lg', md: 'xl' }}>
           {[
-            { val: '500+', label: 'Scholars & PhDs Guided', sub: 'Across 40+ academic disciplines' },
-            { val: '100%', label: 'Tracked-Changes Human Review', sub: 'Zero automated rewriting or shortcuts' },
-            { val: '24h', label: 'Fixed Milestone Scoping', sub: 'Guaranteed proposal turnaround' },
-            { val: 'Top Presses', label: 'Oxford, Cambridge, Routledge & Q1s', sub: 'Press-ready formatting compliance' },
+            { val: '500+', label: 'Scholars & PhDs Guided' },
+            { val: '100%', label: 'Human Doctoral Review' },
+            { val: '24h', label: 'Milestone Proposal Turnaround' },
+            { val: 'Top Presses', label: 'Oxford · Cambridge · Routledge' },
           ].map((stat, i) => (
             <Box
               key={i}
@@ -799,9 +745,7 @@ function AcademicTrustBar({ active }: { active: Record<string, string> }) {
               >
                 {stat.label}
               </Text>
-              <Text size="xs" mt={rem(2)} style={{ color: 'rgba(255,255,255,0.7) !important' }}>
-                {stat.sub}
-              </Text>
+
             </Box>
           ))}
         </SimpleGrid>
@@ -972,29 +916,7 @@ function ManuscriptSituationSection({ active }: { active: Record<string, string>
                       }}
                     >
                       <Stack gap="md">
-                        {isRecommended && (
-                          <Box
-                            px={rem(10)}
-                            py={rem(4)}
-                            style={{
-                              backgroundColor: active.accent,
-                              display: 'inline-flex',
-                              alignSelf: 'flex-start',
-                            }}
-                          >
-                            <Text
-                              size="xs"
-                              fw={700}
-                              c={active.background}
-                              style={{
-                                letterSpacing: '0.12em',
-                                fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                              }}
-                            >
-                              RECOMMENDED FOR YOU
-                            </Text>
-                          </Box>
-                        )}
+
                         <Group justify="space-between" align="flex-start">
                           <Title
                             order={3}
@@ -1186,9 +1108,7 @@ export default function ScholarCraftedLanding() {
             <Box style={{ maxWidth: rem(620) }}>
               <Stack gap="lg" align="flex-start">
 
-                <p style={{ margin: 0, fontSize: rem(11), fontWeight: 700, letterSpacing: '0.22em', color: active.accent, textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                  FACULTY-LED EDITORIAL & PUBLICATION ADVISORY
-                </p>
+
 
                 <Title
                   order={1}
@@ -1385,17 +1305,7 @@ export default function ScholarCraftedLanding() {
             {/* Header + Intro */}
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(60) }} style={{ alignItems: 'flex-start' }}>
               <Stack gap="sm">
-                <Text
-                  size="xs"
-                  fw={700}
-                  c={active.accent}
-                  style={{
-                    letterSpacing: '0.18em',
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                  }}
-                >
-                  SPECIALIST OPERATIONS
-                </Text>
+
                 <Title
                   order={2}
                   style={{
@@ -1416,8 +1326,7 @@ export default function ScholarCraftedLanding() {
                   Your time belongs to the research, not the formatting. Our doctoral editors polish your prose and citations by hand: never automated and never outsourced.
                 </Text>
 
-                <Group gap="sm" wrap="wrap">
-                  <Link href="/order" style={{ textDecoration: 'none' }}>
+                <Link href="/order" style={{ textDecoration: 'none' }}>
                     <Button
                       size="md"
                       radius={0}
@@ -1434,27 +1343,6 @@ export default function ScholarCraftedLanding() {
                       Get a Scope
                     </Button>
                   </Link>
-                  <a
-                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Button
-                      size="md"
-                      radius={0}
-                      variant="outline"
-                      style={{
-                        borderColor: `${active.primary}30`,
-                        color: active.primary,
-                        fontWeight: 600,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      Book a Call
-                    </Button>
-                  </a>
-                </Group>
               </Stack>
             </SimpleGrid>
 

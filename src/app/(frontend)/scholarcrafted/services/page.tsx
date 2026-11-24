@@ -416,21 +416,6 @@ export default function ServicesPage() {
                   bg={active.background}
                   style={{ border: `1px solid ${active.accent}` }}
                 >
-                  <Box
-                    px={rem(10)}
-                    py={rem(4)}
-                    mb="md"
-                    style={{
-                      backgroundColor: active.accent,
-                      display: 'inline-flex',
-                      alignSelf: 'flex-start',
-                    }}
-                  >
-                    <Text size="xs" fw={700} c="#fff" style={{ letterSpacing: '0.1em', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                      RECOMMENDED FOR THIS
-                    </Text>
-                  </Box>
-
                   <Group gap={rem(12)} mb={rem(12)} align="center">
                     <Box
                       style={{

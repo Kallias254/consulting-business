@@ -182,7 +182,7 @@ export function Navbar() {
                 </HoverCard.Dropdown>
               </HoverCard>
 
-              {/* About & Ethics */}
+              {/* About */}
               <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box className={`nav-link-wrapper ${isActive('/about') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
@@ -192,13 +192,13 @@ export function Navbar() {
                       className="nav-link"
                       style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
                     >
-                      ABOUT &amp; ETHICS
+                      ABOUT
                     </Text>
                   </Center>
                 </Box>
               </Link>
 
-              {/* FAQ & Policies */}
+              {/* FAQ */}
               <Link href="/faq" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Box className={`nav-link-wrapper ${isActive('/faq') ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                   <Center inline>
@@ -208,7 +208,7 @@ export function Navbar() {
                       className="nav-link"
                       style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
                     >
-                      FAQ &amp; POLICIES
+                      FAQ
                     </Text>
                   </Center>
                 </Box>
@@ -351,7 +351,7 @@ export function Navbar() {
                   justifyContent: 'space-between',
                 }}
               >
-                <Text fw={600} size="md" c={active.primary}>About &amp; Ethics</Text>
+                <Text fw={600} size="md" c={active.primary}>About</Text>
                 <IconArrowRight size={16} color={active.accent} />
               </Box>
             </Link>
@@ -367,7 +367,7 @@ export function Navbar() {
                   justifyContent: 'space-between',
                 }}
               >
-                <Text fw={600} size="md" c={active.primary}>FAQ &amp; Policies</Text>
+                <Text fw={600} size="md" c={active.primary}>FAQ</Text>
                 <IconArrowRight size={16} color={active.accent} />
               </Box>
             </Link>
@@ -404,9 +404,9 @@ export function Navbar() {
             --nav-hover-bg: rgba(0, 0, 0, 0.04);
           }
           .nav-link-wrapper {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 4px;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.15s ease;
           }
           .nav-link-wrapper:hover {
             background-color: rgba(255, 255, 255, 0.15);
@@ -416,12 +416,13 @@ export function Navbar() {
           }
           .nav-link {
             color: #ffffff !important;
-            transition: color 0.2s ease, opacity 0.2s ease;
+            transition: color 0.15s ease, opacity 0.15s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             vertical-align: middle;
             font-weight: 600;
+            font-family: var(--font-heading-sans), var(--font-sans);
           }
           .nav-link-wrapper:hover .nav-link,
           .nav-link-wrapper.active .nav-link {
@@ -437,10 +438,10 @@ export function Navbar() {
             text-decoration: none;
             color: inherit;
             display: block;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.15s ease;
           }
           .mega-link:hover {
-            background-color: rgba(230, 92, 56, 0.04);
+            background-color: ${active.accent}0a;
           }
           .mega-link:hover .mantine-Text-root[data-weight="600"] {
             color: ${active.accent};

@@ -210,6 +210,29 @@ export function Footer({ bg }: { bg?: string }) {
           </Stack>
         </SimpleGrid>
 
+        {/* Working Hours */}
+        <Box mb="xl" py={rem(20)} px={rem(24)} style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
+          <Group justify="space-between" align="center" wrap="wrap" gap="md">
+            <Group gap={rem(10)} align="center">
+              <Text size="xs" fw={700} c="white" style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                Available Hours
+              </Text>
+              <Text size="xs" c="rgba(255,255,255,0.6)">
+                Monday – Friday, 9:00 AM – 6:00 PM EST
+              </Text>
+            </Group>
+            <Group gap={rem(10)} align="center">
+              <Text size="xs" c="rgba(255,255,255,0.6)">
+                24/7 manuscript intake via project form
+              </Text>
+              <Text size="xs" c="rgba(255,255,255,0.6)">•</Text>
+              <Text size="xs" c="rgba(255,255,255,0.6)">
+                Proposals returned within 24 hours
+              </Text>
+            </Group>
+          </Group>
+        </Box>
+
         <Divider mb="xl" color="rgba(255,255,255,0.1)" />
 
         <Group justify="space-between" align="center" wrap="wrap" gap="md">

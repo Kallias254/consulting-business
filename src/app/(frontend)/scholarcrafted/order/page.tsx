@@ -238,21 +238,6 @@ function OrderPageContent() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
-            <Badge
-              size="sm"
-              radius={0}
-              variant="filled"
-              style={{
-                backgroundColor: active.accent,
-                color: '#ffffff',
-                letterSpacing: '0.14em',
-                fontWeight: 700,
-                fontSize: rem(10),
-              }}
-            >
-              FACULTY-LED EDITORIAL &amp; PUBLICATION ADVISORY
-            </Badge>
-
             <Title
               order={1}
               style={{
@@ -593,24 +578,9 @@ function OrderPageContent() {
                     bg={active.surface}
                     style={{
                       border: `1px solid ${active.primary}15`,
-                      borderLeft: `4px solid ${active.accent}`,
+                      borderLeft: `1px solid ${active.primary}15`,
                     }}
                   >
-                    <Badge
-                      size="xs"
-                      radius={0}
-                      variant="filled"
-                      style={{
-                        backgroundColor: active.accent,
-                        color: '#ffffff',
-                        fontWeight: 700,
-                        letterSpacing: '0.1em',
-                        marginBottom: rem(10),
-                      }}
-                    >
-                      24-HOUR PROPOSAL GUARANTEE
-                    </Badge>
-
                     <Title
                       order={3}
                       style={{
