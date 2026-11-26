@@ -172,7 +172,23 @@ const homeNeeds = [
     subLabel: 'University Press · Prospectus narrative & acquisition pitch',
     serviceIds: ['track_b'],
     recommended: 'track_b',
-    targetTrack: 'Academic Book Pipeline',
+    targetTrack: 'Books & Press Pipeline',
+  },
+  {
+    id: 'edited-handbook',
+    label: "I'm editing a multi-author handbook and need help coordinating chapters",
+    subLabel: 'Edited Volumes · Contributor management, style consistency & indexing',
+    serviceIds: ['track_b'],
+    recommended: 'track_b',
+    targetTrack: 'Books & Handbooks Pipeline',
+  },
+  {
+    id: 'grant-fellowship',
+    label: "I'm preparing a grant or fellowship application (NSF, Fulbright, McBay)",
+    subLabel: 'Grant Production · Narrative alignment, multi-PI sync & agency compliance',
+    serviceIds: ['track_c'],
+    recommended: 'track_c',
+    targetTrack: 'Grant & Fellowship Production',
   },
   {
     id: 'galley-proofs',
@@ -180,7 +196,7 @@ const homeNeeds = [
     subLabel: 'Production & Press · Back-of-book indexing & galley proof review',
     serviceIds: ['track_b'],
     recommended: 'track_b',
-    targetTrack: 'Academic Book Pipeline',
+    targetTrack: 'Books & Press Pipeline',
   },
   {
     id: 'citations-mess',
@@ -216,6 +232,13 @@ const homeServices: Record<string, {
     desc: 'From rough concept or multi-author call to signed contract and press-ready volume. Acquisition proposals (Routledge, Cognella, Oxford), 15–25+ contributor coordination, indexing, and 5-stage production.',
     link: '/order?track=b',
     cta: 'Scope Your Book Project',
+  },
+  track_c: {
+    badge: 'GRANTS & FELLOWSHIPS',
+    title: 'Grant & Fellowship Production',
+    desc: 'For Principal Investigators and faculty fellows facing hard submission cutoffs. Narrative alignment to reviewer rubrics, multi-PI synchronization, agency formatting, and W-9 institutional invoicing.',
+    link: '/order?type=grant',
+    cta: 'Scope Your Grant Project',
   },
 }
 
@@ -260,7 +283,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
               Every stalled manuscript has an exit route. Pick yours.
             </Title>
             <Text size="md" mt="md" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              We don't sell generic proofreading. We build you an end-to-end publication engine — journal or book — with a doctoral specialist assigned to your discipline.
+              Select the pathway that matches your project: peer-reviewed journals, books and edited handbooks, or grant and fellowship production.
             </Text>
           </Box>
 
@@ -445,7 +468,7 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
                 letterSpacing: '-0.02em',
               }}
             >
-              Clarity on scope, deliverables, and schedule—within 24 hours.
+              Clarity on scope, deliverables, and schedule within 24 hours.
             </Title>
 
             <Text size="sm" style={{ color: 'rgba(255,255,255,0.78)' }} lh={1.7}>
@@ -1088,7 +1111,7 @@ export default function ScholarCraftedLanding() {
                 </Title>
 
                 <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '56ch' }}>
-                  Substantive manuscript architecture, thesis-to-journal conversion, and publisher compliance — delivered with 100% Track Changes by doctoral specialists in your discipline.
+                  From journal articles and R&amp;R rebuttals to press book proposals, edited handbooks, and research grants. Faculty-directed production built to get your work published.
                 </p>
 
                 {/* Buttons — side-by-side with shorter labels */}
