@@ -261,52 +261,50 @@ export function Navbar() {
             },
           }}
         >
-          {/* Drawer header — matches orange top navbar */}
+          {/* Drawer header — exact match to main orange navbar */}
           <Box
+            py={rem(14)}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: `${rem(14)} ${rem(20)}`,
               backgroundColor: active.accent,
               flexShrink: 0,
             }}
           >
-            <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }} onClick={close}>
-              <Logo height={30} boxColor="#ffffff" textColor="#ffffff" />
-            </Link>
-            <Box
-              onClick={close}
-              style={{
-                width: rem(40),
-                height: rem(40),
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                borderRadius: 0,
-                border: '1px solid rgba(255,255,255,0.35)',
-                color: '#ffffff',
-                fontSize: rem(18),
-                fontWeight: 400,
-                lineHeight: 1,
-                userSelect: 'none',
-              }}
-              aria-label="Close menu"
-            >
-              ✕
-            </Box>
+            <Container size={1340}>
+              <Group justify="space-between" align="center" wrap="nowrap">
+                <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }} onClick={close}>
+                  <Logo height={34} boxColor="#ffffff" textColor="#ffffff" />
+                </Link>
+                <Box
+                  onClick={close}
+                  style={{
+                    width: rem(34),
+                    height: rem(34),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: '#ffffff',
+                    fontSize: rem(20),
+                    fontWeight: 400,
+                    lineHeight: 1,
+                    userSelect: 'none',
+                  }}
+                  aria-label="Close menu"
+                >
+                  ✕
+                </Box>
+              </Group>
+            </Container>
           </Box>
 
-          {/* Nav links */}
-          <Box style={{ flex: 1, overflowY: 'auto', padding: `${rem(12)} ${rem(20)}` }}>
-            {/* Services */}
-            <Box style={{ padding: `${rem(16)} 0 ${rem(8)} 0` }}>
+          {/* Nav links — clean, unified editorial list */}
+          <Box style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: `${rem(12)} ${rem(20)}` }}>
+            <Box pt={rem(12)} pb={rem(4)}>
               <Text
                 size="xs"
                 fw={700}
                 c={active.accent}
-                mb={rem(12)}
+                mb={rem(4)}
                 style={{
                   letterSpacing: '0.16em',
                   textTransform: 'uppercase',
@@ -315,119 +313,92 @@ export function Navbar() {
               >
                 Services
               </Text>
-              <Stack gap={rem(10)}>
-                {services.map((svc) => (
-                  <Link key={svc.href} href={svc.href} style={{ textDecoration: 'none' }} onClick={close}>
-                    <Box
-                      p={rem(14)}
-                      bg={active.surface}
-                      className="mobile-drawer-item"
-                      style={{
-                        border: `1px solid ${active.primary}12`,
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
-                        gap: rem(12),
-                      }}
+              {services.map((svc) => (
+                <Link key={svc.href} href={svc.href} style={{ textDecoration: 'none' }} onClick={close}>
+                  <Box
+                    py={rem(15)}
+                    style={{
+                      borderBottom: `1px solid ${active.primary}10`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: rem(12),
+                    }}
+                  >
+                    <Text
+                      fw={500}
+                      size="sm"
+                      c={active.primary}
+                      style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
                     >
-                      <Group gap={rem(12)} wrap="nowrap" align="flex-start">
-                        <Box
-                          style={{
-                            width: rem(36),
-                            height: rem(36),
-                            flexShrink: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: `${active.accent}14`,
-                            color: active.accent,
-                            marginTop: rem(2),
-                          }}
-                        >
-                          {svc.icon}
-                        </Box>
-                        <Box>
-                          <Text
-                            fw={600}
-                            size="sm"
-                            c={active.primary}
-                            style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
-                          >
-                            {svc.label}
-                          </Text>
-                          <Text size="xs" c="dimmed" lh={1.45} mt={rem(2)}>
-                            {svc.desc}
-                          </Text>
-                        </Box>
-                      </Group>
-                      <IconArrowRight size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(4) }} />
-                    </Box>
-                  </Link>
-                ))}
-              </Stack>
+                      {svc.label}
+                    </Text>
+                    <IconArrowRight size={15} color={active.accent} style={{ flexShrink: 0 }} />
+                  </Box>
+                </Link>
+              ))}
             </Box>
 
-            {/* Primary Links */}
-            <Box mt={rem(8)}>
-              <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
-                <Box
-                  py={rem(16)}
-                  style={{
-                    borderBottom: `1px solid ${active.primary}10`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text fw={600} size="sm" c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                    About
-                  </Text>
-                  <IconArrowRight size={16} color={active.accent} />
-                </Box>
-              </Link>
+            <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
+              <Box
+                py={rem(16)}
+                style={{
+                  borderBottom: `1px solid ${active.primary}10`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text fw={600} size="sm" c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                  About
+                </Text>
+                <IconArrowRight size={15} color={active.accent} style={{ flexShrink: 0 }} />
+              </Box>
+            </Link>
 
-              <Link href="/faq" style={{ textDecoration: 'none' }} onClick={close}>
-                <Box
-                  py={rem(16)}
-                  style={{
-                    borderBottom: `1px solid ${active.primary}10`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text fw={600} size="sm" c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
-                    FAQ
-                  </Text>
-                  <IconArrowRight size={16} color={active.accent} />
-                </Box>
-              </Link>
-            </Box>
+            <Link href="/faq" style={{ textDecoration: 'none' }} onClick={close}>
+              <Box
+                py={rem(16)}
+                style={{
+                  borderBottom: `1px solid ${active.primary}10`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text fw={600} size="sm" c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                  FAQ
+                </Text>
+                <IconArrowRight size={15} color={active.accent} style={{ flexShrink: 0 }} />
+              </Box>
+            </Link>
           </Box>
 
-          {/* Mobile CTA — pinned bottom */}
+          {/* Mobile CTA — pinned bottom, zero overflow */}
           <Box
             style={{
               flexShrink: 0,
               padding: `${rem(16)} ${rem(20)} ${rem(28)} ${rem(20)}`,
               borderTop: `1px solid ${active.primary}10`,
-              backgroundColor: active.surface,
+              backgroundColor: active.background,
+              overflowX: 'hidden',
             }}
           >
-            <Group gap="sm" wrap="nowrap">
-              <Link href="/order" style={{ textDecoration: 'none', flex: 1 }} onClick={close}>
+            <SimpleGrid cols={2} spacing="xs">
+              <Link href="/order" style={{ textDecoration: 'none', minWidth: 0 }} onClick={close}>
                 <Button
                   variant="filled"
                   fullWidth
-                  size="md"
+                  size="sm"
                   radius={0}
-                  rightSection={<IconArrowRight size={16} />}
                   style={{
                     backgroundColor: active.accent,
                     color: '#ffffff',
                     fontWeight: 700,
                     border: 'none',
-                    height: rem(46),
+                    height: rem(44),
+                    paddingLeft: rem(10),
+                    paddingRight: rem(10),
                     fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                   }}
                 >
@@ -438,26 +409,28 @@ export function Navbar() {
                 href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ textDecoration: 'none', flex: 1 }}
+                style={{ textDecoration: 'none', minWidth: 0 }}
                 onClick={close}
               >
                 <Button
                   variant="outline"
                   fullWidth
-                  size="md"
+                  size="sm"
                   radius={0}
                   style={{
                     borderColor: `${active.primary}30`,
                     color: active.primary,
                     fontWeight: 600,
-                    height: rem(46),
+                    height: rem(44),
+                    paddingLeft: rem(10),
+                    paddingRight: rem(10),
                     fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                   }}
                 >
                   Book a Call
                 </Button>
               </a>
-            </Group>
+            </SimpleGrid>
             <Text size="xs" c="dimmed" mt={rem(12)} style={{ textAlign: 'center', letterSpacing: '0.03em' }}>
               Mon–Fri, 9:00 AM–6:00 PM EST &bull; Strict NDA
             </Text>
