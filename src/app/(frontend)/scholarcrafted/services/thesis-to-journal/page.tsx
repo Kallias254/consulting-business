@@ -73,7 +73,8 @@ export default function ThesisToJournalPage() {
       {/* ── Hero Section ── */}
       <Box
         component="section"
-        py={{ base: rem(60), md: rem(96) }}
+        pt={{ base: rem(76), md: rem(112) }}
+        pb={{ base: rem(64), md: rem(88) }}
         bg={active.surface}
         style={{
           borderBottom: `1px solid ${active.primary}12`,
@@ -81,7 +82,7 @@ export default function ThesisToJournalPage() {
         }}
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap="xl" style={{ maxWidth: 880 }}>
+          <Stack gap="lg" style={{ maxWidth: 880 }}>
             <Title
               order={1}
               style={{
@@ -99,13 +100,6 @@ export default function ThesisToJournalPage() {
             <Text size="lg" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
               Most manuscripts aren&rsquo;t desk-rejected for grammar—they fail because dissertation framing obscures the core contribution, or Revise &amp; Resubmit memos go unanswered. ScholarCrafted architects journal-ready manuscripts, R&amp;R response matrices, and full submission compliance for Q1/Q2 targets.
             </Text>
-
-            {/* Quality Specs */}
-            <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
-              <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
-                Desk-Rejection Proofing &bull; R&amp;R Response Matrices &bull; 365-Day Reviewer Coverage &bull; Official Compliance Certificate
-              </Text>
-            </Box>
           </Stack>
         </Container>
       </Box>

@@ -71,7 +71,8 @@ export default function MonographArchitecturePage() {
       {/* ── Hero Section ── */}
       <Box
         component="section"
-        py={{ base: rem(60), md: rem(96) }}
+        pt={{ base: rem(76), md: rem(112) }}
+        pb={{ base: rem(64), md: rem(88) }}
         bg={active.surface}
         style={{
           borderBottom: `1px solid ${active.primary}12`,
@@ -79,7 +80,7 @@ export default function MonographArchitecturePage() {
         }}
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap="xl" style={{ maxWidth: 880 }}>
+          <Stack gap="lg" style={{ maxWidth: 880 }}>
             <Title
               order={1}
               style={{
@@ -97,13 +98,6 @@ export default function MonographArchitecturePage() {
             <Text size="lg" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
               Acquisition press proposals, multi-contributor handbook management, and 5-stage book production for faculty and volume editors targeting Routledge, Cognella, Oxford, and Cambridge.
             </Text>
-
-            {/* Quality Specs */}
-            <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
-              <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
-                Acquisition Proposals &bull; Multi-Contributor Handbooks &bull; Cindex/SKY Indexing &bull; Press-Ready Compliance
-              </Text>
-            </Box>
           </Stack>
         </Container>
       </Box>

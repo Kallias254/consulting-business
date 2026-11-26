@@ -60,7 +60,8 @@ export default function GrantFellowshipProductionPage() {
       {/* ── Hero Section ── */}
       <Box
         component="section"
-        py={{ base: rem(60), md: rem(96) }}
+        pt={{ base: rem(76), md: rem(112) }}
+        pb={{ base: rem(64), md: rem(88) }}
         bg={active.surface}
         style={{
           borderBottom: `1px solid ${active.primary}12`,
@@ -68,7 +69,7 @@ export default function GrantFellowshipProductionPage() {
         }}
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Stack gap="xl" style={{ maxWidth: 880 }}>
+          <Stack gap="lg" style={{ maxWidth: 880 }}>
             <Title
               order={1}
               style={{
@@ -86,12 +87,6 @@ export default function GrantFellowshipProductionPage() {
             <Text size="lg" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
               Designed for individual fellows and collaborative research teams working against hard institutional cutoffs. We architect persuasive grant narratives, unify multi-author sections, and lock in agency compliance.
             </Text>
-
-            <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
-              <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
-                Individual Fellowships &bull; Collaborative Grants &bull; LaTeX &amp; Agency Compliance &bull; Institutional W-9 Invoicing
-              </Text>
-            </Box>
           </Stack>
         </Container>
       </Box>
