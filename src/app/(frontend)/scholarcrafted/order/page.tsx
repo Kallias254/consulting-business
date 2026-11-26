@@ -280,11 +280,11 @@ function OrderPageContent() {
                 maxWidth: '26ch',
               }}
             >
-              Request Your Custom Project Scope
+              Start Your Project
             </Title>
 
-            <Text size="md" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              Receive an itemized project roadmap, milestone deliverables, and confirmed publication schedule within 24 hours. Confidential, NDA-protected, and faculty-directed.
+            <Text size="md" c="dimmed" lh={1.75} style={{ maxWidth: '56ch' }}>
+              Tell us a bit about your manuscript, book, or grant. We&rsquo;ll reply within 24 hours with a clear plan and timeline.
             </Text>
           </Stack>
         </Container>

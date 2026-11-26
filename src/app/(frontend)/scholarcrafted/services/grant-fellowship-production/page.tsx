@@ -282,22 +282,15 @@ export default function GrantFellowshipProductionPage() {
                 </Stack>
               </Stack>
 
-              <Box
-                p={{ base: rem(24), sm: rem(32) }}
-                bg={active.background}
-                style={{
-                  border: `1px solid ${active.primary}12`,
-                  textAlign: 'center',
-                }}
-              >
-                <Text mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary }}>
-                  Request Grant Project Scope
-                </Text>
-                <Text size="xs" c="dimmed" mt={rem(8)} mb="lg" lh={1.6}>
-                  Receive an itemized milestone roadmap and confirmed delivery schedule within 24 hours.
+              <Stack gap="md" pl={{ md: rem(24) }}>
+                <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(24), fontWeight: 600, color: active.primary, lineHeight: 1.25 }}>
+                  Ready to move forward?
+                </Title>
+                <Text size="sm" c="dimmed" lh={1.65}>
+                  Share your funding call and submission date and receive a clear production plan within 24 hours.
                 </Text>
 
-                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm" mt={rem(4)}>
                   <Link href="/order?type=grant" style={{ textDecoration: 'none' }}>
                     <Button
                       fullWidth
@@ -336,7 +329,7 @@ export default function GrantFellowshipProductionPage() {
                     </Button>
                   </a>
                 </SimpleGrid>
-              </Box>
+              </Stack>
             </SimpleGrid>
           </EditorialCard>
         </Container>

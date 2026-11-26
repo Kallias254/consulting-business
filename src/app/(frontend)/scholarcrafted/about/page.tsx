@@ -61,12 +61,30 @@ const universities = [
 ]
 
 const standards = [
-  'Aligned with COPE (Committee on Publication Ethics) guidelines',
-  'Press-ready architecture for Routledge, Cognella, Oxford & Cambridge',
-  'Full multi-contributor handbook coordination (15–25+ authors)',
-  'Professional Cindex & SKY Index back-of-book indexing',
-  'Strict institutional NDA protection for unpublished research',
-  'Itemized invoicing compatible with faculty startup & grant budgets',
+  {
+    title: 'COPE Publication Ethics',
+    desc: 'Every engagement follows Committee on Publication Ethics guidelines—zero ghostwriting, full authorship integrity.',
+  },
+  {
+    title: 'University Press Alignment',
+    desc: 'Prospectuses, formatting, and production built to Routledge, Cognella, Oxford, and Cambridge specifications.',
+  },
+  {
+    title: 'Multi-Author Handbooks',
+    desc: 'End-to-end coordination across 15–25+ contributors, keeping voice, citations, and deadlines unified.',
+  },
+  {
+    title: 'Back-of-Book Indexing',
+    desc: 'Press-grade subject and name indexing in Cindex and SKY Index, plus final galley proof inspection.',
+  },
+  {
+    title: 'Enforceable NDA Security',
+    desc: 'Unpublished research, archival data, and grant concepts remain protected under strict non-disclosure.',
+  },
+  {
+    title: 'Grant & Startup Invoicing',
+    desc: 'Itemized institutional invoices and W-9 documentation ready for faculty startup and grant budgets.',
+  },
 ]
 
 export default function AboutPage() {
@@ -330,18 +348,23 @@ export default function AboutPage() {
               </Title>
             </Box>
 
-            <EditorialCard p={{ base: rem(28), md: rem(40) }} bg={active.surface} interactive={false}>
-              <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-                {standards.map((item, i) => (
-                  <Group key={i} gap="sm" wrap="nowrap" align="flex-start">
-                    <IconShieldCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                    <Text size="sm" c={active.primary} lh={1.55}>
-                      {item}
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(20)}>
+              {standards.map((item, i) => (
+                <EditorialReveal key={i} delay={i * 50}>
+                  <EditorialCard p={{ base: rem(24), md: rem(28) }} bg={active.surface} style={{ height: '100%' }}>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em' }}>
+                      0{i + 1}
                     </Text>
-                  </Group>
-                ))}
-              </SimpleGrid>
-            </EditorialCard>
+                    <Text fw={700} size="sm" c={active.primary} mt={rem(8)} mb={rem(6)}>
+                      {item.title}
+                    </Text>
+                    <Text size="xs" c="dimmed" lh={1.65}>
+                      {item.desc}
+                    </Text>
+                  </EditorialCard>
+                </EditorialReveal>
+              ))}
+            </SimpleGrid>
 
             <Center mt="sm">
               <Group gap="md" wrap="wrap">

@@ -468,20 +468,18 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
                 letterSpacing: '-0.02em',
               }}
             >
-              Clarity on scope, deliverables, and schedule within 24 hours.
+              A clear project plan within 24 hours.
             </Title>
 
             <Text size="sm" style={{ color: 'rgba(255,255,255,0.78)' }} lh={1.7}>
-              Share your manuscript draft, book prospectus, or contributor count. Our faculty-directed production team returns an itemized milestone roadmap tailored to your target press, journal, or grant deadline.
+              Share your manuscript, book concept, or contributor count and we&rsquo;ll send back a straightforward timeline and milestone plan.
             </Text>
 
             <Stack gap={rem(8)}>
               {[
-                'Itemized milestone roadmap with confirmed delivery dates',
-                'Aligned with Routledge, Cognella, Oxford & Q1/Q2 specifications',
-                '365-day revision coverage for committee, advisor & peer-review memos',
-                'Institutional invoicing compatible with startup & grant budgets',
-                'Optional 15-minute scoping consultation before kickoff',
+                'Confirmed delivery schedule tailored to your deadline',
+                'Aligned with Routledge, Cognella, Oxford & Q1/Q2 standards',
+                '365-day revision coverage for committee & peer-review memos',
               ].map((item, idx) => (
                 <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                   <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -532,8 +530,8 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
             >
               Fixed Milestone Pricing
             </Text>
-            <Text size="xs" lh={1.6} style={{ maxWidth: 300, color: 'rgba(255,255,255,0.65)' }}>
-              Transparent fixed fees tailored to your project scope. No unpredictable per-word sliders.
+            <Text size="xs" lh={1.6} style={{ maxWidth: 300, color: 'rgba(255,255,255,0.7)' }}>
+              Clear, upfront project pricing built around your deliverables.
             </Text>
             <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>
               <Button
@@ -1221,10 +1219,11 @@ export default function ScholarCraftedLanding() {
                     </Text>
                     <Text
                       style={{
-                        fontSize: "clamp(1.25rem, 2.5vw, 2.1rem)",
+                        fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)",
                         fontStyle: "italic",
-                        lineHeight: 1.45,
+                        lineHeight: 1.6,
                         letterSpacing: '-0.01em',
+                        maxWidth: '58ch',
                         color: active.primary }}
                     >
                       {item.quote}
