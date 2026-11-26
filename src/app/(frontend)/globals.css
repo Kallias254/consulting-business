@@ -397,14 +397,14 @@ html[data-theme='light'] {
   opacity: 1 !important;
 }
 
-/* Prevent horizontal scroll globally across mobile and tablet viewports */
+/* Prevent horizontal scroll globally without breaking position: sticky */
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
 }
 
 .scholarcrafted-root {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   width: 100%;
 }

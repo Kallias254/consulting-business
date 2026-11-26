@@ -83,6 +83,22 @@ export default function ThesisToJournalPage() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="lg" style={{ maxWidth: 880 }}>
+            <Badge
+              size="sm"
+              radius={0}
+              variant="filled"
+              style={{
+                backgroundColor: active.accent,
+                color: '#ffffff',
+                letterSpacing: '0.14em',
+                fontWeight: 700,
+                alignSelf: 'flex-start',
+                fontSize: rem(10),
+              }}
+            >
+              JOURNAL ARTICLES &amp; R&amp;R STRATEGY
+            </Badge>
+
             <Title
               order={1}
               style={{

@@ -14,6 +14,7 @@ import {
   Group,
   useMantineTheme,
   Accordion,
+  Badge,
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
@@ -70,6 +71,22 @@ export default function GrantFellowshipProductionPage() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="lg" style={{ maxWidth: 880 }}>
+            <Badge
+              size="sm"
+              radius={0}
+              variant="filled"
+              style={{
+                backgroundColor: active.accent,
+                color: '#ffffff',
+                letterSpacing: '0.14em',
+                fontWeight: 700,
+                alignSelf: 'flex-start',
+                fontSize: rem(10),
+              }}
+            >
+              GRANT &amp; FELLOWSHIP PRODUCTION
+            </Badge>
+
             <Title
               order={1}
               style={{

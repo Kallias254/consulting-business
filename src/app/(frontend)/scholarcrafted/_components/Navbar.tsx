@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Container,
   Group,
@@ -16,7 +16,7 @@ import {
   Burger,
   Drawer,
 } from '@mantine/core'
-import { useDisclosure, useWindowScroll } from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -35,20 +35,7 @@ export function Navbar() {
   const active = theme.other
   const pathname = usePathname()
   const [opened, { toggle, close }] = useDisclosure(false)
-  const [scroll] = useWindowScroll()
-  const [visible, setVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
   const [servicesOpened, setServicesOpened] = useState(false)
-
-  useEffect(() => {
-    const currentScrollY = scroll.y
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      setVisible(false) // Scrolling down
-    } else {
-      setVisible(true) // Scrolling up or near top
-    }
-    setLastScrollY(currentScrollY)
-  }, [scroll.y])
 
   const isActive = (path: string) => {
     if (path === '/scholarcrafted') return pathname === path
@@ -82,8 +69,6 @@ export function Navbar() {
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       {/* Main Navbar */}

@@ -80,7 +80,7 @@ export default function AboutPage() {
 
       {/* Hero: Philosophy */}
       <Box component="section" pt={{ base: rem(100), md: rem(132) }} pb={{ base: rem(56), md: rem(80) }} bg={active.background}>
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Box style={{ maxWidth: 820 }}>
             <Text
               size="xs"
@@ -118,7 +118,7 @@ export default function AboutPage() {
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(40)}>
             <Box style={{ maxWidth: 700 }}>
               <Text
@@ -190,7 +190,7 @@ export default function AboutPage() {
 
       {/* The Production Journey */}
       <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}10` }}>
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(48)}>
             <Box style={{ maxWidth: 700 }}>
               <Text
@@ -254,7 +254,7 @@ export default function AboutPage() {
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}10`, borderBottom: `1px solid ${active.primary}10` }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(40)}>
             <Box style={{ maxWidth: 700 }}>
               <Text

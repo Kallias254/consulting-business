@@ -198,7 +198,7 @@ export default function FAQPage() {
 
       {/* ── Hero (matches About page structure & typography) ── */}
       <Box component="section" pt={{ base: rem(100), md: rem(132) }} pb={{ base: rem(56), md: rem(80) }} bg={active.background}>
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Box style={{ maxWidth: 820 }}>
             <Text
               size="xs"
@@ -236,7 +236,7 @@ export default function FAQPage() {
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(64)} style={{ maxWidth: 880 }}>
 
             <FaqBlock
@@ -284,7 +284,7 @@ export default function FAQPage() {
         bg={active.background}
         style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)}>
             <EditorialReveal delay={0}>
               <EditorialCard p={{ base: rem(28), md: rem(32) }} bg={active.surface} style={{ height: '100%' }}>
@@ -326,7 +326,7 @@ export default function FAQPage() {
         bg={active.surface}
         style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack align="center" gap="lg" style={{ textAlign: 'center' }}>
             <Title
               order={2}
