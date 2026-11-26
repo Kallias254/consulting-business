@@ -780,35 +780,6 @@ function OrderPageContent() {
       </Box>
 
       <Footer />
-
-      {/* Back to top button */}
-      <Box
-        onClick={scrollToTop}
-        className="back-to-top-btn"
-        style={{
-          position: 'fixed',
-          bottom: rem(40),
-          right: rem(40),
-          width: rem(50),
-          height: rem(50),
-          borderRadius: '50%',
-          backgroundColor: active.surface,
-          border: `1px solid ${active.primary}33`,
-          color: active.primary,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 100,
-          opacity: showBackToTop ? 1 : 0,
-          pointerEvents: showBackToTop ? 'all' : 'none',
-          transform: showBackToTop ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-        }}
-      >
-        <IconChevronUp size={24} stroke={1.5} />
-      </Box>
     </Box>
   )
 }

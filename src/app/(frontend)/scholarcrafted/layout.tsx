@@ -1,5 +1,6 @@
 import React from 'react'
 import { ExitIntentModal } from './_components/ExitIntentModal'
+import { ScrollToTop } from './_components/ScrollToTop'
 
 export default function ScholarCraftedLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -101,6 +102,7 @@ export default function ScholarCraftedLayout({ children }: { children: React.Rea
       ` }}
       />
       <ExitIntentModal />
+      <ScrollToTop />
       {children}
     </div>
   )
