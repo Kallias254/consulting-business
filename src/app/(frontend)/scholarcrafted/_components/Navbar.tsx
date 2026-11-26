@@ -261,19 +261,19 @@ export function Navbar() {
             },
           }}
         >
-          {/* Drawer header */}
+          {/* Drawer header — matches orange top navbar */}
           <Box
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: `${rem(16)} ${rem(20)}`,
-              borderBottom: `1px solid ${active.primary}10`,
+              padding: `${rem(14)} ${rem(20)}`,
+              backgroundColor: active.accent,
               flexShrink: 0,
             }}
           >
             <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }} onClick={close}>
-              <Logo height={28} boxColor={active.accent} textColor={active.primary} />
+              <Logo height={30} boxColor="#ffffff" textColor="#ffffff" />
             </Link>
             <Box
               onClick={close}
@@ -284,11 +284,11 @@ export function Navbar() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                borderRadius: rem(4),
-                border: `1px solid ${active.primary}14`,
-                color: active.primary,
-                fontSize: rem(20),
-                fontWeight: 300,
+                borderRadius: 0,
+                border: '1px solid rgba(255,255,255,0.35)',
+                color: '#ffffff',
+                fontSize: rem(18),
+                fontWeight: 400,
                 lineHeight: 1,
                 userSelect: 'none',
               }}
@@ -299,27 +299,38 @@ export function Navbar() {
           </Box>
 
           {/* Nav links */}
-          <Box style={{ flex: 1, overflowY: 'auto', padding: `${rem(8)} ${rem(20)}` }}>
-
+          <Box style={{ flex: 1, overflowY: 'auto', padding: `${rem(12)} ${rem(20)}` }}>
             {/* Services */}
-            <Box style={{ padding: `${rem(20)} 0 ${rem(8)} 0` }}>
-              <Text size="xs" fw={700} c={active.accent} mb={rem(12)} style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            <Box style={{ padding: `${rem(16)} 0 ${rem(8)} 0` }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                mb={rem(12)}
+                style={{
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                }}
+              >
                 Services
               </Text>
-              <Stack gap={0}>
+              <Stack gap={rem(10)}>
                 {services.map((svc) => (
                   <Link key={svc.href} href={svc.href} style={{ textDecoration: 'none' }} onClick={close}>
                     <Box
-                      py={rem(16)}
+                      p={rem(14)}
+                      bg={active.surface}
+                      className="mobile-drawer-item"
                       style={{
-                        borderBottom: `1px solid ${active.primary}08`,
+                        border: `1px solid ${active.primary}12`,
                         display: 'flex',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
                         justifyContent: 'space-between',
                         gap: rem(12),
                       }}
                     >
-                      <Group gap={rem(12)} wrap="nowrap" align="center">
+                      <Group gap={rem(12)} wrap="nowrap" align="flex-start">
                         <Box
                           style={{
                             width: rem(36),
@@ -328,76 +339,127 @@ export function Navbar() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: `${active.accent}10`,
+                            backgroundColor: `${active.accent}14`,
                             color: active.accent,
+                            marginTop: rem(2),
                           }}
                         >
                           {svc.icon}
                         </Box>
-                        <Text fw={600} size="sm" c={active.primary}>{svc.label}</Text>
+                        <Box>
+                          <Text
+                            fw={600}
+                            size="sm"
+                            c={active.primary}
+                            style={{ fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+                          >
+                            {svc.label}
+                          </Text>
+                          <Text size="xs" c="dimmed" lh={1.45} mt={rem(2)}>
+                            {svc.desc}
+                          </Text>
+                        </Box>
                       </Group>
-                      <IconArrowRight size={16} color={active.accent} />
+                      <IconArrowRight size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(4) }} />
                     </Box>
                   </Link>
                 ))}
               </Stack>
             </Box>
 
-            {/* About & Ethics */}
-            <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
-              <Box
-                py={rem(16)}
-                style={{
-                  borderBottom: `1px solid ${active.primary}10`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text fw={600} size="md" c={active.primary}>About</Text>
-                <IconArrowRight size={16} color={active.accent} />
-              </Box>
-            </Link>
+            {/* Primary Links */}
+            <Box mt={rem(8)}>
+              <Link href="/about" style={{ textDecoration: 'none' }} onClick={close}>
+                <Box
+                  py={rem(16)}
+                  style={{
+                    borderBottom: `1px solid ${active.primary}10`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Text fw={600} size="sm" c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    About
+                  </Text>
+                  <IconArrowRight size={16} color={active.accent} />
+                </Box>
+              </Link>
 
-            {/* FAQ */}
-            <Link href="/faq" style={{ textDecoration: 'none' }} onClick={close}>
-              <Box
-                py={rem(16)}
-                style={{
-                  borderBottom: `1px solid ${active.primary}10`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text fw={600} size="md" c={active.primary}>FAQ</Text>
-                <IconArrowRight size={16} color={active.accent} />
-              </Box>
-            </Link>
+              <Link href="/faq" style={{ textDecoration: 'none' }} onClick={close}>
+                <Box
+                  py={rem(16)}
+                  style={{
+                    borderBottom: `1px solid ${active.primary}10`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Text fw={600} size="sm" c={active.primary} style={{ letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}>
+                    FAQ
+                  </Text>
+                  <IconArrowRight size={16} color={active.accent} />
+                </Box>
+              </Link>
+            </Box>
           </Box>
 
           {/* Mobile CTA — pinned bottom */}
           <Box
             style={{
               flexShrink: 0,
-              padding: `${rem(16)} ${rem(20)} ${rem(32)} ${rem(20)}`,
+              padding: `${rem(16)} ${rem(20)} ${rem(28)} ${rem(20)}`,
               borderTop: `1px solid ${active.primary}10`,
-              backgroundColor: active.background,
+              backgroundColor: active.surface,
             }}
           >
-            <Link href="/order" style={{ textDecoration: 'none' }} onClick={close}>
-              <Button
-                variant="filled"
-                fullWidth
-                size="lg"
-                radius={0}
-                style={{ backgroundColor: active.accent, color: '#fff', fontWeight: 700, border: 'none' }}
+            <Group gap="sm" wrap="nowrap">
+              <Link href="/order" style={{ textDecoration: 'none', flex: 1 }} onClick={close}>
+                <Button
+                  variant="filled"
+                  fullWidth
+                  size="md"
+                  radius={0}
+                  rightSection={<IconArrowRight size={16} />}
+                  style={{
+                    backgroundColor: active.accent,
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    border: 'none',
+                    height: rem(46),
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
+                >
+                  Get a Scope
+                </Button>
+              </Link>
+              <a
+                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none', flex: 1 }}
+                onClick={close}
               >
-                REQUEST PROJECT SCOPE
-              </Button>
-            </Link>
-            <Text size="xs" c="dimmed" mt={rem(10)} style={{ textAlign: 'center', letterSpacing: '0.04em' }}>
-              100% Confidential · Faculty-Led Production
+                <Button
+                  variant="outline"
+                  fullWidth
+                  size="md"
+                  radius={0}
+                  style={{
+                    borderColor: `${active.primary}30`,
+                    color: active.primary,
+                    fontWeight: 600,
+                    height: rem(46),
+                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  }}
+                >
+                  Book a Call
+                </Button>
+              </a>
+            </Group>
+            <Text size="xs" c="dimmed" mt={rem(12)} style={{ textAlign: 'center', letterSpacing: '0.03em' }}>
+              Mon–Fri, 9:00 AM–6:00 PM EST &bull; Strict NDA
             </Text>
           </Box>
         </Drawer>
