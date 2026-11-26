@@ -19,6 +19,7 @@ import {
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
+import { EditorialCard, EditorialReveal, ReadingProgressBar } from '../../_components/EditorialPrimitives'
 import Link from 'next/link'
 import {
   IconCheck,
@@ -66,6 +67,7 @@ export default function ThesisToJournalPage() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <ReadingProgressBar />
       <Navbar />
 
       {/* ── Hero Section ── */}
@@ -84,18 +86,18 @@ export default function ThesisToJournalPage() {
               order={1}
               style={{
                 fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.3rem, 4.8vw, 3.8rem)',
+                fontSize: 'clamp(2.3rem, 4.8vw, 3.6rem)',
                 fontWeight: 600,
                 lineHeight: 1.12,
                 color: active.primary,
                 letterSpacing: '-0.02em',
               }}
             >
-              Turn Your Dissertation Chapters into Peer-Reviewed Journal Articles.
+              Get Past the Editorial Desk &amp; Survive Peer Review.
             </Title>
 
             <Text size="lg" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              Stop getting desk-rejected for structural bloat. ScholarCrafted provides structural chapter extraction, substantive developmental line editing, and complete target journal compliance—delivered with 100% Track Changes by doctoral specialists.
+              Most manuscripts aren&rsquo;t desk-rejected for grammar—they fail because dissertation framing obscures the core contribution, or Revise &amp; Resubmit memos go unanswered. ScholarCrafted architects journal-ready manuscripts, R&amp;R response matrices, and full submission compliance for Q1/Q2 targets.
             </Text>
 
             <Group gap="md" wrap="wrap" pt="sm">
@@ -146,7 +148,7 @@ export default function ThesisToJournalPage() {
             {/* Quality Badges */}
             <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
               <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
-                100% Human Doctoral Review &bull; Non-STEM &amp; Humanities Specialists &bull; Zero Ghostwriting &bull; Official Compliance Certificate
+                Desk-Rejection Proofing &bull; R&amp;R Response Matrices &bull; 365-Day Reviewer Coverage &bull; Official Compliance Certificate
               </Text>
             </Box>
           </Stack>
@@ -173,72 +175,68 @@ export default function ThesisToJournalPage() {
               {[
                 {
                   phase: 'PHASE 01',
-                  title: 'Structural Extraction & Mapping',
-                  desc: 'We isolate your central empirical contribution, remove pedagogical dissertation throat-clearing, and condense 18k–25k words into a defensible 7k–9k word narrative.',
+                  title: 'Contribution Framing & Extraction',
+                  desc: 'Dissertation chapters prove exhaustive reading; journal articles advance one sharp claim. We strip committee scaffolding and re-architect 18k–25k words into a tight 7k–9k word argument.',
                   bullets: [
-                    'Theoretical hook & novelty audit',
-                    'Thesis condensation & narrative scoping',
-                    'Literature review reframing (from survey to debate)',
+                    'Theoretical hook & editorial-board fit',
+                    'Literature review reframed from survey to live debate',
+                    'Thesis-to-article structural blueprint',
                   ],
                 },
                 {
                   phase: 'PHASE 02',
-                  title: 'Substantive Line Refinement',
-                  desc: 'Line-by-line prose polish, passive syntax untangling, paragraph pacing, and academic register elevation delivered with 100% Word Track Changes.',
+                  title: 'Peer-Review Proofing & R&R Strategy',
+                  desc: 'We stress-test your evidence-to-claim logic against typical Reviewer 1/2 objections—or build a complete point-by-point Revise & Resubmit response matrix.',
                   bullets: [
-                    'Discipline-specific terminology verification',
-                    'Evidence-to-claim alignment',
-                    'Margin queries from senior doctoral editors',
+                    'Point-by-point R&R Reviewer Response Matrix',
+                    'Diplomatic editor cover memo & revision alignment',
+                    'Methodological & disciplinary register calibration',
                   ],
                 },
                 {
                   phase: 'PHASE 03',
-                  title: 'Technical & Press Compliance',
-                  desc: 'Complete formatting to target journal author guidelines (APA, Chicago, IEEE), LaTeX/Typst document engineering, and cover letter creation.',
+                  title: 'Submission Compliance & Forensics',
+                  desc: 'Eliminate technical desk rejections with house-style conversion (APA, Chicago, IEEE), LaTeX/Typst engineering, blind-review scrubbing, and verified DOIs.',
                   bullets: [
-                    'Reference & DOI cross-audit against 200M+ papers',
-                    'Target journal submission cover letter',
+                    'Citation & DOI cross-audit against published records',
+                    'Blind-review anonymization & cover letter package',
                     'Official Editorial Compliance Certificate',
                   ],
                 },
               ].map((card, i) => (
-                <Box
-                  key={i}
-                  p={{ base: rem(24), md: rem(32) }}
-                  bg={active.surface}
-                  style={{
-                    border: `1px solid ${active.primary}15`,
-                    borderTop: `4px solid ${i === 0 ? active.accent : active.primary}`,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Box>
-                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em' }}>
-                      {card.phase}
-                    </Text>
-                    <Title order={3} mt={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), color: active.primary, fontWeight: 600 }}>
-                      {card.title}
-                    </Title>
-                    <Text size="xs" c="dimmed" mt={rem(10)} lh={1.65}>
-                      {card.desc}
-                    </Text>
+                <EditorialReveal key={i} delay={i * 70}>
+                  <EditorialCard
+                    p={{ base: rem(24), md: rem(32) }}
+                    bg={active.surface}
+                    featured={i === 0}
+                    style={{ height: '100%' }}
+                  >
+                    <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                      <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em' }}>
+                        {card.phase}
+                      </Text>
+                      <Title order={3} mt={rem(6)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), color: active.primary, fontWeight: 600 }}>
+                        {card.title}
+                      </Title>
+                      <Text size="xs" c="dimmed" mt={rem(10)} lh={1.65}>
+                        {card.desc}
+                      </Text>
 
-                    <Divider color={`${active.primary}10`} my={rem(18)} />
+                      <Divider color={`${active.primary}10`} my={rem(18)} />
 
-                    <Stack gap={rem(8)}>
-                      {card.bullets.map((b, bi) => (
-                        <Group key={bi} gap="xs" align="flex-start" wrap="nowrap">
-                          <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                          <Text size="xs" c={active.primary} lh={1.5}>
-                            {b}
-                          </Text>
-                        </Group>
-                      ))}
-                    </Stack>
-                  </Box>
-                </Box>
+                      <Stack gap={rem(8)} mt="auto">
+                        {card.bullets.map((b, bi) => (
+                          <Group key={bi} gap="xs" align="flex-start" wrap="nowrap">
+                            <IconCheck size={14} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                            <Text size="xs" c={active.primary} lh={1.5}>
+                              {b}
+                            </Text>
+                          </Group>
+                        ))}
+                      </Stack>
+                    </Box>
+                  </EditorialCard>
+                </EditorialReveal>
               ))}
             </SimpleGrid>
           </Stack>
@@ -262,39 +260,36 @@ export default function ThesisToJournalPage() {
               {[
                 {
                   icon: <IconFileText size={22} color={active.accent} />,
-                  title: '100% Track Changes',
-                  desc: 'Every syntactic adjustment, transition, and word replacement is visibly logged in Microsoft Word.',
+                  title: 'R&R Response Matrices',
+                  desc: 'Structured point-by-point reviewer rebuttals synchronized directly to your revised manuscript.',
                 },
                 {
                   icon: <IconScale size={22} color={active.accent} />,
                   title: 'Zero Ghostwriting Pledge',
-                  desc: 'We never author original research. You retain 100% intellectual ownership over your findings.',
+                  desc: 'COPE-compliant editorial architecture. You retain 100% intellectual ownership over your scholarship.',
                 },
                 {
                   icon: <IconRefresh size={22} color={active.accent} />,
-                  title: '365-Day Re-Editing',
-                  desc: 'When your committee or journal reviewers request revisions, submit your draft for secondary passes at zero extra charge.',
+                  title: '365-Day Reviewer Coverage',
+                  desc: 'When your journal reviewers or committee issue revision memos, secondary passes are included at zero extra charge.',
                 },
                 {
                   icon: <IconCertificate size={22} color={active.accent} />,
-                  title: 'Editorial Certificate',
-                  desc: 'Official document certifying native academic English and publisher style manual conformity.',
+                  title: 'Compliance Certificate',
+                  desc: 'Official documentation certifying style manual conformity and submission readiness.',
                 },
               ].map((feat, i) => (
-                <Box
-                  key={i}
-                  p={rem(24)}
-                  bg={active.background}
-                  style={{ border: `1px solid ${active.primary}12` }}
-                >
-                  <Box mb="md">{feat.icon}</Box>
-                  <Text fw={700} size="sm" c={active.primary} mb={rem(6)}>
-                    {feat.title}
-                  </Text>
-                  <Text size="xs" c="dimmed" lh={1.6}>
-                    {feat.desc}
-                  </Text>
-                </Box>
+                <EditorialReveal key={i} delay={i * 60}>
+                  <EditorialCard p={{ base: rem(24), md: rem(28) }} bg={active.background} style={{ height: '100%' }}>
+                    <Box mb="md">{feat.icon}</Box>
+                    <Text fw={700} size="sm" c={active.primary} mb={rem(6)}>
+                      {feat.title}
+                    </Text>
+                    <Text size="xs" c="dimmed" lh={1.65}>
+                      {feat.desc}
+                    </Text>
+                  </EditorialCard>
+                </EditorialReveal>
               ))}
             </SimpleGrid>
           </Stack>
@@ -304,13 +299,10 @@ export default function ThesisToJournalPage() {
       {/* ── Transparent Milestone Pricing ── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Box
+          <EditorialCard
             p={{ base: rem(28), sm: rem(36), md: rem(48) }}
             bg={active.surface}
-            style={{
-              border: `1px solid ${active.primary}15`,
-              borderLeft: `5px solid ${active.accent}`,
-            }}
+            interactive={false}
           >
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(48) }} style={{ alignItems: 'center' }}>
               <Stack gap="md">
@@ -397,7 +389,7 @@ export default function ThesisToJournalPage() {
                 </Group>
               </Box>
             </SimpleGrid>
-          </Box>
+          </EditorialCard>
         </Container>
       </Box>
 

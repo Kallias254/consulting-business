@@ -63,6 +63,41 @@ export default function ScholarCraftedLayout({ children }: { children: React.Rea
         .scholarcrafted-root [data-dimmed-light="true"] {
            color: rgba(255, 255, 255, 0.75) !important;
         }
+
+        /* Quiet Editorial Card & Micro-Interaction System */
+        .scholarcrafted-root .editorial-card {
+           transition: border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                       transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                       box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scholarcrafted-root .editorial-card-interactive:hover {
+           border-color: rgba(230, 92, 56, 0.42) !important;
+           transform: translateY(-2px);
+           box-shadow: 0 14px 34px -16px rgba(26, 26, 26, 0.12);
+        }
+        .scholarcrafted-root .editorial-card-spotlight {
+           position: absolute;
+           inset: 0;
+           pointer-events: none;
+           opacity: 0;
+           transition: opacity 0.3s ease;
+           background: radial-gradient(
+             420px circle at var(--mx, 50%) var(--my, 50%),
+             rgba(230, 92, 56, 0.055),
+             transparent 65%
+           );
+           z-index: 0;
+        }
+        .scholarcrafted-root .editorial-card-interactive:hover .editorial-card-spotlight {
+           opacity: 1;
+        }
+        @media (prefers-reduced-motion: reduce) {
+           .scholarcrafted-root .editorial-card,
+           .scholarcrafted-root .editorial-card-spotlight {
+              transition: none !important;
+              transform: none !important;
+           }
+        }
       ` }}
       />
       <ExitIntentModal />

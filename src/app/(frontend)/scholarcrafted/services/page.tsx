@@ -17,6 +17,7 @@ import {
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
+import { EditorialCard, EditorialReveal, ReadingProgressBar } from '../_components/EditorialPrimitives'
 import Link from 'next/link'
 import {
   IconPencil,
@@ -35,54 +36,54 @@ import { SECTION_SPACING, INNER_WIDTH } from '@/layout'
 const services = [
   {
     id: 'track-a',
-    eyebrow: 'PIPELINE 01 — JOURNAL ARTICLES & CHAPTERS',
+    eyebrow: 'PILLAR 01 — PEER-REVIEWED JOURNALS & R&Rs',
     icon: <IconFileText size={22} />,
-    title: 'Peer-Review Readiness & Journal Alignment',
-    tagline: 'Transform dissertation chapters and research drafts into publication-ready, peer-reviewed journal articles.',
-    desc: 'Dissertation chapters are fundamentally different from journal articles in pacing, literature framing, and contribution claim. We extract, restructure, and developmentally edit your chapter into a standalone manuscript formatted precisely to your target Q1/Q2 journal specifications.',
+    title: 'Journal Articles, Extraction & R&R Strategy',
+    tagline: 'Get past the editorial desk and survive peer review—without losing months to avoidable rejections.',
+    desc: 'We re-architect dissertation chapters into sharp Q1/Q2 journal arguments and build point-by-point Revise & Resubmit (R&R) response matrices that satisfy demanding reviewers and editors.',
     features: [
-      'Core argument recentering & epistemological reframing',
-      'Target journal scope matching & author guidelines formatting',
-      'Line-by-line developmental editing in Microsoft Word Track Changes',
-      'Official Compliance Certification & reference verification audit',
+      'Contribution framing & desk-rejection proofing for target journals',
+      'Point-by-point R&R Reviewer Response Matrices & cover memos',
+      'House-style conversion (APA, Chicago, IEEE) & DOI forensics',
+      '365-day reviewer revision coverage & Compliance Certificate',
     ],
-    pricing: 'Itemized Milestone Proposal · 50/50 Terms',
+    pricing: 'Itemized Milestone Scope · 24h Turnaround',
     href: '/services/thesis-to-journal',
-    cta: 'Explore Journal Pipeline',
+    cta: 'Explore Journal & R&R Pipeline',
   },
   {
     id: 'track-b',
-    eyebrow: 'PIPELINE 02 — MONOGRAPHS & PRESS PROPOSALS',
+    eyebrow: 'PILLAR 02 — BOOKS, PROPOSALS & HANDBOOKS',
     icon: <IconBook2 size={22} />,
-    title: 'Monograph Architecture & University Press',
-    tagline: 'From dissertation manuscript to acquisition-ready university press proposal & chapters.',
-    desc: 'Transitioning a dissertation into an academic book requires de-dissertationizing the narrative voice, constructing a compelling prospectus, and aligning with acquisition guidelines of top university presses (Oxford, Cambridge, Routledge, Harvard, etc.).',
+    title: 'Books, Press Proposals & Edited Handbooks',
+    tagline: 'From rough concept or 20-author call to signed contract and press-ready volume.',
+    desc: 'Transitioning a book concept or managing a multi-contributor handbook for Routledge, Cognella, or Oxford requires structural architecture, contributor coordination, and technical production.',
     features: [
-      'Comprehensive book prospectus narrative & market positioning',
-      'Competing works matrix & target press acquisitions alignment',
-      'Sample chapter developmental overhaul & structural sequencing',
-      'Author bio, table of contents alignment & acquisitions checklist',
+      'Acquisition book proposals, competitive title matrices & sample chapters',
+      'Multi-contributor handbook coordination (15–25+ chapter authors)',
+      'Cross-chapter style & citation consistency + Cindex/SKY indexing',
+      'Galley proof inspection & institutional startup/grant invoicing',
     ],
-    pricing: 'Comprehensive Project Scope · 50/50 Terms',
+    pricing: 'Comprehensive Production Scope · 24h Turnaround',
     href: '/services/monograph-architecture',
-    cta: 'Explore Book Pipeline',
+    cta: 'Explore Book & Handbook Pipeline',
   },
   {
     id: 'track-custom',
-    eyebrow: 'PIPELINE 03 — BESPOKE & HIGH-STAKES ADVISORY',
+    eyebrow: 'PILLAR 03 — GRANTS, FELLOWSHIPS & BESPOKE',
     icon: <IconShieldCheck size={22} />,
-    title: 'Custom Scoping & High-Stakes Advisory',
-    tagline: 'Targeted faculty engagement for R&R response matrices, citation forensics, and urgent defense deadlines.',
-    desc: 'When your manuscript faces a Revise & Resubmit ultimatum, complex multi-author formatting, or strict institutional defense cutoffs, we build a tailored milestone plan with guaranteed turnaround and direct faculty review.',
+    title: 'Grant & Fellowship Production',
+    tagline: 'Faculty research grants, fellowship narratives, and high-stakes LaTeX/Typst production.',
+    desc: 'Designed for Principal Investigators and fellows working against hard institutional deadlines—turning research agendas into reviewer-ready grant packets with clean institutional invoicing.',
     features: [
-      'Point-by-point Revise & Resubmit (R&R) response matrix preparation',
-      'Comprehensive citation forensics, broken DOI repair & style manual conformity',
-      'Multi-author volume synchronization & institutional defense formatting',
-      'Itemized milestone scope issued within 24 hours · Optional 15-min discovery call',
+      'Grant & fellowship narrative structuring (McBay, NSF, foundation awards)',
+      'Multi-investigator document synchronization & compliance checks',
+      'LaTeX, Typst & BibTeX technical document engineering',
+      'Itemized W-9 / grant-budget-compatible invoicing',
     ],
-    pricing: 'Custom Milestone Scope · Guaranteed in 24 Hours',
-    href: '/order?track=custom',
-    cta: 'Request Custom Scope',
+    pricing: 'Custom Milestone Scope · 24h Turnaround',
+    href: '/order?type=grant',
+    cta: 'Request Grant / Bespoke Scope',
   },
 ]
 
@@ -139,6 +140,7 @@ export default function ServicesPage() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <ReadingProgressBar />
       <Navbar />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
@@ -175,7 +177,7 @@ export default function ServicesPage() {
                 fontWeight: 600,
               }}
             >
-              Two outcome pathways. One faculty-led practice.
+              Three scholarly production pillars. Built for faculty outcomes.
             </Title>
             <Text size="lg" mt="xl" c="dimmed" lh={1.75} style={{ maxWidth: '60ch' }}>
               Whether adapting doctoral research into peer-reviewed journal articles or preparing an acquisition-ready monograph for an academic press, our faculty provide defined milestones, transparent terms, and consultative execution.
@@ -188,17 +190,13 @@ export default function ServicesPage() {
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
         <Container size={INNER_WIDTH}>
           <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
-            {services.map((svc) => (
-              <Box
-                key={svc.id}
-                p={{ base: rem(32), md: rem(44) }}
-                bg={active.surface}
-                style={{
-                  border: `1px solid ${active.primary}12`,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
+            {services.map((svc, idx) => (
+              <EditorialReveal key={svc.id} delay={idx * 70}>
+                <EditorialCard
+                  p={{ base: rem(28), md: rem(36) }}
+                  bg={active.surface}
+                  style={{ height: '100%' }}
+                >
                 <Stack gap="lg" flex={1}>
                   {/* Top row: icon + eyebrow */}
                   <Group justify="space-between" align="flex-start" wrap="nowrap">
@@ -298,7 +296,8 @@ export default function ServicesPage() {
                     </Link>
                   </Box>
                 </Stack>
-              </Box>
+              </EditorialCard>
+            </EditorialReveal>
             ))}
           </SimpleGrid>
         </Container>

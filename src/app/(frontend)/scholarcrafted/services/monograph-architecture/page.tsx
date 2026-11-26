@@ -19,6 +19,7 @@ import {
 } from '@mantine/core'
 import { Navbar } from '../../_components/Navbar'
 import { Footer } from '../../_components/Footer'
+import { EditorialCard, EditorialReveal, ReadingProgressBar } from '../../_components/EditorialPrimitives'
 import Link from 'next/link'
 import {
   IconCheck,
@@ -64,6 +65,7 @@ export default function MonographArchitecturePage() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <ReadingProgressBar />
       <Navbar />
 
       {/* ── Hero Section ── */}
@@ -82,18 +84,18 @@ export default function MonographArchitecturePage() {
               order={1}
               style={{
                 fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.3rem, 4.8vw, 3.8rem)',
+                fontSize: 'clamp(2.3rem, 4.8vw, 3.6rem)',
                 fontWeight: 600,
                 lineHeight: 1.12,
                 color: active.primary,
                 letterSpacing: '-0.02em',
               }}
             >
-              From Stalled Dissertation Chapters to Contracted Academic Books.
+              From Concept &amp; Chapters to Contracted Books &amp; Edited Handbooks.
             </Title>
 
             <Text size="lg" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              Multi-chapter developmental architecture, acquisition press proposals, and 5-stage production support for junior and senior faculty targeting top university presses (Oxford, Cambridge, Routledge, Harvard).
+              Acquisition press proposals, multi-contributor handbook management, and 5-stage book production for faculty and volume editors targeting Routledge, Cognella, Oxford, and Cambridge.
             </Text>
 
             <Group gap="md" wrap="wrap" pt="sm">
@@ -144,7 +146,7 @@ export default function MonographArchitecturePage() {
             {/* Quality Badges */}
             <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
               <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
-                Press Proposals &bull; Multi-Chapter Developmental Continuity &bull; Back-of-Book Indexing &bull; 100% Track Changes
+                Acquisition Proposals &bull; Multi-Contributor Handbooks &bull; Cindex/SKY Indexing &bull; Press-Ready Compliance
               </Text>
             </Box>
           </Stack>
@@ -167,22 +169,22 @@ export default function MonographArchitecturePage() {
               </Text>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(16)}>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={rem(20)}>
               {[
                 {
                   stage: 'STAGE 01',
-                  title: 'Developmental Architecture',
-                  desc: 'Cumulative chapter mapping, eliminating dissertation bloat, and structuring cross-chapter argumentative momentum.',
+                  title: 'Book & Handbook Architecture',
+                  desc: 'Cumulative chapter mapping, de-dissertationizing voice, or structuring 15–25 contributor chapters into one cohesive volume.',
                 },
                 {
                   stage: 'STAGE 02',
-                  title: 'Substantive Line Editing',
-                  desc: 'Line-by-line prose polish, scholarly tone calibration, and voice continuity across all 6–10 volume chapters.',
+                  title: 'Contributor & Chapter Production',
+                  desc: 'Managing multi-author submissions, enforcing uniform style & citations across chapters, and maintaining scholarly voice continuity.',
                 },
                 {
                   stage: 'STAGE 03',
                   title: 'Press Acquisition Proposal',
-                  desc: 'Crafting the acquisition proposal package: market positioning, chapter outlines, and competitive title analysis.',
+                  desc: 'Crafting the acquisition prospectus: market positioning, competitive title matrix, chapter outlines, and sample chapters.',
                 },
                 {
                   stage: 'STAGE 04',
@@ -195,28 +197,24 @@ export default function MonographArchitecturePage() {
                   desc: 'Final inspection of typeset publisher PDF proofs for bad line breaks, missing symbols, and cross-reference fidelity.',
                 },
               ].map((stg, i) => (
-                <Box
-                  key={i}
-                  p={{ base: rem(20), md: rem(24) }}
-                  bg={active.surface}
-                  style={{
-                    border: `1px solid ${active.primary}14`,
-                    borderTop: `3px solid ${i === 0 ? active.accent : `${active.primary}25`}`,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: rem(10),
-                  }}
-                >
-                  <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em' }}>
-                    {stg.stage}
-                  </Text>
-                  <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(18), color: active.primary, fontWeight: 600, lineHeight: 1.3 }}>
-                    {stg.title}
-                  </Title>
-                  <Text size="xs" c="dimmed" lh={1.6} style={{ flex: 1 }}>
-                    {stg.desc}
-                  </Text>
-                </Box>
+                <EditorialReveal key={i} delay={i * 60}>
+                  <EditorialCard
+                    p={{ base: rem(24), md: rem(28) }}
+                    bg={active.surface}
+                    featured={i === 0}
+                    style={{ height: '100%' }}
+                  >
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em' }}>
+                      {stg.stage}
+                    </Text>
+                    <Title order={3} mt={rem(8)} mb={rem(10)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(19), color: active.primary, fontWeight: 600, lineHeight: 1.3 }}>
+                      {stg.title}
+                    </Title>
+                    <Text size="xs" c="dimmed" lh={1.65}>
+                      {stg.desc}
+                    </Text>
+                  </EditorialCard>
+                </EditorialReveal>
               ))}
             </SimpleGrid>
           </Stack>
@@ -240,13 +238,13 @@ export default function MonographArchitecturePage() {
               {[
                 {
                   icon: <IconBook2 size={22} color={active.accent} />,
-                  title: 'Multi-Chapter Continuity',
-                  desc: 'Ensures terminology, citation conventions, and rhetorical register remain seamless across 80,000+ words.',
+                  title: 'Multi-Author Volume Sync',
+                  desc: 'Keep terminology, citation conventions, and structural pacing unified across 15–25+ handbook contributors.',
                 },
                 {
                   icon: <IconFileText size={22} color={active.accent} />,
-                  title: '100% Track Changes',
-                  desc: 'All revisions provided in Microsoft Word Track Changes. You review and retain absolute final control.',
+                  title: 'Acquisition-Ready Proposals',
+                  desc: 'Formatted to Routledge, Cognella, Oxford, and Cambridge prospectus guidelines—from pitch to competitor matrix.',
                 },
                 {
                   icon: <IconShieldCheck size={22} color={active.accent} />,
@@ -255,24 +253,21 @@ export default function MonographArchitecturePage() {
                 },
                 {
                   icon: <IconRefresh size={22} color={active.accent} />,
-                  title: '365-Day Revision Support',
+                  title: '365-Day Press Coverage',
                   desc: 'Secondary revision passes included when press peer reviewers or acquisition editors issue revision memos.',
                 },
               ].map((feat, i) => (
-                <Box
-                  key={i}
-                  p={rem(24)}
-                  bg={active.background}
-                  style={{ border: `1px solid ${active.primary}12` }}
-                >
-                  <Box mb="md">{feat.icon}</Box>
-                  <Text fw={700} size="sm" c={active.primary} mb={rem(6)}>
-                    {feat.title}
-                  </Text>
-                  <Text size="xs" c="dimmed" lh={1.6}>
-                    {feat.desc}
-                  </Text>
-                </Box>
+                <EditorialReveal key={i} delay={i * 60}>
+                  <EditorialCard p={{ base: rem(24), md: rem(28) }} bg={active.background} style={{ height: '100%' }}>
+                    <Box mb="md">{feat.icon}</Box>
+                    <Text fw={700} size="sm" c={active.primary} mb={rem(6)}>
+                      {feat.title}
+                    </Text>
+                    <Text size="xs" c="dimmed" lh={1.65}>
+                      {feat.desc}
+                    </Text>
+                  </EditorialCard>
+                </EditorialReveal>
               ))}
             </SimpleGrid>
           </Stack>
@@ -282,13 +277,10 @@ export default function MonographArchitecturePage() {
       {/* ── Transparent Milestone Pricing ── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}12` }}>
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
-          <Box
+          <EditorialCard
             p={{ base: rem(28), sm: rem(36), md: rem(48) }}
             bg={active.surface}
-            style={{
-              border: `1px solid ${active.primary}15`,
-              borderLeft: `5px solid ${active.primary}`,
-            }}
+            interactive={false}
           >
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(48) }} style={{ alignItems: 'center' }}>
               <Stack gap="md">
@@ -372,7 +364,7 @@ export default function MonographArchitecturePage() {
                 </Group>
               </Box>
             </SimpleGrid>
-          </Box>
+          </EditorialCard>
         </Container>
       </Box>
 

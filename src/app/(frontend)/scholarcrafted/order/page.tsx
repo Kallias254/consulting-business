@@ -45,6 +45,7 @@ import {
 } from '@tabler/icons-react'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
+import { EditorialCard, EditorialReveal } from '../_components/EditorialPrimitives'
 import { SECTION_SPACING } from '@/layout'
 
 const SALUTATIONS = [
@@ -70,24 +71,32 @@ const DISCIPLINES = [
 
 const PROJECT_TYPE_OPTIONS = [
   {
-    value: 'journal-article',
-    label: 'Journal Article or Dissertation Chapter',
-  },
-  {
     value: 'book-monograph',
     label: 'Book Monograph or University Press Proposal',
   },
   {
-    value: 'full-dissertation',
-    label: "Full Dissertation or Master's Thesis (Pre-Defense)",
+    value: 'edited-handbook',
+    label: 'Edited Volume or Multi-Contributor Handbook',
+  },
+  {
+    value: 'journal-article',
+    label: 'Journal Article or Dissertation Chapter',
   },
   {
     value: 'rnr-rebuttal',
     label: 'Revise & Resubmit (R&R) Response & Overhaul',
   },
   {
+    value: 'grant-fellowship',
+    label: 'Research Grant or Fellowship Proposal',
+  },
+  {
+    value: 'full-dissertation',
+    label: "Full Dissertation or Master's Thesis (Pre-Defense)",
+  },
+  {
     value: 'bespoke-latex',
-    label: 'Bespoke Project, Multi-Author Volume, or LaTeX / Typst',
+    label: 'Bespoke Project, LaTeX / Typst, or Indexing',
   },
 ]
 
@@ -124,6 +133,8 @@ function OrderPageContent() {
   const searchParams = useSearchParams()
 
   const trackParam = (searchParams.get('type') || searchParams.get('track'))?.toLowerCase()
+  const refParam = searchParams.get('ref')?.toLowerCase()
+  const isMicahReferral = refParam === 'micah' || refParam === 'dobson'
 
   const resolveInitialType = () => {
     if (!trackParam) return null
@@ -133,13 +144,19 @@ function OrderPageContent() {
     if (['book', 'monograph', 'press', 'proposal', 'b', 'track-b', 'track_b'].includes(trackParam)) {
       return 'book-monograph'
     }
+    if (['handbook', 'volume', 'edited', 'contributors'].includes(trackParam)) {
+      return 'edited-handbook'
+    }
+    if (['grant', 'fellowship', 'nsf', 'nih', 'mcbay'].includes(trackParam)) {
+      return 'grant-fellowship'
+    }
     if (['dissertation', 'thesis', 'defense'].includes(trackParam)) {
       return 'full-dissertation'
     }
     if (['rnr', 'review', 'rebuttal', 'revision'].includes(trackParam)) {
       return 'rnr-rebuttal'
     }
-    if (['custom', 'bespoke', 'latex', 'multi-author', 'grant'].includes(trackParam)) {
+    if (['custom', 'bespoke', 'latex', 'multi-author'].includes(trackParam)) {
       return 'bespoke-latex'
     }
     return null
@@ -200,7 +217,7 @@ function OrderPageContent() {
       formData.append('tier', selectedProjectType)
       if (wordCount) formData.append('wordCount', String(wordCount))
       if (deadline) formData.append('deadline', deadline)
-      formData.append('instructions', `${instructions}${wantCall ? ' [REQUESTED 15-MIN SCOPING CALL WITH DR. DOBSON]' : ''}`)
+      formData.append('instructions', `${isMicahReferral ? '[REFERRED BY DR. MICAH DOBSON] ' : ''}${instructions}${wantCall ? ' [REQUESTED 15-MIN SCOPING CALL]' : ''}`)
       formData.append('intent', 'quote')
       if (file) {
         formData.append('file', file)
@@ -238,6 +255,19 @@ function OrderPageContent() {
       >
         <Container size={1240} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap="md" align="center" style={{ textAlign: 'center' }}>
+            {isMicahReferral && (
+              <Box
+                px={rem(16)}
+                py={rem(8)}
+                bg={active.background}
+                style={{ border: `1px solid ${active.accent}45` }}
+              >
+                <Text size="xs" fw={600} c={active.primary} style={{ letterSpacing: '0.04em' }}>
+                  Referred by <span style={{ color: active.accent, fontWeight: 700 }}>Dr. Micah J. Dobson</span> &mdash; Priority 24-Hour Project Scoping
+                </Text>
+              </Box>
+            )}
+
             <Title
               order={1}
               style={{
@@ -254,7 +284,7 @@ function OrderPageContent() {
             </Title>
 
             <Text size="md" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              Receive an itemized faculty milestone proposal and confirmed publication schedule within 24 hours. Confidential, NDA-protected, and structured under transparent 50/50 milestone terms.
+              Receive an itemized project roadmap, milestone deliverables, and confirmed publication schedule within 24 hours. Confidential, NDA-protected, and faculty-directed.
             </Text>
           </Stack>
         </Container>
@@ -556,7 +586,7 @@ function OrderPageContent() {
                       </Button>
 
                       <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
-                        Guaranteed 24-hour fixed quote &bull; 50/50 milestone payment terms &bull; 365-day re-editing included
+                        Itemized 24-hour milestone scope &bull; 365-day revision coverage included &bull; Strict NDA
                       </Text>
                     </Stack>
                   </form>
@@ -573,19 +603,16 @@ function OrderPageContent() {
                 }}
               >
                 <Stack gap="lg">
-                  <Box
-                    p={{ base: rem(20), md: rem(28) }}
+                  <EditorialCard
+                    p={{ base: rem(22), md: rem(28) }}
                     bg={active.surface}
-                    style={{
-                      border: `1px solid ${active.primary}15`,
-                      borderLeft: `1px solid ${active.primary}15`,
-                    }}
+                    interactive={false}
                   >
                     <Title
                       order={3}
                       style={{
                         fontFamily: 'var(--font-serif)',
-                        fontSize: rem(22),
+                        fontSize: rem(21),
                         color: active.primary,
                         fontWeight: 600,
                         lineHeight: 1.25,
@@ -596,53 +623,44 @@ function OrderPageContent() {
 
                     <Divider color={`${active.primary}10`} my={rem(16)} />
 
-                    <Stack gap={rem(12)}>
+                    <Stack gap={rem(14)}>
                       {[
                         {
-                          title: 'Custom Integrated Milestone Proposal',
-                          desc: 'Delivered within 24 hours. An itemized editorial roadmap with guaranteed turnaround dates and transparent fixed deliverables.',
+                          title: '24-Hour Custom Milestone Proposal',
+                          desc: 'An itemized production roadmap with confirmed turnaround dates, deliverable stages, and transparent fixed terms.',
                         },
                         {
-                          title: 'Transparent 50/50 Milestone Terms',
-                          desc: '50% deposit upon project initiation; 50% upon final delivery of your publication-ready files.',
+                          title: 'Publisher & Discipline Alignment',
+                          desc: 'Matched to your target press, journal board, or grant agency (Routledge, Cognella, Oxford, Q1/Q2, NSF/Foundation).',
                         },
                         {
-                          title: '100% Track Changes in Word (or LaTeX)',
-                          desc: 'Full developmental editing, sentence rhythm, syntax untangling, and tone calibration with every edit visible.',
-                        },
-                        {
-                          title: 'Discipline-Specific Doctoral Matching',
-                          desc: 'Your manuscript is paired with a specialist editor in your field (Humanities, Social Sciences, Education, Policy).',
-                        },
-                        {
-                          title: '365-Day Committee & Reviewer Re-Editing',
-                          desc: 'Secondary passes at zero charge when your advisor, committee, or journal reviewers request revisions.',
+                          title: '365-Day Committee & Reviewer Coverage',
+                          desc: 'Secondary revision passes at zero extra charge when your advisor, committee, or peer reviewers request changes.',
                         },
                         {
                           title: 'Official Editorial Compliance Certificate',
-                          desc: 'Issued upon completion for graduate school clearance or journal submission verification.',
+                          desc: 'Issued upon completion for graduate school clearance, institutional reporting, or journal submission verification.',
                         },
                       ].map((item, i) => (
                         <Group key={i} gap="sm" align="flex-start" wrap="nowrap">
                           <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
                           <Box>
-                            <Text size="xs" fw={700} c={active.primary} lh={1.3}>
+                            <Text size="xs" fw={700} c={active.primary} lh={1.35}>
                               {item.title}
                             </Text>
-                            <Text size="xs" c="dimmed" lh={1.4} mt={rem(2)}>
+                            <Text size="xs" c="dimmed" lh={1.45} mt={rem(2)}>
                               {item.desc}
                             </Text>
                           </Box>
                         </Group>
                       ))}
                     </Stack>
-                  </Box>
+                  </EditorialCard>
 
                   {/* Faculty Scoping Call Card */}
-                  <Box
-                    p={{ base: rem(18), md: rem(22) }}
+                  <EditorialCard
+                    p={{ base: rem(20), md: rem(24) }}
                     bg={active.surface}
-                    style={{ border: `1px solid ${active.primary}12` }}
                   >
                     <Stack gap="xs">
                       <Group gap="xs">
@@ -651,8 +669,8 @@ function OrderPageContent() {
                           Prefer to Discuss First?
                         </Text>
                       </Group>
-                      <Text size="xs" c="dimmed" lh={1.5}>
-                        Schedule an introductory 15-minute scoping consultation with Dr. Micah Dobson to discuss your manuscript timeline, target press, and committee feedback before requesting a proposal.
+                      <Text size="xs" c="dimmed" lh={1.55}>
+                        Schedule a 15-minute scoping consultation to discuss your manuscript timeline, target press, or contributor workflow before requesting a formal proposal.
                       </Text>
                       <Anchor
                         href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
@@ -669,10 +687,10 @@ function OrderPageContent() {
                           marginTop: rem(4),
                         }}
                       >
-                        Book 15-Min Scoping Call with Faculty &rarr;
+                        Book 15-Min Scoping Call &rarr;
                       </Anchor>
                     </Stack>
-                  </Box>
+                  </EditorialCard>
                 </Stack>
               </Box>
             </Grid.Col>
@@ -716,23 +734,21 @@ function OrderPageContent() {
                   desc: 'No anonymous ticket queues. Direct collaborative dialogue with Dr. Micah Dobson and your doctoral editor.',
                 },
               ].map((card, i) => (
-                <Box
-                  key={i}
-                  p={rem(24)}
-                  bg={active.background}
-                  style={{
-                    border: `1px solid ${active.primary}12`,
-                    borderTop: `3px solid ${active.accent}`,
-                  }}
-                >
-                  <Box mb="md">{card.icon}</Box>
-                  <Text fw={700} size="sm" c={active.primary} mb={rem(6)}>
-                    {card.title}
-                  </Text>
-                  <Text size="xs" c="dimmed" lh={1.6}>
-                    {card.desc}
-                  </Text>
-                </Box>
+                <EditorialReveal key={i} delay={i * 60}>
+                  <EditorialCard
+                    p={{ base: rem(24), md: rem(28) }}
+                    bg={active.background}
+                    style={{ height: '100%' }}
+                  >
+                    <Box mb="md">{card.icon}</Box>
+                    <Text fw={700} size="sm" c={active.primary} mb={rem(6)}>
+                      {card.title}
+                    </Text>
+                    <Text size="xs" c="dimmed" lh={1.65}>
+                      {card.desc}
+                    </Text>
+                  </EditorialCard>
+                </EditorialReveal>
               ))}
             </SimpleGrid>
           </Stack>

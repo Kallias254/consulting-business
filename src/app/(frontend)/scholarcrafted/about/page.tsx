@@ -8,82 +8,37 @@ import {
   Box,
   SimpleGrid,
   Stack,
-  Image,
   Divider,
   rem,
   Group,
   Button,
   useMantineTheme,
-  ThemeIcon,
+  Avatar,
   Center,
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
+import { EditorialCard, EditorialReveal, ReadingProgressBar } from '../_components/EditorialPrimitives'
 import Link from 'next/link'
-import { IconCheck, IconX, IconMessageChatbot, IconRocket } from '@tabler/icons-react'
-
+import { IconCheck, IconX, IconArrowRight, IconShieldCheck } from '@tabler/icons-react'
 import { SECTION_SPACING, INNER_WIDTH, READING_WIDTH } from '@/layout'
 
-const team = [
+const leadership = [
   {
-    name: 'Micah, PhD',
-    role: 'Faculty Lead & Founder',
-    image:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1000',
+    initials: 'MD',
+    name: 'Dr. Micah J. Dobson, Ph.D.',
+    role: 'Principal Academic Advisor & Faculty Lead',
+    affiliations: 'Assistant Professor, Johnson C. Smith University · Lecturer, NC State University',
+    image: '/images/micah-dobson.jpg',
+    bio: 'Published Routledge textbook author, co-editor of The Routledge Handbook of Hip Hop and Sport, Culture, and Activism, Cognella textbook author, and UNCF Henry C. McBay Faculty Research Fellow. Dr. Dobson sets the scholarly standards, publisher acquisition alignment, and peer-review expectations across every engagement.',
   },
   {
-    name: 'Dr. Al-Saraf',
-    role: 'Qualitative Specialist',
-    image:
-      'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Haining',
-    role: 'STEM & Medical Sciences',
-    image:
-      'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Warren',
-    role: 'Humanities & SocSci',
-    image:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Lehan',
-    role: 'Statistical Analysis',
-    image:
-      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Simmons',
-    role: 'Manuscript Architecture',
-    image:
-      'https://images.unsplash.com/photo-1566753323558-f4e0952af115?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Jansen',
-    role: 'Ethics & Compliance',
-    image:
-      'https://images.unsplash.com/photo-1560250047-0ae9630c494d?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Moore',
-    role: 'Post-Doctoral Strategy',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Phair',
-    role: 'Grant Writing',
-    image:
-      'https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&q=80&w=1000',
-  },
-  {
-    name: 'Dr. Rautenbach',
-    role: 'Journal Submissions',
-    image:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1000',
+    initials: 'JM',
+    name: 'Joseph Miseda',
+    role: 'Managing Partner, Editorial & Technical Operations',
+    affiliations: 'Production Architecture · Multi-Contributor Volumes · LaTeX & Publisher Compliance',
+    image: '/images/joseph-miseda.jpg',
+    bio: 'Directs manuscript production pipelines from rough concept and raw drafts to contract-ready proposals and press-compliant volumes. Specializes in multi-author handbook coordination, structural narrative architecture, citation forensics, and back-of-book indexing.',
   },
 ]
 
@@ -105,14 +60,13 @@ const universities = [
   { name: 'NCSU', logo: '/logos/North_Carolina_State_University_Athletic_logo.svg' },
 ]
 
-const awards = [
-  '#1 in Trustpilot’s “Private Tutor” Category',
-  'Winner: Most Trusted Dissertation Coach (Business Excellence Awards)',
-  'Winner: Best Private Coaching Service (AI International)',
-  'Gold Award for Science & Education Video (TITAN)',
-  'Accredited Member of The Tutor’s Association UK',
-  '100+ years combined academic experience within the team',
-  '10,000+ students supported on a 1:1 basis',
+const standards = [
+  'Aligned with COPE (Committee on Publication Ethics) guidelines',
+  'Press-ready architecture for Routledge, Cognella, Oxford & Cambridge',
+  'Full multi-contributor handbook coordination (15–25+ authors)',
+  'Professional Cindex & SKY Index back-of-book indexing',
+  'Strict institutional NDA protection for unpublished research',
+  'Itemized invoicing compatible with faculty startup & grant budgets',
 ]
 
 export default function AboutPage() {
@@ -121,145 +75,174 @@ export default function AboutPage() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <ReadingProgressBar />
       <Navbar />
 
       {/* Hero: Philosophy */}
-      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
-        <Container size={1100}>
-          <Box style={{ maxWidth: 800 }}>
+      <Box component="section" pt={{ base: rem(100), md: rem(132) }} pb={{ base: rem(56), md: rem(80) }} bg={active.background}>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Box style={{ maxWidth: 820 }}>
             <Text
               size="xs"
               fw={700}
-              style={{ letterSpacing: '0.15em' }}
+              style={{ letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
               c={active.accent}
             >
               ABOUT SCHOLARCRAFTED
             </Text>
             <Title
               order={1}
-              mt="md"
+              mt="sm"
               style={{
-                fontSize: rem(56),
+                fontSize: 'clamp(2.2rem, 4.8vw, 3.6rem)',
                 lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                color: active.primary }}
+                letterSpacing: '-0.025em',
+                color: active.primary,
+                fontFamily: 'var(--font-serif)',
+                fontWeight: 700,
+              }}
             >
-              Scholarly rigor. <br />
-              Human guidance.
+              Faculty-directed scholarly production. Built for the finish line.
             </Title>
-            <Text size="lg" mt="xl" c="dimmed" lh={1.6} style={{ fontSize: rem(20) }}>
-              Algorithms cannot replicate the nuanced, structural insight of a seasoned 
-              academic. Our institution is founded on the principle of PhD-led mentorship.
+            <Text size="lg" mt="xl" c="dimmed" lh={1.75} style={{ maxWidth: '62ch' }}>
+              Algorithms can tidy a sentence, but they cannot structure a university press prospectus, herd twenty handbook contributors to a deadline, or navigate a hostile peer-review memo. ScholarCrafted exists to take high-stakes academic work from rough draft to signed contract and published volume.
             </Text>
           </Box>
         </Container>
       </Box>
 
-      {/* Team Grid */}
+      {/* Leadership */}
       <Box
         component="section"
-        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: '1px solid #eee' }}
+        style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={1100}>
-          <SimpleGrid cols={{ base: 2, sm: 4, md: 5 }} spacing="xl">
-            {team.map((member) => (
-              <Stack key={member.name} gap="sm" align="center">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  radius="50%"
-                  h={150}
-                  w={150}
-                  fit="cover"
-                  style={{ border: `1px solid ${active.primary}12` }}
-                />
-                <Stack gap={0} align="center" style={{ textAlign: 'center' }}>
-                  <Text fw={600} size="sm">
-                    {member.name}
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    {member.role}
-                  </Text>
-                </Stack>
-              </Stack>
-            ))}
-          </SimpleGrid>
-        </Container>
-      </Box>
-
-      {/* The Client Journey */}
-      <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={1100}>
-          <Stack gap={rem(80)} align="center" style={{ textAlign: 'center' }}>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(40)}>
             <Box style={{ maxWidth: 700 }}>
               <Text
                 size="xs"
-                
-                c="dimmed"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
               >
-                The Client Journey
+                LEADERSHIP &amp; STANDARDS
               </Text>
-              <Title
-                order={2}
-                mt="md"
-                style={{ fontSize: rem(48), color: active.primary }}
-              >
-                A clear, structured process <br /> from start to finish.
+              <Title order={2} mt="xs" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.75rem, 3.2vw, 2.4rem)', color: active.primary, fontWeight: 600 }}>
+                Led by published faculty and dedicated production operators.
               </Title>
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(60)}>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconMessageChatbot size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg" >
-                  01. Strategic Review
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  A deep-dive consultation to understand your project, identify roadblocks, and map
-                  a clear path forward.
-                </Text>
-              </Stack>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconRocket size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg" >
-                  02. Guided Implementation
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Work directly with a PhD-level specialist to execute the plan with regular
-                  check-ins and structured feedback.
-                </Text>
-              </Stack>
-              <Stack align="center" gap="md">
-                <ThemeIcon size={64} radius="xl" variant="light" color="dark">
-                  <IconCheck size={32} stroke={1.5} />
-                </ThemeIcon>
-                <Text fw={700} size="lg" >
-                  03. Final Submission
-                </Text>
-                <Text size="sm" c="dimmed" lh={1.6}>
-                  Finalize your manuscript with confidence, knowing it has been rigorously reviewed
-                  for clarity, structure, and impact.
-                </Text>
-              </Stack>
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)}>
+              {leadership.map((leader, idx) => (
+                <EditorialReveal key={leader.name} delay={idx * 80}>
+                  <EditorialCard
+                    p={{ base: rem(28), md: rem(36) }}
+                    bg={active.background}
+                    style={{ height: '100%' }}
+                  >
+                    <Stack gap="lg" style={{ height: '100%' }}>
+                      <Group gap="lg" align="center" wrap="nowrap">
+                        <Avatar
+                          src={leader.image}
+                          alt={leader.name}
+                          size={76}
+                          radius={0}
+                          style={{
+                            border: `1px solid ${active.primary}18`,
+                            backgroundColor: active.surface,
+                            color: active.primary,
+                            fontFamily: 'var(--font-serif)',
+                            fontWeight: 700,
+                            fontSize: rem(20),
+                            flexShrink: 0,
+                          }}
+                        >
+                          {leader.initials}
+                        </Avatar>
+                        <Box>
+                          <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(21), fontWeight: 600, color: active.primary }}>
+                            {leader.name}
+                          </Title>
+                          <Text size="xs" fw={700} c={active.accent} mt={rem(2)} style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            {leader.role}
+                          </Text>
+                          <Text size="xs" c="dimmed" mt={rem(4)}>
+                            {leader.affiliations}
+                          </Text>
+                        </Box>
+                      </Group>
+
+                      <Divider color={`${active.primary}10`} />
+
+                      <Text size="sm" c="dimmed" lh={1.75}>
+                        {leader.bio}
+                      </Text>
+                    </Stack>
+                  </EditorialCard>
+                </EditorialReveal>
+              ))}
             </SimpleGrid>
-            <Link href="/how-it-works" style={{ textDecoration: 'none' }}>
-              <Button
-                size="md"
-                variant="outline"
-                color={active.primary}
-                radius={0}
-                style={{ borderColor: active.primary }}
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* The Production Journey */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background} style={{ borderTop: `1px solid ${active.primary}10` }}>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(48)}>
+            <Box style={{ maxWidth: 700 }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
               >
-                See Our Process
-              </Button>
-            </Link>
+                HOW WE WORK
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.4rem)', color: active.primary, fontFamily: 'var(--font-serif)', fontWeight: 600 }}
+              >
+                A clear, milestone-driven process from brief to press.
+              </Title>
+            </Box>
+
+            <SimpleGrid cols={{ base: 1, md: 3 }} spacing={rem(24)}>
+              {[
+                {
+                  num: '01',
+                  title: 'Diagnostic & Scoping (24h)',
+                  desc: 'We review your draft, target press or journal guidelines, and timeline—then return an itemized milestone roadmap within 24 hours.',
+                },
+                {
+                  num: '02',
+                  title: 'Architecture & Production',
+                  desc: 'Whether extracting a journal argument, building a press prospectus, or coordinating 20 handbook authors, every deliverable moves on a fixed schedule.',
+                },
+                {
+                  num: '03',
+                  title: 'Compliance & Revision Coverage',
+                  desc: 'Files arrive press-ready with an Editorial Compliance Certificate—backed by 365 days of secondary passes for reviewer or committee memos.',
+                },
+              ].map((step, i) => (
+                <EditorialReveal key={step.num} delay={i * 70}>
+                  <EditorialCard p={{ base: rem(28), md: rem(32) }} bg={active.surface} style={{ height: '100%' }}>
+                    <Text size="xs" fw={700} c={active.accent} style={{ letterSpacing: '0.14em' }}>
+                      {step.num}
+                    </Text>
+                    <Title order={3} mt={rem(8)} mb={rem(10)} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), color: active.primary, fontWeight: 600 }}>
+                      {step.title}
+                    </Title>
+                    <Text size="sm" c="dimmed" lh={1.7}>
+                      {step.desc}
+                    </Text>
+                  </EditorialCard>
+                </EditorialReveal>
+              ))}
+            </SimpleGrid>
           </Stack>
         </Container>
       </Box>
@@ -267,130 +250,145 @@ export default function AboutPage() {
       {/* What we do / don't do */}
       <Box
         component="section"
-        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}
+        style={{ borderTop: `1px solid ${active.primary}10`, borderBottom: `1px solid ${active.primary}10` }}
       >
-        <Container>
-          <Box style={{ textAlign: 'center', marginBottom: rem(60) }}>
-            <Title
-              order={2}
-              style={{ color: active.primary }}
-            >
-              Hands-on help, the right way.
-            </Title>
-          </Box>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(60)}>
-            <Stack>
-              <Group gap="md">
-                <ThemeIcon size="lg" radius="xl" color="green">
-                  <IconCheck size={20} stroke={3} />
-                </ThemeIcon>
-                <Title order={3} style={{ fontWeight: 500, color: active.primary }}>
-                  What we do.
-                </Title>
-              </Group>
-              <Text size="md" c="dimmed" lh={1.7}>
-                Simply put, we do everything ethically can to help you achieve your academic goals.
-                In practical terms, this means straightforward, action-oriented advice, honest
-                feedback and tailored support – when and where you need it.
-              </Text>
-            </Stack>
-            <Stack>
-              <Group gap="md">
-                <ThemeIcon size="lg" radius="xl" color="red">
-                  <IconX size={20} stroke={3} />
-                </ThemeIcon>
-                <Title order={3} style={{ fontWeight: 500, color: active.primary }}>
-                  What we don&rsquo;t do.
-                </Title>
-              </Group>
-              <Text size="md" c="dimmed" lh={1.7}>
-                We don&rsquo;t offer unethical shortcuts. We&rsquo;ll never write your dissertation,
-                thesis or paper for you. We abide by the Tutors’ Association code of ethics and
-                stand firmly against academic misconduct.
-              </Text>
-            </Stack>
-          </SimpleGrid>
-        </Container>
-      </Box>
-
-      {/* Track Record */}
-      <Box
-        component="section"
-        className="academic-watermark"
-        py={SECTION_SPACING}
-        bg={active.background}
-        style={{ borderTop: '1px solid #eee' }}
-      >
-        <Container size={READING_WIDTH}>
-          <Stack gap="xl">
-            <Box style={{ textAlign: 'center' }}>
-              <Title
-                order={2}
-                style={{
-                  fontSize: rem(42),
-                  color: active.primary,
-                  fontFamily: 'var(--font-serif)'
-                }}
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(40)}>
+            <Box style={{ maxWidth: 700 }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
               >
-                A track record that speaks for itself.
+                PUBLICATION ETHICS
+              </Text>
+              <Title order={2} mt="xs" style={{ color: active.primary, fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.75rem, 3.2vw, 2.4rem)', fontWeight: 600 }}>
+                Ethical boundaries that protect your career and reputation.
               </Title>
             </Box>
 
-            <Box p={rem(40)} bg={active.surface} style={{ border: `1px solid ${active.primary}12` }}>
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)}>
+              <EditorialReveal delay={0}>
+                <EditorialCard p={{ base: rem(28), md: rem(36) }} bg={active.background} style={{ height: '100%' }}>
+                  <Group gap="sm" mb="md">
+                    <IconCheck size={20} color={active.accent} stroke={2.5} />
+                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 600, fontSize: rem(21), color: active.primary }}>
+                      What we do
+                    </Title>
+                  </Group>
+                  <Text size="sm" c="dimmed" lh={1.75}>
+                    We provide developmental manuscript architecture, university press proposal structuring, multi-contributor handbook coordination, R&amp;R response matrices, citation forensics, and press-compliant formatting—always transparent and aligned with university and publisher guidelines.
+                  </Text>
+                </EditorialCard>
+              </EditorialReveal>
+
+              <EditorialReveal delay={80}>
+                <EditorialCard p={{ base: rem(28), md: rem(36) }} bg={active.background} style={{ height: '100%' }}>
+                  <Group gap="sm" mb="md">
+                    <IconX size={20} color={active.primary} stroke={2.5} />
+                    <Title order={3} style={{ fontFamily: 'var(--font-serif)', fontWeight: 600, fontSize: rem(21), color: active.primary }}>
+                      What we never do
+                    </Title>
+                  </Group>
+                  <Text size="sm" c="dimmed" lh={1.75}>
+                    We never ghostwrite original research, fabricate data, invent citations, or compromise authorship integrity. We operate strictly within COPE (Committee on Publication Ethics) standards so your scholarship remains 100% yours and defensible before any committee or press.
+                  </Text>
+                </EditorialCard>
+              </EditorialReveal>
+            </SimpleGrid>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* Institutional & Publisher Standards */}
+      <Box component="section" py={SECTION_SPACING} bg={active.background}>
+        <Container size={READING_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap="xl">
+            <Box style={{ textAlign: 'center' }}>
+              <Text
+                size="xs"
+                fw={700}
+                c={active.accent}
+                style={{ letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
+              >
+                INSTITUTIONAL READINESS
+              </Text>
+              <Title
+                order={2}
+                mt="xs"
+                style={{
+                  fontSize: 'clamp(1.75rem, 3.2vw, 2.3rem)',
+                  color: active.primary,
+                  fontFamily: 'var(--font-serif)',
+                  fontWeight: 600,
+                }}
+              >
+                Built for university presses, grants, and tenure clocks.
+              </Title>
+            </Box>
+
+            <EditorialCard p={{ base: rem(28), md: rem(40) }} bg={active.surface} interactive={false}>
               <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-                {awards.map((award, i) => (
-                  <Group key={i} gap="sm" wrap="nowrap">
-                    <Box
-                      w={6}
-                      h={6}
-                      bg={active.accent}
-                      style={{ borderRadius: '50%', flexShrink: 0 }}
-                    />
-                    <Text size="sm" c="dimmed">
-                      {award}
+                {standards.map((item, i) => (
+                  <Group key={i} gap="sm" wrap="nowrap" align="flex-start">
+                    <IconShieldCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                    <Text size="sm" c={active.primary} lh={1.55}>
+                      {item}
                     </Text>
                   </Group>
                 ))}
               </SimpleGrid>
-            </Box>
-            <Center mt="md">
-              <a
-                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: 'none' }}
-              >
-                <Button
-                  size="md"
-                  variant="outline"
-                  color={active.primary}
-                  radius={0}
-                  style={{ borderColor: active.primary }}
+            </EditorialCard>
+
+            <Center mt="sm">
+              <Group gap="md" wrap="wrap">
+                <Link href="/order" style={{ textDecoration: 'none' }}>
+                  <Button
+                    size="md"
+                    radius={0}
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{ backgroundColor: active.accent, color: '#ffffff', fontWeight: 700, height: rem(48), paddingLeft: rem(28), paddingRight: rem(28) }}
+                  >
+                    Get a Project Scope
+                  </Button>
+                </Link>
+                <a
+                  href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none' }}
                 >
-                  Schedule Faculty Call
-                </Button>
-              </a>
+                  <Button
+                    size="md"
+                    variant="outline"
+                    color={active.primary}
+                    radius={0}
+                    style={{ borderColor: `${active.primary}35`, color: active.primary, fontWeight: 600, height: rem(48) }}
+                  >
+                    Book a Scoping Call
+                  </Button>
+                </a>
+              </Group>
             </Center>
           </Stack>
         </Container>
       </Box>
 
       {/* University Logo Marquee */}
-      <Box component="section" className="dark-scholar-section" py={rem(100)} bg={active.primary}>
+      <Box component="section" className="dark-scholar-section" py={rem(88)} bg={active.primary}>
         <Container size={1200}>
           <Stack gap="xl" align="center" mb="xl">
             <Box style={{ textAlign: 'center' }}>
-              <Title order={3} style={{ fontSize: rem(28), color: active.background, fontFamily: 'var(--font-serif)' }}>
-                Trusted by Researchers at the World’s Leading Universities
+              <Title order={3} style={{ fontSize: rem(26), color: active.background, fontFamily: 'var(--font-serif)' }}>
+                Trusted by Scholars &amp; Faculty Across Leading Institutions
               </Title>
             </Box>
           </Stack>
         </Container>
-        
-        {/* Full-width marquee outside container */}
+
         <Box style={{ width: '100%', overflow: 'hidden' }}>
           <div className="marquee-container">
             <div className="marquee-content">
@@ -402,7 +400,6 @@ export default function AboutPage() {
                   className="university-logo-img"
                 />
               ))}
-              {/* Repeat for seamless loop */}
               {universities.map((uni, idx) => (
                 <img
                   key={`uni-2-${idx}`}
