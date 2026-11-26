@@ -29,7 +29,7 @@ const leadership = [
     name: 'Dr. Micah J. Dobson, Ph.D.',
     role: 'Principal Academic Advisor & Faculty Lead',
     affiliations: 'Assistant Professor, Johnson C. Smith University · Lecturer, NC State University',
-    image: '/images/micah-dobson.jpg',
+    image: '/images/drmicah.png',
     bio: 'Published Routledge textbook author, co-editor of The Routledge Handbook of Hip Hop and Sport, Culture, and Activism, Cognella textbook author, and UNCF Henry C. McBay Faculty Research Fellow. Dr. Dobson sets the scholarly standards, publisher acquisition alignment, and peer-review expectations across every engagement.',
   },
   {

@@ -16,6 +16,7 @@ import {
 } from '@mantine/core'
 import { Navbar } from '../_components/Navbar'
 import { Footer } from '../_components/Footer'
+import { EditorialCard, EditorialReveal, ReadingProgressBar } from '../_components/EditorialPrimitives'
 import { READING_WIDTH, INNER_WIDTH, SECTION_SPACING } from '@/layout'
 import Link from 'next/link'
 import { IconArrowRight, IconShieldCheck, IconFileCheck } from '@tabler/icons-react'
@@ -192,35 +193,37 @@ export default function FAQPage() {
 
   return (
     <Box bg={active.background} style={{ minHeight: '100vh', color: active.primary }}>
+      <ReadingProgressBar />
       <Navbar />
 
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <Box component="section" pt={rem(140)} pb={rem(80)} bg={active.background}>
-        <Container size={READING_WIDTH}>
-          <Box style={{ maxWidth: 760 }}>
+      {/* ── Hero (matches About page structure & typography) ── */}
+      <Box component="section" pt={{ base: rem(100), md: rem(132) }} pb={{ base: rem(56), md: rem(80) }} bg={active.background}>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Box style={{ maxWidth: 820 }}>
             <Text
               size="xs"
               fw={700}
-              style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}
+              style={{ letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: 'var(--font-heading-sans), var(--font-sans)' }}
               c={active.accent}
             >
-              Common Questions
+              FREQUENTLY ASKED QUESTIONS
             </Text>
             <Title
               order={1}
-              mt="md"
+              mt="sm"
               style={{
-                fontSize: rem(54),
+                fontSize: 'clamp(2.2rem, 4.8vw, 3.6rem)',
                 lineHeight: 1.1,
-                letterSpacing: '-0.02em',
+                letterSpacing: '-0.025em',
                 color: active.primary,
                 fontFamily: 'var(--font-serif)',
+                fontWeight: 700,
               }}
             >
               Questions scholars actually ask.
             </Title>
-            <Text size="lg" mt="xl" c="dimmed" lh={1.7} style={{ fontSize: rem(19) }}>
-              Straight answers on editorial tracks, milestone scoping, confidentiality, turnaround, and our faculty-led process.
+            <Text size="lg" mt="xl" c="dimmed" lh={1.75} style={{ maxWidth: '62ch' }}>
+              Straight answers on journal &amp; book production, multi-contributor handbooks, institutional grant invoicing, confidentiality, and our faculty-directed process.
             </Text>
           </Box>
         </Container>
@@ -229,13 +232,12 @@ export default function FAQPage() {
       {/* ── Accordion Sections ───────────────────────────────────────── */}
       <Box
         component="section"
-        className="academic-watermark"
         py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}12` }}
+        style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={READING_WIDTH}>
-          <Stack gap={rem(72)}>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(64)} style={{ maxWidth: 880 }}>
 
             <FaqBlock
               title="Manuscript Editing"
@@ -276,86 +278,91 @@ export default function FAQPage() {
         </Container>
       </Box>
 
-      {/* ── Trust Bar ─────────────────────────────────────────────────── */}
+      {/* ── Trust Bar (matches About EditorialCard style) ─────────────── */}
       <Box
-        py={rem(60)}
+        py={SECTION_SPACING}
         bg={active.background}
-        style={{ borderTop: `1px solid ${active.primary}12` }}
+        style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={INNER_WIDTH}>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
-            <Group align="flex-start" gap="md">
-              <IconShieldCheck size={28} color={active.accent} stroke={1.5} />
-              <Stack gap={rem(4)}>
-                <Text fw={700} size="sm">
-                  Zero Ghostwriting. Zero Exceptions.
-                </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  We refine, format, and structure manuscript you have written. We do not generate content, write
-                  arguments, or fabricate text under any circumstances.
-                </Text>
-              </Stack>
-            </Group>
-            <Group align="flex-start" gap="md">
-              <IconFileCheck size={28} color={active.accent} stroke={1.5} />
-              <Stack gap={rem(4)}>
-                <Text fw={700} size="sm">
-                  Tracked Changes — Every Single Edit
-                </Text>
-                <Text size="xs" c="dimmed" lh={1.6}>
-                  Every edit is delivered in tracked-changes mode. You see exactly what changed and why. You approve
-                  or reject each change individually.
-                </Text>
-              </Stack>
-            </Group>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)}>
+            <EditorialReveal delay={0}>
+              <EditorialCard p={{ base: rem(28), md: rem(32) }} bg={active.surface} style={{ height: '100%' }}>
+                <Group align="flex-start" gap="md" wrap="nowrap">
+                  <IconShieldCheck size={24} color={active.accent} stroke={1.6} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                  <Stack gap={rem(6)}>
+                    <Text fw={700} size="sm" c={active.primary}>
+                      Zero Ghostwriting. Full COPE Compliance.
+                    </Text>
+                    <Text size="sm" c="dimmed" lh={1.7}>
+                      We architect, structure, and prepare manuscripts and volumes you have authored. Your findings, voice, and intellectual ownership remain 100% yours.
+                    </Text>
+                  </Stack>
+                </Group>
+              </EditorialCard>
+            </EditorialReveal>
+            <EditorialReveal delay={70}>
+              <EditorialCard p={{ base: rem(28), md: rem(32) }} bg={active.surface} style={{ height: '100%' }}>
+                <Group align="flex-start" gap="md" wrap="nowrap">
+                  <IconFileCheck size={24} color={active.accent} stroke={1.6} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                  <Stack gap={rem(6)}>
+                    <Text fw={700} size="sm" c={active.primary}>
+                      365-Day Reviewer Coverage &amp; Institutional Invoicing
+                    </Text>
+                    <Text size="sm" c="dimmed" lh={1.7}>
+                      Every full project includes 365 days of secondary revision support for committee or peer-review memos, plus itemized invoices for startup and grant funds.
+                    </Text>
+                  </Stack>
+                </Group>
+              </EditorialCard>
+            </EditorialReveal>
           </SimpleGrid>
         </Container>
       </Box>
 
-      {/* ── CTA ───────────────────────────────────────────────────────── */}
+      {/* ── CTA (matches About page CTA style) ────────────────────────── */}
       <Box
-        py={rem(80)}
+        py={SECTION_SPACING}
         bg={active.surface}
-        style={{ borderTop: `1px solid ${active.primary}12` }}
+        style={{ borderTop: `1px solid ${active.primary}10` }}
       >
-        <Container size={READING_WIDTH}>
+        <Container size={INNER_WIDTH} px={{ base: 'md', sm: 'xl' }}>
           <Stack align="center" gap="lg" style={{ textAlign: 'center' }}>
             <Title
               order={2}
               style={{
-                fontSize: rem(36),
+                fontSize: 'clamp(1.75rem, 3.2vw, 2.3rem)',
                 color: active.primary,
                 fontFamily: 'var(--font-serif)',
+                fontWeight: 600,
                 lineHeight: 1.2,
               }}
             >
-              Still not sure which service you need?
+              Ready to map out your project scope?
             </Title>
-            <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 520 }}>
-              Submit your manuscript or proposal draft for a custom project scope. We review it and respond within 24 hours with an itemized editorial roadmap and guaranteed milestone terms.
+            <Text size="md" c="dimmed" lh={1.7} style={{ maxWidth: 560 }}>
+              Share your manuscript, book proposal, or handbook details. We return an itemized milestone roadmap and schedule within 24 hours.
             </Text>
             <Group gap="md" justify="center" wrap="wrap">
               <Link href="/order" style={{ textDecoration: 'none' }}>
                 <Button
-                  size="lg"
+                  size="md"
                   radius={0}
-                  w={{ base: '100%', sm: 'auto' }}
-                  style={{ backgroundColor: active.primary, color: active.background }}
+                  style={{ backgroundColor: active.accent, color: '#ffffff', fontWeight: 700, height: rem(48), paddingLeft: rem(28), paddingRight: rem(28) }}
                   rightSection={<IconArrowRight size={16} />}
                 >
-                  Request Custom Project Scope
+                  Get a Project Scope
                 </Button>
               </Link>
               <Link href="/services" style={{ textDecoration: 'none' }}>
                 <Button
-                  size="lg"
+                  size="md"
                   variant="outline"
                   radius={0}
-                  w={{ base: '100%', sm: 'auto' }}
                   color={active.primary}
-                  style={{ borderColor: active.primary }}
+                  style={{ borderColor: `${active.primary}35`, color: active.primary, fontWeight: 600, height: rem(48) }}
                 >
-                  Browse All Services
+                  Explore Services
                 </Button>
               </Link>
             </Group>
@@ -363,7 +370,7 @@ export default function FAQPage() {
         </Container>
       </Box>
 
-      <Footer bg={active.surface} />
+      <Footer />
     </Box>
   )
 }

@@ -292,18 +292,17 @@ function OrderPageContent() {
 
       {/* ── Scoping Hub Form & Overview ── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={1340} px={{ base: 'md', sm: 'xl' }}>
-          <Grid gutter={{ base: rem(28), lg: rem(40) }} align="flex-start">
-            {/* Primary Column: Custom Scope Request Form (8 cols on lg, front and center) */}
-            <Grid.Col span={{ base: 12, lg: 8 }}>
-              <Box
-                p={{ base: rem(28), sm: rem(36), md: rem(44) }}
-                bg={active.surface}
-                style={{
-                  border: `1px solid ${active.primary}18`,
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.04)',
-                }}
-              >
+        <Container size={860} px={{ base: 'md', sm: 'xl' }}>
+          <Stack gap={rem(32)}>
+            {/* Centered Custom Scope Request Form */}
+            <Box
+              p={{ base: rem(28), sm: rem(36), md: rem(44) }}
+              bg={active.surface}
+              style={{
+                border: `1px solid ${active.primary}18`,
+                boxShadow: '0 8px 32px rgba(0,0,0,0.04)',
+              }}
+            >
                 {submitted ? (
                   <Stack gap="lg" align="center" style={{ textAlign: 'center', py: rem(32) }}>
                     <Box
@@ -394,17 +393,8 @@ function OrderPageContent() {
                   <form onSubmit={handleSubmit}>
                     <Stack gap="lg">
                       <Box>
-                        <Text
-                          size="xs"
-                          fw={700}
-                          c={active.accent}
-                          style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
-                        >
-                          PROJECT INTAKE &amp; SCOPING
-                        </Text>
                         <Title
                           order={3}
-                          mt={rem(4)}
                           style={{
                             fontFamily: 'var(--font-serif)',
                             fontSize: rem(24),
@@ -415,7 +405,7 @@ function OrderPageContent() {
                           Tell Us About Your Manuscript
                         </Title>
                         <Text size="xs" c="dimmed" mt={rem(4)}>
-                          Receive an itemized milestone proposal and guaranteed delivery schedule within 24 hours.
+                          Receive an itemized milestone proposal and confirmed delivery schedule within 24 hours.
                         </Text>
                       </Box>
 
@@ -453,8 +443,8 @@ function OrderPageContent() {
 
                       <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
                         <TextInput
-                          label="Primary Academic Email *"
-                          placeholder="jane.doe@stanford.edu"
+                          label="Email Address *"
+                          placeholder="you@university.edu or name@gmail.com"
                           type="email"
                           required
                           value={email}
@@ -569,20 +559,23 @@ function OrderPageContent() {
 
                       <Button
                         type="submit"
-                        size="lg"
+                        size="md"
                         radius={0}
                         loading={isSubmitting}
-                        rightSection={<IconArrowRight size={18} />}
+                        rightSection={<IconArrowRight size={16} />}
                         style={{
                           backgroundColor: active.accent,
                           color: '#ffffff',
                           fontWeight: 700,
                           fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                           letterSpacing: '0.04em',
-                          height: rem(52),
+                          height: rem(46),
+                          alignSelf: 'flex-start',
+                          paddingLeft: rem(28),
+                          paddingRight: rem(28),
                         }}
                       >
-                        Request Milestone Proposal (24h Guaranteed)
+                        Request Milestone Scope
                       </Button>
 
                       <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>
@@ -592,109 +585,106 @@ function OrderPageContent() {
                   </form>
                 )}
               </Box>
-            </Grid.Col>
 
-            {/* Secondary Column: Scope Overview & Commitments (4 cols on lg, RHS like a cart summary, sticky) */}
-            <Grid.Col span={{ base: 12, lg: 4 }}>
-              <Box
-                style={{
-                  position: 'sticky',
-                  top: rem(90),
-                }}
+            {/* Supporting Overview Cards below the centered form */}
+            <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)} style={{ alignItems: 'stretch' }}>
+              <EditorialCard
+                p={{ base: rem(22), md: rem(28) }}
+                bg={active.surface}
+                interactive={false}
+                style={{ height: '100%' }}
               >
-                <Stack gap="lg">
-                  <EditorialCard
-                    p={{ base: rem(22), md: rem(28) }}
-                    bg={active.surface}
-                    interactive={false}
-                  >
-                    <Title
-                      order={3}
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: rem(21),
-                        color: active.primary,
-                        fontWeight: 600,
-                        lineHeight: 1.25,
-                      }}
-                    >
-                      What Every Full Project Scope Includes:
-                    </Title>
+                <Title
+                  order={3}
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: rem(21),
+                    color: active.primary,
+                    fontWeight: 600,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  What Every Full Project Scope Includes:
+                </Title>
 
-                    <Divider color={`${active.primary}10`} my={rem(16)} />
+                <Divider color={`${active.primary}10`} my={rem(16)} />
 
-                    <Stack gap={rem(14)}>
-                      {[
-                        {
-                          title: '24-Hour Custom Milestone Proposal',
-                          desc: 'An itemized production roadmap with confirmed turnaround dates, deliverable stages, and transparent fixed terms.',
-                        },
-                        {
-                          title: 'Publisher & Discipline Alignment',
-                          desc: 'Matched to your target press, journal board, or grant agency (Routledge, Cognella, Oxford, Q1/Q2, NSF/Foundation).',
-                        },
-                        {
-                          title: '365-Day Committee & Reviewer Coverage',
-                          desc: 'Secondary revision passes at zero extra charge when your advisor, committee, or peer reviewers request changes.',
-                        },
-                        {
-                          title: 'Official Editorial Compliance Certificate',
-                          desc: 'Issued upon completion for graduate school clearance, institutional reporting, or journal submission verification.',
-                        },
-                      ].map((item, i) => (
-                        <Group key={i} gap="sm" align="flex-start" wrap="nowrap">
-                          <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
-                          <Box>
-                            <Text size="xs" fw={700} c={active.primary} lh={1.35}>
-                              {item.title}
-                            </Text>
-                            <Text size="xs" c="dimmed" lh={1.45} mt={rem(2)}>
-                              {item.desc}
-                            </Text>
-                          </Box>
-                        </Group>
-                      ))}
-                    </Stack>
-                  </EditorialCard>
-
-                  {/* Faculty Scoping Call Card */}
-                  <EditorialCard
-                    p={{ base: rem(20), md: rem(24) }}
-                    bg={active.surface}
-                  >
-                    <Stack gap="xs">
-                      <Group gap="xs">
-                        <IconMessages size={18} color={active.accent} />
-                        <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                          Prefer to Discuss First?
+                <Stack gap={rem(14)}>
+                  {[
+                    {
+                      title: '24-Hour Custom Milestone Proposal',
+                      desc: 'An itemized production roadmap with confirmed turnaround dates, deliverable stages, and transparent fixed terms.',
+                    },
+                    {
+                      title: 'Publisher & Discipline Alignment',
+                      desc: 'Matched to your target press, journal board, or grant agency (Routledge, Cognella, Oxford, Q1/Q2, NSF/Foundation).',
+                    },
+                    {
+                      title: '365-Day Committee & Reviewer Coverage',
+                      desc: 'Secondary revision passes at zero extra charge when your advisor, committee, or peer reviewers request changes.',
+                    },
+                    {
+                      title: 'Official Editorial Compliance Certificate',
+                      desc: 'Issued upon completion for graduate school clearance, institutional reporting, or journal submission verification.',
+                    },
+                  ].map((item, i) => (
+                    <Group key={i} gap="sm" align="flex-start" wrap="nowrap">
+                      <IconCheck size={16} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />
+                      <Box>
+                        <Text size="xs" fw={700} c={active.primary} lh={1.35}>
+                          {item.title}
                         </Text>
-                      </Group>
-                      <Text size="xs" c="dimmed" lh={1.55}>
-                        Schedule a 15-minute scoping consultation to discuss your manuscript timeline, target press, or contributor workflow before requesting a formal proposal.
-                      </Text>
-                      <Anchor
-                        href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        c={active.accent}
-                        size="xs"
-                        fw={700}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: rem(4),
-                          textDecoration: 'none',
-                          marginTop: rem(4),
-                        }}
-                      >
-                        Book 15-Min Scoping Call &rarr;
-                      </Anchor>
-                    </Stack>
-                  </EditorialCard>
+                        <Text size="xs" c="dimmed" lh={1.45} mt={rem(2)}>
+                          {item.desc}
+                        </Text>
+                      </Box>
+                    </Group>
+                  ))}
                 </Stack>
-              </Box>
-            </Grid.Col>
-          </Grid>
+              </EditorialCard>
+
+              {/* Faculty Scoping Call Card */}
+              <EditorialCard
+                p={{ base: rem(22), md: rem(28) }}
+                bg={active.surface}
+                style={{ height: '100%' }}
+              >
+                <Stack gap="sm" style={{ height: '100%', justifyContent: 'space-between' }}>
+                  <Stack gap="xs">
+                    <Group gap="xs">
+                      <IconMessages size={18} color={active.accent} />
+                      <Text size="xs" fw={700} c={active.primary} style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                        Prefer to Discuss First?
+                      </Text>
+                    </Group>
+                    <Title order={4} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(20), color: active.primary, fontWeight: 600 }}>
+                      Book a 15-Minute Scoping Consultation
+                    </Title>
+                    <Text size="sm" c="dimmed" lh={1.65}>
+                      Discuss your manuscript timeline, target press, or multi-contributor workflow before requesting a formal project proposal.
+                    </Text>
+                  </Stack>
+                  <Anchor
+                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    c={active.accent}
+                    size="sm"
+                    fw={700}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: rem(6),
+                      textDecoration: 'none',
+                      marginTop: rem(8),
+                    }}
+                  >
+                    Book 15-Min Scoping Call &rarr;
+                  </Anchor>
+                </Stack>
+              </EditorialCard>
+            </SimpleGrid>
+          </Stack>
         </Container>
       </Box>
 

@@ -285,18 +285,18 @@ export default function MonographArchitecturePage() {
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(48) }} style={{ alignItems: 'center' }}>
               <Stack gap="md">
                 <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary, fontWeight: 600 }}>
-                  Single Fixed Milestone Proposals
+                  Scoped for Books, Handbooks &amp; Institutional Budgets.
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.7}>
-                  We structure academic book engagements through transparent milestone proposals tailored to your chapter count and press requirements, with aligned 50% deposit and 50% upon final delivery terms.
+                  Whether you are pitching a single-author textbook or coordinating 20 handbook contributors under a Routledge deadline, we structure each engagement around clear production milestones and institutional invoicing.
                 </Text>
                 <Stack gap={rem(8)}>
                   {[
-                    '50% deposit upon kickoff / 50% upon final delivery of publication files',
-                    'Full dissertation-to-monograph structural chapter conversion',
-                    'University press acquisition proposal package and pitch letter',
+                    'Chapter-by-chapter or stage-based milestone schedule tailored to your press timeline',
+                    'Acquisition prospectus, competitive title matrix & sample chapter packaging',
+                    'Multi-contributor coordination, style enforcement & Cindex/SKY indexing',
                     '365 days of press revision memo coverage included at zero extra charge',
-                    'Institutional invoicing compatible with startup funds, subventions, and grants',
+                    'Itemized institutional invoicing compatible with startup funds, subventions & grants',
                   ].map((item, idx) => (
                     <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                       <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />

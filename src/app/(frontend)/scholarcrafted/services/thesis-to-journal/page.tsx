@@ -307,18 +307,18 @@ export default function ThesisToJournalPage() {
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing={{ base: rem(24), md: rem(48) }} style={{ alignItems: 'center' }}>
               <Stack gap="md">
                 <Title order={2} style={{ fontFamily: 'var(--font-serif)', fontSize: rem(28), color: active.primary, fontWeight: 600 }}>
-                  Single Fixed Milestone Proposals
+                  Scoped to Your Manuscript. Built Around Your Deadline.
                 </Title>
                 <Text size="sm" c="dimmed" lh={1.7}>
-                  Instead of calculating micro-fees on confusing per-word sliders, we deliver an itemized project proposal tailored to your chapter length, empirical depth, and target journal guidelines.
+                  Every submission has its own theoretical demands, journal house style, and timeline. Within 24 hours of receiving your brief, we return an itemized milestone roadmap with clear deliverables and fixed terms.
                 </Text>
                 <Stack gap={rem(8)}>
                   {[
-                    '50% deposit upfront / 50% upon final delivery of submission-ready files',
-                    'Full developmental line editing and structural argument restructuring included',
-                    'Target journal guidelines compliance audit & cover letter included',
-                    '365 days of complimentary committee/reviewer revision coverage included',
-                    'Official Editorial Compliance Certificate issued upon final completion',
+                    'Contribution framing & structural extraction tailored to your target journal',
+                    'Point-by-point R&R Reviewer Response Matrix & editor cover memo',
+                    'House-style compliance, blind-review scrubbing & DOI verification',
+                    '365-day secondary revision coverage for subsequent reviewer rounds',
+                    'Official Editorial Compliance Certificate issued upon completion',
                   ].map((item, idx) => (
                     <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                       <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(2) }} />

@@ -340,10 +340,13 @@ html[data-theme='light'] {
 }
 
 .university-logo-img {
-  height: 76px;
+  height: 52px;
   width: auto;
+  max-width: none !important;
+  flex-shrink: 0 !important;
+  display: block;
   object-fit: contain;
-  opacity: 0.5;
+  opacity: 0.55;
   filter: grayscale(100%) brightness(0);
   transition: opacity 0.35s ease, filter 0.35s ease, transform 0.3s ease;
   user-select: none;

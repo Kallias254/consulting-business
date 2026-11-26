@@ -23,6 +23,7 @@ import {
 } from '@mantine/core'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
+import { EditorialCard } from './_components/EditorialPrimitives'
 import Link from 'next/link'
 import {
   IconArrowRight,
@@ -203,18 +204,18 @@ const homeServices: Record<string, {
   badge: string; title: string; desc: string; link: string; cta: string
 }> = {
   track_a: {
-    badge: 'JOURNAL ARTICLE PIPELINE',
-    title: 'Peer-Review Readiness & Journal Alignment',
-    desc: 'Transform dissertation chapters and research drafts into authoritative submissions. Reframe theoretical hooks, survive editor desk-rejection, format to strict guidelines (Word/LaTeX), and navigate Revise & Resubmit reviews.',
+    badge: 'JOURNAL ARTICLES & R&Rs',
+    title: 'Journal Articles & R&R Strategy',
+    desc: 'Move past editor desk-rejection and demanding peer-review cycles. We re-architect dissertation chapters into sharp Q1/Q2 arguments, build point-by-point R&R response matrices, and verify full journal compliance.',
     link: '/order?track=a',
     cta: 'Scope Your Submission',
   },
   track_b: {
-    badge: 'ACADEMIC BOOK & PRESS PIPELINE',
-    title: 'Monograph & University Press Architecture',
-    desc: 'From stalled chapters to contracted academic books. Full dissertation-to-monograph structural conversion, cumulative chapter logic, press proposals (Oxford, Cambridge, Routledge), and 5-stage production prep.',
+    badge: 'BOOKS, PROPOSALS & HANDBOOKS',
+    title: 'Books, Press Proposals & Edited Handbooks',
+    desc: 'From rough concept or multi-author call to signed contract and press-ready volume. Acquisition proposals (Routledge, Cognella, Oxford), 15–25+ contributor coordination, indexing, and 5-stage production.',
     link: '/order?track=b',
-    cta: 'Scope Your Monograph',
+    cta: 'Scope Your Book Project',
   },
 }
 
@@ -266,155 +267,140 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
           {/* 2 Core Track Cards */}
           <SimpleGrid cols={{ base: 1, md: 2 }} spacing={rem(24)}>
             {/* Track A */}
-            <Box
+            <EditorialCard
               p={{ base: rem(28), sm: rem(36), md: rem(40) }}
               bg={active.surface}
-              style={{
-                border: `1px solid ${active.primary}14`,
-                borderTop: `4px solid ${active.accent}`,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 16px 48px ${active.accent}18`; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+              featured
+              style={{ height: '100%' }}
             >
-              <Box>
-
-                <Title
-                  order={3}
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: rem(24),
-                    color: active.primary,
-                    fontWeight: 700,
-                    lineHeight: 1.25,
-                  }}
-                >
-                  Peer-Review Readiness & Journal Alignment
-                </Title>
-                <Text size="sm" c="dimmed" mt={rem(10)} lh={1.65}>
-                  For PhD graduates, postdocs, and early-career faculty. We re-anchor defensive dissertation chapters into authoritative journal interventions built to survive editor triage and peer review.
-                </Text>
-
-                <Divider color={`${active.primary}10`} my={rem(20)} />
-
-                <Stack gap={rem(10)} mb={rem(24)}>
-                  {[
-                    'Epistemological reframing from defensive dissertation to authoritative scholarly contribution',
-                    'Target journal scope matching & editorial board alignment',
-                    'Desk-rejection defense: guidelines compliance, anonymization & citation forensics',
-                    'Faculty-crafted Cover Letter to the Editor-in-Chief',
-                    'R&R strategy: point-by-point reviewer rebuttal matrices',
-                  ].map((feat, idx) => (
-                    <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
-                      <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                      <Text size="xs" c={active.primary} lh={1.55}>
-                        {feat}
-                      </Text>
-                    </Group>
-                  ))}
-                </Stack>
-              </Box>
-
-              <Box mt="auto">
-                <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
-                  <Button
-                    fullWidth
-                    size="md"
-                    radius={0}
-                    rightSection={<IconArrowRight size={16} />}
+              <Box style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                <Box>
+                  <Title
+                    order={3}
                     style={{
-                      backgroundColor: active.accent,
-                      color: '#ffffff',
-                      fontWeight: 600,
-                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      letterSpacing: '0.04em',
-                      height: rem(48),
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: rem(24),
+                      color: active.primary,
+                      fontWeight: 700,
+                      lineHeight: 1.25,
                     }}
                   >
-                    Scope Journal Submission
-                  </Button>
-                </Link>
+                    Journal Articles &amp; R&amp;R Strategy
+                  </Title>
+                  <Text size="sm" c="dimmed" mt={rem(10)} lh={1.65}>
+                    For faculty, postdocs, and doctoral researchers targeting Q1/Q2 journals. We reframe chapters into publishable interventions and build point-by-point Revise &amp; Resubmit response matrices.
+                  </Text>
+
+                  <Divider color={`${active.primary}10`} my={rem(20)} />
+
+                  <Stack gap={rem(10)} mb={rem(24)}>
+                    {[
+                      'Contribution framing from dissertation chapter to sharp journal argument',
+                      'Target journal scope matching & editorial board alignment',
+                      'Desk-rejection proofing: house style, anonymization & DOI forensics',
+                      'Point-by-point R&R Reviewer Response Matrices & editor cover memos',
+                      '365-day secondary revision coverage for subsequent review rounds',
+                    ].map((feat, idx) => (
+                      <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
+                        <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                        <Text size="xs" c={active.primary} lh={1.55}>
+                          {feat}
+                        </Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                </Box>
+
+                <Box mt="auto">
+                  <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
+                    <Button
+                      fullWidth
+                      size="md"
+                      radius={0}
+                      rightSection={<IconArrowRight size={16} />}
+                      style={{
+                        backgroundColor: active.accent,
+                        color: '#ffffff',
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        letterSpacing: '0.04em',
+                        height: rem(48),
+                      }}
+                    >
+                      Scope Journal Submission
+                    </Button>
+                  </Link>
+                </Box>
               </Box>
-            </Box>
+            </EditorialCard>
 
             {/* Track B */}
-            <Box
+            <EditorialCard
               p={{ base: rem(28), sm: rem(36), md: rem(40) }}
               bg={active.surface}
-              style={{
-                border: `1px solid ${active.primary}14`,
-                borderTop: `4px solid ${active.primary}`,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.08)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ height: '100%' }}
             >
-              <Box>
-
-                <Title
-                  order={3}
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: rem(24),
-                    color: active.primary,
-                    fontWeight: 700,
-                    lineHeight: 1.25,
-                  }}
-                >
-                  Monograph & Book Architecture
-                </Title>
-                <Text size="sm" c="dimmed" mt={rem(10)} lh={1.65}>
-                  For junior and senior faculty preparing their first or second academic monograph. Multi-chapter developmental continuity, publisher proposals, and 5-stage production support.
-                </Text>
-
-                <Divider color={`${active.primary}10`} my={rem(20)} />
-
-                <Stack gap={rem(10)} mb={rem(24)}>
-                  {[
-                    'Dissertation-to-monograph structural conversion & cumulative argument mapping',
-                    'Acquisition proposals formatted to publisher specs (Oxford, Routledge, Cambridge)',
-                    'Multi-chapter developmental editing & tone consistency across full volumes',
-                    'The 5 Stages of Book Production (Dev → Copyedit → Indexing → Layout → Proofing)',
-                    'Press-grade back-of-book indexing (Cindex/SKY Index) & galley proof review',
-                  ].map((feat, idx) => (
-                    <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
-                      <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
-                      <Text size="xs" c={active.primary} lh={1.55}>
-                        {feat}
-                      </Text>
-                    </Group>
-                  ))}
-                </Stack>
-              </Box>
-
-              <Box mt="auto">
-                <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
-                  <Button
-                    fullWidth
-                    size="md"
-                    radius={0}
-                    variant="outline"
-                    rightSection={<IconArrowRight size={16} />}
+              <Box style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                <Box>
+                  <Title
+                    order={3}
                     style={{
-                      borderColor: active.primary,
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: rem(24),
                       color: active.primary,
-                      fontWeight: 600,
-                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      letterSpacing: '0.04em',
-                      height: rem(48),
+                      fontWeight: 700,
+                      lineHeight: 1.25,
                     }}
                   >
-                    Scope Monograph Project
-                  </Button>
-                </Link>
+                    Books, Press Proposals &amp; Edited Handbooks
+                  </Title>
+                  <Text size="sm" c="dimmed" mt={rem(10)} lh={1.65}>
+                    For faculty authors and volume editors targeting Routledge, Cognella, Oxford, or Cambridge. Acquisition prospectuses, 15–25+ contributor coordination, indexing, and 5-stage production.
+                  </Text>
+
+                  <Divider color={`${active.primary}10`} my={rem(20)} />
+
+                  <Stack gap={rem(10)} mb={rem(24)}>
+                    {[
+                      'Acquisition book proposals, competitor matrices & sample chapters',
+                      'Multi-contributor handbook coordination (abstracts, style & deadlines)',
+                      'Dissertation-to-monograph restructuring & cumulative chapter pacing',
+                      '5-Stage Book Production from architecture through galley proofs',
+                      'Press-grade back-of-book indexing (Cindex/SKY Index) & grant invoicing',
+                    ].map((feat, idx) => (
+                      <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
+                        <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
+                        <Text size="xs" c={active.primary} lh={1.55}>
+                          {feat}
+                        </Text>
+                      </Group>
+                    ))}
+                  </Stack>
+                </Box>
+
+                <Box mt="auto">
+                  <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
+                    <Button
+                      fullWidth
+                      size="md"
+                      radius={0}
+                      variant="outline"
+                      rightSection={<IconArrowRight size={16} />}
+                      style={{
+                        borderColor: active.primary,
+                        color: active.primary,
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                        letterSpacing: '0.04em',
+                        height: rem(48),
+                      }}
+                    >
+                      Scope Book or Handbook
+                    </Button>
+                  </Link>
+                </Box>
               </Box>
-            </Box>
+            </EditorialCard>
           </SimpleGrid>
         </Stack>
       </Container>
@@ -459,20 +445,20 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
                 letterSpacing: '-0.02em',
               }}
             >
-              Stop guessing. Get a fixed-price milestone proposal in 24 hours.
+              Clarity on scope, deliverables, and schedule—within 24 hours.
             </Title>
 
-            <Text size="sm" style={{ color: 'rgba(255,255,255,0.75)' }} lh={1.7}>
-              Share your draft word count and target journal or press. Dr. Micah Dobson and your assigned doctoral editor will deliver an itemized proposal with exact deliverables, timeline, and transparent flat pricing.
+            <Text size="sm" style={{ color: 'rgba(255,255,255,0.78)' }} lh={1.7}>
+              Share your manuscript draft, book prospectus, or contributor count. Our faculty-directed production team returns an itemized milestone roadmap tailored to your target press, journal, or grant deadline.
             </Text>
 
             <Stack gap={rem(8)}>
               {[
-                'Itemized milestone proposal with guaranteed delivery dates',
-                '50% deposit / 50% upon delivery of publication-ready files',
-                '100% Track Changes with full developmental margin commentary',
-                '365-day revision coverage for committee, advisor, and R&R feedback',
-                'Optional 15-minute scoping call with Dr. Micah Dobson',
+                'Itemized milestone roadmap with confirmed delivery dates',
+                'Aligned with Routledge, Cognella, Oxford & Q1/Q2 specifications',
+                '365-day revision coverage for committee, advisor & peer-review memos',
+                'Institutional invoicing compatible with startup & grant budgets',
+                'Optional 15-minute scoping consultation before kickoff',
               ].map((item, idx) => (
                 <Group key={idx} gap="xs" align="flex-start" wrap="nowrap">
                   <IconCheck size={15} color={active.accent} style={{ flexShrink: 0, marginTop: rem(3) }} />
@@ -1323,7 +1309,7 @@ export default function ScholarCraftedLanding() {
 
               <Stack gap="md">
                 <Text size="md" c="dimmed" lh={1.75}>
-                  Your time belongs to the research, not the formatting. Our doctoral editors polish your prose and citations by hand: never automated and never outsourced.
+                  Your focus belongs on the scholarship. We handle the structural architecture, multi-author coordination, citation forensics, and publisher compliance with precision.
                 </Text>
 
                 <Link href="/order" style={{ textDecoration: 'none' }}>
