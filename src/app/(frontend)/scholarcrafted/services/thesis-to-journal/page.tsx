@@ -100,52 +100,7 @@ export default function ThesisToJournalPage() {
               Most manuscripts aren&rsquo;t desk-rejected for grammar—they fail because dissertation framing obscures the core contribution, or Revise &amp; Resubmit memos go unanswered. ScholarCrafted architects journal-ready manuscripts, R&amp;R response matrices, and full submission compliance for Q1/Q2 targets.
             </Text>
 
-            <Group gap="md" wrap="nowrap" pt="sm" style={{ flexWrap: 'wrap' }}>
-              <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
-                <Button
-                  size="lg"
-                  radius={0}
-                  rightSection={<IconArrowRight size={18} />}
-                  style={{
-                    backgroundColor: active.accent,
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    letterSpacing: '0.04em',
-                    height: rem(52),
-                    paddingLeft: rem(28),
-                    paddingRight: rem(28),
-                  }}
-                >
-                  Start a Project
-                </Button>
-              </Link>
-              <a
-                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: 'none' }}
-              >
-                <Button
-                  size="lg"
-                  radius={0}
-                  variant="outline"
-                  style={{
-                    borderColor: `${active.primary}35`,
-                    color: active.primary,
-                    fontWeight: 600,
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    height: rem(52),
-                    paddingLeft: rem(24),
-                    paddingRight: rem(24),
-                  }}
-                >
-                  Book a Call
-                </Button>
-              </a>
-            </Group>
-
-            {/* Quality Badges */}
+            {/* Quality Specs */}
             <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
               <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
                 Desk-Rejection Proofing &bull; R&amp;R Response Matrices &bull; 365-Day Reviewer Coverage &bull; Official Compliance Certificate
@@ -348,22 +303,45 @@ export default function ThesisToJournalPage() {
                   Receive your itemized milestone proposal and confirmed delivery timeline within 24 hours.
                 </Text>
 
-                <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
-                  <Button
-                    fullWidth
-                    size="md"
-                    radius={0}
-                    rightSection={<IconArrowRight size={16} />}
-                    style={{
-                      backgroundColor: active.accent,
-                      color: '#ffffff',
-                      fontWeight: 700,
-                      height: rem(48),
-                    }}
+                <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+                  <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
+                    <Button
+                      fullWidth
+                      size="md"
+                      radius={0}
+                      rightSection={<IconArrowRight size={16} />}
+                      style={{
+                        backgroundColor: active.accent,
+                        color: '#ffffff',
+                        fontWeight: 700,
+                        height: rem(48),
+                      }}
+                    >
+                      Prepare Submission
+                    </Button>
+                  </Link>
+                  <a
+                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
                   >
-                    Prepare Your Submission
-                  </Button>
-                </Link>
+                    <Button
+                      fullWidth
+                      size="md"
+                      radius={0}
+                      variant="outline"
+                      style={{
+                        borderColor: `${active.primary}30`,
+                        color: active.primary,
+                        fontWeight: 600,
+                        height: rem(48),
+                      }}
+                    >
+                      Book a Call
+                    </Button>
+                  </a>
+                </SimpleGrid>
               </Box>
             </SimpleGrid>
           </EditorialCard>
