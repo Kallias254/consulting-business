@@ -72,7 +72,7 @@ export function Navbar() {
       href: '/services/grant-fellowship-production',
       icon: <IconShieldCheck size={20} />,
       label: 'Grant & Fellowship Production',
-      desc: 'Narrative architecture, multi-PI synchronization, agency compliance & institutional invoicing.',
+      desc: 'Individual fellowships & collaborative grants: narrative structure, agency specs & institutional invoicing.',
     },
   ]
 
@@ -226,7 +226,7 @@ export function Navbar() {
                   className="impeccable-button"
                   style={{ backgroundColor: '#ffffff', color: active.accent, whiteSpace: 'nowrap', fontWeight: 700, border: 'none' }}
                 >
-                  GET A SCOPE
+                  START A PROJECT
                 </Button>
               </Link>
             </Group>
@@ -402,7 +402,7 @@ export function Navbar() {
                     fontFamily: 'var(--font-heading-sans), var(--font-sans)',
                   }}
                 >
-                  Get a Scope
+                  Start a Project
                 </Button>
               </Link>
               <a

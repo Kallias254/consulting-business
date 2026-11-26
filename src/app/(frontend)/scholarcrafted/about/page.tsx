@@ -352,7 +352,7 @@ export default function AboutPage() {
                     rightSection={<IconArrowRight size={16} />}
                     style={{ backgroundColor: active.accent, color: '#ffffff', fontWeight: 700, height: rem(48), paddingLeft: rem(28), paddingRight: rem(28) }}
                   >
-                    Get a Project Scope
+                    Start a Project
                   </Button>
                 </Link>
                 <a

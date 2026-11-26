@@ -575,7 +575,7 @@ function OrderPageContent() {
                           paddingRight: rem(28),
                         }}
                       >
-                        Request Milestone Scope
+                        Submit Project Brief
                       </Button>
 
                       <Text size="xs" c="dimmed" style={{ textAlign: 'center' }}>

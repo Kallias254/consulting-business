@@ -84,7 +84,7 @@ export default function GrantFellowshipProductionPage() {
             </Title>
 
             <Text size="lg" c="dimmed" lh={1.75} style={{ maxWidth: '64ch' }}>
-              Designed for Principal Investigators and faculty fellows working against hard institutional cutoffs. We architect persuasive grant narratives, synchronize multi-PI documents, and lock in agency compliance.
+              Designed for individual fellows and collaborative research teams working against hard institutional cutoffs. We architect persuasive grant narratives, unify multi-author sections, and lock in agency compliance.
             </Text>
 
             <Group gap="md" wrap="nowrap" pt="sm" style={{ flexWrap: 'wrap' }}>
@@ -104,7 +104,7 @@ export default function GrantFellowshipProductionPage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Get a Scope
+                  Start a Project
                 </Button>
               </Link>
               <a
@@ -134,7 +134,7 @@ export default function GrantFellowshipProductionPage() {
 
             <Box pt="md" style={{ borderTop: `1px solid ${active.primary}12` }}>
               <Text size="xs" c="dimmed" style={{ letterSpacing: '0.04em' }}>
-                Grant Narrative Architecture &bull; Multi-PI Synchronization &bull; LaTeX &amp; Agency Compliance &bull; Institutional W-9 Invoicing
+                Individual Fellowships &bull; Collaborative Grants &bull; LaTeX &amp; Agency Compliance &bull; Institutional W-9 Invoicing
               </Text>
             </Box>
           </Stack>
@@ -171,10 +171,10 @@ export default function GrantFellowshipProductionPage() {
                 },
                 {
                   phase: 'PHASE 02',
-                  title: 'Multi-PI & Technical Synchronization',
-                  desc: 'Unify voice, terminology, and formatting across multi-investigator sections, biosketches, and supporting institutional letters.',
+                  title: 'Co-Author & Technical Synchronization',
+                  desc: 'Whether an individual fellowship or a multi-institution grant, we unify voice, terminology, and formatting across all narrative sections, biosketches, and supporting letters.',
                   bullets: [
-                    'Co-investigator section harmonization',
+                    'Individual or co-investigator section harmonization',
                     'LaTeX, Typst & BibTeX document engineering',
                     'Reference & citation forensics',
                   ],
@@ -343,7 +343,7 @@ export default function GrantFellowshipProductionPage() {
                       height: rem(48),
                     }}
                   >
-                    Get a Scope
+                    Plan Your Grant Packet
                   </Button>
                 </Link>
               </Box>

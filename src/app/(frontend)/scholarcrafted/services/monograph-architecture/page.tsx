@@ -115,7 +115,7 @@ export default function MonographArchitecturePage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Get a Scope
+                  Start a Project
                 </Button>
               </Link>
               <Anchor
@@ -336,7 +336,7 @@ export default function MonographArchitecturePage() {
                       height: rem(48),
                     }}
                   >
-                    Get a Scope
+                    Plan Your Book Project
                   </Button>
                 </Link>
               </Box>

@@ -117,7 +117,7 @@ export default function ThesisToJournalPage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Get a Scope
+                  Start a Project
                 </Button>
               </Link>
               <a
@@ -361,7 +361,7 @@ export default function ThesisToJournalPage() {
                       height: rem(48),
                     }}
                   >
-                    Get a Scope
+                    Prepare Your Submission
                   </Button>
                 </Link>
               </Box>

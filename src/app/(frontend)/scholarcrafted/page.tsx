@@ -185,7 +185,7 @@ const homeNeeds = [
   {
     id: 'grant-fellowship',
     label: "I'm preparing a grant or fellowship application (NSF, Fulbright, McBay)",
-    subLabel: 'Grant Production · Narrative alignment, multi-PI sync & agency compliance',
+    subLabel: 'Grant Production · Individual fellowships & collaborative grants',
     serviceIds: ['track_c'],
     recommended: 'track_c',
     targetTrack: 'Grant & Fellowship Production',
@@ -224,21 +224,21 @@ const homeServices: Record<string, {
     title: 'Journal Articles & R&R Strategy',
     desc: 'Move past editor desk-rejection and demanding peer-review cycles. We re-architect dissertation chapters into sharp Q1/Q2 arguments, build point-by-point R&R response matrices, and verify full journal compliance.',
     link: '/order?track=a',
-    cta: 'Scope Your Submission',
+    cta: 'Prepare Your Submission',
   },
   track_b: {
     badge: 'BOOKS, PROPOSALS & HANDBOOKS',
     title: 'Books, Press Proposals & Edited Handbooks',
     desc: 'From rough concept or multi-author call to signed contract and press-ready volume. Acquisition proposals (Routledge, Cognella, Oxford), 15–25+ contributor coordination, indexing, and 5-stage production.',
     link: '/order?track=b',
-    cta: 'Scope Your Book Project',
+    cta: 'Plan Your Book Project',
   },
   track_c: {
     badge: 'GRANTS & FELLOWSHIPS',
     title: 'Grant & Fellowship Production',
-    desc: 'For Principal Investigators and faculty fellows facing hard submission cutoffs. Narrative alignment to reviewer rubrics, multi-PI synchronization, agency formatting, and W-9 institutional invoicing.',
+    desc: 'For individual fellows and collaborative research teams facing hard submission cutoffs. Narrative alignment to reviewer rubrics, multi-author synchronization, agency formatting, and W-9 institutional invoicing.',
     link: '/order?type=grant',
-    cta: 'Scope Your Grant Project',
+    cta: 'Plan Your Grant Packet',
   },
 }
 
@@ -350,7 +350,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                         height: rem(48),
                       }}
                     >
-                      Scope Journal Submission
+                      Prepare Your Submission
                     </Button>
                   </Link>
                 </Box>
@@ -418,7 +418,7 @@ function TwoOutcomeTracksSection({ active }: { active: Record<string, string> })
                         height: rem(48),
                       }}
                     >
-                      Scope Book or Handbook
+                      Plan Your Book Project
                     </Button>
                   </Link>
                 </Box>
@@ -550,7 +550,7 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
                   letterSpacing: '0.04em',
                 }}
               >
-                Get a Scope
+                Start a Project
               </Button>
             </Link>
           </Box>
@@ -1134,7 +1134,7 @@ export default function ScholarCraftedLanding() {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      Get a Scope
+                      Start a Project
                     </Button>
                   </Link>
                   <a
@@ -1330,7 +1330,7 @@ export default function ScholarCraftedLanding() {
                       height: rem(48),
                     }}
                   >
-                    Get a Scope
+                    Start a Project
                   </Button>
                 </Link>
               </Stack>
