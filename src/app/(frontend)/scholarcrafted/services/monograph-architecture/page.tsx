@@ -98,7 +98,7 @@ export default function MonographArchitecturePage() {
               Acquisition press proposals, multi-contributor handbook management, and 5-stage book production for faculty and volume editors targeting Routledge, Cognella, Oxford, and Cambridge.
             </Text>
 
-            <Group gap="md" wrap="wrap" pt="sm">
+            <Group gap="md" wrap="nowrap" pt="sm" style={{ flexWrap: 'wrap' }}>
               <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
@@ -115,7 +115,7 @@ export default function MonographArchitecturePage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Request Monograph Project Scope
+                  Get a Scope
                 </Button>
               </Link>
               <Anchor
@@ -138,7 +138,7 @@ export default function MonographArchitecturePage() {
                     paddingRight: rem(24),
                   }}
                 >
-                  Book 15-Min Book Scoping Call
+                  Book a Call
                 </Button>
               </Anchor>
             </Group>
@@ -323,45 +323,22 @@ export default function MonographArchitecturePage() {
                   Receive an itemized milestone proposal and confirmed publication schedule within 24 hours.
                 </Text>
 
-                <Group gap="sm" wrap="wrap">
-                  <Link href="/order?track=b" style={{ textDecoration: 'none', flex: 1 }}>
-                    <Button
-                      fullWidth
-                      size="md"
-                      radius={0}
-                      rightSection={<IconArrowRight size={16} />}
-                      style={{
-                        backgroundColor: active.accent,
-                        color: '#ffffff',
-                        fontWeight: 700,
-                        height: rem(48),
-                      }}
-                    >
-                      Get a Scope
-                    </Button>
-                  </Link>
-                  <Anchor
-                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: 'none', flex: 1 }}
+                <Link href="/order?track=b" style={{ textDecoration: 'none' }}>
+                  <Button
+                    fullWidth
+                    size="md"
+                    radius={0}
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{
+                      backgroundColor: active.accent,
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      height: rem(48),
+                    }}
                   >
-                    <Button
-                      fullWidth
-                      size="md"
-                      radius={0}
-                      variant="outline"
-                      style={{
-                        borderColor: `${active.primary}30`,
-                        color: active.primary,
-                        fontWeight: 600,
-                        height: rem(48),
-                      }}
-                    >
-                      Book a Call
-                    </Button>
-                  </Anchor>
-                </Group>
+                    Get a Scope
+                  </Button>
+                </Link>
               </Box>
             </SimpleGrid>
           </EditorialCard>

@@ -354,7 +354,7 @@ export default function FAQPage() {
                   Get a Project Scope
                 </Button>
               </Link>
-              <Link href="/services" style={{ textDecoration: 'none' }}>
+              <Link href="/services/monograph-architecture" style={{ textDecoration: 'none' }}>
                 <Button
                   size="md"
                   variant="outline"
@@ -362,7 +362,7 @@ export default function FAQPage() {
                   color={active.primary}
                   style={{ borderColor: `${active.primary}35`, color: active.primary, fontWeight: 600, height: rem(48) }}
                 >
-                  Explore Services
+                  Explore Book &amp; Handbook Pipeline
                 </Button>
               </Link>
             </Group>

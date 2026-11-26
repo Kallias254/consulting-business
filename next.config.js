@@ -57,7 +57,7 @@ const nextConfig = {
         // Catch-all: any path NOT matching other top-level apps
         // gets prefixed with /scholarcrafted
         {
-          source: '/:path((?!scholarcrafted|admin|audit|dashboard|go|login|methodology|researcher|api|_next|ie-incompatible|favicon|robots|sitemap|media).*)',
+          source: '/:path((?!scholarcrafted|admin|audit|dashboard|go|login|methodology|researcher|api|_next|ie-incompatible|favicon|robots|sitemap|media|logos|images).*)',
           destination: '/scholarcrafted/:path*',
         },
       ],

@@ -292,7 +292,7 @@ function OrderPageContent() {
 
       {/* ── Scoping Hub Form & Overview ── */}
       <Box component="section" py={SECTION_SPACING} bg={active.background}>
-        <Container size={860} px={{ base: 'md', sm: 'xl' }}>
+        <Container size={1040} px={{ base: 'md', sm: 'xl' }}>
           <Stack gap={rem(32)}>
             {/* Centered Custom Scope Request Form */}
             <Box

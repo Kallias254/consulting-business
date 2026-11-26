@@ -100,7 +100,7 @@ export default function ThesisToJournalPage() {
               Most manuscripts aren&rsquo;t desk-rejected for grammar—they fail because dissertation framing obscures the core contribution, or Revise &amp; Resubmit memos go unanswered. ScholarCrafted architects journal-ready manuscripts, R&amp;R response matrices, and full submission compliance for Q1/Q2 targets.
             </Text>
 
-            <Group gap="md" wrap="wrap" pt="sm">
+            <Group gap="md" wrap="nowrap" pt="sm" style={{ flexWrap: 'wrap' }}>
               <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
                 <Button
                   size="lg"
@@ -117,7 +117,7 @@ export default function ThesisToJournalPage() {
                     paddingRight: rem(28),
                   }}
                 >
-                  Request Article Project Scope
+                  Get a Scope
                 </Button>
               </Link>
               <a
@@ -140,7 +140,7 @@ export default function ThesisToJournalPage() {
                     paddingRight: rem(24),
                   }}
                 >
-                  Book 15-Min Scoping Call
+                  Book a Call
                 </Button>
               </a>
             </Group>
@@ -348,45 +348,22 @@ export default function ThesisToJournalPage() {
                   Receive your itemized milestone proposal and confirmed delivery timeline within 24 hours.
                 </Text>
 
-                <Group gap="sm" wrap="wrap">
-                  <Link href="/order?track=a" style={{ textDecoration: 'none', flex: 1 }}>
-                    <Button
-                      fullWidth
-                      size="md"
-                      radius={0}
-                      rightSection={<IconArrowRight size={16} />}
-                      style={{
-                        backgroundColor: active.accent,
-                        color: '#ffffff',
-                        fontWeight: 700,
-                        height: rem(48),
-                      }}
-                    >
-                      Get a Scope
-                    </Button>
-                  </Link>
-                  <a
-                    href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: 'none', flex: 1 }}
+                <Link href="/order?track=a" style={{ textDecoration: 'none' }}>
+                  <Button
+                    fullWidth
+                    size="md"
+                    radius={0}
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{
+                      backgroundColor: active.accent,
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      height: rem(48),
+                    }}
                   >
-                    <Button
-                      fullWidth
-                      size="md"
-                      radius={0}
-                      variant="outline"
-                      style={{
-                        borderColor: `${active.primary}30`,
-                        color: active.primary,
-                        fontWeight: 600,
-                        height: rem(48),
-                      }}
-                    >
-                      Book a Call
-                    </Button>
-                  </a>
-                </Group>
+                    Get a Scope
+                  </Button>
+                </Link>
               </Box>
             </SimpleGrid>
           </EditorialCard>

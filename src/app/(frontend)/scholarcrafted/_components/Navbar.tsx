@@ -59,14 +59,20 @@ export function Navbar() {
     {
       href: '/services/thesis-to-journal',
       icon: <IconFileText size={20} />,
-      label: 'Journal Articles & Chapter Alignment',
-      desc: 'Reframing dissertation chapters, theoretical contribution, R&R response matrices & journal compliance.',
+      label: 'Journal Articles & R&R Strategy',
+      desc: 'Contribution framing, desk-rejection proofing, R&R response matrices & journal compliance.',
     },
     {
       href: '/services/monograph-architecture',
       icon: <IconBook2 size={20} />,
-      label: 'Book Monographs & University Press',
-      desc: 'Dissertation-to-monograph conversion, cumulative chapter logic, press proposals (Oxford, Routledge) & 5-stage production.',
+      label: 'Books, Press Proposals & Edited Handbooks',
+      desc: 'Acquisition prospectuses, multi-contributor volume coordination, indexing & 5-stage production.',
+    },
+    {
+      href: '/services/grant-fellowship-production',
+      icon: <IconShieldCheck size={20} />,
+      label: 'Grant & Fellowship Production',
+      desc: 'Narrative architecture, multi-PI synchronization, agency compliance & institutional invoicing.',
     },
   ]
 
@@ -100,9 +106,9 @@ export function Navbar() {
             {/* Desktop nav */}
             <Group gap="lg" visibleFrom="md" align="center" style={{ gap: '1.25rem' }} wrap="nowrap">
 
-              {/* Services — word is clickable link, hover opens dropdown */}
+              {/* Services — hover/click opens dropdown (no /services index route) */}
               <HoverCard
-                width={440}
+                width={460}
                 position="bottom"
                 radius={0}
                 shadow="xl"
@@ -113,36 +119,33 @@ export function Navbar() {
                 onClose={() => setServicesOpened(false)}
               >
                 <HoverCard.Target>
-                  {/* Wrap in Link so clicking the word navigates to /services */}
-                  <Link href="/services" style={{ textDecoration: 'none' }}>
-                    <Box
-                      className={`nav-link-wrapper ${isActive('/services') ? 'active' : ''}`}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <Center inline>
-                        <Text
-                          fw={600}
-                          size="xs"
-                          className="nav-link"
-                          style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
-                        >
-                          SERVICES
-                          <IconChevronDown
-                            size={14}
-                            style={{
-                              marginLeft: rem(6),
-                              opacity: 0.7,
-                              transform: servicesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
-                              transition: 'transform 0.3s ease',
-                              display: 'inline-block',
-                              verticalAlign: 'middle',
-                              flexShrink: 0,
-                            }}
-                          />
-                        </Text>
-                      </Center>
-                    </Box>
-                  </Link>
+                  <Box
+                    className={`nav-link-wrapper ${isActive('/services') ? 'active' : ''}`}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <Center inline>
+                      <Text
+                        fw={600}
+                        size="xs"
+                        className="nav-link"
+                        style={{ letterSpacing: '0.1em', whiteSpace: 'nowrap', color: '#ffffff !important' }}
+                      >
+                        SERVICES
+                        <IconChevronDown
+                          size={14}
+                          style={{
+                            marginLeft: rem(6),
+                            opacity: 0.7,
+                            transform: servicesOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.3s ease',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                            flexShrink: 0,
+                          }}
+                        />
+                      </Text>
+                    </Center>
+                  </Box>
                 </HoverCard.Target>
 
                 <HoverCard.Dropdown className="mega-menu-dropdown" style={{ overflow: 'hidden', padding: 0 }}>

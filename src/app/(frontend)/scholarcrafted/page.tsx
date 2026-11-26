@@ -512,47 +512,24 @@ function FacultyScopingBanner({ active }: { active: Record<string, string> }) {
             <Text size="xs" lh={1.6} style={{ maxWidth: 300, color: 'rgba(255,255,255,0.65)' }}>
               Transparent fixed fees tailored to your project scope. No unpredictable per-word sliders.
             </Text>
-            <Stack gap="xs" style={{ width: '100%' }}>
-              <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>
-                <Button
-                  fullWidth
-                  size="md"
-                  radius={0}
-                  rightSection={<IconArrowRight size={16} />}
-                  style={{
-                    backgroundColor: active.accent,
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    height: rem(48),
-                    fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Request Project Scope
-                </Button>
-              </Link>
-              <a
-                href="https://calendly.com/misedajoseph-30-minutes-call/discovery-session"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: 'none', width: '100%' }}
+            <Link href="/order" style={{ textDecoration: 'none', width: '100%' }}>
+              <Button
+                fullWidth
+                size="md"
+                radius={0}
+                rightSection={<IconArrowRight size={16} />}
+                style={{
+                  backgroundColor: active.accent,
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  height: rem(48),
+                  fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                  letterSpacing: '0.04em',
+                }}
               >
-                <Button
-                  fullWidth
-                  size="md"
-                  radius={0}
-                  variant="outline"
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    color: '#ffffff',
-                    fontWeight: 600,
-                    height: rem(44),
-                  }}
-                >
-                  Book 15-Min Call
-                </Button>
-              </a>
-            </Stack>
+                Get a Scope
+              </Button>
+            </Link>
           </Box>
         </SimpleGrid>
       </Container>
@@ -1312,23 +1289,27 @@ export default function ScholarCraftedLanding() {
                   Your focus belongs on the scholarship. We handle the structural architecture, multi-author coordination, citation forensics, and publisher compliance with precision.
                 </Text>
 
-                <Link href="/order" style={{ textDecoration: 'none' }}>
-                    <Button
-                      size="md"
-                      radius={0}
-                      className="impeccable-button"
-                      rightSection={<IconArrowRight size={16} />}
-                      style={{
-                        backgroundColor: active.accent,
-                        color: '#fff',
-                        border: 'none',
-                        fontWeight: 600,
-                        fontFamily: 'var(--font-heading-sans), var(--font-sans)',
-                      }}
-                    >
-                      Get a Scope
-                    </Button>
-                  </Link>
+                <Link href="/order" style={{ textDecoration: 'none', alignSelf: 'flex-start' }}>
+                  <Button
+                    size="md"
+                    radius={0}
+                    className="impeccable-button"
+                    rightSection={<IconArrowRight size={16} />}
+                    style={{
+                      backgroundColor: active.accent,
+                      color: '#fff',
+                      border: 'none',
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading-sans), var(--font-sans)',
+                      minWidth: rem(240),
+                      paddingLeft: rem(32),
+                      paddingRight: rem(32),
+                      height: rem(48),
+                    }}
+                  >
+                    Get a Scope
+                  </Button>
+                </Link>
               </Stack>
             </SimpleGrid>
 
@@ -1405,12 +1386,10 @@ export default function ScholarCraftedLanding() {
             </SimpleGrid>
 
             {/* Testimonial Quote Card */}
-            <Box
+            <EditorialCard
               p={{ base: rem(24), md: rem(32) }}
-              style={{
-                backgroundColor: active.surface,
-                borderLeft: `3px solid ${active.accent}`,
-              }}
+              bg={active.surface}
+              interactive={false}
             >
               <Text size="md" fs="italic" c={active.primary} lh={1.7}>
                 &ldquo;Working with the ScholarCrafted specialist team was the single best decision I made for my book volume. They caught structural citation anomalies three reviewers missed, and delivered a flawless volume ahead of deadline.&rdquo;
@@ -1428,7 +1407,7 @@ export default function ScholarCraftedLanding() {
                   &bull; Associate Professor &middot; United Kingdom
                 </Text>
               </Group>
-            </Box>
+            </EditorialCard>
 
           </Stack>
         </Container>

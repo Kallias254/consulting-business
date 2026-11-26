@@ -120,9 +120,14 @@ export function Footer({ bg }: { bg?: string }) {
                   LaTeX &amp; Typst Document Engineering
                 </Text>
               </Link>
-              <Link href="/services" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/services/grant-fellowship-production" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Text size="sm" className="footer-link">
+                  Grant &amp; Fellowship Production
+                </Text>
+              </Link>
+              <Link href="/order" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Text size="sm" className="footer-link" style={{ color: `${active.accent} !important`, fontWeight: 600 }}>
-                  Explore All Editorial Pathways &rarr;
+                  Request a Project Scope &rarr;
                 </Text>
               </Link>
             </Stack>
